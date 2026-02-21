@@ -1,0 +1,70 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {chapter}{\numberline {1}Esperienza bilancia}{3}{}%
+\contentsline {section}{\numberline {1.1}Scopo dell'esperienza}{3}{}%
+\contentsline {section}{\numberline {1.2}Gli strumenti}{3}{}%
+\contentsline {subsection}{\numberline {1.2.1}La bilancia di precisione}{3}{}%
+\contentsline {section}{\numberline {1.3}La misura della densità relativa e picnometro}{4}{}%
+\contentsline {subsection}{\numberline {1.3.1}Procedura 1}{4}{}%
+\contentsline {subsection}{\numberline {1.3.2}Procedura 2}{4}{}%
+\contentsline {subsection}{\numberline {1.3.3}Scegliere la procedura corretta}{5}{}%
+\contentsline {section}{\numberline {1.4}Correzioni dovute alla temperatura e alla forza di Archimede}{5}{}%
+\contentsline {section}{\numberline {1.5}Il tabulato di dati}{7}{}%
+\contentsline {section}{\numberline {1.6}Misura della densità relativa di un liquido}{7}{}%
+\contentsline {chapter}{\numberline {2}Esperienza volano}{8}{}%
+\contentsline {section}{\numberline {2.1}Parte pratica}{8}{}%
+\contentsline {section}{\numberline {2.2}Analisi statistica dei dati}{8}{}%
+\contentsline {chapter}{\numberline {3}Elasticità}{10}{}%
+\contentsline {section}{\numberline {3.1}Introduzione all'elasticità}{10}{}%
+\contentsline {section}{\numberline {3.2}Trazioni e compressioni}{10}{}%
+\contentsline {section}{\numberline {3.3}Il modulo di scorrimento, anche chiamata sollecitazione da taglio}{12}{}%
+\contentsline {section}{\numberline {3.4}Flessione}{13}{}%
+\contentsline {section}{\numberline {3.5}Misura del modulo di Young e apprato pratico}{14}{}%
+\contentsline {section}{\numberline {3.6}Parte pratica e stime a priori}{15}{}%
+\contentsline {subsection}{\numberline {3.6.1}Apparato sperimentale}{15}{}%
+\contentsline {subsection}{\numberline {3.6.2}Stima a priori del peso massimo utilizzabile}{16}{}%
+\contentsline {subsection}{\numberline {3.6.3}Stime delle grandezze in gioco nell'esperienza}{17}{}%
+\contentsline {chapter}{\numberline {4}Pendolo di torsione}{18}{}%
+\contentsline {section}{\numberline {4.1}Sollecitazione di torsione}{18}{}%
+\contentsline {section}{\numberline {4.2}Misura empirica della torsione}{19}{}%
+\contentsline {section}{\numberline {4.3}Misura della costante di torsione}{20}{}%
+\contentsline {subsection}{\numberline {4.3.1}Calcolo del momento di inerzia del cilindro pieno e cavo}{20}{}%
+\contentsline {section}{\numberline {4.4}Parte pratica}{21}{}%
+\contentsline {subsection}{\numberline {4.4.1}Presa della misure}{21}{}%
+\contentsline {subsection}{\numberline {4.4.2}Propagazione degli errori}{22}{}%
+\contentsline {subsection}{\numberline {4.4.3}Riflessione sulla schematizzazione e ipotesi di validità}{22}{}%
+\contentsline {subsection}{\numberline {4.4.4}Stima dell'errore di posizionamento}{23}{}%
+\contentsline {section}{\numberline {4.5}Smorzamento}{23}{}%
+\contentsline {chapter}{\numberline {5}Esperienza pendolo}{26}{}%
+\contentsline {section}{\numberline {5.1}Obbiettivi esperienza}{26}{}%
+\contentsline {section}{\numberline {5.2}Il pendolo: quando è approssimabile ad un pendolo semplice}{26}{}%
+\contentsline {subsection}{\numberline {5.2.1}Approssimazione ad un moto semplice}{26}{}%
+\contentsline {subsection}{\numberline {5.2.2}Il moto del pendolo semplice}{26}{}%
+\contentsline {section}{\numberline {5.3}Risolvere l'equazione di moto}{27}{}%
+\contentsline {subsection}{\numberline {5.3.1}Il limite delle piccole oscillazioni}{27}{}%
+\contentsline {subsection}{\numberline {5.3.2}Il caso generale: le oscillazioni di ampiezza generica}{28}{}%
+\contentsline {section}{\numberline {5.4}Errore di schematizzazione relativo}{30}{}%
+\contentsline {section}{\numberline {5.5}Apparato sperimentale in laboratorio}{30}{}%
+\contentsline {subsection}{\numberline {5.5.1}Strumenti}{30}{}%
+\contentsline {subsection}{\numberline {5.5.2}Le misure da trovare}{30}{}%
+\contentsline {subsection}{\numberline {5.5.3}Come eseguire le misure}{31}{}%
+\contentsline {section}{\numberline {5.6}Misure di tempo, loro ottimizzazioni ed accorgimenti per migliorarne la precisione}{31}{}%
+\contentsline {subsection}{\numberline {5.6.1}Limitazioni sul numero di oscillazioni $n$ e sull'angolo $\phi _0$}{32}{}%
+\contentsline {subsection}{\numberline {5.6.2}Misure di tempo: procedure, analisi ed anisocronismo}{32}{}%
+\contentsline {section}{\numberline {5.7}Misura di $g$}{32}{}%
+\contentsline {subsection}{\numberline {5.7.1}L'incertezza sulle misure del tempo}{33}{}%
+\contentsline {subsection}{\numberline {5.7.2}Incertezza di $g$}{33}{}%
+\contentsline {section}{\numberline {5.8}Oltre al moto ideale, le condizioni di validità}{34}{}%
+\contentsline {section}{\numberline {5.9}Caso A: Il pendolo fisico}{34}{}%
+\contentsline {subsection}{\numberline {5.9.1}Il momento di inerzia di una sfera rispetto ad un asse passante per il centro di massa}{35}{}%
+\contentsline {subsection}{\numberline {5.9.2}Momento di inerzia di una sbarretta rigida sottile e omogenea rispetto ad un asse passante per il centro di massa e parallelo a quello di rotazione}{36}{}%
+\contentsline {subsection}{\numberline {5.9.3}Il moto ideale del pendolo fisico}{36}{}%
+\contentsline {subsection}{\numberline {5.9.4}Confronto delle due schematizzazioni}{38}{}%
+\contentsline {subsection}{\numberline {5.9.5}Quanto influisce l'errore di schematizzazione sulla misura di $g$?}{38}{}%
+\contentsline {section}{\numberline {5.10}Il caso C: il pendolo ideale ma in presenza di attrito}{38}{}%
+\contentsline {subsection}{\numberline {5.10.1}Come descrivere le forze di attrito}{39}{}%
+\contentsline {subsection}{\numberline {5.10.2}Equazione di moto per il pendolo semplice in moto reale}{39}{}%
+\contentsline {subsection}{\numberline {5.10.3}Limite delle piccole oscillazioni}{39}{}%
+\contentsline {section}{\numberline {5.11}Il limite delle piccole oscillazioni per il pendolo semplice in moto reale}{40}{}%
+\contentsline {section}{\numberline {5.12}Procedure operative in laboratorio per lo smorzamento}{40}{}%
+\contentsline {subsection}{\numberline {5.12.1}Analisi dello smorzamento}{41}{}%
