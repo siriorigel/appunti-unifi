@@ -1,0 +1,808 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz-3dplot}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{arydshln}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{cancel}
+\usepackage[d]{esvect}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfplots}
+\usepackage{pifont}
+\usetikzlibrary{patterns}
+%\usepackage{animate}
+%\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{tikzmark}
+\newcommand{\TikzNCbar}[4][10pt]{
+\tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+
+\graphicspath{ {images/} }
+
+\definecolor{redish}{rgb}{255, 0, 30}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}   
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\setlength\arrayrulewidth{0.3pt}
+
+\newcommand\eqq{\stackrel{\mathclap{\normalfont\mbox{?}}}{=}}
+\newcommand\bulletout  {\labelitemfont \textbullet}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\xmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\cmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
+% Comando:
+%   \potato[opzioni]{(x,y)}{scala}
+%
+% Opzioni = facoltative (es. fill=red!20, draw=black, thick)
+% (x,y)   = centro della patata
+% scala   = fattore di scala
+%
+\def\potatoshape{
+  (1,0) (2,1.5) (1.6,3) (0.3,2.7) (-0.4,1.2)
+}
+\newcommand{\potato}[3][draw=white]{
+  \begin{scope}[shift={#2}, scale=#3]
+    \draw[#1]
+      plot [smooth cycle, tension=1]
+      coordinates {\potatoshape};
+  \end{scope}
+}
+ \newcommand{\hookbox}[1]{
+\begin{center}
+\hfill\break
+\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt,anchor=base] (A) {
+\begin{minipage}{\dimexpr\linewidth-5em}
+\centering
+#1
+\end{minipage}
+};
+% Draw the left bracket
+\draw ([xshift=0pt]A.north west) -- ++(0, 0.5) -- ++(0.4, 0);
+% Draw the right bracket
+\draw ([xshift=0pt]A.south east) -- ++(0, -0.5) -- ++(-0.4, 0);
+\end{tikzpicture}
+\end{center}} 
+\title{Complementi di statistica}
+\author{Gariboldi Alessandro}
+\date{ }
+
+
+\begin{document}
+
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{observation}{Oss.}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{problem}{Problema}[section]
+\newtheorem{solution}{Soluzione}[section]
+\newtheorem{proposition}{Proposizione}[section]
+
+
+\maketitle
+
+\section{28/11/25}
+\section{Conti altra volta}
+La formula dell'altra volta è sbagliata perché la dipendenza dal volume
+è sbagliata: infatti, dato che $V$ è lo stato che ci interessa e $V_0$ è
+lo stato di riferimento (è una costante assegnata ) che non dipende
+dal numero di particelle ma ha le stesse dimensioni di un volume. Quando
+$N$ cresce, l'argomento del logaritmo è proporzionale ad $N$ e dunque
+$S \propto N \ln N$. Questo non è solo un problema di dipendenza da $N$,
+supponendo infatti che sia vera, allora, dato che è l'unico termine dipendente da
+$N$, il resto può essere trascurato, il che porta a dire che l'entropia non dipenda
+dalla temperatura per $N$ grandi, il che è inconsistente.  \\
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Esperimento che prova l'invalidità della formula}
+    \begin{tikzpicture}
+        \filldraw[cyan, opacity = 0.3](0, 0) rectangle (2, 2);
+        \draw[very thick](0, 0) rectangle (4, 2);
+        \draw[very thick](2, 0) -- (2, 2);
+        \node at (1, 1.6) {$V$};
+        \node at (1, 1.1) {$N$};
+        \node at (1, 0.6) {$T$};
+        \node at (3, 1.6) {$V$};
+        \node at (3, 1.1) {$N$};
+        \node at (3, 0.6) {$T$};
+        \draw[very thick](0, -1) rectangle (4, -3);
+        \filldraw[cyan, opacity = 0.3](0, -1) rectangle (4, -3);
+        \node at (2, -1.4) {$2V$};
+        \node at (2, -1.9) {$2N$};
+        \node at (2, -2.4) {$T$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per capire che è inconsistente dal punto di vista fisico, si può provare
+che predice una cosa sbagliata. Preso un contenitore adiabatico e perfettamente
+isolato e si mette una parete ideale perfettamente diatermica tra i due volumi. 
+Si pul applicare la formula utilizzata per entrambi gli ambienti :
+\begin{gather*}
+    S_1^{(i)} = Nk_B \left(\ln \frac{V}{V_0} + f(T)\right) \\
+    S_2^{(i)} = Nk_b \left(\ln \frac{V}{V_0} + f(T)\right)
+\end{gather*}
+Dove
+\begin{gather*}
+    f(T) = \frac{3}{2}\ln\frac{T}{T_0} + \frac{3}{2}
+\end{gather*}
+L'entropia totale è dunque la somma delle entropie. Se si rimuove
+adesso la parete diatermica, ci si trova nella situazione in cui 
+il volume totale è il doppio e così come il doppio delle particelle ma il gas
+non ha cambiato la sua temperatura:
+\begin{gather*}
+    S^{(f)} = 2Nk_B\left(\ln \frac{2V}{V_0} + f(T)\right)
+\end{gather*} 
+Allora la differenza di entropia è data dalla seguente:
+\begin{gather*}
+    \Delta S = 2Nk_B\left(\ln \frac{2V}{V_0} - \ln \frac{V}{V_0}\right) = 2Nk_B\ln 2 
+\end{gather*}
+Questo risultato è diverso da zero e proporzionale ad $N$. Se fosse dunque vera quella formula,
+allora semplicemente togliendo la parete l'entropia del sistema è aumentata estensivamente. In realtà
+questa cosa non ha senso in quanto l'unica differenza era che si era separato il gas con 
+una parete diatermica e con spessore infinitesimo. Le proprietà macroscopiche sono le stesse per 
+i due stati mentre con quella formula non è . Perché a livello termodinamico questi stati non possono 
+essere diversi? Questo perché se si avesse messo due gas diversi si avrebbe un mescolamento 
+(che è diverso dall'aver utilizzato due volumi dello stesso identico gas). Questa formula sarebbe
+giusta se i due gas fossero diverse, questo ci porta a dire che c'è un problema se si assume che
+i due sottosistemi siano composti dallo stesso gas.  
+
+\subsection{Soluzione per gas omogenei}
+Questo problema deriva dal fatto che definire il numero di stati come
+\begin{gather*}
+    \frac{d^{3N} \cdot d^{3N}v}{\Delta \Gamma}
+\end{gather*}
+Questo vuol dire che si considerano distinguibili le particelle tra di loro: due particelle che si possono 
+invertire le velocità sono contati come due stati diversi (che per un gas le cui particelle sono 
+tutte uguali) non è vero! Non si è quindi in grado di seguire la dinamica esatta delle particelle e
+l'unico modo per distinguere le particelle di un gas omogeneo e "etichettarle". Nel caso di particelle identiche,
+devo dividere per il numero di stati che si ottengono per lo scambio tra di loro,
+ossia $N!$: il corretto conteggio degli stati è dunque
+\begin{gather*}
+   \frac{d^{3N} \cdot d^{3N}v}{N!\Delta \Gamma}
+\end{gather*}
+Questo risolve il problema? Posso determinare il numero di stati come
+\begin{gather*}
+    \mathcal{Z}_C = \frac{\mathcal{Z}}{N!}
+\end{gather*}
+Il singolo stato dunque
+\begin{gather*}
+    \mathcal{z}_C 0 \left(\frac{\mathcal{Z}}{N1}\right)^{\frac{1}{N}} = \frac{z}{(N!)^{\frac{1}{N}}}
+\end{gather*}
+Dunque
+\begin{gather*}
+    \ln \mathcal{z}_C = \ln \mathcal{z} - \frac{1}{N}\ln(N!)
+\end{gather*}
+Utilizzando la correzione di Stirling:
+\begin{gather*}
+    \ln(N!) \approx N \ln N - N \ \Longrightarrow \ \ln \mathcal{z}_C = \ln \mathcal{z} - \ln N + 1
+\end{gather*}
+Allora si può esprimere l'entropia come 
+\begin{gather*}
+    S = Nk_B \left(\ln \frac{V}{NV_0} + \frac{3}{2} \ln \frac{T}{T_0} + \frac{5}{2}\right)
+\end{gather*}
+A questo punto questa espressione è correttamente estensiva. 
+La risoluzione dello spazio delle fasi non può però essere scelta a piacere
+ma la meccanica quantistica ci dice che questo non è possibile, infatti si ha che
+\begin{gather*}
+    \Delta x \Delta p \geq h \qquad \Delta x \Delta v \geq \frac{h}{m}
+\end{gather*}
+Non si può dunque scegliere oggetti arbitrari, ma inevitabilmente si avrà 
+che $(\Delta x \Delta v)^{3} \geq \frac{h^{3}}{m^{3}}$. Dato che la scala
+di risoluzione che si sceglie non può essere più piccola di questo limite, imponiamo
+questo limite di risoluzione come
+\begin{gather*}
+    S = Nk_B \left(\ln\left(\frac{V}{N} \left(\frac{2\pi k_B T}{h^{2}}\right)^{\frac{3}{2}}\right) + \frac{5}{2}\right)
+\end{gather*}
+
+\section*{Fluidodinamica}
+\section{Fluidi ideali}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{spostamento Lagrangiano}
+    \begin{tikzpicture}
+        \filldraw(1.5, 2.1) circle (1pt);
+        \filldraw(1, 2) circle(1pt);
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$y$};
+        \draw[->](0, 0) -- (-1, -1) node[at end, left] {$z$};
+        \draw[thick, ->] (0, 0) -- (1, 2) node[midway, left] {$\vv{r_0}$ };
+        \draw[->](0, 0) -- (1.5, 2.1) node[midway, right] {$\vv{v} + d\vv{r}$ };
+        \draw[->](1, 2) -- (1.5, 2.1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+In un sistema di riferimento  si pul prendere un tempo di riferimento
+$t = 0$ ed un elemento fluido che si trova in una posizione $\vv{r_0} $ 
+e descrivere il moto come lo spostamento 
+\begin{gather*}
+    \zeta (\vv{r_0}, t )
+\end{gather*}
+Posso scegliere di seguire il moto di un punto del fluido e studiarne il moto,
+questo prende il nome di \textbf{spostamento Lagrangiano}.
+Se invece decidessi di fissare il mio sguardo su di un punto fisso dello spazio
+e valuto cosa accade a quell'elemento fluido cosa accade nel tempo; questa è 
+una \textbf{descrizione Euleriana} del mio fluido. Supponendo di analizzare il
+comportamento dell'elemento fluido a $dt$ rispetto al tempo di riferimento secondo
+la descrizione Euleriana. Per poter impostare le derivate, devo ricordarmi che da quel
+punto il fluido si muove. Non mi interessa dunque la storia del fluido ma 
+solo quello che accadrà dopo 
+l'elemento fluido che sto analizzando si sarà spostato rispetto alla posizione iniziale.
+A questo punto posso definire la velocità del fluido come se fosse un punto materiale:
+\begin{gather*}
+    \vv{u}(\vv{r}, t ) = \frac{d\vv{r} }{dt} = \lim_{\Delta t \to 0} \frac{\vv{r}(t + \Delta t) - \vv{r}(t) }{\Delta t}
+\end{gather*}
+Ossia lo si definisce come nella meccanica. Si può definire la densità 
+e la pressione come
+\begin{gather*}
+    \left\{\begin{array}{l}
+        p(\vv{r}, t ) \\
+        \rho(\vv{r}, t ) \\
+        \vv{u}(\vv{r}, t ) 
+    \end{array}\right.
+\end{gather*}
+Definisce un campo vettoriale. Si definisce ora l'accelerazione ora nella fluidodinamica.\\
+\begin{gather*}
+    \vv{a} =  \frac{d\vv{u} }{dt} = \lim_{\Delta t \to 0} \frac{u(t + \Delta t, \vv{r}( t + \Delta t) ) - \vv{u}(t, \vv{r}(t) )}{\Delta t}
+\end{gather*}
+Tenendo a mente ora che $\Delta \vv{r} = \vv{u}(t,\vv{r}) \Delta t$ che riscritto per le singole componenti diventa:
+\begin{gather*}
+  \Delta \vv{r} = \Delta x \ \underline{i} + \Delta y \ \underline{j} + \Delta z \ \underline{k} = \sum_{i=1}^{3} \Delta x_i \underline{x}_i 
+\end{gather*}
+Posso dire che la velocità di una certa particella avrà velocità
+\begin{gather*}
+    u_i(t + \Delta t , \vv{r} (t + \Delta t)) \\
+    = u_i(t, \vv{r} (t) ) + \frac{\partial u_i}{\partial t}\Delta t + \sum_{k=1}^{3} \Delta r_k\frac{\partial u_i}{\partial x_k} + o(\Delta t^2) \\
+    = u_i(t, \vv{r} ) + \frac{\partial u_i}{\partial t}\Delta t + \sum_{k=1}^{3} u_k \Delta t \frac{\partial u_i}{\partial x_k} + o(\Delta t^{2})  
+\end{gather*}
+Ossia lo sviluppo in serie di Taylor per una funzione a più variabili. Posso dunque derivare l'espressione
+di $u_i$ secondo la relazione utilizzata prima :
+\begin{gather*}
+    \frac{\partial u_i}{\partial t} = \lim_{\Delta t \to 0} \frac{\left(\cancel{u_i(t, \vv{r} )} + \cancel{\Delta t}\left(\frac{\partial u_i}{\partial t} + \sum_{k=1}^{3} u_i \frac{\partial u_i}{\partial x_k} \right) \cancel{- u_i(t, \vv{r} )}\right) + \cancel{o(\Delta t^2)} }{\cancel{\Delta t}}
+\end{gather*}
+Dunque si ottiene:
+\begin{gather*}
+  \boxed{\frac{\partial u_i}{\partial t} = \frac{\partial u_i}{\partial t} + \sum_{k=1}^{3} u_i \frac{\partial u_i}{\partial x_k}  }
+\end{gather*}
+e inoltre vettorialmente:
+\begin{gather*}
+  \boxed{\vv{a} = \frac{\partial \vv{u}}{\partial t} + \sum_{k=1}^{3} u_i \frac{\partial \vv{u}}{\partial x_k} } 
+\end{gather*}
+L'accelerazione non corrisponde dunque solo alla derivata parziale di $u$ rispetto al tempo,
+ma dipende anche dalle componenti spaziali. Si può anche scrivere
+\begin{gather*}
+    \frac{\partial u_i}{\partial t}  =\frac{\partial u_i}{\partial t} + (\vv{u} \cdot \vv{\nabla}  )u_i  
+\end{gather*}
+Dove $u_i$ è una delle tre componenti della velocità. Questa cosa non vale solamente per la 
+velocità ma vale comunque per qualunque campo scalare $f(x, y, z, t)$ che descrive il moto del fluido:
+\begin{gather*}
+    f(\vv{r}, t ) \ \Longrightarrow \ f'(\vv{r}, t ) = \lim_{\Delta t \to 0} \frac{f(\vv{r}(t + \Delta t), t + \Delta t ) - f(\vv{r}, t )}{\Delta t} 
+\end{gather*}
+Ossia
+\begin{gather*}
+    \frac{\partial f_i}{\partial t} = \frac{\partial f}{\partial t} + (\vv{u} \cdot \vv{\nabla}  )f  
+\end{gather*}
+Nel sistema Euleriano mi permette di dire come varia il moto dell'elemento fluido al variare del tempo
+e prende il nome di \textbf{derivata sostanziale totale}. La prima componente è il termine che
+descrive cosa accade ad un punto a tempi diversi. 
+\begin{gather*}
+    df = \frac{\partial f}{\partial dt}dt + \frac{\partial f}{\partial x}dx +\frac{\partial f}{\partial y}dy + \frac{\partial f}{\partial z}dz \\
+    \ \Longrightarrow \ \frac{df}{dt} = \frac{\partial f}{\partial t} + u_x \frac{\partial f}{\partial x} + u_y \frac{\partial f}{\partial y} + u_z \frac{\partial f}{\partial z}    
+\end{gather*}
+Allora l'accelerazione rispetto alla $x$
+\begin{gather*}
+    a_x = \frac{\partial u_x}{\partial t} + u_y \frac{\partial u_x}{\partial t} + u_z \frac{\partial u_x}{\partial t}   
+\end{gather*}
+E lo stesso per le altre componenti.
+
+\section{Linee di campo (o di flusso)}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La costruzione della linea di flusso}
+    \begin{tikzpicture}[scale=1.5]
+        \draw[->](0, 0) -- (1, 1) node[at end, right] {$\vv{u}(\vv{r}, t )$};
+        \draw(-0.1, -0.05) -- (0.1, 0.05) node[midway, below] {$\vv{dl}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si definisce una \textbf{linea di campo} o \textbf{linea di flusso} come una linea di spazio parallelo al campo di velocità $\vv{u}$:
+\begin{align}
+    \vv{dl} = c \vv{u}  
+\end{align} 
+Dunque posso costruire la linea di campo in modo tale che
+\begin{gather*}
+    \left\{\begin{array}{l}
+        dx = cu_x \\
+    dy = cu_y \\
+    dz = cu_z
+    \end{array}\right.
+\end{gather*}
+Dato che la $c$ è la stessa, questo vuol dire che deve valere 
+\begin{gather*}
+    \frac{dx}{u_x} = \frac{dy}{u_y} = \frac{dz}{u_z}
+\end{gather*}
+Le linee di flusso hanno senso si è in \textbf{condizioni stazionarie}:
+ossia le condizioni per cui $\frac{\partial }{\partial t} = \emptyset$.  
+In quel caso le linee di flusso rappresentano il moto dell'elemento di fluido
+scelto. Se si avesse una linea di flusso arbitraria, un qualsiasi elemento di fluido 
+su questa linea di flusso seguira il flusso stesso ma solo nelle condizioni
+stazionarie. 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Tubo di flusso}
+    \begin{tikzpicture}
+        \draw[->](0, 0) .. controls (1, 0.25) and (2, -0.5) .. (3, -0.5);
+        \draw[->](0, -1) -- (3, -1);
+        \draw[->](0, -2) .. controls (1, -2.25) and (2, -1.5) .. (3, -1.5);
+        \draw(0, -1) ellipse (0.25 and 1);
+        \draw(3, -1) ellipse (0.2 and 0.5);
+        \filldraw(0, -2) circle(1pt) node[anchor = north] {$C$};
+        \filldraw(3, -1.5) circle(1pt) node[anchor = north] {$C'$};
+        \node at (2, 0) {$\vv{u}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+La linea di flusso mi da la direzione ed il verso della velocità ma non il modulo,
+considerando di avere delle linee di flusso, si considera la superficie fatta da tutte
+le linee di flusso tangenti a $C$ e $C'$, e come basi si appoggiano a $C$ e $C'$, 
+prende il nome di \textbf{tubo di flusso}. 
+Si può dunque prendere una linea di flusso piccola a piacere in modo tale
+che le variabili (pressione, densità, velocità, ..) siano quasi costanti. Posso dunque
+considerare un piccolo tubo di flusso in modo tale che in questa sezione i valori sono
+costanti e che prende il nome di \textbf{tubo di flusso sottile}. 
+
+\section{Aspetto dinamico della fluidodinamica}
+\subsection{Equazione fondamentale della fluidodinamica}
+Le forze che venivano applicate ad un fluido statico, sono delle forze
+di pressione che si possono esprimere come 
+\begin{gather*}
+    \vv{F_\Sigma} = - \vv{\nabla}p\ dV  
+\end{gather*}
+Ci sono anche le forze di volume
+\begin{gather*}
+    \vv{F_V} = dm \vv{g} = \rho \ dV \vv{g} 
+\end{gather*}
+Applicata alla gravità (che può non necessariamente essere lei), se
+si considera adesso un volumetto infinitesimo e si identifica un
+volumetto infinitesimo che contiene una massa $dm = \rho dV$, al tempo
+$t$ voglio conoscere le forze che agiscono su questa massa. Posso dunque definire, dalla
+prima cardinale
+\begin{gather*}
+    \vv{F_\Sigma} + \vv{F_V} = -\vv{\nabla}p \ dV + \rho g \ dV  =  \rho \ dV \frac{d\vv{u} }{dt}
+\end{gather*}
+Si trova dunque l'\textbf{equazione di Eulero}:
+\begin{gather*}
+    \rho\frac{d\vv{u} }{dt} = -\vv{\nabla}p + \rho\vv{g}  
+\end{gather*}
+Ossia
+\begin{gather*}
+    \rho\left(\frac{\partial \vv{u} }{\partial t} + (\vv{u} \cdot \vv{\nabla}  )\vv{u} \right) = -\vv{\nabla}p + \rho \vv{g}  
+\end{gather*}
+Dato che è una equazione vettoriale, bisogna trovare tre equazioni in quanto non ci basta questa cosa. Dato che la massa si 
+deve conservare, per un volume finito di fluido, posso determinare la massa 
+\begin{gather*}
+    M = \int_{V}^{} \rho \ dV \ \Longrightarrow \ \frac{dM}{dt} 
+\end{gather*}
+Ossia definisco il \textbf{flusso di massa} entrante e uscente dal fluido. Posso dunque 
+definirla meglio
+\begin{gather*}
+    \frac{dM}{dt} = \dot{M} = -\int_{\Sigma(V)}^{} \rho \vv{u} \cdot \hat{n} \ d\sigma  
+\end{gather*}
+Dove $\Sigma(V)$ è il volume totale e $\hat{n}$ il vettore normale alla superficie del fluido
+e $d\sigma$ rappresenta esattamente l'elemento infinitesimo di superficie $\sigma$. Posso però 
+esprimere anche 
+\begin{gather*}
+    M = \int_{V}^{} \frac{\partial \rho}{\partial dt} \ dV = - \int_{\Sigma(V)}^{}  \rho  \vv{u} \cdot \hat{n} \ d\sigma  
+\end{gather*} 
+E dunque si è trovata l'equazione di conservazione della massa. L'unico 
+problema è che $V$ è in forma integrale e va trasformata in forma differenziale. 
+
+\newpage
+\section{25/11/25}
+Dalla lezione scorsa:
+\begin{gather*}
+  S = K_b \ln \mathcal{N} (U,V)\\
+  \mathcal{N}(U,V) = \int \delta\left[ U-E(x,v) \frac{dx^{3N} \ dv^{3N}}{\Delta \Gamma} \right] 
+\end{gather*}
+Senza cambiare il valore dell'energia che voglio selezionare posso scrivere:
+\begin{gather*}
+  \mathcal{N}'(U,V) = \int \delta\left[ U-E(x,v) \frac{dx^{3N} \ dv^{3N}}{\Delta \Gamma \ a} \right] 
+\end{gather*}
+Abbiamo che l'unica differenza tra le due è una costante $a$.\\
+\begin{gather*}
+  \mathcal{N}' (U,V) = \frac{\mathcal{N}(U,V)}{a}\\
+  S' = K_b \ln \left[\frac{\mathcal{N}'(U,V)}{a}\right] = \underbrace{K_b \ln \mathcal{N}(U,V)}_{S} - K_b \ln a = S - K_b \ln a
+\end{gather*}
+Quindi 
+\begin{gather*}
+  S' = S - K_b \ln a\\
+  s' = S - \text{cost.}
+\end{gather*}
+Prendiamo ora un gas ideale, diviso in volumetti di stati elementari di volume $V_0$
+\begin{center}
+  \begin{tikzpicture}
+    
+  \draw(0,0) rectangle (0.4,0.4);
+  \draw(0.4,0) rectangle (0.8,0.4);
+  \draw(0.8,0) rectangle (1.2,0.4);
+  \draw(1.2,0) rectangle (1.6,0.4);
+  \draw(1.6,0) rectangle (2,0.4);
+  \node at (0.2,0.2){$V_0$};
+  \node at (0.2,0.2){$V_0$};
+  \end{tikzpicture}
+\end{center}
+Se Ho il volume totale che è $V$ ho quindi $V/V_0$ volumetti di stato elementari.\\
+Nel caso di un atomo avrò $\#_1 = \frac{V}{V_0}$\\
+Nel caso di due atomi avrò $\#_2 = \left(\frac{V}{V_0}\right)^2$\\
+Nel caso di $N$ atomi avrò:
+\begin{gather*}
+  \#_N = \left(\frac{V}{V_0}\right)^N
+\end{gather*}
+Se riconsidero che $W_N (U,V)$ e mi interessa calcolare il numero di modi in modo che abbiano volume ed energia assegnata. (con sostanzialmente $W_N = \mathcal{N}$)\\
+\begin{gather*}
+  S = K_B \ln W_N (U,V) = K_B \ln \left[ \text{cost.} \left(\frac{V}{V_0}\right)^N \right] =\\
+  = K_b \ln \left[ \left(\frac{V}{V_0}\right)^N  \right] + c\\
+  = N K_b \ln\left(\frac{V}{V_0}\right) + c 
+\end{gather*}
+\begin{gather*}
+  S(U,U_f) - S(U,U_i) = \Delta S = N K_b \ln \left(\frac{V_f}{V_0}\right) - N K_b \ln \left(\frac{V_i}{V_0}\right) =\\
+  = N_A K_b \ln \left(\frac{V_f}{V_i}\right) = R \ln \left(\frac{V_f}{V_i}\right)
+\end{gather*}
+Consideriamo ora $S = K_b \ln W$ con $W$ probabilità termodinamica\\
+\begin{gather*}
+  \frac{W}{M} \\
+  \frac{P(V_f)}{P(V_i)} = \frac{W(V_f)}{W(V_i)} = \frac{V_f}{V_i}
+\end{gather*}
+
+\newpage
+\section{2/12/25}
+\begin{gather*}
+  \rho \left( \underbrace{\frac{\partial \vv{u}}{\partial t} + (\vv{u} \vv{\nabla})}_{\frac{d \vv{u}}{dt} \quad \frac{\partial u_i}{\partial t}+\sum_k v_k \frac{\partial}{\partial x_k}v_i} \right) = -\vv{\nabla} p + \rho \vv{g}\\
+  M = \int_v \rho \ dv
+\end{gather*}
+L'unico modo per vriare la massa è che questa entra o esca dal volume, quindi posso dire che la variazione della massa è il flusso di questa:
+\begin{gather*}
+  M = - \int_{\sum(v)} \rho \vv{u} \ \widehat{n} \ d\sigma
+\end{gather*}
+\begin{center}
+  \begin{tikzpicture}
+    %assi
+    \draw[->] (0,0,0) -- (3,0,0) node[at end, above]{$x$};
+    \draw[->] (0,0,0) -- (0,3,0) node[at end, above]{$z$};
+    \draw[->] (0,0,0) -- (0,0,3) node[at end, above]{$y$};
+    %cubo
+    \draw(1,0,0) -- (1,1,0) -- (0,1,0);
+    \draw(1,0,0) -- (1,0,1);
+    \draw(1,1,0) -- (1,1,1);
+    \draw(0,1,0) -- (0,1,1);
+    \draw(1,0,1) -- (1,1,1) -- (0,1,1) -- (0,0,1) -- cycle;
+  \end{tikzpicture}
+\end{center}
+Abbiamo un volumetto (a volume fissato) la massa al suo interno sarà:
+\begin{gather*}
+  \rho(x,y,z t) \ dx \ dy \ dz\\
+  M = \frac{\partial \rho}{\partial t} \ dx \ dy \ dz
+\end{gather*}
+PArtiamo dalla componente x e la componente $\phi_x$ che sarà il flusso che esce o entra sulll'asse $x$:
+\begin{gather*}
+  \phi_x = \left[(\rho \ u_x) \left( x + dx , y , z \right) - \left(\rho u_x\right)(x,y,z)\right] \ dy \ dz\\
+  \phi_y = \left[(\rho \ u_y) \left( x , y + dy , z \right) - \left(\rho u_y\right)(x,y,z)\right] \ dx \ dz\\
+  \phi_z = \left[(\rho \ u_z) \left( x , y , z + dz \right) - \left(\rho u_z\right)(x,y,z)\right] \ dx \ dy
+\end{gather*}
+Adesso mettiamo insieme eguagliando la massa alla somma di queste tre componenti:
+\begin{gather*}
+  \frac{\partial \rho}{\partial t} \ dx \ dy \ dz = \\
+  -\left[\frac{(\rho \ u_x) \left( x + dx , y , z \right) - \left(\rho u_x\right)(x,y,z)}{dx}\right] \ \cancel{dy \ dz} +\\
+  -\left[\frac{(\rho \ u_y) \left( x , y + dy , z \right) - \left(\rho u_y\right)(x,y,z)}{dy}\right] \ \cancel{dx \ dz} +\\
+  -\left[\frac{(\rho \ u_z) \left( x , y , z + dz \right) - \left(\rho u_z\right)(x,y,z)}{dz}\right] \ \cancel{dx \ dy}
+\end{gather*}
+Mettiamo a sistema loperatore divergenza con il flusso di massa che sono rispettivamente:
+\begin{gather*}
+  \frac{\partial \rho}{\partial t} = - \frac{\partial }{\partial x} (\rho u_x) - \frac{\partial }{\partial y} (\rho u_y) - \frac{\partial }{\partial z} (\rho u_z)\\
+  \vv{\nabla} \vv{f} = \sum_i \frac{\partial f_i}{\partial x_i} \quad \vv{f} = -\rho \vv{u}
+\end{gather*}
+Procediamo:
+\begin{gather*}
+  \begin{cases}
+    \rho \left( \frac{\partial \vv{u}}{\partial t} + (\vv{u}\cdot \vv{\nabla}) \vv{u} \right) = -\vv{\nabla} p + \rho \vv{g}\\
+    \frac{\partial \rho}{\partial t} + \vv{\nabla} (\rho \vv{u}) = 0
+  \end{cases}
+\end{gather*}
+
+
+
+\newpage
+\section{4/12/25}
+Abbiamo visto nel caso incomprimibile che un fluido che si muove è descritto da:
+\begin{gather*}
+  \frac{v^2}{2} + \frac{p}{\rho} + gh = \text{costante} \label{eq:bernoulli}
+\end{gather*}
+Mentre nel caso comprimibile:
+\begin{gather*}
+  \frac{v^2}{2} + \int_{p_0}^{p} \frac{dp}{\rho} + yh = \text{costante} \label{eq:bernoulli_compr}
+\end{gather*}
+Se abbiamo un caso in cui se le quote sono uguali si ha:
+\begin{gather*}
+  \frac{u_1^2}{2} + \frac{p_1}{\rho_0} = \frac{u_2^2}{2} + \frac{p_2}{\rho_0} = \frac{u_1^2}{2}\left( \frac{\sum_1}{\sum_2}  \right)^2+ \frac{p_2}{\rho_0} \\
+  \frac{p_1-p_2}{\rho_0} = \frac{u_1^2}{2}\left[ \left(\frac{\sum_1}{\sum_2}\right)^2 -1 \right] 
+\end{gather*}
+Questo è detto come \textbf{effetto venturi}\\
+
+\subsection{Fuoriuscita di un fluido da un foro}
+\begin{gather*}
+  Q_r = \sum_1 u_1 = \sum_1 \sqrt{\frac{2(p_1-P_2)}{P_0} \frac{1}{\left( \frac{\sum_1}{\sum_2}\right)^2-1 }}
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \centering
+  \begin{tikzpicture}
+    \draw(0,0) rectangle (2,3);
+    \draw(2,0.5) rectangle (2.5,1) node[at end, right] {$\Sigma \ P_2=P_0$};
+    \node at(3,0.2) {$\boxed{2} \quad U_2 $};
+    \node at(1,3.5) {$\boxed{1} \quad P_1 = P_0 \quad \Sigma_1 $};
+    \draw[->](-1,2) -- (-1, 0) node[midway, left] {$g$};
+  \end{tikzpicture}
+\end{wrapfigure}
+\begin{gather*}
+  \cancel{\frac{u_1^2}{2}} + \frac{\cancel{p_1}}{\rho_0} + y h_1 = \frac{u_2^2}{2} + \frac{\cancel{p_2}}{\rho_0} + 0\\
+  \boxed{u_2 = \sqrt{2gh_1}}
+\end{gather*}
+Questa è l'esperienza di \textbf{torricielli}.\\
+\subsection{Misurare la posizione di un aereo rispetto all'aria}
+Ovviamente non si puo usare il gps perchè quello è rispetto al suolo.
+\begin{center}
+  \begin{tikzpicture}
+    %\draw(0,0) ellipse (3 and 1);
+    %\draw(1.4,-1) ellipse (1 and 2);
+    %\fill[page](1.5,-0.2) circle (1);
+    \draw(3,-0.5) ..controls(0,0).. (4,0.5);
+  \end{tikzpicture}
+  \hfill\\
+  Questo è il tubo di \textbf{pitot}
+\end{center}
+\begin{gather*}
+  \frac{p_1}{\rho_0} = \frac{u_2^2}{2} + \frac{p_2}{\rho_0}
+\end{gather*}
+\subsection{es rubinetto}
+Da un rubinetto da cui gocciola l'acqua si nota che la goccia che sis tacca si stringe man mano che scende.
+\begin{center}
+  \begin{tikzpicture}
+    \draw(-1,0) -- (1,0) node[midway, above]{$\Sigma_1$} node[at end, right]{$p_1 = p_0$};
+    \draw(-0.5,-3) -- (0.5, -3) node[midway, below]{$\Sigma_2$} node[at end, right]{$p_2 = p_0$};
+    \draw(-0.5,-3) .. controls (-0.5,-1.5) .. (-1,0);
+    \draw(0.5,-3) .. controls (0.5,-1.5) .. (1,0);
+    \node at(1,-1.5) {$z$};
+  \end{tikzpicture}
+\end{center}
+\begin{gather*}
+  \frac{u_1^2}{2} + \frac{\cancel{p_1}}{\rho_0} = \frac{u_2^2}{2} + \frac{\cancel{p_2}}{\rho_0}\\
+  \Sigma_1 u_1 = \Sigma_2 u_2\\
+  u_2^2 = u_1^2 + 2yz\\
+  u_2 = \frac{\Sigma_1}{\Sigma_2} u_1\\
+  \left( \frac{\Sigma_1}{\Sigma_2} \right)^2 u_1^2 = u_1^2 + 2yz\\
+  \left( \frac{\Sigma_1}{\Sigma_2} \right)^2 = 1 + \frac{2 yz}{u_1^2}\\
+  \frac{\Sigma_1}{\Sigma_2} = \sqrt{1 + \frac{2 yz}{u_1^2}}
+\end{gather*}
+Quindi vediamo che la sezione della goccia diminuisce al crescere di $z$.\\
+Adesso complichiamo leggerlmente il caso e facciamo che la goccia cada in un'altro liquido.\\
+Abbiamo quindi un fattore di densità $\rho_e$ che fa si che:
+\begin{gather*}
+  p_e = p_0 + \rho_e g z\\
+  p_2 = p_{e1} + \rho_e g z 
+\end{gather*}
+Continuando ho:
+\begin{gather*}
+  \frac{u_2^2}{2} = \frac{u_1^2}{2} + yz - \frac{p_e}{\rho_0} g z\\
+  u_2^2 = u_1^2 + 2 yz + (1 - \frac{p_e}{\rho_0})\\
+  \left(\frac{\Sigma_1}{\Sigma_2}\right)^2 u_1^2 = u_1^2 + 2g(1- \frac{\rho_e}{\rho_0}) z \Rightarrow \left( \frac{\Sigma_1}{\Sigma_2} \right)^2 = 1 + \frac{2g}{u_1^2} \left( 1- \frac{\rho_e}{\rho_0} \right)z 
+\end{gather*}
+
+\subsection{caso della mano fuori dal finestrino}
+Le due equazioni che si usano sempre sono:
+\begin{gather*}
+  \frac{\partial \rho}{\partial t} + \vv{\nabla} \cdot (\rho \vv{u}) = \psi \qquad \boxed{1} \\
+  \rho \left( \frac{\partial \vv{u}}{\partial t} + (\vv{u} \cdot \vv{\nabla}) \vv{u} \right) = -\vv{\nabla} p + \rho \vv{g} \qquad \boxed{2}
+\end{gather*}
+Seguendo alcuni passaggi:
+\begin{gather*}
+  \rho \frac{\partial \vv{u}}{\partial t} = \frac{\partial \rho \vv{u}}{\partial t} - \vv{u} \frac{\partial \rho}{\partial t}\\
+  \rho ( \vv{u} \cdot \vv{\nabla}) u_k = \rho \sum_i u_i \frac{\partial u_k}{\partial x_i}
+\end{gather*}
+Si pensa $\nabla$ come $\partial_x \widehat{x} + \partial_y \widehat{y} + \partial_z \widehat{z}$
+\begin{gather*}
+  = \sum_i \rho u_i \frac{\partial u_k}{\partial x_i} = \sum_i \frac{\partial}{\partial x_i} \left( \rho u_i u_k \right) - u_k \sum_i \frac{\partial}{\partial x_i} (\rho u_i)\\
+  = \sum_i \frac{\partial}{\partial x_i} (\rho u_i u_k) - u_k \vv{\nabla} \cdot (\rho \vv{u}) \quad \text{\tiny(frs u non ha vec)}
+\end{gather*}
+Abbiamo un oggetto a due indici, questo è un tensore, per i nostri scopi lo tratteremo simile ad una matrice e generalmente si indica con:
+\begin{gather*}
+  \vv{\vv{S}} = \{ S_{i k} \} = \rho u_i u_k
+\end{gather*}
+COntinuando possiamo scrivere che l'equazione \fbox{2} diventa:
+\begin{gather*}
+  \frac{\partial}{\partial t} ( \rho \vv{u} ) - \vv{u} \frac{\partial \rho}{\partial t} + \vv{\nabla} \cdot \vv{\vv{S}} - \vv{u} \vv{\nabla} \cdot (\rho \vv{u}) = -\vv{\nabla} p + \rho \vv{g}
+\end{gather*}
+Continuando...
+\begin{gather*}
+  \frac{\partial}{\partial t} (\rho \vv{u}) + \vv{\nabla} \cdot \vv{\vv{S}} = \\
+  \int_v \frac{\partial}{\partial t} (\rho \vv{u}) + \int_v \vv{\nabla} \cdot \vv{\vv{S}}\ dv = -\int_v \vv{\nabla} p + \int_v \rho \vv{g} \ dv\\
+  \frac{d}{dt} \int_v \rho \vv{u} \ dv + \int_{\sum(v)} \vv{\vv{S}} \cdot \widehat{n} \ d\sigma = -\int_{\sum(v)} p \widehat{n} \ d\sigma + \int_v \rho \vv{g} \ dv\\
+  \rho u_i u_j \widehat{n} = (\rho \vv{u}) \cdot u_n\\
+  \frac{\partial }{\partial t} (\rho \vv{u}) + \vv{\nabla} \cdot \vv{\vv{S}} - \vv{u}\left( \cancel{ \frac{\partial \rho}{\partial t} + \vv{\nabla} \cdot (\rho \vv{u}) } \right) = -\vv{\nabla} p + \rho \vv{g}
+\end{gather*}
+Se considero $\vv{\vv{S}} = \left(\rho \vv{u} \vv{u}\right)  \widehat{n}$ lo esprimo come:
+\begin{gather*}
+  \begin{pmatrix}
+    \rho u_x u_x & \rho u_x u_y & \rho u_x u_z \\
+    \rho u_y u_x & \rho u_y u_y & \rho u_y u_z \\
+    \rho u_z u_x & \rho u_z u_y & \rho u_z u_z
+  \end{pmatrix} \cdot \begin{pmatrix}
+    1 \\ 0 \\ 0
+  \end{pmatrix} = \begin{pmatrix}
+    \rho u_x u_x \\
+    \rho u_x u_y \\
+    \rho u_x u_z
+  \end{pmatrix} = \left( \rho u_x \widehat{x} + \rho u_y \widehat{y} + \rho u_z \widehat{z} \right)  u_x = \rho \vv{u} u_x
+\end{gather*}
+
+
+\newpage
+\section{5/12/25}
+Dalla scorsa lezione eravamo partiti da:
+\begin{gather*}
+  \frac{\partial \rho}{\partial t} + \vv{\nabla} \cdot (\rho \vv{u}) = 0\\
+  \rho \left( \frac{\partial \vv{u}}{\partial t} + (\vv{u} \cdot \vv{\nabla}) \vv{u} \right) = -\vv{\nabla} p + \rho \vv{g}
+\end{gather*}
+E siamo giunti a:
+\begin{gather*}
+  \frac{\partial (\rho \vv{u})}{\partial t} + \vv{\nabla} \cdot (\rho \vv{u} \vv{u}) = -\vv{\nabla} p + \rho \vv{g}
+\end{gather*}
+E abbiamo interpretato il termine $(\rho \vv{u} \vv{u})$ come un tensore.\\
+\begin{gather*}
+  \vv{S} = \rho \vv{u} \vv{u} \\
+  \vv{\vv{S}} \cdot \widehat{n} = \rho \vv{u} u_n
+\end{gather*}
+Identifichiamo questo oggetto $\vv{S} \cdot \vv{\nabla}$ come \textbf{pressione ram} o pressione dinamica.\\
+\begin{example}
+  Supponiamo di avere un tubo di sezione $\Sigma$ con un flusso entrante e uscente.
+  \begin{center}
+    \begin{tikzpicture}
+      \draw[->](2,2) -- (3,2) node[midway, above]{$F=2Q u$};
+      \draw[dashed, gray](-3, 1.9) -- (-3, -1.9);
+      \draw(-2,0) ellipse (5 and 2);
+      \draw(-2,0) ellipse (3 and 1);
+      \fill[page] (-8,-3) rectangle (-3,3);
+      \node at(-3,-1.5) {$\Sigma$};
+      \node at(-3,1.5) {$\Sigma$};
+      \draw[->](-2,-1.5) -- (-1.5, -1.5) node[at end, right] {$\vv{u_1}$};
+      \draw[->](-3.5,1.5) -- (-4, 1.5) node[at end, left] {$\vv{u_2}$};
+    \end{tikzpicture}
+  \end{center}
+  \begin{gather*}
+    Q_M = \rho_0 u_1 \Sigma\\
+    F_1 = \rho_0 \vv{u_1} \cdot u \Sigma\\
+    F_2 = \rho \vv{u_2} \cdot u \Sigma = -\rho_0 \vv{u}_1 u_1 \Sigma\\
+    F_{tot} = F_1 + F_2 = -Q_M \vv{u}_1 - Q_M \vv{u}_1 = -2 Q_M \vv{u}_1
+  \end{gather*}  
+  \begin{gather*}
+    \int_v \frac{\partial \rho \vv{u}}{dt} dv + \int_v \vv{\nabla} \cdot (\rho \vv{u} \vv{u}) dv = -\int_v \vv{\nabla} p \ dv + \int_v \rho \vv{g} \ dv\\
+    \frac{d}{dt} \mathcal{G} + \int_{\Sigma(v)} (\rho \vv{u} \vv{u}) \cdot \widehat{n} \ d\sigma = -\int_{\Sigma(v)} p \widehat{n} \ d\sigma + \int_v \rho \vv{g} \ dv\\
+    = -\vv{\nabla} p + \rho \vv{y}
+  \end{gather*}
+\end{example}
+
+\begin{example}
+  Prendiamo un'altro esempio, una pala eolica.\\
+  \begin{center}
+    \begin{tikzpicture}
+      \draw (0,1.2) ellipse (0.1 and 1);
+      \draw (0,-1.2) ellipse (0.1 and 1);
+      \draw(0,0) circle (0.2);
+      \draw[->](-2,0) -- (-1,0) node[midway, above]{$\vv{u_1}$};
+      \draw[->](1,0) -- (2,0) node[midway, above]{$\vv{u_2}$};
+      \draw[<->](-0.5,0.2) -- (-0.5,2) node[midway, left]{$\Sigma$};
+    \end{tikzpicture}
+  \end{center}
+  Supponiamo di conoscere la sezione della pala e la velocità in ingresso $u_1$ e anche la potenza erogata dalla pala (in $KW$).\\
+  Da questo possiamo conoscere
+  \begin{itemize}
+    \item il rendimento della pala
+    \item la velocità in uscita $u_2$
+    \item la spinta che il flusso di massa esercita sulla pala
+  \end{itemize}
+
+  \begin{gather*}
+    Q_M = \rho u_1 \Sigma
+  \end{gather*}
+  Ora posso ricavarmi la potenza, che il flusso di massa esercita sulla pala:
+  \begin{gather*}
+    P_1 = Q_M \frac{u_1^2}{2}\\
+    \eta = \frac{P_\varepsilon}{P_1} \rightarrow P_\varepsilon = \eta P_1
+  \end{gather*}
+  La potenza che esce dalla pala sarà:
+  \begin{gather*}
+    P_2 = P_1 - P_\varepsilon = P_1 (1-\eta) \\
+    = \cancel{Q_M} \frac{u_2^2}{2} = \cancel{Q_M} \frac{u_1^2}{2} (1-\eta) \\
+    F = Q_M (\vv{u_1} - \vv{u_2}) \\
+    u_2 = u_1 \sqrt{1-\eta} = -Q_M \vv{u_1} (1-\sqrt{1-\eta})
+  \end{gather*}
+\end{example}
+
+\subsection{Cerchiamo bernulli tramite }
+Partiamo da:
+\begin{gather*}
+  \frac{\partial \rho }{\partial t} + \vv{\nabla} \cdot (\rho \vv{u}) = 0 \quad \boxed{1}\\
+  \rho \left( \frac{\partial \vv{u}}{\partial t} + (\vv{u} \cdot \vv{\nabla}) \vv{u} \right) = -\vv{\nabla} p + \rho \vv{\nabla} \ \phi_\mathcal{G} \quad \boxed{2}\\
+  \vv{u} \left[\rho \left( \frac{\partial \vv{u}}{\partial t} + (\vv{u} \cdot \vv{\nabla}) \vv{u} \right)\right]  = \left[-\vv{\nabla} p + \rho \vv{\nabla} \ \phi_\mathcal{G}\right] \vv{u} \\
+  = -\vv{\nabla} p \cdot \vv{u} - \rho \vv{\nabla} \phi_\mathcal{G} \cdot \vv{u} \qquad \boxed{*}\\
+\end{gather*}
+Considero che:
+\begin{gather*}
+  \vv{\nabla} (a \cdot \vv{B}) = \vv{B} \cdot \vv{\nabla} a + a \cdot (\vv{\nabla} \cdot \vv{B})\\
+  \vv{\nabla} (p \vv{u}) = \vv{u} \cdot \vv{\nabla} p + p \cdot (\vv{\nabla} \cdot \vv{u})
+\end{gather*}
+Da quì posso scrivere l'ultimo passaggio \fbox{*} come:
+\begin{gather*}
+  = \vv{-\nabla} (p \vv{u}) + p (\vv{\nabla} \cdot \vv{u}) - \vv{\nabla} (\rho \phi_\mathcal{G} \vv{u}) + \phi_\mathcal{G} \vv{\nabla} (\rho \cdot \vv{u})\\
+  = -\vv{\nabla} (p \vv{u}) - \vv{\nabla} (\rho \phi_\mathcal{G} \vv{u}) - \frac{\partial }{\partial t} (\rho \phi_\mathcal{G})
+\end{gather*}
+Infine tornando all'equazione iniziale \fbox{2} posso scrivere che il termine di sinistra diventa:
+\begin{gather*}
+  \rho \mathcal{G} \frac{\partial \vv{u}}{\partial t} = \rho \frac{\partial }{\partial t} \left( \frac{u^2}{2} \right)\\
+  = \frac{\partial }{\partial t} \left( \rho \frac{u^2}{2} \right) - \frac{u^2}{2} \frac{\partial \rho}{\partial t}
+\end{gather*}
+Per quanto riguarda il termine a destra:
+\begin{gather*}
+  \vv{\nabla} (\rho \frac{u^2}{2}) = \sum_k \frac{\partial}{\partial x} \rho \frac{u^2}{2} u_k = \frac{u^2}{2} \sum_k  \frac{\partial \rho}{\partial x_k} \rho u_k + \rho \sum_k u_k \frac{\partial }{\partial x_k} \left( \frac{u^2}{2} \right) \\
+  = \frac{u^2}{2} \vv{\nabla} \cdot (\rho \vv{u}) + \rho \sum_k u_k \sum_i \frac{\partial }{\partial x_k} \frac{u_i^2}{2}\\
+  = \frac{u^2}{2} \vv{\nabla} \cdot (\rho \vv{u}) + \rho \sum_k \rho u_k \sum_i u_i \frac{\partial}{\partial x_k} u_i\\
+  = \frac{u^2}{2} \vv{\nabla} \cdot (\rho \vv{u}) + \sum_i \rho u_i \sum_k u_k \frac{\partial }{\partial x_k} u_i\\
+  \vv{\nabla} (\frac{\rho}{2} u^2 \vv{u}) = \frac{u^2}{2} \vv{\nabla} \cdot (\rho \vv{u}) + \rho \vv{u} \left[(\vv{u} \cdot \vv{\nabla}) \vv{u}\right] 
+\end{gather*}
+Ho scritto la divergenza per rho^2/2 per u che è proprio : $\sum_i \rho u_i \sum_k u_k \frac{\partial }{\partial x_k} u_i$
+\begin{gather*}
+  \frac{\partial}{\partial t} (\rho \vv{u}) + \vv{\nabla} \cdot (\rho \vv{u} \vv{u}) = -\vv{\nabla} p + \rho \vv{\nabla} \phi_\mathcal{G}\\
+\end{gather*}
+\end{document}

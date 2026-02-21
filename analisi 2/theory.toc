@@ -1,0 +1,6 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {section}{\numberline {1}Equazioni differenziali ordinarie}{2}{}%
+\contentsline {subsection}{\numberline {1.1}liptschitzianità}{2}{}%
+\contentsline {subsection}{\numberline {1.2}EDO di ordine n}{3}{}%
+\contentsline {subsection}{\numberline {1.3}spazi di funzioni}{4}{}%

@@ -1,0 +1,131 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz-3dplot}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{arydshln}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{cancel}
+\usepackage[d]{esvect}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfplots}
+\usepackage{pifont}
+\usetikzlibrary{patterns}
+%\usepackage{animate}
+%\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{tikzmark}
+\newcommand{\TikzNCbar}[4][10pt]{
+\tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+
+\graphicspath{ {images/} }
+
+\definecolor{redish}{rgb}{255, 0, 30}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}   
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\setlength\arrayrulewidth{0.3pt}
+
+\newcommand\eqq{\stackrel{\mathclap{\normalfont\mbox{?}}}{=}}
+\newcommand\bulletout  {\labelitemfont \textbullet}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\xmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\cmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
+% Comando:
+%   \potato[opzioni]{(x,y)}{scala}
+%
+% Opzioni = facoltative (es. fill=red!20, draw=black, thick)
+% (x,y)   = centro della patata
+% scala   = fattore di scala
+%
+\def\potatoshape{
+  (1,0) (2,1.5) (1.6,3) (0.3,2.7) (-0.4,1.2)
+}
+\newcommand{\potato}[3][draw=white]{
+  \begin{scope}[shift={#2}, scale=#3]
+    \draw[#1]
+      plot [smooth cycle, tension=1]
+      coordinates {\potatoshape};
+  \end{scope}
+}
+ \newcommand{\hookbox}[1]{
+\begin{center}
+\hfill\break
+\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt,anchor=base] (A) {
+\begin{minipage}{\dimexpr\linewidth-5em}
+\centering
+#1
+\end{minipage}
+};
+% Draw the left bracket
+\draw ([xshift=0pt]A.north west) -- ++(0, 0.5) -- ++(0.4, 0);
+% Draw the right bracket
+\draw ([xshift=0pt]A.south east) -- ++(0, -0.5) -- ++(-0.4, 0);
+\end{tikzpicture}
+\end{center}} 
+\title{Complementi di Analisi II}
+\author{Gariboldi Alessandro}
+\date{ }
+
+
+\begin{document}
+
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{observation}{Oss.}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{problem}{Problema}[section]
+\newtheorem{solution}{Soluzione}[section]
+\newtheorem{proposition}{Proposizione}[section]
+\maketitle
+
+
+\end{document}
