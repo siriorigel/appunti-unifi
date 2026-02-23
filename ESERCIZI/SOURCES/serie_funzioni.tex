@@ -1,0 +1,272 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%comandi utili
+\newcommand{\R}{\mathbb{R}}
+
+\title{Analisi II - Serie di funzioni}
+\author{Marco Delton\thanks{esercizi dei prof. \textit{Gabriele Bianchi}, \textit{Chiara Bianchini} e \textit{Luca Bisconti}}}
+\date{A.A. 2025/26}
+
+\begin{document}
+\maketitle
+
+\section{Foglio n.1}
+Analizzare la convergenza puntuale e totale delle seguenti serie di funzioni: 
+\begin{enumerate}
+    \item $\displaystyle \sum_{n=0}^{+\infty} \frac{\cos(nx)}{n^2}$ 
+    \item $\displaystyle \sum_{n=0}^{+\infty} \left(\sqrt{n+x} - \sqrt{n-x}\right)$
+    \item $\displaystyle \sum_{n=1}^{+\infty} \left(x+\frac{1}{n}\right)^{n+\frac{x}{n}}$
+    \item $\displaystyle \sum_{n=1}^{+\infty} \left(\frac{\ln(n)}{nx}\right)^{\ln(n)}$
+    \item $\displaystyle \sum_{n=1}^{+\infty} \frac{x^{2n}}{\sqrt{n}} \ \ln \left(1 + \frac{x^2}{\sqrt{n}}\right)$
+    \item $\displaystyle \sum_{n=0}^{+\infty} 2^n \ \sin \left(\frac{x}{3^n}\right)$ \\
+    detta $S(x)$ la somma totale, calcolare:
+    \[\lim_{x\to 0} \frac{S(x)}{x}\]
+    \item $\displaystyle \sum_{n=1}^{+\infty} \frac{n^{x^3}+n}{(n+x^2)^{2x^2}}$
+    \item $\displaystyle \sum_{n=1}^{+\infty} n \ x^n$
+    \item $\displaystyle \sum_{n=1}^{+\infty} (-1)^{n-1} \ \frac{x^n}{n}$
+    \item $\displaystyle \sum_{n=1}^{+\infty} \frac{(-2)^n}{n} \ x^{n^2}$
+    \item $\displaystyle \sum_{n=0}^{+\infty} (-1)^n \ \frac{7n-1}{n^2 - (x-3)n -3x}$
+    \item $\displaystyle \sum_{n=0}^{+\infty} (-1)^n \ \frac{x^{2n}}{(2n)!}$
+    \item $\displaystyle \sum_{n=0}^{+\infty} n^2x^n \quad\text{(calcolarne la somma)}$
+    \item $\displaystyle \sum_{n=0}^{+\infty} \frac{x^{2n}}{2n+1} \quad\text{(calcolarne la somma)}$
+    \item $\displaystyle \sum_{n=1}^{+\infty} (-1)^{n+1} \ \frac{2^{2n-1}}{(2n)!} \ x^{2n}$
+    \item $\displaystyle \sum_{n=1}^{+\infty} (-1)^n \ \int_{n}^{n+1} \frac{1}{\sqrt{t}} \ \arctan \left(\frac{1}{\sqrt{xt}}\right) \ dt \quad \text{con} \ x>0$
+    \item Provare la seguente uguaglianza per $|x|<\frac{1}{2}$:
+    \[\frac{3x}{1+x-2x^2} = \sum_{n=1}^{+\infty} \left[1-(-2)^n\right] \ x^n\]
+    \item $\displaystyle \sum_{n=1}^{+\infty} \frac{(n+1)^n-n^n}{n!} \ x^{n^n}$
+    \item $\displaystyle \sum_{n=1}^{+\infty} \left(n \ \int_{n}^{n+1} \sin \left(\frac{1}{t}\right) \ dt\right)^n \ x^{2n}$
+    \item $\displaystyle \sum_{n=1}^{+\infty} \frac{\left|x+\frac{1}{4}\right|^{n^2}}{n^{2x+1}}$
+    \item $\displaystyle \sum_{n=1}^{+\infty} \frac{(-1)^n}{\sqrt[3]{n}} \ \left(\frac{2}{\pi}\right)^n \ \arctan^n \left(\frac{1}{x}\right)$
+    
+    \item Calcolare la derivata 36-esima di $\sin(x^4)$ in $x=0$
+    \item Calcolare la derivata 7-ima di $e^{\sqrt{x}}$ in $x=0$
+    \item Dimostrare che le seguenti funzioni sono analitiche in un intervallo $I$. Determinare $I$:
+    \begin{itemize}
+        \item $f_1(x) = \frac{1}{1-x}$
+        \item $f_2(x) = \frac{1}{1+x^2}$
+        \item $f_3(x) = \arctan(x)$
+        \item $f_4(x) = \ln(1+x)$
+        \item $f_5(x) = \arcsin(x)$
+    \end{itemize}
+    \item Calcolare il valore di:
+    \[\arcsin \left(\frac{1}{14}\right)\]
+    con un errore $\varepsilon$ assegnato
+    \item Calcolare il valore di:
+    \[\int_{0}^{1} e^{x^2} \ dx\]
+    con un errore $\varepsilon < 10^{-3}$
+    \item Calcolare il valore di:
+    \[\int_{0}^{1} \frac{\sin(x)}{x} \ dx\]
+    con un errore $\varepsilon < 10^{-3}$
+    \item Determinare il valore di $\pi$ con 3 cifre significative
+    \item Calcolare il valore di: 
+    \[e^{-1}\]
+    con 4 cifre significative
+    \item Calcolare il valore di:
+    \[\sum_{1}^{+\infty} (-1)^n \ n \ e^{-n^2}\]
+    con un errore $\varepsilon < 10^{-3}$
+\end{enumerate}
+
+\newpage
+
+\section{Foglio n.2}
+\begin{enumerate}
+    %1
+    \item Studiare la convergenza puntuale e totale di $\sum f_n(x)$:
+    \[f_n(x) = \begin{cases}
+        n \ a_n \ x & \text{se} \ 0<x\leq\frac{1}{n} \\
+        a_n \ (2-nx) & \text{se} \ \frac{1}{n} <x<\frac{2}{n} \\
+        0 & \text{altrove}
+    \end{cases}\]
+    nei tre casi differenti in cui:
+    \begin{itemize}
+        \item $a_n = \frac{1}{n^2}$
+        \item $a_n = \frac{1}{n}$
+        \item $a_n = \frac{(-1)^n}{n}\\$
+    \end{itemize}
+
+    %2
+    \item Data:
+    \[\sum_{n=1}^{+\infty} (-1)^n \ \frac{x^2+n}{n^2}\]
+    \begin{enumerate}
+        \item Studiare la convergenza puntuale
+        \item Studiare la convergenza assoluta
+        \item Studiare la convergenza uniforme in un intervallo $[-\alpha,\alpha]\\$
+    \end{enumerate}
+
+    %3
+    \item Data:
+    \[\sum_{n=1}^{+\infty} (-1)^n \ (x-1)^n \ \ln \left(1 + \frac{1}{n}\right)\]
+    \begin{enumerate}
+        \item Studiare la convergenza puntuale e uniforme in $[a,1] \ \forall a\in[0,1]$
+        \item Studiare la convergenza puntuale e uniforme in $[a,2] \ \forall a\in[1,2]$
+        \item Calcolare $f \left(\frac{3}{2}\right)$ con un errore $\varepsilon < 10^{-2}\\$
+    \end{enumerate}
+
+    %4
+    \item Data: 
+    \[\sum_{n=1}^{+\infty} (-1)^n \ \frac{\ln(n^2x) \ \sin(3nx)}{\sqrt{n^3+7n^2}} \quad\text{con} \ x\in(0,+\infty)\]
+    \begin{enumerate}
+        \item Studiare la convergenza puntuale
+        \item Trovare l'intervallo di convergenza totale $\\$
+    \end{enumerate}
+
+    %5
+    \item Studiare la serie:
+    \[\sum_{n=1}^{+\infty} \left(n^{\frac{1}{n}}-1\right)^{-n} x^n\\\]
+
+    %6
+    \item Studiare la serie: 
+    \[\sum_{n=1}^{+\infty} \left[\ln(1+n)\right]^{-1} x^n\\\]
+
+    %7
+    \item Studiare la serie:
+    \[\sum_{n=1}^{+\infty} \frac{x^n}{n \ (n+1)}\\\]
+
+    %8
+    \item Sia $\{a_n\}\subseteq\R$. Sapendo che $\sum a_n \ (x-2)^n$ converge in $x=1$ e non converge
+    in $x=3$, trovare il raggio di convergenza (o una sua stima). $\\$
+
+    %9
+    \item Sia $\{a_n\}\subseteq\R$. Sapendo che $\sum a_n \ x^n$ converge in $x=1$ e non converge in $x=-2$, 
+    stabilire, dove possibile, il carattere delle seguenti serie: 
+    \begin{itemize}
+        \item $\displaystyle\sum a_n \ \frac{(-1)^n}{2^n}$
+        \item $\displaystyle\sum a_n \ 2^n$
+        \item $\displaystyle\sum a_n \ 3^n$
+    \end{itemize}
+    Dove non è possibile determinarlo, esibire esempi di successioni che portano a risultati diversi. $\\$
+
+    %10.1
+    \item Studiare la serie:
+    \[\sum_{n=1}^{+\infty} 2^n \ x^{n^2}\\\]
+
+    %10.2
+    \item Studiare la serie:
+    \[\sum_{n=1}^{+\infty} \frac{(-2)^n}{n} \ x^{n^2}\]
+
+    %11.1
+    \item Studiare la serie:
+    \[\sum_{n=3}^{+\infty} |a|^{\sqrt{\ln(n)}} \ (x-e)^n \quad\text{per} \ \alpha\in\R\]
+
+    %11.2
+    \item Studiare la serie:
+    \[\sum_{n=3}^{+\infty} |a|^{\sqrt{\ln(n)}} \ e^n \ (e^x-1)^n \quad\text{per} \ \alpha\in\R\]
+
+    \newpage
+    %12
+    \item Data:
+    \[f(x) = \begin{cases}
+        \frac{\ln(1+x)}{x} & \text{se} \ x\ne 0 \\
+        \alpha & \text{se} \ x=0
+    \end{cases}\]
+    \begin{enumerate}
+        \item Provare che per $\alpha = 1$ la funzione è analitica in $(-1,1]$
+        \item Calcolare $f^{(42)}(0)$
+        \item Determinare il valore di:
+        \[\sum_{n=0}^{+\infty} (-1)^n \ \frac{n}{n+1} \ e^{-n}\]
+    \end{enumerate}
+
+    %13
+    \item Sapendo che la serie $\sum_{n=1}^{+\infty} a_n \ (x-1)^n$ converge in $x=2$ e non converge in $x=-1$, studiare:
+    \begin{enumerate}
+        \item $\displaystyle\sum (-1)^n \ \frac{a_n}{2^n}$
+        \item $\displaystyle\sum (-1)^n \ a_n$
+        \item $\displaystyle\sum \frac{a_n}{2^n} \ 7^n$
+        \item $\displaystyle\sum 2^n \ a_n\\$
+    \end{enumerate}
+
+    %14
+    \item Data:
+    \[\sum_{n=1}^{+\infty} \frac{x}{(1-x)^n}\]
+    studiare la convergenza puntuale e uniforme. \\
+    Detta $S(x)$ la somma della serie, calcolare:
+    \[\lim_{t\to 0^+} \int_{0}^{t} S(x) \ dx\]
+
+    %15
+    \item Sia 
+    \[S(x) = \sum_{n=0}^{+\infty} a_n \ x^n\] 
+    e sia il raggio di convergenza di tale serie $R=1$. \\
+    Rispondere alle seguenti domande motivando la risposta (ad esempio dimostrandole o fornendo controesempi):
+    \begin{enumerate}
+        \item Se $\displaystyle \lim_{x\to 1^-} S(x) = L\in\R$, si può dire che $\sum a_n$ converge?
+        \item Se $\displaystyle \sum_{n=0}^{+\infty} |a_n| = +\infty$, si può dire che
+        $\displaystyle \lim_{x\to 1^-} S(x) = +\infty$?
+        \item Se $\displaystyle \sum_{n=0}^{+\infty} |a_n| < +\infty$, si può dire che 
+        $\displaystyle \lim_{x\to -1^+} S(x)$ e $\displaystyle \lim_{x\to 1^-} S(x)$ esistono finiti?
+        \item Se $\displaystyle \sum_{n=0}^{+\infty} a_n$ diverge, con $a_n \geq 0$, si può dire che
+        $\displaystyle \lim_{x\to 1^-} S(x) = +\infty$?\\
+    \end{enumerate}
+
+    %16
+    \item Data:
+    \[\sum_{n=1}^{+\infty} n^{2n} \ \sin^2 \left(\frac{1}{2^n \ n^n}\right) \ y^{2n-2}\]
+    Calcolare:
+    \[\lim_{y\to 0} S(x)\]
+
+    %17
+    \item Calcolare:
+    \[\arcsin \left(\frac{1}{14}\right)\]
+    con un errore $\varepsilon$ assegnato\\
+
+    %18
+    \item Indicare per quali $x\in\R$ la seguente uguaglianza è verificata:
+    \[\sum_{n=0}^{+\infty} \left[2^n-(-1)^n \ 3^n\right] \ x^n=\frac{5x}{1+x-6x^2}\]
+
+    %19
+    \item Data:
+    \[\sum_{n=1}^{+\infty} \frac{\sqrt{n}}{(2n)!} \ y^{n-1}\]
+    \begin{enumerate}
+        \item Determinare l'intervallo di convergenza
+        \item Scrivere lo sviluppo di Taylor al 2° ordine centrato in $x_0=0$\\
+    \end{enumerate}
+
+    %20
+    \item Calcolare la derivata 34-esima in $x=0$ di:
+    \[\sin \left(x^4\right)\]
+
+    %21
+    \item Date le seguenti funzioni, determinare che sono analitiche in un sieme $I$ (da determinare). 
+    Trovare inoltre il loro sviluppo in serie di Taylor:
+    \begin{enumerate}
+        \item $\ln (1+x)$
+        \item $\arctan (x)$
+        \item $\sin (x)$
+        \item $\cos (x)$
+        \item $\sin^2(x)$ \\
+        $\boxed{\text{\textbf{Suggerimento:}} \ \sin^2 (x) = \frac{1-\cos(2x)}{2}}$
+    \end{enumerate}
+\end{enumerate}
+
+\newpage
+
+\section{Foglio n.3}
+\begin{enumerate}
+    %1
+    \item Studiare i tipi di convergenza della seguente serie di funzioni:
+    \[\sum_{n=0}^{+\infty} x^2 \ e^{-nx} \quad\text{con} \ x\in\R\]
+
+    %2
+    \item Studiare la convergenza della serie:
+    \[\sum_{n=0}^{+\infty} \frac{(-1)^n \ \cos^n (x)}{2^n} \quad\text{con} \ x\in\R\]
+
+    %3
+    \item Studiare la convergenza della serie:
+    \[\sum_{n=1}^{+\infty} \frac{x^n \ \arctan \left(\frac{n}{x}\right)}{3^n}\]
+    nei seguenti insiemi:
+    \begin{enumerate}
+        \item $[-\alpha,\alpha]\backslash\{0\} = [-\alpha,0)\cup(0,\alpha]$
+        \item $0<\alpha<3\\$
+    \end{enumerate}
+
+    %4
+    \item Studiare la convergenza della serie:
+    \[\sum_{n=0}^{+\infty} (n+2)^{\frac{1}{x+1}} \quad\text{con} \ x\in\R\]
+
+    %5
+    \item Studiare la convergenza della serie:
+    \[\sum_{n=1}^{+\infty} \frac{x^n \ \sin\left(\sqrt{nx}\right)}{2^n}\]
+    nell'intervallo $[0,2]$
+\end{enumerate}
+\end{document}

@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Analisi II - Funzione implicita}
+\author{Marco Delton\thanks{esercizi dei prof. \textit{Gabriele Bianchi}, \textit{Chiara Bianchini} e \textit{Luca Bisconti}}}
+\date{A.A. 2025/26}
+
+\begin{document}
+
+\maketitle
+
+\section{Funzione implicita}
+\begin{enumerate}
+    \item Verificare che l'equazione
+    \[x^2+2x+e^y-2z^3=0\]
+    definisce in un intorno di $Q=(-1,0,0)$ una superficie di equazione $y=(x,z)$.\\
+    Scrivere l'equazione del piano tangente alla superficie in $Q$\\
+
+    \item Verificare che l'equazione 
+    \[\arctan{(z)}+xy^2+xz-y^3-1=0\]
+    definisce implicitamente un'unica funzione $z=f(x,y)$ in un intorno del punto $(0,1)$ tale che $f(0,1)=0$.\\
+    Di tale funzione calcolare il differenziale primo\\
+
+    \item Verificare che l'equazione
+    \[\sinh{(z-1)}-e^x+e^y+xz-y=0\]
+    definisce in un intorno di $(0,0,1)$ un'unica funzione $z=z(x,y)$.\\
+    Di tale funzione scrivere la formula di Taylor al 2° ordine (con resto di Peano)\\
+
+    \item Verificare che l'equazione 
+    \[e^{x-y}+x^2-y^2-e(x+1)+1=0\]
+    definisce implicitamente un'unica funzione $y=y(x)$ in un intorno di $x=0$, con $y(0)=-1$.\\
+    Provare che $x=0$ è un punto di minimo locale per $y(x)$\\
+
+    \item Sia 
+    \[g(x) \in \mathbb{R}^2 \text{ t.c. } g(0)=0,g'(0)=g''(0)=2\]
+    Verificare che l'equazione $y^3+y+\lambda g(x)=0$ definisce un'unica funzione $y=f(x)$ in un intorno di $(0,0)$, $\forall \lambda \ne 0$.\\
+    Scrivere il polinomio di Taylor al 2° ordine di $f(x)$\\
+
+    \item Verificare che l'equazione 
+    \[\sin{(xy)}+x^2+y^2-\cos{z}=0\]
+    definisce in un intorno del punto $P(1,0,0)$ una superficie di equazione $y=g(x,z)$.\\
+    Scrivere l'equazione del pianto tangente alla superficie in $P$\\
+
+    \item Provare che le linee di livello della funzione
+    \[f(x,y)=(x+3)(y-2)\]
+    definiscono localmente una funzione $y(x)$, soluzione di:
+    \[\begin{cases}
+        y'=-\frac{y-2}{x+3}\\
+        y(x_0) \text{ t.c. } (x_0+3)(y_0-2)=c
+    \end{cases}\]\\
+
+    \item Sia $y=f(x)$ l'unica funzione definita da
+    \[x+\ln{(x)}-y-\ln{(y)}-1-\ln{(2)}=0\]
+    localmente in un intorno di $P(2,1)$. \\
+    Calcolare: 
+    \begin{itemize}
+        \item $\displaystyle \lim_{x \to 2}\frac{f(x)-1}{x-2}$
+        \item $\displaystyle \lim_{x \to 2}\frac{f(x)-1-\frac{3}{4}(x-2)}{(x-2)^2}$
+    \end{itemize}
+
+    \item Per $a \in \mathbb{R}$ calcolare
+    \[\lim_{x \to 0}\frac{f(x)+ax}{x^2}\]
+    dove $y=f(x)$ è l'unica funzione t.c. $f(0)=0$ ed è definina localmente da
+    \[xy^2+y+\sin{(xy)}+a(e^x-1)=0\]\\
+
+    \item Determinare quante funzioni sono implicitamente definite in un intorno di $x=0$ dall'equazione 
+    \[\left(x^2+y^2\right)^3-\left(2x^2+\sqrt{3}y^2\right)^2+x^2-4y^2=0\]
+    Sia $y(x)$ la funzione tra queste t.c. $y(0)=2$. Calcolare
+    \[ \lim_{x\to 0}\frac{y(x)-2\cos x}{x^2} \]
+
+    \item Data l'equazione
+    \begin{gather}
+        y+\ln{(x)}-\ln{(y)}=0
+    \end{gather}
+    determinare le coppie $(x_0,y_0)$ che la verificano, e per cui $\exists I$ intorno di $x_0$ e una soluzione $y=\varphi (x)$ di $(1)$, definita su $I$ e di classe $C^1$ t.c. $\varphi (x_0)=y_0$. \\
+    Verificare che tali soluzioni sono soluzioni del seguente problema di Cauchy:
+    \[\begin{cases}
+        y'=\frac{y}{x(1-y)}\\
+        y(x_0)=y_0
+    \end{cases}\]\\
+
+    \item Detta $y(x)$ la funzione definita in un intorno di $x=0$ dall'equazione: 
+    \[e^x \cdot \ln{(e+xy)}=e^y \cdot \ln{(e-xy)}\]
+    calcolare:
+    \[\lim_{x \to 0}\frac{y(x)-\sin{\left(y(x)\right)}}{x^3+x^5}\]\\
+
+    \item Determinare i punti di massimo e di minimo relativo delle funzioni $y=y(x)$ definite implicitamente dall'equazione: 
+    \[x^3-x^2y+y^3-8=0\]
+\end{enumerate}
+
+\end{document}

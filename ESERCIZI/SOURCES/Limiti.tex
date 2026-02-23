@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Analisi II - Limiti di funzioni}
+\author{Marco Delton\thanks{esercizi del prof \textit{Luca Bisconti}}}
+\date{A.A. 2025/26}
+
+\begin{document}
+
+\maketitle
+
+\section{Limiti di funzioni di 2 variabili}
+\begin{enumerate}
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}x\sin{\left(\frac{|x|+|y|}{x^2+y^2}\right)}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}\frac{y^2x}{|x|+|y|}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}\frac{\ln{\left(1+|xy|\right)}}{x^2+y^2}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}\frac{y\sqrt{|y^2-x^2|}}{x^2+y^2}\]
+
+    \item Sia $\beta \in \mathbb{R}$ un parametro. \\
+    Studiare le continuità della funzione $f=f(x,y)$ definita come segue al variare del parametro $\beta$:
+    \[f(x,y)=\begin{cases}
+        |y|^{\beta}\frac{\sin{(x)}}{x^2+y^2} & \text{ se } (x,y) \ne (0,0)\\
+        0 & \text{ se } (x,y)=(0,0)
+    \end{cases}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}\frac{\arctan{\left(\sqrt{|xy|}\right)}\cdot \ln{\left(1+\sqrt{x^2+y^2}\right)}}{|x|+y^2}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}\frac{\sin{(x)} \cdot \sin{(y)}}{\sqrt{|x|}+\sqrt{|y|}}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}\frac{x^5+xy^2+4x^2y}{y^2+2x^4+3y^4}\]\\
+    \fbox{\tiny\textbf{Suggerimento: } scrivere $f(x,y)=y^2+2x^4+3y^4$ come la somma di tre frazioni, e studiarle singolarmente}
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}\frac{\sin{(x^2y^2)}}{x^2+y^4}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}\arctan{\left(\frac{1-\cos{x}}{x^2y^2}\right)} \cdot e^{-\frac{\ln{(1+|xy|)}}{x^2+y^2}}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}\frac{(x+1)e^{(x+1)y^2}-1}{y^2}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}\frac{xy^2\left(1-\cos{(xy)}\right)}{4x^2+y^4}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,0)}\frac{|x| \cdot \arctan{\left(x^2+y^2\right)}}{\ln{(1+|y|)}}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{||(x,y)||\to \infty}\frac{\sqrt{2+5y^2+7x^2}}{x^2+y^2}\]
+
+    \item Calcolare, se esiste, il seguente limite:
+    \[\lim_{(x,y)\to (0,1)}\frac{\ln{\left(1+4(y-1)^4\right)}}{\sqrt{x^2+(y-1)^2}}\]
+\end{enumerate}
+
+\end{document}

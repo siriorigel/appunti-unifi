@@ -1,0 +1,237 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Analisi II - Curve e Integrali curvilinei}
+\author{Marco Delton\thanks{esercizi della prof.ssa \textit{Chiara Bianchini}}}
+\date{A.A. 2025/26}
+
+\begin{document}
+
+\maketitle
+
+\section{Curve parametriche}
+\begin{enumerate}
+    %ES.1 scheda
+    \item Un punto si muove nello spazio secondo la legge
+    \[\vec{r}(t)=\begin{pmatrix}
+        \cos(t)\\
+        \sin(t)\\
+        t
+    \end{pmatrix}_{t\in [0,6\pi]}\]
+    \begin{enumerate}
+        \item Calcolare la velocità e l'accelerazione
+        \item Verificare che i vettori velocità e accelerazione centripeta sono perpendicolari fra loro, e che l'accelerazione è rivolta "internamente". 
+        \item Calcolare lo spazio percorso
+    \end{enumerate}$\\$
+
+    %ES. 2 scheda
+    \item Data
+    \[\vec{r}(t)=\begin{pmatrix}
+        2\sin(t)\\
+        -3\cos(t)\\
+        4t
+    \end{pmatrix}_{t \in \mathbb{R}}\]
+    \begin{enumerate}
+        \item Verificare che $\vec{r}$ definisce una curva regolare
+        \item Verificare che $\vec{r}$ passa dal punto $P(0,-3,0)$
+        \item Calcolare la retta tangente a $\vec{r}$ in $P\\$
+    \end{enumerate}
+    
+    %ES. 3 scheda
+    \item Calcolare la lunghezza:
+    \begin{enumerate}
+        \item dell'\textbf{astroide} di equazione
+        \[\vec{r}(t)=\begin{pmatrix}
+            \cos^3(t)\\
+            \sin^3(t)
+        \end{pmatrix}_{t\in [0,2\pi]}\\\]
+
+        \item del \textbf{cardioide} di equazione polare
+        \[\rho (\theta)=1+\cos{\theta} \quad \theta \in [0,2\pi]\\\]
+
+        \item dell'\textbf{elica conica} di equazione
+        \[\vec{r}(t)=\begin{pmatrix}
+            t \ \cos(t)\\
+            t \ \sin(t)\\
+            t
+        \end{pmatrix}_{t\in [0,6\pi]}\\\]
+    \end{enumerate}
+
+    %ES. 4 scheda
+    \item Trovare i valori di $\alpha \in \mathbb{R}$ per cui
+    \[\vec{\gamma}(t)=\begin{cases}
+        t^2\underline{i}+\alpha t\underline{j} & \text{se } t \leq 0\\
+        t\underline{j}+t^2\underline{k} & \text{se } t>0
+    \end{cases}\]
+    è regolare su $\mathbb{R}\\$
+
+    %ES. 5 scheda
+    \item Scrivere una parametrizzazione della linea $\gamma$ appartenente alla superficie $z=\sqrt{2y^2-x}$ che si proietta nel piano $xy$ nella linea di equazione
+    \[x=y^2\]
+    Dire se tale curva è regolare su $\mathbb{R}\\$
+
+    %ES. 6 scheda
+    \item Calcolare la lungezza della curva intersezione delle superfici
+    \[y=x^2e\]
+    \[3z=2xy\]
+    dal punto $(0,0,0)$ al punto $\left(2,4,\frac{16}{3}\right)\\$
+
+    %ES. 7 scheda
+    \item Trovare l'equazione parametrica della curva ottenuta come intersezioni tra
+    \begin{enumerate}
+        \item il cilindro $x^2+y^2=1$
+        \item il piano $y+z=2$
+    \end{enumerate}
+    Calcolare la retta tangente alla curva nel punto $(-1,0,2)$\\
+    
+    %ES. 8 scheda
+    \item Dimostrare che la curva di equazione
+    \[\vec{x}(t)=\begin{pmatrix}
+        t \ \cos(t)\\
+        t \ \sin(t)\\
+        t
+    \end{pmatrix}\]
+    giace sul cono di equazione $z^2=x^2+y^2\\$
+
+    %ES. 9 scheda
+    \item Data la curva di equazione
+    \[\vec{x}(t)=\begin{pmatrix}
+        \sin(t)\\
+        \cos(t)\\
+        \sin^2(t)
+    \end{pmatrix}\]
+    \begin{enumerate}
+        \item Dimostrare che è l'intersezione delle superfici $z=x^2$ e $x^2+y^2=1$
+        \item Dimostrare che è regolare
+        \item Trovare la retta tangente a $\vec{x}(t)$ la cui direzione è parallela a $\vec{v}=\left(1,-1,\sqrt{2}\right)$. Specificarne l'equazione e il punto di tangenza $\\$
+    \end{enumerate}
+
+    %ES. 10 scheda
+    \item Determinare l'angolo di intersezione tra l'origine e le curve:
+    \[\vec{r_1}(t)=\begin{pmatrix}
+        t\\
+        t^2\\
+        t^3
+    \end{pmatrix}\]
+    \[\vec{r_2}(t)=\begin{pmatrix}
+        \sin(t)\\
+        \sin(2t)\\
+        t
+    \end{pmatrix}\\\]
+
+    %ES. 11 scheda
+    \item Provare che se il vettore posizione $\vec{r}(t)$ è sempre perpendicolare al vettore tangente $\dot{\vec{r}}(t)$, allora la curva giace su una sfera centrata in $O\\$
+
+    %ES. 12 scheda
+    \item Riparametrizzare le seguenti curve rispetto all'ascissa curvilinea misurata a partire dal punto in cui $t=0$, nella direzione delle $t$ crescenti:
+    \begin{enumerate}
+        \item $\vec{r}(t)=\begin{pmatrix}
+            e^t\sin(t)\\
+            e^t\cos(t)
+        \end{pmatrix}$
+        
+        \item $\vec{\gamma}(t)=\begin{pmatrix}
+            1+2t\\
+            3+t\\
+            -5t
+        \end{pmatrix}$
+
+        \item $\vec{x}(t)=\begin{pmatrix}
+            3\sin(t)\\
+            4t\\
+            3\cos(t)
+        \end{pmatrix}$
+    \end{enumerate}
+\end{enumerate}
+
+\newpage
+
+\section{Integrali curvilinei}
+\begin{enumerate}
+    %ES. 1 scheda
+    \item Calcolare l'area della superficie parallela all'asse $z$ compresa tra il piano $z=0$ e il grafico della funzione $f(x,y)=xy$ che interseca il piano $z=0$ lungo l'arco di parabola
+    \[\vec{r}(t)=\begin{pmatrix}
+        t\\
+        t^2
+    \end{pmatrix}_{t\in[0,1]\\}\]
+
+    %ES. 2 scheda
+    \item Calcolare il momento di inerzia rispetto all'asse $z$ di un filo di densità lineare di massa $\delta = cost.$, avente la forma di un'elica 
+    \[\vec{x}(t)=\begin{pmatrix}
+        R \ \cos(t)\\
+        R \ \sin(t)\\
+        t
+    \end{pmatrix}_{t\in [0,4\pi]\\}\]
+
+    %ES. 3 scheda
+    \item Calcolare il baricentro di un filo omogeneo avente la forma del cicloide di equazione
+    \[\vec{\gamma}(t)=\begin{pmatrix}
+        \alpha\left[t-\sin(t)\right]\\
+        \alpha \left[1-\cos(t)\right]
+    \end{pmatrix}_{t\in [0,2\pi]} \quad \text{con } \alpha >0\\\]
+
+    %ES. 4 scheda
+    \item Calcolare la massa di un filo con densità lineare di massa $\delta (x,y,z)=x$ avente la forma dell'elica
+    \[\vec{r}(t)=\begin{pmatrix}
+        4t\\
+        -3\cos(t)\\
+        3\sin(t)
+    \end{pmatrix}_{t\in [0,\pi]}\\\]
+
+    %ES. 5 scheda
+    \item Calcolare
+    \[_\gamma\int f(x,y,z)dS \quad \text{con }f(x,y,z)=\sqrt{2y^2+z^2}\]
+    e $\gamma$ è la circonferenza intersezione tra $x^2+y^2+z^2=4$ e $x=y\\$
+
+    %ES. 6 scheda
+    \item Calcolare
+    \[_\gamma\int \left(x^2+y^2\right)^2dS\]
+    dove $\gamma$ è l'equazione polare $\rho (\theta)=e^{2\theta}$ con $\theta \in (-\infty,0]\\$
+
+    %ES. 7 scheda
+    \item Calcolare
+    \[_C\int 2xdS\]
+    dove $C$ è composta dall'arco di parabola $y=x^2$ da $(0,0)$ a $(1,1)$ e dal segmento verticale da $(1,1)$ a $(1,2)\\$
+
+    %ES. 8 scheda
+    \item Trovare il lavoro compiuto dalle forze del campo
+    \[\vec{F}(x,y)=\begin{pmatrix}
+        x^2\\
+        -xy
+    \end{pmatrix}\]
+    per spostare una particella lungo il primo quarto di circonferenza unitaria $\\$
+
+    %ES. 9 scheda
+    \item Trovare il lavoro compiuto dal campo di forze 
+    \[\vec{F}(x,y)=\begin{pmatrix}
+        x\sin(y)\\
+        y
+    \end{pmatrix}\]
+    su una particella che viene spostata lungo la parabola $y=x^2$ da $(-1,1)$ a $(2,4)\\$
+
+    %ES. 10 scheda
+    \item Un uomo del peso di 80 kg trasporta una latta del peso di 10 kg lungo una scala elicoidale che circonda un silos cilindrico di 6 m di diametro. Il silos è alto 4,5 m, e occorrono esattamente 3 giri per arrivare alla sommità. \\
+    Calcolare il lavoro compiuto dall'uomo contro la forza di gravità.\\
+
+    %ES. 11 scheda
+    \item Calcolare
+    \[_C\int 2x\sin{y}\textbf{dx}+\left(x^2\cos{y}-3y^2\right)\textbf{dy}\]
+    dove $C$ è il segmento che unisce i punti $(-1,0)$ e $(5,1)\\$
+
+    %ES. 12 scheda
+    \item Calcolare il lavoro fatto dal campo di forze $\vec{F}$ per spostare un oggetto lungo il segmento $\overline{PQ}$
+    \begin{enumerate}
+        \item $\vec{F}(x,y)=\begin{pmatrix}
+            x^2y^3\\
+            x^3y^2
+        \end{pmatrix} \quad \text{con } P(0,0),\quad Q(2,1)$
+        \item $\vec{F}(x,y)=\begin{pmatrix}
+            \frac{y^2}{x^2}\\
+            -\frac{2y}{x}
+        \end{pmatrix} \quad \text{con } P(1,1),\quad Q(4,-2)$
+    \end{enumerate}
+\end{enumerate}
+
+\end{document}

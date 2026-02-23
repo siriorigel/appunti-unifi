@@ -1,0 +1,266 @@
+\documentclass{article}
+\usepackage{graphicx}
+\graphicspath{{./IMMAGINI/}}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%comandi nuovi
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\vF}{\vec{F}}
+\newcommand{\Si}{\Sigma}
+\newcommand{\vr}{\vec{r}}
+\newcommand{\de}{\partial}
+
+\title{Analisi II - Integrali di superficie}
+\author{Marco Delton\thanks{esercizi della prof.ssa\textit{Chiara Bianchini}}}
+\date{A.A. 2025/26}
+
+\begin{document}
+\maketitle
+
+\section{Foglio n.1}
+
+\begin{enumerate}
+    %ES. 1
+    \item Calcolare l'area della superficie:
+    \[\vec{r}(\mu,\nu) = \begin{pmatrix}
+        \mu \ \cos{(\nu)} \\ \mu \ \sin{(\nu)} \\ \mu^2
+    \end{pmatrix}_{(\mu,\nu)\in[0,1]\times[0,\pi)}\\\]
+
+    %ES. 2
+    \item Calcolare il flusso del campo:
+    \[\vF (x,y,z) = \begin{pmatrix}
+        xy \\ xy \\ z
+    \end{pmatrix} \ \text{attraverso} \ \Sigma = \left\{(x,y,z)\in\R^3: \ \begin{matrix}
+        z=1-x^2-y^2 \\ z \geq 0
+    \end{matrix}\right\}\\\]
+
+    %ES. 3
+    \item Calcolare l'area della superficie elicoidale che si avvolge di un giro. $\\$
+    
+    %ES. 4
+    \item Calcolare: 
+    \[\iint_\Sigma \frac{z+y^2}{\sqrt{1+4\left(x^2+y^2\right)}} \ d\sigma\]
+    dove $\Sigma$ è parte della superficie $z=x^2-y^2$ che si proietta in:
+    \[T=\left\{\begin{matrix}
+        x^2+y^2 \geq 1 \\ x^2+4y^2 \leq 4
+    \end{matrix}\right\}\\\]
+
+    %ES. 5
+    \item Calcolare l'area della porzione di cilindro:
+    \[y^2+z^2=a^2\]
+    interna al cilindro:
+    \[x^2+y^2=a^2\\\]
+
+    %ES. 6
+    \item Una massa $M$ è distribuita uniformemente sul tronco di cono:
+    \[\begin{cases}
+        z^2=x^2+y^2 \\ 1 \leq z \leq 2
+    \end{cases}\]
+    \begin{enumerate}
+        \item Trovare la densità superficiale $\rho$. 
+        \item Calcolare il momento di inerzia rispetto all'asse $z$. $\\$
+    \end{enumerate}
+
+    %ES. 7
+    \item Una carica elettrica è distribuita uniformemente sulla superficie sferica: 
+    \[x^2+y^2+z^2=R^2\]
+    Calcolare il potenziale elettrostatico da essa generato fuori e dentro la sfera, 
+    in un punto $P(0,0,z)$ sull'asse $z$. \\
+    \textbf{Suggerimento:} Il potenziale elettrostatico in $P$ è:
+    \[U(0,0,z) = -k \ \iint_\Sigma \frac{d\sigma}{r}\]
+    con: 
+    \begin{itemize}
+        \item $k$ è costante
+        \item $\Sigma$ è una superficie sferica
+        \item $\rho$ è la densità di carica uniforme
+        \item $r$ è la distanza di un punto da $P\\$ 
+    \end{itemize}
+
+    %ES. 8
+    \item Determinare il momento di inerzia di una lamina omogenea di densità costante $\delta$
+    e superficie $\Sigma$ rispetto alla retta intersezione dei piani $y=1$ e $z=0$. 
+    \[\Sigma = \left\{(x,y,z)\in\R^3: \ \begin{matrix}
+        x^2+y^2=1 \\ 0 \leq z \leq 2
+    \end{matrix}\right\}\]
+    $\\$
+
+    %ES. 9
+    \item Calcolare il flusso del campo:
+    \[\vF (x,y,z)= \begin{pmatrix}
+        1\\ 0\\ 1
+    \end{pmatrix}\]
+    attraverso $\Si$ descritta dalle seguenti relazioni:
+    \[\vr (\mu,\nu) = \begin{pmatrix}
+        \mu^2 \\ \sqrt{2} \ \mu\nu \\ \nu^2
+    \end{pmatrix} \ \text{con} \ (\mu,\nu)\in \mathbb{T}\]
+    \[\mathbb{T} = \left\{\begin{matrix}
+        1 \leq \mu^2+\nu^2 < 2 \\ \mu < \nu
+    \end{matrix}\right\}\\\]
+
+
+    %ES. 10
+    \item Calcolare il lavoro del campo:
+    \[\vF = \begin{pmatrix}
+        y+z \\ z+x \\ x-y
+    \end{pmatrix}\]
+    lungo la circonferenza $\gamma$ intersezione tra la superficie sferica $x^2+y^2+z^2=1$ e il
+    piano $z=y$.\\
+    \textbf{Suggerimento:} Sia
+    \[\gamma_t = \begin{pmatrix}
+        \cos{(t)} \\ 
+        \frac{\sin{(t)}}{\sqrt{2}}\\
+        \frac{\sin{(t)}}{\sqrt{2}}
+    \end{pmatrix}\]
+    $\gamma$ è $\partial\Sigma$ dove $\Sigma$ è l'intersezione tra la sfera e il piano.\\
+    Per il teorema di Stokes posso dire: 
+    \[\mathcal{L}_{\mathbb{E},\gamma} = \int_\gamma \vec{F} \cdot ds = \int_{\partial^+\Sigma} \vec{F}\cdot\vec{t} \ ds\\\]
+
+    %ES. 11
+    \item Calcolare il momento di inerzia della superficie $\Si$ attorno all'asse $z$, dove $\Si$ è data 
+    dall'intersezione tra il cilindro $x^2+y^2=1$ e i piani $z=0$ e $z=1+x$, comprese le basi superiore 
+    e inferiore.$\\$
+
+    %ES. 12
+    \item Calcolare il flusso del campo:
+    \[\vF = \begin{pmatrix}
+        z\\ y\\ x
+    \end{pmatrix}\]
+    attraverso la sfera:
+    \[x^2+y^2+z^2=1\\\]
+
+    %ES. 13
+    \item La temperatura di una sfera metallica è proporzionale al quadrato della distanza dal centro
+    del corpo. \\
+    Trovare il flusso della quantità di calore che attraversa una sfera $S$ di raggio $a$, centrata nel
+    centro della sfera metallica.$\\$
+
+    %ES. 14
+    \item Calcolare il lavoro del campo:
+    \[\vF = \begin{pmatrix}
+        -z\\ x\\ y
+    \end{pmatrix}\]
+    lungo la curva $\gamma$ data dall'intersezione del piano $z=y$ con il paraboloide $z=x^2+y^2$
+\end{enumerate}
+
+\newpage
+
+\section{Foglio n.2}
+
+\begin{enumerate}
+    %ES. 1
+    \item Calcolare $A(\de\mathbb{E})$, dove $\mathbb{E}$ è l'intersezione tra due palle di raggio 2
+    i cui centri sono posti a distanza 3. $\\$
+
+    %ES. 2
+    \item Sia $\gamma: [1,2]\to\R^3$ t.c.:
+    \[\vec{\gamma}(t) = \begin{pmatrix}
+        t\\ t^2\\ t
+    \end{pmatrix}\]
+    di sostegno $\Gamma$. \\
+    Sia $\Si$ l'insieme dei segmenti che congiungono i punti di $\Gamma$ con le loro proiezioni
+    sul piano $z=0$.
+    \begin{enumerate}
+        \item Provare che $\Si$ è una superficie regolare.
+        \item Calcolare $A(\Si)$.\\
+    \end{enumerate}
+
+    %ES. 3
+    \item Calcolare:
+    \[\iint_\Si g(x,y,z) \ d\sigma \ \text{su} \ \Si = \left\{\begin{matrix}
+        z=x^2+y^2\\ x^2+y^2 \leq 1
+    \end{matrix}\right\}\]
+    con:
+    \[g(x,y,z) = \frac{y}{\sqrt{1+4z}}\]$\\$
+
+    %ES. 4
+    \item Sia:
+    \[\mathbb{E} = \left\{(x,y,z)\in\R^3: \begin{matrix}
+        x^2+y^2 \leq 1 \\ 0 \leq 2z \leq 4+x+y
+    \end{matrix}\right\}\]
+    e sia $\Si\equiv\de\mathbb{E}$. \\
+    Calcolare: 
+    \[\iint_\Si xyz \ d\sigma\]\\
+
+    %ES. 5
+    \item Sia $\mathbb{E}$ l'intersezione di un cono circolare retto pieno di apertura $\frac{\pi}{3}$
+    e di una palla centrata nel vertice del cono e avente ragio $\frac{3}{2}$. \\
+    Calcolare l'area di $\de\mathbb{E}$.$\\$
+
+    %ES. 6
+    \item Sia: 
+    \[\vec{\gamma}: \ \begin{cases}
+        x = \rho (t) \\
+        z = z(t)
+    \end{cases}\]
+    con $t\in\mathbb{I}$, una curva nel piano $y=0$. \\
+    Calcolare l'area della superficie ottenuta ruotando $\gamma$ attorno all'asse $z$.$\\$
+
+    %ES. 7
+    \item Svolgere l'esercizio (6) nel caso in cui la curva è grafico di una funzione nella forma
+    $x = f(z)\\$
+
+    %ES. 8
+    \item Calcolare l'area della superficie di un toro. $\\$
+    
+    %ES. 9
+    \item Sia $\mathbb{F}$ la porzione di superficie sferica $x^2+y^2+z^2=1$ interna al cilindro: 
+    \[\left(x-\frac{1}{2}\right)^2 + \ y^2 = \frac{1}{4}\]
+    Calcolare l'area di $\mathbb{F}\\$
+
+    %ES. 10
+    \item Calcolare l'area della superficie $\Si: \ z=y$ che si proietta sull'insieme $\mathbb{T}$, dove:
+    %immagine
+    \begin{center}
+        \includegraphics[height=4.5cm,width=8cm]{Screenshot 2025-12-06 alle 12.23.18.jpeg}
+    \end{center}
+
+    \[\vec{\gamma} (t) = \begin{pmatrix}
+        \cos(t) \\ \sin(t)
+    \end{pmatrix}_{t\in \left[0,\frac{\pi}{2}\right]} \quad \text{e} \quad \vec{\Gamma} (t) = \begin{pmatrix}
+        t-\sin(t) \\ 1+\cos(t)
+    \end{pmatrix}_{t\in [-\pi,\pi]}\]$\\$
+
+    %ES. 11
+    \item Calcolare l'area del paraboloide tronco descritto dalle equazioni:
+    \[z=x^2+y^2\]
+    \[0 \leq z \leq 1\]$\\$
+
+    %ES. 12
+    \item Sia $\mathbb{P}$ un paraboloide pieno di equazione $z \geq x^2+y^2$.\\
+    Sia $\mathbb{B}$ una palla di equazione $x^2+y^2+z^2=1$.\\
+    Sia $\mathbb{E} = \mathbb{P} \cap \mathbb{B}$.\\
+    Sia $\Si \equiv \de\mathbb{E}$.\\
+    Calcolare il baricentro di $\Si\\$
+
+    %ES. 13
+    \item Sia $\Si$ una superficie in $\R^3$ t.c.:
+    \[\Si = \left\{(x,y,z)\in\R^3: \ 2x=y^2\right\}\]
+    Calcolare l'area della porzione di $\Si$ contenuta all'interno dell'insieme $\mathbb{G}$:
+    \[\mathbb{G} = \left\{(x,y,z)\in\R^3: \ 0 \leq z \leq 4-y^2\right\}\]
+
+    %ES. 14
+    \item Calcolare l'area di $\de\mathbb{E}$ dove:
+    \[\mathbb{E} = \left\{(x,y,z)\in\R^3: \ \begin{matrix}
+        4x^2+y^2+z^2 \geq y+1 \\ 0 \leq y \leq 2-2\sqrt{4x^2+z^2}
+    \end{matrix}\right\}\]$\\$
+
+    %ES. 15
+    \item Sia:
+    \[\vF (x,y,z) = \begin{pmatrix}
+        x\\ -(2x+y)\\ z
+    \end{pmatrix}\]
+    il vettore densità di flusso di un fluido. \\
+    Sia:
+    \[\mathbb{S} = \begin{cases}
+        x^2+y^2+z^2=1 \\ z\geq 0
+    \end{cases}\]
+    Calcolare la massa di fluido passante attraverso $\mathbb{S}$ nell'unità di tempo, nel verso di
+    \underline{n} normale esterna. \\
+
+    %ES. 16
+    \item Un guscio sferico omogeneo è tagliato da un cono circolare retto il cui vertice è il centro
+    della sfera, e l'angolo al vertice del cono è $\alpha$, con $0<\alpha<\pi$. \\
+    Determinare, in funzione di $(R,\alpha)$, il centro di massa del guscio che si trova dentro il cono
+\end{enumerate}
+\end{document}

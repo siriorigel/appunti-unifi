@@ -1,0 +1,191 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Analisi II - Formule di Gauss-Green}
+\author{Marco Delton\thanks{esercizi della prof.ssa \textit{Chiara Bianchini}}}
+\date{A.A. 2025/26}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+    %ES.1
+    \item Calcolare l'area racchiusa dalla curva:
+    \[\rho (\theta)=2+\cos{\theta}\]
+    con $\theta\in [0,2\pi]\\$
+
+    %ES. 2
+    \item Calcolare l'area dell'ellisse:
+    \[\frac{x^2}{a^2} + \frac{y^2}{b^2} \leq 1\\\]
+
+    %ES. 3
+    \item Calcolare l'area della regione di piano delimitata da:
+    \[x^{\frac{2}{3}} + y^{\frac{2}{3}} = 1\\\]
+
+    %ES. 4
+    \item Provare che:
+    \[\iint_\mathbb{D} \Delta g \ dx \ dy = \oint_{\partial\mathbb{D}} \frac{\partial g}{\partial\nu} \ ds\]
+    dove $g: \ \mathbb{D}\to\mathbb{R}$ è una funzione differenziabile di classe $C^2$ e $\Delta$ 
+    indica l'operatore di Laplace $\\$
+
+    %ES. 5
+    \item Provare che:
+    \[\oint_{\partial^+\mathbb{D}} f \ \frac{\partial g}{\partial\nu} \ ds = \iint_{\mathbb{D}} \left(f \ \Delta g + \nabla f \ \nabla g\right) \ dx \ dy\\\]
+
+    %ES. 6
+    \item Calcolare:
+    \[\iint_{\mathbb{E}} \frac{x}{x^2+y^2} \ dx \ dy \quad\text{su } \mathbb{E}=\left\{\frac{4}{9} \leq x^2+y^2 \leq 12; \ y \geq x^2\right\}\]
+    $\\$
+
+    %ES. 7
+    \item Sia $\omega: \ \mathbb{R}^2 \to \left(\mathbb{R}^2\right)^*$ definita da:
+    \[\omega(x,y) = \left(2x \ \cos{y} - 3y\right) \ dx + \left(2-x^2 \ \sin{y}\right) \ dy\]
+    Sia $\gamma$ una curva di estremi $A$ e $B$ semplice e regolare a tratti e t.c. l'area della regione $\mathbb{D}=4$, 
+    con $\partial\mathbb{D} = \gamma\cup\overline{OA}\cup\overline{OB}$ con:
+    \[O \equiv (0,0); \quad A \equiv (0,1); \quad B \equiv (0,2)\\\]
+
+    %ES. 8
+    \item Sia $\mathbb{C}$ una curva semplice chiusa sottostante il piano $xy$, $\mathbb{C} = \partial\mathbb{D}$. 
+    Sia $M_z$ il momento di inerzia di $D$ rispetto all'asse $z$. \\
+    Provare che:
+    \[\exists n \in \mathbb{N} \quad t.c. \quad n \ M_z = \oint_{\mathbb{C}} \left(x^3 \ dy - y^3 \ dx\right)\\\]
+
+    %ES. 9
+    \item Sia $\mu$ armonica in $B(0,R)$ con $R>2$ $\left(\text{cioè } \mu \ \text{t.c.} \ \Delta\mu = 0 \ \text{in} \ B(0,R)\right)$. 
+    \begin{itemize}
+        \item Provare che $\operatorname{div}{\left((x^2+y^2) \ \Delta\mu (x,y)\right)} = 2r \ \frac{\partial\mu}{\partial r}(r,\theta)$ 
+        con $(r,\theta)$ coordinate polari in $\mathbb{R}^2$. 
+        \item Calcolare:
+            \[\int_{0}^{2\pi} \ \int_{0}^{2} r^2 \ \mu_r \ dr \ d\theta\]
+            Sapendo che $\mu_r \equiv 1$ sulla circonferenza di centro $(0,0)$ e raggio 2.$\\$
+    \end{itemize}
+
+    %ES. 10
+    \item Calcolare:
+    \[\iint_{\mathbb{E}} y \ dx \ dy\]
+    dove $\mathbb{E}$ è l'intersezione tra $B(0,1)$ e il cerchio di centro $(x_0,0)$ che incontra $B(0,1)$
+    nel punto $(\cos{\theta_0},\sin{\theta_0})$ t.c. $\partial B(0,1)$ e $\partial C$ si tagliano ortogonalmente,
+    considerando $y \geq 0$.$\\$
+    
+    %ES. 11
+    \item Calcolare:
+    \[\int_{\gamma} (y+z) \ dx + (z+x) \ dy + (x+y) \ dz \ \text{su } \ \gamma = \left\{\begin{matrix}
+        x^2+y^2+z^2 = r^2\\
+        x+y+z=0
+    \end{matrix}\right\}\] $\\$
+
+    %ES. 12
+    \item Sia $\Sigma$ una superficie regolare. Calcolare il flusso del campo
+    \[\rho (x,y,z) \ \underline{v} (x,y,z)\]
+    attraverso $\Sigma\\$
+
+    %ES. 13
+    \item Sia $\mathbb{D} \subseteq \mathbb{R}^2: \ \left|\mathbb{D}\right| >0$. 
+    Provare che $\nexists\mu: \ \mathbb{D}\to\mathbb{R}$ differenziabile t.c.:
+    \[\begin{cases}
+        \Delta\mu = 1 & \text{in } \mathbb{D}\\
+        \frac{\partial\mu}{\partial\nu} = 0 & \text{su } \partial\mathbb{D}
+    \end{cases}\\\]
+
+    %ES. 14
+    \item Calcolare il lavoro del campo:
+    \[\vec{F} = \begin{pmatrix}
+        y+z\\
+        z+x\\
+        x-y
+    \end{pmatrix}\]
+    lungo la circonferenza $\gamma$ data dall'intersezione tra la superficie sferica $x^2+y^2+z^2=1$
+    e il piano $z=y$ di equazione:
+    \[\begin{pmatrix}
+        x\\
+        y\\
+        z\\
+    \end{pmatrix} = \begin{pmatrix}
+        \cos{t}\\
+        \frac{1}{\sqrt{2}} \ \sin{t}\\
+        \frac{1}{\sqrt{2}} \ \sin{t}
+    \end{pmatrix}_{t\in [0,2\pi]}\\\]
+
+    %ES. 15
+    \item Calcolare il flusso del campo:
+    \[\vec{F} = \begin{pmatrix}
+        z\\
+        x^2y\\
+        y^z
+    \end{pmatrix}\]
+    uscente dal solido $S$:
+    \[S = \left\{(x,y,z)\in\mathbb{R}^3: \ 2\sqrt{x^2+y^2} \leq z \leq 1+x^2+y^2\right\}\\\]
+
+    %ES. 16
+    \item Calcolare:
+    \[\iint_{B(0,1)} \vec{F} \cdot \vec{G} \ dx \ dy\]
+    dove:
+    \[\vec{F} = \begin{pmatrix}
+        \nu(x,y)\\
+        \mu(x,y)
+    \end{pmatrix} \quad \vec{G} = \begin{pmatrix}
+        \mu_x - \mu_y\\
+        \nu_x - \nu_y
+    \end{pmatrix} \quad B(0,1) = \left\{x^2+y^2 \leq 1\right\}\]
+    sapendo che $\mu(x,y)\equiv 1, \ \nu(x,y) = y \ \text{su } \partial B(0,1)\\$
+
+    %ES. 17
+    \item Siano:
+    \[\mathbb{D} = \left\{x^2+y^2>0\right\}, \ P(x,y) = \frac{y}{x^2+y^2}, \ Q(x,y) = -\frac{x}{x^2+y^2}\]
+    Sia $\gamma$ una curva di Jordan regolare sottostante $\mathbb{D}$. \\
+    Calcolare:
+    \[\int_{\gamma}P\ dx + Q \ dy\]
+    \begin{itemize}
+        \item nel caso in cui $(0,0)$ è interno a $\gamma$
+        \item nel caso in cui $(0,0)$ è esterno a $\gamma\\$
+    \end{itemize}
+
+    %ES. 18
+    \item Siano $P$ e $Q$ campi scalari t.c.:
+    \[\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x} \quad \forall(x,y)\in\mathbb{R}^2 \backslash \left\{R_1,R_2,R_3\right\}\]
+    con $R_1,R_2,R_3$ punti del piano.\\
+    Sia:
+    \[I_i = \oint_{C_i} P \ dx + Q \ dy\]
+    dove $C_i$ sono le circonferenze di centro $R_i$ con $C_j \cap C_i \ne \varnothing$.\\
+    Sia: $I_1 = 12, \ I_2 = 10 \ I_3 = 15$.
+    \begin{itemize}
+        \item Trovare:
+        \[\oint_{C} P \ dx + Q \ dy\]
+        \item Tracciare la curva chiusa $\Gamma$ t.c.:
+        \[\oint_{\Gamma} P \ dx + Q \ dy = 1\\\]
+    \end{itemize}
+
+    %ES. 19
+    \item Calcolare il flusso del campo $\operatorname{rot}{\vec{F}}$ dove:
+    \[\vec{F} = \begin{pmatrix}
+        z\\ x\\ z
+    \end{pmatrix}\]
+    attraverso la porzione di superficie $\Sigma$ di equazione $z=xy$ che si proietta nel dominio
+    $T = \left\{x^2+y^2 \leq 1\right\}$, orientata in modo che $\vec{N}$ abbia la terza componente maggiore di 0.\\
+
+    %ES. 20
+    \item Calcolare la circuitazione del vettore:
+    \[\vec{F} = \begin{pmatrix}
+        x^2 \\ x \\ y
+    \end{pmatrix}\]
+    lungo la circonferenza sul piano $z=0$ di equazione $x^2+y^2 = 4$ percorsa in senso antiorario\\
+
+    %ES. 21
+    \item Sia $\mathbb{D} \subseteq \mathbb{R}^2, \ f,g \in C^2(\mathbb{D})$ differenziabili e t.c. $f = g = 0$ su $\partial\mathbb{D}$. 
+    Allora:
+    \[\iint_{\mathbb{D}} g \ \Delta f \ dx \ dy = \iint_{\mathbb{D}} f \ \Delta g \ dx \ dy\\\]
+
+    %ES. 22
+    \item Dato:
+    \[\vec{F} = \begin{pmatrix}
+        x \\ 2y \\ -3z
+    \end{pmatrix}\]
+    \begin{itemize}
+        \item Calcolare la circuitazione di $\vec{F}$ lungo la linea di intersezione tra le superfici
+        $z=xy$ e $x^2+y^2=1$
+        \item Calcolare il flusso uscente dal cubo unitario avente tre spigoli sugli assi, un vertice
+        nell'origine e il vertice opposto in $(1,1,1)$
+    \end{itemize}
+\end{enumerate}
+\end{document}

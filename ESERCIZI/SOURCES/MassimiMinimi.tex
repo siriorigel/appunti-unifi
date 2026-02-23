@@ -1,0 +1,178 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{minibox}
+
+\title{Analisi II - Massimi e minimi}
+\author{Marco Delton\thanks{esercizi dei prof \textit{Gabriele Bianchi}, \textit{Chiara Bianchini} e \textit{Luca Bisconti}}}
+\date{A.A. 2025/26}
+
+%comandi
+\newcommand\R{\mathbb{R}}
+\newcommand\de{\partial}
+
+\begin{document}
+
+\maketitle
+
+\section{Massimi e minimi locali}
+
+Trovare i punti di punti di massimo e minimo locale delle funzioni sottostanti, nei relativi insiemi
+
+\begin{enumerate}
+    \item $f(x,y)=\frac{x^3}{3}+x^2y+xy^2-\frac{x^2}{2}-xy$\\
+    in $D=\{(x,y):|x|\leq5,|y|\leq5\}$ \\
+    
+    \item $f(x,y)=\frac{(3y-x^2-y^2)(2y^2-9y+12)}{3-y}$ \\
+    nel cerchio aperto di centro $\left(0,\frac{3}{2}\right)$ e raggio $\frac{3}{2}$\\
+    
+    \item $f(x,y)=12x^3+4x^2y-5xy^2-2y^3+4x^2+y^2+4xy$ \\
+    in $\mathbb{R}^2$\\
+    
+    \item $f(x,y)=\sqrt{(1+x^2)(1+y^2)}-xy$ \\
+    in $D=\{(x,y):x^2+y^2\leq4\}$\\
+    
+    \item $f(x,y)=(r-5)^2(r-1)e^{-3x+4y}$ \\
+    con $r=\sqrt{x^2+y^2}$ in $\mathbb{R}^2$\\
+    
+    \item $f(x,y)=\ln(r^2+\sqrt{1+r^4})+x+y$ \\
+    con $r=\sqrt{x^2+y^2}$ in $\mathbb{R}^2$\\
+    
+    \item $f(x,y)=(1-x^2)(1-y^2)(1-x^2-y^2)$ \\
+    in $\mathbb{R}^2$\\
+    
+    \item $f(x,y)=-3x^3+6x^2y+2y^3-3x-6y$ \\
+    in $\mathbb{R}^2$\\
+    
+    \item $f(x,y)=(1+|x|)(1+6x)^2(1-|x|-|y|)$ \\
+    nel quadrato di vertici $(1,0),(-1,0),(0,1),(0,-1)$\\
+
+    \item \[f(x,y)=\begin{cases}
+        \frac{y}{1+y^2}(16x^2y^2+16y^4+2x^2-19y^2+3) & \text{ se } |y| \leq 1, \text{ } (x,y) \in \mathbb{D}\\
+        f(0,\pm 1)=5
+    \end{cases}\]
+    in $\mathbb{D}=\{x^2+y^2 \leq 1\}$\\
+    
+    \item $f(x,y)=\frac{4}{3}x^3+\frac{5}{2}x^2y+\frac{3}{2}y^2-\frac{481}{250}y$ \\
+    in $\mathbb{R}^2$\\
+    Determinare se esiste un minimo di $f$ ristretta al quadrante $\begin{cases}
+        x \geq 0\\
+        y \geq 0
+    \end{cases}$, e in caso affermativo calcolarlo \\
+
+    \item Sia $\mathbb{T}$ il triangolo di vertici $(0,0),(1,0),(0,1)$, e $f(x,y)$ la distanza di $(x,y)$ dal complementare di $\mathbb{T}$.\\
+    Calcolare il massimo di $f$ in $\mathbb{R}^2$
+
+    \item Tra tutti i triangoli di vertice in $(0,0,1)$ con un vertice sulla retta $\begin{cases}
+        y=1 \\ z=0
+    \end{cases}$ e l'altro sulla retta $\begin{cases}
+        y=1 \\z=3
+    \end{cases}$, trovare quello di area minima\\
+
+    \item Determinare il massimo e il minimo assoluto di
+    \[f(x,y)=|x|^{\frac{1}{4}}+|y|^{\frac{1}{4}}\]
+    su $\{x^2+y^2 \leq 2\}$\\
+
+    \item Determinare l'estremo superiore e l'estremo inferiore di: 
+    \[f(x,y)=x^2y^2-x^4+2x^2\]
+    nella striscia $S:=\{(x,y):0 \leq x \leq 2\}$
+
+\end{enumerate}
+
+\newpage
+
+\section{Massimi e minimi vincolati}
+\begin{enumerate}
+    \item Determinare i valori estremi di: 
+    \[f(x,y,z)=x^2+y^2+z^2\]
+    che soddisfano i vincoli:
+    \[g_1(x,y,z)=x^2+y^2-1=0\]
+    \[g_2(x,y,z)=x+y+z-1=0\]
+    \fbox{\tiny \textbf{Suggerimento:} $\{g_1=0\}$ è un cilindro parallelo all'asse $z$, $\{g_2=0\}$ è un piano}\\
+
+    \item Determinare il valore minimo di:
+    \[f(x,y,z)=x^2+y^2+z^2\]
+    che soddisfa i vincoli:
+    \[g_1(x,y,z)=x+2y+z-1=0\]
+    \[g_2(x,y,z)=2x-y-3z-4=0\]
+
+    \item Determinare massimi e minimi di
+    \[f(x,y)=4x^2+2y^2-2x\]
+    su $\mathbb{D}=\begin{cases}
+        2x^2+y^2=1\\2y^2+x^2=1
+    \end{cases}$\\
+
+    \item Determinare gli estremi vincolati di
+    \[f(x,y)=x^2-xy^2\]
+    su $\mathbb{Z}=\left\{(x,y) \in \mathbb{R}^2:x^2+y^2=1\right\}$\\
+
+    \item Determinare il valore massimo di 
+    \[f(x,y)=xy-x^3y^2\]
+    nel quadrato $\left\{0 \leq x \leq 1; 0 \leq y \leq 1 \right\}$\\
+
+    \item Determinare il valore massimo e il valore minimo di
+    \[f(x,y)=xy(1-x-y)\]
+    nel triangolo di vertici $(0,0),(1,0)$ e $(0,1)$\\
+
+    \item Determinare il valore massimo di
+    \[f(x,y)=\sin(x)\sin(y)\sin{(x+y)}\]
+    nel triangolo delimitato dagli assi coordinati e dalla retta $x+y=\pi$\\
+
+    \item La temperatura in tutti i punti del disco $x^2+y^2 \leq 1$ è data da
+    \[T=(x+y)e^{-x^2-y^2}\]
+    Determinare la temperatura massima e la temperatura minima del disco\\
+
+    \item Determinare il valore massimo e il valore minimo di
+    \[f(x,y)=\frac{x-y}{x^2+y^2+1}\]
+    nel semipiano superiore $y \geq 0$\\
+
+    \item Determinare massimi e minimi di
+    \[f(x,y)=x^2+y^2\]
+    su $\{y^2-x^2+x^4=0\}$\\
+\end{enumerate}
+
+\newpage
+
+\section{Studio di funzione}
+\begin{enumerate}
+    \item Calcolare gradiente e matrice Hessiana di di:
+    \[f(x,y) = x^4+4y^4-4xy\]
+    in $\R^2$.\\
+    Determinare poi i punti critici di $f(x,y)$ e studiarne la natura\\
+
+    \item Calcolare gradiente e matrice Hessiana di:
+    \[f(x,y) = x^2y - x^2 - y^2\]
+    in $\R^2$.\\
+    Determinare poi i punti critici di $f(x,y)$ e studiarne la natura\\
+
+    \item Studiare, se esistono, punti di massimo, di minimo relativo o di sella di:
+    \[f(x,y) = \left(x+2y-y^2\right)x^2\]
+
+    \item Studiare, se esistono, punti di massimo, di minimo relativo o di sella di:
+    \[f(x,y) = x^2\ln(1+y)+y^2x^2\]
+    nel suo dominio di definizione\\
+
+    \item Studiare la funzione:
+    \[f(x,y) = x^8-2x^4y+y^3-y\]
+
+    \item Studiare la funzione:
+    \[f(x,y) = \left(x^2+x|y|+y^2\right) e^{x-y}\]
+
+    \item Studiare la funzione:
+    \[f(x,y) = \ln\left(1+x^2y^2\right)\]
+
+    \item Studiare la funzione:
+    \[f(x,y) = 2x \ e^{-(x^2+y^2)}\]
+
+    \item Studiare la funzione:
+    \[f(x,y) = (x-1)^2(y^2-4x^2)\]
+
+    \item Determinare i punti di massimo e minimo assoluto di:
+    \[f(x,y) = x^2+y^2-x-y\]
+    su $\mathbb{D} = \left\{(x,y)\in\R^2: \ x^2+y^2 \leq 1, \ y\geq 0\right\}$\\
+    \minibox[frame]{\tiny \textbf{Suggerimento 1:} Cercare gli eventuali punti critici in $\overset{\circ }{\mathbb{D}}$ (non serve studiarne la natura con l'Hessiana) \\
+    \tiny Studiare poi i massimi e i minimi di $f$ ristretta a $\de\mathbb{D}$, e a quel punto basta confrontare i valori della funzione\\ \tiny per trovare massimo e minino assoluto}
+\end{enumerate}
+
+\end{document}

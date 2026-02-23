@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Analisi II - Spazi Metrici e Normati}
+\author{Marco Delton\thanks{esercizi dei prof. \textit{Gabriele Bianchi} e \textit{Chiara Bianchini}}}
+\date{November 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+    \item Sia $(X,d)$ spazio metrico. Sia $d:X\times X \to \mathbb{R} $ t.c. $\forall x,y \in X$
+    \[\delta(x,y)=\frac{d(x,y)}{1+d(x,y)}\]
+    Provare che $(X,d)$ è spazio metrico.\\
+
+    \item Sia $X=\mathbb{R}^2$. $\forall x,y \in X$ definiamo: \\
+    \[d(x,y)=\begin{cases}
+        |x-y| &\textsf{se x,y sono collineari in $\mathbb{R}^2$}\\
+        |x|+|y| &\textsf{altrimenti}
+    \end{cases}\]
+        \begin{itemize}
+            \item Provare che $d$ è una metrica su $\mathbb{R}^2$
+            \item Descrivere graficamente le palle di $D$
+        \end{itemize}
+        
+    \item Sia $d:\mathbb{R} \times \mathbb{R} \to [0,+\infty)$ t.c. $d(x,y)=\arctan(|x-y|)$
+    $\forall x,y \in \mathbb{R}$.
+        \begin{itemize}
+            \item Provare che $(\mathbb{R},d)$ è spazio metrico
+            \item Stabilire se è completo
+        \end{itemize}
+
+    \item Sia $X=C^0([0,1])$. Sia $|| \cdot ||_{L^2}=(\int_0^1|f(x)|^2 dx)^\frac{1}{2}$\\
+    Provare che $|| \cdot ||_{L^2}$ è una norma su $X$\\
+    \fbox{\tiny\textbf{Suggerimento:} Usare la disuguaglianza di Cauchy-Schwartz}\\
+
+    \item Sia $(\mathbb{R}, d \varepsilon)$ spazio metrico. $f:\mathbb{R} \to \mathbb{R}$, $f \in C^0(\mathbb{R})$.\\
+    Provare o confutare tramite controesempi le seguenti affermazioni: 
+    \begin{itemize}
+        \item $f(A)$ aperto $\implies$ $A$ aperto
+        \item $A$ aperto $\implies$ $f(A)$ aperto
+        \item $fA)$ chiuso $\implies$ $A$ chiuso
+        \item $A$ chiuso $\implies$ $f(A)$ chiuso
+    \end{itemize}
+
+    \newpage
+
+    \item Sia $X=\left(1+\frac{1}{n}\right)^n$. 
+    \begin{itemize}
+        \item Provare che $\{x_n\}$ è di Cauchy in $(\mathbb{Q},d\varepsilon)$
+        \item Dedurre che $(\mathbb{Q},d\varepsilon)$ non è uno spazio metrico completo
+    \end{itemize}
+
+    \item Sia \[f_n(x)=\begin{cases}
+        0 & \textsf{se }x \in [0,\frac{1}{2}]\\
+        n\left(x-\frac{1}{2}\right) & \textsf{se } x \in \left(\frac{1}{2},\frac{1}{2}+\frac{1}{n}\right)\\
+        1 & \textsf{se } x \in \left[\frac{1}{2}+\frac{1}{n},1\right]
+    \end{cases}\]
+    \begin{itemize}
+        \item Provare che $\{f_n\}$ è di Cauchy in $\left(C^0([0,1]),d_{L^1}\right)$ \\con 
+        $d_{L^1}=\int_0^1|f(x)-g(x)|dx$
+        \item Dedurre che $\left(C^0([0,1]),d_{L^1}\right)$ non è completo
+    \end{itemize}
+
+    \item Sia $X=(0,1)$. Provare che $d(x,y)=\left|\frac{1}{x}-\frac{1}{y}\right|$ è una metrica su $X$\\
+
+    \item Sia $X=\mathbb{R}$. Quali delle seguenti funzioni sono metriche su $X$?
+    \begin{itemize}
+        \item $d(x,y)=\begin{cases}
+            x^3-y^3 & \textsf{se } x\geq y\\
+            y-x & \textsf{se } x<y\end{cases}$
+
+        \item $d(x,y)=\operatorname{min}\{|x-y|,1\}$
+
+        \item $d(x,y)=|x-y|+|x^3+y^3|$
+
+        \item $d(x,y)=\sqrt{|x-y|}$
+        
+    \end{itemize}
+\end{enumerate}
+
+\end{document}

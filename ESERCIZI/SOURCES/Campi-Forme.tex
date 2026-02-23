@@ -1,0 +1,137 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Analisi II - Campi Vettoriali e Forme differenziali}
+\author{Marco Delton\thanks{esercizi della prof.ssa \textit{Chiara Bianchini}}}
+\date{A.A. 2025/26}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+    %ES. 1 scheda
+    \item Stabilire se i seguenti campi sono conservativi, e in caso affermativo calcolarne il potenziale: 
+        \begin{enumerate}
+            \item $\vec{F}(x,y)=\begin{pmatrix}
+                6x+5y\\
+                5x+4y
+            \end{pmatrix}$
+
+            \item $\vec{F}(x,y)=\begin{pmatrix}
+                x^3+4xy\\
+                4xy-y^3
+            \end{pmatrix}$
+
+            \item $\vec{F}(x,y)=\begin{pmatrix}
+                2x\cos{y}-y\cos{x}\\
+                -x^2\sin{y}-\sin{x}
+            \end{pmatrix}$
+
+            \item $\vec{F}(x,y)=\begin{pmatrix}
+                xe^y\\
+                ye^x
+            \end{pmatrix}$
+
+            \item $\vec{F}(x,y)=\begin{pmatrix}
+                e^y\\
+                xe^y
+            \end{pmatrix}$
+
+            \item $\vec{F}(x,y)=\begin{pmatrix}
+                1+2xy+\ln{x}\\
+                x^2
+            \end{pmatrix}\\$
+        \end{enumerate}
+
+    %ES. 2 scheda
+    \item Calcolare il lavoro del campo $\vec{F}$ per spostare un oggetto luno il percorso assegnato: 
+        \begin{enumerate}
+            \item $\vec{F}(x,y)=\begin{pmatrix}
+                y\\
+                x+2y
+            \end{pmatrix}$
+            sulla calotta semicircolare $\gamma$ da $(0,1)$ a $(2,1)\\$
+
+            \item $\vec{F}(x,y)=\begin{pmatrix}
+                x^3y^4\\
+                x^4y^3
+            \end{pmatrix}$
+            su $\vec{r}(t)=\begin{pmatrix}
+                \sqrt{t}\\
+                1+t^3
+            \end{pmatrix}_{t\in [0,1]}$
+
+            \item $\vec{F}(x,y,z)=\begin{pmatrix}
+                yz\\
+                xz\\
+                xy+2z
+            \end{pmatrix}$
+            sul segmento $l$ da $(1,0-2)$ a $(4,6,3)\\$
+        \end{enumerate}
+    
+    \newpage
+
+    %ES. 3 scheda
+    \item Determinare $f:\mathbb{R}^3 \to \mathbb{R}\quad \left(f\in C^1(\mathbb{R}^3)\right)$ in modo che 
+    \[\vec{F}(x,y,z)=\begin{pmatrix}
+        f(x,y,z)\\
+        z\\
+        y
+    \end{pmatrix}\] 
+    sia conservativo.\\
+    Calcolarne un potenziale$\\$
+
+    %ES. 4 scheda
+    \item Sia $\vec{F}$ il campo di forze centrali 
+    \[\vec{F}(x,y,z)=\begin{pmatrix}
+        x \cdot g(r)\\
+        y \cdot g(r)\\
+        z \cdot g(r)
+    \end{pmatrix}\]
+    dove $r(x,y,z)=\sqrt{x^2+y^2+z^2}$ e $g:(0,+\infty)\to\mathbb{R}$ è una funzione di classe $C^1$.\\
+    Provare che $\operatorname{rot}(\vec{F})=0$ in $\mathbb{R}^3\backslash\{(0,0,0)\}$, e quindi $\vec{F}$ è conservativo$\\$
+
+    %ES. 5 scheda
+    \item Determinare tutti i valori di $\alpha\in\mathbb{R}$ tali che il campo
+    \[\vec{F}(x,y,z)=\begin{pmatrix}
+        \alpha xz+\frac{xz}{x}\\
+        z\ln{(x)}-\frac{\alpha^2y}{2}\ln{(z)}\\
+        x^{\alpha}+y\ln{(x)}-\frac{y^2}{z}
+    \end{pmatrix}\]
+    è conservativo in $E=\left\{(x,y,z)\in\mathbb{R}^3:x>0,z>0\right\}$.\\
+    Per tali valori di $\alpha$ calcolare il potenziale $U(x,y,z)$ tale che $U(1,1,1)=0\\$
+
+    %ES. 6 scheda
+    \item Data la forma differenziale
+    \[\omega=-\frac{y}{x^2+y^2}\textbf{dx}+\frac{x}{x^2+y^2}\textbf{dy}\]
+    \begin{enumerate}
+        \item Stabilire se è chiusa e esatta. 
+        \item Calcolare $\displaystyle _\gamma\int\omega$, dove $\gamma$ ha equazione $\vec{r}(t)=\begin{pmatrix}
+            \cos{t}\\
+            \sin{t}
+        \end{pmatrix}_{t\in [0,2h\pi]}$ con $h\in\mathbb{N}\backslash\{0\}\\$
+    \end{enumerate}
+
+    %ES. 7 scheda
+    \item Sia
+    \[\omega=xy\textbf{dx}+y\textbf{dy}\]
+    e sia $\gamma$ una circonferenza generica con centro sull'asse $y$.\\
+    Provare che $_\gamma\int\omega=0\\$
+
+    %ES. 8 scheda
+    \item Sia $\{\gamma_k\}\quad(k>0,k\ne 1)$ la famiglia di circonferenze $(x-1)^2+y^2=k^2$ percorse in senso antiorario. \\
+    Calcolare al variare del parametro $k\quad_{\gamma_k}\oint\omega$, dove: 
+    \[\omega=\frac{x-y}{x^2+y^2}\textbf{dx}+\frac{x+y}{x^2+y^2}\textbf{dy}\\\] 
+
+    %ES. 9 scheda
+    \item Dire se le segenti forme differenziali sono esatte nel loro insieme di definizione. In caso affermativo calcolare una primitiva.
+    \begin{enumerate}
+        \item $\omega=\frac{2xy^2}{\left(1+x^2y^2\right)^2}\textbf{dx}+\frac{2x^2y}{\left(1+x^2y^2\right)^2}\textbf{dy}$
+        \item $\omega=\left(\sqrt{y}-2xy\right)\textbf{dx}+\left(\frac{x}{2\sqrt{y}}-x^2\right)\textbf{dy}$
+        \item $\omega=\left(y\cos{x}-xy\sin{x}-\sin{y}\right)\textbf{dx}+\left(x\cos{x}-x\cos{y}+1\right)\textbf{dy}$
+        \item $\omega=\frac{x\textbf{dx}-x\textbf{dy}}{y^2}$
+    \end{enumerate}
+\end{enumerate}
+\end{document}
