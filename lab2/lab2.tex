@@ -1,0 +1,228 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz-3dplot}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{arydshln}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{cancel}
+\usepackage[d]{esvect}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfplots}
+\usepackage{pifont}
+\usetikzlibrary{patterns}
+\makeindex
+%\usepackage{animate}
+%\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{tikzmark}
+\newcommand{\TikzNCbar}[4][10pt]{
+\tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+
+\graphicspath{ {images/} }
+
+\definecolor{redish}{rgb}{255, 0, 30}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}   
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\setlength\arrayrulewidth{0.3pt}
+
+\newcommand\eqq{\stackrel{\mathclap{\normalfont\mbox{?}}}{=}}
+\newcommand\bulletout  {\labelitemfont \textbullet}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\xmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\cmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
+% Comando:
+%   \potato[opzioni]{(x,y)}{scala}
+%
+% Opzioni = facoltative (es. fill=red!20, draw=black, thick)
+% (x,y)   = centro della patata
+% scala   = fattore di scala
+%
+\def\potatoshape{
+  (1,0) (2,1.5) (1.6,3) (0.3,2.7) (-0.4,1.2)
+}
+\newcommand{\potato}[3][draw=white]{
+  \begin{scope}[shift={#2}, scale=#3]
+    \draw[#1]
+      plot [smooth cycle, tension=1]
+      coordinates {\potatoshape};
+  \end{scope}
+}
+ \newcommand{\hookbox}[1]{
+\begin{center}
+\hfill\break
+\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt,anchor=base] (A) {
+\begin{minipage}{\dimexpr\linewidth-5em}
+\centering
+#1
+\end{minipage}
+};
+% Draw the left bracket
+\draw ([xshift=0pt]A.north west) -- ++(0, 0.5) -- ++(0.4, 0);
+% Draw the right bracket
+\draw ([xshift=0pt]A.south east) -- ++(0, -0.5) -- ++(-0.4, 0);
+\end{tikzpicture}
+\end{center}} 
+\title{Laboratorio di fisica II}
+\author{Gariboldi Alessandro}
+\date{ }
+
+
+\begin{document}
+
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{observation}{Oss.}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{problem}{Problema}[section]
+\newtheorem{solution}{Soluzione}[section]
+\newtheorem{proposition}{Proposizione}[section]
+
+
+\maketitle
+\section{23/02/26}
+Definiamo le varie quantità che misureremo, e partiamo dalla legge di Ohm:
+\begin{gather*}
+    V = R I
+\end{gather*}
+Le misure che facciamo in laboratorio sono macroscopiche anche se si parla di cariche di elettroni che sono quantità microscopiche.\\
+La carica dell'elettrone è stata definita esattamente (nel 2019) come:
+\begin{gather*}
+    e = 1.602176634 \times 10^{-19} C
+\end{gather*}
+Da quì si definisce l'ampere come:
+\begin{gather*}
+    1 A = \frac{1 C}{1 s}
+\end{gather*}
+La corrente la definiamo come:
+\begin{gather*}
+    I = \frac{dq}{dt}
+\end{gather*}
+Ovvero quanta carica passa in un certo intervallo di tempo, ma non si guardano i singoli elettroni ma si misura una quantità macroscopica.\\
+Questo è vero ma non del tutto, per capire meglio è comodo introdurre il concetto di \textbf{shot noise}: sostanzialmente invece di pensare agli elettroni 
+come un flusso omogeneo che può essere associao ad un rumore bianco, si considerano come pacchetti ben definiti 
+di carica finita che si può ricondurre se si vuole al rumore della pioggia, da quì shot noise. Questo perchè ogni elettrone ha una carica 
+definita ben precisa e siccome passano in momenti leggermente diversi ma casuali, seguono le leggi della statistica e si hanno delle fluttuazioni attorno al valore medio.\\
+Quindi l'aspetto microscopico è comunque importante e bisogna ricordarsene.\\
+Tutte le tecniche moderne per misurare le correnti sotto lo shot noise, sono le tecniche che vanno al di sotto del singolo elettrone.\\
+In generale bisogna sempre avere in mente il limite delle misure che si stanno eseguendo.\\
+\subsection{atto pratico}
+Supponiamo di avere un conduttore e abbiamo degli ioni (+) che sono posti ad una certa distanza e alcuni elettroni liberi di muoversi, associati ognuno ad uno ione.
+\begin{center}
+    \begin{tikzpicture}
+        \draw[thick] (0,0) sin (0.5,1) cos (1,0) sin (1.5,-1) cos (2,0) sin (2.5,1) cos (3,0) sin (3.5,-1) cos (4,0) sin (4.5,1) cos (5,0);
+            \foreach \x in {1.5, 3.5} {
+                \node[circle, fill=red!50, minimum size=0.3cm] at (\x,0) {+};
+            }
+            \foreach \x in {2.5, 4.5} {
+                \node[circle, fill=blue!50, minimum size=0.3cm] at (\x,1.2) {-};
+            }
+            \draw[->, thick] (5,-0.5) -- (5.5,-0.5);
+    \end{tikzpicture}
+\end{center}
+Se prendiamo un cavo di rame con una densità di $d=9 g/cm^3$, e quindi $63,5 g/mol$
+\begin{gather*}
+    n = \frac{N_A \cdot d}{M} = 8.5 \times 10^{22} atomi/cm^3
+\end{gather*}
+Questo vuol dire che in un $\mu m$ cubo di rame ci sono circa $10^{11}$ elettroni liberi.\\
+Ora si capisce bene il concetto di densità di carica che è:
+\begin{gather*}
+    \rho = n \cdot e
+\end{gather*}
+Ovvero la quantità di carica per unità di volume.\\
+Questo non è sempre vero perchè non tutti gli elettroni sono liberi, ma è una buona approssimazione.\\
+\subsection{cos'è una carica}
+Se ho un campo elettrico con una carica all'interno, questo campo applicherà una forza alla mia carica e quest'ultima avrà una certa accelerazione, quindi si ha che la carica dipende anche dal tempo?\\
+Questo melo spiega la legge di Ohm che mi dice che mi dice che la corrente è proporzionale alla tensione, e quindi se la tensione è costante allora la corrente è costante, e quindi la carica che passa in un certo intervallo di tempo è costante.\\
+\begin{example}
+    Prendiamo un gas  a una temperatura $T$, avremo che $\frac{1}{2} m v_t^2 = \frac{3}{2} k_B T$ è una relazione che ci dice che la velocità termica è proporzionale alla temperatura, e quindi se la temperatura è alta allora la velocità termica è alta, e quindi gli elettroni si muovono più velocemente, e quindi la corrente è più alta.\\
+    Se infatti la calcoliamo otteniamo:
+    \begin{gather*}
+        v_t = \sqrt{\frac{3 k_B T}{m}} = \sqrt{\frac{3 k_b T}{n_e}} = \sqrt{\frac{\cancel{3} 1,3810^{-23} T/k \cancel{3}00 k}{\cancel{9},1 10 ^{-31}}kg} = 1,16 \times 10^5 m/s
+    \end{gather*}
+    Ricordiamo che il moto degli elettroni in un metallo è quantistico ma classicamente possiamo dire che da un moto di agitazione termica di velocità di centinaia di km/s (la stessa velocità a cui viaggiano gli atomi nell'aria), quindi la corrente viaggia più o meno alla stessa velocità?\\ 
+\end{example}
+
+\subsection{urti nel campo elettrico}
+Consideriamo ora che gli elettroni che si muovono in un corpo, considero i loro urti in un intervallo generale $\Delta t$ avrò quindi che la variazione della velocità avrà un'accelerazione:
+\begin{gather*}
+    \Delta \vec{v} = \vec{a} \Delta t = \frac{\vec{F}}{m} \Delta t = \frac{-e \vec{E}}{m} \Delta t\\
+    \Delta \vec{v} = -\frac{e \vec{E}}{m} \Delta t
+\end{gather*}
+\begin{gather*}
+    \vec{v_d} =-\frac{e \vec{E}}{2m} \Delta t
+\end{gather*}
+Ma $\Delta t= \frac{\Delta l}{v_t}$ e siccome $v_d \ll v_t$
+\begin{gather*}
+    \vec{v_d} = - \frac{e \vec{E}}{2m} \frac{\Delta l}{v_t} = k(t) \vec{E}
+\end{gather*}
+Ricordiamo che $v_d := \left\langle \Delta v\right\rangle_T$ è la velocità media degli elettroni liberi in un conduttore.
+verifichiamo ora l'ipotesi di $v_d \ll v_t$
+\subsection{densità di corrente}
+Si parlerà dell'equazione di continuità che deriva dal principio di conservazione della carica.\\
+E si arriverà alla prima legge di kirkhoff.\\
+\hfil\\
+Prendiamo un elettrone in concizioni stazionarie (che non vuol dire che la corrente è stazionaria che vuol dire che $\vec{E} = 0$ cosa che comunque considereremo per parte di questo corso).\\
+Ora definiamo:
+\begin{gather*}
+    I = \int_S \vec{J} \cdot \vec{dS} = \int_S \vec{J} \widehat{n} dS
+\end{gather*}
+Cos'è $J$?
+\begin{gather*}
+    \vec{J} = n q \vec{v_d} \propto \vec{E}
+\end{gather*}
+Da questo si vede che vale sempre che $\vec{J} \parallel \vec{E}$ indipendentemente dalla carica.\\
+$\vec{J}$ è una densità di corrente, e si misura in $A/m^2$.\\
+\begin{gather*}
+    [J] = \frac{C}{s \cdot m^3} \frac{m}{s} = \frac{A}{m^2} 
+\end{gather*}
+\end{document}

@@ -1,0 +1,331 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz-3dplot}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{arydshln}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{cancel}
+\usepackage[d]{esvect}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfplots}
+\usepackage{pifont}
+\usetikzlibrary{patterns}
+\makeindex
+%\usepackage{animate}
+%\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{tikzmark}
+\newcommand{\TikzNCbar}[4][10pt]{
+\tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+
+\graphicspath{ {images/} }
+
+\definecolor{redish}{rgb}{255, 0, 30}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}   
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\setlength\arrayrulewidth{0.3pt}
+
+\newcommand\eqq{\stackrel{\mathclap{\normalfont\mbox{?}}}{=}}
+\newcommand\bulletout  {\labelitemfont \textbullet}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\xmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\cmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
+% Comando:
+%   \potato[opzioni]{(x,y)}{scala}
+%
+% Opzioni = facoltative (es. fill=red!20, draw=black, thick)
+% (x,y)   = centro della patata
+% scala   = fattore di scala
+%
+\def\potatoshape{
+  (1,0) (2,1.5) (1.6,3) (0.3,2.7) (-0.4,1.2)
+}
+\newcommand{\potato}[3][draw=white]{
+  \begin{scope}[shift={#2}, scale=#3]
+    \draw[#1]
+      plot [smooth cycle, tension=1]
+      coordinates {\potatoshape};
+  \end{scope}
+}
+ \newcommand{\hookbox}[1]{
+\begin{center}
+\hfill\break
+\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt,anchor=base] (A) {
+\begin{minipage}{\dimexpr\linewidth-5em}
+\centering
+#1
+\end{minipage}
+};
+% Draw the left bracket
+\draw ([xshift=0pt]A.north west) -- ++(0, 0.5) -- ++(0.4, 0);
+% Draw the right bracket
+\draw ([xshift=0pt]A.south east) -- ++(0, -0.5) -- ++(-0.4, 0);
+\end{tikzpicture}
+\end{center}} 
+\title{Fisica II}
+\author{Gariboldi Alessandro}
+\date{ }
+
+
+\begin{document}
+
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{observation}{Oss.}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{problem}{Problema}[section]
+\newtheorem{solution}{Soluzione}[section]
+\newtheorem{proposition}{Proposizione}[section]
+
+
+\maketitle
+\section{Introduz. al corso}
+\date{23/02/26}\\
+
+professori:
+\begin{itemize}
+\item Prof. Massimo Gurioli (@unifi.it)
+\item Prof. Giovanni Ferioli (@unifi.it)
+\item Prof. Francesco Biccari (@unifi.it)
+\end{itemize}
+Libri:
+\begin{itemize}
+    \item C. Mencuccini, V. Silvestrini
+    \item Fisica 2 Liguori editore J.D. Jackson
+    \item Classical Electrodynamics 3rd edition.
+\end{itemize}
+Modalità d'esame:\\
+Lo scritto ha validità di un anno, si passa con 18, con 17 anche ma si fa un esercizio all'orale.\\
+Ci sono due parziali per sostituire che gli scritti , 16 a in ciascuno, e 18 in media.\\
+Ogni scritto ha 3 esercizi con tre domande ciascuno. si ha un massimo di 36 punti e sono concessivi su piccli errori, il terzo è in media più difficile dei primi due.\\
+L'orale non fa media aritmetica, decide il voto finale.\\
+\hfil\\
+Generale introduzion storica:\\
+Dalla bottiglia di Leila (primo esempio di condensatore) si cercò di misurare la carica che produceva.\\
+Coulomb definì la forza tra due cariche, e da lì si definì la costante dielettrica.\\
+\begin{gather*}
+\vec{F} = k_e \frac{q_1 q_2}{r^2} \hat{r} \\
+\end{gather*}
+$q$ aveva una precisione molto bassa oggi dopo varie misurazioni si è arrivati a $q \approx 10^{-16}$\\
+\subsection{Legge di Coulomb}
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->] (0,0) -- (2,0) node[right] {$y$};
+        \draw[->] (0,0) -- (0,2) node[above] {$z$};
+        \draw[<->] (0.1,0.1) -- (0.9,0.9) node[above, midway] {$r$};
+        \draw[->] (0,0) -- (-1,-1) node[above] {$x$};
+        \draw[->] (1,1) -- (1.5,1.5) node[above] {$\widehat{r}$};
+        \filldraw (0,0) circle (2pt) node[below] {$Q$};
+        \filldraw (1,1) circle (2pt) node[below] {$q$};
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        \draw[->] (0,0) -- (2,0) node[right] {$y$};
+        \draw[->] (0,0) -- (0,2) node[above] {$z$};
+    \end{tikzpicture}
+\end{center}
+Date due cariche puntiformi ad una certa distanza la forza che la carica $q$ sente dalla carica $Q$ è esattamente:
+\begin{gather*}
+    F_q = \frac{q \ Q}{r^2} \frac{1}{4 \pi \epsilon_0} \widehat{r}
+\end{gather*}
+Con $r$ che p la distanza tra la carica $Q$ e la carica $q$. E il versore indica il verso, qeusto perchè la forza può essere reulsiva (quando si hanno $q$ e $Q$ di segno opposto) o attrattiva (quando hanno segno concorde).\\
+Si ha poi:
+\begin{gather*}
+    \boxed{\vec{E}(\vec{r}) = \lim_{q \to 0} \frac{\vec{F}_q}{q}}
+\end{gather*}
+Da qui troviamo che il campo elettrico nel limite di carica puntiforme ($q \to 0$) è:
+\begin{gather*}
+    \vec{E}(\vec{r}) = \frac{Q}{4 \pi \epsilon_0 r^2} \widehat{r}
+\end{gather*}
+In breve il corpo due se \underbar{non} c'è il corpo uno, il corpo due non subisce nessuna forza.\\
+In più si deve pensare che il campo elettrico sia qualcosa che è fatto di energia ma è proprio un costituente della natura, alla pari della materia, sono qualcosa che permiano lo spazio e sono regolati da leggi fisiche ben precise.\\
+Cos'è un campo elettrico?\\
+Di fatto è matematicamente un campo vettoriale ovvero associa ad ogni punto dello spazio un vettore che rappresenta l'intensità e la direzione del campo elettrico in quel punto.\\
+Il campo in un punto dello spazio è la somma delle forze in quel punto.\\
+Iniziamo col generalizzare la legge di Coulomb senza che la carica $Q$ sia nell'origine del sistema di riferimento scelto, altra cosa non si può cercare la forza tra due cariche nello stesso punto, poichè si considera la somma delle due.\\
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->] (0,0) -- (2,0) node[right] {$y$};
+        \draw[->] (0,0) -- (0,2) node[above] {$z$};
+        \draw[->] (0.1,0.1) -- (0.9,0.9) node[above, midway] {$\vec{r'}$};
+        \draw[->] (0,0) -- (-1,-1) node[above] {$x$};
+        \draw[->] (1,1) -- (2,1) node[above] {$\vec{r}-\vec{r'}$};
+        \draw[->] (0,0) -- (2,1) node[below, midway] {$\vec{r}$};
+        \filldraw (2,1) circle (2pt) node[below] {$q$};
+        \filldraw (1,1) circle (2pt) node[below] {$Q$};
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        \draw[->] (0,0) -- (2,0) node[right] {$y$};
+        \draw[->] (0,0) -- (0,2) node[above] {$z$};
+        \draw[->] (0,0) -- (-1,-1) node[above] {$x$};
+        \draw[->] (0,0) -- (2,1) node[below, midway] {$\vec{r_1}$};
+        \draw[->] (0,0) -- (1,2) node[below, midway] {$\vec{r_2}$};
+        \filldraw (2,1) circle (2pt) node[below] {$Q_1$};
+        \filldraw (1,2) circle (2pt) node[below] {$Q_2$};
+    \end{tikzpicture}
+\end{center}
+\begin{gather*}
+    \vec{E}(\vec{r}) = \frac{1}{4 \pi \epsilon_0} \frac{Q}{|\vec{r}-\vec{r'}|^3} (\vec{r}-\vec{r'})
+\end{gather*}
+Considerando la fig. 2 ho sapendo che ho: 
+\begin{gather*}
+    \vec{E} = \vec{E_1} + \vec{E_2} = \frac{1}{4 \pi \epsilon_0} \left( \frac{Q_1}{|\vec{r}-\vec{r_1}|^3} (\vec{r}-\vec{r_1}) + \frac{Q_2}{|\vec{r}-\vec{r_2}|^3} (\vec{r}-\vec{r_2}) \right)\\
+    =\frac{1}{4 \pi \epsilon_0}  \sum_{i=1}^{N_c} \frac{Q_i}{|\vec{r}-\vec{r_i}|^3} (\vec{r}-\vec{r_i})
+\end{gather*}
+Con $N_c$ che è il numero di cariche presenti.\\
+\subsection{densità di carica}
+Cerchiamo ora a introdurre il concetto di densità di carica, prendendo un volume generico, e cerco di farne l'integrale di volume.
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->] (0,0) -- (2,0) node[right] {$y$};
+        \draw[->] (0,0) -- (0,2) node[above] {$z$};
+        \draw[->] (0,0) -- (-1,-1) node[above] {$x$};
+        \draw[->] (0,0) -- (1.2,1.2) node[above, midway] {$\vec{r'}$};
+        \potato{(1,1)}{0.5};
+        \draw (1.2,1.2) rectangle (1.4,1.4) node[above, midway] {$\Delta \tau$};
+    \end{tikzpicture}
+\end{center}
+Considero il volumetto infinitesimo quindi $\Delta \tau \to 0$ e considero il numero di volumetti che tende all'infinito quindi $N \to \infty$.\\
+\begin{gather*}
+    \vec{E} (\vec{r}) = \frac{1}{4 \pi \epsilon_0} \int_\tau \frac{\rho(\vec{r'})}{|\vec{r}-\vec{r'}|^3} (\vec{r}-\vec{r'}) d\tau\\
+    \boxed{\vec{E}(\vec{r}) = \frac{1}{4 \pi \epsilon_0} \int_\tau \frac{\rho(\vec{r'})}{|\vec{r}-\vec{r'}|^3} (\vec{r}-\vec{r'}) d\tau}
+\end{gather*}
+Con $\rho$ che è la densità di carica, e si ritrova nella relazione:
+\begin{gather*}
+    dQ = \rho(\vec{r'}) d\tau
+\end{gather*}
+\begin{example}
+    Prendiamo un cavo e un punto ad una distanza $x$, e cerchiamo di calcolare il campo elettrico in quel punto.
+    \begin{center}
+        "foto"
+    \end{center}
+    Cosa accade invece se ho $L \gg x \gg d$
+    Avrò invece che:
+    \begin{gather*}
+        \vec{E} (x) = \frac{1}{4 \pi \epsilon_0} \frac{\lambda}{x} \widehat{x}
+    \end{gather*}
+    Quindi se considero un filo infinito ho che il campo va a 0 come $1/x$, e non come normalmente accade che va come $1/x^2$.
+
+\end{example}
+\subsection{il teorema di Gauss}
+È di fatto la prima equazione di Maxwell espresso in forma integrale e dice che presa una superficie chiusa \\
+Prendiamo un tubo:\\
+\begin{tikzpicture}
+    \draw (0,0) -- (2,0);
+    \draw (0,1) -- (2,1);
+    \draw (0,0.5) ellipse (0.25 and 0.5);
+    \draw (2,0.5) ellipse (0.25 and 0.5);
+\end{tikzpicture}
+\begin{gather*}
+    \frac{\Delta M}{\Delta t} = \rho v \cancel{\Delta t} S = \vec{J} \widehat{n} S = \phi_{\vec{J}}(S) = \int_S \vec{J}(r') \cdot \widehat{u} dS\\
+    \text{preso } \vec{J} = \rho \vec{v}
+\end{gather*}
+Con che è il flusso di $J$ attraverso la superficie $S$.\\
+Se consideriamo una delle sezioni inclinata e abbiamo quindi una situazione di questo tipo:
+\begin{tikzpicture}
+     \draw (0.1,0) -- (2,0);
+    \draw (-0.55,1) -- (2,1);
+    \draw [rotate=45, scale=1.22] (0.2,0.4) ellipse (0.25 and 0.5);
+    \draw (2,0.5) ellipse (0.25 and 0.5);
+\end{tikzpicture}
+In questo caso otteniamo che:
+\begin{gather*}
+    \frac{\Delta M}{\Delta t} = \rho v S \cos \theta = \vec{J} \cdot \widehat{n} S = \phi_{\vec{J}}(S)
+\end{gather*}
+\begin{theorem}[di Gauss]
+    \begin{gather*}
+        d\phi = \vec{E} \cdot \widehat{n} dS = \frac{Q}{4 \pi \epsilon_0 r^2} \widehat{r} \cdot \widehat{n} dS
+    \end{gather*}
+    Considero ora invece che un pezzetto di piano sia perpendicolare rispetto a $Q$ e quindi abbia $\widehat{n} = \widehat{r}$, in questo caso ottengo che da un pezzetto di piano $dS$ ottengo un pezzetto di sfera $dS_n$:
+    \begin{gather*}
+        d\phi = \frac{Q}{4 \pi \epsilon_0} \frac{dS_n}{r^2} = \frac{Q}{4 \pi \epsilon_0} d\Omega
+    \end{gather*}
+    Sono passato infine ad una quantità che è il rapporto tra l'area normale e il quadrato della distanza, che è proprio la definizione di angolo solido.\\
+    \begin{gather*}
+        \phi = \int_{S} d\phi = \frac{Q}{4 \pi \epsilon_0} \int_S d\Omega = \frac{Q \cancel{4 \pi}}{\cancel{4 \pi} \epsilon_0}
+    \end{gather*}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->] (0,0) -- (2,0) node[right] {$y$};
+            \draw[->] (0,0) -- (0,2) node[above] {$z$};
+            \draw[->] (0,0) -- (-1,-1) node[above] {$x$};
+            \filldraw (0,0) circle (2pt) node[below] {$Q$};
+            \potato{(-0.5,-0.5)}{0.5};
+            \draw (0.3,0.3) rectangle (0.5,0.5) node[right, midway] {$dS$};
+        \end{tikzpicture}
+    \end{center}
+    \noindent
+    Consideriamo ora una carica esterna alla superficie chiusa, bisogna considerare che un angolo solido generico proveniente da quella carica o nonintercetta la superficie o la intercetta un numero pari di volte:
+    \begin{tikzpicture}
+    \filldraw (-1,0) circle (2pt) node[below] {$Q$};
+    \potato{(0,0)}{0.5};
+    \end{tikzpicture}
+    \begin{gather*}
+        d\phi = \vec{E_1} \widehat{n_1} S_1 + \vec{E_2} \widehat{n_2} S_2 = \frac{Q}{4 \pi \epsilon_0} \left( \frac{\cos(\theta_1) dS_1}{r_1^2} + \frac{\cos(\theta_2) dS_2}{r_2^2} \right) = 0
+    \end{gather*}
+    Fa una quantità di angolo solido positiva e una negativa, che si annullano reciprocamente.\\
+    In particolare si ricorda che $0 \leq \theta_2 \leq \frac{\pi}{2}$ e $\frac{\pi}{2} \leq \theta_1 \leq \pi$.\\
+    Quindi se $Q$ è interna:
+    \begin{gather*}
+        \phi = \frac{Q}{\epsilon_0}
+    \end{gather*}
+    Se $Q$ è esterna:
+    \begin{gather*}
+        \phi = 0
+    \end{gather*}
+    \begin{gather*}
+        \vec{E} = \sum_{i=1}^{N_c} \vec{E_i}
+        \phi = \int_S \sum_{i=1}^{N_c} \vec{E_i} \cdot \widehat{n} dS = \sum_{i=1}^{N_c} \int_S \vec{E_i} \cdot \widehat{n} dS = \sum_{i=1}^{N_c} \frac{Q_i}{\epsilon_0} = \frac{Q_\text{int}}{\epsilon_0}
+    \end{gather*}
+\end{theorem}
+
+\end{document}
