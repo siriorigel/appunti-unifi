@@ -53,5 +53,21 @@ Se $\alpha \in \mathbb{R}$, posso definire $\vec u = \alpha \vec v$, e sarà un 
 Farà anche comodo definire un \textbf{Versore}, cioè un vettore con modulo unitario, che indicherò con $\hat u$.
 
 \begin{example}
-    Se volessi individuare $\hat v // \vec v$ è sufficiente fare: $\hat v = \frac{\vec v}{|\vec v|}$
+    Se volessi individuare $\hat v \parallel  \vec v$ è sufficiente fare: $\hat v = \frac{\vec v}{|\vec v|}$
 \end{example}
+
+Le operazioni elementari che si possono fare con i vettori sono:
+
+\subsection{Prodotto scalare}
+È una funzione che prende due vettori e restituisce uno scalare.
+
+Presi due vettori $\vec u$ e $\vec v \in \mathbb{R}^3$, il prodotto scalare è definito come:
+\begin{equation*}
+    \left< \vec u, \vec v \right> = \vec u \cdot \vec v \in \mathbb{R}
+\end{equation*}
+
+Esso è una mappa con le seguenti proprietà:
+\begin{itemize}
+    \item \textbf{Simmetria}: $\left< \vec u, \vec v \right> = \left< \vec v, \vec u \right> $ con $\vec u, \vec v \in \mathbb{R}^3$
+    \item \textbf{Linearità}: $\left< \alpha \vec u + \beta \vec w, \vec v \right> = \alpha \left< \vec u, \vec v \right> + \beta \left< \vec w, \vec v \right> $ con $\alpha, \beta \in \mathbb{R}$ e $\vec u, \vec v, \vec w \in \mathbb{R}^3$
+\end{itemize}
