@@ -1,0 +1,147 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{myyellow}{RGB}{254,241,24}
+\definecolor{myorange}{RGB}{234,125,1}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{decorations.markings} 
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti}
+\author{Tommaso Miliani}
+\date{15-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section*{Cenni di spettroscopia}
+\section{Introduzione alla spettroscopia}
+Si può introdurre il concetto di spettroscopia in astronomia
+senza scendere troppo nel dettaglio (in quanto richiederebbe
+la fisica quantistica) a partire dall'energia degli elettroni di un
+atomo:
+\begin{align}
+    E_f - E_o = \Delta E = h\nu_{i, f}
+\end{align}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \def\proton(#1,#2){%
+    \fill[color=myyellow] (#1,#2) circle (5pt);
+    \node at (#1,#2) {\texttt{+}};
+}
+\def\neutron(#1,#2){%
+    \fill[color=myorange] (#1,#2) circle (5pt);
+}
+\def\electron(#1, #2){%
+    \fill[color=cyan] (#1, #2) circle (3pt);
+    \node at (#1, #2) {\texttt{-}};
+}
+\def\orbit(#1, #2, #3){
+    \draw (#1, #2) circle (#3);
+}
+        \orbit(0, 0, 1);
+        \orbit(0, 0, 1.5);
+        \orbit(0, 0, 2);
+        \neutron(0.1, -0.1);
+        \neutron(-0.1, 0.1);
+        \proton(0.1, 0.1);
+        \proton(-0.1, -0.1);
+        \electron(1, 0);
+        \electron(-0.5, 0.84);
+        \draw[thick, ->](-1.5, 1.2) -- (-0.6, 0.84) node[at end, above] {$\gamma$};
+    \end{tikzpicture}
+\end{wrapfigure}
+Ossia 
+\begin{gather*}
+    \frac{1}{\lambda} = R\left(\frac{1}{N^{2} } - \frac{1}{h^{2} }\right)
+\end{gather*}
+Se si bombarda un atomo con dei fotoni con una certa energia, accade che 
+gli elettroni dello \textbf{stato fondamentale} possano saltare ad un livello energetico superiore 
+che prende il nome di \textbf{stato eccitato}. Se
+l'energia del fotone $\gamma$ è molto maggiore dell'energia $\Delta E$ necessaria per
+poter far saltare l'elettrone allo stato eccitato, allora l'elettrone viene strappato 
+all'atomo e l'atomo prende il nome di \textbf{ionizzato}.
+A meno che non ci sia un flusso di fotoni che tenga stabile gli elettroni
+allo stato eccitato, dopo un tempo $\delta \tau = 10^{-8} \ s$, gli elettroni decadono
+rilasciando indietro lo stesso pacchetto di energia $\gamma$ che li ha
+investiti tornando allo stato fondamentale. 
+
+\section{Leggi di Kirchoff}
+\subsection{Prima legge}
+Un gas rarefatto caldo emette uno spettro di righe
+in emissione: questo vuol dire che il gas emette delle
+radiazione e faccio passare questa emissione attraverso un prisma,
+si osserva che sullo spettro nero si sovrappongono delle bande colorate
+non continue. 
+
+\subsection{Seconda legge di Kirchoff}
+Un gas freddo posto davanti ad una sorgente emette
+uno spettro di righe di assorbimento. In pratica
+un gas freddo assorbe determinate lunghezze d'onda e lascia
+passare le altre lunghezze d'onda.
+
+\subsection{Terza legge di Kirchoff}
+La terza legge mi dice che una sorgente ideale di luce emette uno
+spettro continuo di radiazione luminosa. 
+
+\subsection{Allargamenti di riga}
+Lo spettro di assorbimento è suscettibile a tre tipologie
+di allargamento (ossia quando il gas non è perfetto le bande
+di assorbimento e di emissione sono allargate):
+\begin{itemize}
+    \item Allargamento naturale: l'allargamento di riga naturale è quello
+    dovuto alla meccanica quantistica;
+    \item Allargamento collisionale: è la tipologia di allargamento dovuta
+    all'eccitazione del gas: più è alta la sua temperatura e la sua pressione e
+    maggiormente le bande di assorbimento e di emissione risultano allargate;
+    \item Allargamento termico o Doppler termico: Se la stella ruota verso
+    l'osservatore, allora le bande si spostano verso il blu, mentre quando ruota
+    allontanandosi dalla stella si spostano verso il rosso
+    (molto similmente all'effetto doppler). Questo effetto è tanto maggiore quanto
+    è vicina la stella e tanto più veloce ruota. 
+\end{itemize}
+
+\end{document}

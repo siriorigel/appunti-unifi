@@ -1,0 +1,4309 @@
+\documentclass[a4paper, oneside]{book}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=1in,
+            right=1in,
+            top=1in,
+            bottom=1in,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Analisi I}
+\author{Tommaso Miliani}
+\date{2024/2025}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[chapter]
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Numeri e funzioni reali}
+\section{Premessa}
+Come postulato si assume l'esistenza di un \emph{insieme di numeri reali} che
+si indica con \textbf{$R$} su cui sia possible eseguire le quattro operazioni
+fondamentali (+, -, $\cdot$, /).
+\begin{eqnarray} 
+    a + b = b + a \\
+    a \cdot b = b \cdot a
+\end{eqnarray} 
+
+\section{Assiomi dei numeri reali}
+Questi sono gli \textbf{assiomi relativi alle operazioni}. 
+\begin{definition}
+    Proprietà associativa.
+\end{definition}
+
+\begin{definition}
+    Proprietà commutativa.
+\end{definition}
+
+\begin{definition}
+    Proprietà distributiva.
+\end{definition}
+
+\begin{definition}
+    Esistenza degli elementi neutri:  0, 1 $\Rightarrow$ $a+0=a$ e $a\cdot1=a$.
+\end{definition}
+
+\begin{definition}
+    Esistenza degli opposti: $\forall a \in R, \exists a_1 \in R$
+    scritto come $-a$ tale che $a+(-a)= 0$.
+\end{definition}
+
+\begin{definition}
+    Esistenza degli inversi: $\forall a \in R$, con $a \ne 0, \exists
+    a_1 \in R$, indicato come $a^{-1}$ tale che $a\cdot(a^{-1})=1$.
+\end{definition}
+
+Di seguito sono elencati gli \textbf{assiomi relativi all'ordinamento}. 
+E' definita la relazione tra \emph{minore} o \emph{uguale} tra coppie
+di numeri reali con le seguenti proprietà:
+\begin{definition}
+    Dicotomia: per ogni coppia di numeri reali $a,b$ si ha
+    $a\leq b$ oppure $b \leq a$.        
+\end{definition}
+
+\begin{definition}
+    Proprietà asimmetrica: se valgono contemporaneamente le relazioni
+    $a\leq b$ $b \leq a$ allora $a=b$.
+\end{definition}
+
+\begin{definition}
+    Se $a \leq b$ allora vale anche $a + c \leq b + c$.
+\end{definition}
+
+\begin{definition}
+    Se $ 0 \leq a$ e $0 \leq b$ allora valgono anche $0 \leq a + b$, $0 \leq a \cdot b$
+\end{definition}
+
+\textbf{Assioma di completezza} \\
+Siano $A$ e $B$ due insiemi non vuoti di numeri reali con la proprietà che
+$a \leq b$, comunque si scelgano $a \in A$ e $b \in B$. Allora esiste almeno
+un numero reale $c$ tale che $a \leq c \leq b$, qualunque siano $a$ in $A$ e $b$ in $B$.
+
+\section{Alcune conseguenze degli assiomi dei numeri reali}
+Elencate tutte le proprietà dei numeri reali, che vengono assunte come assiomi,
+tutte le altre proprietà dei numeri reali discendono da questi assiomi.
+
+\begin{theorem}
+    Vale la regola della semplificazione della somma: se $a + b = a + c$,
+    allora $b = c$. Dimostrabile attraverso l'utilizzo degli assiomi dell'esistenza
+    degli elementi neutri e degli opposti.
+\end{theorem}
+
+\begin{theorem}
+    Vale la semplificazione rispetto al prodotto: se $a\cdot b = a \cdot c$ e
+    se $a \ne 0$, allora $b = c$.
+\end{theorem}
+
+\begin{theorem}
+    Il prodotto $a \cdot b$ è nullo se e soltanto se almeno uno dei due fattori
+    è nullo.
+    Per l'assioma degli elementi neutri lo zero è l'elemento neutro rispetto alla somma
+    cioè $a + 0 = 0$ $\forall a \in R$. Ricordando anche che $a \cdot 1 = a$, allora
+    \[
+        a + a \cdot 0 = a \cdot 1 + a \cdot 0 = a \cdot (1 + 0) = a \cdot 1 = a = a + 0.
+    \] 
+    \[
+        a + a \cdot 0 = a + 0
+    \]
+    \[
+        a \cdot 0 = 0    
+    \] 
+    Supponendo ora che $a \cdot b = 0$ se $a = 0$ la tesi è raggiunta, altrimenti 
+    esiste un'inverso di $a$ che chiamiamo $a^{-1}$.
+    \[
+        b = b \cdot 1 = b \cdot (a \cdot a^{-1}) = a^{-1} \cdot 0 = 0
+    \]
+    Il (1.3) spiega perché non è possible la divisione per zero. Infatti, dal momento
+    che $a^{-1}$ esiste solo se $a \ne 0$, se $a=0$ allora $a\cdot b = 0 \cdot b = 0$
+    per ogni numero reale $b$ e perciò non esiste un numero reale $0^{-1}$ tale per
+    cui $0\cdot 0^{-1} = 1$
+\end{theorem}
+
+\begin{theorem}
+    L'opposto di un numero reale è unico. \\
+    In base all'assioma (1.5) $\forall a \in R \exists$ l'opposto di $a$ indicato
+    come $-a$, tale che $a + (-a) = 0$. Se supponiamo che $a + b = 0$ allora 
+    per il teorema(1.1) si ha $-a = b$. Quindi l'opposto è unico.
+\end{theorem}
+
+\begin{theorem}
+    L'inverso di un numero reale non nullo è unico.\\
+    Dimostrazione identica a quella del(1.4).
+\end{theorem}
+
+\begin{theorem}
+    $\forall a \in R$ vale $-(-a) = a$.\\
+    Il numero $-(-a)$ è per def. l'opposto di $-a$ cioè $a=-(-a)$ per la (1.4).
+\end{theorem}
+
+\begin{theorem}
+    $\forall a,b \in R$ risulta che $(-a)\cdot b= -a\cdot b$.\\
+    Per la proprietà distributiva si ha che:
+    \[
+        (-a) \cdot b + a \cdot b = ((-a) + a) \cdot b = 0 \cdot b = 0 
+    \]
+    Per cui $(-a) \cdot b + a \cdot b = 0$. Ossia $(-a)\cdot b= -a\cdot b$.
+\end{theorem}
+
+\begin{theorem}
+    $\forall a,b \in R$ risulta che $(-a)\cdot(-b)=a\cdot b$. \\
+    La dimostrazione fa uso della conseguenza della 1.7 e dell'assioma 1.2,
+    seguendo poi la 1.6.
+\end{theorem}
+
+Gli assiomi del paragrafo 2 si riferiscono alla $\leq$ ma è possibile estendere
+le loro definizioni al $\geq$. Infatti:
+\[
+    a \geq b \Leftrightarrow b \leq a.
+\]
+Infine minore e maggiore stretto sono definite come:
+\[
+    a < b \Leftrightarrow a \leq b, a \ne b; 
+\]
+\[
+    a > b \Leftrightarrow a \geq b, a \ne b.
+\] 
+\begin{theorem}
+    La relazione $a \leq b$ è equivalente a $b - a \geq 0$. \\
+    Questo si dimostra con l'assioma 1.9: se $a \leq b$ per l'assioma 1.9 si ha:
+    \[
+        a - b \leq b - b = 0.
+    \]
+    Viceversa se $b - a \geq 0$ sempre per l'assioma 1.9 e per l'associativa si ha:
+    \[
+        a = 0 + a \leq (b - a) + a = b + ((-a) + a) = b.
+    \]
+\end{theorem}
+
+\begin{theorem}
+    Proprietà transitiva dell'ordinamento: se
+    $a \leq b$ e $b \leq c$ allora $a \leq c$. \\
+    Supponendo che $a \leq b$ e $b \leq c$ per la precedente $0 \leq b - a$,
+    $0 \leq c - b$. Dall'assioma 1.10 si ottiene che
+    \[
+        0 \leq (b - a) + (c - b) = c - a.
+    \]
+    che equivale per il teorema 1.9 ad $a \leq c$.
+\end{theorem}
+
+\begin{theorem}
+    Risulta $a \geq 0$ se e soltanto se $-a \leq 0$.\\
+    Per l'assioma 1.9 se $0 \leq a$ allora
+    \[
+        0 + (-a) \leq a + (-a),
+    \]
+    cioè se $-a \leq 0$. Viceversa se $-a \leq 0$ allora $ a + (-a) \leq a$.
+\end{theorem}
+
+\begin{theorem}
+    Se $a \leq b$ e $c \geq 0$ allora $a \cdot c \geq b \cdot c$. \\
+    Se $a \leq b$ allora per il teorema 3.9 anche $0 \leq b - a$ da cui per l'assioma
+    1.10 e per la distributiva si ha:
+    \[
+        0 \leq (b - a) \cdot c = b \cdot c - a \cdot c,
+    \]
+    cioè $a \cdot c \geq b \cdot c$.
+\end{theorem}
+
+\begin{theorem}
+    Se $a \leq b$ e $c \leq c$ allora $a \cdot c \geq b \cdot c$. \\
+    Stessa dimostrazione di quella sopra.
+\end{theorem}
+
+Riprendendo l'assioma di completezza 1.11, la formulazione più immediata è
+quella dell'\emph{assioma di Dedekind}. Per cui: \emph{$\forall A,B \subset R  
+\exists! c$ tale che $a \leq c \leq b, \forall a \in A$ e $\forall b \in B$}.
+(Equivalente all'assioma 1.11).
+
+\section{Cenni alla teoria degli insiemi}
+
+Appartiene: $x\in S$.\\
+Non appartiene: $x \notin S$.\\
+Sottoinsieme: $A \subset S$.\\
+Se A e B sono due sottoinsiemi di S, l'intersezione è gli elementi comuni ai due in S.
+\begin{equation}
+    A \cap B = \{x \in S : x \in A \wedge x \in B\}.
+\end{equation}
+L'unione è l'insieme di elementi che appartengono almeno ad A o B in S.
+\begin{equation}
+    A \cup B = \{x \in S : x \in A \vee x \in B\}.
+\end{equation}
+A è contenuto in B se ogni elemento di A appartiene a B.
+\begin{equation}
+    A \subseteq B \Leftrightarrow (a \in A \Rightarrow a \in B).
+\end{equation}
+Il complemento di B rispetto ad A $(A-B)$ è l'insieme di elementi di A che $\ne$ B.
+\begin{equation}
+    A - B = \{x \in S : x \in A \wedge x \notin B\}.
+\end{equation}
+Il complementare di B rispetto ad A ( se A = S) si indica come $B^{c}$ e si ha che
+\begin{equation}
+    A \subseteq B \Leftrightarrow B^{c} \subseteq A^{c}.
+\end{equation}
+L'insieme di tutti i sottoinsiemi di S si indica come P(S) e si chiama
+\emph{insieme delle parti di S}.\\
+Siano A e B due insiemi. Si chiama \emph{prodotto cartesiano} di A e di B e si
+indica come $A \times B$ l'insieme di tutte le coppie ordinate (a, b) con la prima
+coordinata appartenente ad A e la seconda appartenente a B.
+\begin{equation}
+    (a, b) = (a^{\prime}, b^{\prime}) \Leftrightarrow a = a^{\prime}, b = b^{\prime}
+\end{equation}
+Nel  caso in cui A = B, $A \times B$ è una relazione binaria.
+Una relazione binaria $\Re$ si chiama \emph{relazione di equivalenza}, se ha
+le seguenti proprietà:
+\begin{enumerate}
+    \item \emph{riflessiva}: $\forall a \in A$ si ha $(a, a) \in \Re$,
+    \item \emph{simmetrica}: $(a, b) \in \Re \Rightarrow (b, a) \in \Re$,
+    \item \emph{transitiva}: $(a, b) \in \Re \wedge (b, c) \in \Re \Rightarrow (a, c) \in \Re$.
+\end{enumerate}
+Se $(a, b) \in \Re$ si scrive $a \sim b$ e si dice che a e b sono equivalenti o in relazione.\\
+Indicando con [a] la \emph{classe di equivalenza} di $a \in A$, cioè l'insieme degli elementi
+appartenenti equivalenti ad a, due classi possono coincidere o essere prive di elementi comuni.
+L'insieme delle classi di equivalenza si chiama \emph{insieme quoziente} e si indica
+come $A/\Re$ ossia:
+\begin{equation}
+    A/\Re = \{[a]: a \in A\}.
+\end{equation}
+Una relazione binaria in $\Re$ su $A$ si chiama \emph{relazione d'ordine} se gode delle
+seguenti proprietà:
+\begin{enumerate}
+    \item \emph{riflessiva}
+    \item \emph{transitiva}
+    \item \emph{asimmetrica}: se $(a, b) \in \Re \wedge (b, a) \in \Re \Rightarrow a = b$.
+\end{enumerate}
+
+\section{Accenno agli insiemi numerici}
+
+Qui di seguito sono elencati gli insiemi numerici senza alcun tipo di proprietà, le quali
+verranno esaminate nel prossimo capitolo.
+\begin{itemize}
+    \item \emph{Numeri naturali}: \textbf{N},
+    \item \emph{Numeri interi}: \textbf{Z},
+    \item \emph{Numeri razionali}: \textbf{Q},
+    \item \emph{Numeri reali}: \textbf{R},
+    \item \emph{Numeri complessi}: \textbf{C}.
+\end{itemize}
+Risulta in particolare che:
+\begin{equation}
+    N \subseteq Z \subseteq Q \subseteq R \subseteq C.
+\end{equation}
+
+\section{Funzioni e rappresentazione cartesiana}
+
+Siano A e B due insiemi numerici reali. Una \emph{funzione} di A in B
+è una legge che fa corrispondere ad ogni elemento di A uno ed un solo
+elemento di B. \\
+Il \emph{dominio} o \emph{insieme di definizione} di f è A, mentre \emph{l'immagine} è B;
+ecco alcuni esempi:
+\begin{eqnarray}
+    f(x) = 2x + 1, \\
+    f(x) = 1 / x.
+\end{eqnarray}
+Le coppie di punti individuate da $(x, f(x))$ costituiscono il grafico della funzione.
+Ecco un esempio delle funzioni sopra:
+\begin{tikzpicture}
+    \begin{axis}[
+        axis lines = middle,
+        enlargelimits=0.2
+    ]
+    \addplot [
+        domain=-5:5, 
+        samples=100, 
+        color=red,
+    ]
+    {2*x +1};
+    \addlegendentry{$2x + 1$}
+    \addplot [
+        domain=-5:-0.12, 
+        samples=100, 
+        color=cyan,
+        ]
+        {1/x};
+    \addlegendentry{$1/x$}
+    \addplot [
+        domain=0.12:5, 
+        samples=100, 
+        color=cyan,
+        ]
+        {1/x};
+    \end{axis}
+\end{tikzpicture}
+
+\section{Funzioni invertibili e monotòne}
+Una funzione $f:A \rightarrow B$ si dice \emph{iniettiva} se elementi distinti 
+hanno immagini distinte ossia:
+\begin{equation}
+  f(x_1) = f(x_2) \Rightarrow x_1 = x_2.
+\end{equation}
+Una funzione è poi \emph{suriettiva} se $\forall y \in B \exists x \in A$ tale che
+$y = f(x)$.
+Una funzione che è sia iniettiva che suriettiva si dice \emph{biunivoca}.\\
+In quel caso la funzione si dice invertibile.
+\begin{eqnarray*}
+  f^{-1}(f(x)) = x, \forall x \in A;\\
+  f(f^{-1}(y)) = y, \forall y \in B.
+\end{eqnarray*}
+La funzione inversa di
+\begin{equation}
+  2x + 1
+\end{equation}
+è:
+\begin{equation}
+  f^{-1}(x)=\frac{x - 1}{2}.
+\end{equation}
+Una funzione è invece \emph{monotòna} in un insieme A se verifica:
+\begin{enumerate}
+  \item f \emph{strettamente crescente}: \space $x_1 < x_2 \Rightarrow f(x_1) < f(x_2)$,
+  \item f \emph{crescente}: \space $x_1 < x_2 \Rightarrow f(x_1) <= f(x_2)$,
+  \item f \emph{strettamente decrescente}: \space $x_1 > x_2 \Rightarrow f(x_1) > f(x_2)$,
+  \item f \emph{decrescente}: \space $x_1 > x_2 \Rightarrow f(x_1) >= f(x_2)$.
+\end{enumerate}
+Sia f: A $\rightarrow$ B una funziona da A verso B. Se X è un sottoinsieme di A,
+l'immagine di X mediante f, indicata come f(X), è il sottoinsieme di B definito da:
+\begin{equation}
+  f(X) = \{y \in B : \exists x \in X : y = f(x)\}
+\end{equation}
+L'immagine di A mediante f è il codominio di f. quindi
+\begin{equation}
+  f^{-1}(Y) = \{x \in A : f(x) \in  Y\}.
+\end{equation}
+Una funzione può anche essere \emph{composta} mediante due funzioni. \\
+Prendendo tre insiemi X, Y, Z e g : X $\rightarrow$ Y e f: Y $\rightarrow$ Z, in modo
+che il codominio di g sia il dominio di f, si può definire la funzione
+h : X $\rightarrow$ Z , definita come $h(x) = f(g(x))$ per $x \in X$. 
+\begin{equation}
+  h = f\circ g = f(g(x)).
+\end{equation}
+
+\section{Funzioni lineari e valore assoluto}
+Una \emph{funzione lineare} è una funzione del tipo:
+\begin{equation}
+    y = mx + q
+\end{equation}
+Le funzioni lineari hanno le seguenti caratteristiche:
+\begin{enumerate}
+    \item m e q sono numeri reali fissati,
+    \item sono strettamente monotòne su $R$,
+    \item se m = 0, la funzione f(x) = q, non è biunivoca poiché è una retta orizzontale.
+\end{enumerate}
+Il \emph{valore assoluto} (0 \emph{modulo}) di x è definito come:
+\begin{equation}
+    |x| =
+    \left\{ 
+    \begin{array}{l}
+        x, \qquad x \geq 0 \\
+        -x, \quad \, x < 0
+    \end{array} 
+    \right.
+\end{equation}
+e gode delle seguenti proprietà:
+\begin{enumerate}
+    \item $|x| \geq 0, \forall x \in R$;
+    \item $|x| = 0, \Leftrightarrow x = 0$;
+    \item $|-x| = |x|, \forall x \in R$;
+    \item $|x_1 \cdot x_2| = |x_1| \cdot |x_2|, \forall x \in R$;
+    \item $|x_1 / x_2| = |x_1| / |x_2|, \forall x \in R$.
+\end{enumerate}
+Inoltre,  $\forall r \geq 0 \in R$, valgono:
+\begin{enumerate}
+    \item $|x| \leq r \Leftrightarrow \quad -r \leq x \leq r$;
+    \item $|x| < r \Leftrightarrow \quad -r < x < r$.
+\end{enumerate}
+Sono entrambi dimostrabili partendo dalla definizione di valore assoluto. \\
+La proprietà seguente, chiamata \emph{disuguaglianza triangolare}, se $x_1$ e $x_2$
+sono concordi allora la relazione è uguale, mentre se sono discordi è sicuramente minore:
+\begin{equation}
+    |x_1 + x_2| \leq |x_1| + |x_2|.
+\end{equation}
+$\forall x \in R$ la relazione $|x| \leq |x|$ è ovvia, se utilizziamo x = r al secondo membro,
+e ponendo $x_1 = x = x_2$, otteniamo:
+\[
+    -|x_1| \leq x_1 \leq |x_1|, \quad -|x_2| \leq x_2 \leq |x_2|,
+\]
+sommando membro a membro si ottiene:
+\[
+    -(|x_1| + |x_2|) \leq x_1 + x_2 \leq (|x_1| + |x_2|).
+\]
+per cui con $r = |x_1| + |x_2|$ è dimostrata.
+
+\section{Funzioni potenza, esponenziali e logaritmi}
+La funzione potenza è definita come:
+\begin{equation}
+    f(x) = x^{n}, \quad n \in N, \wedge \forall x \in R.
+\end{equation}
+La funzione inversa è la \emph{radice n-sima} e si indica con:
+\begin{equation}
+    f^{-1}(x) = \sqrt[n]{x} = x^{\frac{1}{n}}, \quad (x \geq 0).
+\end{equation}
+Si può anche definire l'elevazione ad esponente razionale: ($m, n \in N, x \in R, x > 0)$:
+\begin{equation}
+    x^{m/n}= \sqrt[n]{x^{m}}.
+\end{equation}
+Tramite l'assioma di completezza è possibile definire l'elevazione ad un numero irrazionale.
+Proprietà delle potenze:
+\begin{enumerate}
+    \item $a^{b} \cdot a^{c} = a^{b + c}$; \quad $(a^{b})^{c} = a^{b \cdot c}$;
+    \item $a^{b} > 0$; 
+    \item $a < b, c > 0 \quad \Rightarrow \quad a^{c} < b^{c}$;
+    \item $a < b, c < 0 \quad \Rightarrow \quad a^{c} > b^{c}$;
+    \item $a > 1, b < c \quad \Rightarrow \quad a^{b} < a^{c}$;
+    \item $a < 1, b < c \quad \Rightarrow \quad a^{b} > a^{c}$.
+\end{enumerate}
+La \emph{funzione esponenziale} è definita come $f(x) = a^{x}$ con $a, x \in R$.
+La funzione inversa della funzione esponenziale è chiamata funzione logaritmo e si scrive come
+$f(x) = \log_a{x}$.
+\begin{equation}
+    y = log_a{x} \quad \Leftrightarrow \quad a^{y}=x.
+\end{equation}
+Una proprietà importante degli esponenziali e dei logaritmi è la seguente:
+\begin{equation}
+        a^{log_a{x}}=x.
+\end{equation}
+Alcune proprietà dei logaritmi:
+\begin{enumerate}
+    \item $log_a{x_1 \cdot x_2} = log_a{x_1} + log_a{x_2}$;
+    \item $log_a{x_1 / x_2} = log_a{x_1} - log_a{x_2}$;
+    \item $log_a{x^{b}} = b \cdot log_a{x}$;
+    \item $log_b{x} = log_a{x} + log_a{b}$.
+\end{enumerate}
+
+\section{Funzioni trigonometriche}
+Posto che si conosca già le funzioni trigonometriche, questa sezione è scritta
+partendo dal presupposto di fare un ripasso veloce.
+Equazione fondamentale:
+\begin{equation}
+    \sin^{2}(x) + \cos^{2}(x) = 1, \forall x \in R.
+\end{equation}
+Addizione:
+\begin{eqnarray}
+    \sin(x_1 \pm x_2) = \sin{x_1} \cdot \cos{x_2} \pm \sin{x_2} \cdot \cos{x_1}. \\
+    \cos(x_1 \pm x_2) = \cos{x_1} \cdot \cos{x_2} \pm \sin{x_1} \cdot \sin{x_2}.
+\end{eqnarray}
+Ponendo $x_1 = x_2 0 x$ si ottiene le formule di duplicazione:
+\begin{eqnarray}
+    \sin(2x) = 2 \cdot \sin{x} \cdot \cos{x}. \\
+    \cos(2x) = \cos^{2}{x} - \sin^{2}{x}.
+\end{eqnarray}
+La tangente è definita come:
+\begin{equation}
+    \tan{x} = \frac{\sin{x}}{\cos{x}}.
+\end{equation}
+Di seguito una tabella riassuntiva dei valori seno, coseno e tangente più comuni:
+\begin{center}
+\begin{tabular}{| c | c | c | c | c | c | c | c | c |}
+    \hline
+    x \emph{radianti} & 0 & $\pi/6$ & $\pi/4$ & $\pi/3$ & $\pi/2$ & $\pi$ & $(3/2)\pi$ & $2\pi$ \\
+    \hline
+    x \emph{gradi} & 0 & 30 & 45 & 60 & 90 & 180 & 270 & 360 \\
+    \hline
+    \emph{$\sin{x}$} & 0 & $1/2$ & $\sqrt{2}/2$ & $\sqrt{3}/2$ & 1 & 0 & -1 & 0 \\
+    \hline
+    \emph{$\cos{x}$} & 1 & $\sqrt{3}/2$ & $\sqrt{2}/2$ & $1/2$ & 0 & -1 & 0 & 1 \\
+    \hline
+    \emph{$\tan{x}$} & 0 & $\sqrt{3}/3$ & 1 & $\sqrt{3}$ & -- & 0 & -- & 0 \\
+    \hline
+\end{tabular}
+\end{center}
+Una rappresentazione grafica delle funzioni trigonometriche:
+\begin{center}
+\begin{tikzpicture}
+    \datavisualization [scientific axes=clean,
+                        y axis=grid,
+                        visualize as smooth line/.list={sin,cos,tan},
+                        style sheet=strong colors,
+                        style sheet=vary dashing,
+                        sin={label in legend={text=$\sin x$}},
+                        cos={label in legend={text=$\cos x$}},
+                        tan={label in legend={text=$\tan x$}},
+                        data/format=function
+                        ]
+    data [set=sin] {
+      var x : interval [-4:4];
+      func y = sin(\value x r);
+    }
+    data [set=cos] {
+      var x : interval [-4:4];
+      func y = cos(\value x r);
+    }
+    data [set=tan] {
+      var x : interval [-0.35*pi:.35*pi];
+      func y = tan(\value x r);
+    };
+\end{tikzpicture}
+\end{center}
+
+\section{Principio di induzione}
+Si può dimostrare attraverso il principio di induzione che:
+\[
+    0 \leq x_1 \leq x_2 \quad \Rightarrow \quad x_1^{n} < x_2^{n}, \quad \forall n \in N.
+\]
+Supponendo che valga solo per n = 1, che è vera, si ottiene che:
+\[
+    x_1^{n + 1} = x_1 \cdot x_1^{n} \leq x_2 \cdot x_1^{n} < x_2 \cdot x_2^{n} = x_2^{n + 1}.
+\]
+Dal momento che la relazione vale per n = 1, e vediamo che vale anche per n +1, allora
+questa vale sempre poiché prendendo n = 2 (per cui abbiamo dimostrato che vale), questa
+varrà anche per n = 3 e così via.
+\begin{lemma}
+    PRINCIPIO DI INDUZIONE: Supponiamo che una proposizione dipendente da un indice $n \in N$
+    sia ver aper $n=1$ e che inoltre, supposta vera per n, sia vera anche per il successivo
+    n + 1. Allora la proposizione è vera $\forall n \in N$.
+\end{lemma}
+E' dimostrabile per induzione pure la formula dei numeri naturali:
+\[
+    1 + 2 + 3 + \dotfill + (n - 1) + n = \frac{n(n + 1)}{2}.
+\]
+Prendendo n = 1, questa dà l'identità 1 = 1. Quindi prendendo n + 1,
+otteniamo un'altra identità.\\
+E' possible dimostrare pure la diseguaglianza di bernoulli con il principio
+di induzione.\\
+\begin{lemma}
+    DISEGUAGLIANZA DI BERNOULLI:  $\forall r \in R x \geq 1$ e $\forall n \in N$:
+    \[
+        (1 + x)^{n} \geq 1 + nx.
+    \]  
+\end{lemma}
+Per n = 1 la proposizione è vera, moltiplicando ora entrambi i membri per 1 + x:
+\begin{eqnarray*}
+    (1 + x)^{n + 1} \geq (1 + nx) \cdot (1 + x) = \\
+    = 1 + x + nx + nx^{2} \geq 1 + (n + 1) \cdot x.
+\end{eqnarray*}
+Ottenuta ora la proposizione con n + 1, per il principio di induzione, la 1.13.2 è verificata.
+
+\chapter{Complementi ai numeri reali}
+\section{Massimo, minimo, estremo superiore ed estremo inferiore}
+Sia A un insieme di numeri reali. Il \emph{massimo} di A, se esiste, è un numero
+M dell'insieme di A che è maggiore o uguale ad ogni elemento di A.
+\[
+    M = max(A) \quad \Leftrightarrow \quad \left\{ 
+        \begin{array}{l}
+          M \geq a, \forall a \in A; \\
+          M \in A.
+        \end{array} 
+    \right.
+\]
+Analogamente il \emph{minimo} di A è un numero m minore o uguale di tutti gli elementi di A:
+\[
+    m = min (A) \quad \Leftrightarrow \quad \left\{ 
+        \begin{array}{l}
+          m \leq a, \forall a \in A; \\
+          m \in A.
+        \end{array} 
+    \right.
+\]
+Non tutti gli insiemi hanno tuttavia un massimo ed un minimo. (Se A è l'insieme di
+tutti i numeri reali positivi, non ha un minimo poiché 0 non è compreso e non ha un massimo). \\
+Un numero reale $L$ si dice \emph{maggiorante} se $L \geq a, \forall a \in A$. \\
+Analogamente un numero reale $l$ è un \emph{minorante} se $l \leq a, \forall a \in A$ \\
+I maggioranti ed i minoranti non sempre esistono per un insieme. In generale esistono se
+A è limitato.
+\begin{equation}
+    A \ \emph{limitato} \Longleftrightarrow \exists \ l, L \in R: l \leq a \leq L, \forall a \in A.
+\end{equation}
+\begin{theorem}
+    Un insieme A è limitato se e soltanto se esiste un numero positivo M tale che;
+    \[
+        |a| \leq M \qquad \forall a \in A.
+    \]
+    Per la proprietà del valore assoluto si ottiene:
+    \[
+        - M \leq a \leq M, \qquad \forall a \in A.
+    \]
+    In conclusione la 2.1 vale se $l = - M$ e $L = M$. \\ 
+    Viceversa se vale la 2.1, allora valgono anche queste qui sopra con M = max \{$|l|$, $|L|$\}:
+    \[
+        - M \leq - |l| \leq l \leq a \leq L \leq |L| \leq M. \quad \forall a \in A. 
+    \]
+\end{theorem}
+
+TEOREMA DELL'ESISTENZA DELL'ESTREMO SUPERIORE:
+\begin{theorem}
+  Sia A un insieme di numeri reali nno vuoto e limitato superiormente. Diciamo che
+  $M  in R$ è l'estremo superiore di A se M il minimo dei maggioranti di A. 
+  Dimostrazione: \\
+  Supponiamo che A sia un insieme non vuoto di numeri reali limitato superiormente.
+  Allora esiste il minimo dell'insieme dei maggioranti di A.\\
+  Indicando con B l'insieme dei maggioranti di A, applicando l'assioma di completezza,
+  si ottiene che esiste un numero M tale che:
+  \[
+    a \leq M \leq b, \quad \forall a \in A, \quad \forall b \in B.
+  \]
+  M è quindi un maggiorante e l'elemento minimo di B e l'ipotesi è dimostrata.
+\end{theorem}
+Quindi possiamo dire che ogni numero più piccolo di M non è un maggiorante:
+\begin{equation}
+  M \ = \ sup \ A \quad \Longleftrightarrow \ quad \left\{
+    \begin{array}{l}
+      M \geq a, \forall a \in A; \\
+      \forall \epsilon > 0, \exists a \in A: M - \epsilon < a.
+    \end{array}
+  \right.
+\end{equation}
+Analogamente è dimostrabile che se A è limitato inferiormente, allora esiste un
+massimo dei minoranti di A:
+\begin{equation}
+  m \ = \ inf \ A \quad \Longleftrightarrow \quad \left\{
+    \begin{array}{l}
+      m \geq a, \forall a \in A; \\
+      \forall \epsilon > 0, \exists a \in A: m + \epsilon < a.
+    \end{array}
+  \right.
+\end{equation}
+
+Se un'insieme non è limitato sia inferiormente che superiormente allora si esprime come:
+\begin{eqnarray*}
+  sup \ A = + \infty \quad \Longleftrightarrow \quad \forall L, \exists a, \in A: a > L.\\
+  inf \ A = - \infty \quad \Longleftrightarrow \quad \forall l, \exists a, \in A: a < l.
+\end{eqnarray*}
+\begin{equation}
+  A = (-\infty ; +\infty).
+\end{equation}
+
+\section{Numeri periodici e intervalli}
+I numeri periodici hanno una loro \emph{frazione generatrice}: che ha per numeratore
+il numero così come è meno la parte non periodica e al denominatore tanti nove quante
+le cifre periodiche e tanti zeri quanti numeri decimali non periodici.
+\[
+  2,2\bar{3} = \frac{223 - 22}{90} = \frac{201}{90} = \frac{67}{30}.
+\]
+La notazione ad intervalli è utile per esprimere insiemi:
+\begin{eqnarray*}
+  (a, b) = \{x \in R: a < x < b\}; \quad Intervallo \ aperto; \\
+  \left[a, b\right] = \{x \in R: a \leq x \leq b\} \quad Intervallo \ chiuso.
+\end{eqnarray*}
+Se $x_0$ appartiene ad un intervallo aperto diremo che quell'intervallo è un intorno di $x_0$.
+
+\section{Calcolo combinatorio}
+Sia A un insieme costituito da n elementi:
+\[
+  a = \{a_1, a_2, \dots, a_n\}.
+\]
+Sia $k \in N: k \leq n$. Una disposizione di k elementi tra gli n dati è un sottoinsieme ordinato di A
+che ha k elementi; consideriamo distinte due disposizioni se differiscono per gli elementi o
+per solo l'ordine di tali elementi.
+\begin{theorem}
+  Il numero delle disposizioni di k elementi tra gli elementi dati è:
+  \begin{equation}
+    n(n - 1)(n - 2)...(n - k + 1) \ = \ n!;
+  \end{equation}
+  cioè il prodotto di k numeri interi decrescenti a partire da n.
+  E' possibile infatti scegliere il primo elemento n, mentre il secondo deve 
+  essere scelto tra gli n-1 rimasti. Se k = 2, il numero delle disposizioni è 
+  n(n - 1) e così via.
+\end{theorem}
+Questo genere di disposizioni tra gli n dati si chiama \emph{permutazioni} degli n elementi.
+Il numero di disposizioni tra k elementi tra n dati si può anche scrivere come:
+\[
+  n(n-1)...(n -k +1) = \frac{n!}{(n - k)!}
+\]
+Una \emph{combinazione} di k elementi tra n dati è un sottoinsieme
+di k elementi non ordinato; consideriamo uguali due combinazioni che hanno gli stessi
+elementi, indipendentemente dall'ordine.
+\begin{theorem}
+  Il numero delle combinazioni di k elementi tra n dati è:
+  \begin{equation}
+    \left(\begin{array}{l}
+      n \\
+      k
+    \end{array}\right) = \frac{n!}{(n - k)!k!}.
+  \end{equation}
+\end{theorem}
+
+Dalla 2.6 segue l'identità:
+\begin{equation}
+    \left(\begin{array}{l}
+        n \\
+        k
+    \end{array}\right) = \left(\begin{array}{l}
+        \ \ n \\
+        n - k
+    \end{array}\right), \quad \forall n \in N, \forall k \in \{0, 1, \dots, n\}.
+\end{equation}
+
+\section{Nessun quadrato di un numero razionale da $\sqrt{2}$}
+\begin{theorem} [Non esistono numeri il cui quadrato è esattamente $\sqrt{2}$]
+\end{theorem}
+\begin{proof}
+    Supponendo per assurdo che $\sqrt{2}$ sia razionale, allora per definizione:
+    \begin{gather*}
+        \exists a, b \in Z : \sqrt{2} = \frac{m}{n} 
+    \end{gather*}
+    con m ed n primi tra di loro, allora:
+    \begin{gather*}
+        m = n \sqrt{2} \Rightarrow m^{2} = 2n^{2}    
+    \end{gather*}
+    Da qui $m^{2}$ è pari e anche m lo è in quanto il quadrato di un numero pari è sempre un numero
+    pari e poiché qualsiasi numero moltiplicato per 2 è pari, allora anche n è pari perché qualsiasi
+    numero diviso per due è sicuramente pari: posto quindi $n = 2k$
+    \begin{gather*}
+        m^{2} = 4k^{2} \Rightarrow  4k^{2} = 2n^{2} \Rightarrow  2k^{2} = n^{2}      
+    \end{gather*}
+    Quindi anche n è pari e questa è una contraddizione in quanto m ed n sono primi tra di loro
+\end{proof}
+
+\section{Binomio di Newton}
+Col seguente lemma si dimostra il binomio di Newton:
+\begin{lemma}
+    $\forall n, k \in N$ vale:
+    \begin{equation}
+        \left(\begin{array}{l}n - 1\\k - 1\end{array}\right) + 
+        \left(\begin{array}{l}n - 1\\ \ \ k \end{array}\right) = 
+        \left(\begin{array}{l}n\\k\end{array}\right).
+    \end{equation}
+    Dimostrabile dalla definizione.
+\end{lemma}
+Un'importante applicazione delle disposizioni e delle combinazioni è LA FORMULA DEL
+BINOMIO DI NEWTON:
+\begin{theorem}
+    $\forall a, b \in R$ vale:
+    \begin{equation}
+        (a + b)^{n} = \left(\begin{array}{l}n\\0\end{array}\right) a^{n} +
+        \left(\begin{array}{l}n\\1\end{array}\right)a^{n - 1}b+
+        \dots + \left(\begin{array}{l}n\\k\end{array}\right)a^{n - k}b^{k} + 
+        \dots + \left(\begin{array}{l}\ \ n\\n - 1\end{array}\right)ab^{n - 1} +
+        \left(\begin{array}{l}n\\n\end{array}\right)b^{n}.
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    Per induzione la proprietà del binomio di Newton vale per n = 0. Per induzione dunque si ottiene:
+    \begin{gather*}
+        (a + b)^{n + 1} = (a + b)(a + b)^{n} = (a + b)\sum_{k = 0}^{n}\begin{pmatrix} n \\
+        k \end{pmatrix} a^{k}b^{n - k} = \\
+        a\sum_{k = 0}^{n} \begin{pmatrix} n \\
+        k \end{pmatrix} a^{k}b^{n - k} + b \sum_{k = 0}^{n} a^{k}b^{n - k} = \\
+        \sum_{k = 0}^{n} \begin{pmatrix} n \\
+        k \end{pmatrix} a^{k + 1} b^{n - k} + \sum_{k = 0}^{n} a^{k}b^{n + 1 - k}                    
+    \end{gather*}
+    A questo punto si trasla l'indice della prima sommatoria: si porta fuori l'ultimo termine della
+    sommatoria, così si fa lo stesso per la seconda sommatoria ma con il primo termine ottenendo:
+    \begin{gather*}
+        a^{n + 1} + \sum_{k = 1}^{n}\begin{pmatrix} n \\
+        k \end{pmatrix} a^{k} b^{n + 1 - k} + b^{n + 1} +
+        \sum_{k =1 }^{n} \begin{pmatrix} n \\
+        k - 1 \end{pmatrix} a^{k}b^{n + 1 -k}         
+    \end{gather*}
+    A questo punto si raccoglie tutto in un unica sommatoria applicando le proprietà:
+    \begin{gather*}
+        a^{n + 1} + b^{n + 1} + \sum_{k = 1}^{n} \begin{pmatrix} n + 1 \\
+        k\end{pmatrix} a^{k} b^{n + 1 - k}   
+    \end{gather*}
+    Allora si ottiene che:
+    \begin{gather*}
+        \begin{pmatrix} n + 1 \\
+        0\end{pmatrix} b^{n + 1} + \sum_{k = 1}^{n} \begin{pmatrix} n + 1\\
+        k \end{pmatrix} a^{k} b^{n + 1 -k} + \begin{pmatrix} n + 1 \\
+        n + 1 \end{pmatrix} a^{n + 1} = \\
+        \sum_{k = 0}^{n} \begin{pmatrix} n + 1 \\
+        k\end{pmatrix} a^{k} b^{n + 1 - k}            
+    \end{gather*}
+\end{proof}
+
+
+\section{Numeri complessi}
+Consideriamo una generica equazione di secondo grado nell'incognita z:
+\begin{equation}
+    az^{2} + bz + c = 0.
+\end{equation}
+che ha soluzioni reali se $b^{2} -4ac \geq 0$:
+\begin{equation}
+    \left.\begin{array}{l}
+        z_2 \\ \ \\ z_1
+    \end{array}\right\} = -\frac{b}{2a} \pm
+    \frac{\sqrt{b^{2} - 4ac}}{2a}.
+\end{equation}
+I coefficienti a, b, c sono legati alle soluzioni $z_1, z_2$.
+Nel caso dell'equazione:
+\begin{equation}
+    z^2 + 1 = 0.
+\end{equation}
+otteniamo:
+\begin{equation}
+    z_1 + z_2 = 0 \qquad z_1 \cdot z_2 = 1.
+\end{equation}
+Nell'ambito dei numeri reali, queste due equazioni non hanno senso. \\
+E' necessario quindi estendere $R$ introducendo il campo $C$ dei complessi.
+Le soluzioni della 2.12 sono:
+\begin{equation}
+    z = \pm \sqrt{-1}.
+\end{equation}
+Si definisce dunque il numero complesso $i = \sqrt{-1}$. Per definizione risulta che
+\[
+    i^{2} = -1.
+\]
+L'insieme dei numeri complessi è definito come:
+\begin{equation}
+    C = \left\{z = x + iy: \quad x, y \in R\right\}.
+\end{equation}
+Il complesso $\bar{z} = x -iy$ si chiama \emph{complesso coniugato} di $\bar{z} = x +iy$ e risulta:
+\[
+    z \cdot \bar{z} = x^{2} + y^{2}.
+\]  
+Un numero complesso si può anche rappresentare sul piano cartesiano ed è individuato
+dalla sua distanza $\rho$ dal centro O e dall'angolo $\theta$  che il segmento $OP$
+forma con l'asse delle ascisse. Dal teorema di pitagora si ha che:
+\begin{equation}
+    \rho = \sqrt{x^{2} + y^{2}};
+\end{equation}
+mentre $\theta$ è legato alle formule:
+\begin{equation}
+    \cos \theta = \frac{x}{\rho}; \qquad \sin \theta = \frac{y}{\rho}.
+\end{equation}
+Un complesso in \emph{forma trigonometrica} diventa:
+\begin{equation}
+    z = \rho(\cos \theta + i\sin \theta).
+\end{equation}
+La potenza di un numero complesso in forma trigonometrica con $n \in N$ sarà:
+\[
+    z^{n} = \rho^{n}(\cos{n \theta} + i \sin{n \theta}).
+\]
+Un complesso $z^{\prime}$ è la n-esima radice di z se risulta $(z^{\prime})^{n} = z$.
+\begin{equation}
+    \rho^{\prime} = \sqrt[n]{\rho}; \qquad \theta^{\prime} = (\theta + 2kn)/n, k \in Z.
+\end{equation}
+Un numero complesso è esprimibile anche attraverso la notazione esponenziale: posto che
+\[
+    \cos \theta + i \sin \theta = e^{i\theta},
+\]
+un complesso in forma trigonometrica si esprime come:
+\begin{equation}
+    z = \rho e^{i \theta}.
+\end{equation}
+
+\section{Proprietà degli insiemi numerici}
+Nell'insieme $R$ dei numeri reali, dall'elemento 1 è possibile determinare gli elementi distanti 1.
+Questi elementi costituiscono l'insieme $N= {1, 2, \dots}$ dei numeri naturali e gode
+delle seguenti proprietà:
+\begin{enumerate}
+    \item $1 < 2 < 3 < \dots$;
+    \item Ogni parte non vuota di $N$ + dotata di un minimo;
+    \item Ogni parte non vuota di $N$, superiormente limitata è dotata di un massimo;
+\end{enumerate} 
+\begin{theorem}
+    PROPRIETA' DI ARCHIMEDE -- $\forall x \in R \ \exists \ n \in N : n > x$.
+\end{theorem}
+Dimostrazione: \\
+Se la proprietà di Archimede fosse falsa, allora $R$ sarebbe un'insieme limitato superiormente
+e per l'assioma di completezza sarebbe dotato di un estremo superiore. Quindi 
+$\forall n \in R \Rightarrow n \leq M$. Poiché per definizione anche $n + 1$ è un
+numero naturale, risulterebbe che $n \leq M - 1 \ \forall n \in N$; il che sarebbe
+assurdo in quanto M è un maggiorante di $N$ e quindi dovrebbe essere maggiore di qualsiasi n.
+Di conseguenza, per induzione, si dimostra che la proprietà di Archimede è verificata e che
+$N$ non è limitato superiormente. \\
+Si ricava dunque che $Q$, ossia l'insieme dei razionali, è \emph{denso in $R$}.
+
+\begin{theorem}
+    DENSITA' DEI NUMERI RAZIONALI -- L'insieme $Q$ dei numeri razionali è denso in $R$.
+\end{theorem} 
+Dimostrazione: \\
+Si deve provare che $\forall a, b \in R \ | \ a < b, \ \exists \ x \in Q : a < x < b$.
+Preso $a > 0$, sia $n \in N : n > 1/(b - a) \Rightarrow nb - na > 1$. Detto m il più piccolo naturale
+tale che $na < m \Rightarrow m - 1 \leq na < m \ \wedge \ na < m = (m - 1) + 1 \leq na + 1
+< na + (nb - na) = nb$. Da $ na < m < nb$ il teorema è dimostrato. Basterà ripetere la
+dimostrazione con $a < 0$ (con $a < 0 < b$ è ovvio) e $b \leq 0$.
+
+\begin{theorem}
+    PRINCIPIO DI INDUZIONE -- Supponendo che una proposizione $P_n$ dipendente da
+    un indice $n \in N$ sia vera per $n = 1$ e che, inoltre, supposta vera per
+    $n = k$ sia vera anche per $n = k + 1$. Allora $P_n$ è vera $\forall n \in N$.
+\end{theorem}
+Dimostrazione: \\
+Considerato l'insieme
+\[
+    X = \{n \in N : P_n \ falsa\}.
+\]
+Se X fosse non vuoto, esso avrebbe un minimo m = min X maggiore di 1, perché
+$1 \notin X$. Poiché $m - 1 \notin X, P_{m - 1}$ è vera. Allora per le ipotesi
+del principio di induzione, anche $P_m$ è vera, il che è assurdo perché $m \in X$.
+
+
+\section{Insiemi infiniti}
+Due insiemi di numeri reali A e B si dicono \emph{equipotenti} se esiste una corrispondenza
+biunivoca tra di loro.
+Un insieme $A \subset R$ si dice finito se $\exists n \in N: A$ è equipotente
+all'insieme $\{1, \dots, n\}$.
+Un'insieme è inoltre numerabile se è equipotente ad N, ossia se esiste una successione
+di numeri reali a due a due distinti il cui codominio coincide con A.
+
+\begin{theorem}
+    CARATTERIZZAZIONE DEGLI INSIEMI FINITI -- Un'insieme A è infinito
+    se e solo se è equipotente ad una sua parte propria.
+\end{theorem}
+Dimostrazione: \\
+poiché un'insieme finito non può essere equipotente ad una sua 
+parte impropria, per dimostrare il teorema basta dimostrare come un insieme infinito sia equipotente
+ad una sua parte propria.
+Sia A infinito e sia la successione: $a_n : N \rightarrow A$ una successione di elementi di A a due a due distinti,
+ossia una funzione iniettiva da N verso A, il cui codominio è indicato con B. \\
+Posto C = A - B, si ha che $A = \cup B \cup C \ e \ B \cap C = \emptyset$. Sia ora
+un insieme $A^{\prime} | A^{\prime} = (B - \{a_1\}) \cup C$. La funzione $f : A \rightarrow A^{\prime}$ sarà:
+\begin{equation}
+    f(x) = \left\{ \begin{array}{l}
+        a_{n + 1} \quad se \ x = a_n \\
+        x \qquad \ se \ x \in C
+    \end{array}\right.
+\end{equation}
+è una corrispondenza biunivoca tra A e la sua parte propria $A^{\prime}$.
+
+Proviamo ora il seguente:
+\begin{theorem}
+    Il prodotto cartesiano $A \times B$ di due insiemi A e B numerabili è numerabile.
+\end{theorem}
+Dimostrazione:\\
+Siano ($a_n$ e $b_n$) corrispondenze biunivoche tra $N$ e A e tra $N$ e B.
+Seguendo un procedimento di tipo diagonale, ossia costruendo la successione
+che a 1 associa $(a_1, b_1)$, a 2 associa $(a_1, b_2)$, a tre associa $(a_2, b_1)$ 
+e così via, si giunge ad una corrispondenza biunivoca tra $N$ e $A \times B$. \\
+Segue quindi che l'insieme $Q$ dei razionali è numerabile poiché ogni numero razionale
+positivo è individuato da una coppia $(m, n)$ di numeri naturali primi fra loro e
+l'unione di due insiemi numerabili è numerabile. 
+
+\begin{theorem}
+    L'intervallo $[0, 1]$ è un insieme infinito non numerabile. 
+\end{theorem}
+Dimostrazione: \\
+Sia, per assurdo, ($x_n)$ una successione iniettiva e suriettiva da $N$ verso
+l'intervallo $[0, 1]$. Sia $[a, b]$, con $ a < b$, un intervallo $\in [0, 1]|
+x \notin [a, b]$. Sia $[a_1, b_1] \subset [a, b] :  a_1 < b_1 | x_1 \notin 
+[a_1, b_1]$ e così via. L'intersezione di tutti questi intervalli, non contenendo 
+alcun elemento della successione $x_n$, il cui insieme di elementi per ipotesi coincide
+con $[0, 1]$, è necessariamente vuota. Ma ciò è assurdo perché posto:
+$M = sup_n a_n$ si ha $a_n \leq M \leq b_n \forall n \in N$. \\
+Si può infine dimostrare che ogni intervallo aperto di $R$ e $R$ stesso sono
+equipotenti all'intervallo di partenza. Questi insiemi hanno la "potenza del continuo".   
+
+\section{Funzione esponenziale su R}
+La funzione esponenziale su Q è definita come segue: 
+\begin{equation}
+    f \ : \ x \in Q \rightarrow a^{x} \in R^{+}
+\end{equation}
+Per definirla in questo modo, bisogna dimostrare il seguente:
+\begin{theorem}
+    LEMMA DI DENSITA -- il codominio $f(Q)$ della funzione f è denso in $R^{+}$.
+\end{theorem}
+Dimostrazione: \\
+Verifichiamo che $\forall \alpha, \beta : \alpha < \beta, \ \exists \ y \in Q |
+\alpha < a^{y} < \beta$.
+Nel caso $a > 1, 1 \leq \alpha < \beta$, in quanto gli altri si trattano analogamente.
+Sia $n \in N | (\beta / \alpha)^{n} > a$ e sia $m$ il massimo intero tale che 
+$a^{m} \leq \alpha^{n}$. Si ha quindi:
+\[
+    \alpha^{n} < a^{m + 1} < \beta^{n},
+\]
+in quanto risulta che $\beta^{n} > a \cdot \alpha^{n} \geq a \cdot a^{m}$. 
+Si ricava:
+\begin{eqnarray*}
+    a^{x} = sup_{y<x} \ a^{y} \qquad a>1 \\
+    a^{x} = sup_{y>x} \ a^{y} \quad 0<a<1 
+\end{eqnarray*}
+Quindi si può definire l'esponenziale $\forall x \in R$ nel modo seguente:
+\begin{eqnarray*}
+    a^{x} = sup \{a^{y} : y \in Q, y < x\} \quad a > 1 \\
+    a^{x} = sup \{a^{y} : y \in Q, y > x\} \quad 0 < a < 1 \\
+\end{eqnarray*} 
+Quindi sussiste il seguente:
+\begin{theorem}
+    Per $a > 1$ l'esponenziale è strettamente crescente mentre per $0 < a < 1$ è
+    strettamente decrescente di $R$ su $R^{+}$.
+\end{theorem}
+Dimostrazione: \\
+Proviamo che $a > 1$, la funzione esponenziale di base a è crescente. Siano $x_1 < x_2$ e siano
+$y_1, y_2 \in Q | x_1 < y_1 < x_2 < y_2$ per cui segue:
+\[
+    a^{x_1} \leq a^{y_1} < a^{y_2} \leq a^{x_2}
+\] 
+Per provare la suriettività, fissato z > 0, 
+\[
+    A = \{y \in Q : a^{y} < z\}
+\]
+\[
+    a^{supA} = z.
+\]
+Essendo per definizione:
+\[
+    a^{supA} = sup {a^{y} : y \in Q, y < sup A}
+\]
+si ha che $a^{sup A} \leq z$. Se fosse $a^{sup A} < z$ detto y un numero razionale, per
+il teorema di densità si ha:
+\[
+    a^{sup A} < a^{y} < z,
+\]
+avremmo $y \in Y$ ossia un numero y che appartiene ad un insieme che si frappone tra
+un numero e sé stesso. Il che ovviamente è impossibile.
+
+\section{Le classi di resto}
+
+Nella teoria dei gruppi, è possibile organizzare i numeri secondo delle classi di resto di
+modulo m $(m \in N)$. Per esempio se la somma delle cifre di un numero è tre, allora
+quel numero è divisibile per tre. $n = km$. \\
+Tutti i possibili resti derivanti dalla divisione $n/m$ sono identificati dall'insieme:
+$\{0, 1, \dots, (m - 1)\} \ | \ m \ne \pm 1$. Se il resto è zero, allora il numero k è
+un multiplo di m.
+Le classi di resto si possono indicare con la seguente scrittura: $[0]$, $[1]$.... Una
+proprietà importante è che qualunque numero $n$ si prenda che abbia una certa classe di resto,
+se sommato a un'altro numero $l$ con una classe di resto differente, il numero risultante
+apparterrà alla classe di resto che corrisponde alla somma delle classi di resto. Se 
+questo numero è $\geq m$, allora si ricomincia a partire da 0. \\
+Presi due numeri $x, x^{\prime} \in Z$, se appartengono alla stessa classe di resto,
+allora $x$ e $x^{\prime}$ differiscono per un multiplo di $m$. cioè:
+\[
+    x^{\prime} = x + km.
+\]
+Analogamente, se $y, y^{\prime} \in Z$, appartengono alla stessa classe,
+\[
+    y^{\prime} = y + hm.
+\]
+Quindi:
+\[
+    x^{\prime} + y^{\prime} = x + km + y + hm = x + y + (k + h)m.
+\]
+L'intero $x^{\prime} + y^{\prime}$ differiscono da $x + y$ di un certo multiplo k + h, per cui
+appartiene per costruzione alla stessa classe di $x + y$, definendo la somma tra classi come:
+\begin{equation}
+    [x] + [y] = [x + y].
+\end{equation}
+Il ragionamento analogo può essere fatto per il prodotto, quindi:
+\[
+    xy + (xh + yk + khm) m;
+\]
+cioè si definisce il prodotto tra classi come:
+\begin{equation}
+    [x] \cdot [y] = [x \cdot y].
+\end{equation}
+Come detto prima, se la classe risultante dovesse essere $\geq m$, in questo caso, 
+dividiamo la classe per m, e la classe di resto risultante sarà la classe identificata
+dal resto di questa divisione.
+
+
+\chapter{Limiti di successioni}
+\section{Successioni e proprietà}
+Una \emph{successione} è una legge che ad ogni numero naturale $n$ fa corrispondere
+uno ed un solo numero reale $a_n$. Ricordando la definizione di funzione, una successione 
+è dunque una funzione da N in R.
+
+\begin{definition}
+    Un numero reale a è il limite della successione $a_n$ (la successione converge ad a) e si scrive:
+    \begin{equation}
+        \lim_{n \rightarrow + \infty} a_n = a \quad oppure \quad a_n \rightarrow a,
+    \end{equation}
+    qualunque sia $\epsilon > 0 \ \exists v \ | \ |a_n - a| < \epsilon \ \forall n > v.$ 
+\end{definition}
+
+\begin{theorem}[TEOREMA DELL'UNICITA' DEL LIMITE]
+    Una successione convergente non può avere due limiti distinti.
+\end{theorem}
+Dimostrazione: \\
+Supponendo per assurdo che esistano due limiti distinti $a_n \rightarrow a, a_n \rightarrow b
+| a \ne b$, si pone $\epsilon = \frac{|a - b|}{2} \ (>0)$. Si ha:
+\[
+    \exists \ v_1 \ | \ |a_n - a| < \epsilon, \ \forall n > v_1; \quad
+    \exists \ v_2 \ | \ |a_n - b| < \epsilon, \ \forall n > v_2.
+\]
+Ponendo $v = max\{v_1, v_2\}$, le relazioni sopra scritte valgono contemporaneamente e si ha:
+\begin{eqnarray*}
+    |a - b| = |(a - a_n) + (a_n - b)| \leq |a - a_n| + |a_n - b| = \\
+    = |a_n - a| + |a_n - b| < 2\epsilon = |a - b \\ 
+\end{eqnarray*}
+
+\begin{definition}
+    Una successione $a_n$ ha limite uguale a $+ \infty$ (diverge a $+\infty$) e si scrive:
+    \begin{equation}
+        \lim_{n \rightarrow + \infty} a_n = + \infty \quad oppure \quad a_n \rightarrow + \infty.
+    \end{equation}
+    se qualunque sia $\forall \ M > 0 \ \exists v \in R | a_n > M \ \forall \ n > v$. Nel caso in cui
+    il limite diverga a meno infinito invece, si usa $\forall \ M > 0 \ \exists v \in R | a_n < -M \ \forall \ n > v$.
+\end{definition}
+Una successione che invece converge a zero si chiama infinitesima, mentre una che non ammette
+alcun limite si chiama non regolare.
+
+\section{Successioni limitate}
+Una successione è regolare se ammette limite finito o infinito, tuttavia una successione
+si può anche chiamare limitata nel caso in cui:
+\begin{equation}
+    \exists M | |a_n| \leq M \ \forall \ n \in N \ \wedge - M \leq a_n \leq M, \ \forall \ n \in N.
+\end{equation}
+Esistono anche successioni limitate non regolari come:
+\[
+    a_n = (-1)^{n}.
+\]
+
+\begin{theorem}
+    Ogni successione convergente è limitata.
+\end{theorem}
+Dimostrazione: \\
+supponiamo che $a_n$ converga ad a e scegliamo $\epsilon = 1$. In questo caso
+$\exists v : |a_n - a| < 1 \ \forall \ n > v$:
+\begin{eqnarray*}
+    |a_n| = |(a_n - a) + a| \leq |a_n - a| + |a| < 1 + |a|. \\
+    \forall n \in N \Rightarrow |a_n| \leq M = max \{|a_1|, \dots, |a_v|, 1 + |a|\}.
+\end{eqnarray*}
+
+\section{Operazioni coi limiti}
+$Se \quad \lim_{n \rightarrow + \infty} a_n = a \ \wedge \ \lim_{n \rightarrow + \infty} b_n = b
+: a, b \in R$, si ha:
+\begin{enumerate}
+    \item \begin{equation}
+        \lim_{n \rightarrow + \infty} (a_n \pm b_n) = a \pm b.
+    \end{equation}
+    \item \begin{equation}
+        \lim_{n \rightarrow + \infty} (a_n \cdot b_n) = ab.
+    \end{equation}
+    \item \begin{equation}
+        \lim_{n \rightarrow + \infty} \frac{a_n}{b_n} = \frac{a}{b}. \quad se \ b_n, b \ne 0.
+    \end{equation}
+\end{enumerate}
+Dimostrazioni:
+\begin{enumerate}
+    \item Per ipotesi: $\forall \epsilon > 0$,
+    \[
+        \exists v_1 : |a_n - a| < \epsilon, \ \forall \ n > v_1; \quad
+        \exists v_2 : |b_n - b| < \epsilon, \ \forall \ n > v_2;
+    \]
+    Ponendo $v = max \{v_1, v_2\} \ \forall \ n > v$ si ha:
+    \begin{eqnarray*}
+        |(a_n + b_n) - (a + b)| = |(a_n - a) + (b_n - b)| \leq \\
+        \leq |a_n - a| + |b_n - b| < 2\epsilon
+    \end{eqnarray*}
+    \item Dal momento che $a_n$ è limitata ed utilizzando l'ipotesi vista alla
+    precedente dimostrazione, si può dire che $\forall \ n > v = max \{v_1, v_2\}$:
+    \begin{eqnarray*}
+        |a_nb_n - ab| = |a_nb_n - a_nb +a_nb - ab| = \\
+        |a_n(b_n - b) + b(a_n - a)| \leq |a_n||b_n - b|+|b||a_n - a| < \\
+        < M\epsilon + |b|\epsilon = (M + |b|)\epsilon.
+    \end{eqnarray*}
+    \item Considerando $a_n$ e $b_n$ convergenti per ipotesi a $a$ e $b$ rispettivamente,
+    e, per ipotesi $b \ne 0$, prendiamo $b>0$, allora con $\epsilon = b/2$:
+    \[
+        \exists \ v_1 \ | \ b - \epsilon < b_n < b + \epsilon, \quad  \forall  n > v_1.
+    \]
+    ossia:
+    \[
+        b_n  b - \epsilon = b - \frac{b}{2} = \frac{b}{2}, \qquad \forall n > v_1.
+    \]
+    Per ipotesi $\forall \epsilon > 0 \ \exists \ v_2, v_3 :$
+    \[
+        |a_n - a| < \epsilon, \ \forall n > v_2; \quad
+        |b_n - b| < \epsilon,\ \forall n > v_3, 
+    \]
+    Posto ora $v = max \{v_1, v_2, v_3\} \ \forall n > v$:
+    \begin{eqnarray*}
+        \left|\frac{a_n}{b_n} - \frac{a}{b}\right| = \left|\frac{a_n b - a b_n}{b_n b}\right| =
+        \frac{1}{|b_n b|} |(a_n - a)b + a(b - b_n)| \leq \\
+        \leq \frac{1}{\frac{b}{2}b}(|a_n - a|b + |a|\cdot|b_n - b|) < \epsilon
+        \frac{2(b + |a|)}{b^2}.
+    \end{eqnarray*}
+\end{enumerate}
+
+\section{Forme indeterminate}
+Alcune delle operazioni coi limiti:
+\begin{eqnarray*}
+    a_n \rightarrow a, \quad b_n \rightarrow \pm \infty \quad \Rightarrow \quad a_n + b_n \rightarrow \pm \infty \\
+    a_n \rightarrow \pm \infty, \quad b_n \rightarrow \pm \infty \quad \Rightarrow \quad a_n + b_n \rightarrow \pm \infty \\
+    a_n \rightarrow a \ne 0, \quad b_n \rightarrow \pm \infty \quad \Rightarrow \quad |a_n + b_n| \rightarrow + \infty \\
+    a_n \rightarrow \pm \infty, \quad b_n \rightarrow \pm \infty \quad \Rightarrow \quad |a_n + b_n| \rightarrow + \infty \\
+    a_n \rightarrow a, \quad b_n \rightarrow \pm \infty \quad \Rightarrow \quad \frac{a_n}{b_n} \rightarrow 0 \\
+    a_n \rightarrow a, \quad b_n \rightarrow \pm \infty \quad \Rightarrow \quad \left|\frac{b_n}{a_n}\right| \rightarrow + \infty \\
+    a_n \rightarrow a \ne 0, \quad b_n \rightarrow 0 \quad \Rightarrow \quad \left|\frac{a_n}{b_n}\right| \rightarrow + \infty 
+\end{eqnarray*}
+Risultano alcuni casi chiamate forme indeterminate: 
+\begin{equation}
+    \infty - \infty, \qquad 0 \cdot \infty, \qquad \frac{\infty}{\infty}, \qquad \frac{0}{0}.
+\end{equation}
+Un limite che si presenta come una forma indeterminata non vuol dire che non esista,
+vuol dire semplicemente che il limite necessità di essere manipolato per poter
+essere risolto.
+
+\section{Teoremi di confronto}
+\begin{theorem}[TEOREMA DELLA PERMANENZA DEL SEGNO]
+    Se $\lim_{n \rightarrow +\infty} a_n = a>0
+    \ \exists \ v \ | \ a_n > 0 \ \forall n > v$.
+\end{theorem}
+Dimostrazione: \\
+Dato che $a > 0$, possiamo scegliere $\epsilon = a/2, \ \exists \ v \ | \ 
+|a_n - a| < a/2 \ \forall n > v \Rightarrow -a/2 < a_n - a < a/2$:
+\[
+    a_n > a - \frac{a}{2} = \frac{a}{2} > 0, \qquad \forall n > v.
+\] 
+
+\begin{lemma}
+    Se $\lim_{n \rightarrow + \infty} a_n = a, a_n \geq 0 \ \forall n \Rightarrow a \geq 0$.
+\end{lemma}
+Dimostrazione: \\
+Se per assurdo fosse $a < 0$, il teorema della permanenza del segno comporterebbe, applicato
+ad $-a_n$, comporterebbe che $a_n < 0$ per n grande.
+
+\begin{lemma}
+    Se $\lim_{n \rightarrow +\infty} a_n = a, \lim_{n \rightarrow + \infty} b_n = b,
+    a_n \geq b_n \ \forall n \Rightarrow a \geq b$.
+\end{lemma}
+Dimostrazione: \\
+Si procede applicando la dimostrazione del corollario precedente a $a_n - b_n$.
+
+\begin{theorem}[TEOREMA DEI CARABINIERI]
+    Siano $a_n, b_n, c_n$ tre successioni tali che:
+    \[
+        a_n \leq c_n \leq b_n, \qquad \forall n \in N.
+    \]
+    Se $\lim_{n \rightarrow + \infty} a_n = \lim_{n \rightarrow + \infty} b_n = a$,
+    allora anche la successione $c_n$ è convergente ad a.
+\end{theorem}
+Dimostrazione: \\
+Per ipotesi, $\forall \epsilon > 0$:
+\[
+    \exists \ v_1 \ : \ |a_n - a| < \epsilon, \ \forall n > v_1; \quad
+    \exists \ v_2 \ : \ |b_n - a| < \epsilon, \ \forall n > v_2.
+\]
+Se $n > v = max \{v_1, v_2\}$, risulta che:
+\[
+    a - \epsilon < a_n \leq c_n \leq b_n < a + \epsilon.
+\]
+Quindi $|c_n - a|  \epsilon$. 
+Valgono anche:
+\begin{eqnarray}
+    a_n \leq b_n, \quad \forall n \in N, \quad a_n \rightarrow + \infty \quad \Rightarrow \quad b_n \rightarrow + \infty. \\
+    a_n \leq b_n, \quad \forall n \in N, \quad b_n \rightarrow - \infty \quad \Rightarrow \quad a_n \rightarrow - \infty.
+\end{eqnarray}
+Dimostrazione per la prima (la seconda è analoga): \\
+Per ipotesi $a_n \rightarrow + \infty$ ossia:
+\[
+    \forall M > 0, \ \exists \ v \ | \ a_n > M, \qquad \forall n > v.
+\]
+Dato che $b_n \geq a_n \ \forall n \in N$ si ha la tesi:
+\[
+    b_n \geq a_n > M, \qquad \forall n > v.
+\]
+
+\section{Altre proprietà dei limiti di successioni}
+\begin{lemma}
+    $a_n$ converge a zero se e soltanto se $|a_n|$ converge a zero.
+\end{lemma}
+Dimostrazione: \\
+Posto $b = |a_n|$, $b_n$ converge a zero se e solo se:
+\[
+    \forall \epsilon > 0, \ \exists \ v \ | \ |b_n| < \epsilon, \qquad \forall n > v.
+\]
+Dato che:
+\[
+    |b_n| = ||a_n|| = |a_n|, \qquad \forall n > v
+\]
+
+\begin{theorem}
+    TEOREMA DEL LIMITE DEL PRODOTTO DI UNA SUCCESSIONE LIMITATA PER UNA INFINITESIMA ---
+    Se $a_n$ è una successione limitata e $b_n$ è una successione che converge a zero,
+    allora la successione prodotto $a_n \cdot b_n$ converge a zero.
+\end{theorem}
+Dimostrazione (primo metodo): \\
+Per ipotesi si ha:
+\[
+    |a_n b_n| = |a_n| \cdot |b_n| \leq M \cdot |b_n| = -M \cdot |b_n| \leq a_n \cdot b_n \leq M \cdot |b_n|. 
+\]
+Dato che per ipotesi $b_n \rightarrow 0$ anche $|b_n|$ converge a zero. Grazie al teorema
+dei carabinieri si deduce che anche $a_n \cdot b_n \rightarrow 0$.
+Dimostrazione (secondo metodo): \\
+\begin{eqnarray}
+    \forall \epsilon > 0, \quad \exists \ v \ | \ |b_n| < \epsilon, \\
+    |a_n b_n| = |a_n| \cdot |b_n| \leq M \cdot |b_n| < M \epsilon
+\end{eqnarray}
+
+\section{Alcuni limiti notevoli}
+\begin{equation}
+    \lim_{n \rightarrow + \infty} a^n = \left\{ \begin{array}{l}
+        + \infty, \qquad se \quad a > 1, \\
+        1, \qquad se \quad a = 1, \\
+        0, \qquad se \quad -1 < a < 1, \\
+        non \ esiste, \qquad se \quad a =  -1, \\
+        +\infty, \qquad a < -1.
+    \end{array}\right.
+\end{equation}
+Dimostrazione: \\
+Se $a > 1$, si usa la disuguaglianza di Bernoulli:
+\[
+    a^n \geq 1 + n(a - 1).   
+\]
+Il secondo membro $\rightarrow + \infty$ se $n \rightarrow + \infty$ e per il teorema
+del confronto anche $a^n \rightarrow + \infty$, mentre i casi a = 1 e a = 0 sono ovvi.
+Se invece a è compreso tra -1 ed 1 ($0 < |a| < 1$) allora si ottiene:
+\[
+    \lim_{n \rightarrow + \infty} |a^n| = \lim_{n \rightarrow + \infty}
+    \frac{1}{\left(\frac{1}{|a|}\right)^n} = 0
+\]
+Se a = -1 non esiste, se $a < - 1$ invece si ottiene la successione $|a| > 1$, quindi
+il limite esiste ed è $+ \infty$. 
+
+\begin{equation}
+    lim_{n \rightarrow + \infty} \sqrt[n]{a} = \lim_{n \rightarrow + \infty}a^{\frac{1}{n}} = 1.
+\end{equation}
+Dimostrazione: \\
+Se $a > 1$ allora il limite è $\geq 1$. Se poniamo come nuova successione $b_n =
+\sqrt[n]{a} - 1$ si ha che $b_n \geq 0$ e per Bernoulli:
+\[
+    a = (1 + b_n)^n \geq 1 + n b_n.
+\] 
+quindi:
+\[
+    0 \leq b_n \leq (a - 1)/n
+\]
+Per il teorema dei carabinieri segue che $b_n \rightarrow 0, \sqrt[n]{a} \rightarrow 1.
+Se \ 0 < a < 1 \ allora \ 1/a > 1$ e quindi.
+\[
+    \sqrt[n]{a} = \frac{1}{\sqrt[n]{\frac{1}{a}}} \rightarrow 1
+\]
+Dimostriamo ora che se $b \in R$ risulta:
+\begin{equation}
+    \lim_{n \rightarrow +\infty} \sqrt[n]{n^b} = 1.
+\end{equation}
+Esaminando $b = 1/2$, si ottiene con la disuguaglianza di Bernoulli:
+\begin{eqnarray*}
+    b_n = \sqrt[n]{n^{1/2}} - 1 \geq 0 \\
+    \sqrt{n} = (1 + b_n)^n \geq 1 + nb_n \\
+    0 \leq b_n \leq \frac{\sqrt{n} - 1}{n} = \frac{1}{\sqrt{n}} - \frac{1}{n} \rightarrow 0. \\
+    b_n \rightarrow 0, \ cioe' \quad \sqrt[n]{n^{1/2}} = n^{1/(2n)} \rightarrow 1. 
+\end{eqnarray*}
+Considerando ora $b \in Z$:
+
+In tal caso $\sqrt[n]{n^b} = (\sqrt[n]{n^{1/2}})^{2b} \rightarrow 1^{2b} = 1$.
+Introducendo la funzione \emph{parte intera di x}:
+\begin{equation}
+    \left[x\right] = \ il \ piu' \ grande \ intero \leq x.
+\end{equation}
+
+Se $b \in R$ abbiamo $[b] \leq b < [b] + 1$ quindi:
+\[
+    \sqrt[n]{n^{[b]}} \leq \sqrt[n]{n^{b}} \leq  \sqrt[n]{n^{[b] + 1}}
+\]
+Per il teorema dei carabinieri si ottiene quindi la tesi. \\
+Ora analizziamo de limiti delle funzioni trigonometriche:
+\begin{equation}
+    a_n \rightarrow \Rightarrow sin(a_n) \rightarrow 0;
+\end{equation}
+\begin{equation}
+    a_n \rightarrow 0 \Rightarrow cos(a_n) \rightarrow 1.
+\end{equation}
+
+Ad esempio $sin(1/n) \rightarrow 0$ e $cos(1/n) \rightarrow 1$. \\
+Dimostrazione: \\
+Poiché $a_n$ converge a zero allora per definizione esiste un indice $v$ per cui
+$|a_n| < \pi / 2 \ \forall n > v$ per cui:
+\[
+    0 \leq |sin(a_n)| \leq |a_n|
+\]
+Per il teorema dei carabinieri si sa dunque che $|sin(a_n)| \rightarrow 0$.
+La dimostrazione per il limite del coseno invece deriva da:
+\[
+    cos(x) = \pm \sqrt{1 - sin^2(x)}
+\]
+Con l'indice $v$ risulta che $-\pi / 2 \leq a_n \leq \pi / 2 \ \forall n > v$ per cui:
+\[
+    cos(a_n) = \pm \sqrt{1 - sin^2(a_n)}
+\]
+Ossia la tesi. poiché se $a_n \rightarrow 0$, allora la radice vale 1.
+
+\begin{equation}
+    a_n \rightarrow 0, a_n \ne 0, \ \forall n \Rightarrow \frac{sin(a_n)}{a_n} \rightarrow 1.
+\end{equation}
+Dimostrazione: 
+\[
+    0 < |x| < \frac{\pi}{2} \Rightarrow cosx < \frac{sinx}{x} < 1
+\]
+Se x è positivo:
+\[
+    sinx < x < tanx = \frac{sinx}{cosx}
+\]
+da cui dividendo per sinx che positivo e invertendo:
+\[
+    cosx < \frac{sinx}{x} < 1.
+\]
+Se x è negativo invece:
+\[
+    cosx = cos(-x) < \frac{sin(-x)}{-x} = \frac{sinx}{x} < 1.
+\]
+Dato che $a_n \rightarrow 0$, per definizione di limite esiste un $v | |a_n| < \pi/2 \
+\forall n > v$. così:
+\[
+    cos(a_n) < \frac{sin(a_n)}{a_n} < 1
+\]
+
+\section{Successioni monotòne}
+Così come per le funzioni anche le successioni possono essere crescenti, decrescenti,
+(anche strettamente) e monotone quando non invertono mai la loro tendenza
+
+\begin{theorem}
+    TEOREMA SULLE SUCCESSIONI MONOTONE. -- Ogni successione monotona ammette limite.
+    In particolare, ogni successione monotona limitata è convergente.
+\end{theorem}
+Dimostrazione: \\
+Considerato il caso di una successione $a_n$ crescente e limitata si ottiene posto
+$l = sup_n a_n$, e fissato $\epsilon > 0$, per le proprietà dell'estremo superiore
+si ottiene che:
+\[
+    l - \epsilon < a_v.
+\]
+Per $n > v$ risulta che $a \leq a_n$ dunque:
+\[
+    l - \epsilon < a_v \leq a_n \leq l < l + \epsilon,
+\]
+da cui $\lim_{n \rightarrow + \infty}a_n = l$ Considerando il caso di una successione
+crescente e non limitata. Fissato $M > 0$ esiste allora $v \in N  | a_v > M$ Dato che
+$a_n$ è crescente allora $\forall n > v$ si ottiene:
+\[
+    a_n \geq a_v > M.
+\]
+da cui si ottiene che $\lim_{n \rightarrow + \infty} a_n = + \infty$.
+Analogamente si ottengono gli altri casi.
+
+\section{Il numero e}
+Il teorema delle successione monotone è utile per definire il numero di Eulero (o Nepero):
+\begin{equation}
+    e = \lim_{n \rightarrow + \infty} a_n \qquad con \qquad a_n = \left(1 + \frac{1}{n}\right)^n.
+\end{equation}
+Dimostrazione per $+ \infty$:
+\[
+    \left(1 + \frac{1}{[a_n] + 1}\right)^{[a_n]} < \left(1 + \frac{1}{a_n}\right)^{a_n} 
+    < \left(1 + \frac{1}{[a_n]}\right)^{[a_n] + 1} 
+\]
+Per i carabinieri diventa:
+\[
+    \left(1 + \frac{1}{[a_n]}\right)^{[a_n] + 1} = \left(1 + \frac{1}{[a_n]}\right)^{[a_n]}
+    \cdot \left(1 + \frac{1}{[a_n]}\right) \rightarrow e \cdot 1 = e.
+\]
+Dimostrazione per $- \infty$ poniamo $b_n = -a_n - 1$:
+\begin{eqnarray*}
+    \left(1 + \frac{1}{a_n}\right)^a_n = \left(1 - \frac{1}{b_n  + 1}\right)^{-(b_n + 1)} = \\
+    = \left(\frac{b_n}{b_n + 1}\right)^{-(b_n + 1)} = \left(\frac{b_n + 1}{b_n}\right)^{b_n + 1} = \\
+    = \left(1 + \frac{1}{b_n}\right)^{b_n} \cdot \left(1 + \frac{1}{b_n}\right).
+\end{eqnarray*}
+
+A causa di questo limite si aggiungono le forme indeterminate:
+\[
+    1^{+ \infty}, \quad 1^{- \infty}, \quad (+ \infty)^0, \quad 0^0
+\]
+
+La definizione del numero di Eulero ci permette di definire anche due proprietà: 
+\begin{lemma}
+    la successione $a_n$ è monotòna crescente
+\end{lemma}
+
+\begin{lemma}
+    la successione $a_n$ è limitata
+\end{lemma}
+
+Dimostrazione 3.6.1:
+\[
+    a_n = \left(1 + \frac{1}{n}\right)^n \geq a_{n-1} = \left(1 + \frac{1}{n - 1}\right)^{n- 1}
+\]
+\[
+    \left(\frac{n + 1}{n}\right)^n \geq \left(\frac{n}{n - 1}\right)^n \cdot \left(\frac{n - 1}{n}\right);
+\]
+ossia:
+\[
+    \left(\frac{n^2 - 1}{n^2}\right)^n \geq \frac{n - 1}{n}
+\]
+isolando 1:
+\[
+    \left(1 - \frac{1}{n^2}\right)^n \geq 1 - \frac{1}{n}
+\]
+Ponendo nella disuguaglianza di Bernoulli $a = -1/n^2$ si ottiene la tesi. \\
+Dimostrazione 3.6.2:
+\[
+    b_n = \left(1 + \frac{1}{n}\right)^{n + 1}
+\]
+$\forall n \in N$:
+\[
+    b_n = \left(1 + \frac{1}{n}\right)^{n} \cdot \left(1 + \frac{1}{n}\right) =
+    a_n \cdot \left(1 + \frac{1}{n}\right) > a_n. 
+\]
+Poiché $a_n$ è strettamente crescente ne consegue che:
+\[
+    a_1 \leq a_n < b_n < b_1 \qquad \forall n \geq 2
+\] 
+e quindi essendo $a_1 = 2 \ e \ b_1 = 4$:
+\[
+    2 \leq a_n < 4 \qquad \forall n \in N 
+\]
+e quindi $a_n$ è limitata. Si verifica ora che $b_n$ sia strettamente decrescente
+come per la dimostrazione della 3.6.1.
+Per la stima fatta nella scorsa dimostrazione si può ottenere una stima più precisa di e
+ponendo:
+\[
+    a_n < b_m 
+\]
+e posto k = $max \{n, m\}$ risulta:
+\[
+    a_n \leq a_k < b_k \leq b_m.
+\]
+Per m = 1 si ottiene la limitazione vista prima, ma per m = 5 si ottiene:
+\[
+    a_n < b_5 = \left(\frac{6}{5}\right)^6 = 2.98\dots \qquad \forall n \in N.
+\]
+ossia $2 \leq a_n < 3$ e quindi anche $e$ verifica le limitazioni di $a_n$.
+
+\section{Successioni definite per ricorrenza}
+In alcune applicazioni si definiscono le successioni per ricorrenza: 
+\[
+    a_1 \ assegnato, \quad a_{n+1} = f(a_n), \qquad \forall n \in N.
+\]
+Supponendo che $f(x)$ sia continua su $R$ e che il limite esista e valga: se 
+$a_n \to a$, allora $a_{n+1} \to a$.
+Le successioni seguenti sono definite per ricorrenza:
+\begin{eqnarray}
+    a_1 = 1, \quad a_{n+1} = \sqrt{3a_n}. \\
+    a_1 = 2, \quad a_{n+1} = \frac{a_n}{2} + \frac{1}{a_n}. \\
+    a_1 = 2, \quad a_{n+1} = -\frac{a_n}{2} - \frac{1}{a_n}. \\
+    a_1 = 3, \quad a_{n+1} = \frac{1}{a_n}. \\
+    a_1 = 0, \quad a_{n+1} = 2a_n + 1. \\
+\end{eqnarray}
+
+\section{Infiniti di ordine crescente}
+\begin{theorem}[CRITERIO DEL RAPPORTO (PER LE SUCCESSIONI)]
+    Sia $a_n$ una successione a termini
+    positivi. Definiamo $b_n = a_{n+1}/a_n$. Se la successione $b_n$ converge ad un
+    limite $b < 1$, allora la successione $a_n$ tende a zero.
+\end{theorem}
+Dimostrazione: \\
+Per la permanenza del segno (applicato a $1-b_n$) $\exists v | b_n < 1 \ \forall n > v$.
+Quindi $a_{n+1} / a_n < 1$ ossia $a_{n+1} < a_n \ \forall n > v$. Se per assurdo
+passassimo come valore $a \ne 0$ al limite, si otterrebbe che $b = 1$, per cui l'unico
+valore di a per soddisfare la relazione è $a = 0$.\\
+Applicando questo criterio alle successioni:
+\[
+    \log n; \quad n^b; \quad a^n; \quad n!; \quad n^n.
+\]
+con $b>0, a> 1$ si può dimostrare che i limiti seguenti sono equivalenti:
+\[
+    \lim_{n \to + \infty} \frac{logn}{n^b} = \lim_{n \to + \infty} \frac{n^b}{a^n} =
+    \lim_{n \to + \infty} \frac{a^n}{n!} = \lim_{n \to + \infty} \frac{n!}{n^n} = 0
+\]
+Il primo limite è ovvio poiché si può esprimere $logn$ come $(1/b)log(n^b)$, dunque
+sicuramente è zero. Il secondo limite diventa invece: 
+\[
+    a_n = \frac{n^b}{a^n} ; \quad b_n = \frac{a_{n+1}}{a_n} = 
+    \left(\frac{n+1}{n}\right)^b \frac{1}{a} \to \frac{1}{a} < 1.
+\]
+Per il terzo limite:
+\[
+    a_n = \frac{a^n}{n!}; \quad b_n = \frac{a_{n+1}}{a_n} = \frac{a}{n+1} \to 0.
+\]
+Infine per il quarto limite:
+\[
+    a_n = \frac{n!}{n^n}; \quad b_n = \frac{a_{n+1}}{a_n} = 
+    \frac{1}{\left(\frac{n+1}{n}\right)^n} \to \frac{1}{e} < 1.
+\]
+
+\section{Successioni estratte. Il teorema di Bolzano-Weierstrass}
+Sia $a_n$ una successione di numeri reali e sia $n_k$ una successione strettamente
+crescente di numeri naturali. La successione $a_n$ definita da:
+\[
+    k \in N \to a_{nk}
+\]
+prende il nome di successione estratta da $a_n$, di indici $n_k$.
+
+\begin{lemma}
+    $\forall n_k > 0 \ in \ N$ si ha:
+    \[
+        n_k \geq k
+    \]
+\end{lemma}
+
+Dimostrazione: \\
+Per k = 1 si ha che $n_1 \geq 1$, si prova (posta valida) per induzione che 
+$n_{k+1} \geq k + 1$, per ipotesi è quindi $n_{k+1} > n_k \geq k$, ossia $n_{k+1} > k$
+e perciò $n_{k+1} \geq k + 1$.
+
+\begin{lemma}
+    Se $a_n$ converge verso $a$, allora ogni estratta di $a_n$ converge verso a.
+\end{lemma}
+Dimostrazione: \\
+Fissato $\epsilon > 0 \ \exists k_0 : |a_n - a| < \epsilon \ \forall n > k_0$.
+Se $k > k_0$ essendo $n_k \geq k$ per il teorema precedente, allora $n_k > k_0$ e
+quindi si ha $|a_{n_k} - a |< \epsilon$. \\
+Ne deriva dunque il seguente: 
+\begin{theorem} [TEOREMA DI BOLZANO-WEIERSTRASS]
+    \label{Bolzano-Weierstrass}
+    Sia $a_n$ una successione limitata.
+    Allora esiste almeno una sua estratta convergente.
+\end{theorem}
+Dimostrazione: \\
+per ipotesi la successione $a_n$ è limitata: pertanto esistono $A, B \in R$ tali che:
+\[
+    A \leq a_n \leq B \quad \forall n \in N.
+\]
+Suddividiamo l'intervallo $[A, B]$ con un punto in mezzo $C = (A + B)/2$, poiché N è infinito,
+allora risulta infinito almeno uno ra i due sottoinsiemi di N:
+\[
+    \{n \in N: \quad a_n \in [A, C]\}, \qquad \{n \in N : \quad a_n \in [C, B]\}.
+\]
+Indicando con $[A_1, B_1]$ l'intervallo in cui sono presenti i termini della successione
+per infiniti indici:
+\[
+    A \leq A_1, \quad B_1 \leq B, \quad B_1 - A-1 = \frac{B - A}{2}.
+\]
+Suddividiamo l'intervallo ottenuto $[A_1, B_1]$ tramite un punto di mezzo $C_1$ come prima
+e per questo risulta che esistano al suo interno due punti $A_2$ e $B_2$ come definiti prima.
+Iterando ancora il procedimento si generano due successioni $A_k, B_k (k \in N)$ tali che:
+\begin{eqnarray}
+    A \leq A_k \leq A_{k+1} < B_{k+1} \leq B_k \leq B, \quad \forall k \in N, \\
+    B_k - A_k = \frac{B -A}{2^k}, \quad \forall k \in N.
+\end{eqnarray}
+e l'intervallo $[A_k, B_k]$ contiene termini della successione per infiniti indici.
+In particolare si ha che l'intervallo $[A_1, B_1]$ contiene termini della successione $a_n$;
+quindi esiste il primo intero $n_1$ tale che $a_n \in [A_1, B_1]$. Per lo stesso motivo
+si itera nell'intervallo determinando una successione strettamente crescente di numeri naturali
+per cui: 
+\[
+    A_k \leq a_{n_k} \leq B_k = A_k + \frac{B-A}{2^k} \quad \forall k \in N.
+\]
+La successione $A_k$ e anche $B_k$ sono monotone e limitate ed ammettono un limite
+dal valore di $l \in R$. Poiché $(B-A)/2^k \to 0$ per $k \to + \infty$, entrambi i membri di
+quella sopra convergono ad $l$ per $k \to + \infty$. Per il teorema dei carabinieri infine
+si ottiene:
+\begin{equation}
+    \lim_{k \to + \infty} a_{n_k} = l.
+\end{equation}
+
+\section{Successioni di Cauchy}
+Sia $a_n$ una successione di numeri reali. Si dice che $a_n$ è una \emph{successione
+di Cauchy} se $\forall \epsilon > 0 \ \exists v | h, k > v$ si ha:
+\begin{equation}
+    |a_k - a_h| < \epsilon
+\end{equation}
+
+\begin{lemma}
+    Ogni successione convergente è di Cauchy.
+\end{lemma}
+Dimostrazione: \\
+Se $a_n$ converge verso $a$ allora $\forall \epsilon > 0 \ \exists v $:
+\[
+    |a_n - a| < \frac{\epsilon}{2} \qquad \forall n > v.
+\]
+Dalla disuguaglianza triangolare si ottiene che per $h, k > v$:
+\[
+    |a_k - a_h| \leq |a_k - a| + |a - a_h| < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+\]
+
+\begin{lemma}
+    Una successione di Cauchy è limitata.
+\end{lemma}
+Dimostrazione: \\
+Sia $\epsilon = 1$, per ipotesi allora $\exists v \in N$ tale che:
+\[
+    |a_k - a_h| < 1 \qquad \forall h,k > v.
+\]
+Fissando un indice $h_0  > v$ per le proprietà del valore assoluto segue che:
+\[
+    a_{h_0} - 1 < a_k < a_{h_0} + 1 \qquad \forall k > v.
+\]
+Posto:
+\[
+    A = min \{a_1, \dots, a_v, a_{h_0} - 1\}, \qquad B = max \{a_1, \dots, a_v, a_{h_0} + 1\},
+\]
+Risulterà ovviamente che (e quindi è limitata):
+\[
+    A \leq a_k \leq B \qquad \forall k \in N. 
+\]
+
+\begin{lemma}
+    Se una successione di Cauchy $a_n$ contiene un'estratta $a_{n_k}$ convergente verso l,
+    allora anche $a_n$ converge verso l.
+\end{lemma}
+Dimostrazione: \\ 
+Fissato $\epsilon > 0 \ \wedge \ v \in N |$:
+\[
+    |a_k - a_h| < \frac{\epsilon}{2} \qquad \forall h, k > v.
+\]
+Sia inoltre $k_0 > v$ tale che:
+\[
+    |a_{n_k} - l| < \frac{\epsilon}{2} \qquad \forall k \geq k_0.
+\]
+Poiché si ha: $n_{k_0} \geq k_0 > v \ \forall n > v$:
+\[
+    |a_n - l | \leq |a_n - a_{n_{k_0}}| + |a_{n_{k_0}} - l| < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+\]
+
+Combinando queste due proposizioni si ottiene il seguente teorema:
+\begin{theorem}
+    CRITERIO DI CONVERGENZA DI CAUCHY. -- Una successione $a_n$ è convergente
+    se e solo se è di Cauchy.
+\end{theorem}
+Dall'inizio del paragrafo tutte le proposizioni portano a dimostrare la
+validità di questo teorema.
+
+\section{La continuità delle funzioni logaritmo ed esponenziale}
+La funzione logaritmo è una funzione  definita come
+\begin{align}
+    f(x) : R^{+} \to R, f(x) = \log_b n
+\end{align}
+Mentre la funzione potenza (così come quella esponenziale), essendo sempre positiva, è definita
+come 
+\begin{align}
+    f(x)  : R \to R^{+}, f(x) = b^{n}  
+\end{align}
+
+\section{Algoritmo di Erone}
+Definendo per ricorrenza una successione $a_n$ e preso un numero reale $x$,
+si può giustificare come l'algoritmo di Erone sia un buon metodo per l'approssimazione
+delle radici quadrate:
+\[
+    \left\{\begin{array}{l}
+        a_1 \ assegnato \ (> \sqrt{x}) \\
+        a_{n + 1} = \frac{1}{2}\left(a_n + \frac{x}{a_n}\right), \ \forall n \in N
+    \end{array}\right.
+\]
+
+\begin{lemma}
+    La successione $a_n$ definita converge per $n \to + \infty \ verso \ \sqrt{x}$.
+\end{lemma}
+Dimostrazione: \\
+Primo metodo: provando che $a_n > \sqrt{x} \ \forall n \in N$, per $a_1$ è verificata
+e risulta poi:
+\[
+    a_{n + 1} = \frac{1}{2}\left(a_n + \frac{x}{a_n}\right) > \sqrt{x}
+\]
+ma se e solo se
+\[
+    a_n^2 + x > 2a_n \sqrt{x}
+\]
+quindi:
+\[
+    a_n^2 - 2 a_n \sqrt{x} + x = (a_n - \sqrt{x})^2 > 0
+\]
+che è verificata e risulta anche che $a_n \ne \sqrt{x}$. Risulta anche che:
+\[
+    a_n > a_{n+1} = \frac{1}{2}\left(a_n + \frac{x}{a_n}\right)
+\]
+ossia:
+\[
+    2a_n^2 > a_n^2 + x \qquad cioe' \qquad a_n^2 > x.
+\]
+Poiché anche $a_1$ converge ad a, allora per ricorrenza otteniamo:
+\[
+    a = \frac{1}{2}\left(a + \frac{x}{a}\right)
+\]
+e risolvendo per a è risolta. \\
+Secondo metodo: Presa la stima dell'errore dell'algoritmo data dalla seguente:
+\[
+    a_{n + 1} - \sqrt{x} < \frac{1}{2^n}(a_1 - \sqrt{x}), \qquad \forall n \in N
+\]
+
+\chapter{Limiti di funzioni e funzioni continue}
+\section{Premessa e definizione}
+\subsection{Premessa}
+Consideriamo la seguente funzione:
+\[
+    f(x) = \frac{sin(x)}{x}
+\]
+Dal momento che sinx è limitata, allora sappiamo che:
+\[
+    -\frac{1}{x} \leq f(x) \leq \frac{1}{x} \qquad \forall x > 0.
+\]
+Tuttavia come si comporta questa funzione per valori prossimi allo zero?
+Prendendo un valore sempre più vicino a zero (come 0,1 oppure 0,01) si osserva 
+che il valore di questa funzione si avvicina ad 1. Sarebbe ragionevole dunque
+dire che questa funzione $sia$ 1 quando x sia vicino a zero, tuttavia non si conosce
+il comportamento di $f(x)$ per valori ancora più prossimi allo zero. \\
+Considerata una generica successione $x_n$ e la corrispondente successione $y_n$
+tale per cui $y_n = f(x_n)$, se $y_n$ converge ad un numero $l$ e se $l$ non cambia
+qualunque sia il valore di $x_n$ che converge ad $x_0$ allora si dice che la 
+funzione ammette limite uguale ad $l$ per $x \to x_0$.
+\begin{center}
+    \begin{tikzpicture}
+    \begin{axis}[
+        axis lines = middle,
+        enlargelimits=0.1
+    ]
+    \addplot [
+        domain=-20:-0.12, 
+        samples=100, 
+        color=black,
+        ]
+        {sin(deg(x))/x};
+    \addlegendentry{$\frac{sin(x)}{x}$}
+    \addplot [
+        domain=0.12:20, 
+        samples=100, 
+        color=black,
+        ]
+        {sin(deg(x))/x};
+    \end{axis}
+\end{tikzpicture}
+\end{center}
+
+\subsection{Definizione}
+Si definisce quindi limite di una funzione $f(x)$ per $x \to x_0 \in R$ nel caso
+in cui $x_0$ risulti punto di accumulazione per il dominio di $f(x)$.
+Se $a,b$ sono due numeri reali $a < b$, per indicare un \emph{intervallo} di
+estremi a,b si usa:
+\begin{eqnarray}
+    [a, b] = \{x \in R: a \leq x \leq b\}; \\
+    (a, b] = \{x \in R: a < x \leq b\}; \\
+    \left[a, b\right.) = \{x \in R: a \leq x < b\}; \\
+    (a, b) = \{x \in R: a < x < b\}.
+\end{eqnarray}
+Un'intervallo si dice chiuso (a destra o a sinistra se solo una) se entrambe
+le parentesi sono quadre, altrimenti è aperto. Inoltre se a e b sono numeri
+si dice limitato, altrimenti se è presente $\infty$ è illimitato. \\
+Un'\emph{intorno} di un punto $x_0$ è un intervallo aperto contenente $x_0$.
+
+\begin{definition}[Intorno completo]
+    \begin{align}
+        I(x_0, \epsilon) = \{x \in R: |x - x_0| < \epsilon\}
+    \end{align}
+    è l'intorno completo di un pinto di raggio $\epsilon$
+\end{definition}
+
+\begin{definition}[Intorno sinistro]
+    \begin{align}
+        I^{-}(x_0, \epsilon) = \{x \in R : x_0 - \epsilon < x < x_0\} 
+    \end{align}
+\end{definition}
+
+\begin{definition}[Intorno destro]
+    \begin{align}
+        I^{+}(x_0, \epsilon) = \{x \in R : x_0  < x < x_0 + \epsilon\} 
+    \end{align}
+\end{definition}
+
+\begin{definition}
+    Si dice che $f(x)$ ha limite uguale a $l$ (tende o converge ad $l$) per
+    x che trende a $x_0$ se, qualunque sia la successione $x_n \to x_0$, con $x_n
+    \in A$ e $x_n \ne x_0 \ \forall n$ risulta $f(x_n) \to l$. 
+\end{definition}
+
+\begin{theorem}
+    \begin{equation}
+        \begin{split}
+        \lim_{x \to x_0} f(x) = l \Longleftrightarrow & \ \forall \epsilon > 0, \exists
+        \delta > 0 : |f(x) - l| < \epsilon, \\ & \ \forall x \in A : 0 \ne |x - x_0| < \delta
+        \end{split}
+    \end{equation}
+    \begin{equation}
+        \begin{split}
+            \lim_{x \to x_0} f(x) = + \infty \Longleftrightarrow & \ \forall x_n \to x_0, x_n
+            \in A - \{x_0\} \forall n \in N \Rightarrow f(x_n) \to + \infty; \\
+            \Longleftrightarrow & \ \forall M > 0, \exists \delta > 0 : f(x) > M, \\
+            & \ \forall x \in A : 0 \ne |x - x_0| < \delta.
+        \end{split}
+    \end{equation}
+    \begin{equation}
+        \begin{split}
+            \lim_{x \to + \infty} f(x) = l \Longleftrightarrow & \ \forall x_n \to + \infty,
+            x_n \in A, \ \forall n \in N \Rightarrow f(x_n) \to l; \\
+            \Longleftrightarrow & \ \forall \epsilon > 0, \exists k : |f(x) - l| < \epsilon,
+            \ \forall x \in A : x > k.
+        \end{split}
+    \end{equation}
+    
+    \begin{equation}
+        \begin{split}
+            \lim_{x \to + \infty} f(x) = + \infty & \Longleftrightarrow \ \forall x_n \to +
+            \infty, x_n \in A \ \forall n \in N \Rightarrow f(x_n) \to + \infty; \\
+            & \Longleftrightarrow \ \forall M > 0, \ \exists k : f(x) > M, \ \forall x
+            \in A : x > k.
+        \end{split}
+    \end{equation}
+\end{theorem}
+
+\subsection{Operazioni con i limiti}
+Le operazioni con i limiti di funzioni sono analoghe a quelle 
+dei limiti di successioni: col teorema del collegamento si possono
+ricondurre somma, prodotto, quoziente e combinazioni lineari
+di limiti di successioni ai limiti di funzioni.
+
+\section{Legame tra limiti di funzioni e limiti di successioni}
+\subsection{L'esistenza del limite per le funzioni}
+Supponendo che una funzione $f$ sia definita come $f : R \to R$e
+e sia continua su $R$ e definita in un intorno $I(x_0, d)$, allora
+posso dire che
+\begin{align}
+    \lim_{x \to x_0} f(x) &=  sup\{f(x)  : x \in (x_0 - d, x_0)\} \\
+    \lim_{x \to x_0} f(x) &= inf \{f(x)  : x \in (x_0, x_0 + d)\} 
+\end{align}
+
+
+\subsection{Il teorema del collegamento}
+\begin{theorem} [Teorema del collegamento]
+    Le seguenti relazioni sono equivalenti tra loro:
+    \begin{gather}
+        \begin{split}
+            \forall x_n \to x_0, x_n \in A - \{x_0\} \ \forall n \in N \Rightarrow
+            f(x_n) \to l;
+        \end{split} \\
+        \begin{split}
+            \forall \epsilon > 0, \ \exists \delta > 0: x \in A, 0 \ne |x - x_0| < \delta
+            \Rightarrow |f(x) - l| < \epsilon.
+        \end{split}
+    \end{gather}
+\end{theorem}
+
+Dimostrazione: \\
+$\forall \epsilon > 0, \delta > 0$ la seconda implica la prima, consideriamo quindi
+una successione $x_n$ di punti di A, convergente ad $x_0$ con $x_n \ne x_0 \ \forall n \in N$.
+Esiste dunque un indice $v : |x_n - x_0| < \delta \ \forall n > v$, inoltre essendo
+$x_n \ne x_0$ si ha che:
+\[
+    x_n \in A, \quad 0 \ne |x_n - x_0| < \delta, \qquad \forall n > v.
+\]
+Per la 4.10 dunque: 
+\[
+    |f(x_n) - l| < \epsilon,
+\]
+che in base alla definizione di limite di successione significa che $f(x_n) \to l$
+per $n \to + \infty$.
+Provando ora per assurdo che la seconda implichi la prima, allora per contraddire
+la seconda dobbiamo affermare che:
+\[
+    |f(x_n) - l| \geq \epsilon.
+\]
+Ponendo quindi nella relazione $\delta = 1/n$ e indicando con $x = x_n$ il valore di X
+risulterà che:
+\[
+    x_n \ne x_0 \qquad x_0 - \frac{1}{n} < x_n < x_0 + \frac{1}{n}, \qquad \forall n \in N.
+\]
+perciò diventa che $x_n \in A - \{x_0\} \forall n \in N$ e $x_n \to x_0$ per il teorema
+dei carabinieri: però $f(x_n)$ non converge poiché la disuguaglianza imposta per 
+assurdo contrasta con la definizione di limite.
+
+\section{Proprietà dei limiti di funzioni}
+\subsection{Operazioni coi limiti}
+Il limite della somma, differenza, prodotto, quoziente, di due funzioni è rispettivamente
+uguale alla somma, differenza, prodotto, quoziente dei due limiti purché non sia
+nella forma indeterminata $\infty - \infty$, $0 \cdot \infty$, $\infty/\infty$, 0/0.
+
+\subsection{Limiti notevoli}
+\begin{align}
+    &\lim_{x \to 0} \ \frac{\log(1 + f(x))}{f(x)} = 1 \\
+    &\lim_{x \to 0} \ \frac{\log_a(1 + f(x))}{f(x)} = \frac{1}{\log(a)} \\
+    &\lim_{x \to 0} \ \frac{e^{f(x)} - 1}{f(x)} = 1 \\
+    &\lim_{x \to 0} \ \frac{a^{f(x)} - 1}{f(x)} = \log(a) \\
+    &\lim_{x \to \pm \infty} \ \left(1 + \frac{1}{f(x)}\right)^{f(x)} = e \\
+    &\lim_{x \to 0} \ \frac{(1 + f(x))^c - 1}{f(x)} = c \\
+    &\lim_{x \to 0} \ \frac{\sin(f(x))}{f(x)} = 0 \\ 
+    &\lim_{x \to 0} \ \frac{1 - \cos(f(x))}{f(x)^2} = \frac{1}{2}
+\end{align}
+Loro dimostrazioni:
+
+
+
+\section{Funzioni continue}
+\begin{definition}
+    Una funzione $f(x)$ è continua in $x_0$ se:
+    \begin{align}
+        \lim_{x \to x_0} f(x) = f(x_0);
+    \end{align}
+    una funzione è continua in un intervallo $[a; b]$ se è continua in ogni
+    punto $x_0 \in [a; b]$. 
+\end{definition}
+
+\section{Discontinuità}
+Considerando la seguente funzione:
+\begin{align}
+    f(x) = \frac{|x|}{x} = \left\{\begin{array}{l}
+        1 \qquad se \ x > 0, \\
+        -1 \qquad se \ x < 0
+    \end{array}\right.
+\end{align}
+Per $x = 0$ essa presenta un salto, è possibile tuttavia estenderla nella seguente maniera:
+\begin{align*}
+    f(x) = \left\{\begin{array}{l}
+        \frac{|x|}{x} \qquad se x \ne 0 \\
+        \l \qquad se x = 0
+    \end{array}\right.
+\end{align*}
+La funzione è ora definita in $x = 0$ anche se non è continua poiché adesso
+possiede due salti. \\
+Consideriamo ora i vari tipi di discontinuità, posta $f(x)$ definita in $A$ e $x_0 \in A$:
+\begin{enumerate}
+    \item La funzione presenta una \emph{discontinuità eliminabile} se $\exists$ il
+    limite di $f(x)$ per $x \to x_0$ e risulta:
+    \[
+        \lim_{x \to x_0} \ f(x) \ne f(x_0). 
+    \]
+    allora posto $l = \lim_{x \to x_0} \ f(x)$ la funzione è continua nel punto
+    $x_0$ con la seguente estensione:
+    \[          
+        f(x) = \left\{\begin{array}{l}
+            f(x) \qquad se \qquad x \in A - \{x_0\} \\
+            l \qquad se \qquad x = x_0
+        \end{array}\right.
+    \] 
+    \item La funzione $f(x)$ presenta in $x_0$ una \emph{discontinuità di prima specie}
+    se $\exists$ finiti i limiti destro e sinistro di $f(x)$ in $x_0$ e si ha:
+    \[
+        \lim_{x \to x_0^-} f(x) \ne \lim_{x \to x_0^+} f(x).
+    \]
+    \item La funzione $f(x)$ presenta una \emph{discontinuità di seconda specie}
+    se almeno uno dei due limiti:
+    \[
+        \lim_{x \to x_0^-} f(x) \quad, \quad \lim_{x \to x_0^+} f(x)
+    \]
+    $!\exists$ oppure non è definito.
+\end{enumerate} 
+Dalla definizione sopra, si definisce come \emph{prolungamento per continuità} di $f(x)$:
+\[
+    f(x) = \left\{\begin{array}{l}
+        f(x) \qquad se \qquad x \in A - \{x_0\} \\
+        l \qquad se \qquad x = x_0
+    \end{array}\right.
+\]
+
+\section{Teoremi delle funzioni continue}
+\begin{theorem}[TEOREMA DELLA PERMANENZA DEL SEGNO]
+    Sia $f(x)$ una funzione definita in un intorno di $x_0$ e sia continua in $x_0$.
+    Se $f(x_0) > 0, \exists \delta > 0 : f(x) > 0 \ \forall x \in (x_0 - \delta; x_0 + \delta)$.
+\end{theorem}
+\begin{proof}
+    Dato che $f(x) > 0$, possiamo scegliere $\epsilon = f(x_0)/2, \exists\delta > 0 :
+    |f(x) - f(x_0)| < f(x_0)/2 \ \forall x \in |x - x_0| < \delta$ quindi:
+    \[
+        f(x) > f(x_0) - \frac{f(x_0)}{2} = \frac{f(x_0)}{2} > 0.
+    \]
+\end{proof}
+
+\begin{theorem}[TEOREMA DELL'ESISTENZA DEGLI ZERI]
+    \label{Teorema degli zeri}
+    Sia $f(x)$ una funzione continua in $[a; b]$. Se $f(a) < 0, f(b) > 0 \Rightarrow
+    \exists x_0 \in (a, b) | f(x_0) = 0$.
+\end{theorem}
+La dimostrazione si vedrà con il metodo di bisezione nella prossima sezione.
+
+\begin{theorem}[(PRIMO) TEOREMA DELL'ESISTENZA DEI VALORI INTERMEDI]
+    \label{Valori intermedi 1}
+    Una funzione continua in $[a; b]$ assume tutti i valori compresi tra $f(a)$ e $f(b)$.
+\end{theorem}
+\begin{proof}
+    Posto $f(a) \leq f(b)$, consideriamo ora:
+    \[
+        g(x) = f(x) - y_0, \qquad \forall x \in [a; b];
+    \]
+    essendo $f(a) < y_0 < (b)$ per ipotesi, allora
+    \[  
+        g(a) = f(a) - y_0 < 0, \qquad \qquad g(b) = f(b) - y_0 > 0.
+    \]
+    Per il \ref{Teorema degli zeri} $\exists x_0 \in (a; b) | g(x_0) = 0, ossia f(x_0) = y_0$.
+\end{proof}
+
+\begin{theorem}[TEOREMA DI WEIERSTRASS]
+    \label{Weierstrass}
+    Sia $f(x)$ una funzione continua in un intervallo chiuso e limitato $[a, b]$. Allora
+    $f(x)$ assume massimo e minimo in $[a, b]$, cioè $\exists x_1, x_2 \in [a, b] |$
+    \[
+        f(x_1) \leq f(x) \leq f(x_2), \qquad \forall x \in [a, b].
+    \]
+\end{theorem}
+\begin{proof}
+    Posto $M = sup\{f(x) : x \in [a, b]\}$, verifichiamo che esiste una successione
+    $x_n$ di punti di $[a, b]$ tali che:
+    \[  
+        \lim_{n \to + \infty} \ f(x_n) = M.
+    \]
+    Se $M = +\infty$, allora $\forall n \in N \ \exists x_n \in [a, b] : f(x_n) > n
+    \Rightarrow f(x_n) \to M = +\infty$.
+    Se invece $M < + \infty \ \forall n \in N \ \exists x_n \in [a, b] :$
+    \[
+        M - \frac{1}{n} < f(x_n) \leq M \qquad \Rightarrow \qquad f(x_n) \to M.
+    \]
+    Per il teorema \ref{Bolzano-Weierstrass} $\exists$ estratta di $x_{n_k}$ da
+    $x_n$ ed un punto $x_0 \in [a, b] : x_{n_k} \to x_0$.
+    Poiché $f(x)$ è continua, allora segue che $f(x_{n_k}) \to f(x_0)$ e quindi
+    \[
+        M = \lim_{n \to + \infty} \ f(x_n) \lim_{k \to +\infty} \ f(x{n_k}) = f(x_0).
+    \]
+    Questo implica dunque che $M < + \infty$ e che l'estremo superiore è un massimo.
+    (La stessa vale per dimostrare un minimo).
+\end{proof}
+
+\begin{theorem}[(SECONDO) TEOREMA DELL'ESISTENZA DEI VALORI INTERMEDI]
+    \label{Valori intermedi 2}
+    Una funzione continua in un intervallo $[a, b]$ assume tutti i valori compresi
+    tra il minimo ed il massimo.
+\end{theorem}
+\begin{proof}
+    I valori di massimo $M$ e di minimo $m$ sono assunti in base a \ref{Weierstrass};
+    rimane da provare che $\forall y_0 \in (m, M) \ \exists x_0 \in [a, b] : f(x_0) = y_0$.
+    Indichiamo con $x_1, x_2$ il minimo ed il massimo di $f(x)$ tali che $f(x_1) = m$
+    e $f(x_2) = M$ e consideriamo:
+    \[
+        g(x) = f(x) - y_0 \qquad \forall x \in [a, b].
+    \]
+    Essendo ora $f(x_1) = m < y_0 < M = f(x_2)$ risulta che:
+    \[
+        g(x_1) = f(x_1) - y_0 < 0 \qquad \qquad g(x_2) = f(x_2) - y_0 > 0;
+    \]
+    Per il \ref{Teorema degli zeri} $\exists x_0 : g(x_0) = 0 \Rightarrow f(x_0) = y_0$. 
+\end{proof}
+
+\begin{theorem}[CRITERIO DI INVERTIBILITA']
+    Una funzione continua e strettamente monotòna in un intervallo $[a, b]$ è invertibile
+    in tale intervallo.
+\end{theorem}
+\begin{proof}
+    Posto che f sia strettamente crescente in $[a, b]$ risulta:
+    \[
+        f(a) < f(x) < f(b) \qquad \forall x \in (a, b)
+    \]
+    $f(a)$ è il minimo dell'intervallo e $f(b)$ è il massimo, dato che è strettamente
+    crescente, non può esistere $x_1, x_2 : f(x_1) = f(x_2)$, per cui: 
+    $f:[a, b] \to [f(a), f(b)]$ è invertibile.
+\end{proof}
+
+\section{Metodo di bisezione per il calcolo delle radici}
+Nel caso di equazioni del tipo:
+\begin{gather*}
+    f(x) = 0
+\end{gather*}
+e posto che la funzione sia continua all'interno di un intervallo
+$[a, b]$ allora risolvere l'equazione vuol dire trovare quell' $x_0$ che
+costituisce la soluzione (o le soluzione nel caso siano più di uno).
+RIcordando le ipotesi del teorema degli zeri di una funzione, $f(a) < 0$ e
+$f(b) > 0$.
+Preso un punto $c = \frac{b + a}{2}$ se $f(c) = 0$ allora si è trovata
+la radice, altrimenti bisogna ripetere il procedimento restringendo l'intervallo
+a seconda del segno di $f(c)$: bisogna vedere in quale intervallo (se
+in $[a, c]$ oppure $[c, b]$) la funzione assume segno discorde e restringerlo appositamente:
+se $f(c) > 0$ allora nell'intervallo $[a, c]$ la funzione assume segno discorde
+e quindi si restringe il campo ad $[a, c]$. \\
+Ripetendo ora il procedimento si ottengono tre successioni $a_n, b_n, c_n$ 
+e se per qualche $f(c_n) = 0$ allora ci si ferma poiché si è trovata una radice.
+Per costruzione la successione $a_n$ è crescente mentre la successione
+$b_n$ è decrescente e sono entrambe limitate poiché contenute
+all'interno dell'intervallo di partenza.  per cui si ottiene:
+\begin{align}
+    \lim_{n \to +\infty } b_n &= x_0 \\
+    b_n &= a_n + \frac{b - a}{2} 
+\end{align}
+Dalla continuità di $f(x)$ si ottiene che:
+\begin{gather*}
+    f(x_0) \lim_{n \to +\infty } f(a_n) \leq 0; \qquad f(x_0) = \lim_{n \to +\infty } f(b_n) \geq 0  
+\end{gather*}
+Perciò $f(x_0) = 0$ ed il teorema degli zeri è dimostrato.
+
+\section{Continuità delle funzioni composte}
+\begin{theorem}[La composizione di funzioni continue è continua]
+    Date due funzioni continue $f(x) $ e $g(x) $ definite come
+    \begin{gather*}
+        f : A \to B \\
+        g : B \to B
+    \end{gather*}
+    La funzione $h(x)$ definita come $f \circ g$ è continua
+    e definita da $A \to R$.
+\end{theorem}
+\begin{proof}
+    Date due funzioni continue $f(x) $ e $g(x) $, allora posso dire che $g$ è continua in $ f(x_0)$ se:
+    \begin{gather*}
+        \forall \epsilon > 0 \exists \delta_{\epsilon} : \left| g(y) - g(f(x_0))\right| < \epsilon  
+    \end{gather*}
+    Se e solo se $y \in B, \left| y - f(x_0) \right| < \delta_{\epsilon} $. \\
+    $f$ è continua in $x_0$ se $\exists r_{\delta_{\epsilon}} : |g(f(x)) - g(f(x_0))| < \epsilon$ e devo dire
+    \begin{gather*}
+        \lim_{x \to x_0} g(f(x)) = g(f(x_0)) \forall \epsilon > 0 \ \exists \nu_{\epsilon} : |g(f(x)) - g(f(x_0))| < \epsilon 
+    \end{gather*}
+    se e solo se $x \in A$ e $|x - x_0| < r_{\epsilon}$.
+\end{proof}
+
+\section{Teoremi sulle funzioni continue}
+\begin{theorem}[L'immagine di una funzione su di un intervallo chiuso è continua]
+    Se $f$ è continua in $[a, b]$, allora
+    \begin{gather*}
+        f([a, b]) = \left[\begin{array}{l}
+            min \ f \\
+            .[a, b]
+        \end{array}, \begin{array}{l}
+            max \ f \\
+            .[a, b]
+        \end{array}\right]
+    \end{gather*}
+\end{theorem}
+\begin{proof}
+    Data $f : D \to R$ dato che $f(x) $ per ipotesi è continua
+    su tutto $R$, essa sarà anche continua su di un intervallo $[a, b]$.
+    Allora dato $f : I \to h$, dove $I$ è un intervallo e $f$ è continua
+    in $I$, allora applicando il teorema di Weierstrass, posso dire che
+    per $x_{m}, x_{M} \in [a, b] : f(x_m) \leq f(x)  \leq f(x_{M}) \forall x \in [a, b]$
+    dove $x_m$è il minimo di $f$ nell'intervallo e $x_M$ il massimo . \\
+    Allora dato che
+    \begin{gather*}
+        min f = sup f \\
+        sup f = max f
+    \end{gather*}
+    Sapendo che
+    \begin{gather*}
+        inf f \in f([a, b]), sup f \in f([a, b])
+    \end{gather*}
+    Allora si ha la tesi.
+\end{proof}
+
+\begin{theorem}[Una funzione monotona è continua se e solo se la sua immagine è un intervallo]
+    
+\end{theorem}
+\begin{proof}
+    Data $f : I \to R$ crescente, allora 
+    \begin{gather*}
+        \forall x_0 \in I, \exists \lim_{x \to x_0^{-} } f(x) = \lim_{x \to x_0^{+} } f(x)   
+    \end{gather*}
+    Che sono rispettivamente $sup\ f, inf \ f$. Se $f$ è allora continua
+    supponendo che $f(I)$ è un intervallo viceversa possiamo supporre che
+    $f$ sia crescente in e quindi nell'intervallo $f(I)$ è continua. \\
+    Se per assurdo si suppone che non sia continua nell'intervallo
+    allora 
+    \begin{gather*}
+        \exists \lim_{x \to x_0^{-}} = L_-, \exists \lim_{x \to x_0^{+} } f(x)  = L_+  
+    \end{gather*}
+    Dato che è crescente e discontinua possiamo supporre che
+    \begin{gather*}
+        L_- < L_+, f(x)  \leq L_- \forall x < x_0, f(x)  \geq L_+, \forall x > x_0
+    \end{gather*}
+    Scelto allora un $\bar{y}$ come $L_- < \bar{y} < L_+$ tale che $\bar{y} \neq  f(x_0)$
+    e che non appartenga a $I$, allora $\bar{y}$ è un valore che non viene mai raggiunto
+    da $f$. Tuttavia essendo $I$ continuo, allora, scelti
+    \begin{gather*}
+        x_1 < x_0 < x_2, \qquad f(x_1) < \bar{y} < f(x_2) 
+    \end{gather*}
+    Non è possibile che $\bar{y}$ non appartenga a $f(I)$ è un intervallo continuo e allora $\bar{y} \in f(I)$ e quindi si ha la tesi. 
+\end{proof}
+
+\begin{theorem}
+    La funzione inversa di una funzione continua è anch'essa continua
+\end{theorem}
+\begin{proof}
+    sia $f : I \to R$, con $I$ un intervallo continuo e strettamente 
+    crescente  in $I$, allora $f$ è invertibile e la sua stretta monotonia implica l'iniettività
+    di $f$ ed è invertibile l'immagine di $f^{-1} $ che è il dominio di $f$ che è un intorno $\Rightarrow$
+    $f^{-1} $ è continua .
+\end{proof}
+
+
+\chapter{Derivate}
+\section{Tasso di accrescimento e significato della derivata}
+Consideriamo un semplice processo di crescita di un corpo e supponendo che il peso
+$p = p(t)$ in funzione del tempo,, all'istante $t + h$ il peso è aumentato per cui
+il rapporto:
+\[
+    \frac{p(t + h) - p(t)}{h}
+\]
+è il tasso medio di accrescimento, il limite di $h \to 0$ è il tasso di accrescimento:
+\[
+    \lim_{h \to 0} \frac{p(t + h)- p(t)}{h}.
+\]
+Questo rapporto, chiamato \emph{rapporto incrementale} è esattamente la derivata quando
+$h \to 0$.
+
+\section{Definizione di derivata}
+Sia f(x) definita nell'intervallo aperto $(a, b)$ e sia $x \in (a, b)$, la funzione
+è derivabile se in x esiste finito il limite del rapporto incrementale:
+\[
+    \lim_{h \to 0} \ \frac{f(x + h) - f(x)}{h}
+\]
+Le notazioni della derivata sono:
+\[  
+    f'(x) \qquad \frac{df(x)}{dx} \qquad Df(x) \qquad y' \qquad \frac{dy}{dx} \qquad Dy
+\]
+Si parla di $f(x)$ derivabile in $(a, b)$ se è derivabile $\forall x \in (a, b)$,
+derivata destra e sinistra quando $h \to 0^+, h \to 0^-$.
+Se f è definita in $[a, b]$ si dice che f è \emph{derivabile nell'intervallo}
+se è derivabile in ogni punto $x \in (a, b)$ e se f ammette derivata destra in a
+e sinistra in b. \\
+Una funzione f è continua in un punto x se:
+\[
+    \lim_{h \to 0} f(x + h) = f(x).
+\]
+La \emph{continuità} non implica infatti la \emph{derivabilità}, ma è vero il contrario.
+\begin{theorem}[La derivabilità implica la continità]
+    Sia $y = f(x)$, e sia $x_0 \in Dom(f)$ supponendo che $f$ sia derivabile in $x_0$,
+    allora la funzione è continua in $x_0$.
+\end{theorem} 
+\begin{proof}
+    Vogliamo provare che:
+    \begin{gather*}
+        \lim_{x \to x_0} f(x) = f(x_0)  
+    \end{gather*}
+    in modo equivalente vogliamo dimostrare che:
+    \begin{gather*}
+        \lim_{x \to x_0} f(x_0 + h) = f(x_0)  
+    \end{gather*}
+    COnsiderata la seguente uguaglianza per $0 \neq h \in R$:
+    \begin{gather*}
+        f(x_0 + h) = f(x_0) + \frac{f(x_0 + h) - f(x_0) }{h}h
+    \end{gather*}
+    PAssando al limite:
+    \begin{gather*}
+        \lim_{h \to 0} f(x_0 + h) = \lim_{h \to 0} \left(f(x_0) + \frac{f(x_0 + h) - f(x_0) }{h}h\right)  
+    \end{gather*}
+    Essendo derivabile in $x_0$, allora il limite del rapporto incrementale esiste
+    finito ed il suo valore è la derivata nel punto. Infine:
+    \begin{gather*}
+        \lim_{h \to 0} f(x_0 + h) = f(x_0) + f'(x_0) \cdot 0
+    \end{gather*}
+\end{proof}
+
+\section{Operazioni con le derivate}
+\begin{theorem}[OPERAZIONI CON LE DERIVATE]
+    Se f e g sono due funzioni derivabili in un punto x, allora sono derivabili in x anche
+    la somma, la differenza, il prodotto ed il quoziente:
+    \begin{align}
+        &(f\pm g)' = f' \pm g' \\
+        &(fg)' = f'g + fg' \\
+        &\left(\frac{f}{g}\right)' = \frac{f'g-fg'}{g^2}, \qquad se \ g \ne 0.
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Le dimostrazioni si ottengono utilizzando il limite incrementale: per la somma
+    è immediata, per il prodotto si ottiene:
+    \begin{align*}
+        \frac{f(x + h)g(x + h) - f(x)g(x)}{h}
+    \end{align*}
+    Sommando ed sottraendo $f(x)g(x + h)$ si raccoglie e si ottiene la tesi:
+    \[
+        \frac{f(x + h)-f(x)}{h}g(x + h) + f(x)\frac{g(x + h)-g(x)}{h}.
+    \]
+    Per dimostrare il quoziente, si utilizza la permanenza del segno per cui
+    $\exists \delta > 0 : |h| < \delta \Rightarrow g(x + h) \ne 0$. Scrivendo
+    ora il rapporto incrementale:
+    \begin{align*}
+        \frac{f(x + h)g(x) - f(x)g(x + h)}{g(x + h)g(x)h}
+    \end{align*}
+    Per cui sommando e sottraendo $f(x)g(x)$ si ottiene la tesi:
+    \[  
+        \left(\frac{f(x + h) - f(x)}{h}g(x)-f(x)\frac{g(x +h)-g(x)}{h}\right)
+        \frac{1}{g(x + h)g(x)}.
+    \]
+\end{proof}
+Un caso particolare è la moltiplicazione di una costante per la funzione,
+in tal caso si ottiene: $(cf)' = cf'$.
+
+\section{Derivate delle funzioni composte ed inverse}
+\begin{theorem}[TEOREMA DELLA DERIVAZIONE DELLE FUNZIONI COMPOSTE]
+    Se g è una funzione derivabile in x, e se f è una funzione derivabile nel punto
+    $g(x)$, allora la funzione composta $f(g(x))$ è derivabile in x:
+    \begin{align}
+        Df(g(x)) = f'(g(x))\cdot g'(x).
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Posta, con $y=g(x)$:
+    \begin{align*}
+        F(x) = \left\{\begin{array}{l}
+            \frac{f(y + k)-f(y)}{k} \qquad se \quad k \ne 0 \\
+            f'(y) \qquad \qquad \qquad se \quad k = 0
+        \end{array}\right.
+    \end{align*}
+    Per la derivabilità, si ottiene che:
+    \[
+        \lim_{k \to 0} F(k) = f'(y) = F(0).
+    \]
+    $F(k)$ è continua quindi in $k=0$ e posto:
+    \[
+        k = g(x + h) - g(x),
+    \]
+    essendo $g(x) = y$, $g(x + h) = g(x) + k = y + k, \ \forall k \ne 0$:
+    \begin{align*}
+        \frac{f(g(x + h)) -f(g(x))}{h} =& \frac{f(g(x) + h)-f(g(x))}{k}\cdot\frac{k}{h} = \\
+        = \frac{f(y + k) - f(y)}{k} \cdot \frac{k}{h} =& F(k) \cdot \frac{g(x + h)-g(x)}{h}.
+    \end{align*}
+    Preso ora il limite del primo e dell'ultimo membro ed uguagliati (i quali valgono)+
+    anche per $k=0$, si ottiene:
+    \[
+        F(0)\cdot g'(x) = f'(x)\cdot g'(x)=f'(g(x)) \cdot g'(x).
+    \]
+\end{proof}
+
+\begin{theorem}[TEOREMA DI DERIVAZIONE DELLE FUNZIONI INVERSE]
+    Sia $f(x)$ una funzione continua e monotòna in $[a, b]$. Se $f(x)$ è derivabile
+    in $x \in [a, b], f'(x) \ne 0$, allora anche $f^{-1}$ è derivabile in $y = f(x)$:
+    \begin{align}
+        Df^{-1}(y) = \frac{1}{f'(x)} = \frac{1}{f'(f^{-1}(y))}
+    \end{align} 
+\end{theorem}
+\begin{proof}
+    Il rapporto incrementale della funzione inversa diventa (posto $k = f(x + h) -f(x)$
+    e $y = f(x)$):
+    \[
+        \frac{f^{-1}(y + k)-f^{-1}(y)}{k} = \frac{h}{f(x + h)-f(x)}.
+    \]
+    Col limite per $k \to 0$ si ottiene la tesi.
+\end{proof}
+
+\section{Derivate delle funzioni elementari}
+\begin{align}
+    D \ x^n = nx^{n-1}. 
+\end{align}
+\begin{proof}
+    Si ottiene per induzione la tesi, sapendo che per $n=1$ è vera, per
+    $n+1$ diventa:
+    \begin{align*}
+        &D \ x^{n+1} = D(x^n \cdot x) = D(x^n)x+x^nDx = \\
+        &= nx^{n+1}x +x^n \cdot 1 = (n +1)x^n. 
+    \end{align*}
+\end{proof}
+
+\begin{align}
+    D \ \log_a(x) = \frac{1}{x}\log_a(e), \ \forall x > 0, a > 0, a \ne 1.
+\end{align}
+\begin{proof}
+    Si utilizzano le proprietà del logaritmo ed i limiti notevoli così il rapporto
+    incrementale diventa:
+    \begin{align}
+        &\lim_{\frac{\log_a(x+h)-\log_a(x)}{h}} = \lim_{h \to 0}\frac{1}{h}\log_a(\frac{x+h}{x}) =
+        &\log_a(\lim_{h \to 0}\left(1+\frac{h}{x}\right)^{\frac{1}{h}})
+    \end{align}
+    Ottenendo la tesi.
+\end{proof}
+Si ottiene dunque anche la seguente:
+\begin{align}
+    D \ \log_e(x) = \frac{1}{x}, \ \forall x > 0.
+\end{align}
+Si ottiene anche quella per la potenza ad esponente reale:
+\begin{align}
+    D \ x^a = D \ e^{log(x^b)} = x^b \frac{b}{x} = bx^{b-1}.
+\end{align}
+
+Per le funzioni trigonometriche si ottiene invece:
+\begin{align}
+    D \ \sin(x) = \cos(x) \qquad \qquad D \ \cos(x) = -\sin(x).
+\end{align}
+\begin{proof}
+    Per le dimostrazioni si utilizzano le formule di addizione ed i limiti notevoli
+    all'interno del rapporto incrementale.
+\end{proof}
+
+La derivata della tangente si calcola col rapporto $\frac{\sin(x)}{\cos(x)}$:
+\begin{align}
+    D \ \tan(x) = \frac{1}{\cos^2(x)} = 1 + \tan^2(x).
+\end{align}
+
+\section{Significato geometrico della derivata. Retta tangente}
+Sia $f(x)$ una funzione definita in un intorno di un punto $x_0$,
+proviamo a trovare l'equazione della retta tangente in $P(x_0, f(x_0))$ che passi
+dunque anche per $P_0(x_0 + h, f(x_0 + h))$:
+\[
+    \left\{\begin{array}{l}
+        f(x_0) = mx_0 + q \qquad \qquad \qquad passaggio \ per \ P_0 \\
+        f(x_0 + h) = m(x_0 + h) + q \qquad passaggio \ per \ P 
+    \end{array}\right.
+\]
+Combinando le equazioni e facendone il limite per $h \to 0$, si ottiene 
+l'equazione della retta tangente in $P_0$:
+\begin{align}
+    y = f(x_0) + f'(x_0)(x-x_0).
+\end{align}
+
+\chapter{Studio di funzione}
+\section{Massimi e minimi relativi. Teorema di Fermat}
+Presa una funzione $f(x)$ definita in $[a, b]$, diciamo che $x_0 \in [a, b]$ è
+massimo (relativo) di f quando $\exists \delta > 0$:
+\begin{align}
+    f(x_0) \geq f(x), \qquad \forall x \in [a, b]: \qquad |x - x_0| < \delta.
+\end{align}
+Non deve valere per tutti i punti dell'intervallo ma solo per gli x vicini.
+Il punto di massimo assoluto è invece un punto in cui $f(x)$ è maggiore di
+qualsiasi altro valore nell'intervallo di esistenza. \\
+Analogamente si può dire che $x_0$ è un punto di minimo (relativo) per la funzione
+f, nell'intervallo $[a, b]$ se $\exists \delta > 0$:
+\begin{align}
+    f(x_0) \leq f(x), \qquad \forall x \in [a, b]: \qquad |x-x_0| < \delta.
+\end{align}
+
+\begin{theorem}[TEOREMA DI FERMAT]
+    \label{Fermat}
+    Sia f una funzione definita in $[a, b]$ e sia $x_0$ un punto di massimo o di minimo
+    relativo interno all'intervallo di definizione, se f è derivabile in $x_0$ allora
+    risulterà che $f'(x_0) = 0$. 
+\end{theorem}
+\begin{proof}
+    Consideriamo il caso in cui $x_0$ sia un punto di massimo (relativo), allora
+    sicuramente $\exists \delta > 0$:
+    \[
+        f(x_0) \geq f(x_0 + h), \qquad \qquad \forall h: |h| < \delta.
+    \]
+    Svolgendo il valore assoluto otteniamo:
+    \[
+        \frac{f(x_0 + h)-f(x_0)}{h}\left\{\begin{array}{l}
+            \leq 0 \qquad se \qquad 0<h<\delta \\
+            \geq 0 \qquad se \qquad -\delta < h < 0
+        \end{array}\right.
+    \]
+    Imponendo il limite si ottiene che questo deve essere:
+    \begin{align*}
+        f'(x_0) = \lim_{h \to 0^+} \ \frac{f(x_0+h)-f(x_0)}{h} \leq 0 \\
+        f'(x_0) = \lim_{h \to 0^-} \ \frac{f(x_0 + h) - f(x_0)}{h} \geq 0
+    \end{align*}
+    La tesi è quindi dimostrata.
+\end{proof}
+Ne segue inoltre un corollario:
+\begin{theorem}
+    Sia $f(x)$ definita in $[a, b]$ e derivabile in $x_0$, se $x_0$ è un
+    punto di massimo relativo risulterà che:
+    \[
+        f'(x_0) \cdot (x-x_0) \leq 0
+    \]
+    altrimenti se è di minimo relativo risulterà:
+    \[
+        f'(x_0) \cdot (x-x_0) \geq 0.
+    \]
+\end{theorem}
+
+\section{Il teorema di Rolle}
+\begin{theorem} [TEOREMA DI ROLLE]
+    \label{Rolle}
+    Sia $f(x)$ continua in $[a, b]$ e derivabile in $(a, b)$. Se $f(a) = f(b)$, allora
+    $\exists x_0 \in (a, b) : f'(x_0) = 0$.
+\end{theorem}
+\begin{proof}
+    Indicando con $x_1$ e $x_2$ i punti di minimo e di massimo assoluto per f 
+    nell'intervallo $[a, b]$, tali punti esistono per Weierstrass (\ref{Weierstrass}). Se
+    tali punti corrispondono entrambi ad a e b, allora $\forall x \in [a, b]$
+    risulta che $f(x)$ è costante, se invece almeno uno dei due è interno,
+    allora si annulla per Fermat (\ref{Fermat}).
+\end{proof}
+
+\begin{theorem}[TEOREMA DI LAGRANGE]
+    Sia $f(x)$ continua in $[a, b]$ e derivabile in $(a, b)$. $\exists x_0 \in (a, b)$:
+    \begin{align}
+        f'(x_0) = \frac{f(b)-f(a)}{b-a}
+    \end{align}
+    ossia esiste un punto il cui coefficiente angolare è uguale a quello della retta
+    che congiunge $a$ e $b$.
+\end{theorem}
+\begin{proof}
+    Attraverso la funzione intermedia $g(x)$ ci si riconduce a Rolle.
+    \[
+        g(x) = f(x)- \left(f(a)+\frac{f(b)-f(a)}{b-a}\cdot(x-a)\right).
+    \] 
+    Si vede che $g(a) = g(b) = 0$, e che essa è derivabile in $(a, b)$ per cui:
+    \[
+        g'(x) = f'(x) -\frac{f(b)-f(a)}{b-a}, \qquad \qquad \forall x \in (a, b).
+    \]
+    Per Rolle $\exists x_0 \in (a, b) : g'(x_0) = 0$, ponendo questo nella precedente
+    si ottiene la tesi.
+\end{proof}
+
+\section{Funzioni crescenti e decrescenti}
+Una conseguenza del teorema di Lagrange è il seguente teorema.
+\begin{theorem}[CRITERIO DI MONOTONIA]
+    \label{Monotonia}
+    Sia f una funzione continua in $[a, b]$ e derivabile in $(a, b)$, allora:
+    \begin{align}
+        f'(x)\geq 0, \qquad \forall x \in (a, b) \ f \nearrow \ \in [a, b]
+    \end{align}
+    \begin{align}
+        f'(x) \leq 0, \qquad \forall x \in (a, b) \ f \searrow \ \in [a, b]
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Provando la prima (la seconda è analoga), si ottiene che supponendo $f'(x) \geq 0
+    \ \forall x \in (a, b)$ la tesi di Lagrange sarà (posti $x_1$ e $x_2$ rispettivamente
+    come $a \leq x_1 < x_2 \leq b$):
+    \[
+        f(x_2) - f(x_1) = f'(x_0) (x_2 - x_1).
+    \]
+    Risulta quindi che $f(x_2) \geq f(x_1)$.
+    Viceversa se f è crescente allora $\forall x \in (a, b)$ e $h > 0 : x + h \in (a, b)$
+    risulta $f(x+h) \geq f(x)$ e quindi:
+    \[
+        \frac{f(x + h) - f(x)}{h} \geq 0.
+    \] 
+    E risulta dimostrata per il limite $h \to 0^+$ (Vale anche per $h < 0$ e $h \to 0^-$).
+\end{proof}
+
+La conseguenza di questo teorema è il seguente:
+\begin{theorem}[CARATTERIZZAZIONE DELLE FUNZIONI COSTANTI IN UN INTERVALLO]
+    \label{Funzioni costanti}
+    Una funzione è costante in un intervallo $[a, b]$ se e solo se è derivabile
+    in $[a, b]$ e la derivata è ovunque nulla.
+\end{theorem}
+\begin{proof}
+    Si prova che la derivata di una costante sia nulla su tutto l'intervallo,
+    viceversa se $f(x)$ è derivabile in $[a, b]$ e $f'(x) = 0 \ \forall x \in [a, b]$ 
+    per i criteri di monotonia è sia crescente che decrescente e quindi $\forall x$ risulta
+    $f(x) \leq f(a)$ e $f(x) \geq f(a)$.  
+\end{proof}
+
+Combinando i teoremi \ref{Monotonia} e \ref{Funzioni costanti} si ottiene il seguente:
+\begin{theorem}[CRITERIO DI STRETTA MONOTONIA]
+    Sia f una funzione continua in $[a, b]$ e derivabile in $(a, b)$. Allora
+    se $f'(x) \geq 0, \forall x \in (a, b);$ e f' non si annulla in alcun intervallo
+    interno, allora è $\nearrow \nearrow$, altrimenti se $f'(x) \leq 0, \forall x \in (a, b);$ e
+    f' non si annulla in alcun intervallo interno allora è $\searrow \searrow$.
+\end{theorem} 
+\begin{proof}
+    Proviamo l'implicazione $\Rightarrow$; essendo $f'(x)\geq 0$, per il criterio di monotonia si
+    ha che $f(x)$ è crescente. Se non fosse $\nearrow \nearrow$, allora si avrebbe
+    $x_1, x_2 \in (a, b), x_1 < x_2 : f(x_1) = f(x_2)$, ma allora dato che: $f(x_1) \leq f(x) \leq f(x_2)$
+    se $x_1 < x < x_2$, allora $f(x)$ sarebbe costante in $[x_1, x_2]$, e quindi andrebbe contro l'ipotesi. \\
+    L'implicazione $\Leftarrow$; dato che f è $\nearrow \nearrow$ in $[a, b]$, per il criterio di
+    monotonia allora si ha che $f'(x) \geq 0 \ \forall x \in (a, b)$; inoltre $f'(x)$ non può annullarsi
+    in $[x_1, x_2] \subseteq (a, b)$, poiché altrimenti sarebbe costante. (La tesi è dimostrata e vale
+    il ragionamento analogo per la stretta decrescenza). 
+\end{proof}
+
+\section{Funzioni convesse e concave}
+Una funzione si dice convessa in $[a, b]$ se $\forall x \in [a, b]$ il grafico nell'intervallo
+è al di sopra della retta tangente in $x_0$, altrimenti è concava.
+\begin{theorem}[CRITERIO DI CONVESSITA']
+    Supponiamo che $f(x)$ sia derivabile in $[a, b]$ e che ammetta derivata seconda in $(a, b)$
+    le seguenti condizioni sono equivalenti:
+    \begin{align}
+        &f(x) \ convessa \in [a, b]; \\
+        &f'(x) \ crescente \in [a, b]; \\
+        &f''(x) \geq 0 \ \forall x \in (a, b).
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Allo scopo di provare che $f'(x)$ è crescente $\in [a, b], x_1, x_2 \in [a, b], x_1 < x_2$
+    ponendo che $x_0 = x_1$ oppure $=x_2$ nella def. di convessità si dimostra come la prima
+    sia equivalente alla seconda:
+    \begin{align*}
+        &f(x) \geq f(x_1) + f'(x_1)(x-x_1), \qquad \qquad \forall x \in [a, b]; \\
+        &f(x) \geq f(x_2) + f'(x_2)(x - x_2) \qquad \qquad \forall x \in [a, b].
+    \end{align*}
+    scegliendo $x = x_2$ e $x = x_1$ e sommando membro a membro si ottiene:
+    \[
+        0 \geq f'(x_1)(x_2 - x_1) + f'(x_2)(x_1 - x_2),
+    \]
+    cioè
+    \[
+        (f'(x_2)-f'(x_1))\cdot(x_2 - x_1) \geq 0.
+    \]
+    quindi ne segue che $f'(x_2) \geq f'(x_1)$ e quindi è dimostrato che la prima implica la seconda. \\
+    Fissati ora $x, x_0 \in [a, b], x \ne x_0$ per Lagrange $\exists x_1 \in [x_0, x]$ per cui:
+    \[
+        f(x)-f(x_0) = f'(x_1)(x-x_0)
+    \]
+    Se $x>x_0$ si ha per la monotonia di $f(x)$ che $f'(x_1)\geq f'(x_0)$ e quindi la conclusione:
+    \[
+        f(x) -f(x_0) \geq f'(x_0)(x-x_0), \qquad x_1 \in (x, x_0)
+    \]
+    mentre se $x < x_0$ allora $x_1 \in (x_0, x)$ e quindi $f'(x_1) \leq f'(x_0)$ e si ottiene
+    nuovamente la conclusione.
+\end{proof}
+
+\section{Teorema di Cauchy}
+\begin{theorem}[TEROEMA DI CAUCHY]
+    \label{Cauchy}
+    Siano $f(x), g(x)$ due funzioni continue in $[a, b]$ e derivabili in $(a, b)$. Se 
+    $g'(x) \ne 0 \ \forall x \in (a, b) \Rightarrow \exists x_0 \in (a, b)$:
+    \begin{align}
+        \frac{f'(x_0)}{g'(x_0)} = \frac{f(b)-f(a)}{g(b)-g(a)}.
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Come per Lagrange, si ottiene una funzione ausiliaria:
+    \[
+        h(x) = f(x) - \left(f(a) - \frac{f(b)-f(a)}{g(b)-g(a)}(g(x) - g(a))\right).
+    \]
+    Per Rolle $\exists x_0 \in (a,b) : h'(x_0) = 0$ che equivale alla tesi:
+\end{proof}
+
+\section{Teorema dell' Hopital}
+\begin{theorem}[TEOREMA DI L'HOPITAL]
+    \label{Hopital}
+    Siano $f(x)$ e $g(x)$ due funzioni che tendono a zero per $x \to x_0$ e derivabili in un
+    intorno di $x_0$ (con la eventuale eccezione di $x_0$). Se in questo intorno risulta che
+    $g'(x) \ne 0 \ \forall x \ne x_0$ allora si ha:
+    \begin{align}
+        \lim_{x \to x_0} \frac{f(x)}{g(x)} = \lim_{x \to x_0} \frac{f'(x)}{g'(x)},
+    \end{align} 
+    purché esista il secondo limite.
+\end{theorem}
+Il teorema è valido anche per le forme $\frac{\infty}{\infty}$ o anche solo quando $g \to \infty$ e vale
+anche per limiti destri e sinistri, o anche per $x \to \pm \infty$.
+\begin{proof}[Dimostrazione \emph{particolare}]
+    Poste $f, g$ come funzioni con derivabili in $x_0$, esse sono anche continue in $x_0$ e quindi
+    per le ipotesi del teorema $f(x) = g(x) = 0$:
+    \begin{align*}
+        &\lim_{x \to x_0} \frac{f(x)}{g(x)} = \lim_{x \to x_0} \frac{f(x)-f(x_0)}{g(x)-g(x_0)} = \\
+        &\lim_{x \to x_0} \frac{\frac{f(x)-f(x_0)}{x-x_0}}{\frac{g(x)-g(x_0)}{x-x_0}} = 
+        \frac{f'(x)}{g'(x)} = \lim_{x \to x_0} \frac{f'(x)}{g'(x)}.
+    \end{align*}    
+\end{proof}
+E' possibile inoltre ricondurre i limiti $\infty - \infty$ o $0\cdot \infty$ riconducendoli all'ipotesi
+del teorema stesso. (anche le forme $0^0, 1^{\infty}, \infty^0$ ma solo in casi particolari). 
+\begin{proof}[Dimostrazione \emph{completa}]
+    Dimostrazione per l'ipotesi che i limiti $f(x), g(x)$ siano = 0. \\
+    Siano $f(x), g(x)$ due funzioni derivabili im $[a, b] - \{x_0\}: f(x_0) = g(x_0) = 0$. Se
+    $g'(x_0) \ne 0 \ \forall x \in [a, b] - \{x_0\}$ e se esiste il limite:
+    \[
+        \lim_{x \to x_0} \frac{f'(x)}{g'(x)},
+    \] 
+    allora $\exists$ il limite per $x \to x_0$ dal rapporto $\frac{f(x)}{g(x)}$ e si eguagliano. \\
+    Usando le ipotesi, estendiamo per continuità $f(x), g(x)$ in $x_0$ con il valore di 0.
+    Così risultano continue in $[a, x_0], [x_0, b], a \ne x_0 \ne b$ e derivabili
+    in $(a, x_0), (x_0, b)$.
+    Si osserva come $g(x)$ e $g'(x)$ non si annullano nell'intervallo in quanto
+    se così fosse posto $x_1 : g(x_1) = 0$ allora per Rolle in $[x_0, x_1]$ esisterebbe
+    anche $x_2$ tale per cui $g'(x_2) = 0$. \\
+    Presa ora una successione $x_n \to x_0$ e contenuta in $[a, b]$, per Cauchy:
+    \[
+        \frac{f(x_n)}{g(x_n)} = \frac{f(x_n) -f(x_0)}{g(x_n)-g(x_0)}\frac{f'(x'_n)}{g'(x'_n)}.
+    \] 
+    Per cui si ottiene:
+    \[
+        \lim_{n \to \infty} \frac{f(x_n)}{g(x_n)} = \lim_{n + \infty} \frac{f'(x_n)}{g'(x_n)}
+        = \lim_{x \to x_0} \frac{f'(x)}{g'(x)}.
+    \]
+    a primo membro il limite è indipendente dalla successione e quindi si ottiene la tesi nella forma:
+    \[
+        \lim_{x \to x_0} \frac{f(x)}{g(x)} = \lim_{n \to + \infty} \frac{f(x_n)}{g(x_n)} =
+        \lim_{x \to x_0} \frac{f'(x)}{g'(x)}.
+    \]
+    La dimostrazione per i limiti destri e sinistri di $x_0$ è identica. \\
+    La dimostrazione nel caso $\frac{\pm \infty}{\pm \infty}$ (basta che il denominatore $\to \pm \infty$) procede prima
+    dimostrando la tesi del limite sinistro e ottenendo la tesi per il valore completo $x \to x_0$. \\
+    Indicando con $l$ il limite per $x \to x_0^{-}$ del rapporto esistente per ipotesi, si considera $l \in R$ 
+    (ma è analoga per infinito):
+    \begin{gather*}
+        \frac{f'(x)}{g'(x) } < l + \epsilon \quad \forall \epsilon > 0 \exists \delta > 0, \ \forall x \in (x_0 - \delta, x_0)
+    \end{gather*}  
+    L'ipotesi $g'(x) \neq 0 \in [a, x_0)$ ($a \leq x_0 - \delta$) ci permette di dire che:
+    \begin{gather*}
+        f'(x) - (l + \epsilon) g'(x) < 0, \qquad \forall x \in (x_0 - \delta, x_0)
+    \end{gather*}
+    Nell'intervallo sinistro $(x_0 - \delta, x_0)$ si definisce:
+    \begin{gather*}
+        h_1(x) = f(x)  - (l + \epsilon) g(x) \\
+        h_2(x) = f(x)  - (l + 2\epsilon) g(x) 
+    \end{gather*}
+    Che sono strettamente decrescenti, i cui limiti per $x \to x_0^{-}$ convergono a limiti
+    finiti poiché $h_1(x) - h_2(x) = \epsilon g(x)$ diverge all'infinito. Supponendo che $x \to x_0^{-}$
+    $h_1(x)$ diverga, allora divergerà a $-\infty$. Esisteranno quindi $\delta_1 \leq \delta$ tale che: $h_1(x) < 0$
+    e allora:
+    \begin{gather*}
+        f(x) - (l + \epsilon) g(x)  < 0, \qquad \forall x \in (x_0 - \delta_1, x_0)
+    \end{gather*}
+    Allora $g(x) $ diverge positivamente per $x \to x_0^{-}$ ed esiste allora
+    $\delta_2 > 0 : g(x)  > 0, x \in (x_0 - \delta_2, x_0)$. Posto allora $\delta = min \{\delta_1, \delta_2\}$
+    segue che:
+    \begin{gather*}
+        \frac{f(x) }{g(x) } < l + \epsilon \qquad \forall x \in (x_0 - \delta, x_0).
+    \end{gather*}. \\
+    Dimostrazione dei limiti $x \to \pm \infty$: \\
+    Supponendo che $f(x), g(x) $ siano derivabili in $[a, + \infty ]$ con $a > 0$, 
+    $g'(x) \neq 0, x \geq a$, si definiscono in $(0, 1/a]$:
+    \begin{gather*}
+         \bar{f(t)}  = f(1/t), \qquad \bar{g(t)} = g(1/t), \forall t \in (0, 1/a].  
+    \end{gather*}
+    Risulta che i limiti in t siano uguali a quelli per $x \to +\infty$. Applicando Hopital
+    a questo caso si ottiene dunque:
+    \begin{gather*}
+        \lim_{t \to 0^{+}} \frac{\bar{f(t)} }{\bar{g(t)} } = \lim_{t \to 0^{+} } \frac{\bar{f'(t)}}{\bar{g'(t)}} 
+    \end{gather*}
+    E quindi derivando si ottiene:
+    \begin{gather*}
+        \lim_{t \to 0^{+} } \frac{\bar{f'(1/t)} }{g'(1/t)} 
+    \end{gather*}
+    Cambiando variabile nel limite si ottiene esattamente la tesi ($1/t = x$).
+\end{proof}
+
+\section{Studio del grafico di una funzione}
+Seguendo il seguente schema è possibile studiare una funzione per ricavarne il
+grafico probabile:
+\begin{enumerate}
+    \item \emph{Dominio} di $f(x)$;
+    \item parità($f(-x)=f(x), \forall x$) o disparità($-f(-x) = f(x), \forall x$), oppure periodica;
+    \item intersezioni con gli assi cartesiani;
+    \item segno della funzione;
+    \item asintoti orizzontali, verticali o obliqui;
+    \item intervalli di monotonia;
+    \item massimi e minimi relativi e relativi valori (quando ci sono massimi e minimi assoluti);
+    \item intervalli di concavità o convessità e punti di flesso con la derivata seconda;
+    \item classificazione delle discontinuità (se presenti).
+\end{enumerate}
+
+TODO 236
+\section{Sulla continuità della funzione derivata}
+
+\section{Funzioni convesse in un intervallo}
+
+\section{Metodo di Newton per il calcolo delle radici}
+
+
+\chapter{Integrazione secondo Reimann}
+\section{Metodo di esaustione}
+Il metodo di esaustione è quel metodo che utilizzava Archimede per il calcolo dell'area
+del cerchio; si può utilizzare analogamente per calcolare le aree delle funzioni: suddividendo il
+sottografico di una funzione in piccoli rettangoli si ottiene l'area sottostante come:
+\begin{align*}
+    \sum_{i = 1}^{n} f(x_{i-1}) (x_i - x_{i-1}) 
+\end{align*}
+Tuttavia questa somma è una sottostima di quella vera e va corretta attraverso un metodo
+di sovrastima  considerando rettangoli con la stessa base ma con altezza maggiore quindi:
+\begin{align*}
+    \sum_{i = 1}^{n} f(x_i) (x_i - x_{i-1})
+\end{align*} 
+Per cui adesso l'area sarà:
+\begin{gather*}
+    \sum_{i = 1}^{n} f(x_{i-1}) (x_i - x_{i-1})  \leq
+    Area \leq \sum_{i = 1}^{n} f(x_i) (x_i - x_{i-1})
+\end{gather*}
+(Il libro svolge un esempio) in generale però si osserva che
+integrando il risultato (le due sommatorie risultano uguali per tutte le funzioni
+quando si considera il $\lim_{n \to \infty})$ si ottiene proprio la funzione considerata
+
+\section{Partizione}
+\begin{definition}
+    Una \emph{Partizione} è insieme ordinato all'interno di un intervallo
+    $[a, b] \in R$ costituito da $n+1$ punti distinti e per ogni partizione si ha:
+    \begin{gather*}
+        m_i = inf \{f(x): x \in [x_{i - 1}, x_i]\} \\
+        M_i = sup \{f(x) : x \in [x_{i - 1}, x_i]\}
+    \end{gather*}
+\end{definition}
+Si definiscono le somme integrali inferiori e superiori:
+\begin{definition}
+    \begin{gather*}
+        s(P) = \sum_{ i = 1}^{n} m_i (x_i - x_{i - 1}) \\
+        S(P) = \sum_{i = 1}^{n} M_i (x_i - x_{i - 1})
+    \end{gather*}
+\end{definition}
+Vale quindi il seguente lemma:
+\begin{lemma}
+    Sia $m \leq f(x) \leq M$ per $x \in [a, b]$ allora $\forall$ coppia di partizioni $P, Q \in [a, b]$ :
+    \begin{gather}
+        m(b- a) \leq s(P) \leq S(Q) \leq M(b-a)
+    \end{gather} 
+\end{lemma}
+\begin{proof}
+    Ponendo $R = P \cup Q$ confrontiamo $s(P)$ e $s(R)$ allora prendendo solo
+    un $\bar{x} $ in più per R rispetto a P si ha che: 
+    \begin{gather*}
+        \bar{m_1} = inf \{f(x) :x \in [x_{i - 1}, \bar{x}]\}; \\
+        \bar{ m_2} = inf \{f(x) : x \in [\bar{x} , x_i]\}
+    \end{gather*}
+    Si ha che:
+    \begin{gather*}
+        s(R) - s(P) = \\
+        = (\bar{m_1} (\bar{x} - x_{i - 1}) + \bar{m_2} (x_i - \bar{x})) -m_i(x_i - x_{i - 1}).
+    \end{gather*} 
+    Essendo ora $\bar{m_1}  \geq m_i, \bar{m_2} \geq m_i$ e quindi:
+    \begin{align*}
+        s(R)- s(P) \geq (\bar{x}  - x_{i - 1} + x_i - \bar{x} - x_i + x_{i - 1}) = 0
+    \end{align*}
+    Allora $s(P) \geq s(R)$ e analogamente si dimostra che $S(R) \geq S(Q)$. e quindi basta
+    dimostrare che: $m(b- a) \leq s(R) \leq S(R) \leq M(b -a)$. Ossia preso un $A =
+    \{s(P)\}$ e  $B = \{S(P)\}$ ossia gli insiemi delle somme inferiori e superiori. \\
+    Da questo si ha che $a \leq b$ e che i due insiemi sono separati. Per l'assioma
+    di completezza si ha che $\exists c$ che sta tra tutti gli elementi di A e di B. Quindi
+\end{proof}
+
+\begin{definition}[Integrale indefinito]
+    Se vi è un unico elemento di separazione tra A e B allora si dice che $f(x)$ è integrabile
+    in $[a, b]$ secondo Riemann e l'elemento si indica come:
+    \begin{align}
+        \int_{a}^{b} f(x) dx
+    \end{align}
+    Posto dunque:
+    \begin{align*}
+        s(f) = inf \{s(P): P \ Partizione \ di [a, b]\} \\
+        S(f) = sup \{S(P) : P \ Partizione \ di [a, b]\}
+    \end{align*}
+    se risulta che $s(f) = S(f)$, allora $f(x)$ è integrabile secondo Reimann.
+\end{definition}
+
+\begin{theorem}
+    Una funzione $f$ limitata in $[a,b]$ è ivi integrabile secondo Reimann se e solo
+    se, $\forall \epsilon > 0, \exists \ P  \ di \ [a, b] :  S(P) - s(P) < \epsilon$. 
+\end{theorem}
+\begin{proof}
+    Se f è integrabile secondo Reimann allora $s(f) = S(f)$ dove $s(f)$ e $S(f)$
+    sono rispettivamente l'estremo superiore ed inferiore definiti e per $\forall \epsilon > 0$
+    esistono partizioni di $P$ e $Q$ dell'intervallo tali che: 
+    \begin{gather*}
+        s(f) - \frac{\epsilon}{2}< s(P) \\
+        S(f) + \frac{\epsilon}{2}> S(Q)
+    \end{gather*}
+    Posto dunque $R = P \cup Q$ allora si deduce che
+    \begin{align*}
+        S(R) - s(R) < S(f) + \frac{\epsilon}{2}-\left( s(f) - \frac{\epsilon}{2}\right) = \epsilon
+    \end{align*}
+    Se invece vale questa allora essendo $s(P) \leq s(f), S(f) \leq S(P)$ si ottiene
+    che $0 \leq S(f) - s(f) \leq S(P) - s(P) < \epsilon$. Questa vale $\forall \epsilon > 0$
+    ossia quando f è integrabile secondo Riemann.
+\end{proof}
+L'integrale definito ha un significato
+    geometrico ben preciso: ossia se non è negativo rappresenta l'area di un plurirettangolo
+    contenuto nell'insieme $S = \{(x, y) \in [a, b] \times R: 0 \leq y \leq f(x)\}$ mentre la somma
+    $S(P)$ rappresenta l'area del plurirettangolo contenente S. L'insieme S prende il nome
+    di rettangoloide di base $[a, b]$ relativo alla funzione $f(x)$. \\
+    Possiamo dunque affermare grazie al teorema precedente che se $f(x) $ è non negativa
+    ed integrabile, l'area del rettangoloide di base $[a, b]$ è uguale all'integrale. 
+
+\section{Proprietà degli integrali definiti}
+La prima proprietà ha un forte significato geometrico in quanto ci
+permette di definire la somma di integrali  ed affermare che un'area
+p scomponibile come somme di infinite aree.
+\begin{theorem}[Teorema di addittività degli integrali]
+    Se $a, b, c$ sono tre punti di un intervallo dove la funzione $f(x)$ è
+    integrabile allora:
+    \begin{align}
+        \int_{a}^{b} f(x)dx = \int_{a}^{c} f(x)dx + \int_{c}^{b} f(x)dx
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Se due dei tre punti coincidono tra loro allora la tesi segue le definizioni di
+    integrale, altrimenti si considera il caso in cui $c \in [a, b]$. Se $P_1$ e 
+    $P_2$ sono due partizioni degli intervalli $[a, c] e [c, b]$ allora si ha che:
+    $P = P_1 \cup P_2$ e questa è una partizione dell'intervallo e quindi si ha
+    $s(P) = s(P_1) + s(P_2)$ e $S(P) = S(P_1) + S(P_2)$ e da qui si ha la tesi.
+\end{proof}
+
+\begin{theorem}[Linearità dell'integrale]
+    Se f,g sono integrabili allora se c è reale anche $f + g$ e $c\cdot f$ sono integrabili
+    e risulta che:
+    \begin{align}
+        \int_{a}^{b} (f(x) + g(x))dx = &\int_{a}^{b} f(x)dx + \int_{a}^{b} g(x)dx; \\
+        \int_{a}^{b} cf(x) dx& = c\int_{a}^{b}f(x)dx.
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    Dato che f, g sono integrabili secondo Riemann in $[a, b]$ allora $\forall \epsilon > 0$
+    esistono le partizioni P e Q tali che:
+    \begin{align*}
+        S(P, f) - s(P, f) < \frac{\epsilon}{2}, \qquad S(Q, g) - s(Q, g) < \frac{\epsilon}{2}.
+    \end{align*}
+    Indicando con R la partizione generata da P e Q  si ottiene:
+    \begin{align*}
+        S(R, f) - s(R, f) < \frac{\epsilon}{2}, \qquad S(R, g) - s(R, g) < \frac{\epsilon}{2}.
+    \end{align*}
+    e quindi:
+    \begin{align*}
+        s(R, f) + s(R, g) \leq s(R, f + g) \leq S(R, f + g)\leq S(R, f) + S(R, g)
+    \end{align*}
+    quindi per definizione di integrale si ottiene che
+    \begin{align*}
+        s(R, f) + s(R, g) \leq \int_{a}^{b} (f(x) + g(x)) dx \leq S(R, f) + S(R, g)
+    \end{align*}
+    segue quindi l'asserto per la natura di $\epsilon$ e quindi:
+    \begin{align*}
+        \left| \int_{a}^{b} (f(x) + g(x)) - \left( \int_{a}^{b} f(x)dx  + \int_{a}^{b} g(x)dx\right) \right| < \epsilon 
+    \end{align*}
+\end{proof}
+
+Si ha anche la seguente formula:
+\begin{theorem}[Teorema del confronto tra integrali]
+    Se f, g sono integrabili in $[a, b]$ e se $f(x) \leq g(x)\forall x \in [a, b]$ allora:
+    \begin{align}
+        \int_{a}^{b} f(x)dx \leq \int_{a}^{b} g(x)d 
+    \end{align}
+    Si deduce inoltre che:
+    \begin{align*}
+        f(x) \leq 0 \Rightarrow \int_{a}^{b} f(x) dx \leq 0, (a < b)
+    \end{align*}
+    Ed utilizzando le disuguaglianze $-|f(x)| \leq f(x) \leq |f(x)|$ i loro integrali
+    sono nello stesso ordine e allora si arriva al teorema del confronto in una forma
+    alternativa:
+    \begin{align}
+        \left| \int_{a}^{b} f(x)dx \right| \leq \int_{a}^{b} |f(x)| dx, \qquad a < b. 
+    \end{align}
+\end{theorem}
+
+\begin{lemma}[Integrale di una fuzione costante]
+    L'integrale di una funzione costante è proprio
+    il differenziale per l'intervallo di integrazione
+    \begin{align}
+        \int_{a}^{b} y \ dx = y\cdot x(a - b)
+    \end{align}
+\end{lemma}
+
+\begin{theorem}[Monotonia dell'integrale definito]
+    
+\end{theorem}
+
+\section{Teorema di Cantor}
+Allo scopo di dimostrare che una funzione continua in un intervallo chiuso e limitato risulta
+integrabile secondo Riemann si introduce il concetto di uniforme continuità.
+\begin{definition}
+    Si dice che $f:I\to R$ è uniformemente continua nell'intervallo $I$ di $R$ se:
+    \begin{align}
+        \forall \epsilon > 0 \ \exists \delta = \delta(\epsilon) > 0 : \ \forall x, x' \in I
+        \left| x - x' \right| < \delta \Rightarrow \left| f(x) - f(x') \right| < \epsilon  
+    \end{align}
+\end{definition}
+
+\begin{theorem}[TEOREMA DI CANTOR]
+    Sia f una funzione continua nell'intervallo chiuso e limitato $[a, b]$ allora f è 
+    uniformemente continua in $[a, b]$.
+\end{theorem}
+\begin{proof}
+    Procedendo per assurdo si assume che $\delta = 1/n$ e si indicano i punti $x, x'$
+    dove vale la precedente per cui:
+    \begin{align*}
+        \left| x_n - x'_n \right|  < \frac{1}{n}
+    \end{align*}
+    Per il teorema di Bolzano Weierstrass esiste allora una successione estratta tale
+    che 
+    \begin{align*}
+        x_{n_k} - \frac{1}{n_k} < x'_{n_k} < x_{n_k} + \frac{1}{n_k}
+    \end{align*}
+    Per il teorema dei carabinieri convergono quindi a $x_0$ per $k \to \infty $, quindi per 
+    l'ipotesi di continuità di f:
+    \begin{gather*}
+        \lim_{k \to +\infty } (f(x_{n_k}) - f(x_{n_k}')) = 0 
+    \end{gather*}
+    Il che contrasta col fatto che deve essere $\geq \epsilon$.
+\end{proof}
+
+\section{Teorema di integrabilità delle funzioni continue}
+\begin{theorem}[Teorema di integrabilità delle funzioni continue]
+    Sia $f(x)$ una funzione continua in $[a, b]$. Allora $f(x)$ è integrabile secondo
+    Riemann. 
+\end{theorem}
+\begin{proof}
+    Per il teorema di Cantor allora $f(x)$ è uniformemente continua e perciò fissato
+    \begin{align*}
+        \epsilon > 0 \ \exists \delta > 0 : \left| f(x) - f(x')\right| < \frac{\epsilon}{b - a}
+    \end{align*}
+    Per ogni coppia di punti $x, x'$. Allora posta P come una partizione di $[a, b]$ allora
+    $P = \{x_0, x_1, \dots, x_n\}$ con $x_0 = a, x_n = b$  allora posto:
+    \begin{gather*}
+        m_k = inf\{f(x): x \in [x_{k-1}, x_k]\}; \\
+        M_k = sup\{f(x): x \in [X_{k - 1}, x_k]\}  \\
+        M_k - m_k = \frac{\epsilon}{b - a} \\
+        S(P) - s(P) = \sum_{k = 1}^{n} (M_k  - m_k) (x_k - x_{k - 1}) < \frac{\epsilon}{b - a}
+        \sum_{k = 1}^{n}(x_k - x_{k - 1}) = \epsilon;  
+    \end{gather*}
+    Dal teorema dell'integrale definito segue l'asserto.
+\end{proof}
+
+\section{Teoremi sulla media}
+\begin{theorem} [Primo teorema della media]
+    Sia f una funzione limitata  ed integrabile secondo Riemann in $[a, b]$ allora 
+    \begin{align}
+        m(b - a) \leq \int_{a}^{b} f(x) \ dx \leq M(b - a)
+    \end{align}
+    Con
+    \begin{align*}
+        m = inf\{f(x):x  \in [a,b]\}, M = sup \{f(x):x \in [a, b]\}
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    Dal momento che per definizione l'integrale definito è esattamente l'elemento di separazione
+    tra le somme superiori e quelle inferiori allora posto $s(P) = m(b - a), S(P) = M(b-a)$ segue la tesi. 
+\end{proof}
+
+\begin{theorem}[Secondo teorema della media]
+    Se $f(x)$  è continua in $[a, b]$ allora $\exists x_0 \in [a, b] :$
+    \begin{align}
+        \int_{a}^{b} f(x) \ dx = f(x_0)(b - a).
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Per Weierstrass esistono minimo e massimo di f(x) per cui dividendo per $b - a$
+    i membri del primo teorema della media si ottiene che:
+    \begin{align*}
+        m \leq \frac{1}{b - a} \int_{a}^{b} f(x) \ dx \leq M 
+    \end{align*}
+    Per il secondo teorema dell'esistenza dei valori intermedi allora esiste un valore medio
+    tale che sia compreso tra il minimo ed il massimo. E quindi è dimostrata. 
+\end{proof}
+
+\section{Integrabilità delle funzioni monotòne}
+\begin{theorem}[Intgrabilità delle funzioni monotòne]
+    Sia $f(x)$ una funzione monotòna in $[a, b]$. Allora $f(x)$ è integrabile
+    secondo Riemann in $[a, b]$.
+\end{theorem}
+\begin{proof}
+    Dividendo l'intervallo $[a,b]$ in parti uguali di ampiezza $(b - a)/n$ si considera
+    la partizione costituita dagli $n + 1$ punti equidistanti:
+    \begin{gather*}
+        x_0 = a, x_1 = \frac{1}{n}(b- a), \dots,  \\
+        x_k = a + \frac{k}{n}(b - a), \dots, x_n = b
+    \end{gather*}
+    Ora la diff tra le partizioni superiori e quelle inferiori è proprio:
+    \begin{gather*}
+        \frac{b - a}{n}\left( \sum_{k = 1}^{n} M_k - \sum_{k = 1}^{n} m_k \right).
+    \end{gather*}
+    Per ipotesi la funzione $f(x)$ è monotòna in $[a, b]$.Supponendo che sia crescente allora
+    sappiamo che il massimo lo assume in $x_k$ ed il minimo in $x_{k - 1}$ allora si ottiene che
+    dalla differenza delle sommatorie  $f(b) - f(a)$ e quindi:
+    \begin{gather*}
+        S(P_n) - s(P_n) = \frac{(b - a)(f(b) - f(a))}{n};
+    \end{gather*}
+    Allora dato il destro converge a zero per il teorema dell'integrale definito segue l'asserto.
+\end{proof}
+
+\section{Il teorema fondamentale del calcolo integrale}
+\begin{theorem}[Il teorema fondamentale del calcolo integrale]
+    sia $f$ una funzione continua su di un intervallo $[a, b]$ allora la sua primitiva
+    $F(x)$ è derivabile e la derivata vale esattamente $f(x)$.
+\end{theorem}
+\begin{proof}
+    Calcolando il limite del rapporto incrementale si ottiene che: 
+    \begin{gather*}
+        \frac{F(x + h) - F(x)}{h} = \frac{1}{h}\left(\int_{a}^{x + h} f(t) \ dt -
+        \int_{a}^{x} f(t) \ dt\right) = \\
+        \frac{1}{h} \left( \int_{a}^{x} f(t) \ dt + \int_{x}^{x + h} f(t) \ dt -
+        \int_{a}^{x} f(t) \ dt \right) = \\
+        \frac{1}{h}\int_{x}^{x + h} f(t) \ dt.
+    \end{gather*}
+    Grazie al secondo teorema della media si trasforma l'ultimo integrale e quindi
+    esiste un punto tra $x$ ed $x +h$ tale che :
+    \begin{gather*}
+        \frac{F(x + h) - F(x)}{h} = \frac{1}{h}\int_{x}^{x+ h} f(t) \ dt = f(x(h)).
+    \end{gather*}
+    Per il limite, la tesi segue allora dalla continuità della funzione integranda:
+    \begin{gather*}
+        \lim_{h \to 0} \frac{F(x+ h) - F(x)}{h} = \lim_{h \to 0} f(x(h)) = f(x).
+    \end{gather*}
+\end{proof}
+
+\section{Formula fondamentale per il calcolo integrale}
+\begin{definition}
+    Una funzione $F(x)$, derivabile nell'intervallo $[a, b]$ è una primitiva
+    di $f(x)$ se $F'(x) = f(x) \ \forall x \in [a,b]$   
+\end{definition}
+
+\begin{theorem}[cartatterizzazione delle primitive di una funzione in un intervallo]
+    Se $F(x)$ e $G(x)$ sono due primitive di una stessa funzione $f(x)$ allora in
+    un intervallo $[a, b] \exists c : G(x) = F(x) + c$.  
+\end{theorem}
+\begin{proof}
+    Ponendo $H(x) = G(x) - F(X)$ allora risulta che:
+    \begin{gather*}
+        H'(x) = G'(x) - F'(x) = f(x) - f(x) = 0
+    \end{gather*}
+    Applicando il teorema di Lagrange allora si ottiene che con $x$ fissato in $(a, b]
+    \ \exists x_0 \in (a, x) :$
+    \begin{gather*}
+        H(x) - H(a) = H'(x_0)(x- a) = 0 \cdot (x - a) = 0;
+    \end{gather*} 
+    Perciò $H(x) = H(a), \ \forall x in [a, b]$.
+    Posto ora $c = H(a)$, $H(x)$ risulta allora costante $\forall x \in [a, b]$ e
+    quindi $G(x) = F(x) + H(x) = F(x) + c \ \forall x \in [a, b]$ 
+\end{proof}
+
+\begin{theorem}[Formula fondamentale per il calcolo integrale]
+    Sia $f$ una funzione continua in $[a, b]$ allora posta G la sua primitiva:
+    \begin{align}
+        \int_{a}^{b} f(x) \ dx = (G(x))^{b}_{a} = G(b) - G(a). 
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Sia F che G sono primitive di $f(x)$ allora si ha che:
+    \begin{gather*}
+        G(x) = F(x) + c = c + \int_{a}^{x} f(t) \ dt, \qquad \forall x \in [a, b].
+    \end{gather*}
+    Per $ x = a$ si ha che:
+    \begin{gather*}
+        G(a) = c + \int_{a}^{a} f(t) \ dt = c
+    \end{gather*}
+    E quindi 
+    \begin{gather*}
+        G(x) = G(a) + \int_{a}^{x} f(t) \ dt. 
+    \end{gather*}
+    La tesi segue ponendo $b = x$.
+\end{proof}
+
+\chapter{Integrali indefiniti}
+\section{L'integrale indefinito}
+\begin{definition}[Definizione dell'integrale indefinito]
+   Sia $f$ una funzione continua in un intervallo $[a, b]$. L'insieme di tutte le primitive
+   di $f \in [a, b]$ si chiama integrale indefinito di $f$ e si indica con il simbolo:
+   \begin{align}
+       \int f(x) \ dx
+   \end{align}  
+   In base alla caratterizzazione del paragrafo precedente si afferma quindi che
+   \begin{align}
+       \int f(x) \ dx = F(x) + c
+   \end{align} 
+   Funzionano le proprietà della somma e del prodotto per costante degli integrali definiti.
+\end{definition}
+
+Si riportano di seguito invece un insieme di integrali indefiniti immediati per il parziale:
+\begin{align}
+    &\int x^{b}  \ dx = \frac{x^{b + 1}}{b+ 1} + c; \\
+    &\int \frac{1}{x} \ dx = \log(x) + c; \\
+    &\int a^{x}  \ dx = \frac{a^{x} }{\log(a)} + c; \\
+    &\int e^{x}  \ dx = e^{x}  + c; \\
+    &\int \sin (x) \ dx = -\cos(x) + c; \\
+    &\int \cos(x) \ dx = \sin(x) + c; \\
+    &\int \frac{1}{\cos^{2}(x)} \ dx = \tan(x) + c; \\
+    &\int \frac{1}{\sin^{2}(x)} \ dx = -\cot(x) + c; \\
+    &\int \cosh (x) \ dx = \sinh x + c; \\
+    &\int \sinh (x) \ dx = \cosh(x) + c; \\
+    &\int \frac{1}{\cosh^{2}(x)} \ dx = \tanh (x) + c; \\
+    &\int \frac{1}{\sinh^{2}(x)} \ dx = -\coth(x) + c; \\
+    &\int \frac{1}{a^{2} +x^{2} } \ dx = \frac{1}{a} \arctan\left(\frac{x}{a}\right) + c; \\
+    &\int \frac{1}{\sqrt{1 - x^{2}}} \ dx = \arcsin(x) + c; \\
+    &\int -\frac{1}{\sqrt{1 - x^{2} }} \ dx = \arccos(x) + c; \\
+    &\int \frac{1}{1 + x^{2} } \ dx = \arctan(x) + c; \\
+    &\int \frac{1}{\sqrt{1 + x^{2} } } \ dx = arcisnh(x) + c; \\
+   &\int \frac{1}{\sqrt{x^{2}-1} } \ dx = arccosh(x) + c;
+\end{align}
+
+\section{Integrazione per parti}
+\begin{theorem}[Integrazione per parti]
+    Se in un intervallo f,g sono due funzioni derivabili con derivata continua risulta allora
+    che:
+    \begin{align}
+        \int f(x) g'(x) \ dx = f(x) g(x) - \int f'(x) g(x) \ dx. 
+    \end{align}
+    $f(x)$ è chiamato \emph{fattore finito}, mentre $g'(x)$ è il \emph{fattore differenziale}.
+\end{theorem}
+\begin{proof}
+    Dalla derivazione del prodotto si ottiene che :
+    \begin{gather*}
+        \int (f(x)  g(x))' \ dx = \int f'(x) g(x)  \ dx + \int f(x)  g'(x) \ dx.
+    \end{gather*}
+    La tesi viene dal fatto che la funzione $f \cdot g$ è una primitiva della sua derivata.
+\end{proof}
+
+La regola di derivazione per parti può essere estesa anche agli integrali definiti:
+\begin{align}
+    \int_{a}^{b} f(x) g'(x) \ dx = (f(x)  g(x))^{b}_a - \int_{a}^{b} f'(x)g(x)  \ dx.
+\end{align}
+
+
+\section{Integrazione per trovare la derivata di composte}
+\begin{gather}
+    \frac{d}{dx}F(g(x)) = F'(g(x))\cdot g'(x) \\
+    \int F'(g(x))\cdot g'(x)dx = F(g(x)) + c \\
+\end{gather}
+Posto 
+\begin{gather*}
+    f(x) = F(x) \\
+    F(x) = \int f(x) dx
+\end{gather*}
+Allora si ha la formula di integrazione per sostituzione:
+\begin{gather}
+    \int f(g(t))\cdot g'(t)dt = \int f(x)dx \\
+    con \ x = g(t) 
+\end{gather}
+Esempio:
+\begin{gather*}
+    \int \frac{\log t}{t} = \int x dx \Rightarrow  x = \frac{\log t }{t}  \Rightarrow \frac{\log^2 t}{2} + c
+\end{gather*}
+Formula dell'integrazione di potenze per sostituzione
+\begin{gather}
+    \int g(t)^{\alpha}g'(t) dt =  \frac{g(t)^{\alpha + 1} }{\alpha + 1} + c 
+\end{gather}
+
+\begin{gather*}
+    \int \sin^{3}t \ dt = \int \sin^{2} t \cdot \sin t \ dt \\
+    = \int (1-\cos^2 t) \sin t \ dt \\
+    g(t) = -\cos t. \\
+    g'(t) = \sin t \\
+    f(x) = 1 - x^2 \\
+    \int 1 - x^2  \ dx = \frac{\cos^3 t }{3} + c
+\end{gather*}
+Si può anche cambiare variabile all'interno dell'integrale e quindi si ottiene
+che dentro l'integrale devo sostituire $g$ al posto di $x$ e $g'(t)dt$ al posto di $dx$.
+\begin{gather*}
+    \int \frac{\log t}{t} \ dt, \ pongo \ x = \log t \Rightarrow 1\ dx =  \frac{1}{t} \ dt \\
+    \int x \ dx = \frac{x^2}{2} + c = \frac{\log^{2} t}{2} + c
+\end{gather*}
+
+\section{Integrazione di derivate composte in un intervallo definito}
+\begin{gather}
+    \int_{a}^{b} f'(g(t))\cdot g'(t)dt = \left|^{g(b)}_{g(a)}x\right. = F(g(b)) - F(g(a)) = \\
+    \int_{a}^{b} f(x) dx. 
+\end{gather}
+Esempio:
+\begin{gather*}
+    \int \frac{1}{\sqrt{1 - x^2}} \ dx \\
+    posto \ x = \sin t \\
+    \sqrt{1-x^2 } = \sqrt{1- \sin^2 t} = \sqrt{\cos^2 t}
+\end{gather*}
+Integrata ora per $-1 < x < 1$ allora diventa:
+\begin{gather*}
+    dx = \cos t \ dt. \\
+    \int \frac{1}{\cos t} \cdot \cos t \ dt = t + c \\
+    Quindi \ essendo \ x = \sin t \\
+    \arcsin(x) + c
+\end{gather*}
+
+\section{Area del cerchio}
+Data la formula della circonferenza: $x^2  + y^2  = R^2$
+voglio calcolare:
+\begin{gather*}
+    4\int_{0}^{R} \sqrt{R^2 -x^2 } \ dx \\
+    Posto \ ora \ x = R \sin t \\
+    4\int_{0}^{\frac{\pi}{2}} R^2  \cos^2  t \ dt \\
+    Posto \ \cos^2 t = \frac{1+\cos(2t)}{2} \Rightarrow  4R^2 \int_{0}^{\frac{\pi}{2}} \frac{1 + \cos(2t)}{2} \ dt  \\
+    \Rightarrow  \left|^{\frac{\pi}{2}}_{0} \frac{x^2 }{4} + \frac{\sin(2t)}{4}\right. 
+\end{gather*} 
+
+\section{Integrali di fratte}
+Posto inizialmente che il grado di $P(x) < Q(x)$, questi sono
+due polinomi; se il grado non è minore allora dobbiamo eseguire
+la divisione tra polinomi.
+Divisione tra polinomi:
+\begin{gather}
+    \frac{P(x)}{Q(x)} = A(x) + \frac{R(x)}{Q(x)}
+\end{gather}
+Esempio:
+\begin{gather*}
+    \frac{x^{3} - 2x }{x^{2} + 3} \ diventa \\
+    \begin{tabular}{c c c | c}
+        $x^3$  &  & $-2x$ & $x^{2} +3$ \\
+        \hline 
+        $-x^3$  & & -3x & x \\
+        &&-x&
+    \end{tabular} =  \\
+    -x + \frac{x}{x^2 +3}
+\end{gather*}
+Le cose importanti sono le seguenti:
+\begin{enumerate}
+    \item Il grado di $P(x) < Q(x)$;
+    \item Il coefficiente della potenza più grande di Q sia 1.
+\end{enumerate}
+
+\begin{gather*}
+    \int \frac{1}{x^2 +bx + c} \ dx  \\
+    Completamento \ del \ quadrato: \ \left(x+\frac{b}{2}\right)^2 + c - \frac{b^2}{4} = \left( x + \frac{b}{2} \right)^2  -\frac{\Delta}{4}
+    = -\frac{\Delta}{4} \left( \frac{\left(x+\frac{b}{2}\right)^2 }{\left(\frac{\sqrt{-\Delta}}{2}\right)^2 } + 1\right) 
+\end{gather*}
+Quindi l'integrale diventerà:
+\begin{gather*}
+    \frac{4}{-\Delta}\int \frac{1}{\left(\frac{2x + b}{\sqrt{-\Delta}}\right)+1} \ dx
+\end{gather*}
+Ponendo ora
+\begin{align*}
+    y = \frac{\left(x+\frac{b}{2}\right)^2 }{\left(\frac{\sqrt{-\Delta}}{2}\right)^2 }
+\end{align*}
+Diventa
+\begin{align*}
+    \frac{4}{-\Delta}\int \frac{1}{y^2  + 1} \cdot \frac{\sqrt{-\Delta}}{2} \ dy = \frac{2}{\sqrt{-\Delta}} \arctan\left(\frac{2x + b}{\sqrt{-\Delta}}\right) + c
+\end{align*}
+Un'altro fratto semplice è:
+\begin{align}
+    \int \frac{1}{(x-x_0)^{n}} \ dx = \int \frac{1}{y^{n} } \ dy = \int y^{-n} \ dy = \frac{y^{-n+1}}{-n+1} +c
+\end{align}
+
+Un'altro metodo per sviluppare i razionali semplici è quello di scomporre il denominatore
+è spezzare la frazione: In questo caso si determina poi due numeri reali A, B e quindi 
+si ottiene due frazioni che sommate insieme danno quella di partenza. Ecco un'esempio:
+\begin{gather*}
+    \frac{x+ 7}{x^{2} - x - 2} = \frac{A}{x + 1} + \frac{B}{x - 2}
+\end{gather*}
+Facendo ora denominatore comune ed imponendo il sistema:
+\begin{gather*}
+    \frac{(A + B)x - 2A + B}{x^{2} - x - 2} \qquad \left\{ \begin{array}{l}
+        A + B = 1 \\
+        -2A + B = 7.
+    \end{array}\right. \\
+    \frac{-2}{x+  1} + \frac{3}{x-  2}
+\end{gather*}
+La funzione è dunque scomposta.
+
+\section{Integrali impropri}
+Supponendo che io abbia una funzione continua, il suo integrale 
+è esattamente l'area del sottografico: il che è  ragionevolmente calcolabile.
+SI potrebbe però pensare in linea teorica sottoinsiemi del piano
+illimitati: ossia che non riesco a racchiudere in zone limitate di piano
+\begin{align*}
+    f: [1, +\infty] \to R, f(x) =\frac{1}{x}
+\end{align*}
+Posso considerare il suo sottografico per cui $x \geq 1$ e $ 0 \leq y \leq \frac{1}{x}$.
+La domanda è questa: l'area è finita o infinita?
+Idealmente sto facendo:
+\begin{align*}
+    \int_{1}^{+\infty } \frac{1}{x} \ dx 
+\end{align*}
+Però non posso definirlo con Riemann poiché non posso fare partizioni
+finite per un intervallo infinito poiché altrimenti dovrei fare una somma
+con almeno una partizione di lunghezza infinita e questo perde di
+significato. \\
+Posso integrare fino ad un certo punto ed integrare fino a $c$ con $c > 1 $ e quindi
+so fare:
+\begin{align*}
+    \int_{1}^{c} \frac{1}{x} \ dx
+\end{align*}
+Posso fare ora il $\lim_{c \to \infty}$ quindi:
+\begin{align*}
+    \lim_{c \to \infty } \int_{1}^{c} \frac{1}{x} \ dx. 
+\end{align*} 
+Per cui diventa:
+\begin{gather*}
+    \int_{1}^{c} \frac{1}{x} \ dx = F(c) - F(1) \\
+    ossia \ \lim_{c \to \infty } \ln(c) - 0 = +\infty . 
+\end{gather*}
+
+Con un'altro esempio si vede invece che l'integrale di una funzione che
+tende all'infinito non sempre ha un area infinita:
+\begin{align*}
+    f: [1, \infty ] \to R \\
+    f(x) = \frac{1}{x^2} 
+\end{align*}
+Il suo integrale associato diventa quindi:
+\begin{align*}
+    \lim_{c \to \infty } \int_{1}^{c} \frac{1}{x^2 } \ dx.
+\end{align*}
+La mia primitiva è dunque $-\frac{1}{x}$ (è solo una delle primitive),
+in ogni caso diventa:
+\begin{align*}
+    \int_{1}^{c} \frac{1}{x^2 } \ dx = \lim_{c \to \infty } -\frac{1}{c} + \frac{1}{1} = 1. 
+\end{align*}
+
+\begin{definition}[Integrale improprio]
+    Sia $a \in R$ e sia $f: [a, +\infty ] \to R$ e supponiamo che $f$ sia
+    tale che sia integrabile in $[a, c] \ \forall c > a$. Se esiste finito
+    o infinito il limiti per $ c \to \infty $ dell'int:
+    \begin{gather}
+        \int_{a}^{c} f(x) \ dx
+    \end{gather}  
+    Allora $f(x)$ è integrabile in senso improprio nell'intervallo
+    $[a, c]$ e si pone:
+    \begin{gather}
+        \int_{a}^{+\infty } f(x) \ dx = \lim_{c \to +\infty } \int_{a}^{c} f(x) \ dx   
+    \end{gather}
+    Inoltre se il limite è finito allora l'integrale è convergente
+    altrimenti divergente. Se invece il limite non esiste allora l'integrale
+    è indeterminato.
+\end{definition}
+
+Gli esercizi sugli integrali impropri solitamente chiedono di
+il carattere dell'integrale improprio. Un esempio è:
+\begin{align*}
+    \int_{1}^{+\infty } \frac{1}{x^2  + \ln^2 (x)} \ dx 
+\end{align*}
+
+\section{Carattere degli integrali impropri di funzioni con segno costante}
+\begin{lemma}[Carattere degli integrali impropri di funzioni con segno costante]
+    Se  $f: [a, +\infty ] \to R$ è integrabile in $[a, c] \ \forall c > a$ e
+    $f(x) \geq 0 \ \forall x geq a$ allora l'integrale di f(x) è ben
+    definito ed esiste e può essere finito o infinito.
+\end{lemma}
+\begin{proof}
+    La funzione che associa $c \to \int_{a}^{c} f(x) \ dx$ è costante e allora
+    $c_1, c_2 > 0$ con $c_2 < c_1$  faccio:
+    \begin{gather*}
+        \int_{a}^{c_2} - \int_{a}^{c_1} f(x) \ dx = \int_{a}^{c_1} f(x) \ dx + \int_{a}^{c_2} f(x) \ dx - \int_{a}^{c_1} f(x) \ dx
+    \end{gather*}
+    Quindi si ha che:
+    \begin{gather*}
+        \int_{a}^{c_2} f(x) \ dx \geq \int_{a}^{c_1} f(x) \ dx \Rightarrow \int_{c_1}^{c_2} f(x) \ dx  \geq 0.  
+    \end{gather*}
+\end{proof}
+
+La proposizione vale anche se $f(x) \leq 0$ in $[a, +\infty]$ ed in
+questo caso l'integrale improprio può essere un numero oppure
+divergere a $-\infty $.
+La situazione del tutto speculare è quella per $[-\infty , a]$.
+GLi integrali da $.\infty a +\infty $ è un integrale non ben definito
+poiché si potrebbe trovare valori diversi dell'integrale se si fa crescere
+più velocemente un intervallo rispetto all'altro.
+
+\begin{theorem}
+    Siano $f, g$ due funzioni integrabili e tali che: $0 \leq f(x) \leq g(x)$:
+    allora:
+    \begin{gather}
+        Se \ \int_{a}^{+\infty } g(x) \ dx \ converge \\
+        Allora \ \int_{a}^{+\infty } f(x) \ dx \ converge. 
+    \end{gather}
+    Analogamente se
+    \begin{gather}
+        \int_{a}^{+\infty } g(x) \ dx \ diverge \\
+        Allora \ \int_{a}^{+\infty } f(x) \ dx \ diverge.  
+    \end{gather}
+\end{theorem}
+
+\begin{proof}
+    Riprendendo:
+    \begin{align*}
+        \int_{1}^{+\infty } \frac{1}{x^2  + \ln^2 (x)} \ dx 
+    \end{align*}
+Voglio dimostrare che questo integrale converge, allora prendo : $\frac{1}{x^2 }$ come
+$g(x)$ e quindi, dal momento che
+\begin{align*}
+    \int_{1}^{+\infty } \frac{1}{x^2 } \ dx = 1 
+\end{align*}    
+Allora anche il primo integrale converge poiché io ho imposto
+che $0 \leq f(x) \leq g(x)$.
+\end{proof}
+
+\begin{theorem}[Criterio di convergenza assoluta per gli integrali impropri]
+    Sia $f : [a, + \infty ) \to R$ una funzione integrabile secondo Riemann nell'intervallo
+    chiuso e limitato $[a, t] t > a$, se:
+    \begin{gather*}
+        \int_{a}^{+\infty } |f(x)| dx \ converge \Rightarrow \int_{a}^{+\infty }f(x)  \ dx \ converge.  
+    \end{gather*}
+\end{theorem}
+\begin{proof}
+    Il valore assoluto per definizione(sommando membro a membro $|f(x)|$) si ottiene:
+    \begin{gather*}
+        0 \leq f(x)  + |f(x) | \leq 2 |f(x) |.
+    \end{gather*}
+    Poiché per ipotesi $\int_{a}^{+\infty } |f(x) | \ dx$ converge per il criterio del confronto per gli integrali impropri.
+    Considerato dunque l'integrale:
+    \begin{gather*}
+        \int_{a}^{t}f(x) \ dx, 
+    \end{gather*}
+    sommando e sottraendo $|f(x) |$ si ottiene:
+    \begin{gather*}
+        \int_{a}^{t} f(x)  - |f(x) | + |f(x) | \ dx =  \int_{a}^{t}f(x) - |f(x) | \ dx + \int_{a}^{t}|f(x) | \ d 
+    \end{gather*}
+    passando al limite, i limiti sono finiti e quindi esiste anche il primo membro .
+\end{proof}
+
+\section{Integrali impropri di funzioni non limitate in intervalli limitati}
+Dato l'integrale 
+\begin{gather*}
+    \int_{a}^{b} f(x) \ dx
+\end{gather*}
+Tale che la funzione $f(x) : [a, b] \to R$ presenti un
+asintoto verticale proprio in $x = a$, allora si considera il limite
+dell'integrale in modo da poterci ricondurre all'integrale
+improprio
+\begin{gather*}
+    \lim_{c \to a^{+} } \int_{c}^{b} f(x) \ dx
+\end{gather*}
+Se l'integrale ora $\exists$ finito, allora
+possiamo dire che $f(x)$ sia integrabile in senso improprio,
+altrimenti se $=+\infty$, la funzione è integrabile in senso improprio ma
+è divergente.
+
+\section{Funzione integrale}
+\begin{definition}
+    Data una funzione definita $f : [a, b] \to R$, si definisce
+    \begin{align}
+        F(x) = \int_{a}^{x}f(t) dt 
+    \end{align}
+    come la funzione integrale $\forall x \in [a, b]$. 
+\end{definition}
+Considerando $\alpha, \beta : (c, d) \to R$, posso dire che le funzioni
+$\alpha (x), \beta(x) \in [a, b] \forall x \in (c, d)$
+\begin{gather*}
+    F(x) = \int_{\alpha(x)}^{\beta(x)} f(t) \ dt
+\end{gather*}
+Per cui la sua derivata è proprio (considerato un punto $a$ tra i due estremi):
+\begin{gather*}
+    \frac{d}{dx} \left(\int_{a}^{\beta(x)} f(t) \ dt - \int_{a}^{\alpha(x) f(t) \ dt}\right)
+\end{gather*}
+E quindi vale:
+\begin{gather*}
+    F'(x) = f(\beta(x)) \cdot  \beta'(x) - f(\alpha(x))\cdot \alpha'(x)
+\end{gather*}
+Per studiare allora il dominio di una funzione integrale considero i punti
+per cui $f(t)$ è integrabile in senso proprio e aggiungendo poi i punti di improprietà
+dove converge l'integrale improprio.
+
+\subsection{La funzione integrale della funzione identità}
+Data
+\begin{gather*}
+    G(x) = \int_{0}^{x} t \ dt
+\end{gather*}
+L'integrale del sottografico della funzione identità 
+è il triangolo di base $x - 0$ e come altezza $t(x) - 0$
+allora date $f(x)  = x$:
+\begin{gather*}
+    \int_{0}^{x} t \ dt = \int_{0}^{f(x)} f(t) \ dt = \frac{x^{2} }{2} + c
+\end{gather*}
+Si ha allora che $G'(x)= f(x)$.
+
+\chapter{Formule di Taylor}
+\section{Prime proprietà}
+\begin{theorem}[FORMULA DI TAYLOR]
+    Sia $f(x)$ una funzione derivabile $n$ volte in $x_0$. Risulta che:
+    \begin{align*}
+        f(x) = \sum_{k = 0}^{n} \frac{f^{(k)} (x_0)}{k!} (x -x_0)^{k} + R_n(x) \\
+        \lim_{x \to x_0} \frac{R_n(x)}{(x-x_0)^{n}} = 0 
+    \end{align*}
+\end{theorem}
+
+\begin{proof}
+    Supponendo che la derivata $f^{(n)}(x)$ sia continua in $x_0$
+    allora trovato $R_n$ si deve dimostrare che (applicato Hopital):
+    \begin{align*}
+        \lim_{x \to x_0} \frac{f'(x) - (f'(x)) + \dots + f^{n}(x_0)(x-x_0)^{n-1} /(n-1)!  }{
+        n(x-x_0)^{n-1}} 
+    \end{align*}
+    Dopo aver applicato Hopital per n volte si ottiene il seguente limite:
+    \begin{align*}
+        \lim_{x \to x_0} \frac{f^{n}(x)-f^{n}(x_0)}{n!}
+    \end{align*}
+    La tesi è dunque dimostrata.
+\end{proof}
+
+\begin{theorem} [CRITERIO PER I PUNTI DI MASSIMO E DI MINIMO]
+    Se esistono le derivate sottoindicate della funzione f(x) nel punto $x_0$ allora
+    vale il seguente:
+    \begin{align*}
+        f'(x) = 0: \left\{ \begin{array}{c c }
+            f^{2}(x_0) > 0 & Minimo \ relativo \\
+            f^{2}(x_0) < 0 & Massimo \ relativo \\
+            f^{2} (x_0) = 0 & \left\{\begin{array}{l}
+                f^{3} (x_0) \ne 0 \quad ne'\ massimo\ ne'\ minimo \ in \ x_0 \\
+                f^{3} (x_0) = 0: Si \ ripete\ lo \ schema
+            \end{array}\right. 
+        \end{array}\right. 
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    ovviamente la funzione f(x) deve essere derivabile almeno per $n \geq 2$ quindi
+    risulta che
+    \begin{align*}
+        f'(x_0) = f^{2} (x_0) = \dots = f^{(n-1)} (x_0) = 0; \qquad f^{n} (x_0) \ne 0
+    \end{align*}
+    Posto che $f^{n} (x_0) > 0$ allora per l'annullarsi delle derivate si ha che
+    la formula di Taylor diviene:
+    \begin{align*}
+        &f(x) = f(x_0) + \frac{f^{n} (x_0) }{n!}(x- x_0)^{n} + R_n (x_0) \\
+        &\lim_{x \to x_0} \frac{f(x) - f(x_0)}{(x-x_0)^{n}} = \\
+        &\lim_{x \to x_0} \left(\frac{f^{n} (x_0)}{n!} + \frac{R_n(x)}{(x-x_0)^{n}}\right) =
+        \frac{f^{n}(x_0)}{n!} > 0
+    \end{align*}
+    Per la permanenza del segno allora $\exists \delta > 0 : \frac{f(x) - f(x_0)}{(x-x_0)^{n}} > 0,
+    \forall x : 0 \ne \left| x-x_0 \right|  \delta$.
+    Se n è pari allora il denominatore è positivo e risulta che $x_0$ è un punto di minimo.
+    Se invece è dispari allora risulta che non ha né minimo né massimo.
+\end{proof}
+
+\section{Resto di Peano}
+Preso un polinomio p a coefficienti reali:
+\begin{align*}
+    p(x) = a_0 + a_1 x + \dots + a_nx^{n} 
+\end{align*}
+Esso è infinitamente derivabile. Si può però scrivere il polinomio nella seguente
+forma:
+\begin{align*}
+    p(x) = p(0) + \frac{p'(0)}{1}x + \frac{p^{2} (x)}{2!} x^{2} + \dots + \frac{p^{n} (0)}{n!}x^{n} 
+\end{align*}
+Un polinomio di grado n è univocamente determinato una volta che sono noti i valori
+che esso e le sue prime derivate assumono in $x_0$. Cercando di determinare ora
+un polinomio di grado n di grado minore o uguale a n che verifichi $p_n(x_0) = f(x_0)$ esso è:
+\begin{align*}
+    p_n(x) = f(x_0) + \frac{f'(x_0)}{1}(x-x_0) + \frac{f^{2}(x_0)}{2!} (x-x_0)^{2} + \dots + \frac{f^{n}(x_0)}{n!}(x-x_0)^{n} 
+\end{align*}
+Questo polinomio è chiamato proprio polinomio di Taylor.
+Si definisce quindi la funzione di Resto (anche chiamato Resto di Peano) come:
+\begin{align*}
+    R_n(x) = f(x) - p_n(x).
+\end{align*}
+
+\begin{theorem}[Formula di Taylor con il resto di Peano]
+    Se $f$ è derivabile n volte in $x_0$ il resto $R_n(x)$ è un infinitesimo in $x_0$ 
+    di ordine superiore a $(x-x_0)^n$ quindi:
+    \begin{align*}
+        \lim_{x \to x_0} \frac{R_n(x_0)}{(x-x_0)^{n}}= 0 
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    Bisogna dimostrare il seguente:
+    \begin{align*}
+        \lim_{x \to x_0} \frac{R_n(x_0)}{(x-x_0)^{n}} = \lim_{x \to x_0} 
+        \frac{f(x) - p_n(x)}{(x-x_0)^{n}} 
+    \end{align*}
+    Sostituendo ed applicando n-1 volte Hopital si ottiene il seguente:
+    \begin{align*}
+        &\frac{1}{n!} \left( \lim_{x \to x_0} \frac{f^{n-1}(x) - f^{n-1}(x_0)}{x-x_0}-f^{n}(x_0) \right) \\
+        &\frac{1}{n!} \left( f^{n}(x_0)  - f^{n}(x_0)\right) = 0.
+    \end{align*}
+\end{proof}
+
+\begin{definition}
+    Si definisce \emph{o piccolo} un infinitesimo di ordine superiore ad un altro:
+    siano $f(x)$ e $g(x)$ due funzioni e calcoliamo $f(x): x \to x_0$ che e quindi
+    $f(x) = o((g(x)))$ se $g(x)$ è infinitesima per $x \to x_0$ e 
+    \begin{align*}
+        \lim_{x \to x_0} \frac{f(x)}{g(x)} = 0. 
+    \end{align*}
+    Il resto di Peano si rappresenta anche come:
+    \begin{align*}
+        R_n(x) = o((x-x_0)^{n}) \qquad per \ x \to x_0
+    \end{align*}
+\end{definition}
+
+La formula di taylor con il centro in $x_0 = 0$ si chiama anche formula
+di Mac Laurin ed e si hanno gli sviluppi delle seguenti funzioni:
+\begin{align}
+    e^{x} =& 1 + x + \frac{x^{2}}{2} + \frac{x^{3}}{3!} + \dots + \frac{x^{n}}{n!} + o(x^{n}); \\
+    \log(1 + x) =& x - \frac{x^{2}}{2} + \frac{x^{3}}{3} - \dots + (-1)^{n+1} \frac{x^{n}}{n} + o(x^{n}); \\
+    \sin(x) =& x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!} - \dots + (-1)^{n} \frac{x^{2n+1}}{(2n + 1)!} + o(x^{2n+2}): \\
+    \cos(x) =& 1 - \frac{x^{2}}{2} + \frac{x^{4} }{4!} - \dots + (-1)^{n} \frac{x^{2n}}{(2n)!} + o(x^{2n + 1}); \\
+    \tan (x) =& x + \frac{x^{3}}{3} + \frac{2x^{5} }{15} + \frac{17x^{7} }{315} + o(x^{8} ) \\
+    \sinh(x) =& x + \frac{x^{3} }{6} + \frac{x^{5} }{5!} + \dots + \frac{x^{2n + 1}}{(2n + 1)!} + o(x^{2n + 2} ) \\
+    \cosh(x) =& 1 + \frac{x^{2} }{2} + \frac{x^{4} }{4!} + \dots + \frac{x^{2n} }{(2n)!} +o(x^{2n + 2} )\\
+    \tanh(x) =& x - \frac{x^{3} }{3} + \frac{2x^{5} }{15} - \frac{17x^{7} }{315} + o(x^{8}) \\
+    arctanh(x) =& x + \frac{x^{3} }{3} + \frac{x^{5} }{5} + \dots + \frac{x^{2n + 1} }{2n + 1} + o(x^{2n + 2} ) \\
+    \arctan(x) =& x  - \frac{x^{3} }{3} + \frac{x^{5} }{5} - \dots + (-1)^{n} \frac{x^{2n + 1} }{2n + 1} + o(x^{2n + 2});  \\
+    \arcsin(x) =& x + \frac{x^{3} }{6} + o(x^{4} ) \\
+    \arccos(x) =& \frac{\pi}{2} - x - \frac{x^{3} }{6} + o(x^{4} ) \\
+    (1 + x)^{\alpha} =& 1 + \alpha x + \frac{\alpha(\alpha - 1)x^{2} }{2} +  \frac{\alpha(\alpha - 1)(\alpha - 2)x^{3} }{6} + \dots \begin{pmatrix} \alpha \\
+    n \end{pmatrix} x^{n} + o(x^{n} ) \\
+    \frac{1}{1+x} =& 1 + x + x^{2} + x^{3} + \dots + x^{n} + o(x^{n}  ) \\
+    \sqrt{1 + x} =& 1 + \frac{x}{2} - \frac{x^{2} }{8} + o(x^{2} ).   
+\end{align}
+
+\section{utilizzo nel calcolo dei limiti}
+Al fine del calcolo dei limiti spesso è utile sostituire delle funzioni con i loro
+sviluppi applicando le formule di Taylor oppure le formule di Mac Laurin quando
+centrati in x = 0. Inoltre di seguito sono elencate le proprietà degli o piccoli.
+\begin{align}
+    o(x^{n}) + o(x^{n}) &= o(x^{n}) \\
+    c \cdot o(x^{n}) &= o(cx^{n}) = o(x^{n}) \\
+    o(x^{n}) - o(x^{n}) &= o(x^{n}) \\
+    x^{m} \cdot o(x^{n}) &= o(x^{m+n} ) \\
+    o(x^{m}) \cdot o(x^{n}) &= o(x^{m+n} ) \\
+    o(o(x^{n} )) &= o(x^{n} ) \\
+    o(x^{n}  + o(x^{n} )) &= o(x^{n})
+\end{align}
+\begin{proof}
+    Dimostrazioni delle proprietà:
+\end{proof}
+
+\section{Resto integrale}
+\begin{theorem}[Formula di Taylor con il resto integrale]
+    Se f è derivabile almeno $n + 1$ b+volte all'interno di $[a, b]$ con derivata
+    $f^{n+1}$ continua, il resto $R_n(x)$  si rappresenta come:
+    \begin{align}
+        R_n(x) = \int_{x_0}^{x} \frac{(x - t)^{n} }{n!} f^{n + 1} (t) dt., \qquad \forall x \in [a, b].
+    \end{align} 
+\end{theorem}
+\begin{proof}
+    PEr le definizioni del resto di Peano, si ha che:
+    \begin{gather*}
+        R_n(x) = f(x) - \sum_{k = 0}^{n} \frac{f^{k} (x_0)}{k!}(x - x_0)^{k} 
+    \end{gather*}
+    Per induzione si ha che per n = 0, è dimostrata per la formula fondamentale
+    del calcolo integrale. 
+    \begin{gather*}
+        \int_{x_0}^{x} f'(t) dt = f(x) - f(x_0) R_0(x)
+    \end{gather*}
+    Posto che f(x) ammette derivata di ordine superiore a due,
+    continua si assume per induzione che:
+    \begin{gather*}
+        R_n(x) = f(x) - \sum_{k = 0}^{n} \frac{f^{k} (x_0)}{k!}(x - x_0)^{k} = \int_{x_0}^{x} \frac{(x- t)^{n} }{n!} f^{n+1}(t) dt. 
+    \end{gather*}
+    Integrando per parti si ottiene la tesi con n + 1. e quindi è dimostrata:
+    \begin{gather*}
+        R_n(x) = \frac{1}{n!} \left( \left( -\frac{(x - t)^{n + 1} }{n+1} f^{n + 1}(t)\right)^{t = x}_{t = x_0} +
+        \int_{x_0}^{x} \frac{(x - t)^{n + 1}}{n + 1}f^{n + 2}(t) dt\right)  = \\
+        \frac{f^{n + 1} (x_0)}{(n + 1)!} (x - x_0)^{n + 1} + \int_{x_0}^{x}
+        \frac{(x - t)^{n + 1}}{(n + 1)!}f^{n + 2}(t) dt. 
+    \end{gather*}
+\end{proof}
+
+\section{Resto di Lagrange}
+\begin{theorem}[Formula di Taylor con il resto di Lagrange]
+    Se f è derivabile n +1 volte, con derivata continua allora esiste un numero 
+    $x_0 \leq x_1 \leq x$ tale che:
+    \begin{align}
+        R_n(x) = \frac{f^{n + 1}(x_1)}{(n + 1)!}(x - x_0)^{n + 1}-
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Dimostrazione 1: Supponendo $x > x_0$, indichiamo con $m, M$ il minimo ed il massimo 
+    di $f^{n + 1} (t)$ all'interno di $[x_0, x]$ si deduce quindi:
+    \begin{gather*}
+        m\int_{x_0}^{x} \frac{(x - t)^{n} }{n!} dt \leq R_n(x) \leq M \int_{x_0}^{x} \frac{(x - t)^{n} }{n!} dt \\
+        m \leq R_n(x) \cdot \frac{(n + 1)!}{(x - x_0)^{n + 1}} \leq M.
+    \end{gather*} 
+    Per l'esistenza dei valori intermedi allora $\exists x_1 \in [x_0, x]:$
+    \begin{gather*}
+        f^{n + 1} (x_1) = R_n(x) \cdot \frac{(n + 1)!}{(x - x_0)^{n + 1} }
+    \end{gather*}
+\end{proof}
+
+\section{Tabulazione di funzioni}
+La formula di Taylor è utile oltre che al calcolo dei limiti anche per la
+tabulazione delle funzioni elementari: si approssima un valore di una funzione 
+f(x) con un polinomio di Taylor di grado n e scegliendo $x_0$ attraverso una stima
+del resto: 
+\begin{theorem}[Stima del resto]
+    Sia f(x) una funzione derivabile n + 1 volte in un intervallo $[a, b]$ contenente $x_0$
+    con derivata continua. Posto quindi:
+    \begin{align}
+        M_{n + 1} = \max \{\left| f^{n + 1} (x) \right| : x \in [a, b]\},
+    \end{align}
+    Il resto $R_n(x)$ della formula di Taylor verifica la disuguaglianza:
+    \begin{align}
+        |R_n(x)| \leq M_{n + 1}\cdot \frac{|x - x_0|^{n + 1} }{(n + 1)!}, \qquad \forall x \in [a, b].
+    \end{align}
+\end{theorem}
+\begin{proof}
+    E' diretta conseguenza della rappresentazione del resto secondo la formula di Lagrange;
+    infatti fissati $x, x_0 \in [a, b]$, se indichiamo con $x_1$ si ottiene:
+    \begin{gather*}
+        |R_n(x)| = |f^{n + 1} (x_1)| \cdot  \frac{|x - x_0|^{n + 1}}{(n + 1)!} \leq \\
+        M_{n + 1} \cdot \frac{|x - x_0|^{n + 1}}{(n + 1)!}.
+    \end{gather*}
+\end{proof}
+Per poter estimare il valore di una funzione usando gli sviluppi di Taylor ed
+il resto fissando la precisione, la quale è stimata con la formula della stima:
+per il seno se vogliamo trovare una precisione di $10^{-7}$ si ha:
+\begin{gather*}
+    |R_4(x)| \leq \frac{1}{5! 10^{5}} < 10^{-7} 
+\end{gather*} 
+
+\chapter{Serie}
+Le serie sono un'estensione dell'operazione di sommatoria a infiniti
+addendi numerabili e ciascuno dei quali ha un indice.
+GLi insiemi infiniti sono molto diversi tra loro come
+$N, Z, Q, R$ e sono tutti infiniti ma solo N, Z, Q sono numerabili poiché
+hanno corrispondenza biunivoca.
+\begin{gather*}
+    \sum_{i = 1}^{n} a_n = ? 
+\end{gather*}
+Posto $a_n = 1$ ossia la successione costante di 1 che $\to +\infty $.
+\begin{gather*}
+    \sum_{n = 1}^{+\infty } \frac{1}{n} 
+\end{gather*}
+Questa somma fa $+ \infty $ anche se sono tutti termini minori di uno e potrebbe 
+far pensare che tutte le volte che si sommano quantità piccole il risultato sia indefinito, tuttavia:
+\begin{gather*}
+    \sum_{n = 0}^{+\infty } \frac{1}{10^{n} } = 1,\bar{1}     
+\end{gather*}
+\begin{gather*}
+    \sum_{n = 1}^{+\infty } \frac{1}{n^{2} } < +\infty  
+\end{gather*}
+Poiché si ha un'analogia con il suo integrale improprio.
+
+\begin{definition}
+    Data una successione $a_n$ di numeri reali si indica con
+    \begin{align}
+        \sum_{n = 1}^{+ \infty } a_n
+    \end{align}
+    La serie numerica generata da $a_n$.
+\end{definition}
+
+\begin{theorem} [CONDIZIONE NECESSARIA PER LA CONVERGENZA DI UNA SERIE]
+    Se la serie $\sum_{k = 1}^{\infty} a_k$ è convergente allora la sua successione 
+    $a_n$ tende a zero per $n \to \infty$.  
+\end{theorem}
+\begin{proof}
+    Indicando con $s_n$ la successione delle somme parziali e con $s \in R$ la somma della
+    serie, allora essendo:
+    \begin{gather*}
+        s_{n + 1} = s_n + a_{n + 1} \ \forall n \in N. \\
+        \Rightarrow \lim_{n \to \infty } a_{n + 1} = \lim_{n \to \infty } s_{n + 1} - \lim_{n \to \infty } s_n = 0.  
+    \end{gather*}
+\end{proof}
+
+Inoltre si ricava il criterio di convergenza di Cauchy per le successioni di numeri reali.
+\begin{theorem}
+    Condizione necessaria e sufficiente perché la serie $\sum_{k = 1}^{\infty } a_k$ sia convergente
+    è che $\forall \epsilon > 0 \ \exists v > 0 :$
+    \begin{align}
+        \left| \sum_{k = n + 1}^{n + p} a_k \right| = |a_{n + 1} + \dots, a_{n + p}| < \epsilon \ \forall n > v, \wedge \forall n \in N.
+    \end{align} 
+\end{theorem}
+\begin{proof}
+    Indicando con $s_n$ la successione delle somme parziali e ricordiamo che $s_n$ converge se e solo
+    se $\forall \epsilon > 0, \exists v > 0 : m > v, n > v :$
+    \begin{gather*}
+        |s_m - s_n| < \epsilon
+    \end{gather*}
+    Dato che $m > n, m = n + p, p \in N$, allora si ha
+    \begin{gather*}
+        s_m - s_n = \sum_{k = 1}^{m}a_k -\sum_{k = 1}^{n}a_k = \sum_{k = n+1}^{n+p}a_k 
+    \end{gather*}
+\end{proof}
+
+\begin{definition}
+    Fissato un numero naturale grande definisco:
+    \begin{align}
+        S_n = \sum_{n = 1}^{N}a_n. 
+    \end{align}
+    come somma parziale o ridotta ennesima della serie.
+\end{definition}
+
+Se esiste finito
+\begin{gather*}
+    \lim_{N \to +\infty } S_N  = l, \Rightarrow \sum_{n = 1}^{+\infty } a_n   \\
+    \lim_{N \to +\infty } S_N = \pm \infty \Rightarrow  \sum_{n = 1}^{+\infty } a_n = \pm \infty \\
+    \not \exists \lim_{N \to +\infty } S_N  \Rightarrow \ la \ serie \ e' \ indefinita. 
+\end{gather*}
+
+
+Esempi di serie convergenti e divergenti:
+Divergenti:
+\begin{gather*}
+    a_n = 1 \ \forall n \Rightarrow \lim_{N \to +\infty } \sum_{n = 1}^{N } 1 = +\infty  
+\end{gather*}
+\begin{gather*}
+    a_n = n \Rightarrow \sum_{n = 1}^{+\infty } n \\
+    S_n = 1 + 2 + \dots + n \Rightarrow \frac{n(n+1)}{2} \\
+    \lim_{N \to +\infty} S_N = \lim_{N \to +\infty } \frac{n(n + 1)}{2} = +\infty.   
+\end{gather*}
+Indeterminate (devo scegliere una successione che  cambi segno,
+altrimenti o converge o diverge):
+\begin{gather*}
+    a_n = (-1)^{n} = \left\{\begin{array}{l}
+        1, \ con \ n \ pari \\
+        -1, \ con \ n \ dispari
+    \end{array}\right. \\
+    \Rightarrow  \sum_{n = 1}^{+\infty } a_n = indeterminata  
+\end{gather*}
+Se ne sommo un numero pari ottengo 0, se sommo un numero dispari di
+numeri allora si ha -1, e quindi $\not\exists \lim_{N \to +\infty } S_N$. 
+Convergente:
+\begin{gather*}
+    a_n = 0 \ \forall n \in N \Rightarrow  \sum_{n = 1}^{\infty } a_n \\
+    S_0 = S_1 = \dots = 0 \\
+    S_N = 0 \ \forall N. 
+\end{gather*}
+Un'altro esempio convergente non banale (che parte da zero poiché è definita pure in zero):
+\begin{gather*}
+    \sum_{n = 0}^{\infty }\frac{1}{2^{n} } = 2. 
+\end{gather*}
+
+\section{Serie geometriche}
+Queste sono delle serie della forma:
+\begin{align}
+    \sum_{n = 0}^{\infty } q^{n}, \qquad q \in R  
+\end{align}
+Il termine $q$ è anche chiamato \emph{ragione} della serie: sto sommando un numero
+reale che io ho scelto all'inizio e lo sommo infinite volte:
+Fissato un numero $N \in N$ molto grande, allora considero:
+\begin{gather*}
+    (1 + q + \dots + q^{N})(1 - q) \\
+    \Rightarrow  1 - q^{N + 1} 
+\end{gather*}
+Allora si ha che: 
+\begin{gather*}
+    1 + q + \dots + q^{N} = \frac{1 - q^{N +1 } }{1 - q} 
+\end{gather*}
+Ha quindi come somme parziali:
+\begin{gather*}
+    S_N =  \frac{1 - q^{N +1 } }{1 - q} , \qquad \ \forall N \in N, q \ne 1.
+\end{gather*}
+Adesso passando al limite per $N \to \infty $ si ottiene:
+\begin{gather*}
+    \lim_{N \to +\infty } q^{N+ 1} 
+\end{gather*}
+Adesso bisogna discutere il limite al variare del parametro q:
+\begin{gather*}
+   \\lim_{N \to +\infty } q^{N+ 1} = \left\{ \begin{array}{l}
+        + \infty , se q > 1 \\
+        1 \ se \ q = 1 \\
+        0 \ se \ q < |1| \\
+        \not \exists \ se \ q \leq -1
+    \end{array} \right.
+\end{gather*}
+Adesso tornando alle somme parziali si ottiene il seguente risultato:
+\begin{gather*}
+    \lim_{N \to +\infty } S_N = \lim_{N \to +\infty } \frac{1 - q^{N + 1} }{1 - q} =
+    \left\{ \begin{array}{l}
+        + \infty , \ se \ q > 1 \\
+        \frac{1}{1 - q} \ se \ q < |1| \\
+        \not \exists \ se \ q \leq -1
+    \end{array} \right.  
+\end{gather*}
+Allora tornando alla serie di partenza:
+\begin{gather*}
+    \sum_{n = 0}^{\infty } q^{n}  = \left\{ \begin{array}{l}
+        diverge , \ se \ q > 1 \\
+        diverge \ se \ q = 1 \\
+        converge \ a \ \frac{1}{1 - q} \ se \ q < |1| \\
+        \not \exists \ se \ q \leq -1
+    \end{array} \right.
+\end{gather*}
+Altra osservazione: noi sappiamo che $1,\bar{1} = \sum_{n = 0}^{+\infty } \left(\frac{1}{10}\right)^{n}$ posto
+allora $ q =  1/10$ si ha proprio la sommatoria geometrica generata prima che ci permette di ottenere
+la frazione generatrice di tutti i numeri periodici: 
+\begin{gather*}
+    \sum_{n = 0}^{+\infty } q^{n} = \frac{10}{9}  
+\end{gather*}   
+
+\section{Serie armoniche}
+Una serie armonica è una serie che somma infiniti numeri molto piccoli che
+però divergono.
+\begin{align}
+    \sum_{n = 1}^{+\infty } \frac{1}{n} \ diverge 
+\end{align}
+\begin{proof}
+    Posta la somma parziale:
+    \begin{gather*}
+        S_N = 1 + \frac{1}{2} + \dots + \frac{1}{n}
+    \end{gather*}
+    Osservo che questa cresce al crescere di N ed il motivo è che sto sommando
+    termini positivi e quindi si ha che $S_{N+1} \geq S_N$. Supponiamo ora per assurdo
+    che $\lim_{N \to +\infty } S_N = S \in R$ e che quindi converga: allora 
+    prendo una somma che ha come indice il doppio di un numero naturale: $S_{2N}$
+    allora ho $2N$ addendi e se guardo alla somma" dei primi N addendi si ha esattamente $S_N$
+    allora $S_{2N} = S_N + \frac{1}{N+1} + \dots +\frac{1}{2N}$. Voglio dimostrare ora
+    che questa differenza è costante: allora la disuguaglianza sopra è dimostrata e quindi 
+    $S_{2N} \geq S_N + \frac{1}{2}, \forall N$, allora siccome ho assunto che $S_N$ tenda ad
+    S, passando al limite ottengo $S \geq S + \frac{1}{2}$ allora si ha un assurdo.
+    La serie è dunque divergente.
+\end{proof}
+
+\section{I criteri delle serie}
+\begin{theorem}[Criterio del confronto]
+    Nelle serie generate da due successioni tali che: $0 \leq a_n \leq b_n$
+    Se diverge $a_n$ allora anche la serie di $b_n$ diverge. Se invece
+    converge la serie grande ($b_n$) allora converge anche la piccola ($a_n$).
+\end{theorem}
+
+\begin{theorem}[CRITERIO DEGLI INFINITESIMI]
+    Sia $a_n$ una successione a termini non negativi. Supponiamo che esista il seguente
+    limite fissato $p \in R$:
+    \begin{align}
+        l = \lim_{n \to \infty } n^{p} a_n. 
+    \end{align}
+    Allora si ha che:
+    \begin{align}
+        l \ne + \infty, p > 1 &\Rightarrow \sum_{k = 1}^{\infty  } a_k < + \infty \\
+          l \ne 0, p \leq 1 &\Rightarrow \sum_{k = 1}^{\infty } a_k = + \infty  
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    Nella condizione che esita il limite finito allora per definizione di limite di successione
+    si ha che $\exists v : n^{p} a_n < l + 1$ e per tali n si ha che:
+    \begin{gather*}
+        0 \leq a_n < \frac{l + 1}{n^{p} } 
+    \end{gather*} 
+    Per il criterio del confronto allora la serie armonica relativa a $b_n$ è convergente: e anche
+    la serie relativa ad $a_n$ lo deve essere. Nella condizione che $l \ne 0$ si ha la tesi
+    nella medesima maniera.
+\end{proof}
+
+\begin{theorem}[Criterio del confronto asintotico]
+    Siano $a_n, b_n \geq 0$, $b_n > 0$ allora
+    \begin{align}
+        \exists \lim_{n \to +\infty } \frac{a_n}{b_n} = L \in (0, +\infty ), L \neq 0. 
+    \end{align}
+    E quindi 
+    \begin{gather*}
+        \sum_{n = 1}^{+\infty } a_n \quad e \quad \sum_{n = 1}^{+\infty } b_n  
+    \end{gather*}
+    hanno lo stesso carattere.
+\end{theorem}
+
+Esempio: determinare il carattere della serie
+\begin{gather*}
+    \sum_{n = 0}^{+\infty } \log(1 + \frac{1}{2^{n} }) \\
+    a_n =  \log(1 + \frac{1}{2^{n} }), b_n = \frac{1}{2^{n} } \Rightarrow  \\
+    \lim_{n \to +\infty } \frac{a_n}{b_n} = 1  
+\end{gather*}
+Allora hanno lo stesso carattere ed esiste finito il limite della
+serie di partenza.
+
+
+\begin{theorem}[Criterio della radice]
+    Posta la serie $a_n$ con $n \in N$ allora se:
+    \begin{align}
+        \exists \lim_{n \to +\infty }  \sqrt[n]{a_n} = L 
+    \end{align}
+    Se $L > 1$ la serie diverge, altrimenti converge.
+\end{theorem}
+\begin{proof}
+    Nell'ipotesi che $l < 1$, sia $\epsilon > 0$ tale che $l + \epsilon < 1$. Per
+    definizione di limite allora posso dire che $\exists v \in N$ tale che $\sqrt[n]{a_n} < l + \epsilon$
+    per $n \geq v$ ovvero tale che $a_n < (l + \epsilon)^{n}$. Allora per il criterio
+    del confronto dato che la serie geometrica a destra converge, convergerà anche quella a sinistra.
+    Se $l > 1$, sia $v \in N$ tale che $ \sqrt[n]{a_n} > 1$ ossia $a_n > 1, \forall n> v$. Poiché 
+    $a_n$ non è infinitesima, allora diverge.
+
+\end{proof}
+
+
+\begin{theorem}[Criterio del rapporto]
+    Se
+    \begin{align}
+        \exists \lim_{n \to +\infty } \frac{a_{n + 1}}{a_n} = L 
+    \end{align}
+    Se $L > 1$ la serie diverge, altrimenti converge.
+\end{theorem}
+
+Esempio: 
+\begin{gather*}
+    \sum_{n = 0}^{+\infty } \frac{1}{n!}. 
+\end{gather*}
+Scelta allora la successione
+\begin{gather*}
+    a_n = \frac{1}{n!} > 0
+\end{gather*}
+Applicando il criterio del rapporto si ottiene che:
+\begin{gather*}
+    \frac{a_{n + 1}}{a_n} = \frac{n!}{(n + 1)!}  = \frac{1}{n + 1} \\
+    \lim_{n \to +\infty } \frac{1}{n + 1} = 0, L < 1. 
+\end{gather*}
+La serie quindi converge (Potevo utilizzare la serie armonica
+$\frac{1}{n^{2}}$ e grazie al criterio del confronto si otteneva
+la convergenza)
+
+\begin{theorem}[Criterio dell'integrale]
+    Sia una funzione definita in $f [1, +\infty ] $ continua e decrescente.
+    Ponendo $a_n = f(x) \ \forall n \in N$. Quindi:
+    \begin{gather*}
+        \int_{1}^{+\infty } f(x)  
+    \end{gather*}
+    E la serie: 
+    \begin{gather*}
+        \sum_{n = 1}^{+\infty } a_n  \quad \left(\sum_{n = 1}^{+\infty } f(x )\right)
+    \end{gather*}
+    Hanno lo stesso carattere.
+\end{theorem}
+
+\section{Serie alternate}
+Le serie alternate sono delle serie che cambiano segno ogni elemento del tipo:
+\begin{align}
+    a_1 - a_2 + a_3 - a_4 + \dots + (-1)^{n - 1}a_n + \dots 
+\end{align}
+\begin{theorem}[CRITERIO DI CONVERGENZA PER LE SERIE ALTERNATE]
+    Sia $a_n \geq 0$ una successione decrescente ed infinitesima. Allora la serie alternata
+    è convergente. Inoltre detta $s$ la somma $s_n$ si ha che:
+    \begin{align}
+        \left| s_n - s \right| \leq a_{n + 1}, \ \forall n \in N. 
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Essendo per k = 1, 2, 3...:
+    \begin{gather*}
+        s_{2k + 2} = s_{2k} + (a_{2k + 1} - a_{2k + 2}) \geq s_{2k} \\
+        s_{2k + 1} = s_{2k - 1} - (a_{2k} - a_{2k + 1}) \leq s_{2k - 1}
+    \end{gather*}
+    La successione con i termini pari è crescente mentre quella coi dispari è decrescente, il
+    che ci porta a dire che: (dal momento che $s_{2k + 1} - s_{2k} = a_{2k + 1}$ e $a_{2k + 1} \geq 0$):
+    \begin{gather*}
+        s_{2k + 1} \geq s_{2k} \geq s_2
+    \end{gather*}
+    Si vede dunque che la successione coi termini dispari è decrescente e limitata ed è
+    anche convergente grazie al teorema sulle successioni limitate. Analogamente la successione
+    coi termini pari converge e ricordando che il limite di $a_{2k + 1}$ è zero, allora 
+    si ha che:
+    \begin{gather*}
+        \lim_{k \to \infty } s_{2k} = \lim_{k \to \infty } s_{2k + 1} = s.  
+    \end{gather*}
+    E quindi si ottiene la tesi.
+\end{proof}
+
+\begin{theorem}[Teorema di Leibniz]
+    Sia 
+    \begin{gather*}
+        \sum_{n = 1}^{+\infty } (-1)^{n} a_n 
+    \end{gather*}
+    una serie con segno variabile e con $a_n > 0$, allora
+    $\forall n \in N$:
+    \begin{enumerate}
+        \item LA serie $a_n$ è infinitesima: $\lim_{n \to +\infty } (a_n) = 0$.
+        \item $a_n$ è sicuramente una successione non crescente ossia esiste un indice
+        $n_0 : \ \forall n \geq n_0$ si ha che: $a_{n + 1} \leq a_n$. 
+    \end{enumerate}
+    Allora la serie è convergente
+\end{theorem}
+\begin{proof}
+    Posta la somma parziale di indice pari $n = 2m$ della serie:
+    \begin{gather*}
+        s_{2m} = a_1 - a_2 + a_3 -a_4 .... \Rightarrow \\
+        \Rightarrow  s_{2m} = (a_1 - a_2) + ...(a_{2m - 1} - a_{2m })
+    \end{gather*}
+    Essendo per ipotesi $a_n$ decrescente, allora i termini di ogni parentesi
+    sono sempre positivi quindi si deduce che $s_{2m} > 0$.
+    Riscrivendo si può anche vedere che:
+    \begin{gather*}
+        s_{2m} = a_1 - (a_2 - a_3)...
+    \end{gather*}
+    In questo caso i termini di ciascuna parentesi sono positivi e quindi 
+    si conclude che $s_{2m} < a_1$ e quindi ammette limite:
+    \begin{gather*}
+        0 < \lim_{m \to +\infty } s_{2m} = s < a_1 
+    \end{gather*}
+    Passando alle somme con termini dispari, allora tenendo conto
+    delle ipotesi e del limite scritto sopra si ottiene che:
+    \begin{gather*}
+        \lim_{m \to +\infty } s_{2m + 1}  = \lim_{m \to +\infty } (s_{2m} + a_{2m - 1}) = \\
+        \lim_{m \to +\infty } s_{2m} + \lim_{ m\to +\infty } a_{2m + 1}  = s + 0 = s   
+    \end{gather*}
+    Si è dimostrato ora che anche le somme dispari convergono e quindi si ha che:
+    \begin{gather*}
+        0 < s < a_1
+    \end{gather*}
+    Facendo lo stesso procedimento si osserva che anche le somme dispari
+    sono decrescenti e quindi $s_{2m } < s < s_{2m + 1}$
+\end{proof}
+
+\section{Convergenza assoluta}
+\begin{definition}
+    Una serie 
+\begin{align}
+    a_1 + a_2 + \dots + a_n + \dots
+\end{align}
+Si dice \emph{assolutamente convergente } se risulta che la serie dei valori assoluti
+\begin{align}
+    \left| a_1 \right| + \dots + |a_n| +\dots 
+\end{align}
+\end{definition}
+
+\begin{theorem}
+    Una successione assolutamente convergente è convergente.
+\end{theorem}
+\begin{proof}
+    \begin{gather*}
+        \sum_{k = 1}^{\infty } (a_k + |a_k |)
+    \end{gather*}
+    è convergente per il criterio del confronto essendo:
+    \begin{gather*}
+        0 \leq a_k + | a_k | \leq 2 |a_k | \\
+        \forall n \in N: \sum_{k = 1}^{n} a_k = \sum_{k = 1}^{n} (a_k + \left| a_k \right| )- \sum_{k = 1}^{n} |a_k|. 
+    \end{gather*}
+    Ed il limite per $n \to \infty $ del primo membro esiste finito perché esiste finito
+    il limite dei singoli addendi del secondo membro.
+\end{proof}
+
+\section{Proprietà commutativa della serie}
+Riordinando i membri di una serie qualsiasi allora esiste un 'applicazione $i: N \to N$ tale che:
+\begin{align}
+    b_n = a_{i(n)} \ \forall n \in N
+\end{align}
+\begin{theorem}
+    Se la serie è a termini non negativi ed è convergente allora anche la serie riordinata 
+    è convergente verso la stessa somma.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
+    Se la serie data è assolutamente convergente e la serie è ottenuta da essa riordinando i termini
+    allora la serie riordinata è assolutamente convergente e le due serie hanno la stessa
+    somma.
+\end{theorem}
+\begin{proof}
+    Si ha che:
+    \begin{gather*}
+        \sum_{n = 1}^{\infty } |a_{i(n)}| = \sum_{n = 1}^{\infty }|a_n|\\
+        \Rightarrow \sum_{n = 1}^{\infty } (|a_n| - a_n) = \sum_{n = 1}^{\infty } (|a_{i(n)}| - a_{i(n)}) \\
+        \Rightarrow \sum_{n = 1}^{\infty } a_n = \sum_{n = 1}^{\infty } a_{i(n)}     
+    \end{gather*}
+\end{proof}
+
+\section{Serie di Taylor}
+Consideriamo la funzione $f(x)$ definita in un intorno di un punto $x_0$. Supponiamo che in
+$x_0 \ f(x) $ ammetta infinite derivate e considerato Taylor si ottiene la seguente serie:
+\begin{gather*}
+    f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2}(x-x_0)^{2}+ .... 
+\end{gather*}  
+La funzione f(x) è sviluppabile con Taylor se $\forall x \in$ intorno di $x_0$ la serie
+è convergente e se $\exists \delta > 0:$
+\begin{align}
+    f(x) = \sum_{k = 0}^{\infty } \frac{f^{(k)}(x_0)}{k!}(x-x_0)^{k}, \qquad \forall x : |x-x_0| < \delta  
+\end{align}
+Si arriva quindi al seguente:
+\begin{theorem}
+    Sia f(x) una funzione che ammette infinite derivate nell'intervallo $[x_0 - \delta, x_0 + \delta]$.
+    Supponendo che esista un numero M :
+    \begin{align}
+        |f^{(n)}(x)| \leq M, \qquad \forall x \in [x_0 - \delta, x_0 + \delta], \quad \forall n \in N. 
+    \end{align}
+    Allora f(x) è sviluppabile in serie di Taylor con centro $x_0$.
+\end{theorem}
+\begin{proof}
+    TODO 407
+\end{proof}
+
+
+
+\end{document}

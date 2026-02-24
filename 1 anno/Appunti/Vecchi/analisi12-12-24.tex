@@ -1,0 +1,230 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Analisi}
+\author{Tommaso Miliani}
+\date{12-12-24}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Proseguo serie}
+Esempi di serie convergenti e divergenti:
+Divergenti:
+\begin{gather*}
+    a_n = 1 \ \forall n \Rightarrow \lim_{N \to +\infty } \sum_{n = 1}^{N } 1 = +\infty  
+\end{gather*}
+\begin{gather*}
+    a_n = n \Rightarrow \sum_{n = 1}^{+\infty } n \\
+    S_n = 1 + 2 + \dots + n \Rightarrow \frac{n(n+1)}{2} \\
+    \lim_{N \to +\infty} S_N = \lim_{N \to +\infty } \frac{n(n + 1)}{2} = +\infty.   
+\end{gather*}
+Indeterminate (devo scegliere una successione che  cambi segno,
+altrimenti o converge o diverge):
+\begin{gather*}
+    a_n = (-1)^{n} = \left\{\begin{array}{c}
+        1, \ con \ n \ pari \\
+        -1, \ con \ n \ dispari
+    \end{array}\right. \\
+    \Rightarrow  \sum_{n = 1}^{+\infty } a_n = indeterminata  
+\end{gather*}
+Se ne sommo un numero pari ottengo 0, se sommo un numero dispari di
+numeri allora si ha -1, e quindi $\not\exists \lim_{N \to +\infty } S_N$. 
+Convergente:
+\begin{gather*}
+    a_n = 0 \ \forall n \in N \Rightarrow  \sum_{n = 1}^{\infty } a_n \\
+    S_0 = S_1 = \dots = 0 \\
+    S_N = 0 \ \forall N. 
+\end{gather*}
+Un'altro esempio convergente non banale (che parte da zero poiché è definita pure in zero):
+\begin{gather*}
+    \sum_{n = 0}^{\infty }\frac{1}{2^{n} } = 2. 
+\end{gather*}
+PEr risolvere gli esercizi ci sono due serie di riferimento: quelle armoniche e
+quelle geometriche che si possono utilizzare:
+
+\section{Serie geometriche}
+QUeste sono delle serie della forma:
+\begin{align}
+    \sum_{n = 0}^{\infty } q^{n}, \qquad q \in R  
+\end{align}
+Il termine $q$ è anche chiamato ragione della serie: sto sommando un numero
+reale che io ho scelto all'inizio e lo sommo infinite volte:
+Fissato un numero $N \in N$ molto grande, allora considero:
+\begin{gather*}
+    (1 + q + \dots + q^{N})(1 - q) \\
+    \Rightarrow  1 - q^{N + 1} 
+\end{gather*}
+Allora si ha che: 
+\begin{gather*}
+    1 + q + \dots + q^{N} = \frac{1 - q^{N +1 } }{1 - q} 
+\end{gather*}
+HA quindi come somme parziali:
+\begin{gather*}
+    S_N =  \frac{1 - q^{N +1 } }{1 - q} , \qquad \ \forall N \in N, q \ne 1.
+\end{gather*}
+Adesso passando al limite per $N \to \infty $ si ottiene:
+\begin{gather*}
+    \lim_{N \to +\infty } q^{N+ 1} 
+\end{gather*}
+Adesso bisogna discutere il limite al variare del parametro q:
+\begin{gather*}
+   \\lim_{N \to +\infty } q^{N+ 1} = \left\{ \begin{array}{c}
+        + \infty , se q > 1 \\
+        1 \ se \ q = 1 \\
+        0 \ se \ q < |1| \\
+        \not \exists \ se \ q \leq -1
+    \end{array} \right.
+\end{gather*}
+Adesso torando alle somme parziali si ottiene il seguente risultato:
+\begin{gather*}
+    \lim_{N \to +\infty } S_N = \lim_{N \to +\infty } \frac{1 - q^{N + 1} }{1 - q} =
+    \left\{ \begin{array}{c}
+        + \infty , \ se \ q > 1 \\
+        \frac{1}{1 - q} \ se \ q < |1| \\
+        \not \exists \ se \ q \leq -1
+    \end{array} \right.  
+\end{gather*}
+ALlora tornando alla serie di partenza:
+\begin{gather*}
+    \sum_{n = 0}^{\infty } q^{n}  = \left\{ \begin{array}{c}
+        diverge , \ se \ q > 1 \\
+        diverge \ se \ q = 1 \\
+        converge \ a \ \frac{1}{1 - q} \ se \ q < |1| \\
+        \not \exists \ se \ q \leq -1
+    \end{array} \right.
+\end{gather*}
+Altra osservazione: noi sappiamo che $1,\bar{1} = \sum_{n = 0}^{+\infty } \left(\frac{1}{10}\right)^{n}$ posto
+allora $ q =  1/10$ si ha proprio la sommatoria geometrica generata prima. E ci permette di ottenenere
+la frazione generatrice di tutti i numeri periodici: 
+\begin{gather*}
+    \sum_{n = 0}^{+\infty } q^{n} = \frac{10}{9}  
+\end{gather*}   
+
+\section{Serie armoniche}
+Una serie armonica è una serie che somma infiniti numeri molto piccoli che
+però divergono.
+\begin{align}
+    \sum_{n = 1}^{+\infty } \frac{1}{n} \ diverge 
+\end{align}
+\begin{proof}
+    Posta la somma parziale:
+    \begin{gather*}
+        S_N = 1 + \frac{1}{2} + \dots + \frac{1}{n}
+    \end{gather*}
+    Osservo che questa cresce al crescere di N ed il motivo è che sto sommando
+    termini positivi e quindi si ha che $S_{N+1} \geq S_N$. Supponiamo ora per assurdo
+    che $\lim_{N \to +\infty } S_N = S \in R$ e che quindi converga: allora 
+    prendo una somma che ha come indice il doppio di un numero naturale: $S_{2N}$
+    allora ho $2N$ addendi e se guardo alla somma" dei primi N addendi si ha esattamente $S_N$
+    allora $S_{2N} = S_N + \frac{1}{N+1} + \dots +\frac{1}{2N}$. Voglio dimostrare ora
+    che questa differenza è costante: allora la disuguaglianza sopra è dimostrata e quindi 
+    $S_{2N} \geq S_N + \frac{1}{2}, \forall N$, allora siccome ho assunto che $S_N$ tenda ad
+    S, passado al limite ottengo $S \geq S + \frac{1}{2}$ allora si ha un assurdo.
+    La serie è dunque divergente.
+\end{proof}
+
+\section{I criteri delle serie}
+\begin{theorem}[Criterio del confronto]
+    Nelle serie generate da due successioni tali che: $0 \leq a_n \leq b_n$
+    Se allora diverge $a_n$ allora anche la serie di $b_n$ diverge. Se invece
+    converge la serei grande ($b_n$) allora converge anche la piccola.
+\end{theorem}
+
+
+\begin{theorem}[Criterio del confronto asintotico]
+    Siano $a_n, b_n \geq 0$, $b_n > 0$ allora
+    \begin{align}
+        \exists \lim_{n \to +\infty } \frac{a_n}{b_n} = L \in (0, +\infty ), L \neq 0. 
+    \end{align}
+    E quindi 
+    \begin{gather*}
+        \sum_{n = 1}^{+\infty } a_n \quad e \quad \sum_{n = 1}^{+\infty } b_n  
+    \end{gather*}
+    hanno lo stesso carattere.
+\end{theorem}
+
+Esempio: detereminare il carattere della serie
+\begin{gather*}
+    \sum_{n = 0}^{+\infty } \log(1 + \frac{1}{2^{n} }) \\
+    a_n =  \log(1 + \frac{1}{2^{n} }), b_n = \frac{1}{2^{n} } \Rightarrow  \\
+    \lim_{n \to +\infty } \frac{a_n}{b_n} = 1  
+\end{gather*}
+Allora hanno lo stesso carattere ed esiste finito il limite della
+serie di partenza.
+
+
+\begin{theorem}[Criterio della radice]
+    Posta la serie $a_n$ con $n \in N$ allora se:
+    \begin{align}
+        \exists \lim_{n \to +\infty }  \sqrt{n}{a_n} = L 
+    \end{align}
+    Se $L > 1$ la serie diverge, altrimenti converge.
+\end{theorem}
+
+
+\begin{theorem}[Criterio del rapporto]
+    Se
+    \begin{align}
+        \exists \lim_{n \to +\infty } \frac{a_{n + 1}}{a_n} = L 
+    \end{align}
+    Se $L > 1$ la serie diverge, altrimenti converge.
+\end{theorem}
+
+Esempio: 
+\begin{gather*}
+    \sum_{n = 0}^{+\infty } \frac{1}{n!}. 
+\end{gather*}
+Scelta allora la successione
+\begin{gather*}
+    a_n = \frac{1}{n!} > 0
+\end{gather*}
+Applicando il criterio del rapporto si ottiene che:
+\begin{gather*}
+    \frac{a_{n + 1}}{a_n} = \frac{n!}{(n + 1)!}  = \frac{1}{n + 1} \\
+    \lim_{n \to +\infty } \frac{1}{n + 1} = 0, L < 1. 
+\end{gather*}
+La serie quindi converge (Potevo utilizzare la serie armonica
+$\frac{1}{n^{2}}$ e grazie al criterio del confronto si otteneva
+la convergenza)
+
+
+\begin{theorem}[Criterio dell'integrale]
+    Sia una funzione definita in $f [1, +\infty ] $ continua e decrescente.
+    Ponendo $a_n = f(x) \ \forall n \in N$. Quindi:
+    \begin{gather*}
+        \int_{1}^{+\infty } f(x)  
+    \end{gather*}
+    E la serie: 
+    \begin{gather*}
+        \sum_{n = 1}^{+\infty } a_n  \quad \left(\sum_{n = 1}^{+\infty } f(x )\right)
+    \end{gather*}
+    Hanno lo stesso carattere.
+\end{theorem}
+
+\end{document}

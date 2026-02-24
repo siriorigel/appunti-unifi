@@ -1,0 +1,184 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Geoemtria rubei}
+\author{Tommaso Miliani}
+\date{04-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{ALtri affini}
+In questa sezione si elencheranno altre proprietà degli spazi affini
+\begin{definition}
+    Due sottospazi affini di un campo $ K^{n}$ si dicono \textbf{paralleli}
+    se uno dei due ha la direzione contenuta nella direzione dell'altro.
+\end{definition}
+\begin{definition}
+    Sia Z un sottospazio di $R^{n}$. Definiamo allora:
+    \begin{align}
+        Z^{\perp} = \{v \in R^{n} : (v, z) = 0, \forall z \in Z\} 
+    \end{align} 
+    dove $(v, z)$ denota il prodotto scalare standard di $v, z$.
+\end{definition}
+\begin{lemma}
+    Sia $Z$ un sottospazio vettoriale di $R^{n}$. Allora $Z^{\perp}$ è un sottospazio
+    di $R^{n}$ e si ha:
+    \begin{enumerate}
+        \item \begin{align}
+            \dim(Z^{\perp} ) = n - \dim(Z);
+        \end{align}
+        \item   \begin{align}
+            R^{n} = Z sm Z^{\perp}  
+        \end{align}
+        \item  \begin{align}
+            (Z^{\perp})^{\perp}   = Z;
+        \end{align}
+        \item \begin{align}
+            W \subset Z, Z^{\perp} \subset W^{\perp}, W \in R^{n}   
+        \end{align}
+    \end{enumerate}   
+\end{lemma}
+\begin{proof}
+    TODO
+\end{proof}
+
+\begin{definition}
+    Siano $S_1$ e $S_2$ due sottospazi affini di $R^{n}$ siano allora
+    \begin{gather*}
+        z_1 = \dim(S_1) \qquad z_" = \dim(S_2)
+    \end{gather*} 
+    Dico che $S_1$ e $S_2$ sono perpendicolari se valgono le seguenti condizioni
+    \begin{align}
+        Z_1 \subset Z_2^{\perp} \qquad se \qquad \dim(S_1) + \dim(S_2) \leq n \\
+        Z_1^{\perp}  \subset Z_2 \qquad se \qquad \dim(S_1) + \dim(S_2) \geq n
+    \end{align}
+\end{definition}
+Esempio
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig esempio}
+    \caption{GLi spazi dio bono}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (2, 0);
+        \draw[->](0, 0) -- (-0.5, -1);
+        \draw[->](0, 0) -- (0, 2);
+        \filldraw(1, -0.5) node[anchor = east] {$\Pi_1$};
+        \filldraw(-0.5, 1) node[anchor = east] {$\Pi_2$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+\begin{example}
+Siano $\Pi_1 = \left< e_1, e_2 \right>$ e $\Pi_2 = \left< e_2, e_3 \right> \in R^{3}$
+sono vettoriali e quindi sono anche affini, essendo che la loro somma però è maggiore
+della dimensione di R, allora devo apllicare le condizioni e quindi ottengo che
+\begin{gather*}
+    Z_1^{\perp} = \{x \in R^{3} : (x, v) = 0 \forall v \in <e_1, e_2>\} = <e_3>  
+\end{gather*}
+Allora si ottiene che:
+\begin{gather*}
+    Z_1^{\perp} \subset Z_2 
+\end{gather*}
+QUindi sono perpendicolari.
+\end{example}
+
+
+\begin{lemma}
+    Supponendo che $\dim(Z_1) + \dim(Z_2) = n$, allora 
+    \begin{align}
+        \dim(Z_2^{\perp} ) = n -\dim(Z_2)  =\dim(Z)
+    \end{align}
+    e quindi 
+    \begin{align}
+        Z_1 = Z_2^{\perp}, Z_1^{\perp} \subset Z_2  
+    \end{align}
+    Quindi se $\dim(Z_1) + \dim(Z_2) = n$ allora se vale una delle
+    due vale anche l'altra.
+\end{lemma}
+
+\begin{lemma}
+    Se la nostra direzione è simmetrica con $S_1, S_2$ allora se
+    $Z_1 \subset  Z_2^{\perp}$ allora $(Z_2^{\perp} )^{\perp} \subset Z_1^{\perp}$
+    e quindi $Z_2 \subset  Z_1^{\perp}$.      
+\end{lemma}
+
+\begin{definition}[Proiezione ortogonale di un punto su di un sottospazio affine]
+    SIa $S$ un sottospazio affine di $R^{n}$ e sia $P$ un punto che
+    $\in R^{n}$, definisco la proiezione ortogonale di P su di S e la definsico come
+    l'unico punto di intersezione tra S ed il sottospazio affine 
+    \begin{align}
+        P + (dir(S))^{\perp} 
+    \end{align}  
+\end{definition}
+\begin{lemma}
+    \begin{align}
+        S \cap (P + dir(S)^{\perp} ) 
+    \end{align}
+    è formato da un solo punto.
+\end{lemma}
+\begin{proof}
+    Posto $S = Q + Z$, dove $Q$ è un punto in $R^{n}$ e $Z$ 
+    un sottospazio affine di $R^{n}$ allora considero 
+    \begin{gather*}
+        S' = P + Z^{\perp} 
+    \end{gather*}  e voglio dimostrare che
+    \begin{gather*}
+        S \cap S'
+    \end{gather*}
+    E' dato da un punto solo e quindi che $z \in Z, w \in Z^{\perp}$
+    esistono unici e quindi
+    \begin{gather*}
+        Q + z = P + w.
+    \end{gather*} 
+    ossia
+    \begin{gather*}
+        Q - P = w -z
+    \end{gather*}
+    Il primo membro $\in R^{n}$ e quindi questo è vero perché
+    abbiamo dimostrato che $R^{n}$ è la somma diretta di $Z + Z^{\perp}$
+    e quindi ogni elemento è possibile scriverlo come somma diretta di elementi
+    unici.    
+\end{proof}
+
+\begin{definition}
+    Siano $P$ e $Q$ due punti di $R^{n}$ definisco allora la loro
+    distanza come la norma ossia il numero reale:
+    \begin{align}
+        d(P, Q) = |P - Q|
+    \end{align} 
+\end{definition}
+\begin{definition}
+    Siano $A, B \subset R^{n}$, si definisce la distanza tra due insiemi
+    come :
+    \begin{align}
+        d(A, B) = \inf\{d(P, Q) : P \in A, Q \in B\}
+    \end{align}
+    Ossia l'estremo inferiore di quella distanza.
+\end{definition}
+
+\end{document}

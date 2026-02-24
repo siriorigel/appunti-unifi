@@ -1,0 +1,82 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di astronomia}
+\author{Tommaso Miliani}
+\date{24-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Unità fondamentali: gli angoli}
+\subsection{Rifrattori: il telescopio Kepleriano}
+Il telescopio Kepleriano è un telescopio rifrattore: ha un obbiettivo convergente
+con lente positiva ed un oculare convergente ed un percorso ottico più lungo con
+il fuoco primario all'interno del tuvo oculare e produce un immagine capovolta anche se ha un campo visivo più ampio e luminoso
+con un rapporto focale tra $\frac{f}{5}$ e $ \frac{f}{15}$.
+
+\section{Aberrazioni}
+Le aberrazioni sono le distorsioni dell'immagine (come sfuocature) 
+che sono dovuti a difetti della lente oppure dell'intero apparato. 
+Le aberrazioni monocromatiche sono dovute alla geometria del sistema ottico
+e al fatto che i raggi non sono parassiali (cioè quelli lontani dall'asse ottico)  e vengono quindi
+focalizzati in punti diversi. Questo tipo di aberrazione è studiata dalla teoria di Seidel che descrive matematicamente
+con equazioni differenziali di terzo ordine estenendo l'approssimaziona parassiale.
+
+\subsection{Aberrazione sferica}
+I raggi paralleli all'asse ottico che passano attraverso le zone periferiche 
+di una lente sferica convergono in un punto focale diverso da quello sull'asse
+ottico: questa aberrazione fa si che il puntino di luce non appare più come un puntino
+di luce ma una palla di luce sfuocata. 
+
+\subsection{Coma}
+La coma è una aberrazione che si manifesta per oggetti fuori dall'asse ottico: l'immagine dei queste sorgenti 
+non vengono messi a fuoco nello stesso punto e qunque si ha la formazione
+di una coda. E' causata dalla differenza di ingrandimento per i raggi che attraversano zone diverse
+della lente apparendo dunque sfuocata. 
+
+\end{document}

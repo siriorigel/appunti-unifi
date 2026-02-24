@@ -1,0 +1,235 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di ottica}
+\author{Tommaso Miliani}
+\date{29-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Principio di funzionamento del telescopio}
+\begin{wrapfigure}{r}{0.55\textwidth}
+    \centering
+    \caption{Osservare un corpo celeste ad occhio nudo}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (8, 0);
+        \draw(7, -0.5) -- (7, 0.5);
+        \draw[->](0, 0) -- (0, 0.5);
+        \draw[cyan](0, 0.5) -- (7, 0);
+        \draw(2, 0.38) arc (160:180:1) node[midway, left] {$\alpha$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per poter osservare oggetti molto lontani da noi, si fa utilizzo di un apparato
+ottico che prende il nome di \textbf{telescopio}: il telescopio è composto 
+da due lenti convergenti poste ad una certa distanza tra di loro in modo tale da ingrandire 
+l'oggetto osservato. Consideriamo allora un asse ottico molto lungo alle cui estremità
+abbiamo l'oggetto da osservare e dall'altra l'occhio: possiamo tracciare
+quindi i fasci di luce che partono dall'oggetto e intersecano il centro del cristallino
+dell'occhio. Esiste allora un certo angolo $\alpha$ tra i due fasci di luce: a seconda
+dell'angolo il corpo celeste avrà una certa dimensione sull'occhio. Se si avesse un
+sistema ottico (ossia il telescopio) tra l'occhio e l'oggetto, potremmo posizionare due lenti in modo tale
+che il fuoco primario della prima lente coincida con il fuoco secondario
+della seconda lente; le lenti sono scelte in modo tale che $f_1 > f_2$.
+
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \caption{Osservare un corpo celeste tramite un telescopio}
+    \begin{tikzpicture}[scale=1.4]
+        \draw(0, 0) -- (5, 0);
+        \draw[<->](2, -1) -- (2, 1);
+        \draw[<->](4, -1) -- (4, 1);
+        \draw[red](0, 0.75) -- (2, 0.75) -- (3.5, 0);
+        \draw[cyan](0, 0.75) -- (2, 0) -- (3.5, -0.75) -- (4, -0.75) -- (5, 0.75);
+        \draw[cyan](0, 1.5) -- (2, 0.75) -- (3.5, -0.75) -- (4.5, 0.75);
+        \draw[cyan](3.5, 0) -- (3.5, -0.75) node[midway, left] {$h$};
+        \draw[cyan](0.5, 0.5) arc (140:180:0.75) node[midway, left] {$\alpha$}; 
+        \filldraw(4.5, 0) circle (1pt) node[anchor = south] {$F_2$};
+        \filldraw(3.5, 0) circle (1pt)node[anchor = south] {$F_1$};
+        \draw[cyan](4.75, 0.38) arc (60:0:0.4) node[midway, right] {$\beta$};
+        \draw[very thick](2, 0) -- (3.5, 0);
+        \draw[very thick, cyan](2, 0) -- (3.5, -0.75);
+        \draw[very thick, cyan](3.5, 0) -- (3.5, -0.75);
+        \draw[very thick](3.5, 0) -- (4, 0);
+        \draw[very thick, cyan](3.5, -0.75) -- (4, 0);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Così la distanza tra le due lenti è esattamente $d = f_1 + f_2$. Adesso si deve rappresentare
+i raggi che arrivano dal corpo celeste sulle due lenti convergenti. Analizzando ora il telescopio,
+i raggi molto vicini all'asse ottico appaiono paralleli tra di loro. Possiamo considerare il
+raggio blu che arriva con l'angolo $\alpha$: nel momento in cui pongo un sistema di lenti
+davanti all'occhio, allora i raggi vicini a quello blu arriveranno sulla lente
+primaria del telescopio venendo fatti convergere sotto l'asse ottico. Per studiare ora
+cosa accade ai raggi del corpo celeste alla destra del fuoco primario della prima lente, è sufficiente immaginare
+$h$ (ossia l'immagine del corpo celeste dopo la prima lente) come sorgente posta prima della seconda lente
+del telescopio. Osservando dunque il disegno si vede che i raggi blu che venivano dall'estremità finale della
+corpo celeste arrivano sul nostro occhio con un nuovo angolo $\beta$ più grande.  
+Si ottengono le seguenti relazioni per i triangoli in figura:
+\begin{gather*}
+    \frac{h}{f_1} = \tan\alpha \\
+    \frac{h}{f_2} = \tan\beta
+\end{gather*}
+Si ha l'utile relazione come il rapporto tra le tangenti:
+\begin{align}
+    \frac{\tan\beta}{\tan\alpha} = \frac{f_1}{f_2}
+\end{align}
+Se il rapporto tra le tangenti è maggiore di 1 allora
+\begin{gather*}
+    \beta > \alpha
+\end{gather*}
+
+
+\section{Il principio di funzionamento del microscopio}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \caption{Schematizzazione del microscopio}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (6, 0);
+        \draw(0, 0) -- (0, 0.5) node[midway, left] {$h$};
+        \draw[<->](1, -1) -- (1, 1);
+        \draw[<->](4, -2) -- (4, 2);
+        \draw[cyan](0, 0.5) -- (1, 0.5) -- (4, -1) -- (6, -1);
+        \draw[cyan](0, 0.5) -- (1, 0) -- (4, -1.5) -- (6, -1);
+        \draw[green](6, 0) -- (6, -1) node[midway, right] {$h'$};
+        \draw[dashed](2, -2) -- (2, 2);
+        \filldraw[cyan](1, 0) -- (1, 0.5) -- (2, 0);
+        \filldraw[cyan](2, 0) -- (4, 0) -- (4, -1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Quando si vuole osservare un oggetto molto piccolo, invece di usare una sola
+lente di ingrandimento, possiamo utilizzare un sistema di lenti
+con l'oggetto posto nel fuoco secondario della prima lente convergente in modo
+tale che $p=f_1$. Scelgo allora una seconda lente a focale lunga (l'inverso del telescopio)
+così che la distanza tra le due lenti sia $d = f_1 + f_2$ e che quindi il fuoco
+primario della prima lente coincida con il fuoco secondario della seconda lente.
+Posso stimare geometricamente l'ingrandimento dell'immagine come
+\begin{gather*}
+    I = \frac{h'}{h} = \frac{f_2}{f_1}
+\end{gather*}
+Dato che $f_2 > f_1$, segue che $I > 1$ e dunque l'immagine sarà
+ingrandita. Se volessi tenere conto del fatto che l'immagine sia ribaltata,
+allora dovrei mettere un meno davanti al rapporto per tenere conto del ribaltamento.
+
+\section*{Analisi e manipolazione della polarizzazione delle onde elettromagnetiche}
+\section{Definizione di polarizzazione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) --(0, 1) node[at end, left] {$z$};
+        \draw[->](0, 0) -- (1, 1) node[at end, right] {$y$};
+        \draw[->, green](0, 0) -- (0.45, 0.9) node[at end, above] {$\vv{E}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si definisce polarizzazione la direzione del campo elettrico dell'onda elettromagnetica, si ricorda
+che per una onda piana la polarizzazione giace in un piano che è perpendicolare
+alla direzione di propagazione dell'onda $\hat{k}$. Il campo elettrico dell'onda sarà dato
+in funzione sia della posizione che del tempo. Matematicamente il campo elettrico
+si propagherà solamente sul piano $zy$ e dunque posso esprimere
+\begin{gather*}
+    \vv{E}(x, t) = E_{0z} \cos(kx - \omega t + \phi_z) \hat{z} + E_{0y}\cos(kx - \omega t + \phi_y) \hat{y}    
+\end{gather*} 
+Dove $\phi_z$ e $\phi_y$ sono le fasi del campo rispetto ai due assi. In questo caso
+l'onda elettromagnetica si propaga lungo la direzione $\hat{x} \equiv \hat{k}$.
+
+\subsection{Polarizzazione lineare}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Campo elettrico sul piano $zy$, l'asse $x$ è uscente
+    dal piano}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (2, 0) node[at end, below] {$y$};
+        \draw[->](0, 0) -- (0, 2) node[at end, left] {$z$};
+        \draw[->](0, 0) -- (1.5, 1.5) node[at end, right] {$\vv{E}$ };
+        \draw[dashed, thin](0, 1.5) -- (1.5, 1.5) node[at start, left] {$E_{0z}$};
+        \draw[dashed, thin](1.5, 0) -- (1.5, 1.5) node[at start, below] {$E_{0y}$};
+        \draw[<-](0.7, 0.7) arc (45:0:1) node[midway, right] {$\alpha$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+La polarizzazione lineare consiste nella polarizzazione tra due onde con
+la stessa fase $\phi_y = \phi_z$. Le due componenti $z, y$ del campo elettrico
+oscillano in fase sia spazialmente che temporalmente e quindi la direzione
+del campo elettrico totale rimane costante.  Posso esprimere allora la tangente
+dell'angolo in funzione del tempo come
+\begin{gather*}
+    \tan\alpha(t) = \frac{E_{0z} \cos(kx - \omega t + \phi_z)}{E_{0y}\cos(kx - \omega t + \phi_y)} = \frac{E_{0z}}{E_{0y}}
+\end{gather*}
+La seconda uguaglianza vale perché le fasi sono le stesse:
+
+\subsection{}
+E' un altro caso particolare per cui $E_{0y} = E_{0z}$ ma nel caso in
+cui le onde siano sfasate di $\phi_y = \phi_z \pm \frac{\pi}{2}$. Vado a vedere
+ancora la tangente di alfa in funzione del tempo:
+\begin{gather*}
+    \tan\alpha(t) = \frac{E_{0z} \cos(kx - \omega t + \phi_z)}{E_{0y}\cos(kx - \omega t + \phi_y)} = \frac{\cos(kx - \omega t + \phi_z)}{\cos(kx - \omega t + \phi_z \pm \frac{\pi}{2})} = \frac{ \cos(kx - \omega t + \phi_z)}{\mp\sin(kx - \omega t + \phi_z)}
+\end{gather*}
+Per le proprietà trigonometriche del coseno, quando si introduce uno sfasamento di $\frac{\pi}{2}$, il coseno
+si trasforma nel seno dell'angolo $\phi_z$ quindi vale la seconda uguaglianza.
+Se chiamassi l'argomento dentro al seno e al coseno $\theta$, otterrei che
+\begin{gather*}
+    \tan \theta = \frac{\sin \theta}{\cos\theta} = \frac{\cos(\frac{\pi}{2} - \theta)}{\sin(\frac{\pi}{2} - \theta)} = \frac{\cos(\theta - \frac{\pi}{2})}{-\sin(\theta - \frac{\pi}{2})} = - \frac{1}{\tan(\theta - \frac{\pi}{2})}
+\end{gather*}
+Allora con questi passaggi trigonometrici si ottiene
+\begin{gather*}
+    \tan\alpha (t) = \pm \tan \left(kx - \omega t + \phi_z + \frac{\pi}{2}\right)
+\end{gather*}
+Allora si ha che l'angolo $\alpha$ varia nel tempo, con il simbolo $\pm$ in base alla variazione
+di fase che sia positiva o negativa secondo la seguente legge
+\begin{align}
+    \alpha (t) = \pm\left(kx - \omega t + \phi_z + \frac{\pi}{2}\right)
+\end{align}
+Le due polarizzazioni si chiameranno \textbf{circolari}:
+\begin{align*}
+    +:& \ \alpha (t) = \cos t - \omega t \\
+    -:& \  \alpha (t) = \cos t + \omega t 
+\end{align*} 
+Nel primo caso gira in senso orario e dunque prende il nome di polarizzazione circolare sinistra 
+e nel caso meno, girando in senso antiorario, prenderà il nome di polarizzazione circolare destra. 
+
+\end{document}

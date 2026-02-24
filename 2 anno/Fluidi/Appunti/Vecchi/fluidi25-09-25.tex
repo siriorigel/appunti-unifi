@@ -1,0 +1,220 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di Fluidi}
+\author{Tommaso Miliani}
+\date{25-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Isolivelli}
+\begin{wrapfigure}{r}{0.35\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (3, 0);
+        \draw[->](0, -1) -- (0, 3);
+        \draw(0.5, 1.5) .. controls (1.5, 2.2) and (2.2, 1.7) .. (2.5, 1);
+        \draw(0.5, 1.5) .. controls (0.5, 1)  and  (1.5, 1.5) .. (2, 0.75);
+        \draw(2, 0.75) .. controls (2, 0.2) .. (2.5, 1);
+        \draw[dashed](1.5, 0) -- (1.5, 1.8) node[at start, below] {$x_0$};
+        \draw[dashed](0, 1.8) -- (1.5, 1.8) node[at start, left] {$y_0$};
+        \draw[thick, red, ->] (1.5, 1.8) -- (1.5, 2.5) node[at end, right] {$\vv{\nabla}p$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso vedere che il rotore della pressione è il piccolo vettorino
+sulla superficie della curva chiusa per cui posso scrivere
+l'equazione per la mia superficie come
+\begin{align}
+    -\vv{\nabla}p + \rho \vv{g} = 0 
+\end{align}
+Ossia l'equazione fondamentale dell'idrostatica. Ogni vettorino
+$\vv{\nabla}p$ è ortogonale alla superficie del fluido. Si ottengono allora
+gli \textbf{isolivelli} per $p$ sulla superficie del fluido: ossia la pressione
+del fluido è costante su tutta la sua superficie.  
+Dato che la densità non si conosce a priori, devo derivarla dalla pressione:
+posso prendere un gas e, comprimendolo, se riduce il suo volume allora deve necessariamente
+aumentare la densità.
+
+\section{Legge di Stevino}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, 1) -- (0, -3) node[at end, left] {$z$};
+        \draw[->](-0.2, -0) -- (-0.2, -1) node[at end, left] {$\vv{g}$ };
+        \draw(-0.1, -1.75) -- (0.1, -1.75) node[at start, left] {$z$};
+        \draw(1, -1) ..  controls (1.5, -1) and (2.2, -1.5) .. (2.5, -2);
+        \draw(1, - 1) .. controls (0.5, -1.5) and (1, -2) .. (1.5, -2.5);
+        \draw(1.5, -2.5) .. controls (2, -2.7) .. (2.5, -2);
+        \filldraw(2, -1.75) circle (1pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il caso più semplice della risoluzione dell'equazione è con $\vv{g}$ costante e nel caso
+in cui il fluido sia \textbf{incomprimibile} ($\rho = \rho_0$). Tutte le derivate parziali
+della pressione rispetto ai vari assi sono allora zero
+tranne che per l'asse $z$ (perché l'unica forza è proprio
+lungo la direzione di $z$, ossia la forza gravitazionale), per cui l'equazione fondamentale 
+dell'idrostatica ci darà
+\begin{gather*}
+    \frac{\partial p}{\partial z} = \rho g 
+\end{gather*}
+A questo punto la funzione varia solo per $z$. La derivata parziale diventa una derivata
+totale. 
+\begin{gather*}
+    \int_{p_0}^{p}\frac{dp}{dz}dz = \int_{z_0}^{z}\rho g \ dz 
+\end{gather*}
+Si ha quindi la \textbf{legge di Stevino} per cui la differenza di pressione
+è legata unicamente alla profondità all'interno del fluido. 
+\begin{align}
+    p - p_0 = \rho g (z - z_0)
+\end{align}
+In un fluido incomprimibile la pressione di un fluido dipende interamente
+dalla sua altezza. La pressione spinge in tutte le direzioni del contenitore
+e più ci si addentra dentro al fluido e più diventa grande la pressione: questo
+è dovuto proprio alla legge di Stevino.
+
+\subsection{Stima per un caso specifico}
+Quanta pressione esercita un metro d'acqua:
+data la densità $ \rho_a \approx 1 \ g /cm^{3}$ e preso $g \approx 10$,
+in modo tale che la pressione dell'acqua è $10^{4} N /m^{2}$. In 10
+metri si avrebbe invece $10^{5} N / m^{2}$. L'esperimento di
+Pascal consiste nel prendere un piccolo tubo di una sezione molto piccola
+tale per cui per $3$ metri di tubo si ha un litro d'acqua (per esempio) 
+per esercire una grossa pressione nel contenitore sottostante.
+
+\subsection{Contenitore con liquido}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 1) -- (0, 0) -- (3, 0) -- (3, 1);
+        \draw(0, 0.8) -- (1.2, 0.8);
+        \draw(1.8, 0.8) -- (3, 0.8);
+        \draw(1.2, 0.5) -- (1.2, 1.5) -- (1.8, 1.5) -- (1.8, 0.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Bernoulli in questo esperimento ha osservato che la pressione che agisce sul 
+fluido all'interfaccia con l'aria deve bilanciarsi con la pressione dell'aria.
+Per la legge di Stevino posso osservare che
+\begin{gather*}
+    p = p_{\perp} g h
+\end{gather*}
+Questa pressione dovrà coincidere con la pressione atmosferica in quanto i due fluidi
+devono essere in equilibrio sull'interfaccia. L'interfaccia tra liquido
+ed aria non si sposta in quanto le pressioni che intercorrono
+tra le due facce sono in equilibrio. Bernoulli con questo esperimento
+è riuscito a calcolare la pressione dell'aria di $10^{5}Pa$ al livello 
+del mare (e coincide con la sua comprimibilità). 
+Posso definire allora 
+\begin{gather*}
+    10^{5} \ N/ m = 1 \ Bar \approx 1 \ Atm  (1, 03 \cdot  10^{5} \ Pa ) \approx 1 \ kg / cm^{2} 
+\end{gather*}
+Se si ipotizzasse che dentro al contenitore ci sia acqua, allora
+la legge di Stevino diventerebbe
+\begin{gather*}
+    p - p_0 = \rho_{acqua} g h
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (0, 3) -- (1, 3);
+        \draw(1, 3) .. controls (1.2, 1) .. (2, 0);
+        \draw(0,0) -- (4, 0);
+        \draw(1, 2.5) -- (4, 2.5);
+        \draw[->](1.2, 2) -- (0.5, 2) node[midway, above] {$\vv{F}_d$ };
+        \draw[->](1.2, 1.8) -- (0.2, 1.8) node[midway, below] {$\vv{F_a}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Quando si è alla profondità dell'ordine di un chilometro
+la comprimibilità dell'acqua è da tenere in considerazione
+e la densità dell'acqua aumenta a causa della pressione del liquido sovrastante.
+Le dighe infatti non sono dei muri dritti
+Il pezzo sotto della diga deve resistere sia alla pressione
+del cemento sovrastante che alla pressione dell'acqua 
+che cresce con la profondità.
+La pressione totale a cui deve resistere la diga con una certa quota
+di acqua rispetto alla base della diga è
+l'integrale della pressione
+\begin{gather*}
+    R(z) = \int_{0}^{z} \rho g z' \ dz' = \frac{\rho}{2}g z^{2} 
+\end{gather*}
+
+\subsection{Fluido immerso in un fluido}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 3) -- (0, 0) -- (3, 0) -- (3, 3);
+        \draw[->](2, 1.4) -- (2, 0.5) node[at end, right] {$M_F \vv{g}$ };
+        \draw[->](2, 1.6) -- (2, 2.5) node[near end, right] {$-M_F \vv{g}$ };
+        \draw(1, 1.5) .. controls (1.5, 2.5) and (1.7, 2) .. (1.75, 1.5);
+        \draw(1, 1.5) .. controls (0.8, 1) and (1.25, 0.3) .. (1.75, 1.5);
+        \draw(0, 2.5) -- (3, 2.5);
+        \filldraw(1, 2) circle (0pt) node[anchor = north] {$F$};
+        \filldraw(1.5, 2) circle (0pt) node[anchor = north] {$S$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso in cui si immerga un fluido all'interno di un fluido,
+se il fluido immerso è lo stesso fluido contenitore $F$, allora la risultante è
+diretta lungo la stessa direzione della gravità ma con verso
+opposto per avere l'equilibrio
+\begin{gather*}
+    \rho_F g V = R_{\Sigma}
+\end{gather*}
+La risultante nel caso in cui il fluido $S$ contenuto nel
+fluido $F$ sia diverso
+sarà allora data dall'integrale rispetto al volume
+\begin{gather*}
+    R_{\Sigma} = - \int_{V} \rho \ d V \vv{g} = -M_F \vv{g}  
+\end{gather*}
+
+\end{document}

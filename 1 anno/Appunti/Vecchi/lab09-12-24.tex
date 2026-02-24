@@ -1,0 +1,55 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{LAb.1}
+\author{Tommaso Miliani}
+\date{09-12-24}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{SOmma semplice o qudratica?}
+Se ho degli errori non accidentali allora la propagazione degli errori
+è data dalla seguente che è sviluppata da Taylor:
+\begin{gather*}
+    \delta q = \left| \frac{\partial q}{\partial x} \right| \delta x + \left| \frac{\partial q}{\partial y}  \right| \delta y.  
+\end{gather*}
+Se gli errori sono accidentali ed $x, y$ sono indipendenti allora non si utilizza
+la somma delle derivate parziali ma si utilizza la standard deviation ossia:
+\begin{gather*}
+    \sigma_q = \sqrt{\left( \frac{\partial q}{\partial x}  \right)^{2} \sigma_x^{2} + \left( \frac{\partial q}{\partial y} \right)^{2} \sigma_y^{2} } 
+\end{gather*}
+QUesto caso è più immediato di quell'altro e molto più preciso. \\
+Supponendo di avere errori accidentali dominanti allora ho le mie misure
+attraverso le medie: avrò:
+\begin{gather*}
+    \bar{x} = \sum_{i = 1}^{n} \frac{x_i}{N} \\
+    \sigma_x ^{2} = \frac{1}{N- 1} \sum_{i = 1}^{n}(x_i - \bar{x})^{2}   
+\end{gather*}
+
+\end{document}

@@ -1,0 +1,221 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica (Lenti)}
+\author{Tommaso Miliani}
+\date{27-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{SDR non inerziali}
+\subsection{Ascensore accelerato}
+In questi sistemi di riferimento dobbiamo anche considerare
+i contributi di della forza di trascinamento, della rotazione
+del sistema di riferimento mobile:
+\begin{align}
+    \vec{F}_t &= -m\vec{a}_{O'} - m\vec{\omega} \times (\vec{\omega} \times (P - O)) - m\vec{\omega} \times (P - O)\\
+    \vec{F}_co &= -2m\vec{\omega} \times \vec{v}_R       
+\end{align}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg wre}
+    \caption{r3w}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (2, 3);
+        \draw[->, thick](0, 0) -- (0.5, 0);
+        \draw[->, thick](0, 0) -- (0, 0.5);
+        \draw[->] (-0.5, 0) -- (-0.5, 1) node[at end, left] {$\vec{a}_{O'}$};
+        \filldraw (1, 1) circle (1pt) node[anchor = west] {$P$};
+        \draw[->](1, 1) -- (1, 0.5) node[at end, left] {$\vec{F}_t$} node[at end, right] {$m\vec{g}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se l'ascensore sta accelerando verso l'alto, allora accade che io mi senta
+schiacciato verso il basso a causa del segno della forza di trascinamento e,
+poiché non c'è componente rotatoria, si ottiene:
+\begin{gather*}
+    \vec{F}_t = -m\vec{a}_{O'} 
+\end{gather*}
+In questo caso la forza di trascinamento si somma alla forza peso e quindi
+si ottiene una forza peso nuova data da:
+\begin{align}
+    m\vec{g}' = \vec{F}_t + m\vec{g} = -m(a_{O'} + g)\hat{g} 
+\end{align}
+Lungo il versore $\hat{g}$ che è comune ad entrambe e le forze.
+Nel caso in cui l'ascensore stia invece cascando con una certa accelerazione,
+allora si ottiene che il nuovo peso effettivo diminuisce in quanto è dato 
+dalla relazione:
+\begin{align}
+    m\vec{g}' -m(-|a_{O'}| + g) 
+\end{align} 
+Nel caso in cui l'ascensore fosse in caduta libera allora dato che $\vec{a}_{O'} = \vec{g}$, 
+non c'è nessuna forza peso "nuova" l'accelerazione è proprio solo quella di gravità. 
+Questa situazione è un sistema di riferimento non inerziale in cui siamo
+in una situazione in caduta libera e sperimentalmente si può realizzare
+con un aereo  (l'esperimento zero gravity)
+
+\subsection{Caso $\vec{\omega} \neq 0$ e $\vec{a}_{O'} = 0$}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fefg}
+    \caption{gsd}
+    \begin{tikzpicture}
+        \node[ellipse,
+        draw,
+	    minimum width = 4cm, 
+	    minimum height = 2.2cm] (e) at (0,0) {};
+        \filldraw (0, 0)circle  (1pt) node[anchor = east]{$O$};
+        \filldraw(1.25, -0.25) circle (2pt) node[anchor = south] {$P$};
+        \draw(0, 0)[->] -- (4, 0) node[at end, below] {$x $};
+        \draw(0, 0)[->] -- (0, 2) node[at end, left] {$z $};
+        \draw(0, 0)[->] -- (-1, -2) node[at end, below] {$y $};
+        \draw(1.25, -0.25)[->] -- (2, -0.45) node[at end, right] {$\vec{F}_{cf}$};
+        \draw(1.25, -0.25)[->] -- (1.75, 0.25) node[at end, right] {$\hat{u}_t$};
+        \draw[->](1.25, -0.25) -- (0.75, -0.75) node[at end, below] {$\vec{v}'$}; 
+        \draw[->](1.25, -0.25) -- (1.25, 0.75) node[at end, right] {$\vec{N}$};
+        \draw[->](1.25, -0.25) -- (1.25, -1.25) node[at end, right] {$m\vec{g}$};
+        \draw[->, very thick](1.25, -0.25) -- (0.5, -0.123) node[at end, below] {$\vec{F}_{co}$};
+        \draw[dashed, thin] (0, 0) -- (1.25, -0.25) node[midway, above] {$\rho$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Prendendo $\vec{\omega}$ costante, si ha il caso della piattaforma rotante: una giostra è un esempio
+è il seguente in cui $x, y, z$ sono il sistema di riferimento inerziale 
+e $x', y', z'$ sono quelle del SDR non inerziale, l'asse $z$ è l'asse ortogonale e
+coincide con $z'$. Impostando ora la forza di trascinamento e la forza complementare (Coriolis):
+\begin{align}
+    \vec{F}_t &= -m\vec{\omega} \times (\vec{\omega} \times (P - O)) \\
+    \vec{F}_{co} &= -2m \vec{\omega} \times \vec{v}_R     
+\end{align}
+Nel piano possiamo anche ottenere una rappresentazione dall'alto che ci
+consente di esprimere in coordinate cilindriche per cui si ottiene che
+la distanza $P - O$ è proprio:
+\begin{align}
+    P - O = \rho \hat{u}_{\rho}  + z\hat{k} 
+\end{align}
+E quindi la forza tdi trascinamento, essendo $\vec{\omega} = \omega \hat{k}$
+\begin{align}
+    \vec{F}_t = + m\omega^{2} \rho \hat{u}_{\rho}  
+\end{align}
+\begin{figure}
+    \centering
+    \label{}
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2.5);
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$x'$};
+        \draw[->] (0, 0) -- (0, 3) node[at end, left] {$y'$};
+        \draw[dashed](0, 0) -- (1.41, 1.41) node[midway, above] {$\rho$};
+        \filldraw (1.41, 1.41) node[anchor = west] {$P$};
+        \draw[->] (1, 0) arc (0: 45: 1) node[midway, right] {$\phi$};
+        \draw[->] (1.41, 1.41) -- (2, 2) node[at end, right] {$\hat{u}_{\rho}$};
+        \draw[->] (1.41, 1.41) -- (1, 1.82) node[at end, right] {$\hat{u}_{\phi}$ }; 
+    \end{tikzpicture}    
+\end{figure}
+Essendo col segno positivo, questa tende ad andare verso l'esterno rispetto all'origine
+e prende quindi il nome di forza centrifuga. La velocità a questo punto
+può essere espressa come:
+\begin{align}
+    \vec{v}_R = \frac{d}{dt} (P- O) = \dot{\rho}\hat{u}_{\rho} + \rho\dot{\phi}\hat{u}_{\phi} + \dot{z}\hat{k}       
+\end{align} 
+E quindi possiamo trovare la forza di Coriolis che sarà, vista l'impostazione
+precedente delle forze, data da:
+\begin{align}
+    \vec{F}_{co} =  2m\omega \rho\dot{\phi}\hat{u}_{\rho}-2m\omega\rho\dot{\phi}\hat{u}_{\rho}    
+\end{align}
+Che relazione c'è tra $\dot{\phi}$ e $\omega$? Ad una prima analisi potrebbero sembrare la stessa cosa, ma
+in realtà sono due cose complementare diverse. $\omega$ è costante sia in modulo che direzione ed è la velocità angolare
+con cui ruota la piattaforma mentre $\phi$ è la posizione nel sistema di riferimento ruotante che l'osservatore sta
+guardando e quindi $\dot{\phi}$ è la variazione di questa posizione. 
+Che moto avrebbe l'osservatore rispetto al SDR non inerziale? L'osservatore appare
+ruotare rispetto al SDR $x', y', z'$ ma in senso opposto e quindi
+\begin{gather*}
+    \dot{\phi} = -\omega\\
+    \dot{\rho} = 0 
+\end{gather*}
+La forza centrifuga resta inalterata e non cambia mentre
+$\rho$ non cambia e quindi posso esprimere la forza centrifuga e di Coriolis(che diventa la forza complementare):
+\begin{gather*}
+    \vec{F}_t = m\omega^{2}\rho\hat{u}_{\rho}   \\
+    \vec{F}_{co} = 2m \omega^{2}\rho\hat{u}_{\rho}   
+\end{gather*}
+La somma delle forze non è zero, ma l'osservatore non è soggetto ad alcuna forza,
+infatti l'osservatore sta fermo rispetto al sistema in movimento. 
+
+\subsection{Il caso della guida}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 323}
+    \caption{23}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2);
+        \draw[->](0, 0) -- (2.41, -2.41) node[at end, right] {$x'$};
+        \draw[->](0, 0) -- (2.41, 2.41) node[at end, right] {$y'$};
+        \draw (0, 0) -- (2, 0);
+        \draw[->] (0.41, -0.41) arc(-45:0:0.5) node[midway, right] {$\phi$};
+        \filldraw (1, 0) circle (1pt) node[anchor = east] {$P$};
+        \draw[->] (1, 0) -- (1.5, 0) node[at end, above] {$\vec{F}_t$};
+        \draw[->] (1, 0) -- (1, 0.5) node[at end, above] {$\vec{F}_{co}$};
+        \draw[->] (1, 0) -- (1, -0.5) node[at end, right] {$\vec{N}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso di un moto che scorre su di una guida senza attrito lo lascio andare: ha solo un grado di libertà in quanto può solo scorrere, le forze reagiscono sul punto materiale 
+e ci saranno sicuramente delle forze peso e vincolanti che si compensano, delle forze
+di trascinamento e di Coriolis se si dovesse muovere. Dal momento che il sistema $S'$ è solidale
+con l'oggetto, allora $\dot{\phi} = 0$, allora essendo che ho la componente radiale
+\begin{gather*}
+    \hat{u}_{\rho} : m\omega^{2}\rho =  m a_{\rho} \\
+    \hat{u}_{\phi} : -2m\omega \dot{\rho} + N = 0  
+\end{gather*} 
+La guida quindi deve produrre una reazione vincolare per tenere fermo l'oggetto dentro sé stessa. 
+Quindi possiamo definire l'accelerazione come:
+\begin{align}
+    \vec{a}_R = (\ddot{\rho} - \rho\dot{\phi}^{2})\hat{u}_{\rho} + (2\dot{\rho}\dot{\phi} + \rho\ddot{\phi})\hat{u}_{\rho}   
+\end{align}
+Allora si ottengono le descrizioni per i versori:
+\begin{align}
+    \left\{\begin{array}{c}
+        \omega^{2}\rho = \ddot{\rho} \\
+        N = 2m\omega \dot{\rho}  
+    \end{array}\right.
+\end{align}
+E allora si ottiene l'equazione del moto armonico modificata (quella per il filo con massa
+che cade) la cui soluzione è proprio:
+\begin{gather*}
+    \ddot{\rho} - \omega^{2}\rho = 0 \\
+    \rho = \rho_0 \cosh(\omega t)  \\
+    \dot{\rho} = \rho_0 \omega\sinh(\omega t) 
+\end{gather*}
+Allora la reazione vincolare della guida è proprio:
+\begin{align}
+    N = 2m \rho_0 \omega \sinh(\omega t)
+\end{align}
+che è proprio la forza che accelera che accelera il corpo che scorre nella guida
+per cui un osservatore in un SDR inerziale vede il corpo accelerato.
+
+\end{document}

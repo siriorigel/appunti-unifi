@@ -1,0 +1,2500 @@
+\documentclass[a4paper, oneside]{book}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di Fluidi/Termodinamica/Statistica}
+\author{Tommaso Miliani}
+\date{2025/2026}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[chapter]
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{lemma}{Proposizione}[chapter]
+\newtheorem{observation}{Osservazione}[chapter]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[chapter]
+
+\maketitle
+
+\tableofcontents
+
+\chapter*{Introduzione al corso}
+Il corso di Fluidi si divide in tre parti 
+\begin{enumerate}
+    \item Termodinamica: studia processi non di carattere meccanico che si manifestano a livello
+    macroscopico
+    \item Statistica: la fisica statistica coniuga la meccanica con la statistica che si usa nelle applicazioni
+    che vanno al di là della fisica classica: da un fondamento microscopico agli effetti della termodinamica.
+    \item Meccanica dei fluidi: sistemi materiali macroscopici per lo studio dei fluidi.
+\end{enumerate}
+Prima di tutto si inizia con un cappello che collega le tre parti;
+poi si inizia con statica dei fluidi, dopo termodinamica, poi statistica e infine
+dinamica dei fluidi. Questo perché alcuni strumenti di analisi due saranno
+utilizzati per la parte di dinamica dei fluidi e statistica. \\
+L'esame è diviso in tre domande orali (una per sezione) (niente prova scritta) con esercizi
+applicati alla realtà e di effetto pratico (che sono fatti a lezione).
+Il libro consigliato è "Elementi di meccanica di fluidi" di Egidio Landi, per la parte di termodinamica
+"Termodinamica" di Enrico Fermi e per la parte di fisica statistica le dispense del prof
+in quanto non ci sono libri che facciano al caso del corso. \\
+Il vantaggio di studiare tre discipline in un corso è che si riesce ad avere una idea più
+completa dei sistemi che si studiano.
+
+\part{Statica dei fluidi}
+\chapter{Lo studio dei fluidi}
+\section{Introduzione alla statica dei fluidi}
+Il caso più semplice della fisica è quello dell'approssimazione del
+punto materiale; cosa succede allora se io aumentassi il numero di punti materiali
+e li mettessi tutti insieme? Se si mettono insieme in modo da poter costituire un
+corpo rigido allora avrei da risolvere diverse equazioni per poter determinare il comportamento
+del corpo; nessun materiale reale gode di questa proprietà ma è solo una idealizzazione
+che vale entro certe approssimazioni. Il modello del corpo rigido funziona molto
+bene per i corpi solidi che in prima approssimazione sono ben descrivibili con questo modello, mentre
+nel caso dei fluidi questa approssimazione non è valida. \\
+Nei sistemi fluidi si considera allora il movimento degli atomi neutri
+all'interno del fluido (non di plasmi) e quindi si può, utilizzando le conoscenze
+di Fisica I, determinare come questi si muovono.
+
+\subsection{L'atomo di Feynman}
+In questo studio dei fluidi utilizziamo la definizione di atomo così come la aveva data Feynman: gli atomi sono dei punti materiali
+che si attraggono se sono sufficientemente vicini ma se troppo vicini si respingono.
+Essenzialmente a livello macroscopico l'atomo è visto come piccole palline che costituiscono il corpo. Possiamo
+allora definire diverse proprietà della materia che utilizziamo per la descrizione dei fluidi:
+\begin{itemize}
+    \item Gli atomi sono dei punti materiali che hanno una certa massa $m$ che obbediscono alle leggi della meccanica
+    di Newton;
+    \item Un campione di materia è un insieme di $N$ atomi (ossia un numero molto grande) che
+    possono essere chiusi in un contenitore ideale (ossia con pareti rigide e fisse).  
+    \item Gli atomi interagiscono tra di loro solo tramite forze conservative, ossia che possono
+    essere derivate e che queste forze dipendono esclusivamente dalla distanza tra
+    gli atomi stessi; questo vuol dire che compiono solo urti completamente elastici con il contenitore.
+\end{itemize}
+Posso allora dare una definizione concreta alle forze intermolecolari, iniziando definendo $r_0$ come la distanza caratteristica
+che ha definito Feynman oltre la quale gli atomi si attraggono ma entro la quale si respingono.
+\begin{itemize}
+    \item Se la distanza tra i due atomi è maggiore ma dello stesso ordine di $r_0$,
+    allora le forze sono attrattive.
+    \item Se la distanza è minore di $r_0$, allora la forza è repulsiva. 
+    \item Le interazioni decadono molto velocemente con l'aumentare della distanza.
+\end{itemize}
+
+\subsection{Il potenziale di interazione}
+Posso allora definire il \textbf{potenziale di interazione} tra due atomi come $V(r)$ e 
+quindi posso relazionare le tre condizioni precedenti con il potenziale, il quale deve diventare 
+costante quando i due oggetti si trovano a grandi distanze in quanto la forza diventa trascurabile.
+Posso fissare un sistema di riferimento inerziale e dunque
+posso dire che l'energia totale del sistema sarà data da
+\begin{align}
+    E = K + V\ \Longrightarrow \ \frac{1}{2}\sum |\vv{v}_i|^{2}  + U(\vv{r}_1, \dots, \vv{r}_n  )
+\end{align}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il potenziale di interazione}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (4, 0) node[at end, below] {$r$};
+        \draw[->](0, -2) -- (0, 2) node[at end, left] {$V(r)$};
+        \draw(0.5, 2) .. controls (1.2, -2) and (1.7, -2) ..  (3, 0);
+        \draw(3, 0) -- (4, 0);
+        \draw[dashed](4, 0) -- (5, 0);
+        \draw[dashed](1.55, 3) -- (1.55, -2) node[at end, right] {$r_0$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Data l'ipotesi che ci siano solo delle forze conservative all'interno del sistema
+che studiamo, allora posso riscrivere la componente potenziale (la quale dipende da $n$ variabili),
+è scrivibile come la somma di tutte le possibili coppie e dunque
+\begin{align}
+    U(\vv{r}_1, \dots, \vv{r}_n  ) = \sum_{i = 0}^{n} \sum_{j = i + 1}^{n}  V(\left| \vv{r}_i - \vv{r}_j   \right| )
+\end{align}
+Posso anche esprimere anche l'energia potenziale attraverso la sommatoria rispetto a tutte le coppie
+escludendo l'elemento già considerato (quindi si dimezza la sommatoria):
+\begin{align}
+    U(\vv{r}_1, \dots, \vv{r}_n  ) = \frac{1}{2}\sum_{i = 1}^{n} \sum_{j = 1 (i \neq j)}^{n} V(\left| \vv{r}_i - \vv{r}_j   \right| )  
+\end{align}
+I termini contano solo se la distanza è minore $a$ volte $r_0$: fissato allora un istante di tempo
+posso scegliere un atomo e dire quali coppie possono effettivamente contribuire
+all'energia potenziale e quindi ogni atomo interagisce solo con gli atomi vicini che si trovano
+nella sfera (e quindi posso esprimerlo come $a \cdot  r_0$), posso allora approssimare con un pochino meno termini
+rispetto a $\frac{N(N -1 )}{2}$ in quanto ogni atomo interagisce solo con gli altri
+all'interno della sfera di interazione.
+\begin{gather*}
+    U(\vv{r}_1, \dots, \vv{r}_n  ) = \frac{1}{2}\sum_{i = 0}^{n}\sum_{j \in S(i)}^{n}V(\left| \vv{r}_i - \vv{r}_j   \right| )  
+\end{gather*}
+Quanti sono allora gli atomi massimi consentiti all'interno della sfera di interazione
+$S(i)$ rispetto ad un dato atomo $j$? Se prendessi allora questa sfera di raggio
+$a \cdot r_0$, si ottiene una stima che dipende da $r_0$ e lo divido per il volume della singola sferetta
+(il quale è sempre una approssimazione per eccesso perché non considero che siano rigide) per determinare il
+numero di atomi $n_s$ che interagiscono con l'atomo.
+La sfera di interazione ha raggio $a \cdot r_0$ (dove $a$ è un numero) e il singolo atomo ha raggio $\frac{r_0}{2}$
+e quindi devo fare il rapporto tra i volumi delle sfere e ottengo $n_s \approx (2a)^{d}$, dove $d$ è la dimensione
+(piano = 2, spazio = 3). Si ottiene allora che per $a = 2.5$, $d = 2$ si ha $n_s \approx 25$, per $d = 3$ e $n_s \approx 125$.
+La dimensione è legata a partire dal volume della sfera, infatti il raggio è elevato alla dimensione
+dello spazio considerato. \\
+L'energia potenziale degli atomi nella materia è direttamente proporzionale al numero di atomi
+infatti si ottiene che è proporzionale a $Nn_s$ invece che $N^{2}$ come si era detto prima (abbiamo allora escluso $N$ dati). Quando una grandezza soddisfa questa proprietà allora
+è una grandezza \textbf{estensiva}: la maggioranza dei termini non conta e dunque l'energia di un sistema è
+una grandezza estensiva, se così non fosse allora la materia non si comporterebbe come si comporta.
+
+
+\subsection{L'interazione tra due parti di uno stesso contenitore}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \caption{L'interazione tra due recipienti uniti}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (3, 2);
+        \filldraw (0.5, 1) circle (0pt) node[anchor = south] {$N_1$};
+        \filldraw (2, 1) circle (0pt) node[anchor = south] {$N_2$};
+        \draw(1, 2) -- (1, 0);
+        \draw[dashed](1.2, 2) -- (1.2, 0);
+        \draw[dashed](0.8, 2) -- (0.8, 0);
+        \filldraw(4, 1.5) circle (0pt) node[anchor = south] {$N_1N_2 \propto L^{d} $ };
+        \filldraw(4, 1) circle (0pt) node[anchor = south] {$N_{1,2} \propto L^{d - 1} $ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Immaginando di suddividere il contenitore in due parti allora avremo un po' del fluido che sta da una parte e un
+po' che sta dall'altra: questa divisione va fatta in modo tale che le due parti debbano essere macroscopiche
+(non pochi atomi da una parte e il resto dall'altra). Come posso determinare l'energia di questo sistema?
+Dato allora il sistema $N_1 + N_2 = N$, ossia il numero di atomi del primo più il secondo compartimento
+mi dà gli atomi totali (con $N >>>> 1$).  Devo dividere il contenitore
+in modo tale che il "divisore" sia di una dimensione in meno dello spazio considerato (es nello spazio un piano)
+in modo tale che sia uniforme. \\
+Posso allora esprimere l'energia totale come
+\begin{gather*}
+    E = E_1 + E_2 + E_{1,2} \\
+    E_1 =  \frac{1}{2}\sum_{i = 1}^{N_1}\left| \vv{v^{1} }_i  \right|^{2} + U (\vv{r}_1^{1} , \dots \vv{r}_2^{1}   )  \propto N_1  \\
+    E_2 =  \frac{1}{2}\sum_{i = 1}^{N_2}\left| \vv{v^{2} }_i  \right|^{2} + U (\vv{r}_1^{2} , \dots \vv{r}_2^{2}   )  \propto N_2
+\end{gather*}
+Come si nota, esiste anche un contributo di interazione tra le due parti che posso esprimere come:
+\begin{gather*}
+    E_{1, 2} = \frac{1}{2}\sum_{i = 1}^{N_1}\sum_{j \neq i}^{N_2} V\left(\left| \vv{r^{N_1} }_i   - \vv{r^{N_2} }_j   \right| \right)  
+\end{gather*}
+Il contributo di questa interazione è molto più piccola dell'interazione $E_1$ e $E_2$ in quanto solamente gli atomi
+molto vicini al bordo che divide i due sistemi interagiscono tra di loro (zona tratteggiata) e dunque
+più cresce $N$ allora più diminuisce questo contributo. Inoltre si osserva che sono proporzionali ad un certo $L$ che è dato
+dai limiti fisici del contenitori (chiamata scala libera):
+\begin{gather*}
+    L \propto N_1^{\frac{1}{d}} \ \Longrightarrow \ N_{1, 2} \propto N_1^{\frac{d- 1}{d}} \qquad \text{uguale per $N_2$}
+\end{gather*}
+Se $N_1$ cresce, allora $N_{1, 2}$ diventa molto piccolo.  Si ha che l'energia complessiva di un sistema
+che ho arbitrariamente diviso in due pezzi avrà l'energia della somma dei due contributi ignorando il
+termine di interazione tra le due parti purché siano macroscopici (infatti non sarebbe vero
+se una delle due componenti avesse pochi atomi).
+\begin{align}
+    E \approx E_1 + E_2 \qquad \qquad per \  N >>>> 1 \ \Longrightarrow \ E = E_1 + E_2
+\end{align}
+Allora ottengo che l'energia è una \textbf{quantità additiva} (infatti è vero per $m$ divisioni fino a che
+le componenti sono macroscopiche). Tutte queste considerazioni sono valide se e solo se
+io continuo a ignorare i contributi all'esterno della sfera di interazione e considerando quindi che quei contributi convergano a zero in modo
+sufficientemente rapido: infatti l'analisi ci insegna che somme di piccole quantità molto grandi non sempre
+convergono a numeri finiti. Si può dimostrare che devono convergere a zero più velocemente di 
+$r^{-d} $ (dove $d$ è nuovamente la dimensione dello spazio) (per l'interazione gravitazionale questo non è vero infatti). 
+
+\section{Prototipo di funzioni che descrivono il potenziale di interazione}
+\subsection{Funzioni di Leonard - Jones}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La funzione di potenziale}
+    \begin{tikzpicture}
+        \draw[->] (-1, 0) -- (4, 0) node[at end, below] {$\frac{r}{r_0}$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$\frac{V}{\epsilon}$};
+        \draw(0.75, 3) ..controls (1, -2.5) and (1.35, -0.25) .. (2, -0.05);
+        \draw(2, -0.05) -- (3.5, -0.05);
+        \draw[dashed](3.5, -0.05) -- (4, -0.05);
+        \filldraw(1, 0) circle (1pt) node[] {$\sigma$};
+        \draw(1.2, 0) -- (1.2, -0.65) node[at end, below] {$r_0$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il potenziale di interazione è dato dalla seguente relazione
+\begin{align}
+    V(r) = \epsilon \left(\left(\frac{r_0}{r}\right)^{12} - 2\left(\frac{r_0}{r}\right)^{6} \right)
+\end{align}
+Il modello funziona molto
+bene per i gas nobili in quanto sono atomi neutri che non interagiscono con nessun'altro atomo.
+Anche per lo studio di casi più complessi il modello da seguire è essenzialmente questo entro certe approssimazioni;
+spesso si riscrive in modo leggermente diversa questa formulazione, ossia nella seguente
+forma 
+\begin{align}
+    V(r) = 4\epsilon \left(\left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^{6} \right)
+\end{align}
+Dove si ha che $r_0 = 2^{1/6} \cdot  \sigma \approx 1.12 \sigma$.
+Sigma è il valore oltre al quale il potenziale diventa negativo, ossia il punto in cui
+si azzera l'energia potenziale; il valore di $\epsilon$ per i gas nobili è dato da
+\begin{gather*}
+    \epsilon = 10^{-3} \sim 10^{-2} eV   
+\end{gather*}
+mentre il range di $\sigma$ (sempre per i gas nobili) è 
+\begin{gather*}
+    \sigma = 0.2 \sim 0.4 \ nm
+\end{gather*}
+L'interazione alla sesta è data dai termini di Van Der Walls che dipendono
+dalle interazioni tra le nubi elettroniche; è possibile ricavare che il contributo attrattivo sia
+di potenza $6$ mentre il contributo repulsivo è di potenza $12$ in quanto 
+è computazionalmente comoda. Questo modello puramente meccanico ci permette di descrivere le interazioni
+atomiche a livello approssimativo poiché non si può usare le leggi della meccanica classica.
+
+\section{Studio del minimo dell'energia totale}
+\subsection{Configurazione a minore energia}
+Nello studio di sistemi conservativi si possono imparare un sacco di cose
+dallo studio della funzione dell'energia potenziale senza andare a derivare;
+per esempio in uno oscillatore armonico nel punto più
+basso dell'energia potenziale il sistema sta fermo, se però si dà un po' di energia
+al sistema, allora il sistema avrà una regione all'interno della quale si può muovere.
+Dall'espressione dell'energia totale 
+\begin{gather*}
+    E = \frac{1}{2}m\sum_{i = 1}^{n}|\vv{v}_i|^{2} + U(\vv{r}_1, \dots, \vv{r}_n  )     
+\end{gather*}
+si può trovare il minimo dell'energia. Il livello minimo più intuitivo si ha quando tutte le particelle sono ferme,
+tuttavia esisterà anche un altro punto di minimo che è più complicato da ricavare.
+Riesprimendo il potenziale come
+\begin{gather*}
+    U = \frac{1}{2}\sum_{i = 1}^{n}\sum_{j = 1}^{n}V(|\vv{r}_i - \vv{r}_j|  )_{i \neq j}  
+\end{gather*}
+Trascurando l'effetto della differenza tra due e tre dimensioni e, al posto di utilizzare metodi analitici, cerchiamo di trovare il minimo attraverso
+metodi fisici e matematici. Lo scopo è allora capire come si dispongono gli atomi nello spazio
+per poter determinare il minimo dell'interazione tra di essi. \\
+Possiamo innanzitutto ricondurci ad un caso molto semplice con soli due atomi $N = 2$.
+L'energia potenziale è allora minima quando $r = r_0$, che si ottiene centrando il
+sistema di riferimento nella particella 1 e ponendo la seconda a distanza $r_0$.\\
+Se avessi ora tre particelle, avrei tre contributi energetici per il potenziale dato da
+\begin{gather*}
+    U = V(r_{1, 2}) + V(r_{1, 3}) + V(r_{2, 3})
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La configurazione a minore energia: il reticolo regolare}
+    \begin{tikzpicture}
+        \filldraw(0, 1) circle (0pt);
+        \filldraw(0, 0) circle (2pt);
+        \filldraw(1, 0) circle (2pt);
+        \filldraw(-1, 0) circle (2pt);
+        \filldraw(0.5, 0.75) circle (2pt);
+        \filldraw(-0.5, 0.75) circle (2pt);
+        \filldraw(0.5, -0.75) circle (2pt);
+        \filldraw(-0.5, -0.75) circle (2pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se la distanza tra tutte le particelle è esattamente $r_0$, allora il mio sistema
+avrà energia potenziale minima. Da $N > 4$ le cose cambiano radicalmente
+in quanto, essendo vincolati ad un piano, non c'è nessun modo per far sì
+che le distanze tra tutte le particelle sia uguale. Devo disporre quindi tutte le particelle in modo
+tale che stiano secondo uno schema simmetrico e regolare in quanto le particelle da una parte della configurazione
+esercitano una certa forza mentre quelle che stanno dall'altra esercitano una forza
+uguale e contraria per cui il contributo netto sulle singole
+particelle è zero. Con questa disposizione regolare allora avremmo che la funzione presenta sicuramente un punto
+stazionario anche se, secondo l'analisi, si avranno altri punti stazionari. Dobbiamo fare in modo che questa configurazione regolare si 
+contribuisca con la minore energia possibile e quindi posso ripetere il pattern del triangolo
+equilatero per poter ottenere la minore energia potenziale. \\
+Si può dimostrare che il reticolo regolare è la configurazione con minore energia potenziale
+purché il numero di particelle considerate sia molto grande rispetto ad $1$ anche se il minimo
+vero è diverso poiché stiamo ignorando il contributo potenziale con
+la parete. Possiamo ottenere tutte le posizioni delle particelle in un reticolo
+come se fosse un sottospazio vettoriale con generatori 
+\begin{gather*}
+    \vv{a} = r_0 \hat{i} \\
+    \vv{b} = \frac{r_0}{2}\left(-\hat{i} + \sqrt{3}\hat{j}   \right)\\
+    \ \Longrightarrow \ \vv{r}_{n, m} = n\vv{a} + m\vv{b} \quad  n, m \in \mathbb{Z}      
+\end{gather*}
+Si può allora ottenere che per determinare il minimo per ogni particella si considerano le particelle
+all'interno dell'esagono più vicino poiché abbiamo dimostrato che, in valore assoluto, hanno contributo maggiore
+e dunque si ottiene che il minimo è proprio:
+\begin{align}
+    E_{mn} \approx \frac{1}{2}\sum_{i = 1}^{N} \sum_{j \neq i}^{6}V(r_0) = -3N\epsilon  
+\end{align}
+Il \textbf{cristallo} è la disposizione di minima energia possibile in quanto
+la fisica quantistica fa prediligere le formazioni cristalline come
+configurazione di energia minore possibile.
+
+\subsection{Validità del modello entro un certo $\Delta E$ rispetto al minimo}
+Dobbiamo ora cercare di convincerci che questo modello non 
+funzioni solo per un modello con poche particelle ma anche per configurazioni abbastanza simili:
+\begin{gather*}
+    E = E_{min} + \Delta E
+\end{gather*}
+Posso applicare allora un po' di energia cinetica al nostro
+modello attraverso il calore per poter ottenere un innalzamento dell'energia totale
+(utilizzando l'approssimazione per la quale l'energia che applichiamo al sistema
+è uniformemente condivisa tra tutti gli atomi). 
+Possiamo prendere l'$i$-esimo atomo con energia pari a
+\begin{gather*}
+    \frac{1}{2}m|\vv{v}_i|^{2} \approx \frac{\Delta E}{N} \qquad \Delta E << E_{min} \qquad  \frac{1}{2}m|\vv{v}_i|^{2} << \epsilon    
+\end{gather*}
+Se sviluppassi con Taylor al secondo ordine la funzione di potenziale rispetto a $r$
+si ottiene che
+\begin{gather*}
+    V(r_{i, j}) \approx -\epsilon + \frac{1}{2}V''(r_0)(r_j - r_0)^{2}  \qquad V''(r_0) = 72\frac{\epsilon}{r_0^{2} }
+\end{gather*}
+Tutte le coppie di atomi si comportano allora come oscillatori armonici e quindi si può approssimare
+il modello come un network di oscillatori armonici trascurando le molle più lontane
+e considerando solo quelle dei 6 atomi più vicini. Macroscopicamente si comporta come un solido in quanto per poterlo deformare
+bisogna applicare forze molto grandi. Se si continua a far crescere l'energia, ad un certo
+punto dobbiamo aggiungere termini successivi allo sviluppo di Taylor, il quale diventa più grande,
+e il modello necessita dell'introduzione dei termini successivi. Da questo
+si ha che più un sistema è caldo (e quindi più calore forniamo ad un sistema) 
+e più questo si dilata. 
+
+\subsection{Gli effetti di $\Delta E$ molto grandi}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La buca di potenziale}
+    \begin{tikzpicture}
+        \draw[->] (-1, 0) -- (4, 0) node[at end, below] {$\frac{r}{r_0}$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$\frac{V}{\epsilon}$};
+        \draw(0.75, 3) ..controls (1, -2.5) and (1.35, -0.25) .. (2, -0.05);
+        \draw(2, -0.05) -- (3.5, -0.05);
+        \draw[dashed](3.5, -0.05) -- (4, -0.05);
+        \draw[<->](1.3, 0) -- (1.3, -0.65);
+        \draw[dashed](-0.5, 1) -- (3, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}Aumentando sempre di più $\Delta E$ il modello avrà un asintoto verticale e
+quindi se applico una energia maggiore della differenza tra il minimo e zero
+allora gli atomi non saranno più legati tra di loro e quindi il sistema inizierà
+a comportarsi come un gas e ogni particella inizierà a muoversi
+indipendentemente dalle altre.
+Come si vede dal grafico, se aumenta l'energia, i valori possibili di energia
+per $r_0$ tende ad essere uno solo, ossia nella parte del grafico dove l'energia
+potenziale è repulsiva. \\
+Il sistema si comporterà come un solido cristallino se e solo se l'energia delle
+particelle è minore di $\epsilon$ e non supera la buca di potenziale; se superassi allora questa
+buca di potenziale si comporterà come un gas. Ovviamente esiste anche la situazione di mezzo
+per cui il corpo si comporta come un liquido.
+A livello macroscopico la differenza tra un liquido ed un solido
+non è la comprimibilità ma lo scorrimento delle molecole l'una sulle altre.
+
+\section{Le proprietà microscopiche dello stato liquido}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \filldraw(0, 1) circle (0pt);
+        \filldraw(0, 0) circle (2pt);
+        \filldraw(1, 0) circle (2pt);
+        \filldraw(-1, 0) circle (2pt);
+        \filldraw(0.5, 0.75) circle (2pt);
+        \filldraw(-0.5, 0.75) circle (2pt);
+        \filldraw(0.5, -0.75) circle (2pt);
+        \filldraw(-0.5, -0.75) circle (2pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Considerando un esagono di atomi dal reticolo cristallino e riprendendo allora la definizione che si è data al reticolo,
+ci poniamo dunque nelle ipotesi di avere ancora un solido.
+Concentrandosi sull'atomo centrale, possiamo allora chiedersi come si può muovere questo assumendo che gli altri
+atomi siano in una posizione fissata. Questo diventa il problema del moto di un punto
+materiale in due dimensioni: posso esprimere l'energia potenziale del sistema
+intorno all'atomo considerato come
+\begin{gather*}
+    U(x, y) = \sum_{i = 1}^{n} V(|\vv{r} - \vv{r_i}|  ) 
+\end{gather*}
+In questo problema si ha una funzione di due variabili che dipende parametricamente
+anche dalle altre dodici variabili (che posso allora fissare come voglio dato che
+sono parametri e non variabili). L'energia meccanica sarà allora data dal contributo anche
+cinetico
+\begin{gather*}
+    E = \frac{1}{2}m(v_x^{2}  + v_y^{2} ) + U(x, y)
+\end{gather*}
+Quale è la regione di piano accessibile al moto del nostro punto centrale? La regione accessibile
+dall'atomo centrale è quella in cui l'energia potenziale sia minore o uguale all'energia meccanica totale. L'energia
+cinetica in questo modello semplificato può essere applicata solamente all'atomo centrale: questo moto è descritto allora
+da questa regione di movimento specifica. Che succede allora se gli altri sei atomi siano fermi ed in un
+reticolo a bassa energia? La particella non si muove molto poiché è ingabbiata dagli altri atomi
+anche nel caso in cui si fornisca una energia molto grande di $10\epsilon$.
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Situazione fisica}
+    \begin{tikzpicture}
+        \draw[->](-1.5, -2) -> (-1.5, 2);
+        \draw[->](-2, -1.5) -> (2, -1.5);
+        \draw (0,0.5) circle (0.25);
+        \draw(1, 0) ..controls(0.6, -0.4).. (0.5, -0.8);
+        \draw(0.5, -0.8) ..controls(0, -0.6).. (-0.5, -0.8);
+        \draw(-1, 0) ..controls(-0.8, -0.2).. (-0.5, -0.8);
+        \draw(-1, 0) ..controls(-0.8, 0.4).. (-1, 0.8);
+        \draw(1, 0.8) ..controls(0.8, 0.5).. (1, 0);
+        \draw(-0.3, 2) ..controls(-0.3, 1.2).. (-1, 0.8);
+        \draw(0.3, 2) ..controls(0.3, 1.2).. (1, 0.8);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se si considera la situazione più realistica secondo la quale tutti gli atomi
+ricevono energia cinetica: in questo caso gli atomi tenderanno tutti ad agitarsi e dunque il raggio $r_0$
+di interazione tenderà a crescere e il moto della particella risulterà maggiore rispetto
+alla situazione ideale anche con solo $\frac{1}{2}\epsilon$. La particella ha quindi molto più margine
+di movimento in quanto gli atomi in media sono più distanti tra di loro e ciascuno si muove di più rispetto
+agli altri. Tra tutte le fluttuazioni possibili se due degli atomi del reticolo
+intorno si muovono in direzioni opposte, allora il margine di movimento della particella ha 
+di punto in bianco una regione di movimento maggiore e si crea un canale di uscita; 
+anche se la situazione più probabile è quella che la particella centrale si scambia di posizione con una del reticolo intorno.
+Se si aspetta abbastanza ogni particella potrebbe percorrere tutto il reticolo (e questa è proprio la situazione
+che accade nel liquido!) senza dispendio di energia anche se, in un dato istante, si volesse osservare cosa accade,
+ogni particella apparirà circondata da altre 6 particelle. 
+
+\subsection {Riassunto delle proprietà delle fasi e ipotesi di validità}
+Per ogni fase noi consideriamo una energia minima in cui si ha il
+reticolo perfetto di un materiale e aggiungiamo un certo $\Delta E$: 
+\begin{align*}
+    &\text{Solido} &\frac{\Delta E}{N} &\llless \epsilon \\
+    &\text{Liquido} &\frac{\Delta E}{N} &\approx \epsilon \\
+    &\text{Gas} &\frac{\Delta E}{N} &\gtrapprox 3\epsilon 
+\end{align*}
+Tutte queste ipotesi valgono solo quando la distribuzione degli
+atomi è omogenea e la distribuzione di energia applicata al sistema sia
+uniforme a tutti gli atomi. Gli stati della materia dunque sono omogenei
+in quanto sono interazioni a corto raggio mentre interazioni a lungo raggio
+come la forza di gravità non è omogenea. Questo modello vale
+solo ed esclusivamente nel caso in cui gli atomi sono approssimabili a piccole sferette
+anche se a livello macroscopico potremmo anche assumere gli atomi come 
+puntiformi in quanto in fisica, gli eventi che avvengono ad una data scala sono
+influenzati solo dalle scale immediatamente vicine ed ignorano (salvo varie
+eccezioni) ciò che accade alle scale più lontane. Le dimensioni contano in quanto è
+possibile ricavare le leggi per livelli superiori partendo dalle leggi del 
+piccolo però dalle leggi macroscopiche non si può ricavare le leggi microscopiche. 
+
+\subsection{Determinare gli effetti probabilistici nel sistema}
+Considerando la forza applicata ad ogni oggetto
+\begin{gather*}
+    \vv{F_i} = m\vv{a_i} \qquad i = 1, \dots, N \qquad N \ggg 1  
+\end{gather*}
+Per esempio in un bicchiere d'acqua ci sono $8.4 \cdot 10^{24}$ atomi all'interno
+del bicchiere e quindi questo problema è perfettamente determinato attraverso le leggi che
+abbiamo definito. L'unico problema è che abbiamo $10^{25}$ punti materiali nel nostro
+sistema e computazionalmente è molto scomodo. Supponiamo che per ogni punto materiale utilizziamo
+$1$Byte di informazioni, ossia $10^{13}TB$ solo per tenere in memoria le posizioni dei punti materiali.
+Le prime persone che hanno provato a calcolare le posizioni attraverso un calcolatore è
+stato negli anni 50 con un set di dati di $N =32$ e $N = 64$ solo nel moto unidimensionale
+per cercare di studiare la dinamica molecolare. \\
+Con un supercomputer si potrebbe ora simulare sistemi dell'ordine di $10^{6}$, se il nostro sistema stesse in un cubo, allora segue
+\begin{gather*}
+    N \propto V = L^{3} \ \Longrightarrow \ L \propto N^{1/3}  
+\end{gather*}
+Allora il numero di atomi che sta sul bordo è proporzionale a $L^{2}$ e quindi 
+$N_{bordo} \propto L^{2} \propto N^{2/3}$ e quindi
+\begin{gather*}
+    \frac{N_{bordo}}{N} \propto \frac{N^{2/3} }{N} = N^{1/3} 
+\end{gather*}  
+Più il sistema è piccolo e più gli effetti del brodo contano, anche
+con soli $10^{6}$ atomi, avrò un errore di circa $10^{-2}$ nello studio
+della dinamica molecolare. Se noi facciamo la dinamica molecolare in un piano
+con punti materiali allora dovremmo rivedere le nostre relazioni utilizzando un 
+software per poter simulare sistemi molecolari.  
+
+
+\chapter{La fluidostatica}
+\section{Piccola parentesi sulla fluidodinamica}
+\subsection{Il concetto di fluido ideale}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il fluido diviso in due}
+    \begin{tikzpicture}
+        \draw(0, 0) .. controls (1, -0.5) and (2.5, 0.5) .. (3, -0.5);
+        \draw(3, -0.5) .. controls (2.9, -1) and (2, -0.75) .. (1, -1);
+        \draw(1, -1) .. controls (-1, -1.4) and (-0.5, 0.5) .. (0, 0);
+        \draw[dashed](1, -0.2) .. controls (0.8, -0.55) .. (0.75, -1);
+        \draw[dashed](1.3, -0.2) .. controls (1.3, -0.55) .. (1, -1);
+        \draw[->, red](1.1, -0.5) -- (1.75, -0.5) node[at end, right] {$\hat{n}$  };
+        \draw[->, cyan](1.1, -0.5) -- (1.75, 0) node[at end, above] {$\vv{F}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+La Fluidodinamica si occupa di definire come si comporta un fluido.
+Un fluido è un corpo continuo formato da tanti puntini (molecole o atomi)
+con massa e dimensione finita. Supponendo di dividere il fluido in due parti
+$A$ e $B$ separate da una sezione, la cui superficie indichiamo con $\Sigma$. Devo avere  una qualche forza
+che esercita la sezione $A$ sulla sezione $B$ sulla superficie di contatto $\Sigma$.
+\begin{gather*}
+    \vv{F_{AB}} = F_{\parallel}\hat{n} + \vv{F_{\perp}}    
+\end{gather*}
+Con il versore $\hat{n}$ perpendicolare alla superficie $\Sigma$ considerata e
+il vettore $\vv{F_{\perp}}$ perpendicolare al versore $\hat{n}$; si definisce allora fluido se 
+\begin{gather*}
+    |F_{\perp}| \llless |F_{\parallel}| \qquad F_{\parallel} > 0
+\end{gather*}
+Posso considerare ora la forza che imprime $B$ su di $A$. Dato che conosco la forza
+che imprime $A$ su $B$, allora posso dire che
+\begin{gather*}
+    \vv{F_{BA}} = -\vv{F_{AB}}  
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(-1, 1.5)  -- (-1, 0)-- (3, 0) -- (3, 1.5);
+        \draw(0.5, 0) rectangle (1.5, 1);
+        \draw[->](0.5, 0.5) -- (-0.5, 0.5);
+        \draw[->](1.5, 0.5) -- (2.5, 0.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+La definizione di $F$ parallelo è una definizione che vale sempre anche
+per l'altro senso in quanto il prodotto scalare con il versore uscente è sempre lo stesso.
+E' proprio una cosa fisica: si suppone di prendere un contenitore e di porvi un fluido: questo
+fluido spingerà da entrambe le direzioni esercitando una forza uscente rispetto alla
+normale (ossia la sua pressione) . Esiste anche una proprietà per la quale
+il fluido non si scompone in pezzi ma rimane sempre unito che è la
+\textbf{tensione}. Un fluido può scorrere su di una superficie proprio
+perché la sua forza perpendicolare è molto piccola; tuttavia il fluido ideale scorre
+senza attrito: il fluido reale invece presenta attrito viscoso di taglio. Nella trattazione
+dei fluidi in fluidodinamica utilizziamo solamente l'ipotesi
+di fluido ideale che scorre senza attrito.  
+
+\subsection{Definizione del campo scalare della pressione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (1, -0.7) node[at end, below] {$\hat{x}$ }; 
+        \draw[->](0, 0) -- (-1, -0.7) node[at end, below] {$\hat{y}$ };
+        \draw[->](0, 0) -- (0, 1) node[at end, left] {$\hat{z}$ };
+        \draw[->](0, 0) -- (3, 1.5) node[midway, below] {$\vv{r}$ };
+        \draw(2.85, 1.35) rectangle (3.15, 1.65) node[anchor = north west] {$\Delta\Sigma$};
+        \draw(1.7, 1.2) .. controls (2.8, 2.15) and (3.2, 1.9) .. (3.4 , 1.8);
+        \draw(3.4, 1.8) .. controls (4, 1.6) and (3.8, 1.1) .. (3.2, 1);
+        \draw(3.2, 1) .. controls (2, 0) and (1.4, 1) .. (1.7, 1.2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Riprendendo il volume arbitrario (o una porzione di fluido ideale) 
+posso considerare un sistema di riferimento con terna
+destrorsa di versori e, preso un punto sulla superficie
+del volume di fluido,posso identificarlo con un raggio
+vettore $\vv{r}$  il punto sulla superficie del fluido, sulla sezione della superficie
+$\Delta \Sigma$ io identifico la spinta verso l'esterno rispetto alla massa del volume
+\begin{gather*}
+    \Delta \vv{R} =  \overline{P} \Delta \Sigma \hat{n}  
+\end{gather*}
+Dove $\overline{P}$ è una quantità positiva definita come
+\begin{gather*}
+    \overline{P} = \frac{\Delta R}{\Delta \Sigma} 
+\end{gather*} 
+Ossia la pressione esercitata dal fluido verso l'esterno. Posso allora definire la pressione come
+\begin{align}
+    P(x, y, z) = \lim_{\Delta \Sigma \to 0} \frac{\Delta R}{\Delta \Sigma}  \quad \frac{[F]}{[L]^{2} } = \frac{[E]}{[L]^{3} }
+\end{align}
+Siamo allora passati da una quantità finita ad una quantità puntiforme: questa funzione è 
+quindi univocamente definita in un punto dello spazio sulla superficie del fluido stesso. 
+Questo è quello che si definisce un \textbf{campo scalare}. Un campo scalare è una funzione 
+che associa uno scalare a ogni punto dello spazio. 
+E' utile definire la pressione come energia per unità di volume (molto utile per lavorare
+con l'energia in termodinamica).  
+
+\subsection{Definizione del campo scalare della densità}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+                \draw[->](0, 0) -- (1, -0.7) node[at end, below] {$\hat{x}$ }; 
+        \draw[->](0, 0) -- (-1, -0.7) node[at end, below] {$\hat{y}$ };
+        \draw[->](0, 0) -- (0, 1) node[at end, left] {$\hat{z}$ };
+        \draw[->](0, 0) -- (3, 1.5) node[midway, below] {$\vv{r}$ };
+        \draw(2.85, 1.35) rectangle (3.15, 1.65) node[anchor = north west] {$\Delta V$};
+        \draw(1.7, 1.2) .. controls (2.8, 2.15) and (3.2, 1.9) .. (3.4 , 1.8);
+        \draw(3.4, 1.8) .. controls (4, 1.6) and (3.8, 1.1) .. (3.2, 1);
+        \draw(3.2, 1) .. controls (2, 0) and (1.4, 1) .. (1.7, 1.2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Considerato il solito sistema di riferimento stavolta, invece di intercettare un punto
+sulla superficie, prendo un punto interno al volume del fluido: invece di prendere
+un elemento di superficie, prenderò un elemento di volume per cui posso misurare una
+certa massa: posso allora scrivere la densità media di quel cubetto di fluido come
+\begin{gather*}
+    \overline{\rho} = \frac{\Delta m}{\Delta V} 
+\end{gather*}
+Ossia la densità media. Posso trasformarla in una quantità che è definita per ogni
+punto del fluido e quindi ottenere il campo scalare della densità come
+\begin{gather*}
+    \rho(x, y, z) = \lim_{\Delta V \to 0} \frac{\Delta m}{\Delta V} 
+\end{gather*}
+Si definiscono allora, data la densità, due classi di fluidi: i liquidi, che sono incomprimibili,
+ed i gas che sono invece dei fluidi comprimibili.  Infatti nei liquidi se prendiamo una sezione
+molto piccola di fluido la densità non varia ma è sempre costante per tutto il liquido (fluido
+incomprimibile) mentre per un gas la densità può cambiare a seconda della sezione di volume
+considerata(fluido comprimibile).
+
+\subsection{Comprimibilità}
+Si può stimare la comprimibilità del fluido spingendolo con una certa pressione:
+\begin{gather*}
+    \frac{\Delta P}{\epsilon} = - \frac{\Delta V}{V_0}
+\end{gather*}
+Ossia ci si aspetta una compressione del volume a seguito dell'applicazione di una
+certa pressione $P$ in modo uniforme su tutta la superficie del fluido. Chiamato allora $\epsilon$ il fattore
+di comprimibilità, questo definisce la comprimibilità del fluido considerato:  più è grande e più il fluido è incomprimibile. 
+A condizioni standard la comprimibilità dell'aria è circa $10^{5} \ Pa$ mentre l'acqua è più
+incomprimibile dell'aria con un $\epsilon = 10^{9} \ Pa$.
+
+\subsection{La resistenza all'espansione di un fluido}
+Se volessi trovare l'equilibrio delle forze del fluido potrei considerare un
+sistema di riferimento ed una piccola porzione di superficie del fluido. Questa porzione del
+fluido agisce in modo tale da imprimere una forza infinitesima
+\begin{gather*}
+    d\vv{F_{\Sigma}} = -p\hat{n}d\sigma  
+\end{gather*}
+per resistere alla forza che vorrebbe fare espandere il fluido, mentre $d\sigma$ è un elemento di 
+superficie infinitesimo. Un fluido
+cercherà allora di mantenere i legami tra le sue molecole ad una pressione esterna.
+La risultante delle forze di superficie sarà allora la somma di tutti i contributi delle
+forze sulla superfici. Calcolando allora la reazione che imprime la parte
+interna del liquido sulla superficie totale 
+\begin{gather*}
+    \vv{R_{\Sigma}}  = -\oint_{\Sigma(V)} p\hat{n} \ d\sigma 
+\end{gather*}
+Per ogni punto posso allora associare una quantità vettoriale e dunque definisco
+un campo vettoriale derivante dalle forze esterne che agiscono sul fluido:
+\begin{gather*}
+    d\vv{F_V} = \vv{f}(x, y, z)dV  
+\end{gather*}
+quindi
+\begin{gather*}
+    \vv{R_V} = \int_{V} \rho \vv{g}\ dV  
+\end{gather*}
+dove $\vv{g}$ è una accelerazione generica. 
+Dato che ora voglio l'equilibrio di un volume finito di fluido, ora impongo:
+\begin{gather*}
+    -\oint_{\Sigma(V)} p\hat{n} \ d\sigma + \int_{V} \rho \vv{g}\ dV   = 0 
+\end{gather*} 
+Ossia l'equazione di \textbf{equilibrio idrostatico}. Si può risolvere in un caso particolare in cui le forze di volume sono
+trascurabili rispetto a quelle di superficie (dipende da diversi fattori); generalmente se si riduce 
+il volume del fluido considerato che le forze di volume diminuiscono 10  volte più velocemente
+delle forze di superficie, Ci poniamo allora nelle condizioni per cui
+\begin{gather*}
+    \vv{R_{\Sigma}} = 0 \qquad \oint_{\Sigma(V)} p\hat{n} \ d\sigma = 0    
+\end{gather*}
+La seconda condizione vale se e solo se la pressione sulla superficie del fluido è costante;
+dato che la superficie è arbitraria, allora la pressione è costante in tutto il fluido
+poiché potrei considerare una superficie che tocca il bordo del fluido e sia parzialmente contenuta 
+nel fluido stesso, allora anche questa porzione avrà pressione costante. Questa affermazione è
+dimostrabile nel seguente modo:
+\begin{gather*}
+    \oint_{\Sigma(V)} p\hat{n} \ d\sigma = 0  \ \Longrightarrow \ p = const \ \Longrightarrow \ p\oint \hat{n} \ d\sigma = 0 
+\end{gather*}
+Il secondo integrale è una proprietà geometrica e dunque è per forza zero: se prendessi infatti il generico vettore
+$\hat{n}$ di un certo $\delta r$, allora ottengo il volume del cilindro che avrà altezza il prodotto scalare
+dei due vettori normale e $\delta \vv{r}$ e questa traslazione non cambia il volume ma si forma un cilindro che 
+indica il volume dovuto alla traslazione di ogni punto del fluido:
+\begin{gather*}
+    dV = d\sigma \delta \vv{r} \cdot  \hat{n} \ \Longrightarrow \ \Delta V = \int_{\Sigma(V)} \delta \vv{r} \cdot  \hat{n}  \ d\sigma = \delta r_0 \oint_{\Sigma}\hat{n} \ d\sigma = 0 
+\end{gather*} 
+Se scelgo arbitrariamente il vettore $\vv{r}$ come $\vv{r_0}$ allora si ottiene che quell'integrale deve fare zero in quanto tutti i 
+contributi all'area devono annullarsi.  (Il volume del
+cilindro rappresenta l'area dello spostamento di un certo punto). Si vede anche
+che a pressione costante il momento delle forze agenti sul fluido è uguale a zero:
+\begin{gather*}
+    \oint _{\Sigma} \vv{r} \times (p\hat{n} ) \ d\sigma = 0  
+\end{gather*}  
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La rotazione del fluido non cambia la risultante delle forze}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (1, -0.7) node[at end, below] {$\hat{x}$ }; 
+        \draw[->](0, 0) -- (-1, -0.7) node[at end, below] {$\hat{y}$ };
+        \draw[->](0, 0) -- (0, 1) node[at end, left] {$\hat{z}$ };
+        \draw[->](0, 0) -- (1.95, 0.7) node[midway, below] {$\vv{r}$ };
+        \draw[->](1.95, 0.7) -- (1.95, 1.3)node[at end, right] {$\vv{\delta r}$ };
+        \draw[cyan](0, 0) -- (1.95, 1.3);
+        \draw[cyan](0.95, 0.35) arc (25:42:0.8) node[at end, above] {$\delta\alpha$};
+        \draw(1.7, 1.2) .. controls (2.8, 2.15) and (3.2, 1.9) .. (3.4 , 1.8);
+        \draw(3.4, 1.8) .. controls (4, 1.6) and (3.8, 1.1) .. (3.2, 1);
+        \draw(3.2, 1) .. controls (2, 0) and (1.4, 1) .. (1.7, 1.2);
+        \filldraw(0, 0) circle (1pt) node[anchor = north] {$\Omega$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+La conservazione della quantità di moto rappresenta l'invarianza delle leggi della
+fisica nel movimento. La conservazione del momento angolare rappresenta che le leggi della
+fisica sono invarianti rispetto alla rotazione. La conservazione dell'energia invece
+implica che le leggi della fisica sono invarianti rispetto ai cambiamenti di tempo. 
+Scegliendo come polo $\Omega$ l'origine del sistema di riferimento allora posso ruotare il fluido
+di un certo angolo $\delta \alpha$ ottenendo allora un certo nuovo vettore
+$\vv{r'} = \vv{r} + \delta \vv{r}$, ossia il nuovo vettore è dato dal vettore
+\begin{gather*}
+    \delta r = \delta\alpha \hat{\Omega} \times \vv{r} 
+\end{gather*}   
+Con $\hat{\Omega}$ si indica il versore dell'asse di rotazione.
+\begin{gather*}
+    \delta V = d\sigma \delta \alpha (\hat{\Omega} \times \vv{r}  ) \hat{n} \\
+    \Delta V = \int_{\Sigma(V)} d\sigma \delta\alpha(\hat{\Omega} \times \vv{r}  ) \hat{n} \ \Longrightarrow \  \Delta V = \oint_{\Sigma} \delta\alpha\hat{\Omega} \cdot (\vv{r} \times \hat{n}  ) \ d\sigma   
+\end{gather*}
+Allora si ottiene con le proprietà del prodotto triplo e col fatto che in una rotazione, così come
+in una traslazione, il volume non cambia, allora si ottiene la seguente
+\begin{gather*}
+    \Delta V = \delta a \hat{\Omega} \int(\vv{r} \times \hat{n}  ) \ d\sigma = 0
+\end{gather*}
+Si è appena dimostrato il \textbf{principio di Pascal}, il cui enunciato dice che: un sistema
+isolato si dice all'equilibrio in cui le forze di volume
+sono trascurabili e la pressione è costante.
+
+\subsection{Torchio idraulico}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0) -- (3, 1) -- (2, 1) -- (2, 0.5) -- (0.5, 0.5) -- (0.5, 1) -- (0, 1) -- (0, 0);
+        \draw[->](-0.2, 1) -- (-0.2, 0.5) node[at end, left] {$\vv{F_1}$};
+        \draw[->](2.5,  1) -- (2.5, 2) node[at end, right] {$\vv{F_2}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso utilizzare i fluidi e la loro pressione per poter applicare più forza:
+infatti la spinta che sente la macchina sulla destra sarà data dalla relazione di pressione
+costante 
+\begin{gather*}
+    p = \frac{F_1}{\Sigma_1} = \frac{F_2}{\Sigma_2} \\
+    F_2 = \frac{\Sigma_2}{\Sigma_1} F_1
+\end{gather*}
+Con il principio di Pascal si possono risolvere i problemi a pressione costante e 
+nell'ipotesi in cui i volumi di fluidi coinvolti siano sufficientemente piccoli.
+
+\subsection{Trovare l'equilibrio con le equazioni differenziali}
+Avrò i contributi delle forze che agiscono sull'asse $z$ 
+sono sia quelle di superficie che quelle di volume. 
+\begin{align*}
+    x &:  -(p(x + \Delta x, y, z)\Delta y \Delta z - p(x, y, z) \Delta y \Delta z) = 0 \\
+    y &:  -(p(x , y + \Delta y, z)\Delta y \Delta z - p(x, y, z) \Delta y \Delta z) = 0 \\
+    z &: \rho g\Delta x \Delta y \Delta z - (p(x, y z + \Delta z)\Delta x \Delta y - p(x, y, z) \Delta x \Delta y) = 0
+\end{align*}
+Si ottiene allora le seguenti relazioni:
+\begin{align*}
+    x &: \frac{-(p(x + \Delta x, y, z) - p(x, y, z))}{\Delta z} = 0 \\
+    y &: \frac{-(p(x, y + \Delta y, z) - (p(x, y, z)))}{\Delta y} = 0 \\
+    z &: \rho g - \frac{(p(x, y, z + \Delta z)\Delta x \Delta y - p(x, y, z))}{\Delta z} = 0
+\end{align*}
+Posso allora eseguire la derivata parziale rispetto alle singole coordinate
+\begin{gather*}
+    \left\{\begin{array}{l}
+        -\frac{\partial p}{\partial x} = 0 \\
+        -\frac{\partial p}{\partial y} = 0 \\
+        \rho z - \frac{\partial p}{\partial z} = 0  
+    \end{array}\right.
+\end{gather*}
+Le altri componenti non hanno le componenti $\rho g$ perché stiamo
+considerando solamente l'asse $z$. In assenza di forze di volume, allora
+la derivate rispetto sia ad $x$ che $y$ sono uguali a zero e dunque da qualunque parte io
+la prenda $p$ non cambia. anche perché se io mi sposto di una certa quantità
+infinitesima 
+\begin{gather*}
+    d\vv{r} = dx\hat{x} + dy\hat{y} + dz\hat{z}    
+\end{gather*}
+Anche se mi spostassi di un certo angolo qualunque la pressione sarebbe comunque
+costante. 
+
+\section{Isolivelli}
+\begin{wrapfigure}{r}{0.35\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (3, 0);
+        \draw[->](0, -1) -- (0, 3);
+        \draw(0.5, 1.5) .. controls (1.5, 2.2) and (2.2, 1.7) .. (2.5, 1);
+        \draw(0.5, 1.5) .. controls (0.5, 1)  and  (1.5, 1.5) .. (2, 0.75);
+        \draw(2, 0.75) .. controls (2, 0.2) .. (2.5, 1);
+        \draw[dashed](1.5, 0) -- (1.5, 1.8) node[at start, below] {$x_0$};
+        \draw[dashed](0, 1.8) -- (1.5, 1.8) node[at start, left] {$y_0$};
+        \draw[thick, red, ->] (1.5, 1.8) -- (1.5, 2.5) node[at end, right] {$\vv{\nabla}p$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso vedere che il rotore della pressione è il piccolo vettorino
+sulla superficie della curva chiusa per cui posso scrivere
+l'equazione per la mia superficie come
+\begin{align}
+    -\vv{\nabla}p + \rho \vv{g} = 0 
+\end{align}
+Ossia l'equazione fondamentale dell'idrostatica. Ogni vettorino
+$\vv{\nabla}p$ è ortogonale alla superficie del fluido. Si ottengono allora
+gli \textbf{isolivelli} per $p$ sulla superficie del fluido: ossia la pressione
+del fluido è costante su tutta la sua superficie.  
+Dato che la densità non si conosce a priori, devo derivarla dalla pressione:
+posso prendere un gas e, comprimendolo, se riduce il suo volume allora deve necessariamente
+aumentare la densità.
+
+\section{Legge di Stevino}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, 1) -- (0, -3) node[at end, left] {$z$};
+        \draw[->](-0.2, -0) -- (-0.2, -1) node[at end, left] {$\vv{g}$ };
+        \draw(-0.1, -1.75) -- (0.1, -1.75) node[at start, left] {$z$};
+        \draw(1, -1) ..  controls (1.5, -1) and (2.2, -1.5) .. (2.5, -2);
+        \draw(1, - 1) .. controls (0.5, -1.5) and (1, -2) .. (1.5, -2.5);
+        \draw(1.5, -2.5) .. controls (2, -2.7) .. (2.5, -2);
+        \filldraw(2, -1.75) circle (1pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il caso più semplice della risoluzione dell'equazione è con $\vv{g}$ costante e nel caso
+in cui il fluido sia \textbf{incomprimibile} ($\rho = \rho_0$). Tutte le derivate parziali
+della pressione rispetto ai vari assi sono allora zero
+tranne che per l'asse $z$ (perché l'unica forza è proprio
+lungo la direzione di $z$, ossia la forza gravitazionale), per cui l'equazione fondamentale 
+dell'idrostatica ci darà
+\begin{gather*}
+    \frac{\partial p}{\partial z} = \rho g 
+\end{gather*}
+A questo punto la funzione varia solo per $z$. La derivata parziale diventa una derivata
+totale. 
+\begin{gather*}
+    \int_{p_0}^{p}\frac{dp}{dz}dz = \int_{z_0}^{z}\rho g \ dz 
+\end{gather*}
+Si ha quindi la \textbf{legge di Stevino} per cui la differenza di pressione
+è legata unicamente alla profondità all'interno del fluido. 
+\begin{align}
+    p - p_0 = \rho g (z - z_0)
+\end{align}
+In un fluido incomprimibile la pressione di un fluido dipende interamente
+dalla sua altezza. La pressione spinge in tutte le direzioni del contenitore
+e più ci si addentra dentro al fluido e più diventa grande la pressione: questo
+è dovuto proprio alla legge di Stevino.
+
+\subsection{Stima per un caso specifico}
+Quanta pressione esercita un metro d'acqua:
+data la densità $ \rho_a \approx 1 \ g /cm^{3}$ e preso $g \approx 10$,
+in modo tale che la pressione dell'acqua è $10^{4} N /m^{2}$. In 10
+metri si avrebbe invece $10^{5} N / m^{2}$. L'esperimento di
+Pascal consiste nel prendere un piccolo tubo di una sezione molto piccola
+tale per cui per $3$ metri di tubo si ha un litro d'acqua (per esempio) 
+per esercire una grossa pressione nel contenitore sottostante.
+
+\subsection{Contenitore con liquido}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 1) -- (0, 0) -- (3, 0) -- (3, 1);
+        \draw(0, 0.8) -- (1.2, 0.8);
+        \draw(1.8, 0.8) -- (3, 0.8);
+        \draw(1.2, 0.5) -- (1.2, 1.5) -- (1.8, 1.5) -- (1.8, 0.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Bernoulli in questo esperimento ha osservato che la pressione che agisce sul 
+fluido all'interfaccia con l'aria deve bilanciarsi con la pressione dell'aria.
+Per la legge di Stevino posso osservare che
+\begin{gather*}
+    p = p_{\perp} g h
+\end{gather*}
+Questa pressione dovrà coincidere con la pressione atmosferica in quanto i due fluidi
+devono essere in equilibrio sull'interfaccia. L'interfaccia tra liquido
+ed aria non si sposta in quanto le pressioni che intercorrono
+tra le due facce sono in equilibrio. Bernoulli con questo esperimento
+è riuscito a calcolare la pressione dell'aria di $10^{5}Pa$ al livello 
+del mare (e coincide con la sua comprimibilità). 
+Posso definire allora 
+\begin{gather*}
+    10^{5} \ N/ m = 1 \ Bar \approx 1 \ Atm  (1, 03 \cdot  10^{5} \ Pa ) \approx 1 \ kg / cm^{2} 
+\end{gather*}
+Se si ipotizzasse che dentro al contenitore ci sia acqua, allora
+la legge di Stevino diventerebbe
+\begin{gather*}
+    p - p_0 = \rho_{acqua} g h
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (0, 3) -- (1, 3);
+        \draw(1, 3) .. controls (1.2, 1) .. (2, 0);
+        \draw(0,0) -- (4, 0);
+        \draw(1, 2.5) -- (4, 2.5);
+        \draw[->](1.2, 2) -- (0.5, 2) node[midway, above] {$\vv{F}_d$ };
+        \draw[->](1.2, 1.8) -- (0.2, 1.8) node[midway, below] {$\vv{F_a}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Quando si è alla profondità dell'ordine di un chilometro
+la comprimibilità dell'acqua è da tenere in considerazione
+e la densità dell'acqua aumenta a causa della pressione del liquido sovrastante.
+Le dighe infatti non sono dei muri dritti
+Il pezzo sotto della diga deve resistere sia alla pressione
+del cemento sovrastante che alla pressione dell'acqua 
+che cresce con la profondità.
+La pressione totale a cui deve resistere la diga con una certa quota
+di acqua rispetto alla base della diga è
+l'integrale della pressione
+\begin{gather*}
+    R(z) = \int_{0}^{z} \rho g z' \ dz' = \frac{\rho}{2}g z^{2} 
+\end{gather*}
+
+\subsection{Fluido immerso in un fluido}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 3) -- (0, 0) -- (3, 0) -- (3, 3);
+        \draw[->](2, 1.4) -- (2, 0.5) node[at end, right] {$M_F \vv{g}$ };
+        \draw[->](2, 1.6) -- (2, 2.5) node[near end, right] {$-M_F \vv{g}$ };
+        \draw(1, 1.5) .. controls (1.5, 2.5) and (1.7, 2) .. (1.75, 1.5);
+        \draw(1, 1.5) .. controls (0.8, 1) and (1.25, 0.3) .. (1.75, 1.5);
+        \draw(0, 2.5) -- (3, 2.5);
+        \filldraw(1, 2) circle (0pt) node[anchor = north] {$F$};
+        \filldraw(1.5, 2) circle (0pt) node[anchor = north] {$S$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso in cui si immerga un fluido all'interno di un fluido,
+se il fluido immerso è lo stesso fluido contenitore $F$, allora la risultante è
+diretta lungo la stessa direzione della gravità ma con verso
+opposto per avere l'equilibrio
+\begin{gather*}
+    \rho_F g V = R_{\Sigma}
+\end{gather*}
+La risultante nel caso in cui il fluido $S$ contenuto nel
+fluido $F$ sia diverso
+sarà allora data dall'integrale rispetto al volume
+\begin{gather*}
+    R_{\Sigma} = - \int_{V} \rho \ d V \vv{g} = -M_F \vv{g}  
+\end{gather*}
+
+\section{Esempi di esercizi dei fluidi}
+In linea generale per la risoluzione dei problemi in
+statica dei fluidi è trovare una relazione tra le pressione
+e la densità. Quando la pressione è funzione della densità si parla di \textbf{Legge barotropica}:
+\begin{align}
+     p = p(\rho) 
+\end{align}
+Questo permette di ottenere una relazione tipo
+\begin{gather*}
+    \vv{\nabla} p = \rho \vv{g}  
+\end{gather*}
+Si può anche assumere una certa legge di proporzionalità
+sulla potenza della densità:
+\begin{align}
+    p \propto C \rho^{\gamma} \ \Longrightarrow \  \frac{p}{p_0} = \left(\frac{\rho}{\rho_0}\right)^{\gamma} 
+\end{align}
+Questa legge prende il nome di \textbf{Legge politropica}. Ci sono dei motivi fisici
+che ci portano a determinare questa relazione: in quanto il valore $\gamma$ è dato
+dal rapporto dei calori specifici (che si tratterà più avanti). Possiamo considerare
+il seguente esempio per determinare perché questa relazione è valida:
+\begin{gather*}
+    \frac{\partial p}{\partial x} = 0 \qquad \frac{\partial p}{\partial y} = 0 \qquad \frac{\partial p}{\partial z} = -\rho g   
+\end{gather*}
+Allora posso dire anche in questo caso che la derivata parziale rispetto a $z$ è esattamente
+la derivata della pressione sulla costante $z$ poiché rispetto agli altri assi
+è nulla la pressione. Allora posso considerare il caso semplice in cui non si abbia la potenza
+delle $\rho$ con la legge di Stevino:
+\begin{gather*}
+    p = p_0 \left(\frac{\rho}{\rho_0}\right) \ \Longrightarrow \ \rho = \rho_0 \frac{p}{p_0}
+\end{gather*}
+Nell'espressione della derivata:
+\begin{gather*}
+    \frac{dp}{dz} = -\rho_0 \frac{p}{p_0}g \ \Longrightarrow \ \int_{p_0}^{p}\frac{dp'}{p'} = - \int_{0}^{z} \frac{\rho_0g}{p_0}dz'
+\end{gather*}
+Gli apici mi servono per differenziare i differenziali rispetto agli estremi di
+integrazione, quindi ho separato le variabili. Posso quindi risolvere l'equazione
+e ottenere:
+\begin{gather*}
+    \ln \frac{p}{p_0} = -\frac{\rho_0g}{p_0}z \ \Longrightarrow \ \boxed{p(z) = p_0 \exp\left(-\frac{\rho_0g}{p_0}z\right)}
+\end{gather*}
+Ho ottenuto una relazione esponenziale per la pressione rispetto alla pressione,
+se chiamassi allora
+\begin{gather*}
+    H = \frac{p_0}{\rho_0g}
+\end{gather*}
+Allora posso dire che la legge politropica si esprime come
+\begin{align}
+     p = p_0 \exp\left(-\frac{z}{H}\right)
+\end{align}
+In questo modo ho trovato una relazione esponenziale della variazione
+della pressione a seconda della quota $z$: il fatto che sia una espressione
+esponenziale (e non lineare) è coerente a livello fisico poiché se si avesse avuto una espressione
+lineare, questa ad un certo punto sarebbe diventata negativa, il che non avrebbe avuto alcun senso.
+Per la Terra posso ora stimare il fattore $H$ e dire quando la pressione diminuisce
+per un fattore $\frac{1}{e}$, ossia dopo circa $8.5 km$, la pressione si dimezza invece
+dopo $\approx 6 \ km$ rispetto al livello del mare (assumendo che $g$ non cambi). 
+
+\subsection{Anticipazione legge dei gas perfetti}
+La legge dei Gas perfetti ci dice che
+\begin{gather*}
+    pV = nRT
+\end{gather*}
+Posso determinare con il numero di Avogadro il numero di molecole
+all'interno del gas:
+\begin{gather*}
+    pV = \frac{NRT}{N_A} \qquad \text{con} \qquad N = nN_A
+\end{gather*}
+Posso anche esprimere la relazione tramite la costante di Boltzmann ($k_B = \frac{R}{N_A}$)
+\begin{gather*}
+    pV = Nk_BT
+\end{gather*}
+Per un volume infinitesimo $dV$ ci sarà un numero infinitesimo di particelle
+contenute all'interno di questo volumetto di gas. Se io lo moltiplicassi
+per la massa media delle particelle $\overline{m}$:
+\begin{gather*}
+    pdV = \overline{m}dN \frac{k_BT}{\overline{m} } 
+\end{gather*} 
+Si ha allora che il termine $\overline{m}dN$ è esattamente la massa infinitesima,
+allora posso riesprimere la relazione dei gas perfetti per un certo volume infinitesimo
+di gas come
+\begin{gather*}
+    p = \frac{dm}{dV} \frac{k_BT}{\overline{m} } \ \Longrightarrow \  p = \frac{k_BT}{\overline{m} } \rho
+\end{gather*} 
+Allora, assumendo che la temperatura sia la stessa da qui a $8.5km$, allora posso esprimere il rapporto
+tra la pressione e la densità come e ottenere allora una approssimazione (non molto corretta) 
+per determinare la pressione dell'atmosfera a $8.5km$ secondo questo modello invece che
+secondo la relazione (più precisa) che si era trovata prima.
+\begin{gather*}
+    \frac{p}{\rho} = \frac{k_BT}{\overline{m} }
+\end{gather*}
+Essendo questa una grossa approssimazione, in futuro sarà rivista e trattata in modo
+più completo nella parte di termodinamica e nella parte di fisica statistica. 
+
+\chapter{Le forze apparenti nei fluidi}
+\section{Fluido in rotazione e isolivelli della pressioneS}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \caption{Forze apparenti nei fluidi}
+    \begin{tikzpicture}[domain=0:2]
+        \draw[->](-1, 0) -- (3, 0) node[at end, below] {$x$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$z$};
+        \draw[color=cyan]  plot (\x, {(\x)^2 / 2 });
+        \draw(1.3, 0.9) rectangle (1.5, 1.1);
+        \draw[->](1.4, 1) -- (2.2, 1) node[at end, right] {$\vv{F_{cf}}$ };
+        \draw[->](1.4, 1) -- (0.8, 1.6) node[at end, above] {$\vv{\nabla}p dV$ };
+        \draw[->](1.4, 1) -- (1.4, 0.25) node[at end, right] {$\vv{g} \rho dV$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Abbandonando le ipotesi di barotropica e politropica, supponiamo di avere un fluido
+incomprimibile e che sia in rotazione rispetto all'asse $z$, posso esprimere il
+vettore velocità angolare e l'accelerazione di gravità come:
+\begin{align*}
+    \vv{\omega} &= \omega \hat{z} \\
+    \vv{g} &= -g \hat{z}    
+\end{align*}
+La quota $z_0$ è l'altezza del liquido nell'asse $z_0$. Preso un piccolo elemento
+di fluido piccolo a piacere, questo sentirà l'effetto di due forze: un effetto da
+parte della forza di gravità e anche la forza centrifuga (se osservato in un SdR inerziale).
+Ponendosi in coordinate cilindriche, posso definire $\vv{r}$ la distanza dall'asse di rotazione
+e quindi esprimere la forza centrifuga come:
+\begin{gather*}
+    \vv{F}_{cf} = \rho_0 dV \omega^{2}r \hat{r}   
+\end{gather*} 
+Ossia diretta lungo la direzione radiale. La somma delle due forze può essere
+bilanciata solamente da una forza $\vv{\nabla} pdV$. Non ci resta
+altro che scrivere le relazioni:
+\begin{gather*}
+    \vv{\nabla}p  =\rho \vv{g}  
+\end{gather*}
+Posso esprimere il gradiente della forza da coordinate cartesiane
+a coordinate cilindriche come
+\begin{gather*}
+    \vv{\nabla}F = \frac{\partial F}{\partial x}\hat{x} + \frac{\partial F}{\partial y}\hat{y} + \frac{\partial F}{\partial z} \hat{z}     \\
+    \ \Longrightarrow \ \vv{\nabla}F = \frac{\partial F}{\partial r}\hat{r} + \frac{1}{r}\frac{\partial F}{\partial \theta}\hat{\theta} + \frac{\partial f}{\partial z}\hat{z}       
+\end{gather*}
+Posso allora esprimere la derivata parziale rispetto alla pressione come
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \frac{\partial p}{\partial r} = \rho_0 \omega^{2}r \\
+        \frac{\partial p}{\partial \theta} = 0 \\
+        \frac{\partial p}{\partial z} = -\rho_0 g    
+    \end{array}\right.
+\end{gather*}
+La pressione allora dipenderà solamente dalla distanza rispetto all'asse di rotazione
+e dalla quota $z$ mentre non dipende dall'angolo di rotazione. Posso assumere
+allora che la pressione possa essere divisa in una funzione solo di $r$ e una solo di $z$:
+\begin{gather*}
+    p(r, z)  - p_0 = f_1(r) - f_2(z)  = \rho_0 \frac{\omega^{2} }{p}r^{2} - \rho_0gz + c_1 + c_2 
+\end{gather*}
+Posso allora esprimere le derivate parziali rispetto alle due funzioni, che derivano proprio da
+dalla derivata parziale della pressione rispetto a $r$ e $z$.
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \frac{\partial f_1}{\partial r} = \rho_0 \omega^{2} r  \ \Longrightarrow \ f_1 = \rho_0 \frac{\omega^{2} }{2}r^{2} + c_1 \\
+        \frac{\partial f_2}{\partial z} = -\rho_0 g \ \ \Longrightarrow \ f_2 = -\rho_0 gz + c_2   
+    \end{array}\right.
+\end{gather*}
+Per comodità posso escludere le costanti (dipende dal fatto che viene considerata la pressione $p_0$
+nell'espressione della pressione in funzione del raggio e della quota): infatti quando $r = 0$
+posso considerare le costanti come zero. infatti potrei esprimere la funzione
+della pressione come
+\begin{align}
+    \boxed{p(r, z) = \rho_0 \frac{\omega^{2} }{2}r^{2} - \rho_0 gz + p_0 }
+\end{align}
+Se volessi trovare il valore di $p_0$, allora troverei la condizione
+\begin{gather*}
+    \rho_0 \frac{\omega^{2} }{2}r^{2} = \rho_0 gz 
+\end{gather*}
+E dunque il valore di $z$ per cui si ha $p_0$ sono tutti i punti con
+\begin{gather*}
+    z = \frac{\omega^{2} }{2}\frac{r^{2} }{g} 
+\end{gather*}
+Tutte le isosuperfici sono date da una parabola nel grafico (ossia tutte le curve
+lungo le quali la pressione è la stessa). Quando un liquido ruota la superficie di un 
+liquido tende a formare un paraboloide proprio per questo motivo analitico. Il pelo del liquido
+allora (ossia la superficie di contatto tra il fluido ed un altro fluido) tende a formare
+un vortice quando ruota. 
+
+\section{Autogravitazione dei fluidi nel caso di una sfera di fluido}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La sfera di fluido}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2);
+        \draw(0, 0) -- (0, 2) node[midway, left] {$r$};
+        \filldraw[red](-0.1, 2) rectangle (0.1, 2.2) node[anchor = west] {$dV$};
+        \draw[->, red, thick](0, 2) -- (0, 1) node[near end, right] {$\vv{F_g}$};
+        \draw(0, 0) -- (-2, 2) node[midway, below] {$R$};
+        \draw(0, 0) circle (2.85);
+        \draw[->, red, thick](0, 2.2) -- (0, 3.2) node[at end, right] {$\vv{\nabla}p$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Fino ad ora si era considerato equilibri tra forza di pressione e forza esterna (come la gravità)
+generate da corpi esterni. E' l'equilibrio tra le pressioni e la forza di gravità che
+mantiene intatti i corpi celesti. La forza esercitata su unità di massa è data da:
+\begin{gather*}
+    \frac{\vv{F} }{m} = - \frac{GM(r)}{r^{2} } \rho dV \hat{r}  
+\end{gather*}
+Sto cercando di determinare la forza che agisce su di una parte del fluido $dV$ da parte della
+gravità del fluido interno ad una distanza $r$ dal centro. La parte di fluido di raggio $r$ agisce su di una certa porzione
+del fluido $dV$ ad una certa distanza $r$ in \textbf{autogravità}, posso esprimere la massa 
+a distanza $r$ dall'origine della sfera
+\begin{gather*}
+    M(r) = \int_{0}^{r} 4\pi r^{2}\rho (r) \ dr
+\end{gather*}
+Posso cambiare sistema di riferimento ed utilizzare le coordinate sferiche ed esprimere il gradiente
+della pressione in funzione del versore $\hat{r}$ come
+\begin{gather*}
+    \vv{\nabla}p = \rho \vv{g}(r) = -\frac{GM(r)}{r^{2} }\hat{r}   
+\end{gather*} 
+Il gradiente di una forza in questo caso sarà dato dalla seguente relazione 
+(devo trasformarlo dal sistema di riferimento cartesiano a quello sferico) utilizzando
+l'angolo $\theta$ rispetto alla verticale e l'angolo $\phi$ rispetto ad uno dei due assi perpendicolari
+a quello verticale ed il raggio $r$ come la distanza dal centro della sfera si ha:
+\begin{gather*}
+    \vv{\nabla}F = \frac{\partial F}{\partial r}\hat{r} + \frac{1}{r}\frac{\partial F}{\partial \theta} \hat{\theta} + \frac{1}{r\sin\theta}\frac{\partial F}{\partial \phi} \hat{\phi}       
+\end{gather*}
+Posso allora derivare parzialmente la pressione (tuttavia considero solamente rispetto al raggio
+in quanto, essendo a simmetria sferica, le derivate rispetto a $\phi$ e $\theta$ sono zero):
+\begin{gather*}
+    \frac{\partial p}{\partial r} = -G \rho \frac{M(r)}{r^{2} } = -\frac{4}{3}\pi G\rho_0^{2}r 
+\end{gather*}
+Posso integrare da entrambe le parti con separazione di variabili e dunque  ottenere l'integrale:
+\begin{gather*}
+    \int_{p_0}^{p} dp = -\int_{R_{\oplus}}^{r} \frac{4\pi}{3}G\rho_0^{2}r' \ dr \ \Longrightarrow \ -\frac{4\pi}{3}\rho_0^{2}\frac{G}{2} (r^{2} - R^{2}_{\oplus}  ) 
+\end{gather*}
+Dove $R_{\oplus}$ è il raggio della sfera. Posso allora esprimere la pressione
+con la seguente funzione:
+\begin{gather*}
+    p = p_0 + \frac{4}{3}\pi\rho_0^{2}\frac{G}{2}(R_{\oplus}^{2} -r^{2}  ) = p_0 + \frac{4}{3}\pi\frac{G}{2}R_{\oplus}^{2}\rho_0^{2} \left(1 - \frac{r^{2} }{R_{\oplus}}\right) 
+\end{gather*}
+La massa del pianeta è allora esprimibile come $M_{\oplus} = \frac{4}{3}\pi\rho_0R_{\oplus}^{3}$.  A questo punto posso esprimere la pressione
+come
+\begin{gather*}
+    p = p_0 + \frac{GM_{\oplus}}{R_{\oplus}}\frac{\rho_0}{2}R_{\oplus}\left(1 - \frac{r^{2} }{R_{\oplus}}\right)
+\end{gather*}
+Dove $\frac{GM_{\oplus}}{R_{\oplus}} = g_{\oplus}$. Per la Terra ottengo la pressione al centro di
+$\approx 10^{11} \ Pa$, ossia la pressione stimata della Terra con la sua massa, 
+densità e raggio come se fosse un fluido di densità costante in tutti i punti.  
+
+\subsection{Il pianeta fatto di fluido in rotazione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Lo schema delle forze nel fluido in rotazione autogravitante}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$z$};
+        \draw(0, 0) -- (2, 3) node[midway, left] {$r$};
+        \draw(0, 1) arc (90:55:1)node[midway, above] {$\theta$};
+        \draw[dashed](0, 3) -- (2, 3) node [midway, above] {$h = r\sin\theta$};
+        \draw[->, very thick](2, 3) -- (1, 1.5) node[at end, right] {$\vv{F_{\theta}}$ };
+        \draw[->, very thick](2, 3) -- (3, 3) node[at end, right] {$\vv{F_c}$};
+        \draw[->, very thick](2, 3) -- (2.5, 3.75) node[at end, right] {$\hat{r}$ };
+        \draw[->, very thick](2, 3) -- (2.5, 2.75) node[at end, right] {$\hat{\theta}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+La distanza dall'asse di rotazione prende il nome di $h$ mentre $r$ è la distanza
+dal centro della massa di fluido in rotazione. Posso esprimere 
+l'angolo rispetto alla verticale del vettore posizione con
+l'angolo $\theta$. E quindi posso esprimere i vettori come
+\begin{gather*}
+    \vv{F_g} = -\frac{\rho_0 G M(r)}{r^{2} }\hat{r} = \rho_0^{2} G\frac{4\pi}{3}r  \\
+    \vv{F_c} = \rho_0 \omega^{2}h(\sin\theta \hat{r} + \cos\theta \hat{\theta}  )  = \rho_0 \omega r \sin\theta (\sin\theta \hat{r} + \cos \theta\hat{\theta}  )
+\end{gather*}
+Sapendo che
+\begin{gather*}
+    M(r) = \frac{4\pi}{3}r^{3} \rho_0 
+\end{gather*}
+La pressione ora deve bilanciare il contributo sia della forza di gravità che della forza centrifuga,
+allora posso esprimere la derivata della pressione sia su $\theta$ che su $r$:
+\begin{gather*}
+    \frac{\partial p}{\partial r} = -\rho_0^{2}\frac{4\pi}{3}rG+ \rho_0 \omega^{2}r \sin^{2}\theta \\
+    \frac{1}{r}\frac{\partial p}{\partial \theta} = -\rho_0^{2} \omega^{2}r\sin\theta\cos\theta       
+\end{gather*}
+Posso allora integrare come se $\theta$ fosse un parametro nella prima
+e quindi ottengo l'espressione della pressione in funzione del raggio
+e dell'angolo $\theta$ (dell'angolo $\phi$ non mi interessa in quanto sto
+considerando una sfera). Posso esprimere $f(\theta)$ come l'integrale della derivata
+parziale rispetto a $\theta$:
+\begin{gather*}
+    p(r, \theta) - p_0 = -\rho_0^{2}\frac{4\pi}{3}\frac{r^{2} }{2}G+ \rho_0 \omega^{2}\frac{r^{2} }{2} \sin^{2}\theta + f(\theta)
+\end{gather*}
+Allora posso derivare rispetto a $\theta$ questa espressione
+\begin{gather*}
+    \frac{\partial p}{\partial \theta} = \rho \omega^{2}r^{2} \sin\theta\cos\theta + f'(\theta)  
+\end{gather*}
+Adesso se ponessimo il termine $\frac{1}{r}$ davanti all'espressione, dovrebbe essere uguale con
+l'espressione della derivata parziale trovata prima, uguagliandole:
+\begin{gather*}
+    f'(\theta) = 0 \ \Longrightarrow \ f(\theta) = const
+\end{gather*}
+La soluzione è allora considerare una generica funzione $f(\theta)$ come costante
+ed esprimerla come $C$. Dato che ho scelto $p_0$ come la pressione
+al centro,allora la costante sarà tolta e otterrò 
+\begin{align}
+    p(r, \theta) - p_0 = -\rho_0 \frac{r^2 }{2}\left(G\rho_0\frac{4\pi}{3} - \omega^{2}\sin^{2}\theta  \right)
+\end{align}
+Posso esprimere come si è fatto con il raggio della sfera e la massa della sfera in modo da ottenere $g_{\oplus}$,
+ossia l'accelerazione di gravità e quindi trovare l'espressione della pressione
+finale come
+\begin{gather*}
+    p - p_0 = \frac{r^{2}\rho_0 g_{\oplus} }{2R_{\oplus}} \left(1 - \frac{\omega^{2}R_{\oplus} }{g_{\oplus}}\sin^{2}\theta \right)
+\end{gather*}
+
+\part{Termodinamica}
+\chapter{La termodinamica}
+\section{Introduzione alla termodinamica}
+\subsection{Storia della termodinamica}
+La termodinamica è esplosa a metà dell'ottocento con le
+prime macchine termiche, ossia delle macchine che sfruttavano energia
+termica per poter compiere lavoro. Lo sviluppo storico
+della termodinamica parte con le macchine termiche e si sviluppa
+in modo non propriamente logico ma anzi è stato frutto di un processo
+molto tortuoso che ha eventualmente portato alla nascita della termodinamica così come la 
+studiamo oggi. 
+
+\subsection{Lo studio della termodinamica}
+Nella parte di termodinamica ci si occupa dello studio
+dei sistemi a scala macroscopica e non a scala microscopica. Le coordinate
+dello spazio che si definisce nella termodinamica prendono il nome
+di \textbf{coordinate termodinamiche}:  grandezze come la pressione, densità di massa sono
+ottime coordinate termodinamiche in quanto riescono a descrivere le caratteristiche
+del nostro sistema termodinamico. Nel caso di sistemi omogenei la quantità di massa non
+varia mai e quindi utilizzare il volume o la densità è semplicemente una preferenza anche
+se in generale in termodinamica si parla più in termini di volume che
+in termini di densità (come invece si fa nei fluidi). Quando si considera un
+sistema termodinamico $S$ possiamo fare delle considerazioni:
+\begin{itemize}
+    \item Si è sempre in grado di stabilire lo stato del sistema attraverso
+    le coordinate termodinamiche;
+    \item Si determinano i confini del sistema rispetto all'ambiente esterno con il quale il sistema interagisce (anche chiamato \textbf{ambiente});
+    \item Il sistema più l'ambiente è chiamato \textbf{Universo}; non l'universo
+    della cosmologia ma semplicemente un insieme: $S + A = U$;
+\end{itemize}
+La densità e la pressione non sono in grado di descrivere accuratamente tutti i sistemi
+termodinamici ma è necessario introdurre un'altra coordinata termodinamica, ossia
+la \textbf{Temperatura} $T$. La definizione operativa dell temperatura è molto complessa
+ma ci permette di dire che cosa vuol dire che due sistemi hanno la stessa temperatura. 
+
+
+\section{L'equilibrio termodinamico}
+A differenza dell'equilibrio meccanico, l'equilibrio termodinamico
+consiste nel definire quando un sistema è in equilibrio con un altro
+sistema: per farlo bisogna determinare se le loro coordinate termodinamiche sono costanti
+nel tempo. Quando in un sistema macroscopico si hanno delle coordinate termodinamiche
+che dipendono dallo spazio, ma sono costanti nel tempo, allora siamo in presenza dell'effetto di
+un campo di forze esterne che agisce sul sistema. Quando accade questo siamo in presenza di un
+\textbf{equilibrio termodinamico locale}: l'equilibrio termodinamico è 
+valido solamente per un dato punto e non per tutti i punti del sistema
+nel corso del tempo proprio perché le coordinate termodinamiche variano spazialmente. 
+Questo equilibrio non è considerato in questo corso se non per pochi casi. \\
+La cosa non ovvia è che quando il sistema è all'equilibrio termodinamico le
+variabili termodinamiche sono dipendenti l'una dall'altra: esiste allora una relazione
+funzionale tale per cui una è funzione delle altre due. Questo risultato
+prende il nome di \textbf{equazione di stato}
+\begin{gather*}
+    f(p, V, T) = 0
+\end{gather*} 
+Ovviamente l'espressione della funzione $f$ non si conosce quasi mai anche se si
+è certi che esista una espressione esplicita per l'equazione di stato. Dato un sistema, se  questo è
+lasciato senza interagire con il sistema ambiente allora non cambierà il suo equilibrio;
+se interagisse invece con il sistema ambiente allora il suo equilibrio varierà.
+
+\section{Estensività}
+Se si considerasse un sistema $S$ e lo si suddividesse in due sistemi $S_1$ e $S_2$ tale
+per cui si suppone che la quantità di sostanza  di $S_1$ sia esattamente uguale alla 
+sostanza di $S_2$ e che la somma 
+delle loro sostanze dia la sostanza totale di $S$; dato che all'inizio
+il sistema $S$ era all'equilibrio, allora facciamo in modo che anche i due
+sottosistemi siano all'equilibrio: la grandezza $X$ quantità di sostanza è estensiva
+quando $X_1 = X_2 = \frac{X}{2}$: è anche la definizione di additività e di
+\textbf{estensività} poiché in termodinamica si dà per scontato che questi due
+termini descrivano la medesima cosa. La massa, il volume sono grandezze estensive
+poiché dipendono dalla quantità di sostanza; grandezze come la temperatura sono invece estensive.
+Le grandezze che non sono né estensive né intensive non sono valide coordinate termodinamiche anche se 
+devo possedere almeno una grandezza estensiva per poter descrivere in maniera
+completa un sistema termodinamico; se così non fosse allora non
+sarei in grado di determinare se il sistema considerato sia molto grande oppure
+molto piccolo.
+
+
+\section{Pareti ed equilibrio termico}
+Una \textbf{parete} è un oggetto che sia capace di separare tra loro
+due sistemi termodinamici. Una parete è \textbf{adiabatica} se ai due lati della
+parete possono coesistere due sistemi termodinamici all'equilibrio
+qualunque essi siano: questo vuol dire che la parete è \textbf{isolante}
+e non permette quindi l'interazione tra questi due sistemi. Una parete
+che non è adiabatica è definita come parete \textbf{diatermica}: i due sistemi che 
+si trovano separati da questa parete si accorgono l'uno della presenza dell'altro
+e iniziano ad interagire: se si aspettasse molto tempo varierebbero il loro stato
+di equilibrio raggiungendone uno nuovo.  Due sistemi possono non essere
+all'equilibrio termico fra loro ma all'equilibrio termodinamico se sono separati da una parete
+adiabatica; tuttavia se sono separati da una parete diatermica i due sistemi
+saranno sia in equilibrio termico fra loro che in equilibrio termodinamico.
+Dalla fisica sperimentale si ha che se un sistema $A$ è all'equilibrio
+termico con $C$ e anche il sistema $B$ è anch'esso in equilibrio
+termico con $C$ allora anche $A$ e $B$ sono in equilibrio termico. Potremmo
+riassumere queste considerazioni mediante la seguente:
+\begin{align}
+    (A \sim C) \wedge (B \sim C) \ \Longrightarrow \ (A \sim B)
+\end{align}
+Che prende il nome di \textbf{Principio zero della termodinamica}. La relazione
+di equilibrio termico è una relazione transitiva che si può dimostrare ponendo una parete adiabatica
+tra $A$ e $B$ e ponendo un sistema "a ponte" tra i due sistemi. Se poi si  sostituisse 
+la parete adiabatica con una parete diatermica si osserverebbe che i due sistemi $A$ e $B$
+sono già all'equilibrio e quindi la relazione scritta in precedenza è valida.  
+
+\section{La temperatura}
+La temperatura è la grandezza che mi consente di dire se
+due sistemi sono in equilibrio termico: la temperatura per due sistemi
+all'equilibrio termico è infatti la stessa. Anche senza definirla so che è una grandezza intensiva in quanto abbiamo visto che non 
+dipende dalla quantità di sostanza per i sistemi considerati nel 
+principio zero. Perché  si utilizza la temperatura per dire se un oggetto è 
+più caldo di un altro? L'esperienza sensoriale ci dice che se si pone
+due oggetti uno più caldo dell'altro vicini non saremmo più in grado di determinare se uno è più 
+caldo dell'altro. La sensazione dunque è una cosa che per definire il concetto di oggetto
+più caldo o freddo non è sufficiente per determinare le relazioni tra due corpi; 
+devo quindi utilizzare una quantità estensiva per determinare se un oggetto è più caldo 
+di un altro. \\
+Per definire la temperatura posso considerare un sistema $S$ in modo tale
+da essere nella situazione come quella illustrata nel principio zero
+della termodinamica e, considerate due variabili $x, y$ che non siano la temperatura, il fatto di essere all'equilibrio termico non è scontato poiché quando
+due sistemi sono all'equilibrio termico tra di loro allora ci dovrebbe essere una relazione
+tra le variabili dei vari sistemi. Posso allora esprimere la l'equazione di stato:
+\begin{gather*}
+    f_{A, C}(x_A, y_A, x_C, y_C) = 0 \\
+    f_{B, C}(x_B, y_B, x_C, y_C) = 0
+\end{gather*} 
+Possiamo allora fare una assunzione sensata per cui
+\begin{gather*}
+    y_C = g_{A, C}(x_A, y_A, x_C) \\
+    y_C = g_{B, C}(x_B, y_B, x_C)
+\end{gather*}
+Queste due sono uguali tra di loro: applicando allora il principio zero
+si ha
+\begin{gather*}
+    f_{A, B}(x_A, y_A, x_B, y_B) = 0
+\end{gather*}
+Allora lo stato di equilibrio dei vari sistemi è caratterizzato
+dall'aver assegnato le variabili a quel sistema: i valori per cui quest'ultima
+è soddisfatta devono essere gli stessi che per le altre. Dato che
+devono descrivere lo stesso stato, la variabile $x_C$ può essere eliminata:
+la dipendenza funzionale delle funzioni $g$ non dipendono da $x_C$. 
+Allora posso dire che esistono due funzioni:
+\begin{gather*}
+    h_A(x_A, y_A) = h_B(x_B, y_B)
+\end{gather*} 
+Posso allora permutare i sistemi $A, B, C$ come voglio: posso ottenere
+dunque un'altra
+relazione con $A$ e $C$:
+\begin{gather*}
+    h_A(x_A, y_A) = h_C(x_C, y_C) \ \Longrightarrow \ h_A(x_A, y_A) = h_B(x_B, y_B)= h_C(x_C, y_C)
+\end{gather*}
+Se due sistemi sono all'equilibrio termico allora la funzione delle variabili 
+$x$ e $y$ per ciascun sistema sono in relazione con gli altri sistemi
+e dunque questa funzione di variabili è esattamente la \textbf{temperatura empirica}.
+Se noi fossimo in grado di determinare queste funzioni allora potremmo definire la temperatura
+come funzione delle altre variabili termodinamiche (il che non è possibile anche se si sa che esiste).
+La grandezza temperatura è dunque quella grandezza funzione della pressione e
+del volume  che mi permette di determinare se due sistemi sono in equilibrio
+termico oppure no. Se la temperatura è fissata posso immaginare di prendere, dei vari stati,
+solo quegli $x, y$ che mi portino (secondo qualche relazione funzionale) ad avere quella determinata temperatura. Questi punti
+appartengono ad una curva che prende il nome di \textbf{curva isotermica} e rappresentano solo una
+parte ristretta degli stati totali che assumerebbe il mio sistema. 
+
+
+\subsection{Misurare la temperatura e sua definizione operativa}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il termometro con il sistema $S$}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (2, 2) node[midway] {$S, T_S$};
+        \draw(-1, 0.5) rectangle (0, 1.5) node[midway] {$A, T_A$};
+    \end{tikzpicture}    
+\end{wrapfigure}Possiamo definire uno strumento (dal principio zero) che ci permetta di misurare
+la temperatura: infatti se riesco a definire la temperatura di un sistema io posso 
+a quel punto metterlo a contatto termico con un altro e dunque
+ottengo la misura della temperatura. Posso quindi utilizzare un \textbf{termometro}
+per poter definire operativamente la temperatura così come ho fatto per la definizione
+operativa di forza mediante una grandezza minore. Posso valutare allora una proprietà
+che dipende dalla temperatura, ossia una \textbf{proprietà termometrica} come
+il volume. Mettendo ora a contatto il termometro $A$ con il sistema $S$ che vogliamo misurare
+si può misurare la temperatura di $T_A$ che ora è la stessa di $T_S$; tuttavia la
+temperatura iniziale del sistema $T_S$ non sono in grado di determinarla.
+Per ovviare al problema posso costruire un sistema di termometri con masse sempre più piccole
+in modo tale che possa misurare la temperatura con ogni termometro e poi riportare
+il sistema alle condizioni iniziali. Posso trovare allora la temperatura di ogni termometro ed ottenere che
+questi valori di temperatura sperimentalmente sono sempre
+tra valori assegnati e dunque la successione è monotona e limitata e dunque
+è convergente: la temperatura è data dal limite
+\begin{align}
+    T = \lim_{M_A \to 0}T(M_A) 
+\end{align}
+Ad un certo punto il mio strumento non ha più risoluzione per poter determinare la temperatura.
+Qualsiasi sistema $A$ può essere utilizzato per determinare la temperatura
+di un certo sistema $S$ purché la massa $m_A << m_S$ per evitare di modificare
+in modo sostanziale la temperatura del sistema $S$.
+\section{Come è fatto un termometro}       
+Nei primi termometri si utilizzava il  mercurio in quanto
+a temperatura ambiente è liquido ed ha un coefficiente di dilatazione
+molto grande e soprattutto molto più lineare rispetto ad altri fluidi
+come l'acqua. L'idea di un termometro è in generale quella di trovare la temperatura
+di un dato sistema date come variabili $x, y$, che corrispondono rispettivamente
+al volume e alla pressione. Posso allora decidere (dato che è comodo) di trovare una funzione
+lineare prototipo del tipo:
+\begin{gather*}
+    T(x) = ax   + b
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$y$};
+        \draw(1, 1) .. controls (1.4, 0.9) and (1.9, 2.2) .. (2, 3) node[at end, above] {$h(x, y) = T_1$};
+        \draw(0, 2) -- (4, 2) node[at end, right] {$Y = Y_0$};
+        \draw[dashed](1.78, 0) -- (1.78, 2) node[at start, below] {$x_1$};
+        \draw(2, 1) .. controls (2.4, 0.9) and (2.9, 2.2) .. (3, 3) node[at end, right] {$h(x, y) = T_2$};
+        \draw[dashed](2.78, 0) -- (2.78, 2) node[at start, below] {$x_2$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Adesso devo trovare un modo per poter fissare queste costanti: se io so che
+ci sono delle situazioni che si verificano sempre alla stessa temperatura, allora
+sono in grado di determinarle. Esistono quindi dei punti chiamati \textbf{punti fissi
+termodinamici} : questi punti esistono e corrispondono proprio ai cambi di stato. Quando un materiale
+passa da uno stato all'altro si verificano sempre alla stessa temperatura purché sia fissata almeno una
+delle due variabili da cui ricavo la temperatura. Storicamente per determinare le scale dei
+termometri si utilizzano i punti termodinamici fissi dell'acqua come pressione fissata a $p = 1 \ atm$.
+\begin{gather*}
+    T_1 = ax_1 + b \\
+    T_2 = ax_2 + b
+\end{gather*}
+Posso allora ricavare le costanti come
+\begin{gather*}
+    a = \frac{T_2 - T_1}{x_2 - x_1} \\
+    b = T_1 - x_1\frac{T_2 - T_1}{x_2 - x_1}
+\end{gather*}
+Tutti questi procedimenti sono validi se e solo se si rimane
+ad un certo $Y$ assegnato. Questa è solo una definizione per una
+curva che modellizzi la curva isoterma (è solamente una approssimazione
+e non una legge). Utilizzando ora i punti fissi dell'acqua si ha
+\begin{gather*}
+    t(x) = 100\text{°}\frac{x - x_1}{x_2 - x_1}
+\end{gather*}
+La variabile $x$ è la temperatura dell'oggetto che si vuole
+misurare mentre $x_1$ e $x_2$ sono la temperatura della scala iniziale e finale.
+
+\subsection{Le varie scale}
+La scala Fahrenheit è una scala che utilizza altri punti fissi rispetto all'acqua
+utilizzando una miscela di acqua ghiaccio e ammoniaca. Si può ricavare una relazione tra
+la temperatura Fahrenheit e la temperatura Celsius:
+\begin{align}
+    t_F[^{\circ}F ] = \frac{9}{5}t[^{\circ}C ] + 32
+\end{align}
+Quando misuro una temperatura con due termometri che utilizzano fluidi diversi
+ma la stessa scala termometrica questi leggeranno sempre misure diverse
+per tutte le temperature intermedie tra i due punti fissi in quanto la funzione
+che ho utilizzato per approssimare la temperatura non è congruente con la curva di
+temperatura effettiva. Un'altro problema per i termometri è la lenta evaporazione del 
+fluido utilizzato che rende piano piano il termometro sempre meno preciso.
+
+
+\chapter{I Gas}
+\section{La storia della teoria dei gas e la definizione di gas perfetto}
+Quando si fornisce tanta energia ad un sistema questo diventa un gas: si
+è scoperto che i gas obbediscono a delle leggi molto semplici. Robert Boyle
+ha scoperto, misurando pressioni e volume, che variando quelle grandezze il loro prodotto risultava
+essere costante 
+\begin{gather*}
+    pV =  \text{const}
+\end{gather*}
+Successivamente il fisico Mariotte ha scoperto che tale costante è 
+la temperatura. Molti anni dopo il fisico Gay-Lussac si è domandato come
+possa dipendere una variabile dall'altra e ha trovato 
+una dipendenza della pressione dalla temperatura, e lo stesso per il volume,  secondo le seguenti relazioni:
+\begin{gather*}
+    p = p_0 (1 + \beta T) \ (V\text{ const}) \\
+    V = V_0 (1 + \gamma T) \ (p \text{ const})
+\end{gather*}
+Allora si vede che entro gli errori queste due costanti sono molto vicine tra
+di loro e non dipendono dalla sostanza dalla quale si è fatto le misurazioni. 
+Queste leggi valgono se e solo se si hanno piccole variazioni di temperatura 
+e dunque si ottiene che
+\begin{gather*}
+    \beta \approx \gamma = \frac{1}{273}\ ^{\circ}C^{-1}  
+\end{gather*}
+Poco dopo il chimico Avogadro scopre che 
+\begin{gather*}
+    p = \text{const} \quad T = \text{const} \ \Longrightarrow \  V \propto n
+\end{gather*}
+Ossia il volume è direttamente proporzionale al numero di moli di un gas se e solo se il gas
+è mantenuto a pressione e temperatura costanti.
+Nonostante queste leggi siano storiche, queste sono tanto più valide tanto più un gas è
+rarefatto: posso allora definire un limite secondo il quale
+\begin{gather*}
+    \lim_{p \to 0} \ \Longrightarrow \  \text{gas perfetto} 
+\end{gather*}
+Il gas si dice \textbf{perfetto} quando la pressione tende a zero e dunque le leggi scritte
+per la pressione ed il volume valgono ed il valore dei coefficienti è esattamente:
+\begin{gather*}
+    \beta = \gamma = \frac{1}{273.15 \ ^\circ C }
+\end{gather*}
+Posso allora determinare la temperatura in funzione della pressione
+quando il volume è costante:
+\begin{gather*}
+    T = \frac{273.15}{p_0}p - 273.15 \ [^{\circ}C ]
+\end{gather*}
+In questo modo posso rendere un gas sempre più rarefatto e misurarne la temperatura:
+così posso estrapolare la curva di temperatura con volume costante 
+in funzione della variazione della pressione. Se volessimo
+una scala più comoda potremmo definire una nuova scala di temperatura
+chiamata \textbf{scala Kelvin} (grado Kelvin non è giusto!) :
+\begin{align}
+    T = 273.15 + T(^{\circ}C ) \ [K]
+\end{align}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il punto triplo}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$T$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$p$};
+        \draw(0, 0) .. controls (0.5, 0.2)  and (0.8, 0.6).. (1, 1);
+        \draw(1, 1) .. controls (2, 1.2) and (3, 1.7) .. (4, 3);
+        \draw(1, 1) -- (0.5, 3.5);
+        \filldraw[red](1, 1) circle (1pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Allora la temperatura assoluta definita a volume costante
+utilizzando la scala Kelvin sarà:
+\begin{gather*}
+    T = \frac{p}{p_0}T_0
+\end{gather*}
+Esistono, oltre ai due punti fissi di fusione e ebollizione, esiste anche un unico
+valore in certe condizioni di pressione, volume e temperatura nel 
+quale le tre fasi coesistono simultaneamente che prende il nome di \textbf{punto triplo}.
+Le condizioni del punto triplo dell'acqua sono:
+\begin{gather*}
+    T_{\text{triplo}} = 0.01\  ^{\circ}C = 273.16 \ K \\
+    p_{\text{triplo}} = 611 \ Pa \approx 10^{-3} \ atm \\
+\end{gather*}
+Dato che il gas prefetto non esiste, io posso determinare la temperatura di un oggetto
+con un termometro che contiene un gas perfetto è data da:
+\begin{gather*}
+    T = \frac{p}{p_3}T_3
+\end{gather*}
+Dato che il gas perfetto non esiste, io prendo una successione di pressioni
+che convergono verso zero, di conseguenza la temperatura sarà sempre diversa:
+la $p_3$ è la pressione che misura il termometro che misura quando lo metto in contatto
+con l'acqua alla temperatura del punto triplo e cambierà sempre di poco. In questo modo posso ottenere una procedura
+univoca per determinare la temperatura degli oggetti che tutti possono ripetere. 
+
+\section{Digressione sui sistemi fluidi}
+\subsection{L'equazione di stato per i gas perfetti}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Trasformazioni nei gas ideali}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (5, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 3.5) node[at end, left] {$p$};
+        \draw[dashed] (1, 0) -- node[at start, below] {$V_0$} (1, 1) -- (0, 1)  node[at end, left] {$p_0$};
+        \filldraw(1, 1) circle (1pt);
+        \filldraw(2, 3) circle (1pt);
+        \draw[dashed](2, 0) -- node[at start, below] {$V_1$} (2, 3) -- (0, 3)  node[at end, left] {$p_1$};
+        \draw[dashed, ->](4.5, 1) .. controls  (3.5, 1.2) and (2.75, 1.5) .. (2, 3) node[at start, right] {$T_1$};
+        \filldraw(4.5, 1);
+        \draw[->](1, 1) -- (4.5, 1);
+        \draw[dashed](4.5, 0) -- (4.5, 1) node[at start, below] {$V_2$};
+        \draw[dashed](1, 1) .. controls (1.3, 0.45) and (1.7, 0.25) .. (2, 0.25);
+        \draw[dashed](0.5, 2) .. controls (0.65, 1.35) and (0.95, 1) .. (1, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+In ogni sistema termodinamico all'equilibrio vale una
+equazione di stato $f(p, V, T) = 0$. In alcuni casi
+si è in grado di ricavare l'equazione di stato attraverso
+la determinazione di un modello di stato attraverso la fisica
+statistica e dagli esprimenti. L'esempio più semplice è quello del
+gas perfetto: dagli esperimenti che ci portano a scrivere le quattro
+leggi empiriche del gas si può ricavare una equazione di stato. 
+Si può, data una mole di gas perfetto, mettersi nelle condizioni
+standard: 
+\begin{itemize}
+    \item $T_0 = 273.15 \ K$: ossia la temperatura di fusione del ghiaccio;
+    \item $p_0 = 1 \ atm$: Ossia la pressione dell'atmosfera al livello del mare;
+\end{itemize}
+Gli esperimenti ci dicono, a queste condizioni, che il gas occupa un volume 
+ben preciso:
+\begin{gather*}
+    V = V_0  = 2.2414 \cdot  10^{-2} \ m^{3} = 22.4 \ l
+\end{gather*}   
+Possiamo allora utilizzare un diagramma per rappresentare l'equilibrio
+dei gas: questo stato è associato ad una certa curva di temperatura secondo
+la legge di Boyle. Posso allora applicare delle trasformazioni che mi permettano di raggiungere il 
+volume $V_2$ alla pressione $p_0$ e lo posso esprimere in funzione
+del volume precedente e della temperatura:
+\begin{gather*}
+    V_2 = V_0 \frac{T_1}{T_0 }
+\end{gather*}
+Se volessi farlo passare dallo stato $(p_1, V_1, T_1)$ allo stato $(p_0, V_2, T_1)$, allora dovrei fare in modo che il  sistema  mantenga
+costante la temperatura ma possa variare la sua pressione in modo tale 
+da avere il volume che io cerco. La temperatura di questi due stati di equilibrio
+è la stessa ma ho cambiato sia il volume che la temperatura proprio
+secondo la legge di Mariotte, deve risultare:
+\begin{gather*}
+    p_1 V_1 = p_0 V_2
+\end{gather*}
+Allora si ha, sostituendo l'espressione del volume 2:
+\begin{gather*}
+    p_1 V_1 = \frac{p_0 V_0}{T_0}T_1
+\end{gather*}
+Posso esprimere allora la costante che moltiplica la temperatura
+come 
+\begin{align}
+    R = \frac{p_0V_0}{T_0} = 8.3145 \ \frac{J}{K}
+\end{align}
+Ossia l'unità di energia per grado Kelvin che prende il nome di 
+\textbf{costante dei gas} che risulta vera per solo una mole di gas. Tuttavia, 
+la legge di Avogadro mi dice che $pV$ è proporzionale al numero
+di moli del gas, si ottiene quindi l'equazione di stato
+per i gas perfetti:
+\begin{align}
+    pV = nRT
+\end{align}
+Queste considerazioni sono fatte a livello macroscopico: già il concetto
+di moli non richiede una spiegazione a livello microscopico in quanto è un
+concetto indipendente  e non necessita di una trattazione a livello microscopico.
+
+\subsection{Il limite di utilizzo dell'equazione di stato dei gas}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 3.5) node[at end, left] {$p$};
+        \draw(0.5, 3.5) .. controls (1, 2) and (3, 1.5) .. (3.5, 1.5);
+        \draw(0.4, 3.5) .. controls (0.5, 1.75) .. (1, 1.75);
+        \draw(1, 1.75) .. controls (2, 1.85) and (2.8, 0.5) .. (3.5, 0.5); 
+        \filldraw(1, 1.75) circle (1pt) node[anchor = south] {$P_C$};
+        \draw(0.3, 3.5) -- (0.5, 1) --  (2.25, 1) -- (3.5, 0.35);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se si volesse analizzare il caso di un gas non perfetto ma molto semplice,
+è ragionevole trattare l'equazione di stato dei gas in maniera tale che
+assomigli ad uno sviluppo di Taylor e che i termini più grandi si diventino molto
+piccoli quando il volume cresce molto:
+\begin{gather*}
+    pV = nRT\left(1 + \frac{B_1}{V} + \frac{B_2}{V^{2} } + \dots\right)
+\end{gather*}
+Si osserva che per gas anche non rarefatti, i coefficienti sono funzione
+sia della temperatura che della composizione chimica del gas stesso. 
+Si possono determinare sperimentalmente in modo tale che questa 
+curva teorica mi produca, nel modo migliore possibile, i miei dati sperimentali.
+Si fa dunque una ipotesi ragionevole per questa funzione anche se questa ipotesi
+è valida solamente se la temperatura è sufficientemente grande. 
+Dire che esistono temperature grandi e temperature piccole vuol dire 
+che il sistema ha una scala di temperatura rispetto alla quale
+ha senso parlare di temperatura grande. Tuttavia ad un certo punto
+lo \textbf{sviluppo del viniale}, non funzionerà più: per trovare questo limite
+possiamo eseguire una serie di esperimenti per alcuni gas abbassando sempre
+di più la temperatura.  Ad un certo punto, se si continua ad aggiungere termini 
+e a far decrescere la temperatura, si 
+raggiunge un \textbf{isoterma critica} nella quale si ha un flesso e sotto la
+quale la curva isoterma non è più una curva ma presenterà due punti angolosi tra i quali
+è costante e dunque non è più descrivibile analiticamente. Ogni
+gas ha una sua temperatura critica $T_c$ sotto alla quale lo sviluppo
+del viniale non è più corretto. 
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La temperatura ad una pressione critica}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$T$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$V$};
+        \draw(0.2, 0.2) .. controls (0.6, 0.3) .. (1, 0.5);
+        \draw[dashed] (1, 0) -- (1, 3) node[at start, below] {$T_{\overline{p} }$};
+        \draw(1, 2) .. controls (2, 2.2) and (2.7, 2.2) .. (3.5, 3);
+    \end{tikzpicture}    
+\end{wrapfigure}
+La parte costante tra i due punti angolosi
+rappresenta esattamente un cambio di stato: il sistema sta passando da gassoso a
+liquido: più si prosegue verso sinistra nel grafico volume-pressione e più il liquido necessita 
+di una pressione sempre più grande per piccole variazioni di volume.
+Non si è sicuri che in una relazione tra tre variabili esse siano tutte e
+tre indipendenti l'una dall'altra; ci possono essere delle situazioni in cui
+esiste la funzione di stato ma presenta delle singolarità. 
+\begin{gather*}
+    V = V(p, T)
+\end{gather*}
+Questa funzione è continua e derivabile se si è a pressione maggiore di quella
+critica, altrimenti non è regolare ma devo prendere la funzione con una
+certa pressione assegnata $\overline{p}$:
+\begin{gather*}
+    V = V_{\overline{p} }(T) = V(\overline{p}, T )
+\end{gather*} 
+Quando la temperatura supera la temperatura
+fissata a pressione $T_{\overline{p}}$  allora il sistema avrà grandi incrementi
+di volume per piccoli incrementi di temperatura in quanto, sopra la temperatura 
+che dipende dalla pressione fissata, il sistema inizierà un cambiamento di
+stato da liquido a gassoso. 
+
+\subsection{L'equazione di Van Der Walls per la descrizione dei gas}
+Dato che la legge dei gas perfetti non vale per tutti i gas, si introduce una
+equazione che possa funzionare anche lontano dal limite della curva critica
+chiamata \textbf{equazione di Van Der Walls}:
+\begin{align}
+    \left(p + \frac{q}{V^{2} }\right)(V- b) = RT
+\end{align}
+Questa equazione prevede l'esistenza di un punto critico (ossia il flesso)
+e fu derivata da Van Der Walls e riesce
+a descrivere accuratamente le isoterme dei gas. Possiamo dimostrare che questa
+equazione può prevedere l'esistenza di un punto critico: ossia deve esistere una situazione
+per la quale la derivata seconda rispetto al volume deve essere zero.
+\begin{gather*}
+    p = \frac{RT}{V - b} - \frac{a}{V^{2} } \\
+    \frac{\partial p}{\partial V} = -\frac{RT}{(V - b)^{2} } + \frac{2a}{V^{3} }\\
+    \frac{\partial^{2} p}{\partial V^{2} } = \frac{2RT}{(V - b)^{2} } - \frac{6a}{V^{4} }
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{le curve isoterme rispetto alla curva di temperatura critica}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$p$};
+        \draw(0.5, 3.5) .. controls (1, 2) and (3, 1.5) .. (3.5, 1.5) node[at end, above] {$T > T_c$};
+        \draw(0.4, 3.5) .. controls (0.5, 1.75) .. (1, 1.75);
+        \draw(1, 1.75) .. controls (2, 1.85) and (2.8, 0.6) .. (3.5, 0.6) node[at end, right] {$T = T_c$}; 
+        \draw(0.3, 3.5) .. controls (0.4, 0.5) .. (0.5, 0.5);
+        \draw(0.5, 0.5) .. controls (0.8, 1.2) and (1, 1.2) .. (1.5, 0.9);
+        \draw(1.5, 0.9) .. controls (2.2, 0.5) .. (3.5, 0.3) node[at end, right] {$T < T_c$};
+    \end{tikzpicture} 
+\end{wrapfigure}
+Dato che devono entrambe essere zero:
+\begin{gather*}
+    \frac{2a}{V^{3}}  = \frac{RT}{(V - b)^{2} } \\
+    \frac{6a}{V^{4}} = -\frac{2RT}{(V - b)^{2} } 
+\end{gather*}
+Si ottiene allora le espressioni per le tre grandezze critiche:
+\begin{align*}
+    RT_c &= \frac{8a}{27b} \\
+    V_c &= 3b \\
+    p_c &= \frac{a}{27b^{2} } 
+\end{align*}
+Se l'equazione di Van Der Walls è valida, allora deve valere che 
+\begin{gather*}
+    \frac{8}{3}\frac{p_cV_c}{RT_c} = 1
+\end{gather*}
+Che si può testare sperimentalmente.  La terza curva è una curva impossile che tuttavia
+rispetta questa equazione: se quella situazione avvenisse, allora il sistema esploderebbe.
+Si deve allora introdurre la correzione di MaxWell.
+
+\section{Validità di Van Der Walls}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'equazione di van Der Walls}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$p$};
+        \draw(0.5, 3.5) .. controls (0.6, 0.6) .. (0.75, 0.5);
+        \draw(0.75, 0.5) .. controls (1.5, 1.8) and (2, 1.8) .. (3.5, 0.9);
+        \filldraw[cyan, opacity = 0.3] (0.58, 1.25) .. controls (0.6, 0.6) .. (0.75, 0.5) .. controls (1, 1) .. (1.33, 1.25);
+        \filldraw[cyan, opacity = 0.3] (1.33, 1.25) .. controls (1.5, 1.5) and (2, 1.68) .. (2.8, 1.25) -- (1.33, 1.25);
+        \filldraw(0.4, 1) circle (0pt) node[anchor = center] {$A_1$};
+        \filldraw(2, 1.8) circle (0pt) node[anchor = center] {$A_2$};
+        \draw(0, 1.25) -- (4, 1.25); 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Possiamo riscrivere l'equazione di Van Der Walls come
+\begin{gather*}
+    V^{3}p - V^{2}(RT + bp) + aV -ab = 0  
+\end{gather*}
+Dobbiamo ora modificare questa equazione ancora per poter prevedere
+la curva isoterma sotto la temperatura critica. Un modo per farlo è quello
+di osservare gli esperimenti e scegliere il livello di pressione in modo tale
+che per un certo valore di pressione le due aree $A_1$ e $A_2$ siano uguali.
+Supponendo di metterci nel caso di temperatura inferiore alla temperatura critica
+in modo tale che l'isoterma possa intersecare almeno una retta orizzontale
+tre volte, MaxWell dice che si deve scegliere il livello di pressione in modo
+tale che le due aree devono essere uguali. Allora i risultati che si ottengono
+dalle relazioni con la temperatura critica sono congruenti con gli  esperimenti
+che sono circa equivalenti ad uno (sempre minori di uno).
+
+Si definiscono delle grandezze adimensionali 
+\begin{gather*}
+    \tilde{T} = \frac{T}{T_c} \qquad \tilde{V} = \frac{V}{V_c} \qquad \tilde{p} = \frac{p}{p_c}
+\end{gather*}
+Possiamo allora far scomparire i parametri $a, b$ dall'equazione secondo
+la seguente:
+\begin{gather*}
+    \left(\tilde{p} + \frac{3}{\tilde{V}^{2} }\right)\left(3\tilde{V} - 1\right) = 8\tilde{T}
+\end{gather*}
+In questo modo con queste particolari unità si ottengono le stesse
+isoterme per tutti i gas. Facendo infatti scomparire i termini $a, b$, questo vuol
+dire che tutti i fluidi si comportano allo stesso modo ma semplicemente 
+con scale termometriche diverse. Questa equazione prende il nome di \textbf{equazione di universalità}. 
+Questa cosa non è per niente ovvia in quanto ad una prima analisi si potrebbe dire che 
+i fluidi si comportino tutti in modo diverso; con questa equazione si è riassunto
+il comportamento di tutti i fluidi all'interno di una unica equazione. Gli esperimenti
+non confermano questa predizione approssimata: infatti se scalassi le curve sperimentali
+con le temperature critiche non è vero che diventano le stesse isoterme. Tuttavia
+più mi avvicino al punto critico e più questa equazione è precisa: al punto critico descrive, infatti,
+perfettamente il comportamento di un gas. 
+
+Successivamente, nel novecento, si è arrivati ad una equazione più precisa che
+ci ha permesso di ottenere descrizioni molto più accurate per le 
+curve isoterme dei gas. Ken o' Wilson nel 1982 è riuscito a costruire una teoria che ha permesso
+di ottenere le descrizioni per le isoterme dei gas in modo accurato. 
+
+\section{Diagramma di fase}
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \centering
+    \caption{Diagramma di fase}
+    \begin{tikzpicture}[scale = 0.9]
+        \draw[->](0, 0) -- (6, 0) node[at end, below] {$T$};
+        \draw[->](0, 0) -- (0, 4.25) node[at end, left] {$p$};
+        \draw(0, 0) .. controls (1, 0.75) and (1.5, 1.1) .. (2, 2);
+        \draw(2, 2) .. controls (2.5, 2) and (3.25, 2.2) .. (4, 3);
+        \draw(2, 2) .. controls (2.3, 2.6) and (2.4, 3) .. (2.5, 3.5);
+        \filldraw(1, 3) node[anchor = center] {solido};
+        \filldraw(3, 1) node[anchor = north] {gas};
+        \filldraw(3, 3) node[anchor = center] {liquido};
+        \filldraw(2, 2) circle (1pt) node[anchor = east] {$P_3$};
+        \filldraw (4, 3) circle (1pt) node[anchor = south east] {$P_c$};
+        \draw[dashed](4, 0) -- (4, 4) node[at start, below] {$T_c$};
+        \draw[dashed](2, 0) -- (2, 2) node[at start, below] {$T_3$};
+        \draw[dashed](2.5, 3.5)  -- (2.6, 4); 
+        \node[align = center] (c) at (5.5, 3.5) {fluido \\ supercritico};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per la rappresentazione degli stati di una sostanza si utilizzano 
+dei grafici temperatura-pressione. Per una
+qualsiasi sostanza pura esistono tre regioni separate da delle curve:
+queste curve delineano i passaggi di stato. Come si osserva dal grafico,
+è possibile ottenere dei passaggi di stato in modo tale da
+passare direttamente da solido a gassoso o viceversa senza passare
+dal liquido. Al centro del grafico c'è il \textbf{punto triplo}
+dove le tre fasi sono in equilibrio; sulle curve che separano i vari stati
+si ha l'equilibrio degli stati adiacenti alle curve stesse. 
+C'è anche un altro punto notevole sul grafico: il \textbf{punto critico},
+dove la curva del cambiamento di stato "finisce". Infatti prima del
+punto critico io posso passare da uno stato all'altro semplicemente
+modificando i parametri di temperatura e di pressione. Se io volessi prendere
+i medesimi punti di inizio e arrivo ma volessi passare alla destra
+del punto critico, io posso avere passaggio di stato senza nessun tipo di singolarità, per cui
+il la sostanza può gradualmente passare da gas a liquido. La presenza del punto critico mi permette di
+non ottenere passaggi bruschi (ossia le proprietà del fluido non "saltano" in modo non continuo)
+da una fase all'altra: quella regione oltre il punto critico
+prende il nome di \textbf{regione sovracritica}, nella quale
+liquido e gas sono indistinguibili e hanno lo stesso comportamento. I fluidi
+che sono in quella regione prendono il nome
+di \textbf{fluido supercritico}. 
+Si è detto che per la descrizione completa di un gas c'è bisogno di tre variabili: 
+quelle che sono curve, nel grafico a tre dimensioni diventano superfici.
+
+\chapter{Trasformazioni termodinamiche}
+\section{Come avvengono le trasformazioni}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Una trasformazione termodinamica}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$p$};
+        \filldraw(1, 2.5) circle (1pt) node[anchor = south] {$I$};
+        \filldraw(3, 1) circle (1pt) node[anchor = north] {F};
+        \draw[->](1, 2.5) .. controls(1.8, 2.4) and (2.4, 2) .. (3, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Non sempre si è in grado di determinare cosa accade tra un passaggio
+di stato all'altro anche se si è in grado di determinare le fasi 
+di arrivo e partenza. Dato un sistema termodinamico con uno stato
+iniziale e finale, nel mezzo non so cosa accade al sistema poiché
+le variabili termodinamiche sono ben definite solamente allo
+stato di equilibrio. Se si immagina di fare questo cambiamento di stato
+in maniera estremamente lenta, posso definire in maniera discreta tanti
+microstati di equilibrio uno dopo l'altro come una successione di punti sul grafico
+che determinano gli stati. Questo tipo di trasformazioni termodinamiche prendono
+il nome di \textbf{trasformazioni statiche}: ossia delle trasformazioni 
+di durata infinita. Dato che non dispongo di tempo infinito, posso definire un certo
+margine entro il quale posso determinare queste trasformazioni come statiche; dunque queste trasformazioni,
+se avvengono in maniera sufficientemente lenta, prendono il nome di \textbf{trasformazione quasi statiche}.
+Quando l'istante iniziale e finale coincidono, questo tipo di trasformazioni quasi
+statiche prendono il nome di \textbf{ciclo} o \textbf{trasformazione ciclica}.
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Trasformazioni isocore, isobare e isoterme}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0)node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 4)node[at end, left] {$p$};
+        \filldraw (1, 1.5) circle (1pt) node[anchor = east] {I};
+        \filldraw (3, 1.5) circle (1pt) node[anchor = south] {$F_1$};
+        \filldraw (3, 0.5) circle (1pt) node[anchor = west] {$F_2$};
+        \draw[dashed] (1, 1.5) .. controls (1.5, 0.9) and (2, 0.7) .. (3, 0.5);
+        \draw[thick](1, 1.5) -- (3, 1.5) -- (3, 0.5);        
+    \end{tikzpicture}    
+\end{wrapfigure}
+Ci sono anche dei casi particolari delle trasformazioni quasi statiche:
+\begin{itemize}
+    \item \textbf{Isobare}: sono delle trasformazioni quasi statiche
+    a pressione costante (quelle orizzontali nel grafico);
+    \item \textbf{Isocore}: trasformazioni quasi statiche a volume costante ( quelle
+    verticali nel grafico);
+    \item \textbf{Isoterme}: trasformazioni quasi statiche a temperatura costante;
+    in questo caso io non conosco l'equazione della curva isoterma ma posso
+    determinare che se avviene alla stessa temperatura so che sta su di una curva.
+\end{itemize}
+Se la trasformazione non è quasi statica io non potrei rappresentarla
+come è nel grafico poiché non conoscerei i valori della pressione e
+del volume durante la trasformazione. Un caso particolare di 
+trasformazione termodinamica è la \textbf{trasformazione adiabatica}: questa particolare
+trasformazione è una sottoclasse delle trasformazioni isoterme.
+
+\clearpage
+\section{Espansione libera adiabatica di un gas}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Espansione libera adiabatica}
+    \begin{tikzpicture}
+        \draw[thick](0, 0) rectangle (2, 1);
+        \draw[thick](1, 0) -- (1, 1);
+        \filldraw[color = cyan, opacity = 0.3] (0, 0) rectangle (1, 1);
+        \node at(0.5, -0.3) {$V_I$};
+        \draw[->](2.2, 0.5) -- (2.8, 0.5);
+        \draw[thick](3, 0) rectangle (5, 1);
+        \filldraw[color = cyan, opacity = 0.3] (3, 0) rectangle (5, 1);
+        \node at(4, -0.3) {$V_F$};
+    \end{tikzpicture}
+\end{wrapfigure}
+La situazione è quella di un recipiente a pareti adiabatiche: fuori dal sistema
+c'è l'ambiente. L'espansione libera adiabatica di un gas è l'espansione di un
+gas in una camera adiabatica divisa in due parti: se il gas sta in una
+parte della parete (all'equilibrio) e si rimuove  (rapidamente) la parete che
+separa le due parti della camera adiabatica, allora il gas
+non ha più un muro che lo separa dall'altra parte della camera e 
+dunque tenderà ad espandersi.
+\begin{gather*}
+    V_F > V_I 
+\end{gather*}
+Questo tipo di trasformazione non è quasi statica poiché
+avviene molto rapidamente. Quale è la relazione tra la temperatura iniziale
+e finale? In questo esperimento si osserva che la temperatura finale è \emph{poco} minore
+di quella iniziale: per qualunque gas ideale la temperatura finale 
+in una espansione libera adiabatica è sempre leggermente minore di quella iniziale.
+Diminuendo il gas all'interno della camera adiabatica si ha che
+la temperatura finale sarà minore di quella iniziale ma maggiore rispetto a quando
+è presente molto più gas. Allora si ottiene che per un gas molto rarefatto:
+\begin{gather*}
+    \lim_{p \to 0} \text{ gas } \ \Longrightarrow \ T_F \to T_I 
+\end{gather*}
+
+\subsection{Espansione libera adiabatica quasi statica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il pistone}
+    \begin{tikzpicture}
+        \draw[very thick](0, 0) rectangle (2, 2);
+        \filldraw[cyan, opacity = 0.3] (0, 0) rectangle (2, 2);
+        \draw[very thick] (2, 2) -- (3.5, 2 );
+        \draw[very thick](2, 0) -- (3.5, 0);
+        \draw[->, thick] (3, 1) -- (2, 1) node[midway, above] {$\vv{F}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per far si che l'espansione libera adiabatica sia quasi statica, io
+non posso rimuovere la barriera immediatamente ma devo applicare una forza
+sulla parete che sia in grado di equilibrarla esattamente: se la diminuissi
+istante per istante, allora il gas si espanderebbe lentamente. In questo
+modo riesco ad ottenere una espansione libera adiabatica di un gas in 
+maniera quasi statica. Si potrebbe ottenere la \textbf{compressione} adiabatica
+del sistema in maniera quasi statica se invece facessi crescere istante per istante
+la forza necessaria. Il contenitore in figura prende il nome di \textbf{pistone adiabatico}. 
+Si ottengono allora le seguenti situazioni:
+\begin{itemize}
+    \item $\Delta V > 0 \ \Longrightarrow \ \Delta T < 0$;
+    \item $\Delta V < 0 \ \Longrightarrow \ \Delta T > 0$; 
+    \item $\Delta V \neq 0 \ \Longrightarrow \ \Delta T \neq 0$. 
+\end{itemize}
+Non esistono solamente trasformazioni adiabatiche. 
+
+\section{Trasformazioni non adiabatiche}
+\subsection{Il termostato}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Termostato}
+    \begin{tikzpicture}[scale=0.85]
+        \draw(-2, -1) rectangle (0, 3) node[midway] {$T$};
+        \draw(0, 0) rectangle (2, 2);
+        \filldraw[cyan, opacity = 0.3] (0, 0) rectangle (2, 2);
+        \draw[very thick] (0, 2) -- (3.5, 2);
+        \draw[very thick](0, 0) -- (3.5, 0);
+        \draw[very thick](2, 0) -- (2, 2);
+        \draw[->, thick] (3, 1) -- (2, 1) node[midway, above] {$\vv{F}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per studiare trasformazioni non adiabatiche si introduce il concetto di
+\textbf{termostato}: ossia un sistema termodinamico tale che la sua
+temperatura possa sempre rimanere costante qualsiasi cosa gli venga fatta. Ovviamente
+il termostato perfetto non esiste anche se è possibile definire termostati rispetto
+ad altri sistemi se e solo se la temperatura del termostato varia molto meno rispetto al sistema
+a cui è messo a contatto. Si può creare un termostato con un sistema di massa molto 
+grande rispetto all'altro sistema con il quale lo stiamo facendo interagire.
+Se $M$ è la massa del termostato e $m$ è la massa del sistema si deve avere
+\begin{align}
+    M >> m
+\end{align}
+La parete con cui il pistone è a contatto con il termostato è una parete diatermica:
+per costruzione allora $\Delta T = 0$, ossia la compressione o espansione
+quasi statica avviene sempre a temperatura costante. Se io attaccassi un sistema
+ad un termostato anche se la trasformazione non avviene in maniera quasi statica,
+la temperatura iniziale e quella finale coincideranno poiché,
+data la natura del termostato, la temperatura rimane la stessa (anche se
+durante la trasformazione può cambiare). Queste tipologie di trasformazioni prendono
+il nome di \textbf{isoterme}. 
+
+Se volessi fare delle trasformazioni a volume costante con aumento di temperatura 
+in maniera quasi statica, potrei introdurre una successione di termostati con temperatura
+sempre crescente in modo tale da raggiungere l'equilibrio istante per istante. Se non facessi tutti  i passaggi
+intermedi, allora non sarebbe una trasformazione quasi statica e dunque non potrei dire che
+la pressione cresce in maniera proporzionale rispetto alla temperatura.
+
+\subsection{Il lavoro delle forze di pressione di un fluido}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il lavoro delle forze di pressione}
+    \begin{tikzpicture}
+        \draw[very thick](0, 0) rectangle (2, 2);
+        \draw[very thick](2, 2) -- (4, 2);
+        \draw[very thick](2, 0) -- (4, 0);
+        \draw[<->](2, -0.2) -- (2.4, -0.2) node[midway, below] {$dl$};
+        \filldraw[cyan, opacity = 0.3] (0, 0) rectangle(2, 2);
+        \draw[dashed](2.4, 0) -- (2.4, 2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+L'unica forza che può imprimere un fluido che è compresso o che si espande è
+la forza che deriva dalla pressione del gas. Posso quantificare il lavoro 
+(in maniera meccanica) della pressione su di un gas considerando un pistone
+con all'interno un fluido. Dato che è un pistone, allora il gas è in grado di essere
+compresso oppure è in grado di espandersi a seconda della forza che vi 
+è sulla parete mobile del pistone. Se si considerasse il caso in cui il gas si espande di un certo 
+$dl$, allora, dato $\vv{dl} = dl \hat{i}$:
+\begin{gather*}
+    V \to V + dV
+\end{gather*}  
+Le forze di pressione agiscono sulla parete e dunque compiono un lavoro
+infinitesimo che è dato da:
+\begin{gather*}
+    \delta L = \vv{F} \cdot  \vv{dr}  
+\end{gather*}
+Possiamo esprimere allora la forza dovuta dalla pressione come
+\begin{gather*}
+    \vv{F} = pA \hat{i}  
+\end{gather*}
+Dove $A$ è la superficie di contatto della parete mobile del pistone 
+lungo il versore $\hat{i}$. Si ottiene allora l'espressione del lavoro infinitesimo
+come :
+\begin{gather*}
+    \delta L = pA \hat{i} \cdot  dl \hat{i} \ \Longrightarrow \ pAdl 
+\end{gather*} 
+Ricordando allora che $Adl$ è esattamente il volume infinitesimo di cui si è espanso il corpo:
+\begin{align}
+    \delta L = pdV
+\end{align}
+Il lavoro è positivo se il fluido si espande ed è negativo se 
+invece è compresso. Questa espressione del lavoro vale per qualunque
+trasformazione infinitesima di un fluido quando varia di un certo  $dV$
+ben definito. 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'espansione libera di un fluido}
+    \begin{tikzpicture}
+        \draw(0, 0) ellipse (2 and 1) node[midway] {$V$};
+        \draw[dashed](0, 0) ellipse (2.2 and 1.1);
+        \draw[->](2.5, -1.2) -- (1.8, -0.8) node[at start, right] {$V + dV$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Dato un fluido racchiuso in una forma arbitraria, posso applicargli una
+trasformazione in maniera tale che il fluido possa variare il suo volume
+in modo tale che il volume occupato dall'oggetto è allora $V + dV$. Se io
+considerassi una parte del fluido, potrei approssimare la curva arbitraria
+come se ci fossero tanti pistoncini che si stanno espandendo dalla curva
+normale a quella tratteggiata. La sezione del pistone non importa; posso
+allora pensare che ognuno di questi pistoncini si espandano con $dl_1, dl_2\dots$
+tutti diversi tra di loro. Posso allora considerare un solo pistoncino per il quale
+il lavoro compiuto dalla pressione dal gas per l'espansione infinitesima:
+\begin{gather*}
+    \delta L_i = p  \ dA_i \ dl_i
+\end{gather*}
+Allora il lavoro totale dei pistoncini diventerà la sommatoria
+dei lavori infinitesimi
+\begin{gather*}
+    \delta L = \sum p \ dA_i \ dl_i 
+\end{gather*}
+Dato che $p$ è costante per tutta la superficie del fluido, e che
+$dV_i = dA_i \ dl_i$, si ha il lavoro totale come:
+\begin{gather*}
+    \delta L = p\sum dV_i
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il lavoro lungo una curva generica}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$p$};
+        \draw(0.5, 1) .. controls (1, 1.4) and (1.5, 1.4) .. (2.5, 1);
+        \filldraw(0.5, 1) circle (1pt) node[anchor = south] {I};
+        \filldraw(2.5, 1) circle (1pt) node[anchor = south] {F};
+        \draw[dashed](0.5, 0) -- (0.5, 1);
+        \draw[dashed](2.5, 0) -- (2.5, 1);
+        \filldraw[cyan, opacity = 0.3] (2.5, 1) -- (2.5, 0) -- (0.5, 0) -- (0.5, 1) .. controls (1, 1.4) and (1.5, 1.4) .. (2.5, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se il volume del fluido variasse di una quantità finita, allora
+non saprei dire il lavoro della forza di pressione in quanto la trasformazione non
+sarebbe quasi statica. Se fosse quasi statica, per ogni stato di equilibrio,
+dovrei avere fissata la pressione del fluido e dunque il lavoro della pressione in una 
+trasformazione quasi statica è dato da:
+\begin{align}
+    L = \int_{V_i}^{V_f}p \ d V
+\end{align}  
+dove $p$ è esattamente una funzione del volume  $p(V)$ (che non so). Non
+posso però considerare $\delta L$ come $dL$, ossia non posso dire che
+il lavoro infinitesimo sia il differenziale esatto in quanto
+le funzioni $p(V)$ possono essere infinite e dunque il lavoro non è
+una funzione di stato. Durante le espansioni libere, il lavoro delle forze di
+pressione è nullo in quanto la parete è rimossa istantaneamente e sull'ambiente 
+esterno non si è spostato nulla. 
+
+
+\subsection{Trasformazioni quasi statiche a pressione costante}
+Dato che la pressione è costante, allora è valida la relazione 
+del lavoro (anche perché è quasi statica) e dunque il lavoro 
+è proprio l'integrale
+\begin{align}
+    L = p\int_{V_i}^{V_f}
+\end{align}
+
+\subsection{Trasformazioni quasi statiche isoterme}
+Dato che è isoterma, allora $T$ è costante: non so per un sistema
+qualunque quanto può fare il lavoro delle forze di pressione, anche
+se il sistema è quasi statico. Tuttavia, nel caso in cui la funzione di stato
+allora posso ricavarmi una relazione per poter esprimere l'equazione della curva
+isoterma: allora in quel caso posso determinare il lavoro delle forze di pressione.
+Dato che, per un gas perfetto, $pV = nRT$, allora
+\begin{align}
+    L = \int_{V_i}^{V_f} \frac{nRT}{V} \ dV \ \Longrightarrow \ L = nRT \cdot  \ln\frac{V_f}{V_i}
+\end{align}
+
+\subsection{Lavoro del sistema e dell'ambiente}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il lavoro del gas su di un corpo di massa $m$}
+    \begin{tikzpicture}
+        \draw[very thick](0, 0) --  (2, 0) -- (2, 4);
+        \draw[very thick](0, 0) -- (0, 4);
+        \draw[very thick](0, 2) -- (2, 2);
+        \draw(0.5, 2) rectangle (1.5, 3) node[midway] {$m$};
+        \filldraw[cyan, opacity = 0.3](0, 0) rectangle (2, 2);
+        \draw[|-|](-0.2, 2) -- (-0.2, 3.2) node[midway, left] {$h$};
+        \draw[dashed](0, 3.2) -- (2, 3.2);
+        \draw[dashed](0.5, 3.2) rectangle (1.5, 4.2) node[midway] {$m$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso dare alcune definizioni tecniche:
+\begin{itemize}
+    \item $\delta L > 0$: il sistema compie del lavoro sull'ambiente esterno
+    \item $\delta L < 0$: l'ambiente esterno compie del lavoro sul sistema.
+\end{itemize}
+Il lavoro è il modo meccanico per far sì che ambiente e 
+sistema si scambino energia: questo vuol dire che è possibile anche
+immagazzinare energia sottoforma di energia potenziale.  Nell'esempio semplice
+di un peso su di un pistone, posso dire che l'energia potenziale dell'ambiente
+è variata secondo
+\begin{gather*}
+    \Delta U(A) = mgh
+\end{gather*}
+Posso esprimere il lavoro che ha compiuto la pressione
+come
+\begin{gather*}
+    L(S) = p\Delta V \ \Longrightarrow \ L = \frac{mg}{B} hB \ \Longrightarrow \ L(S) = mgh
+\end{gather*}
+Dove $B$ è la superficie del pistone, $F$ è la forza che scaturisce la pressione
+del gas e $h$ la variazione di quota dovuta alla pressione del gas.
+
+\clearpage
+\section{Lavoro del sistema durante una trasformazione adiabatica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Ambiente adiabatico}
+    \begin{tikzpicture}
+        \filldraw[cyan, opacity = 0.3](0, 0) rectangle (1, 2);
+        \draw[very thick](0, 0) rectangle (5, 2);
+        \draw[very thick](1, 0) -- (1, 2);
+        \draw[very thick](2, 0) -- (2, 2);
+        \draw(2, 1) -- (5.5, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per arrivare a definire il lavoro del sistema in una trasformazione adiabatica
+si può partire da considerare una situazione semplice in cui il sistema è
+in espansione. Dato che non esiste un unico modo per poter passare da uno
+stato iniziale I ad uno stato finale F, allora posso utilizzare una
+scatola, con pareti adiabatiche, che mi permetta di ottenere 3 trasformazioni
+per riempire tutta la scatola. Considerando un gas perfetto e molto rarefatto
+all'interno di una scatola che presenta due pareti: la prima parete, così come la seconda, presentano delle aperture che
+possono essere controllate dall'esterno senza interferire sullo stato del sistema.
+La seconda parete, è controllata dall'esterno tramite un'asta, in modo tale che possa muoversi
+dalla sua posizione iniziale fino a tutta la lunghezza della scatola. 
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La schematizzazione delle trasformazioni}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$p$};
+        \draw[dashed](1, 0) -- (1, 3.5) node[at start, below] {$V_0$};
+        \draw[dashed](2, 0) -- (2, 3) node[at start, below] {$V_1$};
+        \draw[dashed](3, 0) -- (3, 1.5) node[at start, below] {$V_2$};
+        \draw[dashed](4, 0) -- (4, 1.3) node[at start, below] {$V_3$};
+        \filldraw(1, 3.5) circle (1pt);
+        \filldraw(2, 3) circle (1pt);
+        \filldraw(3, 1.5) circle (1pt);
+        \filldraw(4, 1.3) circle (1pt);
+        \draw[thick, ->](1, 3.5) .. controls (1.3, 3.2) and (1.7, 3) .. (2, 3) node[at end, right] {$T_0 = T_1$};
+        \draw[dashed](1, 2.5) .. controls (2, 1.7) and (3, 1.45) .. (4, 1.3) node[at end, right] {$T_2 = T_3$};
+        \draw[thick, ->](2, 3)  -- (3, 1.5);
+        \draw[thick, ->](3, 1.5) .. controls (3.4, 1.4) and (3.7, 1.35) .. (4, 1.3);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso riassumere tutte le trasformazioni nel grafico volume-pressione,
+di seguito sono elencate in ordine le trasformazioni: 
+\begin{itemize}
+    \item \textbf{I trasformazione}: la prima trasformazione è una espansione libera
+    adiabatica (la cui trasformazione sta sull'isoterma che comprende le due temperature
+    iniziali e finali):
+    \begin{gather*}
+        V_1 > V_0 \quad T_0 = T_1 \ \Longrightarrow \ L_{0, 1} = 0
+    \end{gather*}
+    \item \textbf{II trasformazione}: La seconda trasformazione consiste nell'espansione del 
+    volume del gas in maniera quasi statica, controllando il movimento della seconda parete. 
+    Questa trasformazione, essendo quasi statica, è una curva sul piano che non si sa disegnare,
+    anche se si sa che questa curva deve essere tale che la temperatura dello stato in cui si atterra
+    deve essere una temperatura diversa da quella che si aveva all'inizio.
+    \begin{gather*}
+        V_2 > V_1 \quad T_2 < T_1 \ \Longrightarrow \ L_{1, 2} = \int_{V_1}^{V_2}p \ dV
+    \end{gather*}
+    \item \textbf{III trasformazione}: A questo punto, apro la seconda parete, così inizia unn'altra
+    espansione libera del gas, per cui
+    \begin{gather*}
+        V_3 > V_2 \quad T_3 = T_2 \ \Longrightarrow \ L_{2, 3} = 0
+    \end{gather*}
+\end{itemize}
+Dato che questa è solamente una trasformazione di tutte le infinite trasformazioni possibili, 
+è possibile ricavare sempre altre tre trasformazioni per cui è possibile passare dallo stesso stato iniziale allo stesso stato finale.
+Qualunque sia l'insieme delle trasformazioni applicate al sistema,
+il lavoro complessivo sarà sempre dato dal solo contributo
+dell'espansione del volume del gas in maniera quasi statica dovuto al
+controllo del movimento della seconda parete. 
+Il lavoro adiabatico su di una curva qualsiasi $\gamma_1$ è lo stesso
+di quello per un'altra curva $\gamma_2$ se le due trasformazioni
+hanno lo stesso stato iniziale e finale (anche se le trasformazioni non sono
+quasi statiche). 
+\begin{gather*}
+    L_{I \to F, \gamma_1}^{(adiabatica)} = L_{I \to F, \gamma_2}^{(adiabatica)}  
+\end{gather*}
+C'è anche un altro aspetto su di questo: se questa trasformazione 
+è anche ciclica, allora il suo lavoro è sempre zero. 
+\begin{gather*}
+    L_{I \to I}^{(adiabatica)} = 0
+\end{gather*}
+Queste conseguenze rispecchiano i dati sperimentali, anche se non mi permettono di
+determinare una legge fisica che mi permetta di esprimere questa situazione. 
+Se io avessi una quantità di lavoro adiabatico che compie il mio sistema 
+che dipende solamente dallo stato iniziale e finale, allora ci deve essere necessariamente
+una funzione che mi permetta di esprimere il lavoro in termini dello stato iniziale 
+e dello stato finale:
+\begin{align}
+    L_{i \to f}^{(adiabatica)} = F(i, f) = F(p_i, V_i, p_f, V_f) 
+\end{align}
+Inoltre questa deve essere tale che se $i \equiv f$ allora si annulla. Questa 
+funzione assomiglia molto all'energia potenziale nelle forze conservative nella
+meccanica (anche se non si sta parlando di energia potenziale). Si definisce
+questa funzione come \textbf{Energia interna}, che è definita come 
+\begin{gather*}
+    \Delta U = U(f) - U(i) = -L_{i \to f}^{(adiabatica)} 
+\end{gather*}
+Questa non è energia potenziale anche se utilizza lo stesso simbolo, ma è
+una funzione di stato. Si dimostra che è definita a meno di una costante
+poiché se si definisce $U' = U +c$, nella differenza è possibile rimuovere la costante,
+anche se la funzione $U$ non è univoca. In generale dipende solamente dallo stato iniziale e finale
+poiché c'è la condizione $F(i, i) = 0$.
+
+\chapter{Primo principio della termodinamica}
+In generale non esiste una trasformazione adiabatica che mi permetta di passare
+da uno stato finale $B$ ad uno stato iniziale $A$, anche se esiste
+una trasformazione adiabatica che mi permetta di passare da $A$ a $B$. 
+Nel gas perfetto, per esempio, so che esiste sempre una trasformazione 
+adiabatica che mi permetta di passare da 
+\begin{gather*}
+    A(V_1, T) \to B(V_2, T) \qquad V_2 > V_1
+\end{gather*}
+anche se non esiste una trasformazione adiabatica che mi permetta di tornare 
+indietro (in altre parole non esiste la compressione adiabatica poiché
+la temperatura di un gas si alza sempre quando viene compresso).
+Si può dimostrare che per solo per un caso particolare esistono
+trasformazioni termodinamiche adiabatiche per entrambi i
+sensi; supponendo che si abbiano due trasformazioni adiabatiche
+in entrambi i sensi:
+\begin{gather*}
+    A \to B \qquad B \to A
+\end{gather*}
+L'energia interna del sistema per le due trasformazioni sarà data:
+\begin{gather*}
+    U(B) - U(A) = -L_{A \to B}^{(adiabatica)} \\
+    U(A) - U(B) = -L_{B \to A}^{(adiabatica)} 
+\end{gather*}
+Ossia, quando esistono entrambe le possibilità il lavoro che va da
+uno stato all'altro è esattamente l'opposto del lavoro che
+va dall'altro stato a quello di partenza:
+\begin{gather*}
+    L_{A \to B} = -L_{B \to A}
+\end{gather*}
+Tutte le volte che non esiste una trasformazione adiabatica in un verso, esisterà
+nel verso opposto per qualsiasi stato iniziale e finale e per qualsiasi trasformazione 
+termodinamica. Il resto del primo principio della termodinamica è che il lavoro
+del sistema non dipende dal set di trasformazioni che compie il sistema per
+raggiungere uno stato finale qualsiasi da uno stato iniziale qualsiasi.
+In generale posso dire che se il lavoro è esprimibile come funzione
+di stato (ossia in condizioni adiabatiche) che
+\begin{align}
+    \Delta U = -L^{(adiabatica)} 
+\end{align}
+Dato che l'energia interna del sistema è proprio il lavoro del sistema,
+allora il lavoro che compie il sistema corrisponde alla diminuzione 
+dell'energia all'interno del sistema e che può essere usata per compiere lavoro
+meccanico sull'ambiente esterno. 
+
+Se il lavoro non è compiuto da una trasformazione adiabatica, $U$ non è una funzione di stato ed
+è quindi esprimibile sempre a prescindere dalle trasformazioni del sistema e dai suoi stati. Inoltre, la somma
+tra l'energia potenziale ed il lavoro del sistema è definita come una quantità
+chiamata \textbf{quantità di calore}:
+\begin{align}
+    \Delta U + L = Q
+\end{align} 
+Quando si analizza una trasformazione qualunque si ha il calore in modo univoco 
+(e senza dover sapere gli stati del sistema) e dunque
+posso riesprimere l'energia interna come
+\begin{align}
+    Q - L = \Delta U
+\end{align}
+E prende il nome di funzione matematica integrale del primo principio della termodinamica. 
+\begin{itemize}
+    \item $Q > 0$: Il sistema ha acquisito dell'energia dall'ambiente;
+    \item $Q < 0$: Il sistema ha ceduto dell'energia all'ambiente.
+\end{itemize}
+Un sistema può scambiare con l'esterno o lavoro meccanico o lavoro.
+Si può esprimere come conseguenza la forma differenziale del primo principio
+della termodinamica:
+\begin{gather*}
+    \delta Q - \delta L = dU
+\end{gather*}
+A livello matematico è notevole in quanto le due espressioni sono 
+legate tra di loro.  
+\begin{itemize}
+    \item Adiabatica: per definizione, una trasformazione adiabatica
+    ha quantità di calore zero: le pareti adiabatiche allora non permettono il  
+    passaggio di energia di tipo termico e permettono solamente gli scambi energetici di tipo meccanico.
+    \item Trasformazione ciclica: $\Delta U = 0$, allora $Q - L = 0$ e $Q = L$. La quantità
+    di calore fornito deve equivalere al lavoro svolto dal sistema. Il lavoro sarà positivo se percorro
+    la curva in senso orario o negativo se la percorro in senso antiorario.
+\end{itemize}
+Dato che si è data una definizione operativa di calore secondo il primo principio, posso dire che
+la quantità di calore che scambio in una certa trasformazione, per definizione, è
+data da:
+\begin{gather*}
+    Q_{A \to B} = \Delta U + L_{A \to B} \qquad \Delta U = U(B) - (A) 
+\end{gather*} 
+A pressione costante se si fornisse del calore senza che aumenti il volume
+del sistema, allora posso dire che
+\begin{gather*}
+    Q = \Delta U \qquad L \approx 0
+\end{gather*}
+
+\section{La capacità termica}
+\subsection{Il mulinello di Joule e la definizione di capacità termica}
+L'esperimento che fece Joule per definire il calore utilizzava un contenitore
+con all'interno un sistema di pale e sopra un mulinello collegato alle
+pale con dei pesi per ogni parte. L'energia potenziale dei pesi viene trasferita al sistema
+sottoforma di attrito delle pale con l'acqua, in modo tale che tutta l'energia che 
+viene fornita al sistema è dovuta solo al calore e non al lavoro 
+per cui
+\begin{gather*}
+    Q = \Delta U \ \Longrightarrow \ Q \propto \Delta T
+\end{gather*} 
+Il che mi suggerisce che
+\begin{gather*}
+    \delta Q = c\ dt
+\end{gather*}
+con $\mathcal{C}$ si indica la \textbf{capacità termica} che è definita come la quantità di  calore infinitesima
+che devo fornire al sistema per ottenere un aumento di temperatura infinitesimo. Tuttavia
+questo non è applicabile per tutti gli esprimenti (ossia quelli nei quali
+si fornisce solamente calore al sistema senza fare alcun tipo di lavoro meccanico).
+Dato che il calore fornito dipende dal tipo di trasformazione, 
+allora devo definire la capacità termica quando fisso la pressione (per le
+isobare) e quando fisso il volume (per le isocore)  in maniera diversa:
+\begin{gather*}
+    \mathcal{C}_p = \left(\frac{\delta Q}{dt}\right)_p \qquad c_V = \left(\frac{\delta Q}{dt}\right)_V
+\end{gather*}
+La capacità termica adiabatica è zero per qualsiasi sistema, mentre la capacità
+termica di una trasformazione non è definita. 
+Generalmente per i liquidi $\mathcal{C}_P \approx \mathcal{C}_V$ mentre per i gas sono molto diversi. 
+Si definisce il \textbf{calore specifico} come
+\begin{align}
+    c = \frac{\mathcal{C}}{M}
+\end{align}
+Ossia il calore per quantità di massa. Si può anche definire
+il calore per quantità di sostanza, come 
+\begin{align}
+    c = \frac{\mathcal{C}}{n}
+\end{align}
+Ossia la capacità termica per numero di mole. In generale, dato che è una quantità
+additiva, si ha che $\mathcal{C} \geq 0$.
+
+
+
+
+\end{document}

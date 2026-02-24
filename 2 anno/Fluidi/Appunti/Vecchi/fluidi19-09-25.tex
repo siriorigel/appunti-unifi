@@ -1,0 +1,171 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti fluidi}
+\author{Tommaso Miliani}
+\date{19-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Le proprietà microscopiche dello stato liquido}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \filldraw(0, 1) circle (0pt);
+        \filldraw(0, 0) circle (2pt);
+        \filldraw(1, 0) circle (2pt);
+        \filldraw(-1, 0) circle (2pt);
+        \filldraw(0.5, 0.75) circle (2pt);
+        \filldraw(-0.5, 0.75) circle (2pt);
+        \filldraw(0.5, -0.75) circle (2pt);
+        \filldraw(-0.5, -0.75) circle (2pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Considerando un esagono di atomi dal reticolo cristallino e riprendendo allora la definizione che si è data al reticolo,
+ci poniamo dunque nelle ipotesi di avere ancora un solido.
+Concentrandosi sull'atomo centrale, possiamo allora chiedersi come si può muovere questo assumendo che gli altri
+atomi siano in una posizione fissata. Questo diventa il problema del moto di un punto
+materiale in due dimensioni: posso esprimere l'energia potenziale del sistema
+intorno all'atomo considerato come
+\begin{gather*}
+    U(x, y) = \sum_{i = 1}^{n} V(|\vec{r} - \vec{r_i}|  ) 
+\end{gather*}
+In questo problema si ha una funzione di due variabili che dipende parametricamente
+anche dalle altre dodici variabili (che posso allora fissare come voglio dato che
+sono parametri e non variabili). L'energia meccanica sarà allora data dal contributo anche
+cinetico
+\begin{gather*}
+    E = \frac{1}{2}m(v_x^{2}  + v_y^{2} ) + U(x, y)
+\end{gather*}
+Quale è la regione di piano accessibile al moto del nostro punto centrale? La regione accessibile
+dall'atomo centrale è quella in cui l'energia potenziale sia minore o uguale all'energia meccanica totale. L'energia
+cinetica in questo modello semplificato può essere applicata solamente all'atomo centrale: questo moto è descritto allora
+da questa regione di movimento specifica. Che succede allora se gli altri sei atomi siano fermi ed in un
+reticolo a bassa energia? La particella non si muove molto poiché è ingabbiata dagli altri atomi
+anche nel caso in cui si fornisca una energia molto grande di $10\epsilon$.
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Situazione fisica}
+    \begin{tikzpicture}
+        \draw[->](-1.5, -2) -> (-1.5, 2);
+        \draw[->](-2, -1.5) -> (2, -1.5);
+        \draw (0,0.5) circle (0.25);
+        \draw(1, 0) ..controls(0.6, -0.4).. (0.5, -0.8);
+        \draw(0.5, -0.8) ..controls(0, -0.6).. (-0.5, -0.8);
+        \draw(-1, 0) ..controls(-0.8, -0.2).. (-0.5, -0.8);
+        \draw(-1, 0) ..controls(-0.8, 0.4).. (-1, 0.8);
+        \draw(1, 0.8) ..controls(0.8, 0.5).. (1, 0);
+        \draw(-0.3, 2) ..controls(-0.3, 1.2).. (-1, 0.8);
+        \draw(0.3, 2) ..controls(0.3, 1.2).. (1, 0.8);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se si considera la situazione più realistica secondo la quale tutti gli atomi
+ricevono energia cinetica: in questo caso gli atomi tenderanno tutti ad agitarsi e dunque il raggio $r_0$
+di interazione tenderà a crescere e il moto della particella risulterà maggiore rispetto
+alla situazione ideale anche con solo $\frac{1}{2}\epsilon$. La particella ha quindi molto più margine
+di movimento in quanto gli atomi in media sono più distanti tra di loro e ciascuno si muove di più rispetto
+agli altri. Tra tutte le fluttuazioni possibili se due degli atomi del reticolo
+intorno si muovono in direzioni opposte, allora il margine di movimento della particella ha 
+di punto in bianco una regione di movimento maggiore e si crea un canale di uscita; 
+anche se la situazione più probabile è quella che la particella centrale si scambia di posizione con una del reticolo intorno.
+Se si aspetta abbastanza ogni particella potrebbe percorrere tutto il reticolo (e questa è proprio la situazione
+che accade nel liquido!) senza dispendio di energia anche se, in un dato istante, si volesse osservare cosa accade,
+ogni particella apparirà circondata da altre 6 particelle. 
+
+\subsection {Riassunto delle proprietà delle fasi e ipotesi di validità}
+Per ogni fase noi consideriamo una energia minima in cui si ha il
+reticolo perfetto di un materiale e aggiungiamo un certo $\Delta E$: 
+\begin{align*}
+    &\text{Solido} &\frac{\Delta E}{N} &\llless \epsilon \\
+    &\text{Liquido} &\frac{\Delta E}{N} &\approx \epsilon \\
+    &\text{Gas} &\frac{\Delta E}{N} &\gtrapprox 3\epsilon 
+\end{align*}
+Tutte queste ipotesi valgono solo quando la distribuzione degli
+atomi è omogenea e la distribuzione di energia applicata al sistema sia
+uniforme a tutti gli atomi. Gli stati della materia dunque sono omogenei
+in quanto sono interazioni a corto raggio mentre interazioni a lungo raggio
+come la forza di gravità non è omogenea. Questo modello vale
+solo ed esclusivamente nel caso in cui gli atomi sono approssimabili a piccole sferette
+anche se a livello macroscopico potremmo anche assumere gli atomi come 
+puntiformi in quanto in fisica, gli eventi che avvengono ad una data scala sono
+influenzati solo dalle scale immediatamente vicine ed ignorano (salvo varie
+eccezioni) ciò che accade alle scale più lontane. Le dimensioni contano in quanto è
+possibile ricavare le leggi per livelli superiori partendo dalle leggi del 
+piccolo però dalle leggi macroscopiche non si può ricavare le leggi microscopiche. 
+
+\subsection{Determinare gli effetti probabilistici nel sistema}
+Considerando la forza applicata ad ogni oggetto
+\begin{gather*}
+    \vec{F_i} = m\vec{a_i} \qquad i = 1, \dots, N \qquad N \ggg 1  
+\end{gather*}
+Per esempio in un bicchiere d'acqua ci sono $8.4 \cdot 10^{24}$ atomi all'interno
+del bicchiere e quindi questo problema è perfettamente determinato attraverso le leggi che
+abbiamo definito. L'unico problema è che abbiamo $10^{25}$ punti materiali nel nostro
+sistema e computazionalmente è molto scomodo. Supponiamo che per ogni punto materiale utilizziamo
+$1$Byte di informazioni, ossia $10^{13}TB$ solo per tenere in memoria le posizioni dei punti materiali.
+Le prime persone che hanno provato a calcolare le posizioni attraverso un calcolatore è
+stato negli anni 50 con un set di dati di $N =32$ e $N = 64$ solo nel moto unidimensionale
+per cercare di studiare la dinamica molecolare. \\
+Con un supercomputer si potrebbe ora simulare sistemi dell'ordine di $10^{6}$, se il nostro sistema stesse in un cubo, allora segue
+\begin{gather*}
+    N \propto V = L^{3} \ \Longrightarrow \ L \propto N^{1/3}  
+\end{gather*}
+Allora il numero di atomi che sta sul bordo è proporzionale a $L^{2}$ e quindi 
+$N_{bordo} \propto L^{2} \propto N^{2/3}$ e quindi
+\begin{gather*}
+    \frac{N_{bordo}}{N} \propto \frac{N^{2/3} }{N} = N^{1/3} 
+\end{gather*}  
+Più il sistema è piccolo e più gli effetti del brodo contano, anche
+con soli $10^{6}$ atomi, avrò un errore di circa $10^{-2}$ nello studio
+della dinamica molecolare. Se noi facciamo la dinamica molecolare in un piano
+con punti materiali allora dovremmo rivedere le nostre relazioni utilizzando un 
+software per poter simulare sistemi molecolari.  
+
+
+
+\end{document}

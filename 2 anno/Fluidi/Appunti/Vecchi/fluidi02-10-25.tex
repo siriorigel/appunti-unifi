@@ -1,0 +1,210 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di fluidi}
+\author{Tommaso Miliani}
+\date{02-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Come è fatto un termometro}       
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$y$};
+        \draw(1, 1) .. controls (1.4, 0.9) and (1.9, 2.2) .. (2, 3) node[at end, above] {$h(x, y) = T_1$};
+        \draw(0, 2) -- (4, 2) node[at end, right] {$Y = Y_0$};
+        \draw[dashed](1.78, 0) -- (1.78, 2) node[at start, below] {$x_1$};
+        \draw(2, 1) .. controls (2.4, 0.9) and (2.9, 2.2) .. (3, 3) node[at end, right] {$h(x, y) = T_2$};
+        \draw[dashed](2.78, 0) -- (2.78, 2) node[at start, below] {$x_2$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nei primi termometri si utilizzava il  mercurio in quanto
+a temperatura ambiente è liquido ed ha un coefficiente di dilatazione
+molto grande e soprattutto molto più lineare rispetto ad altri fluidi
+come l'acqua. L'idea di un termometro è in generale quella di trovare la temperatura
+di un dato sistema date come variabili $x, y$, che corrispondono rispettivamente
+al volume e alla pressione. Posso allora decidere (dato che è comodo) di trovare una funzione
+lineare prototipo del tipo:
+\begin{gather*}
+    T(x) = ax   + b
+\end{gather*}
+Adesso devo trovare un modo per poter fissare queste costanti: se io so che
+ci sono delle situazioni che si verificano sempre alla stessa temperatura, allora
+sono in grado di determinarle. Esistono quindi dei punti chiamati \textbf{punti fissi
+termodinamici} : questi punti esistono e corrispondono proprio ai cambi di stato. Quando un materiale
+passa da uno stato all'altro si verificano sempre alla stessa temperatura purché sia fissata almeno una
+delle due variabili da cui ricavo la temperatura. Storicamente per determinare le scale dei
+termometri si utilizzano i punti termodinamici fissi dell'acqua come pressione fissata a $p = 1 \ atm$.
+\begin{gather*}
+    T_1 = ax_1 + b \\
+    T_2 = ax_2 + b
+\end{gather*}
+Posso allora ricavare le costanti come
+\begin{gather*}
+    a = \frac{T_2 - T_1}{x_2 - x_1} \\
+    b = T_1 - x_1\frac{T_2 - T_1}{x_2 - x_1}
+\end{gather*}
+Tutti questi procedimenti sono validi se e solo se si rimane
+ad un certo $Y$ assegnato. Questa è solo una definizione per una
+curva che modellizzi la curva isoterma (è solamente una approssimazione
+e non una legge). Utilizzando ora i punti fissi dell'acqua si ha
+\begin{gather*}
+    t(x) = 100\text{°}\frac{x - x_1}{x_2 - x_1}
+\end{gather*}
+La variabile $x$ è la temperatura dell'oggetto che si vuole
+misurare mentre $x_1$ e $x_2$ sono la temperatura della scala iniziale e finale.
+
+\subsection{Le varie scale}
+La scala Fahrenheit è una scala che utilizza altri punti fissi rispetto all'acqua
+utilizzando una miscela di acqua ghiaccio e ammoniaca. Si può ricavare una relazione tra
+la temperatura Fahrenheit e la temperatura Celsius:
+\begin{align}
+    t_F[^{\circ}F ] = \frac{9}{5}t[^{\circ}C ] + 32
+\end{align}
+Quando misuro una temperatura con due termometri che utilizzano fluidi diversi
+ma la stessa scala termometrica questi leggeranno sempre misure diverse
+per tutte le temperature intermedie tra i due punti fissi in quanto la funzione
+che ho utilizzato per approssimare la temperatura non è congruente con la curva di
+temperatura effettiva. Un'altro problema per i termometri è la lenta evaporazione del 
+fluido utilizzato che rende piano piano il termometro sempre meno preciso.
+
+
+\section{I Gas}
+\subsection{La storia della teoria dei gas e la definizione di gas perfetto}
+Quando si fornisce tanta energia ad un sistema questo diventa un gas: si
+è scoperto che i gas obbediscono a delle leggi molto semplici. Robert Boyle
+ha scoperto, misurando pressioni e volume, che variando quelle grandezze il loro prodotto risultava
+essere costante 
+\begin{gather*}
+    pV =  \text{const}
+\end{gather*}
+Successivamente il fisico Mariotte ha scoperto che tale costante è 
+la temperatura. Molti anni dopo il fisico Gay-Lussac si è domandato come
+possa dipendere una variabile dall'altra e ha trovato 
+una dipendenza della pressione dalla temperatura, e lo stesso per il volume,  secondo le seguenti relazioni:
+\begin{gather*}
+    p = p_0 (1 + \beta T) \ (V\text{ const}) \\
+    V = V_0 (1 + \gamma T) \ (p \text{ const})
+\end{gather*}
+Allora si vede che entro gli errori queste due costanti sono molto vicine tra
+di loro e non dipendono dalla sostanza dalla quale si è fatto le misurazioni. 
+Queste leggi valgono se e solo se si hanno piccole variazioni di temperatura 
+e dunque si ottiene che
+\begin{gather*}
+    \beta \approx \gamma = \frac{1}{273}\ ^{\circ}C^{-1}  
+\end{gather*}
+Poco dopo il chimico Avogadro scopre che 
+\begin{gather*}
+    p = \text{const} \quad T = \text{const} \ \Longrightarrow \  V \propto n
+\end{gather*}
+Ossia il volume è direttamente proporzionale al numero di moli di un gas se e solo se il gas
+è mantenuto a pressione e temperatura costanti.
+Nonostante queste leggi siano storiche, queste sono tanto più valide tanto più un gas è
+rarefatto: posso allora definire un limite secondo il quale
+\begin{gather*}
+    \lim_{p \to 0} \ \Longrightarrow \  \text{gas perfetto} 
+\end{gather*}
+Il gas si dice \textbf{perfetto} quando la pressione tende a zero e dunque le leggi scritte
+per la pressione ed il volume valgono ed il valore dei coefficienti è esattamente:
+\begin{gather*}
+    \beta = \gamma = \frac{1}{273.15 \ ^\circ C }
+\end{gather*}
+Posso allora determinare la temperatura in funzione della pressione
+quando il volume è costante:
+\begin{gather*}
+    T = \frac{273.15}{p_0}p - 273.15 \ [^{\circ}C ]
+\end{gather*}
+In questo modo posso rendere un gas sempre più rarefatto e misurarne la temperatura:
+così posso estrapolare la curva di temperatura con volume costante 
+in funzione della variazione della pressione. Se volessimo
+una scala più comoda potremmo definire una nuova scala di temperatura
+chiamata \textbf{scala Kelvin} (grado Kelvin non è giusto!) :
+\begin{align}
+    T = 273.15 + T(^{\circ}C ) \ [K]
+\end{align}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il punto triplo}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$T$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$p$};
+        \draw(0, 0) .. controls (0.5, 0.2)  and (0.8, 0.6).. (1, 1);
+        \draw(1, 1) .. controls (2, 1.2) and (3, 1.7) .. (4, 3);
+        \draw(1, 1) -- (0.5, 3.5);
+        \filldraw[red](1, 1) circle (1pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Allora la temperatura assoluta definita a volume costante
+utilizzando la scala Kelvin sarà:
+\begin{gather*}
+    T = \frac{p}{p_0}T_0
+\end{gather*}
+Esistono, oltre ai due punti fissi di fusione e ebollizione, esiste anche un unico
+valore in certe condizioni di pressione, volume e temperatura nel 
+quale le tre fasi coesistono simultaneamente che prende il nome di \textbf{punto triplo}.
+Le condizioni del punto triplo dell'acqua sono:
+\begin{gather*}
+    T_{\text{triplo}} = 0.01\  ^{\circ}C = 273.16 \ K \\
+    p_{\text{triplo}} = 611 \ Pa \approx 10^{-3} \ atm \\
+\end{gather*}
+Dato che il gas prefetto non esiste, io posso determinare la temperatura di un oggetto
+con un termometro che contiene un gas perfetto è data da:
+\begin{gather*}
+    T = \frac{p}{p_3}T_3
+\end{gather*}
+Dato che il gas perfetto non esiste, io prendo una successione di pressioni
+che convergono verso zero, di conseguenza la temperatura sarà sempre diversa:
+la $p_3$ è la pressione che misura il termomemtro che misura quando lo metto in contatto
+con l'acqua alla temperatura del punto triplo e cambierà sempre di poco. In questo modo posso ottenere una procedura
+univoca per determinare la temperatura degli oggetti che tutti possono ripetere. 
+
+
+\end{document}

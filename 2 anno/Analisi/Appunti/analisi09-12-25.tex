@@ -1,0 +1,145 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Analisi (Bianchi)}
+\author{Tommaso Miliani}
+\date{09-12-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Teorema di Stokes}
+    Il teorema di Stokes esprime il flusso di campo lungo una
+    superficie. Se $F$ è  definito in un intorno
+    di una superficie orientata $S$ e se $N$ è una scelta del vettore
+    normale a $S$, si esprime il flusso $F$ come
+    \begin{gather*}
+        F = \int_{S}^{} <F, N> \ d\sigma 
+    \end{gather*}
+    Se $\phi : D \to \mathbb{R}^{3}$ è una parametrizzazione di $S$, allora
+    se $\phi(u, v) = (x(u, v) ,y(u, v), z(u, v))$ 
+    \begin{gather*}
+        \int_{D}^{} \left< F(x(u, v), y(u, v), z(u, v)), \phi_U \wedge \phi_U \right> = \int_{D}^{} \left< F(x(u, v), y(u, v), z(u, v)), \phi_U \wedge \phi_U \right> \ du  dv 
+    \end{gather*}
+
+\begin{observation}
+    Se $S$ è il grafico di una funzione $f(x, y)$, allora il vettore
+normale è dato da
+\begin{gather*}
+    N = \frac{\left(-\frac{\partial f}{\partial x}, - \frac{\partial f}{\partial y}, 1  \right)}{\left\lVert \sqrt{1 + \left\lVert \nabla f \right\rVert^{2} }  \right\rVert }
+\end{gather*}    
+\end{observation}
+
+\begin{theorem}
+    Sia $S$ una superficie orientabile di $\mathbb{R}^{3}$, e avente
+    campo normale unitario $N$ il cui bordo consiste di un numero finito
+    di curve chiuse con orientazioni ereditate dall'orientazione di $S$. Se
+    $F$ è un campo vettoriale definito su un insieme aperto $\mathbb{A}$ che 
+    contiene $S$ e $C^{2}$ e $\hat{t}$ è un versore tangente a il bordo
+    di $S$, concorde al verso positivo, allora l'integrale
+    \begin{gather*}
+        \int_{S}^{} \left< rot F, N \right> \ d\sigma = \int_{\partial S}^{}  \left< F, T \right> \ dS 
+    \end{gather*} 
+\end{theorem}
+\begin{proof}
+    Dimostrazione solo del caso particolare nel quale $S$ è il grafico 
+    di una funzione $z = f(x, y)$ con $(x, y) \in D$. Si suppone dunque che
+    $N$ punti verso l'alto (lungo $\hat{z}$ ). A $\partial D$ corrisponde
+    $\partial S$ e a ll'orientazione positiva di $\partial D$ corrisponde l'orientazione
+    positiva di $\partial S$. 
+    \begin{gather*}
+        \int_{D}^{} \left< rot F, N \right> \ d\sigma 
+    \end{gather*}
+    Ossia
+    \begin{gather*}
+        \int_{D}^{} \left(\frac{\partial F_2}{\partial z}(x, y, f(x, y)) - \frac{\partial F_2}{\partial x} (\dots)\right) \frac{\partial f}{\partial x} - \left(\frac{\partial F_1}{\partial z}(\dots) -\frac{\partial F_3}{\partial x} (\dots)  \right) \frac{\partial f}{\partial y} + \left(\frac{\partial F_2}{\partial x}(\dots) - \frac{\partial F_1}{\partial y}  \right) \frac{\partial f}{\partial z} \ dx dy   
+    \end{gather*}
+    Prendendo l'integrele lungo il verso positivo
+    \begin{gather*}
+        \int_{\partial^{+} S}^{} \left< F \cdot T \right> \ d\sigma 
+    \end{gather*}
+    Supponiamo che $\partial^{+}D$ consista ad una curva chiusa. Sia
+    \begin{gather*}
+        \gamma(t) = (x(t) , y(t)) \quad t \in [a, b] 
+    \end{gather*}
+    Una parametrizzazione di $\partial^{+}D$ coerente con l'orientazione positiva, allora
+    una parametrizzazione di $\partial^{+}S$ è proprio
+    \begin{gather*}
+        \tilde{\gamma}(t) = (x(t), y(t), f(x(t) , y(t))) \qquad t \in[a, b]  \quad \dot{\tilde{\gamma}}(t)  = \frac{d}{dt} \tilde{\gamma}(t) = \left(\dot{x}(t) , \dot{y}(t), \frac{\partial f}{\partial x}(x(t), y(t)) \cdot \dot{x}(t) + \frac{\partial f}{\partial y}(x(t),  y(t)) \dot{y}(t)  \right)
+    \end{gather*}
+    Ossia
+    \begin{gather*}
+        \int_{a}^{b} \left< F(x(t) , y(t), f(x(t), y(t))), \left(\dot{x}(t), \dot{y}(t), \frac{\partial f}{\partial x} (\dots) \dot{x}(t) + \frac{\partial f}{\partial y} (\dots) \dot{y}(t)  \right) \right> \ dt = \\
+        \int_{a}^{b} F_1(x, y, f(x, y)) \dot{x}(t) + F_2(x, y, f(x, y)) \dot{y}(t) + F_3(\dots) \left(\frac{\partial f}{\partial x}(\dots) \dot{x} + \frac{\partial f}{\partial y} \dot{y}  \right) \ dt 
+    \end{gather*}
+    \begin{gather*}
+        \int_{\partial^{+}D}^{} \left(F_1(x, y, f(x, y)) + F_3(x, y, f(x, y)) \frac{\partial f}{\partial x} (x, y) \right)dx + \left(F_2(\dots) + F_3(\dots) \frac{\partial f}{\partial y} (\dots) \right) dy
+    \end{gather*}
+    Le formule di Gauss Green mi dicono che tale integrale è
+    \begin{gather*}
+        \int_{D}^{} \frac{\partial }{\partial x} \left(F_2(x, y, f(x, y)) + F_3(x, y, f(x, y)) \cdot \frac{\partial f}{\partial y} (x, y)\right) \\
+        + \frac{\partial f}{\partial y} \left(F_1(x, y, f(x, y)) + F_3(x, y, f(x, y)) \frac{\partial f}{\partial x} \frac{\partial f}{\partial x} (x, y)  \right)  dx dy
+    \end{gather*}
+    Allora
+    \begin{gather*}
+        \int_{D}^{} \left(\frac{\partial F_2}{\partial x} (\dots)  + \frac{\partial F_2}{\partial z} (\dots) + \frac{\partial f}{\partial x}(x, y) + \left(\frac{\partial F_2}{\partial x}(\dots) + \frac{\partial F_3}{\partial z} (\dots) \frac{\partial f}{\partial x} (\dots)   \right)\frac{\partial f}{\partial y}(\dots) + F_3(\dots)\frac{\partial^{2}}{\partial x \partial y} (x, y)   \right) \\
+        - \left(\frac{\partial F_1}{\partial y} + \frac{\partial F_1}{\partial z} \frac{\partial f}{\partial y} + \left(\frac{\partial F_3}{\partial y} + \frac{\partial F_2}{\partial z} \frac{\partial f}{\partial y}   \right) \frac{\partial f}{\partial x} + F_3 (\dots) \frac{\partial ^{2} f}{\partial y \partial x}     \right)
+    \end{gather*}
+    Si può semplificare dunque l'integrale come
+    \begin{gather*}
+        \int_{D}^{} \frac{\partial f}{\partial x} (x, y) \left(\frac{\partial F_2}{\partial z} - \frac{\partial F_3}{\partial y}  \right) + \frac{\partial f}{\partial y} \left(\frac{\partial F_2}{\partial x} - \frac{\partial F_1}{\partial z}  \right) + \left(\frac{\partial F_2}{\partial x} - \frac{\partial F_1}{\partial y}  \right) dx dy  
+    \end{gather*}
+\end{proof}
+
+
+
+
+
+\end{document}

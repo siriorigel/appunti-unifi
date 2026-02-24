@@ -1,0 +1,190 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Geometria(RUBEI)}
+\author{Tommaso Miliani}
+\date{28-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Sottospazi affini}
+\begin{definition}[Sottospazi affini]
+    Sia $K^{n}$ un campo,allora sia $n \in N - \{0\}$. SIa
+    $S$ un sottospazio di $K^{n}$. Si dice che $S$ è un sottospazio
+    affine se $\exists v \in K^{n} \wedge \exists Z \subset K^{n}$ tale che:
+    \begin{align}
+        S = v + Z.
+    \end{align}   
+    Dove 
+    \begin{gather*}
+        v + Z = \{v + z : z \in Z\}
+    \end{gather*} 
+    Un sottospazio affine è un sottospazio traslato
+    rispetto al sottospazio di uno spazio qualsiasi. 
+\end{definition}
+\begin{definition}[Direzione del sottospazio]
+    Il sottospazio dal quale si ricava il sottospazio affine
+    $S$ si chiama \textbf{direzione} di $S$, o si scrive anche:
+    $Z = dir(S)$ ed è univocamente determinata.
+\end{definition}
+\begin{lemma}
+    La direzione è univocamente determinata
+\end{lemma}
+\begin{proof}
+    Sia $S$ un sottospazio affine con direzione $Z$  quindi:
+    \begin{gather*}
+        S = v + Z e S = v' + Z'
+    \end{gather*}
+    Con $v, v' \in K^{n}$ e quindi essendo $z, z' \in K^{n}$, si ha che:
+    \begin{gather*}
+        \{v + z : z \in Z\} = \{v' + z' : z' \in Z\}
+    \end{gather*}  
+    In particolare in questo insieme ci sta proprio $v$ e quindi se sta in questo 
+    insieme allora sta anche nell'altro e quindi $\exists z' \in Z' : v = v' = z' \in Z'$.
+    e allora: $v - v' = z' \in Z'$. Allora $\exists z \in Z : v' = v + z$ e quindi
+    $v - v' = z \in Z$. Ho dimostrato che $v - v'$ ed il suo opposto $\in Z, Z'$
+    allora devo dimostrare che $Z \subseteq Z' \wedge Z' \subseteq Z$. \\
+    PReso $t \in Z$, io so che $ v + t \in v + Z = v' + Z'$, esiste
+    allora $v + t \in v' + Z'$ e quindi $\exists t' \in Z'$ tale che $v + t = v' + t'$
+    ALlora posso scrivere:
+    \begin{gather*}
+        t = v' - v + t'
+    \end{gather*} 
+    ALlora entrambi i pezzi del secondo membro sono in $Z'$ ed essendo chiuso
+    per la somma, $t \in Z'$. Allora è dimostrato che $Z \subseteq Z' \wedge Z' \subseteq Z$ e
+    allora $Z = Z'$. 
+\end{proof}
+\begin{definition}[DImensione del sottospazio affine]
+    La dimensione di un sottospazio affine è proprio la dimensione
+    della direzione del sottospazio affine.
+\end{definition}
+Esempio:
+\begin{gather*}
+    r = \left\{ \begin{pmatrix} 1 \\
+    2 \end{pmatrix} + t \begin{pmatrix} 1 \\
+    1\end{pmatrix} : t \in R \right\}
+\end{gather*}
+Allora questo sottospazio sarà proprio la retta che passa dal punto
+$(1, 2)$ e tutti i punti della retta sono ottenuti sommando come multiplo di t
+che diventa allora la sua direzione. 
+\begin{definition}
+    UN sottospazio affine di dimensione $1$ è una retta, di dimensione $2$ 
+    è piano, di dimensione $n - 1$ si dice iperpiano. 
+\end{definition}
+
+\begin{lemma}
+    SIa $K$ un campo, e sia $n \in N$, e sia $Z$ un sottospazio vettoriale
+    di $K^{n}$ di dimensione $r$, allora $\exists A \in M((n - r) \times n, K) : Z
+    = \{x \in K^{m} : Ax = 0 \}$. \\
+    Sia S un sottospazio affine di $K^{n}$ di dimensione $r$
+    allora $\exists A \in M((n - r) \times n, K)$ di rango $n -r$
+    e $\exists b \in K^{m - n}$ tale che:
+    \begin{gather*}
+        S = \{x \in K^{n} : Ax = b \}
+    \end{gather*}  
+\end{lemma}
+\begin{proof}
+    Dato un sottospazio vettoriale $Z$ di $K^{n}$, allora questo
+    è lo span di $r$ vettori indipendenti  e sia $\left<Z_1, \dots, Z_r\right>$ una base
+    di $Z$. Creando la trasposta delle righe si ottiene una matrice che ha quindi 
+    un formato $r \times n$ di rango $r$. \\
+    SI considera $L = \{x \in K^{n} \} : (z_i, x) = 0$  ossia il prodotto
+    scalare diventa l'insieme delle soluzioni di $Ax = 0$ ed in pratica la trasposta 
+    di $z_1 \cdot  x$ e così via e quindi il suo prodotto scalare è zero se e solo
+    $x = 0$. \\
+    Quindi essendo $\dim(L) = n - r$:
+    \begin{gather*}
+        L = \left< l_1 , \dots, l_{n - r}\right>
+    \end{gather*}  
+    Posso chiamare $A'$ la matrice ottenuta trasponendo tutte queste soluzioni
+    e diventa quindi una matrice di formato $n - r \times n$ e di rango $n - r$. 
+    COnsiderato l'insieme 
+    \begin{gather*}
+        U = \{x \in K^{n} : A' x = 0 \}
+    \end{gather*}
+    Ossia l'insieme dei prodotti scalari con gli elementi di $L$ e quindi fare
+    il prodotto e quindi:
+    \begin{gather*}
+        \dim(U) = rk col(A') - rk(A') = r
+    \end{gather*} 
+    SI osserva inoltre che $Z \subset  U$ poiché se prendessi un
+    elemento qualsiasi di $Z$ come combinazione lineare degli elementi di Z
+    e questo è uguale a qualsiasi elemento di $L$, essendo che $\dim(Z) = r$
+    allora si ha proprio:
+    \begin{gather*}
+        U = Z 
+    \end{gather*}
+    Si è provato allora che $Z$ è l'insieme delle soluzioni di un sistema
+    omogeneo. Proviamo la seconda parte del lemma:
+    Sia $S$ un sottospazio affine di $Z$, allora voglio dimostrare che sia 
+    proprio l'insieme delle soluzioni di un sistema lineare:
+    \begin{gather*}
+        S = \{x \in K^{n} : \exists z \in Z : x = v + z\} \\
+         = \{x \in K^{n} : x - v \in Z\}
+    \end{gather*} 
+    Per la prima parte della proposizione si sa che $Z$ è proprio l'insieme
+    delle soluzioni e quindi :
+    \begin{gather*}
+        S = \{x \in K^{n} : A(x - v) = 0\}
+    \end{gather*}
+    Quindi posso vedere che $Ax = Av$ e quindi, posto $b = Av$ si 
+    vede che S è l'insieme delle soluzioni di un sistema lineare. 
+\end{proof}
+Posso vedere quindi i sottospazi affini come le soluzioni
+dei sistemi lineari con le matrici
+Si ha allora un corollario:
+\begin{lemma}
+    Sia $s$ una retta in $R^{3}$ e quindi un sottospazio affine
+    di dimensione $1$ allora c'è una matrice tale che $s$ è l'insieme
+    delle soluzione dell'insieme $Ax = b$  e allora $\exists A \in M(2 \times3, R)$
+    ed $\exists b \in R^{2}$.
+    \begin{gather*}
+        \exists \alpha, \beta, \gamma, \alpha', \beta', \gamma', \delta, \delta' : rk\left(\begin{tabular}{c c c}
+            $\alpha$ & $\beta$ & $\gamma$ \\
+            $\alpha'$ & $\beta'$ & $\gamma'$
+        \end{tabular}\right) = 2 \Rightarrow  \\
+        s = \{x \in R^{3} : \begin{array}{c}
+            \alpha x_1 + \beta x_2 + \gamma x_3 = \delta \\
+            \alpha' x_1 + \beta' x_2 + \gamma' x_3 = \delta' \\
+        \end{array}\}
+    \end{gather*} 
+
+    Sia $\Pi$ un piano din $R^{3}$, quindi $\exists A \in M(2 \times 3, R)$
+    di rango 1 e $\exists b \in R^{1} :$
+    \begin{gather*}
+        \Pi = \{x \in R^{3} : Ax = b\}
+    \end{gather*}  
+    In pratica quest mi da un equazione sola:
+    \begin{gather*}
+        \Pi = \{x \in R^{3} : \alpha x_1  \beta x_2 + \gamma x_3\}
+    \end{gather*}
+    Almeno uno dei tre deve essere diverso da zero. 
+\end{lemma}
+
+\end{document}

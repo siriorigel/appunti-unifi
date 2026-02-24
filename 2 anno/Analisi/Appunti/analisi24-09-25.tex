@@ -1,0 +1,174 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti analisi}
+\author{Tommaso Miliani}
+\date{24-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Equazioni esempio}
+
+\begin{definition}[Principio di sovrapposizone]
+    Il principio di sovrapposizione mi consente di risolvere separatamente due equazioni differenziali
+    non omogenee separando i termini termini somma dalla parte di $f(x) $ 
+    sfruttando la linearità delle equazioni differenziali. 
+\end{definition}
+\begin{example}
+    Equazion differenziale lineare del secondo ordine a coefficienti costanti
+    \begin{gather*}
+        y'' -4y'+5y=2x^{2} + 3e^{-x}  
+    \end{gather*}
+    Si vede allora che il polinomio carattersitico è
+    \begin{gather*}
+        P_{\lambda} = \lambda^{2} - 4\lambda + 5 = (\lambda - 2 + i)(\lambda - 2 - i)
+    \end{gather*}
+    Trovo allora le radici di questo polinomio reale ottenendo così due soluzioni dell'equazione
+    omogenea associata, dalla combinazione lineare delle due soluzioni:
+    \begin{gather*}
+        e^{(2 - i)x} \qquad e^{(2 + i)x}  
+    \end{gather*}
+    Queste soluzioni mi generano tutte le soluzioni complesse, posso trovare allora
+    una combinazione lineare di queste soluzioni per ottenere una
+    soluzione reale, ossia
+    \begin{gather*}
+        e^{2x}\cos x \qquad  e^{2x} \sin x  
+    \end{gather*}
+    Le soluzioni dell'equazione omogenea sono tutte e sole le funzioni
+    \begin{gather*}
+        Ae^{2x}\cos x + Be^{2x}\sin x \quad \forall A, B \in \mathbb{R}  
+    \end{gather*}
+    Il fatto che $A, B$ siano reali deriva dal fatto che devono comunque dare delle
+    combinazioni lineari reali a partire dalle soluzioni. Si sa che dalla
+    teoria lo spazio delle soluzioni dell'equazione completa è dato dallo spazio affine
+    \begin{gather*}
+        y_T(x) = y_0(x) + y_p(x)
+    \end{gather*}
+    Dove $y_p(x)$ è la soluzione particolare con cui traslo il mio sottospazio affine
+    ma in realtà sono infinite; posso cercarla con il metodo della similarità ed il principio
+    di sovrapposizione:
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y'' -4y'+5y=2x^{2} \\
+            y'' -4y'+5y=3e^{-x} 
+        \end{array}\right.
+    \end{gather*}
+    Posso sommare le due soluzioni per ottenere la soluzione dell'equazione "particolare";
+    cerco allora un polinomio di secondo grado tale che l'oggetto 
+    $y_P(x)$ sia soluzione:
+    \begin{gather*}
+        y_P(x) = (ax ^{2} + bx + c ) + (ke^{-x} )
+    \end{gather*}
+    In questo modo posso combinare questa all'interno della differenziale e
+    mettere in evidenza ogni termine in modo tale che si ottenga una combinazione
+    di $a, b, c, k$ che mi permettano di trovare a destra $2x^{2} + 3e^{-x}$. Derivando e
+    risolvendo dentro la differenziale si ottiene
+    \begin{gather*}
+        5a(x) ^{2} + x(-8a + 5b) + 2a - 4b +5c + e^{-x}(k + 4k + 5k) = 2x^{2} + 3e^{-x} \\
+        5a(x) ^{2} + x(-8a + 5b) + 2a - 4b +5c  = 2x^{2} \\
+        e^{-x}(k + 4k + 5k) = 3e^{-x} 
+    \end{gather*}  
+    Trovo allora i coefficienti di $a, b, c, k$ in modo tale che si risolva allora
+    l'equazione
+    \begin{gather*}
+        a = \frac{2}{5} \\
+        b = \frac{16}{25} \\
+        c = \frac{44}{125} \\
+        k = \frac{3}{10}
+    \end{gather*}
+    L'integrale generale (o soluzioni dell'equazione) si ottiene come 
+    lo spazio dell'omogenea più questa soluzione che abbiamo trovato:
+    \begin{gather*}
+        y_T(x) = Ae^{2x}\cos x + Be^{2x}\sin x + \frac{2}{5}x^{2} + \frac{16}{25}c + \frac{44}{125} + \frac{3}{10}e^{-x} \qquad A, B \in \mathbb{R}    
+    \end{gather*}
+\end{example}
+
+\begin{example}
+    \begin{gather*}
+        y'' -4y' + 5y = -e^{2x}\cos x 
+    \end{gather*}
+    Risolvo l'equazione omogenea associata
+    \begin{gather*}
+        y'' -4y + 5y = 0
+    \end{gather*}
+    Abbiamo lo stesso spazio delle soluzioni dell'omogenea di quella
+    di prima, allora la soluzione completa dovrò valutare la traslazione del
+    sottospazio affine risolvendo la completa. Cerco allora per similarità una
+    soluzione per l'equazione 
+    \begin{gather*}
+        -e^{2x}\cos x = Re(-e^{(2 + i)x}  ) = Re(-e^{(2 - i)x} ) 
+    \end{gather*}
+    CI sono allora due metodi per risolvere e trovare la soluzione particolare:
+    Il primo metodo è per similarità: cerco la radice nel campo $\mathbb{C}$ e trovo allora
+    $\tilde{y_P}$ come soluzione complessa e chiamo $y_P = Re (\tilde{y_P})$:
+    \begin{gather*}
+        y'' - 4y' + 5y = -e^{(2 + i)x} 
+    \end{gather*}
+    Il secondo metodo è quello di utilizzare la combinazione lineare di seno e
+    coseno moltiplicato per $e^{2x}$ (ossia svolgendo il numero complesso e ottenendo allora
+    la seguente):
+    \begin{gather*}
+        y_P(x) = e^{2x}(a\cos x + b\sin x) 
+    \end{gather*} 
+    La soluzione particolare al grado uno qui sotto genera la stessa soluzione di quella sopra:
+    \begin{gather*}
+        (\alpha x + \beta)xe^{2x}(a\cos x + b\sin x) 
+    \end{gather*}
+\end{example}
+
+\begin{theorem}[Teorema di struttura]
+    Se una equazione differenziale lineare del secondo ordine è
+    data da 
+    \begin{gather*}
+        ay'' + by' + cy = d(x)
+    \end{gather*}
+    La cui soluzione del polinomio associato è $\lambda_1 \neq \lambda_2$ e quindi la soluzione
+    
+\end{theorem}
+
+\end{document}

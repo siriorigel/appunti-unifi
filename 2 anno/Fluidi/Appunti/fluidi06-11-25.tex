@@ -1,0 +1,297 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Fisica statistica}
+\author{Tommaso Miliani}
+\date{06-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section*{Introduzione alla fisica statistica}
+\section{Teoria della probabilità}
+Nel 1933 Kol'moporov risolve dal punto di vista matematico il
+dibattito fra i soggettivisti, che dicevano che gli eventi erano
+in nessun modo determinabili attraverso le probabilità e gli oggettivisti 
+che invece pensavano che la probabilità
+di un evento era misurabile. Prima di tutto nella probabilità
+si considerano le \textbf{variabili aleatorie}, della quale, in linea di principio, non 
+è possibile conoscerne il valore (non è essenziale la natura dell'oggetto purché
+le operazioni che si definiscano siano valide). 
+\begin{gather*}
+    x \in \{x_1, \dots, x_n\}
+\end{gather*}
+A ciascuno di questi valori si associa un valore di probabilità $p_i \in [0, 1]$. L'insieme
+di tutti questi valori prende il nome di distribuzione probabilistica:
+\begin{gather*}
+    \{p_i\} = \{p_1, \dots, p_n\}
+\end{gather*} 
+Si definisce allora la \textbf{condizione di normalizzazione}, per cui la sommatoria
+di tutte le probabilità deve necessariamente fare $1$
+\begin{gather*}
+    \sum p_i = 1
+\end{gather*}
+Una distribuzione è dunque normalizzata (o unitaria) se si verifica questo. Si 
+definisce \textbf{valore atteso}, o \textbf{valore medio} il valore che si ottiene
+dalla media pesata di tutte le probabilità:
+\begin{gather*}
+    \mathbb{E}(x) = \sum p_i x_i = \left< x \right> 
+\end{gather*}
+Se ogni possibile risultato ha la stessa probabilità allora,
+per la condizione di normalizzazione, 
+\begin{gather*}
+    p_i = \frac{1}{M} \qquad \mathbb{E}(x) = \frac{1}{M}\sum x_i = \left< x \right> 
+\end{gather*}
+Ottenendo dunque la media dei pesi. Si definisce anche la \textbf{varianza}
+\begin{gather*}
+    \sigma^{2} = \left<(x - \left< x \right> )^{2}\right> = \left< x^{2} \right> - \left< x \right>^{2}   
+\end{gather*}
+Chiaramente non si può associare ad ogni valore una probabilità, ma la 
+so associa ad un picco intervallo per ogni valore: infatti la probabilità di ottenere
+un dato risultato è esattamente zero:
+\begin{gather*}
+    dp(x_0) = f(x_0)\ dx
+\end{gather*}
+Dato che tutte le probabilità devono necessariamente sommarsi ad 1, si ottiene
+la \textbf{funzione di distribuzione di probabilità} o \textbf{densità di probabilità}:
+\begin{gather*}
+    \int_{x_{min}}^{x_{max}} f(x) \ dx = 1 
+\end{gather*}
+Quindi il valore atteso prende la forma di
+\begin{gather*}
+    \mathbb{E}(x) = \left< x \right> = \int_{x_{min}}^{x_{max}} xf(x) \ dx   
+\end{gather*}
+La probabilità di ottenere un certo valore in un certo range
+di valori è data da
+\begin{gather*}
+    p(a, b) = p(a < x < b) = \int_{a}^{b}f(x)  \ dx 
+\end{gather*}
+Per cui, nel caso discreto,
+\begin{gather*}
+    p(x_i, x_j) = p(x_i < x < x_j) = \sum_{k = i}^{j} p_k
+\end{gather*}
+Se si hanno più variabili che si possono considerare e sono 
+indipendenti tra di loro, è possibile ottenere la funzione
+di probabilità come la produttoria delle singole probabilità:
+\begin{gather*}
+    \prod p_i \ \Longrightarrow \ f(x, y) = f(x) f(y)
+\end{gather*}
+In generale calcolare la funzione di distribuzione non 
+è semplice, ma c'è un risultato importante dal punto di vista pratico:
+\begin{gather*}
+    \left< g(x)  \right> = \int_{x_{min}}^{x_{max}} g(x) f(x) \ dx \ \Longrightarrow \ \left< g \right> = \sum g_i p_i \qquad g_i = g(x_i)   
+\end{gather*}
+Che prende il nome di \textbf{LOTUS}: "Law of the unconscious statistician". 
+Se si considerasse la funzione $g(x)  = y$ in funzione della variabile
+aleatoria $x$, si può ottenere la probabilità come
+\begin{gather*}
+    f(y) = \sum f(x) = \int_{y_{min}}^{y_{max}} dx \ f(x)  \delta(g(x)  - y) 
+\end{gather*}
+Per cui
+\begin{gather*}
+    p_{y_i} = \sum \delta_{g(x) , y_1} p_i
+\end{gather*}
+Dove $\delta$ è il \textbf{Delta di Dirak}, ossia una gaussiana
+con varianza zero che ha valore 1 se $\exists x : g(x)- y = 0$.  
+
+\subsection{La legge dei grandi numeri e teorema del limite centrale}
+\begin{remark}[Legge dei grandi numeri]
+    Supponendo di avere $n$ variabili $x_i$ e che siano indipendenti
+tra di loro e che siano anche identicamente distribuite, ossia la
+distribuzione di tutte le variabili è la stessa. Si definisce 
+la \textbf{media empirica} come la media tutti i valori:
+\begin{gather*}
+    \overline{x_N} = \frac{1}{N}\sum x_i
+\end{gather*}
+La legge ci permette di dire che
+\begin{gather*}
+    N \to \infty \ \Longrightarrow \ \overline{x_N} \to \left< x \right> \ \Longrightarrow \ p\left(\lim_{N \to \infty } \overline{x_N} = \left< x \right>  \right) = 1
+\end{gather*}   
+\end{remark}
+
+Il teorema del limite centrale è più "forte" della legge dei grandi numeri
+in quanto ci permette di tenere conto  della varianza finita delle singole misure
+(ma non importa che siano distribuite normalmente)
+\begin{remark}[Teorema del limite centrale]
+    La distribuzione della media empirica $p(\overline{x_n})$ è tale che è normale 
+    a gaussiana (suppone dunque che la varianza delle singole variabili siano finite)
+    tale per cui
+    \begin{gather*}
+        x_0 = \left< x \right> \qquad \text{var} = \frac{\sigma^{2}}{N} 
+    \end{gather*}
+    Per cui all'aumentare di $N$, l'errore che si commette nell'approssimare
+    $\overline{x_N}$ con $\left< x \right>$ diminuisce sempre di più.   
+\end{remark}
+
+La differenza è che la legge dei grandi numeri ha validità generale e non tiene conto
+della varianza delle singole misure (che può essere anche infinita), mentre
+il teorema del limite centrale vale solamente se la varianza è un numero 
+finito e il numero di misure è molto grande.
+
+\section{Teoria cinetica dei gas}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (2, 0) node[at end, below] {$y$};
+        \draw[->](0, 0) -- (0, 2) node[at end, left] {$z$};
+        \draw[->](0, 0) -- (-1, -1) node[at end, right] {$x$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si definisce, mediante la teoria dei gas perfetti e l'utilizzo della statistica
+il modello della teoria cinetica dei gas per un gas perfetto monoatomico a livello 
+microscopico. Considerando una scatola di gas chiuso, 
+le particelle possono interagire solamente con le pareti del contenitore
+mediante urto completamente elastico. L'ipotesi di particelle non interagenti 
+è molto forte in quanto ci permette di considerare gas molto rarefatti 
+e in modo tale da poter "rilevare" tutte le interazioni di ogni singola
+particella. L'inclusione degli urti tra le particelle non modificherà 
+le conclusioni derivate da questa approssimazione (per gas molto diluiti)
+ma l'ipotesi del non urto tra particelle è FALSA ma necessaria. 
+Dato che il sistema è meccanicamente isolato si sceglie sempre un SdR inerziale
+in quanto la scatola non si muove. \\
+Ipotizzando dunque che l'energia di interazione tra le particelle
+sia $U_{\text{inter}} \equiv 0 $ che è funzione delle singole posizioni delle
+particelle
+\begin{gather*}
+    U(\vv{r_1}, \dots, \vv{r_n}  ) = 0 
+\end{gather*}
+Dunque l'energia meccanica delle particelle è composta solamente 
+dall'energia cinetica delle singole particelle
+\begin{gather*}
+    E = \frac{m}{2}\sum \left| \vv{v_i}  \right| ^{2}
+\end{gather*}
+Con $\vv{v_i} = v_{x, i} \hat{i} + v_{y, i}  \hat{j} + v_{z, i} \hat{k}$.   
+Possiamo adesso fare delle ipotesi a propri sullo stato del sistema:  
+\begin{enumerate}
+    \item La forza di gravità è assente
+    \item La velocità iniziale delle particelle è costante
+    \item Le pareti sono ortogonali rispetto agli assi (dunque rispetto
+    ad ogni asse gli angoli sono sempre multipli di $\frac{\pi}{2}$).
+    \item Le particelle hanno tutte velocità diverse
+\end{enumerate}
+Adesso, rispetto ad ogni parete, l'urto sarà solamente di natura elastica e dunque
+la velocità dopo l'urto rispetto alla parete ortogonale all'asse $x$ è definita come
+\begin{gather*}
+    \vv{v'_i} = -v_{x, i} \hat{i} + v_{y, i} \hat{j} + v_{z, i} \hat{k}     
+\end{gather*}
+E dunque, essendo cambiata la velocità, sarà cambiata anche la quantità di moto 
+delle singole particelle:
+\begin{gather*}
+    \Delta (m\vv{v_i} ) = m\vv{v_i'} - m\vv{v_i} = -2m\left| v_{x, i}  \right|\hat{i}    
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{picco delle 500 sigarette}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$t$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$\frac{F_i}{L^{2}}$};
+        \draw(1.8, 0) .. controls (2, 5) .. (2.2, 0);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Dunque, durante l'urto, sarà agita una forza che ha modificato la quantità di moto della
+particella. Tale forza sarà definita secondo il teorema dell'impulso per un tempo di
+impatto $t < t^{\star} < t'$.
+\begin{gather*}
+    \int_{t}^{t'} \vv{F_i} \ dt = \Delta (m \vv{v_i} ) = -2m(v_{x, i})\hat{i}   
+\end{gather*}
+E dunque la forza che imprime la particella alla parete sarà data dal terzo
+principio della dinamica. Dato che questa è una forza impulsiva, questa non 
+è per niente costante e dunque non so esprimere la pressione del
+gas in funzione di questa forza, inoltre, le particelle non collidono 
+nel medesimo istante. Una visione microscopica ci dice che è ragionevole considerare
+la pressione del gas come la forza che imprimono le singole particelle
+sulle pareti del gas anche se la sommatoria di queste cose non è possibile 
+in quanto la forza di contatto dipende dal tempo. Per risolvere questo dilemma si 
+ipotizza che esista un \textbf{tempo caratteristico} molto brevi in modo tale che
+di questi urti ne avvengano talmente tanti che qualsiasi strumento macroscopico 
+rileverà una media temporale. 
+\begin{gather*}
+    \tau \gg \tau_{\text{urto}}
+\end{gather*}
+Le singole particelle possiedono un moto libero, per cui 
+tutte le componenti sono indipendenti dalle altre: allora si può definire 
+il tempo di urto che intercorre tra gli urti delle singole particelle su
+una determinata parete:
+\begin{gather*}
+    t_u = \frac{L}{\left| v_{x, i} \right| }
+\end{gather*}
+Una particella compie dunque, con una data parete, un numero di
+urti dato da dal tempo di urto e dal tempo di rilevazione dello strumento:
+\begin{gather*}
+    n_u = \left\lfloor \frac{\tau}{2t_u} \right\rfloor \approx \frac{\tau}{t_u} = \frac{\tau}{2L} \left| v_{x, i} \right| 
+\end{gather*}
+Allora, impostando nuovamente il teorema dell'impulso per $n_u$ urti
+\begin{gather*}
+    \int_{0}^{\tau} F_i \ dt = 2n_u m \left| v_{x, i} \right| = \frac{m\tau}{L}(v_{x, i})^{2}  
+\end{gather*}
+Posso ottenere la media temporale delle forze di pressione 
+\begin{gather*}
+    \frac{1}{\tau}\int_{0}^{\tau} F_i \ dt = \frac{1}{\tau} 2n_u m \left| v_{x, i} \right| = \frac{m}{L}(v_{x, i})^{2}  
+\end{gather*}
+Posso dunque determinare la pressione dividendo anche per $L^{2}$ per ogni particella:
+Posso allora considerare il contributo per tutte le particelle con 
+la sommatoria
+\begin{gather*}
+    p_i = \frac{m}{L^{3}}(v_{x, i})^{2} \ \Longrightarrow \ \sum p_i = p
+\end{gather*}
+Che è proprio la pressione esercitata di un gas su tutta la scatola di volume $L^{3}$. 
+Dato che non si conoscono le velocità di tutte le particelle (poiché sono molte), posso moltiplicare
+e dividere per $N$ e, tramite la statistica (legge dei grandi numeri), si ottiene
+la media empirica della velocità
+\begin{gather*}
+    p = \frac{Nm}{V} \left< v_{x}^{2} \right> 
+\end{gather*}
+
+
+
+
+\end{document}

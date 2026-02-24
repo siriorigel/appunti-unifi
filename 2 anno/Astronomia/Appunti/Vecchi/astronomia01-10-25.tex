@@ -1,0 +1,272 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di astronomia}
+\author{Tommaso Miliani}
+\date{01-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Ultima grandezza del pisel}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (5, 0) node[at end, below] {$I$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+La densità di energia è definita attraverso un cilindro
+attraverso il quale passa una intensità di radiazione lungo
+una certa direzione per un certo intervallo di tempo $dt$:
+\begin{gather*}
+    d E = I \cos\theta \ dA d t d\Omega 
+\end{gather*}
+DAto che il volumetto si esprime come
+\begin{gather*}
+    dV = dA cdt
+\end{gather*}
+Moltiplicando e dividendo l'espressione di $dE$ per $c$ allora 
+posso ottenere con l'integrale di linea dell'angolo solido e la densità di energia come
+\begin{align}
+    u = \oint_{4\pi} \frac{dE}{dV} = \oint_{4\pi} \frac{I}{c}d\Omega = 4\pi \frac{I}{c}
+\end{align}
+
+
+\section{Magnitudini}
+\subsection{Magnitudine apparente}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (4, 0) node[at end, right] {$\log F$};
+        \draw(0, -1) -- (0, 4) node[at end, left] {$m$};
+        \draw(0.5, 4) -- (4, 0.5);
+        \draw[dashed](0.5, 0) -- (0.5, 4) node[at start, below] {$F$};
+        \draw[dashed](0, 0.5) -- (4, 0.5);
+        \draw[dashed](4, 0) -- (4, 0.5) node[at start, below] {$100F$};
+        \draw[dashed](0, 4) -- (0.5, 4);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Già nell'antica Grecia Ipparco cercava di classificare le stelle
+in base alla loro luminosità apparente nel cielo. Divise così le stelle
+in 6 classi: nella prima classe c'erano le stelle molto luminose mentre
+nella classe 6 ci stavano le stelle appena percettibili. Tuttavia 
+la risposta dell'occhio alla luce non è lineare bensì logartimica; di questo
+se ne accorse Norman R. Pogson nel 1856 che diede forma matematica alla 
+classificazione di Ipparco secondo il grafico a fianco. Definì che il rapporto
+tra le luminosità apparenti delle stelle di classe $n$ e $n+1$ era pari a
+$100^{\frac{1}{5}}$, ossia di circa $\approx 2.512$.  
+Si può ottenere allora la magnitudine apparente di un corpo come
+\begin{align}
+    m = -100^{\frac{1}{5}}\frac{F}{F_0} \ \approx \ -2.5\frac{F}{F_0}
+\end{align}
+Si può definire la magnitudine come rapporto di flussi ed è dunque un numero puro;
+la magnitudine è stata introdotta come quantità comoda per poter confrontare
+la luminosità di oggetti diversi. La magnitudine è tarata in modo tale da poter
+essere zero per la stella Vega. Per farlo io considero la scala di Ipparco ed
+esprimo le magnitudini $ 1$ e $6$ come
+\begin{gather*}
+    1 = a \log F + b \\
+    6 = a \log F + b
+\end{gather*}
+Facendo la sottrazione membro a membro si ha
+\begin{gather*}
+    -5 = a \log \frac{100F}{F} \ \Longrightarrow \ a \approx -2.5
+\end{gather*}
+Allora la differenza di magnitudini tra due oggetti è data da:
+\begin{gather*}
+    m_1 = -2.5\log F_1 + b \\
+    m_2 = -2.5\log F_2 + b \\
+    m_1 - m_2 = -2.5\log\frac{F_1}{F_2}
+\end{gather*}
+Tutti gli oggetti con magnitudine più grande di zero sono meno luminosi
+di Vega mentre tutti gli oggetti con magnitudine più piccola di zero sono
+più luminosi di Vega.
+
+\section{Fotometria}
+Le immagini delle galassia o dei corpi celesti sono la combinazione di 
+immagini prese con filtri diversi e combinate insieme per ottenere le immagini
+"belle" che si vedono su internet. L'occhio umano si è tarato per osservare meglio 
+il colore verde in quanto è stata selezione genetica. L'occhio umano
+più acuto riesce a vedere solo oggetti fino a magnitudine 6.
+La fotometria misura il flusso di una sorgente in una banda di lunghezza
+d'onda. Dalle misure fotometriche si ottengono le seguenti misure:
+\begin{itemize}
+    \item \textbf{luminosità}: quantità di energia ricevuta per unità di tempo;
+    \item \textbf{Magnitudine}: misura logaritmica della luminosità apparente;
+    \item \textbf{Colori}: differenza di magnitudine tra due bande, utile per stimare
+    temperatura e composizione, distanze, \dots
+    \item \textbf{}:
+    \item \textbf{}:
+    \item \textbf{}:  
+\end{itemize}
+Per ottenere le immagini a colori devo utilizzare i filtri (ossia degli oggetti che
+riescono a far passare un determinato intervallo di radiazione luminosa).
+
+\subsection{Fotometria nei telescopi}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0) node[at end, below] {$\lambda$};
+        \draw(0, 0) -- (0, 3) node[at end, left] {$I_\lambda$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Ricordando i parametri del telescopio, si può determinare l'energia 
+raccolta dal telescopio da una sorgente puntiforme come 
+\begin{align}
+    E = \pi \frac{R_{\star}^{2} }{d^{2} }A \int_{-\infty }^{+\infty }I_{\lambda}\eta_\lambda\epsilon_\lambda \  \Delta t  \ d\lambda
+\end{align}
+Dove 
+\begin{itemize}
+    \item $I_{\lambda}$ è l'intensità luminosa in funzione della lunghezza d'onda
+    \item $\eta_\lambda$ è la correzione rispetto all'energia assorbita dall'atmosfera;
+    \item $\epsilon_\lambda$ l'efficienza del filtro, ossia l'assorbimento del filtro.
+    \item $A$ è l'apertura della lente del telescopio;
+    \item $\Delta t$ è il tempo di esposizione del telescopio alla luce della
+    sorgente.
+\end{itemize}
+Possiamo anche determinare il grafico dell'intensità luminosa
+in funzione della lunghezza d'onda e osservare che il parametro di
+correzione $\eta_\lambda$ è esattamente un rettangolo dentro l'area
+totale dell'intensità luminosa in quanto è il filtro che mi permette di ricevere
+solamente certe lunghezze d'onda.
+
+\subsection{Sorgenti estese}
+Nel caso di sorgenti estese $S$, attraverso la lente
+io osservo che , data $S$ l'estensione della sorgente, al piano
+focale questa sorgente non sarà più puntiforme ma $S'$. Posso determinare
+l'angolo solido come
+\begin{gather*}
+    \Omega = \frac{A}{d^{2} } \qquad \frac{S^{2} }{d^{2} } = \frac{S'^{2} }{f^{2} }
+\end{gather*}
+Allora il flusso in funzione della lunghezza d'onda sarà
+\begin{gather*}
+    F_\lambda = \frac{S^{2} }{d^{2} }I_\lambda \qquad F_\lambda = \frac{I_\lambda}{d^{2} } \pi R_{\star}^{2} 
+\end{gather*}
+Allora l'energia che riceve il sensore ad una certa lunghezza d'onda sarà esattamente data da
+\begin{gather*}
+    E_\lambda = I_\lambda \Omega S^{2}\eta_\lambda \epsilon_\lambda \Delta t 
+\end{gather*}
+Per ottenere l'energia totale ricevuta per tutte le lunghezze d'onda si deve integrare 
+\begin{align}
+    E = \Delta t A \frac{S'^{2} }{f^{2}}\int I_\lambda\eta_\lambda\epsilon_\lambda \ d\lambda 
+\end{align}
+Dove gli estremi di integrazione non sono definiti in quanto dipendono dalle
+lunghezze d'onda determinate dal filtro utilizzato. 
+Il parametro $\epsilon_\lambda$ determina la \textbf{Magnitudine monocromatica} 
+nel sistema fotocromatico di Johnson-Morgan-Cousins si definisce
+\begin{align*}
+    \begin{tabular}{c c c}
+        & $\lambda_0(nm)$ & $\Delta \lambda(nm)$\\
+        \textcolor{purple}{U} & 365 & 70 \\
+        \textcolor{blue}{B} & 440 & 100 \\
+        \textcolor{green}{V} & 550 & 90 \\
+        \textcolor{orange}{R} & 700 & 220 \\
+        \textcolor{red}{I} & 880 & 240 
+    \end{tabular}
+\end{align*}
+Il valore di $\epsilon_\lambda$ dipende da svariati fattori:
+\begin{itemize}
+    \item Il rivelatore;
+    \item Il filtro;
+    \item Telescopio;
+    \item Quota dell'osservatorio;
+    \item Cielo limpido: il cielo ha tantissime variabili che possono interferire
+    sulla qualità delle osservazioni. Parametri come l'umidità, la luce zodiacale,
+    il vento e l'inquinamento possono modificare sostanzialmente la quantità di luce raccolta. 
+\end{itemize}
+Quando vengono soddisfatte queste condizioni si parla di fotometria assolute. 
+
+\subsection{Lunghezza d'onda efficace}
+Assumiamo $F(\lambda)$  sia variabile all'interno della bada spettrale monocromatica,
+allora posso calcolare la sua variazione totale come
+\begin{gather*}
+    F(\lambda) \approx F(\lambda_0) + \left.\frac{dF(\lambda)}{d\lambda}\right|_{\lambda = \lambda_0} (\lambda - \lambda_0 )
+\end{gather*}
+Di conseguenza posso integrare da entrambe le parti per ottenere l'energia che giunge
+al telescopio come
+\begin{gather*}
+    E  \approx A\frac{R_{\star}^{2} }{d^{2} }\Delta t \int_{0}^{\infty } \left(F(\lambda_0) + \frac{dF(\lambda)}{d\lambda}(\lambda - \lambda_0)\right) \eta_\lambda \epsilon_\lambda \ d\lambda = \\
+    A \frac{R_{\star}^{2} }{d^{2} } \Delta t \left(F(\lambda_0)\int_{0}^{\infty }\eta_\lambda \epsilon_\lambda \ d\lambda + \frac{dF(\lambda)}{d\lambda}\int_{0}^{\infty } (\lambda - \lambda_0)\eta_\lambda \epsilon_\lambda \ d\lambda\right)
+\end{gather*}
+Il secondo integrale è nullo poiché è il flusso di una variazione infinitesima è
+anch'esso infinitesimo e dunque è uguale a zero, allora posso dire che
+\begin{gather*}
+    E = A \frac{R_{\star}^{2} }{d^{2} } \Delta t F(\lambda_0)\int_{0}^{\infty }\eta_\lambda \epsilon_\lambda \ d\lambda
+\end{gather*}
+E quindi
+\begin{gather*}
+    \lambda_0 = \frac{\int_{0}^{\infty }\lambda\eta_\lambda \epsilon_\lambda \ d\lambda}{\int_{0}^{\infty }\eta_\lambda \epsilon_\lambda \ d\lambda}
+\end{gather*}
+
+\subsection {Magnitudine Bolometrica}
+La magnitudine \textbf{bolometrica} è la magnitudine che ottengo sottraendo alla magnitudine di 
+vega la correzione bolometrica e non si riesce mai a determinarla
+
+\subsection{Magnitudine assoluta}
+La magnitudine assoluta, a differenza della magnitudine apparente è
+una quantità intrinseca della stella e non dipende dalla distanza dall'osservatore.
+La magnitudine assoluta è la magnitudine apparente quando l'oggetto viene
+posto ad una distanza di $10 \ pc$. 
+Possiamo allora stimare la distanza di un oggetto conoscendo la magnitudine apparente
+e la magnitudine assoluta:
+\begin{align}
+    m - M = -2.5 \log \frac{F(d)}{F(10 \ pc)}
+\end{align}
+Quello dentro al logaritmo è approssimabile come
+\begin{gather*}
+    \frac{F(d)}{F(10 \ pc)} = \frac{L_\star}{4\pi d^{2}  } \frac{(4\pi (10 \ pc)^{2} )}{L_\star} = \frac{(10 \ pc)^{2} }{d^{2} }
+\end{gather*}
+Allora la differenza tra le magnitudini prende il nome di \textbf{modulo di distanza}:
+\begin{align}
+    m - M = 5\log d - 5 
+\end{align}
+
+\end{document}

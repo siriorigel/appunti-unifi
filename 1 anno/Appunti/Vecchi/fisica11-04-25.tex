@@ -1,0 +1,202 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica}
+\author{Tommaso Miliani}
+\date{11-04-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+
+\section{Definizione di urto e forze in gioco}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'urto tra due palline}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, -3);
+        \draw(0.6, -0.25) circle (0.25);
+        \draw(2.15, -1.75) circle (0.25);
+        \draw[->](0.6, -0.25) -- (1.1, -0.75);
+        \draw[->](2.15, -1.75) -- (1.65, -1.25);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso generale gli urti considerati nella fisica classica
+durano poche frazioni di secondo. Riprendendo l'impulso possiamo 
+esprimere queste grandi forze come
+\begin{gather*}
+    \vec{I} = \int \vec{F}\ dt = \Delta \vec{q}   
+\end{gather*}
+Se le due palline si urtano, allora si sviluppano delle forze molto
+intense in tempi molto brevi che si posso rappresentare
+come una curva molto stretta lungo l'asse del tempo e molto alta nell'asse
+della forza del grafico tempo-spazio. \\
+Cosa succede alle forze  peso
+o quella per la forza vincolare? Possiamo distinguere due classi di forze:
+le forze \textbf{impulsive} e quelle \textbf{non impulsive}. Non
+sono intrinsecamente diverse ma semplicemente differiscono
+nella loro intensità: quelle impulsive raggiungono forze molto grandi in tempi
+molto piccoli mentre le altre sono spesso o costanti oppure forze
+che non raggiungono intensità molto alte in tempi brevi. \\
+Considerando l'intervallo di tempo durante l'urto posso trascurare l'impulso delle
+forze non impulsive in quanto in quel lasso di tempo le forze impulsive sono
+molto maggiori in modulo delle forze non impulsive e quindi nell'integrale
+dell'impulso posso solo considerare il contributo delle forze impulsive. \\
+Se si considera l'insieme formato dai due corpi, le forze impulsive sono
+delle forze interne in quanto l'urto di un corpo all'altro è esattamente la forza
+che imprime uno dei due oggetti dall'altro. Per quanto riguarda quindi 
+la variazione della quantità di moto si può dire che il sistema è isolato in quanto
+anche se c'è la forza peso, etc .., le forze d'urto sono
+le uniche che considero e allora la quantità di moto del sistema
+si conserva in quanto considero solo l'effetto delle forze interne.
+
+\subsection{E' sempre possibile trascurare le forze non impulsive?}
+Nonostante quanto detto finora, non è possibile sempre trascurare le forze
+non impulsive in quanto nell'urto di una pallina dall'alto con un certo angolo rispetto all'orizzontale
+su di una pallina ferma, questa potrebbe voler sfondare il piano su cui è appoggiata
+ma questo non accade se si considera anche il contributo del vincolo.In generale
+bisogna sempre chiedersi se il vincolo ha una certa forza impulsiva che può scaturire
+a causa delle forze impulsive. La geometria del sistema di riferimento diventa 
+dunque essenziale per determinare o meno l'impulsività delle forze vincolari.
+
+\section{Urto elastico ed anelastico}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Urto elastico}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (0.25);
+        \draw(3, 0) circle (0.25);
+        \draw[->](0, 0) -- (0.75, 0);
+        \draw[->](3, 0) -- (3.5, 0);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso in cui il sistema sia isolato, allora posso dire che
+si conserva (nell'istante iniziale e in quello finale) si conserva
+la quantità di moto totale
+\begin{gather*}
+    m_1 \vec{v}_{1f} + m_2 \vec{v}_{2i} = m_1 \vec{v}_{1f} + m_2 \vec{v}_{2f}    
+\end{gather*}
+Dato che ho sei incognite, posso ricondurmi al caso unidimensionale
+in modo tale da poter ridurre le incognite della mia equazione
+a due sole. Posso farlo con buona
+approssimazione se e solo se l'urto è centrato (ossia la traiettoria contiene entrambi i centri
+delle palline). Adesso ciò che succederà dipende dalla forza di interazione
+e si potrebbe allora dissipare energia (quello che succede all'energia cinetica
+dipende dai dettagli dell'urto). Possiamo definire allora
+due tipologie di urto: l'\textbf{urto elastico} un urto in cui 
+l'energia cinetica subito prima dell'urto e subito dopo l'urto è
+uguale.  Si definisce \textbf{urto anelastico} un urto in cui non
+si conserva l'energia cinetica. Quando dissipo tutta l'energia  relativa al centro di massa
+allora i due corpi si attaccano e si parla allora di \textbf{urto completamente anelastico}. \\
+Nel caso di urto elastico allora
+posso utilizzare anche la conservazione dell'energia cinetica per
+determinare la velocità finale:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        m_1 \vec{v}_{1f} + m_2 \vec{v}_{2i} = m_1 \vec{v}_{1f} + m_2 \vec{v}_{2f}     \\
+        \frac{1}{2}m_1 v_{1i}^{2} + \frac{1}{2}m_2v_{2i}^{2} =  \frac{1}{2}m_1 v_{1f}^{2} + \frac{1}{2}m_2v_{2f}^{2} 
+    \end{array}\right.
+\end{gather*}
+Posso allora risolvere
+\begin{gather*}
+    m_1(v_{1i} - v_{1f}) =  m_2(v_{2i} - v_{2f}) \\
+    m_1(v_{1i}^{2}  - v_{1f}^{2} ) =  m_2(v_{2i}^{2}  - v_{2f}^{2} )
+\end{gather*}
+Le velocità finali allora diventano
+\begin{align}
+    v_{1f} &= \frac{m_1 - m_2}{m_1 + m_2}v_{1i} + \frac{2m_1}{m_1 + m_2}v_{2i} \\
+    v_{2f} &= \frac{2m_1}{m_1 + m_2}v_{1i} + \frac{m_1 -m_2}{m_1 + m_2}v_{2i}
+\end{align}
+
+\subsection{Casi particolari}
+1. $m_1 = m_2$:
+\begin{gather*}
+    v_{1f}  = v_{2i} \\
+    v_{1i} = v_{2f}
+\end{gather*}
+Le particelle si scambiano le velocità. In particolare nelle centrali
+nucleari a fissione per rallentare i neutroni lenti bisogna usare come moderatore
+l'acqua pesante in quanto è ricca di neutroni. \\
+2. $v_{2i} = 0$
+\begin{gather*}
+    v_{1f} = \frac{m_1 - m_2}{m_1 + m_2}v_{1i} \\
+    v_{2f} = \frac{2m_1}{m_1 + m_2}v_{1i}
+\end{gather*}
+Nell'urto elastico unidimensionale con una particella ferma, la seconda 
+particella si mette in moto nella stessa direzione della particella
+in movimento se e solo se l'urto è centrale. La prima invece può andare 
+o avanti o indietro (se la massa è superiore va avanti altrimenti indietro). \\
+2.1 $m_1 = m_2$
+\begin{gather*}
+    \left\{\begin{array}{l}
+        v_{1f} = 0 \\
+        v_{2f} = v_{1i}
+    \end{array}\right.
+\end{gather*}
+2.b. $m_2 >> m_1$ 
+\begin{gather*}
+    v_{1f} = -v_{1i} \\
+    v_{2f} = 0
+\end{gather*}
+
+\subsection{La pallina che urta un vincolo}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'urto di un vincolo}
+    \begin{tikzpicture}
+        \draw(0, 2) circle (0.25);
+        \draw(0, 0) -- (5, 0);
+        \draw[->](0, 2) -- (0.5, 1.5) node[at end, above] {$v_{1i}$};
+        \draw(2, 0.25) circle(0.25);
+        \draw[->](2, 0.5) -- (2, 1) node[at end, right] {$\vec{N}$};
+        \draw[->](2, 0.25) -- (2.5, 0.25) node[at end, above] {$v_{1xi}$};
+        \draw[->](2, 0.25) -- (2, -0.25) node[at end, left] {$v_{1iy}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+La pallina finirà per compiere un moto di riflessione rispetto
+al vincolo e quindi tenderà a rimbalzare con lo stesso angolo
+con cui ha urtato il vincolo (ovviamente se e solo se l'urto è elastico
+e lungo l'asse $x$ non ho alcuna forza). Dal punto di vista sostanziale tutti
+gli urti coi raggi cosmici e nella fisica delle particelle seguono
+tutti questo modello anche se per corpi relativistici dovrò stare
+attento alle velocità. 
+
+\section{L'urto anelastico}
+Si farà-....
+
+\subsection{L'urto completamente anelastico}
+
+
+\end{document}

@@ -1,0 +1,300 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Termodinamica}
+\author{Tommaso Miliani}
+\date{23-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Moti convettivi}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La convezione}
+    \begin{tikzpicture}
+        \draw[very thick](0, 0) rectangle (4, 4);
+        \filldraw[cyan, opacity = 0.3](0, 0) rectangle (4, 4);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se si ha una regione calda del fluido e una regione meno calda del fluido,
+ci si possa immaginare che (come nel caso dell'atmosfera) ci sia una sorgente
+di calore la base del fluido, allora i moti convettivi del fluido saranno maggiormente
+accentuati. Questo è un modo per trasportare energia all'interno di un fluido: quello che succede
+quando si ha un fluido stratificato e un termostato alla base del fluido, si creano
+delle colonne convettive che salgono e delle colonne convettive che scendono.
+La convezione è il metodo più efficiente per il trasporto di energia all'interno del fluido. 
+Dall'elettromagnetismo ogni fluido emette della radiazione elettromagnetica in base
+alla temperatura: più è caldo il fluido è maggiore sarà l'intensità delle onde
+elettromagnetiche irraggiate: dunque il fluido può raffreddarsi tramite irraggiamento
+(come avviene nelle stelle).
+Se si ha un fluido a contatto con una fonte di calore, si ha, dai dati sperimentali,
+che la quantità di calore passata al fluido dipende dalla differenza di temperatura
+tra la sorgente di calore ed il fluido:
+\begin{align}
+    \frac{\delta Q}{dt} \propto T_p - T_f
+\end{align}
+Dove $T_p$ è la temperatura 
+A dispetto dei termosifoni, gli split dei condizionatori sono 
+molto più efficienti in quanto generano dei moti di convezione nel fluido e dunque
+permettono un passaggio di calore molto più rapido rispetto al termosifone. 
+
+\section{Scambiare calore tra due fluidi separati: la conduzione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](-2, 0) -- (2, 0) node[at end, below] {$x$};
+        \draw(-2, 2) -- (-2, -2);
+        \draw(0, -2) -- (0, 2);
+        \draw[<->](-1.9, -2) -- (-0.1, -2) node[midway, below] {$l$};
+        \node at(-2.5, 0.5) {$T_1$};
+        \node at(0.5, 0.5) {$T_2$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Come avviene il trasferimento di calore tra due fluidi attraverso una parete?
+Immaginando di avere una parete spessa $l$ e poniamo a contatto con questa parete
+due fluidi a temperature diverse; allora ci sarà passaggio di calore: il \textbf{flusso di calore} che
+dipende dalla seguente relazione
+\begin{gather*}
+    q = \frac{\delta Q}{dS \ dt}
+\end{gather*}
+Ossia la quantità di energia che passa attraverso una data superficie per un
+certo quantitativo di tempo. Questo flusso è positivo se transita dalla
+parte sinistra a quella destra (in quanto è concorde con la direzione scelta dell'asse
+delle ascisse). Posso allora utilizzare la seguente relazione per porlo in
+funzione della temperature:
+\begin{gather*}
+    q = -k\frac{T_2 - T_1}{l}
+\end{gather*}
+Ossia il flusso di calore dipende dalla differenza di temperatura tra i due fluidi moltiplicato
+per una costante $k$ che prende il nome di \textbf{conducibilità termica}, che è propria del
+materiale di cui è composta la parete. Il flusso di calore è anche inversamente proporzionale allo spessore
+della parete stessa. Alcune conducibilità termiche per alcuni materiali (la cui unità
+di misura è di $W \ m ^{-1} \ K^{-1} $):
+\begin{gather*}
+    \begin{tabular}[10]{c | c}
+        Materiale & Conducibilità\\
+        \hline
+        argento & 400 \\
+        \hline
+        vetro & 0.8 \\
+        \hline
+        sughero in 
+        fibra di vetro & 0.04 
+    \end{tabular}
+\end{gather*}
+Prendendo per buona la relazione, possiamo assumere ora che la temperatura sia funzione
+della posizione: adesso anche la legge del flusso di calore acquisisce una dipendenza spaziale: devo allora considerare
+il limite della funzione per $l \to 0$:
+\begin{gather*}
+    q = -k \frac{T(x + l) - T(x)}{l}
+\end{gather*}
+Adesso, passando al limite:
+\begin{gather*}
+    q(x) = -k\lim_{l \to 0} \frac{T(x + l) - T(x)}{l}
+\end{gather*}
+E dunque si ottiene la \textbf{legge di Fourier}:
+\begin{align}
+    q(x) = -k\frac{dT(x)}{dx}
+\end{align}
+In questo caso non è un equilibrio termodinamico globale bensì un equilibrio termodinamico locale.
+Adesso si vuole capire come avviene il passaggio di energia tra un fluido 
+e l'altra e ci si aspetta che ci siano delle situazioni in cui la temperatura vari anche
+in base al tempo poiché nel tempo la temperatura deve necessariamente cambiare se i due sistemi
+termodinamici di temperatura $T_1$ e $T_2$ non sono termostati.  
+Allora la relazione che abbiamo considerato vale solamente in condizioni stazionarie:
+se si fissa la temperatura in un punto stazionario allora possiamo escludere la dipendenza
+dal tempo e quella relazione diventa una derivata parziale rispetto allo spazio:
+\begin{gather*}
+     q(x, t) = -k\frac{\partial T(x)}{\partial x}
+\end{gather*}
+Si deve ora ricavare la funzione $q(x, t)$ in modo tale che sia dipendente
+sia dallo spazio che dal tempo. 
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw(0, -2) -- (0, 2);
+        \draw(0.5, -2) -- (0.5, 2);
+        \draw(0, -1) -- (0.5, -1);
+        \draw(0, -1.5) -- (0.5, -1.5);
+        \node at(0.75, -1.25) {$dS$};
+        \node at(0, -2.2) {$x$};
+        \node at(0.5, -2.2) {$dx$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per determinarla ci mettiamo nella situazione nella quale
+lo spessore della parete è infinitesima e dunque la superficie
+della parete sarà $dS$ ed un volume $dV = dS \cdot dx$. Posso avere,
+in questa configurazione, solamente un flusso di calore lungo l'asse $x$
+e mi chiedo quale è il calore che passa da una parte all'altra in un intervallo
+infinitesimo $dT$.
+\begin{gather*}
+    \delta Q = - q_{TOT} dS \ dt 
+\end{gather*}
+Dove $q_{TOT}$ è il flusso di calore di tutta la parete; 
+adesso posso utilizzare la capacità termica (a volume costante in quanto è quella definita) come
+\begin{gather*}
+    \delta Q = \mathcal{C}_p \ dT \ \Longrightarrow \ \mathcal{C}_p \ dT = - q_{TOT} dS \ dt
+\end{gather*}
+Se dividessi tutto per l'intervallo di tempo $dt$ otterrei che 
+il \textbf{campo di temperatura} è dato da:
+\begin{gather*}
+    -q_{TOT}dS = \mathcal{C}_p \frac{\partial T}{\partial t} 
+\end{gather*}
+Ossia
+\begin{gather*}
+    -q_{TOT}dS = c_P \rho \ dV \frac{\partial T}{\partial t} = \rho c_p \frac{\partial T}{\partial t} dx \ dS 
+\end{gather*}
+Si deve adesso determinare come è definito il flusso totale di calore come il flusso della parete di destra
+meno il contributo che viene dalla parete sinistra:
+\begin{gather*}
+    -q_{TOT} = - \left(q( x + dx) - q(x)\right) = -\left(q(x) + \frac{\partial q}{\partial x} dx - q(x) \right) = - \frac{\partial q}{\partial x}dx 
+\end{gather*}
+Questo mi porta ad ottenere la seguente formulazione:
+\begin{gather*}
+    - \frac{\partial q}{\partial x}dx \ dS = \rho c_p \frac{\partial T}{\partial t}dx \ dS  
+\end{gather*}
+Siamo dunque arrivati alla relazione che mi permette di esprimere la derivata parziale
+rispetto alla posizione del flusso di calore come
+\begin{gather*}
+    -\frac{\partial q}{\partial x} = \rho c_p \frac{\partial T}{\partial t}  
+\end{gather*}
+Allora, con la legged i Fourier, posso esprimere il campo di temperatura in relazione
+al flusso di calore e dunque posso sostituire ed ottenere la relazione 
+per la derivata del flusso di calore rispetto ad $x$:
+\begin{align}
+    c_p \rho \frac{\partial T}{\partial x} = k \frac{\partial^{2} T}{\partial x^{2} }  \ \Longrightarrow \ \frac{\partial T(x, t)}{\partial t} = D_T \frac{\partial ^{2} T(x, t) }{\partial x^{2} }  
+\end{align}
+Dove $D_T$ è il \textbf{coefficiente di diffusione termica} ed ha la seguente espressione
+\begin{align}
+    D_T = -\frac{k}{c_p \rho}
+\end{align}
+Siamo arrivati a determinare l'evoluzione del campo di temperatura rispetto alla sua dipendenza
+temporale e spaziale: l'equazione considerata prende il nome di \textbf{equazione di diffusione}
+che permette di determinare lo scambio delle'energia termica tra due sistemi termodinamici. 
+
+\subsection{Situazione stazionaria}
+La soluzione stazionaria deve soddisfare la seguente
+\begin{gather*}
+    D_T \frac{\partial ^{2}T(x, t) }{\partial x^{2} } = 0 
+\end{gather*}
+Questo tipo di funzioni sono delle funzioni lineari: la variazione
+della temperatura in funzione della posizione è dunque una formulazione lineare; e,
+dato che siamo in condizioni stazionarie, allora non si ha più la dipendenza
+dal tempo:
+\begin{gather*}
+    \frac{d^{2} T}{d x^{2} } = 0
+\end{gather*}
+E dunque si ottiene la funzione della temperatura in funzione della
+posizione:
+\begin{gather*}
+    T( x) = T_1  + \frac{T_2 - T_1}{l}x
+\end{gather*}
+In generale se esiste una funzione che ha una dipendenza
+lineare da una variabile e derivo due volte, allora se avessi
+una soluzione del tipo $f(t)$, allora anche la soluzione
+del tipo $f(-t)$ è soluzione (anche se si hanno condizioni diverse)
+della medesima equazioni. Esistono dunque sempre delle condizioni
+per cui esistono queste soluzioni: in questo caso si parla di \textbf{fenomeni 
+reversibili}. Queste equazioni non sono invarianti rispetto all'inversion 
+temporale. Se invece considerassi l'evoluzione del campo di temperatura rispetto
+ad una direzione allora queste trasformazioni sono irreversibili poiché è invariante rispetto alla direzione
+in cui è avvenuta.
+
+\clearpage
+\subsection{Soluzione del campo di temperatura}
+\begin{wrapfigure}{r}{0.6\textwidth}
+    \centering
+    \caption{Funzione campo di temperatura per l'acciaio}
+    \begin{tikzpicture}[scale=0.65]
+            \begin{axis}[grid=major, view={60}{15}, xlabel = $x$, ylabel = $t$]
+            \addplot3[
+            surf,
+            shader=interp,
+            samples=50,
+            domain = -4:4,
+            y domain=-2:-0.05,
+            ] {(4 * pi * 58 * y)^(-1 / 2) * exp(-(x^2) / (4* 58 * y))};
+            \addplot3[
+            surf,
+            shader=interp,
+            samples=50,
+            domain = -4:4,
+            y domain=0.05:2,
+            ] {(4 * pi * 58 * y)^(-1 / 2) * exp(-(x^2) / (4* 58 * y))};
+            \end{axis}
+    \end{tikzpicture}    
+\end{wrapfigure}
+Una soluzione per l'equazione del campo di temperatura è
+\begin{gather*}
+    T(x, t) = \left(4\pi D_T t\right)^{-\frac{1}{2}} \exp\left(-\frac{x^{2} }{4D_T t}\right) 
+\end{gather*}
+In particolare questa funzione è una Gaussiana per cui una possibile soluzione
+per il campo di calore è una Gaussiana (solamente per quanto riguarda lo spazio) in quanto
+il parametro di larghezza della funzione cresce nel tempo come
+\begin{gather*}
+    \sigma \propto \sqrt{t} 
+\end{gather*}
+Ossia è una Gaussiana che si spancia sempre di più: per $t \to \infty$
+si ha uns situazione come in figura.
+Se il tempo è 0, allora questa funzione è considerabile come un limite
+di una successione di funzioni che tendono a zero. Questo 
+porta a dire che 
+\begin{gather*}
+    T(x, 0) = \delta (x)
+\end{gather*}
+e dunque la gaussiana si stringerebbe inifinitamente.
+Il flusso del calore tende in modo che il profilo della gaussiana si uniformi
+ed il picco corrisponde 
+
+
+\end{document}

@@ -1,0 +1,2271 @@
+\documentclass[a4paper, oneside]{book}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig} %wrapping images in text
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Laboratorio I}
+\author{Tommaso Miliani}
+\date{2024/2025}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[chapter]
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Le grandezze fisiche}
+\section{Introduzione alle grandezze fisiche}
+In fisica alle grandezze con cui si deve operare si da una
+\textbf{definizione operativa}, ovvero si specifica se
+due grandezze descrivono la stessa quantità. Le grandezze per cui si
+da questa definizione operativa prendono il nome di \textbf{fondamentali}
+mentre quelle che derivano da queste grandezze e per le quali non diamo alcuna definizione
+operativa prendono il nome di \textbf{derivate}. \\
+Una volta stabilita una definizione operativa per le
+grandezze fondamentali si procede con lo scegliere un \textbf{valore campione}
+e usarlo per misurare tutti gli oggetti. La meccanica ci permette di descrivere tutte
+le grandezze a partire da tre grandezze fondamentali: Lunghezza, tempo e massa ($L, T, M$).
+
+\section{Le tre grandezze fondamentali}
+\subsection{Lunghezza}
+Costruendo un piano di prova che sia geometricamente
+astratto (ossia che non presenti alcuna imperfezione) ed
+una retta fisica astratta, ossia una retta che ottengo 
+levigando tra di loro tre blocchi di ferro in modo tale che
+si levighino tra di loro ed incidendo su quello che è stato levigato
+con gli altri due blocchi. Incrociando due rette fisiche astratte si ottiene
+un punto fisico astratto. Attraverso una riga, che suppongo perfetta, posso determinare
+la relazione tra i due segmenti (che si creano collegando due punti fisici astratti). \\
+QUesto tuttavia mi darà informazioni solo se un segmento è più lungo
+dell'altro ma non mi dice se è più lungo di altri segmenti; posso allora
+suddividere la riga con dei segmenti piccoli in modo tale da poter
+ottenere una \textbf{riga graduata} che mi permette di confrontare
+un segmento con l'unità della mia riga.
+
+\section{Tempo}
+IL concetto di intervallo di tempo  fa uso del moto periodico
+e quindi due eventi hanno la stessa durata se passano lo stesso numero di oscillazioni.
+
+\subsection{Massa}
+Definiamo la \textbf{bilancia delle masse} il carrello che quando lasciato
+inizia ad oscillare in modo periodico e quindi
+la massa è quella quantità che modifica il periodo di oscillazione del carrellino
+(sto definendo la massa inerziale) per cui aumentando
+la massa aumenterà il periodo di oscillazione del carrello. \\
+Posso inserire un oggetto di volume maggiore e se aumenta il
+periodo allora deve essere aumentata anche la massa: si osserva allora
+che in qualche modo massa e volume sono collegati. Due corpi hanno la 
+stessa massa se e solo se nel sistema del carrello hanno lo stesso
+periodo di oscillazione.
+
+\subsection{Forza}
+La forza è una grandezza vettoriale che descrive la fatica che faccio per spostare
+qualcosa, l'effetto dell'applicazione di una forza è quello di cambiare lo stato di moto. \\
+Se le forze applicate sono più di uno non è sempre detto che mutino lo stato di moto:
+potrebbero provocare delle deformazioni come nel caso delle molle, la cui forza
+applicata è ricavata proprio a partire dalle deformazioni. \\
+Posso misurare quindi quanta forza è applicata ad un oggetto attraverso un dinamometro,
+ossia una molla attaccata al soffitto con una scala graduata di lato per
+misurare l'estensione della molla. 
+
+\section{Le grandezze derivate}
+\subsection{Superficie}
+Se, avendo una superficie piana, volessi misurarne l'estensione 
+posso misurare la lunghezza del lato e posso allora definire
+un quadratino di lato $1u$ e definisco l'unità fondamentale della superficie 
+come 
+\begin{gather*}
+    S = l^{2} 
+\end{gather*} 
+Per altre figure ho
+\begin{gather*}
+    S = \pi r^{2}, \text{cerchio} \qquad S = bh, \text{Rettangolo} \qquad S = 2\pi r h, \text{cilindro} \\
+    S = \frac{1}{2}bh, \text{triangolo}, \qquad S = 4 \pi r^{2}, \text{sfera}, \qquad S = l^{2}, \text{quadrato}   
+\end{gather*}
+Qualsiasi superficie è dunque il prodotto di due lunghezze per un fattore numerico
+variabile a seconda della superficie da calcolare (che si ricava mediante l'integrazione),
+le dimensioni fisiche, espresse mediante le equazioni dimensionali allora è proprio
+\begin{gather*}
+    [S] = [L^{2} \ M^{0}  \ T^{0} ]
+\end{gather*}
+
+\subsection{Volume}
+Applico lo stesso ragionamento fatto per la superficie, il volume del piccolo
+cubetto di lato $u$ è dato proprio da $V = l^{3}$.
+\begin{gather*}
+    V = abc, \text{cubo} \qquad V = \pi r^{2}h, \text{cilindro} \qquad V = \frac{4}{3}\pi r^{2}, \text{sfera} 
+\end{gather*}  
+Allora le dimensioni del volume sono proprio
+\begin{gather*}
+    [V] = [L^{3} \ M ^{0} \ T^{0}  ]
+\end{gather*}
+
+\subsection{Angolo}
+Prendendo un cerchio e due semirette che si incrociano in un punto
+$O$ di origine del cerchio, posso prendere arbitrariamente due punti 
+sulla circonferenza intercettati dalle due semirette e definisco allora 
+l'angolo come
+\begin{gather*}
+    \alpha = \frac{\overline{AB}}{r}
+\end{gather*}
+Da notare come l'angolo, dato che è un rapporto tra due dimensioni di lunghezza
+è adimensionale. Esiste anche la definizione di angolo sessagesimale: prese le due semirette, le faccio
+girare fino a che non coincidono e le posso poi dividere ulteriormente
+per cui si ottiene la seguente conversione tra radianti e angoli sessagesimali:
+\begin{gather*}
+    \pi RAD = 180
+\end{gather*}
+
+\subsection{Angolo solido}
+Posso passare ad una dimensione superiore rispetto all'angolo
+piano e quindi posso, a partire da $O$ costruire un insieme di semirette che
+coincidono con una superficie nello spazio. In
+base alla superficie nello spazio. In base alla superficie 
+scelta possiamo ottenere piramidi o coni. Posso definire allora l'ampiezza
+dell'angolo solido, prendendo una sfera con
+centro in $O$. \\
+Facendo il rapporto tra l'area della superficie intersecata ed il raggio al
+quadrato della sfera ottengo allora
+l'ampiezza dell'angolo solido.
+\begin{gather*}
+    \Omega = \frac{S}{r^{2} }
+\end{gather*}
+Definito come steradiante; se prendessi una superficie coincidenti con 
+quella di una sfera, avrei una sola retta e quindi 
+\begin{gather*}
+    \Omega = \frac{4\pi r^{2} }{r^{2} }
+\end{gather*}
+Ovviamente adimensionale.
+
+\subsection{Densità media assoluta}
+Si ottiene facendo il rapporto tra le masse del corpo ed
+il suo volume
+\begin{gather*}
+    \delta = \frac{m}{V}, \qquad [\delta] = [L^{-3} \ M \ T^{0} ]
+\end{gather*}
+
+\subsection{Velocità scalare media}
+Si può definire come il rapporto tra la traiettoria percorsa da un punto 
+e il tempo impiegato a percorrerla 
+\begin{gather*}
+    <v> = \frac{\Delta S}{\Delta t}
+\end{gather*}
+E quindi dimensionalmente
+\begin{gather*}
+    [<v>] = [L \ M^{0} \ T^{-1}  ]
+\end{gather*}
+
+\subsection{Accelerazione scalare media}
+L'accelerazione scalare media  è definita come
+\begin{gather*}
+    <a > = \frac{\Delta v}{\Delta t}, \qquad [<a>] = [L \ M^{0} \ T^{-2}  ]
+\end{gather*}
+
+\subsection{Frequenza}
+Se c'è un fenomeno che si ripete possiamo usare la frequenza ovvero
+l'inversa del periodo dell'evento.
+\begin{gather*}
+    f = \frac{1}{T}, \qquad [f] = [L^{0} \ M^{0} \ T^{-1}  ]
+\end{gather*}
+
+\subsection{Forza}
+Facciamo riferimento al secondo principio della dinamica:
+una forza applicata ad una massa modifica lo stato di moto 
+\begin{gather*}
+    \vec{F} = m\vec{a}, \qquad [F] = [L \ M \ T^{-2} ]  
+\end{gather*}
+
+\subsection{Pressione}
+LA posso definire nel caso particolare di una forza agente su di una
+superficie. Chiamo allora pressione il rapporto tra queste due grandezze e dunque
+secondo l'analisi dimensionale posso andare a definire come
+\begin{gather*}
+    P = \frac{F }{S}, \qquad [P] = [L^{-1}  \ M \ T^{-2} ]
+\end{gather*}
+
+\subsection{Lavoro}
+Si parla di lavoro quando il punto di applicazione della forza
+si muove nello spazio. Posso definire il lavoro come 
+\begin{gather*}
+    L = F \Delta S \cos\theta
+\end{gather*}
+Facendo allora l'analisi dimensionale si ottiene
+
+\begin{gather*}
+    [L] = [L^{2} \ M \ T^{-2}  ]
+\end{gather*}
+
+\subsection{Potenza media}
+\begin{gather*}
+    <W> = \frac{L}{\Delta t}, [W] = [M \ L^{2} \ T^{-2}  ]
+\end{gather*}
+
+\section{Unità di misura}
+\subsection{Sistema MKS}
+La definizione ufficiale è l'acronimo di metro, kilogrammo e secondo. Le unità di misura associate alle
+3 grandezze fondamentali lunghezza, massa e tempo. 
+\begin{enumerate}
+    \item Intervallo di tempo: per definirlo abbiamo visto che serve un fenomeno periodico
+    Si potrebbe usare i moti periodici celesti come rotazione, rivoluzione... Per indicare il tempo 
+    si definisce il secondo solare medio che è esattamente \begin{gather*}
+        1s = \frac{d}{86400}
+    \end{gather*}
+    Ossia il giorno solare medio. Successivamente si è sostituito questa definizione con una più precisa che utilizza la propagazione delle
+    onde elettromagnetiche da parte degli atomi. Si usò l'orologio atomico sfruttando la frequenza di oscillazione delle
+    energie degli elettroni negli atomi e dunque si 
+    è arrivati a descrivere il secondo come l'intervallo di tempo entro il
+    quae avvengono $9'192 '632 '770$ oscillazioni
+    \item Lunghezza: Si utilizza la radiazione elettromagnetica del Kripton
+    per definire il metro come un particolare multiplo della sua onda elettromagnetica,
+    poi si è deciso di definire il metro come 
+    \begin{gather*}
+        1m = \frac{c}{299'792'458}s
+    \end{gather*}
+    \item Massa: Si può definite come una certa frazione della costante di Plank:
+    \begin{gather*}
+        1 kg = \frac{h}{6.63607015 \cdot  10^{-34} } \cdot \frac{s}{m^{2} }
+    \end{gather*}
+\end{enumerate}
+
+\subsection{IL sistema internazionale}
+Il sistema internazionale è nato specificamente per poter 
+utilizzare delle unità di misura ricavate con metodi più precisi dei
+metodi antichi:
+\begin{enumerate}
+    \item Temperatura: Si può misurare in gradi Kelvin o anche in gradi Celsius: 
+    \begin{gather*}
+        T(C)e = T(K) - 273.15
+    \end{gather*} 
+    \item Mole:
+    E' un modo per rappresentare un numero di oggetti utilizzando il numero
+    di avogadro, molto utilizzato se si parla di particelle.
+    \item Quantità di carica: si misura in ampere.
+    \item Intensità luminosa: Rappresenta una certa intensità luminosa definita ad una certa distanza da una certa sorgente;
+\end{enumerate}
+Da queste grandezze (ci sono anche lunghezza, massa e tempo come detto prima) si definiscono poi 
+le grandezze derivate in modo tale da non dover dare un altra definizione da zero.  
+
+\subsection{Sistema CGS}
+E' un sistema che utilizza centimetri, grammi e secondi.
+
+\subsection{Sistema pratico}
+Si scelgono come grandezze fondamentali lunghezza, tempo e forza.  \\
+SI definisce allora la lunghezza ed il tempo come nei precedenti sistemi.\\
+La definizione della forza è presa sfruttando la definizione di massa e quella di
+forza peso arrivando a definirla come kilogrammo forza peso. Il peso di un oggetto può variare
+al variare dell'altezza e quindi per definire il kilogrammo forza peso devo necessariamente affidarmi
+ad una definizione di $g$ accetta come media. e quindi la massa 
+diventa una grandezza derivata con unità di misura $kgf \frac{s^{2} }{m}$.
+
+\chapter{L'analisi dell'errore in generale}
+\section{Errori o incertezze}
+Sebbene i termini "errore" e "incertezza" indichino concetti diversi, spesso per i fisici
+la distinzione è irrilevante. L'\textbf{errore} sulla misura di una grandezza è la differenza
+tra il valore della misura ed il valore vero (spesso non si riesce ad ottenerlo poiché non
+si ottiene il valore reale) mentre l'\textbf{incertezza} di una misura è invece l'ipotesi 
+sulla stima dell'errore.
+
+\section{Inevitabilità dell'incertezza}
+Nessuna grandezza può essere misurata con assoluta precisione: si può comunque operare
+con cura per limitare tutti i possibili errori ed incertezze durante le misure anche
+se eliminarle del tutto è virtualmente impossibile.
+
+\section{Stima delle incertezze nella lettura su una scala graduata}
+Supponiamo di avere un righello e di misurare una matita e risulta che essa
+si possa trovare più vicina a $36mm$. In questo caso possiamo affermare:
+\begin{eqnarray*}
+    migliore \ stima \ della \ lunghezza = 36 mm \\
+    intervallo \ probabile: \ da \ 35,5mm \ a \ 36,5 mm.
+\end{eqnarray*}
+La valutazione della posizione tra le incisioni su di una scala numerata è chiamata
+\emph{interpolazione}.
+
+\section{Stime delle incertezze nelle misure ripetibili}
+E' possibile fare stime ragionevoli dell'incertezza in una serie di misure quando
+queste misure hanno lo stesso numero di cifre significative: inoltre è sempre ragionevole
+dire che il valore tra cui è compresa la misurazione è il minimo misurato ed il massimo
+misurato durante questa serie di misure. \\
+Tuttavia non sempre questo metodo di ottenere incertezze è completamente attendibile:
+se ottengo due forze diverse di rottura per due fili che, per ipotesi, sono identici ma
+ottengo valori diversi, allora è probabile che vi sia un errore di misura dovuto allo
+strumento per misurare la forza di rottura o al fatto che magari i due cavi non sono
+completamente identici. \\
+Questo tipo di errori prende il nome di \textbf{errori sistematici} e possono essere
+difficili da rilevare, inoltre affliggono tutte le misure.
+
+\chapter{Rappresentare le incertezze}
+\section{Migliore stima $\pm$ incertezza}
+Generalmente una serie di misure può essere rappresentata nel seguente modo:
+\begin{equation}
+    l = l_m + \delta l
+\end{equation}
+Dove $l_m$ è la migliore stima di una misura e $\delta l$ l'\textbf{incertezza} o
+\textbf{margine di errore} nella misura di $l$.
+
+\section{Cifre significative}
+Per indicare le incertezze esistono delle regole fondamentali.
+\begin{enumerate}
+    \item \textbf{Regola per scrivere le incertezze}: le incertezze sperimentali
+    dovrebbero di regola essere arrotondate ad una cifra significativa. Incertezze come
+    $\pm 0,02385$ non hanno senso e si arrotondano a $0,02$. Una velocità misurata come:
+    $6051,78 \pm 30 m/s$ è ridicola ed è meglio esprimerla come $6050 \pm 30 m/s$ in quanto
+    le cifre 1, 7 ed 8 sono totalmente irrilevanti rispetto all'incertezza.
+    \item \textbf{Regola per scrivere i risultati}: l'ultima cifra significativa in qualunque
+    risultato dovrebbe essere dello stesso ordine di grandezza dell'incertezza:
+    $92,81 \pm 0,3$ dovrebbe essere arrotondata a $92,8 \pm 0,3$.
+    \item \textbf{Regola dell'1}: se la prima cifra significativa è un uno, allora si conserva
+    almeno un'altra cifra: $112 \pm 10$ diventa $110 \pm 10$ e non $100 \pm 10$, mentre
+    $0.002 \pm 0.0001167$ diventa $ 0.002 \pm 0.00012$ e non $0.0001$ poiché c'è un uno davanti.
+    \item \textbf{Regola dell'arrotondamento}: quando si arrotonda un numero , se si ha un 5
+    si può arrotondare per eccesso se e solo se il numero prima è dispari:
+    \begin{gather*}
+        12.346 \to 12.3 \quad 
+        12.350 \to 12.4 \quad
+        12.250 \to 12.2 \\
+        12.251 \to 12.3 \quad
+        12.351 \to 12.4 \quad
+        12.349 \to 12.3
+    \end{gather*}
+\end{enumerate}
+Per ridurre le inaccuratezze dovute all'arrotondamento, \emph{tutti i numeri usati in
+calcoli successivi dovrebbero tenere almeno una cifra significativa in più di
+quanto richiesto nel risultato finale. Alla fine del calcolo, il risultato finale 
+dovrebbe essere arrotondato per rimuovere queste cifre extra, non significative}.
+Se inoltre si richiede l'uso della notazione scientifica, è bene esprimere valore
+e incertezza con la stessa forma: 
+\[
+    (1,61 \pm 0,05) \cdot 10^{-19}
+\]
+
+\section{Discrepanza}
+Prima di affrontare la questione di come utilizzare le incertezze, bisogna capire cosa è
+la \textbf{discrepanza}, ossia la differenza tra due valori misurati della stessa grandezza.
+La discrepanza può essere sia \emph{significativa} o \emph{non significativa}. Una discrepanza significativa
+sta a dire che i margini di incertezza delle due misure non si sovrappongono, altrimenti è
+non significativa. Spesso la discrepanza rispetto ad una misura già determinata con
+un'alta accuratezza è anche chiamato \emph{errore vero}.
+
+\section{Confronto di valori misurati e accettati}
+Determinare un singolo valore misurato è completamente privo di interesse, infatti
+cercare di misurare l'incertezza si ottiene solo dal confronto di almeno due valori.
+Il tipo più semplice di esperimento è la misura di una grandezza di valore accettato noto.
+Per esempio ottenere un valore misurato di $329 \pm 5 m/s$ rispetto ad un valore noto accettato
+di $331 m/s$ è coerente, così come è coerente un valore misurato $325 \pm 5 m/s$ in quanto
+questo valore ci dice che probabilmente il valore cade tra $330$ e $320 m/s$, e che è possibile
+che possa cadere anche poco al di fuori.
+
+\section{Confronto di due misure}
+Molti esperimenti consistono nella misura di due valori, e spesso il loro confronto
+è cruciale per poter determinare l'accuratezza delle misure:
+presi due valori come $ p = p_m \pm \delta p$ e $q = q_m \pm \delta q$. Se volessimo
+confrontarli, potremmo dire che l'incertezza in una differenza è data da:
+\begin{equation}
+    \delta x = \delta p + \delta q.
+\end{equation}
+Sarà poi definita diversamente.
+
+\section{Grafici di relazioni tra grandezze}
+Generalmente una serie di misure si può rappresentare graficamente come una funzione
+continua basata su dati distanziati tra loro in modo discreto. Ogni punto di cui è stata
+ottenuta una misura ha anche una \textbf{barra di errore} associata, ossia una barra che rappresenta
+l'incertezza e l'intervallo in cui probabilmente si trova quella misura. La funzione
+continua deve però passare per le barre di errore di ogni dato. Attraverso l'interpolazione
+è possibile ottenere una funzione che possa meglio rappresentare le misure sul grafico.
+
+\section{Incertezze relative}
+La bontà di una misura dipende non solo dall'incertezza, ma anche dal suo rapporto
+con ciò che è stato misurato questo rapporto è l'\textbf{incertezza relativa}:
+\begin{equation}
+    incertezza \ relativa = \frac{\delta x}{|x_m|}
+\end{equation}
+questo rapporto, anche chiamato \emph{precisione}, moltiplicando per cento si ottiene
+l'\emph{incertezza percentuale}. E' importante sottolineare che l'incertezza relativa è
+adimensionale ed è diversa dall'incertezza assoluta.
+
+\section{Cifre significative e incertezze relative}
+Il numero di cifre significative è strettamente collegato alla nozione di incertezza
+relativa ed indica approssimativamente l'incertezza relativa di una misura.
+Per uno scienziato sperimentale dire che $x = 21$ vuol dire che x può essere sia
+$21 \pm 0,5$ (come per i matematici) oppure $21 \pm 1$ ma anche $21 \pm 5$. Dire quindi
+che una misura ha solo due cifre significative è solo un'indicazione grossolana della
+sua precisione. Generalmente se una misura ha N-cifre significative, allora la sua incertezza
+è circa 1 sulla N-esima cifra:
+\[
+    x = 21 \qquad y = 0,21
+\]
+Le loro incertezze sono quindi:
+\[
+    x = 21 \pm 1 \qquad t = 0,21 \pm 0,01
+\]
+La loro incertezza relativa è del $5\%$:
+\[
+    \frac{\delta x}{x} = \frac{\delta y}{y} = \frac{1}{21} = \frac{0,01}{0,21} = 5\%
+\]
+Tuttavia questa relazione non è universale: in casi come: $t=99$, l'incertezza è dell'$1\%$,
+mentre per $s = 10$ è del $10\%$. Questo ci porta a dire che questa correlazione 
+incertezza-cifre significative è molto approssimativa.
+
+\section{Prodotto tra due valori misurati}
+L'aspetto più importante degli errori relativi emerge quando si iniziano a moltiplicare tra
+loro valori numerici di misure, prendendo come esempio la quantità di moto:
+\begin{eqnarray*}
+    (m \ misurato) = m_m\left(1 \pm \frac{\delta m}{m_m}\right) \\
+    (v \ misurato) = v_m\left(1 \pm \frac{\delta v}{v_m}\right)
+\end{eqnarray*}
+La migliore stima della quantità di moto è:
+\[
+    (migliore \ stima \ per \ p) = p_m = m_mv_m.
+\]
+E' quindi logico pensare che il massimo valore di $p_m$ è dato dal segno più delle
+incertezze delle singole misure ed il valore minimo è dato da dal segno meno.
+\[
+    p = m_m v_m\left(1 \pm \frac{\delta m}{m_m}\right)\left(1 \pm \frac{\delta v}{v_m}\right)
+\]
+Si noti che svolgendo i conti comparirà un prodotto del tipo: $\frac{\delta m}{m_m}
+\frac{\delta v}{v}$, questo prodotto, essendo molto piccolo, è quasi irrilevante ai fini
+della precisione di p, per cui può essere eliminato. Il valore di p sarà quindi:
+\[
+    p = m_m v_m \left(1 \pm \left(\frac{\delta m}{m_m} + \frac{\delta v}{v_m}\right)\right)
+\]
+L'incertezza di p sarà quindi la somma delle incertezze di m e di v.
+Anche questa regola è provvisoria e sarà sostituita con una più completa.
+
+\section{Approssimazione delle funzioni}
+Data una funzione possiamo calcolarne una approssimazione
+attraverso il suo sviluppo di Taylor e per cui l'errore che si commette
+nell'approssimazione di questa funzione è proprio i termini
+che non ho considerato:
+\begin{align}
+    \epsilon = \left| \frac{R_N(x, x_0)}{f(x)} \right| 
+\end{align}
+
+\chapter{Strumenti e misure}
+\section{Metodi per misure delle grandezze fisiche}
+\begin{enumerate}
+    \item Misura diretta: confrontare direttamente una grandezza fisica con un campione
+    ed uno omogeneo preso come unità di misura.
+    \item misura indiretta: viene effettuata quando la grandezza da misurare
+    è una funzione di altre grandezze fisiche a essa non omogenea, ossia
+    $\psi = f(x, y, z, \dots)$ misurando separatamente le grandezze tramite la relazione funzionale.
+    \item misura con apparecchi tarati che viene effettuata con uno strumento apposito che fornisce 
+    facilmente tramite un indicatore il valore della misura in questione senza bisogno di campioni.
+\end{enumerate}
+
+\section{Gli strumenti del laboratorio e le loro caratteristiche}
+\subsection{Caratteristiche generali}
+\begin{enumerate}
+    \item Prontezza: rapidità con cui lo strumento si mette in equilibrio . Viene
+    misurata dal tempo caratteristico dello strumento che rappresenta
+    il tempo necessario affinché lo strumento si porti in una nuova situazione di 
+    equilibrio dopo che la grandezza $\psi$ abbia subito una variazione $\Delta \psi$ in un intervallo di tempo $<< T_c$. 
+    Uno strumento è tanto pronto quanto $T_c$ è piccolo. Per misurare correttamente variazioni successive
+    che aumento in $\Delta T_i$ occorre uno strumento $T_c << \Delta T_i$. 
+    \item Portata: E' la massima quantità di grandezza che può essere misurata con quello strumento.
+    \item Soglia: la minima quantità di grandezza che può essere rivelata dallo strumento
+    \item Intervallo di funzionamento: intervallo soglia-portata 
+\end{enumerate} 
+
+\subsection{La sensibilità}
+Uno strumento di misura fornisce una risposta $R$ quando viene sollecitato dal valore della grandezza fisica che 
+va a misurare. $R(y)$ è la curva della sensibilità dello strumento che si ricava misurando
+le varie $R_i$ quando lo strumento è sollecitato dai valori noti $\psi_i$ . \\
+Generalmente la taratura dello strumento è fornita ma è buona pratica rieseguirla spesso
+per assicurarsi che i valori sulla curva non siano cambiati. \\
+La sensibilità di uno strumento è data dal valore della pendenza
+della curva di taratura nell'intorno del valore medio $R(\psi)$ della grandezza. Sensibilità 
+media
+\begin{gather*}
+    <\sigma> = \frac{|R_2 - R_1}{|\psi_2 - \psi_1|}
+\end{gather*}
+dove $R_2$ e $R_1$ sono le risposte dello strumento considerato quando misura
+rispettivamente i valori $\psi_2$ e $\psi_1$. La quantità $<\sigma>$ è definita nella ipotesi
+che la sensibilità dello strumento rimanga costante
+nell'intervallo $|\psi_2 - \psi_1|$. Se la relazione $R(\psi)$ non è lineare
+allora $\sigma$ non sarà costante ma varierà da punto a punto della curva di taratura. 
+Esiste allora un valore minimo $\Delta R_m$ che ogni strumento ha la capacità di 
+indicare con un valore della sua risposta diverso dai valori contigui. Generalmente
+$\Delta R_m$ è uguale all'errore di lettura, ossia il minimo valore della variazione della risposta.
+\begin{gather*}
+    \Delta \psi_M = \frac{\Delta R_m}{\sigma(\psi)}
+\end{gather*}
+rappresenta l'intorno dei valori di $\psi$ nel quale lo strumento fornisce sempre una
+risposta e per tutti i valori compresi nell'intervallo lo strumento indica la stessa risposta 
+$R(\psi)$. \\ 
+$\Delta \psi_m$ prende il nome di errore di sensibilità. In alcuni strumenti
+$R(\psi)$ è di tipo continuo mentre in altri di tipo discreto (digitale). Per gli strumenti digitali si ha solo
+per dare l'errore di sensibilità. In alcuni strumenti esistono poi effetti che provocano
+una variazione continua di $R(\psi)$. \\
+Il risultato di tutte queste cose di natura aleatoria è che
+in corrispondenza di un valore costante $\psi$ alterniamo per gli
+$n$ valori di $R_i(\psi)$ una distribuzione attorno ad un valore medio 
+$<R>$ con una larghezza $\delta R$ definibile tramite
+lo scarto quadratico medio:
+\begin{gather*}
+    \delta R = \sqrt{\frac{\sum (R_i - <R>)^{2} }{n - 1}} 
+\end{gather*}
+a tale fluttuazione nella risposta corrisponderà un'incertezza
+sulla misura di $\psi$ detta errore di riproducibilità ossia
+$\delta \psi = \delta R / \sigma(\psi)$. Si chiama precisione
+\begin{gather*}
+    \frac{1}{\delta \psi}
+\end{gather*}
+E precisione relativa
+\begin{gather*}
+    \frac{\delta \psi}{<\psi>}
+\end{gather*}
+In uno strumento ben progettato il reciproco della precisione
+e l'errore di sensibilità dovrebbero essere confrontabili 
+l'uno con l'altro. Se l'errore di sensibilità è $<\delta \psi$ 
+occorrerà ripetere varie volte la valutazione del valore della 
+risposta $R$ in modo da ottenere una stima del suo valore medio. \\ 
+Se l'errore di sensibilità $> \delta \psi$ non vengono usate le prestazioni
+possibili dello strumento e risulta che l'errore di
+sensibilità è la maggior causa nell'incertezza della determinazione
+di $R(\psi)$ le varie caratteristiche di uno strumento non sono fra
+di loro indipendenti. \\
+L'errore di sensibilità di una misura è data dalla minima 
+variazione della quantità da misurare che può essere rivelata
+della misura scelta. L'errore di sensibilità di una misura sarà inferiore alla somma
+degli errori di sensibilità dei singoli strumenti usati. 
+
+\section{Gli strumenti} 
+\subsection{Il nonio}
+Un metodo per vedere l'errore di sensibilità di una scala, consiste nel tracciare
+una graduazione ausiliaria  concorde con la principale sulla parte
+scorrevole. L'indice fa da zero per il nonio e la lunghezza pari a $n$ tratti
+della scala principale divide in $n + 1$ parti uguali. Una misura
+si legge vedendo quale tacchetta coincide meglio fra nonio e scala principale
+il valore $x = l / (n + 1)$, dove $l $ è la tacca che corrisponde. Ogni divisione del nonio
+vale 
+\begin{gather*}
+    a' = a \frac{n}{n + 1} \Rightarrow l \cdot  a = x + l \cdot a' = x + l \cdot  a \frac{n}{n + 1}
+\end{gather*}
+
+\subsection{Calibro}
+Il calibro ha errore di sensibilità di anche $0.01 mm$. Per misurare
+spazi interni ed esterni e la vite micrometrica, costituita
+da una vite, ha un passo breve di $0.5 mm$, l'esterno è fissato
+ad un tamburo graduato che ha un diametro maggiore così da mettere 
+in evidenza un piccolo spostamento lungo l'asse. La vite ha sempre un po' di gioco per questo è
+consigliato ripetere sempre la misura da effettuare in modo tale che l'errore raggiungibile
+di sensibilità raggiunge il $1 \mu m$.
+
+\subsection{Palmer}
+Tamburo solidale con vite micrometrica simile allo
+però alla madrevite sono connessi 3 piedi i cui estremi individuano i vertici di un 
+triangolo equilatero sui piedi vi è una scala verticale laminata dell'orlo affilato del disco
+connesso alla vite micrometrica. La scala verticale ha una graduazione uguale al passo della
+vite (di solito $0.5 mm$). Sul disco c'è una scala che
+permette di determinare le frazioni di giro della vite
+prendendo come riferimento il filo della scala.
+
+\subsection{Lo sferometro}
+Lo sferometro è uno strumento che si pone su di un piano e
+si determina la lettura del disco quando la parte della vite
+micrometrica è in contatto con il piano (usando la frizione) . 
+LA stessa operazione va fatta sul corpo di 
+cui si vuole misurare lo spessore il cui valore si ottiene per la loro
+differenza. COn lo sferometro si piò misurare il raggio di 
+curvatura di una calotta sferica. \\
+Appoggiando lo strumento alla calotta si delimita una nuova calotta più
+piccola ma con lo stesso raggio di curvatura $R$
+e $h$. 
+\begin{gather*}
+    R = \sqrt{r^{2} + (R - h)^{2} } , \qquad R = \frac{r^{2} + h^{2} }{2h}
+\end{gather*} 
+
+\section{Gli errori degli strumenti}
+Quando si misura una grandezza otteniamo un valore della misura
+che è sempre afflitto da degli errori. Gli errori possono essere di due categorie
+principali \textbf{sistematici} e \textbf{accidentali}.
+
+\subsection{Sistematici}
+Errori attesi che si ripercuotono nella misura sempre nello stesso
+modo alterando il risultato stesso. Questi errori sono sempre presenti
+ma si dividono in diversi tipi: 
+\begin{enumerate}
+    \item schematizzazione: dovuti a cause o fenomeni che vengono trascurati;
+    \item Strumentali: legati allo strumento;
+    \item Personali: sottostime o sovrastima, etc...
+\end{enumerate}
+Possono essere eliminati con l'esperienza
+
+\subsection{Accidentali}
+Si presentano in modo aleatori per cose varie ed indipendenti
+e non si possono eliminare.
+
+
+\chapter{Propagazione delle incertezze}
+La maggior parte delle grandezze fisiche non si ottengono con misure dirette: la velocità
+o l'accelerazione richiedono più misure e quindi bisogna non solo combinare la stima
+di queste misure ma anche i loro errori.
+
+\section{La valutazione dell'errore}
+Avviene in due fasi distinte
+\begin{enumerate}
+    \item Stima a priori dell'errore
+    \item Valutazione a posteriori dell'errore
+\end{enumerate}
+Quando si eseguono delle valutazioni allora dobbiamo tenere conto che a priori
+si valutano le misure dirette ed i loro errori sistematici, mentre 
+a posteriori le misure indirette ed i loro errori accidentali.
+
+\section{Stima a priori degli errori in una misura diretta}
+Essa è importante quando vogliamo organizzare una esperienza in laboratorio.
+E' importante infatti pre-selezionare una strumentazione che permetta di mantenere
+l'errore prestabilito di una data misura, ed è importante valutare
+le fasi ell'esperimento più critiche in modo tale da dedicarvi più tempo.
+
+\subsection{Errori sistematici}
+Sappiamo che essi manterranno permanentemente le nostre informazioni per eccesso
+o per difetto e dovremmo allora esaminare preliminarmente gli strumenti. 
+Gli errori sistematici di norma si manifestano sottoforma di \textbf{offset}
+e/o \textbf{parallasse}. L'offset è la misura che si ottiene da uno strumento
+in condizioni di riposo (ad esempio una bilancia tarata male) oppure da uno strumento come
+il compasso di Palmer che, data la natura dello strumento, da sempre una
+lettura anche a riposo. L'errore sulla parallasse invece si ha quando si legge
+una misura su di una scala graduata ad un angolo rispetto a stare perfettamente davanti
+allo strumento (come nel caso di un termometro). Per potersi
+accorgere di questi errori si confrontano con strumenti più performanti
+oppure diversi.
+
+\subsection{Errori accidentali}
+La stima di questo tipo di errore dovrà essere sempre ricavata da un analisi
+delle modalità con cui viene eseguita una misura. La maggior parte delle volte 
+si può ricorrere all'errore di sensibilità, ma nel caso di un cronometro questo non è
+vero in quanto l'essere umano introduce un errore relativo al suo
+tempo di reazione. 
+
+\section{Stima a priori degli errori di una misura indiretta e propagazione degli errori semplici}
+Data una misura indiretta $g$ ottenuta da una qualche relazione funzionale
+$g = f(x, y, z, \dots)$ come si può determinare l'errore su questa misura?
+Si deve utilizzare la \textbf{formula di propagazione dell'errore}.
+
+\subsection{Proporzionalità diretta $g = f(x) = kx$}
+In questo caso la misura $g$ dipende dalla misura diretta
+della misura $x$ e da quante volte è stata presa questa misura. \\
+L'errore su $x_m$ è esattamente il suo intorno e dunque posso 
+ricavare l'incertezza su $g$ come 
+\begin{gather*}
+    g_m + \Delta g = f(x_m + \Delta x) \Rightarrow \Delta g = f(x_m + \Delta x) - f(x_m)
+\end{gather*}
+Posso allora generalizzare l'errore sulla misura come
+\begin{align}
+    \Delta g = |k|\Delta x
+\end{align}
+E quindi posso determinare l'\textbf{errore relativo}, che non è altro che
+la percentuale dell'errore sulla misura. 
+\begin{align}
+    \frac{\Delta g}{|g_m|} = \frac{\Delta x}{x_m}
+\end{align}
+
+\subsection{Proporzionalità quadratica $g = f(x) = x^{2}$}
+Devo distinguere gli intervalli $\Delta g_-$ e $\Delta g_+$ 
+e non sono distribuiti simmetricamente rispetto alla misura e quindi
+\begin{gather*}
+    \Delta g_+ = f(x_m + \Delta x) - f(x_m) = 2x_m\Delta x + \Delta x^{2} = 2x_m \Delta x 
+\end{gather*}
+L'altra
+\begin{gather*}
+    \Delta g_- = f(x_m - \Delta x) - f(x_m) = 2x_m\Delta x + \Delta x^{2} = 2x_m \Delta x 
+\end{gather*}
+Allora posso dire che l'incertezza sarà
+\begin{align}
+    \Delta g = |2x_m| \Delta x
+\end{align}
+E l'errore relativo
+\begin{gather*}
+    \frac{\Delta g}{|g_m|} = 2 \frac{\Delta x}{x_m}
+\end{gather*}
+
+\subsection{Proporzionalità $g = f(x) = x^{3}$} 
+Analoga alla quadratica:
+\begin{align}
+    \Delta g = |3x_m^{2}| \Delta x
+\end{align}
+\begin{align}
+    \frac{\Delta g}{|g_m|} = 3\frac{\Delta x}{|x_m|}
+\end{align}
+
+\subsection{Proporzionalità inversa $g = f(x) = \frac{1}{x}$}
+Procediamo come per le altre (usando Taylor)
+\begin{gather*}
+    \Delta g_+ = \frac{1}{x_m + \Delta x} - \frac{1}{x_m} \approx \frac{1}{x}\left(1 - \frac{\Delta x}{x_m}\right) - \frac{1}{x_m} \approx - \frac{\Delta x}{x^{2} }
+\end{gather*}
+Lo stesso vale per l'altra
+\begin{gather*}
+    \Delta g_- = \dots = \frac{\Delta}{x^{2} }
+\end{gather*}
+\begin{align}
+    \Delta g = \frac{\Delta x}{|x_m|^{2} }
+\end{align}
+\begin{align}
+    \frac{\Delta g}{|g_m|} = \frac{\Delta x}{|x_m|}
+\end{align}
+
+
+\subsection{$g = f(x)  = \sin x$ e $g = f(x) = \cos x$}
+\begin{gather*}
+    \Delta g_+ = \sin(x_m + \Delta c) - \sin(x_m)
+\end{gather*}
+Usando allora Taylor e svolgendo la somma
+\begin{gather*}
+    \sin \Delta x \approx \Delta x \\
+    \cos \Delta x \approx 1 
+\end{gather*}
+E allora diventa
+\begin{gather*}
+    \cos x_m \cdot  \Delta x
+\end{gather*}
+\begin{align}
+    g = f(x)  = \sin x &\ \Rightarrow \ & \Delta g \approx |\cos x_m| \Delta x \\
+    g = f(x)  = \cos x &\ \Rightarrow \ & \Delta g \approx |\sin x_m| \Delta x
+\end{align}
+
+\subsection{$g = f(x) = \ln x$}
+Usando allora Taylor si ottiene 
+\begin{gather*}
+    \Delta g_+ = \ln\left(x_m \left(1 + \frac{\Delta x}{x_m}\right)\right) - \ln x_m = \frac{\Delta x}{x_m} = \Delta g_-
+\end{gather*}
+\begin{align}
+    \Delta g = \frac{\Delta x}{|x_m|}
+\end{align}
+Dato che l'incertezza assoluta è uguale a quella relativa si può introdurre
+la seguente formulazione che risulterà essere fondamentale per il caso generale della
+propagazione degli errori.
+\begin{align}
+    \Delta ln x = \frac{\Delta x}{x _m}
+\end{align}
+
+\section{Il caso generale della propagazione dell'errore per una funzione che ci da una misura indiretta}
+\begin{wrapfigure}{r}{0.50\textwidth} 
+    \centering
+    \label{Fig. 3.1}
+    \caption{Rappresentazione grafica di un valore dato da una certa
+    funzione q(x)}
+    \includegraphics[width=0.50\textwidth]{funzione-errore.png}
+\end{wrapfigure}
+
+In generale, presa una qualunque funzione $q(x)$, il suo valore più accurato
+sarà rappresentato da $q_m = q(x_{m})$. L'incertezza calcolabile diventa quindi:
+\[
+    \delta q = q(x_m + \delta x) - q(x_m).
+\] 
+Un'approssimazione asserisce che, per qualunque funzione, e qualunque incremento 
+piccolo $u$, si ottiene:
+\[
+    q(x + u) - q(x) \approx \frac{dq}{dx}u
+\]
+Se $\delta x$ è molto piccola, si può dire che (preceduta dal segno meno se q(x) è
+decrescente):
+\[
+    \delta q = \frac{dq}{dx}\delta x
+\] 
+Per una qualunque funzione diventa quindi:
+\begin{equation}
+    \delta q = \left|\frac{dq}{dx}\right| \delta x
+\end{equation}
+L'incertezza per una potenza diventa quindi ($q(x) = x^n$):
+\[
+    \delta q = \left|\frac{dq}{dx}\right|\delta x = |nx^{n-1}|\delta x
+\]
+dividendo per $|q| = |x^n|$ si ottiene:
+\[
+    \frac{\delta q}{|q|} = |n|\frac{\delta x}{|x|}
+\]
+
+\section{Caso di una funzione a più variabili}
+La relazione funzionale con più di una variabile diventa più complesso
+del caso ad una variabile sola: si deve infatti considerare il contributo all'errore
+di tutte le variabili. Procediamo per casi prima di arrivare alla formulazione
+generale
+
+\subsection{Somma di due variabili o più variabili}
+\begin{gather*}
+    g = x + y
+\end{gather*}
+\begin{gather*}
+    x_m \pm \Delta x 
+    y_m \pm \Delta y
+\end{gather*}
+L'incertezza della misura sarà allora 
+\begin{gather*}
+    \Delta g_+ = \Delta x + \Delta y \\
+    \Delta g_- = - \Delta x - \Delta y
+\end{gather*}
+Allora
+\begin{align}
+    \Delta g = \Delta x + \Delta y
+\end{align}
+Scegliendo queste incertezze mi sto mettendo nel caso peggiore 
+e sto assumendo di aver sbagliato sia $x$ che $y$ di tutta la loro
+incertezza. C'è anche la possibilità di ridurre però l'errore
+con la formulazione generale.
+
+\subsection{Prodotto di due o più variabili}
+\begin{gather*}
+    g = xy
+\end{gather*}
+Il ragionamento è lo stesso della somma e posso allora
+scrivere
+\begin{gather*}
+    x_m \pm \Delta x = x_m \left(1 \pm \frac{\Delta x}{x_m}\right) \\
+    y_m \pm \Delta y = y_m \left(1 + \frac{\Delta y}{y_m}\right)
+\end{gather*}
+Con ovviamente l'ipotesi che $\Delta x, \Delta y << x_m, y_m$ 
+E quindi 
+\begin{gather*}
+    \Delta g_+ = x_m \left(1 \pm \frac{\Delta x}{x_m}\right)y_m \left(1 + \frac{\Delta y}{y_m}\right) = x_m y_m \left(\frac{\Delta x}{x_m} + \frac{\Delta y}{y_m}\right)
+\end{gather*}
+L'errore relativo diventerà allora
+\begin{align}
+    \frac{\Delta g}{|g_m|} = \frac{\Delta x}{|x_m|} + \frac{\Delta y}{|y_m|}
+\end{align}
+Che è lo stesso per il quoziente di funzioni
+
+\section{Formula di propagazione dell'errore}
+Avendo una grandezza $g$ ottenuta dalla relazione funzionale $f$ di più grandezze 
+$x, y , \dots$, per una grandezza di questo tipo posso dire che la derivata di questa
+funzione non è altro che la somma delle derivate parziali rispetto a tutte le variabili
+e si può allora dimostrare che (sostituendo i differenziali con le grandezze)
+\begin{align}
+    \Delta g \approx \left| \frac{\partial g}{\partial x}  \right|_{x = x_m, y = y_m, \dots} \Delta x +  \left| \frac{\partial g}{\partial y}  \right|_{x = x_m, y = y_m, \dots} \Delta y + \dots = \sum \left| \frac{\partial g}{\partial x_i}  \right|_{x_i = x_{im}} \Delta x_I
+\end{align}
+Anche in questo caso la formula generale ci da una stima molto conservativa dell'errore
+e si può dimostrare che è valida la relazione 
+\begin{align}
+    \Delta g = \sqrt{\sum \left(\frac{\partial f}{\partial x_i} \Delta x_{im } \right)^{2} } 
+\end{align}
+La formula di propagazione dell'errore è facile se ci sono solo prodotti, nei casi più complessi ci si deve rifare
+alla risoluzione con le derivate logaritmiche
+
+\section{La risoluzione con i logaritmi}
+Ricordando che
+\begin{gather*}
+    d \ln g = \frac{dg}{g}
+\end{gather*}
+Possiamo allora utilizzare il differenziale per ricavare l'errore relativo
+attraverso il logaritmo da entrambi i lati dell'uguaglianza:
+\begin{gather*}
+    \ln g = \ln(\dots)
+\end{gather*}
+con le proprietà dei logaritmi si possono cercare di isolare le variabili 
+e poi si deriva da entrambi i lati per ottenere l'errore relativo. Una cosa 
+importante è ricordare che il passaggio a valori finiti va fatto mettendo
+i valori assoluti ai coefficienti dei differenziali delle grandezze.
+
+
+\chapter{Introduzione all'analisi statistica delle incertezze casuali}
+\section{Valutazioni a posteriori degli errori: deviazione standard e media}
+Il modo in cui si compiono le valutazioni a posteriori dipende da
+come sono state effettuate le misurazioni in laboratorio. Nel caso di una sola misura
+di grandezze si valuta l'incertezza con la stima a priori, ma questo è un caso limite in quanto 
+solitamente si possono ripetere le misure.
+Supponendo di voler misurare una grandezza $x$ e di aver identificato tutte le fonti 
+di errore sistematico e di averle ridotte a livello trascurabile, poiché tutte le altri
+fonti di errore sono casuali, dovremmo riuscire ad identificarle facilmente.
+Supponendo di fare $N$ misure di una grandezza $x$, la migliore stima 
+per la misura di $x$ è data da:
+\begin{align}
+    \bar{x} = \frac{\sum_{i = 1}^{N}x_i}{N}.
+\end{align}
+La \textbf{deviazione standard} o \textbf{scarto quadratico medio} invece consente di ottenere una stima
+dell'incertezza delle $N$ misure ottenute e si ottiene nella seguente maniera.
+Per ogni $x_i$ calcoliamo lo \textbf{scarto} di $x_i$ rispetto a $\bar{x}$:
+$x_i - \bar{x} = d_i$  che ci dice quanto ogni misura differisce dalla media.
+Se lo scarto è alto, allora la misura è stata poco precisa, altrimenti molto
+precisa.\\
+Elevando ora al quadrato ogni scarto si ottiene la \emph{deviazione standard} e
+mediando queste misure ottenute non si otterrà più zero (come si otterrebbe
+invece facendo la media degli scarti):
+\begin{align}
+    \sigma_x = \sqrt{\frac{1}{N}\sum_{i = 0}^{N}(d_i)^2} = \sqrt{\frac{1}{N}\sum_{i = 0}^{N}(x_i - \bar{x})^2}
+\end{align} 
+La deviazione standard è quindi lo \emph{scarto quadratico medio} delle misure.
+La quantità $\sigma^2$ è chiamata invece \textbf{varianza}. \\
+Si può ottenere una correzione della deviazione standard attraverso la sostituzione
+di $N$ con $N-1$: infatti, nel caso assurdo in cui si abbia solo una misura, con $N$
+avremmo che la deviazione standard sia zero mentre con $N - 1$si arriva ad una forma indeterminata
+di $0/0$ che è totalmente in linea con la nostra ignoranza nel non conoscere
+se vi è incertezza (poiché si ha solo una misura). Questa sostituzione inoltre riduce la tendenza
+a sottostimare l'errore. La \textbf{deviazione standard} diventa quindi:
+\begin{align}
+    \sigma_x = \sqrt{\frac{1}{N-1}\sum_{i = 0}^{N}(d_i)^2} = \sqrt{\frac{1}{N-1}\sum_{i = 0}^{N}(x_i - \bar{x})^2}
+\end{align} 
+In ogni caso, la prima definizione prende il nome di \emph{deviazione standard
+della popolazione} e la seconda \emph{deviazione standard del campione}. \\
+Generalmente si può ottenere l'errore in modo semplice semplicemente considerando
+lo \textbf{scarto massimo} su un campione di poche misure (meno di dieci)
+anche se esistono alcune eccezioni: il caso di misure tutte uguali o il caso in cui lo scarto massimo è
+minore dell'errore di sensibilità: in questi casi si sceglie l'errore di sensibilità come
+errore per la grandezza. Nel caso di più di dieci misure invece si utilizzerà la deviazione
+standard come migliore stima dell'incertezza su di una misura.
+
+\section{Valori anomali e confronti tra misure}
+Durante i calcoli può capitare di incontrare dei valori che si potrebbero
+definire \textbf{anomali} in quanto molto diversi da altri valori. In queste
+situazioni è consigliabile ripetere la misura se si è ancora in laboratorio piuttosto 
+che scartarla (una nuova scoperta è sempre dietro l'angolo!). Si può anche aumentare
+il numero di misure di un campione in modo tale che risulti un evento particolarmente sfortunato. \\
+E' possibile confrontare le proprie misure con altre per vedere se \textbf{sono in accordo}
+attraverso due metodi:
+\begin{enumerate}
+    \item \textbf{Confronto con valore di riferimento}: Compiuta una certa misura e ottenuto
+    come risultato un certo $\overline{x}_1 \pm \Delta x_1$, se dobbiamo confrontarla con un
+    valore di riferimento $\hat{x}$ dobbiamo allora verificare che si trovi almeno entro
+    l'intervallo dell'errore oppure vedere se graficamente risultano compatibili
+    tra di loro. Generalmente anche se una misura sembra cadere poco al di fuori della banda
+    di errore di riferimento non è un segno che sia una misura anomala. In seguito si vedrà che
+    esiste una sorta di limite di confidenza entro al quale questo può accadere. 
+    \item \textbf{Confronto tra più valori diversi}: Posso utilizzare questo approccio anche
+    per relazionare valori diversi tra di loro. Nel caso in cui le misure siano compatibili
+    tra di loro si può utilizzare la media pesata per trovare la misura
+    matematica corretta. Quando ciò non è possibile allora si può semplicemente scegliere il valore più preciso 
+    tra quelli analizzati. 
+\end{enumerate}
+
+
+\section{La deviazione standard nella media}
+Se $x_1, \dots, x_n$ sono i risultati di $N$ misure della grandezza $x$, allora come
+abbiamo visto, si dice che la migliore stima di questa grandezza sia proprio $\bar{x}$.
+La Dev. Standard invece misura le incertezze sulle singole misure, la deviazione standard
+della media invece si chiama \textbf{SDOM} e si indica con $\sigma_{\bar{x}}$:
+\begin{align}
+    \sigma_{\bar{x}} = \frac{\sigma_x}{\sqrt{N}}
+\end{align}
+Così il risultato finale diventa:
+\begin{align*}
+    x = x_{best} \pm \sigma_{\bar{x}}
+\end{align*}
+Questo ci garantisce che l'incertezza possa diminuire sensibilmente (anche solo di
+un fattore $\sqrt{N}$ rispetto alle N misure extra) all'aumentare delle misure compiute
+anche se questo non ci garantisce l'eliminazione degli errori sistematici, che rimangono
+all'interno delle misure anche all'aumentare di $N$.
+
+\section{Errori sistematici}
+Se non è chiaro l'errore sistematico che hanno gli strumenti, si possono fare
+le seguenti assunzioni per la somma degli errori: se sappiamo che l'errore non è 
+oltre l'$1\%$ con buona confidenza, allora si può ottenere la somma diretta, altrimenti
+se è migliore di questo valore ed il $68\%$ delle bilance mostra questo valore
+migliore allora si può utilizzare con una confidenza del $68\%$ la somma in quadratura:
+\begin{align}
+    \delta x_{tot} = \sqrt{(\delta x_{cas})^2 + (\delta x_{sis})^2}
+\end{align}
+
+
+\chapter{La distribuzione normale per studiare la distribuzione delle misure di una certa grandezza}
+\section{Media pesata, frequenza ed istogramma}
+\subsection{L'istogramma}
+Per stimare il valore di una certa grandezza si può utilizzare la media aritmetica,
+tuttavia esiste anche un metodo più veloce di fare la media ossia la \textbf{media pesata}:
+\begin{align}
+    \bar{x} = \frac{\sum_{i = 1}^{k}x_kn_k}{N}
+\end{align}
+Dove il "peso" $n_k$ non è altro che il numero di occorrenze di una certa misura nel nostro set di dati.
+Possiamo allora considerare la \textbf{frequenza} con cui appare una certa misura
+nel nostro set di dati e la posso definire come
+\begin{align}
+    F_k = \frac{n_k}{N}
+\end{align}
+Così si può scrivere il valore vero di $x$ come:
+\begin{align}
+    \bar{x} = \sum_{i = 1}^{k}x_kF_k
+\end{align}
+Implicando che:
+\begin{align}
+    \sum_{i = 1}^{k}F_k = 1
+\end{align}
+Poiché tutte le frazioni $F_k$ ottenute si ottiene 1. Qualunque insieme di numeri
+la cui somma è $1$ è chiamato \textbf{normalizzato} e la precedente prende il nome
+di \textbf{condizione di normalizzazione}.
+Un'\textbf{istogramma a barre} è un istogramma con delle barre che
+rappresentano la distribuzione dei valori è attraverso dalle altezze delle stesse. Tuttavia
+questo istogramma ha un problema in quanto spesso le grandezze non sono numeri
+interi ma variano in maniera continua all'interno di un intervallo.
+Queste considerazioni implicano che diversi grafici possono avere la stessa media, allora
+dobbiamo introdurre qualche parametro che ci permetta di differenziare due grafici
+diversi anche se hanno la stessa media: un parametro importante è la precisione delle misure. 
+Si potrebbe allora calcolare l'errore attraverso la deviazione standard,
+la quale, purtroppo, è computazionalmente scomoda.
+
+\subsection{Istogramma a intervalli o classi}
+Dato che gli istogrammi a barre non sono ancora soddisfacenti in quanto ogni misura potrebbe
+avere molte cifre decimali per cui ci sarebbero molte barre da un solo elemento. Possiamo allora
+costruire degli intervalli in modo tale che siano proporzionali al numero di misure
+contenute: un'\textbf{istogramma ad intervalli} è un istogramma a barre 
+che racchiude (rappresenta la frazione dentro ogni barra) un certo intervallo di misure: l'area di ciascuna barra
+ di misure contenute in ciascun
+intervallo di misure.
+La larghezza dell'intervallo $k$-esimo si chiama \textbf{bin}, e possiamo chiamare 
+$f_k$ come la \textbf{densità di frequenza} e utilizzare questa per rappresentare l'istogramma
+\begin{align}
+    f_k = \frac{F_k}{\Delta BIN}
+\end{align}
+L'analisi dimensionale allora ci porta a dir che $f_k$ ha la dimensione
+inversa della misura per cui lo stiamo calcolando. Con questa
+formulazione, la frequenza di una certa misura $F_k$ rappresenta
+l'area di una certa barra mentre $\Delta BIN$ rappresenta la classe o intervallo
+del nostro grafico. I bin tuttavia devono essere scelti con un certo giudizio: infatti
+bin troppo grandi possono raggruppare troppe misure in un unico intervallo "falsando"
+la frequenza dei valori mentre bin troppo piccoli tendono ad avere l'effetto opposto
+spaziando troppo le misure e risultando in istogrammi spezzati che rendono inutile
+l'applicazione del metodo.
+
+\section{Distribuzione limite}
+Nella maggior parte degli esperimenti al crescere dei dati $N$ il grafico a barre
+inizia ad assumere una forma ben precisa: quando $N \to \infty$ il grafico prende
+il nome di \textbf{distribuzione limite} o \textbf{asintotica} proprio perché
+non può essere raggiunta. Utilizzando le derivate si ottiene che la 
+frazione di dati in un piccolo intervallo è data da:
+\begin{align*}
+    f(x)dx
+\end{align*}
+\begin{center}
+    \definecolor{grey}{rgb}{0.5, 0.5, 0.5}
+    \begin{tikzpicture}
+        \draw[->] (0,0) -- (4, 0) node[midway, below] {$x, x+dx$};
+        \draw[-, very thick] (2, 0.75) edge[out=180,in=0,-] (0,0);
+        \draw[-, very thick] (2, 0.75) edge[out=0,in=180,-] (4,0);
+        \draw[<->] (2.2, 0.6) -- (2.2, 0.1) node[midway, left] {$f(x)$};
+        \draw[-] (2.3, 0.73) -- (2.3, 0.0);
+        \draw[-] (2.4, 0.68) -- (2.4, 0.0);
+        \fill[grey](2.3, 0.73) rectangle (2.4, 0);
+    \end{tikzpicture}
+\end{center}
+di conseguenza sotto una distribuzione limite, l'area della funzione si calcola
+proprio utilizzando l'integrale da un punto a ad un punto b della funzione per
+ottenere la frazione di misure che cadono tra $a$ e $b$:
+\begin{align}
+    F_k = \lim_{\Delta bin \to 0} f_k \Delta bin = \int_{a}^{b} f(x)dx 
+\end{align}
+La funzione $f(x)$ diventa quindi la \textbf{funzione densità di probabilità}.
+Di conseguenza:
+\begin{align}
+    \int_{-\infty}^{+\infty}f(x)dx = 1
+\end{align}
+Posso allora definire se 
+\begin{gather*}
+    \bar{x} = \sum x_k F_k = \sum x_k f_k \Delta bin 
+\end{gather*}
+Allora posso dire che
+\begin{gather*}
+    \bar{x} = \int_{-\infty}^{+\infty} xf(x) \ dx 
+\end{gather*}
+Per la deviazione standard posso applicare lo stesso ragionamento ed ottenere allora
+\begin{gather*}
+    \sigma_x^{2} = \frac{\sum (x_i - \bar{x} )^{2} }{N} 
+\end{gather*}
+Questa non è altro che la stessa deviazione standard
+ma con i pesi associati e dunque, si ottiene che
+\begin{gather*}
+    \sigma_x^{2} = \sum(x_i - \bar{x} ) ^{2} F_k \Rightarrow \sum (x_i - \bar{x} )^{2}f_k \Delta bin \Rightarrow \int_{-\infty}^{+\infty} (x_i - \bar{x} )^2 f(x) \ dx 
+\end{gather*}
+
+\section{La distribuzione normale}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \label{Fig. 5.2}
+    \caption{Istogramma}
+    \begin{tikzpicture}
+        \draw[->] (0, 0) -- (4, 0) node[at end, right] {$x$};
+        \draw[->] (0, 0) -- (0, 2) node[at end, above] {$f(x)$};
+        \draw[-, very thick] (2, 2) edge[out=180,in=0,-] (1,0);
+        \draw[-, very thick] (2, 2) edge[out=0,in=180,-] (3,0);
+        \draw[-, dashed] (2,2) -- (2, 0) node[at end, below] {valore vero di $x$};
+        \draw[<->] (2.05, 1.5) -- (2.4, 1.5) node[at end, right] {$\sigma$}; 
+    \end{tikzpicture}
+\end{wrapfigure}
+La distribuzione qui in Figura \ref{Fig. 5.2} è una curva a campana o distribuzione
+limite dei valori trovati di $x$. Al centro c'è il valore probabile di $x$ (anche chiamato
+valore vero), tuttavia diverse misure possono avere delle campane più o meno ripide a
+seconda della deviazione standard: più cresce $\sigma$ più la campana risulta schiacciata.
+Tuttavia un errore sistematico può spingere la mia campana verso una direzione definita
+e così il centro della distribuzione sarà spostato rispetto al valore vero atteso. \\
+Cosa è dunque il \emph{valore vero}? Si può supporre che il valore vero di una misura
+sia il valore attorno al quale si concentra la distribuzione del grafico a campana
+dopo un grande numero di misure. La funzione che descrive questa tendenza è anche
+chiamata \textbf{funzione di Gauss} o \textbf{Distribuzione normale} ed il suo
+prototipo è dato da:
+\begin{align}
+    f(x) = e^{-\frac{x^2}{2\sigma^2}}
+\end{align}
+Dove $\sigma$ è il parametro di larghezza (ossia la deviazione standard). 
+La funzione di Gauss è una curva a campana centrata su zero ma può essere centrata attorno
+al valore vero $X$ (anche chiamato $X$ vero o migliore stima) semplicemente sostituendo $x - X$ al posto di $x$.
+Possiamo normalizzare la funzione in modo tale che il suo integrale mi dia $1$ nella seguente maniera:
+\begin{align*}
+    f(x) &= Ne^{-\frac{(x-X)^2}{2\sigma^2}} \\
+    \int_{-\infty}^{+\infty} f(x)dx &= \int_{-\infty}^{+\infty} Ne^{-\frac{x-X}{2\sigma^2}}\\
+\end{align*}
+Per calcolare questo integrale si può sostituire $x-X = y$ e quindi $dx = dy$ e si ottiene:
+\begin{align*}
+    N\int_{-\infty}^{+\infty}e^{-\frac{y^2}{2\sigma^2}}dy
+\end{align*}
+E quindi porre $y/\sigma = z$ e quindi $dy = \sigma dz$ ed ottenere:
+\begin{align*}
+    N\sigma\int_{-\infty}^{+\infty}e^{-\frac{z^2}{2}}dz
+\end{align*} 
+Abbiamo allora ottenuto l'integrale di Gauss, il cui risultato è proprio $\sqrt{2\pi}$: 
+\begin{align*}
+    \int_{-\infty}^{+\infty} f(x)dx = N\sigma \sqrt{2\pi} = 1
+\end{align*}
+Infine dal momento che deve essere uguale ad uno, il fattore di normalizzazione
+sarà:
+\begin{align*}
+    N = \frac{1}{\sigma \sqrt{2 \pi}}
+\end{align*}
+La distribuzione di Gauss sarà quindi nella sua forma finale:
+\begin{align}
+    G_{X, \sigma}(x) = \frac{1}{\sigma \sqrt{2\pi}}e^{-\frac{(x-X)^2}{2\sigma^2}}
+\end{align}
+Come abbiamo visto, il valore medio si ottiene attraverso l'integrale 
+$\bar{x} = \int_{-\infty}^{+\infty}xf(x)dx.$ per cui per la distribuzione di Gauss si ha che:
+\begin{align}
+    \bar{x} = \int_{-\infty}^{+\infty}xG_{X, \sigma}(x)dx
+\end{align}
+Se le misure di una certa grandezza $x$ sono distribuite normalmente allora si ha che la migliore
+stima della grandezza $X$ è proprio la media aritmetica delle misure. Si può dimostrare come segue:
+\begin{align*}
+    \bar{x} = \int_{-\infty}^{+\infty}xG_{X, \sigma}(x) \ dx =  \frac{1}{\sigma \sqrt{2\pi}}\int_{-\infty}^{+\infty} xe^{-\frac{(x-X)^2}{\sigma^2}}dx
+\end{align*}
+Cambiando variabile $y = x - X$ allora $dx = dy$ e $x = y + X$ l'integrale diventa:
+\begin{align*}
+    \bar{x} = \frac{1}{\sigma \sqrt{2\pi}} \left(
+        \int_{-\infty}^{+\infty}ye^{-\frac{y^2}{2\sigma^2}}dy
+        + X\int_{-\infty}^{+\infty} e^{-\frac{y^2}{2\sigma^2}}dy
+    \right)
+\end{align*}
+Il primo integrale è zero poiché il contributo di ogni punto $y$ è cancellato
+da quello del punto $-y$. Il secondo è l'integrale di normalizzazione e quindi si semplifica 
+con la costante prima della parentesi dando come risultato:
+\begin{align*}
+    \bar{x} = X.
+\end{align*}
+Questo risultato è vero però se e solo se si eseguono moltissime prove e se
+le misure che ho ottenuto sono distribuite normalmente; date queste condizioni
+il valore vero attorno al quale è centrata la Gaussiana si avvicinerà sempre di più a $X$.
+Interessante è trovare la deviazione standard ($\sigma$) della Gaussiana che si trova come segue:
+\begin{align*}
+    \sigma_x^2 = \int_{-\infty}^{+\infty}(x- \bar{x})^2f(x)dx
+\end{align*}
+Sostituendo $\bar{x} = X$ e ponendo $x - X = y$ ed integrando per parti
+si ottiene il risultato:
+\begin{align*}
+    \sigma_x^2 = \sigma^2
+\end{align*}
+Ovviamente ha senso che sia la corretta deviazione standard solo dopo un numero infinito
+di prove.
+
+\section{La deviazione standard come limite di confidenza del 68\%}
+Eseguendo lo studio di funzione sulla Gaussiana si ottiene che
+la sua derivata prima si azzera proprio nel valore vero di $x$,
+la sua derivata seconda inoltre, si azzera nei punti
+$x \pm \sigma$. Se si volesse conoscere invece in corrispondenza
+di quali valori si trovano i punti $\frac{1}{2}p(x)$, questi si trovano esattamente
+nei punti $x \pm 2\sigma \sqrt{2 \ln 2}$. \\
+Possiamo quindi calcolare la probabilità che un certo dato si
+trovi entro $t$ deviazioni standard rispetto alla migliore
+stima del valore $x$.
+\begin{gather*}
+    P(x - t \sigma, x + t \sigma) = \frac{1}{\sqrt{2\pi} \sigma}\int_{x - t\sigma}^{x + t\sigma} \exp\left(-\frac{(x - X)^{2} }{2\sigma^{2} }\right) \ dx = erf(t)
+\end{gather*}
+Si ottiene la funzione errore di $t$ e che assume valori a seconda
+del valore di $t$. Secondo le tabelle già calcolate di probabilità
+si ha che il $68\%$ delle misure ricade entro una deviazione
+standard dal valore vero e ben il $95.45\%$ entro due deviazioni standard;
+tuttavia scegliere valori molto alti per $t$ non ha senso in quanto 
+già $3\sigma$ esprimono una probabilità del $99.73\%$. 
+Dati questi risultati possiamo allora prendere
+$\sigma$ come limite di confidenza della nostra Gaussiana in quanto
+entro un $\sigma$ dal centro della curva si ha il $68\%$ dell'area
+della curva, ossia i due terzi dei dati sperimentali. Posso anche dire che,
+preso un certo elemento $x_i$ delle mie misure, esso ha il
+$68\%$ di possibilità di rientrare entro una deviazione standard
+rispetto al valore vero della curva. 
+
+\section{Giustificazione della media come migliore stima di $X$ e di $\sigma$ come migliore stima per l'incertezza}
+Partendo dai dati e ricavandoci i parametri della gaussiana, e supponendo che $X$ e $\sigma$ non sono noti,
+tutta questa equazione dipende proprio dal
+loro valore, per cui dalle letture $x_1, \dots, x_N$ 
+le cui probabilità di essere ottenute sono date proprio da:
+\begin{gather*}
+    P(x_1) \ dx \Rightarrow P(x_1, x_1 + dx) = p(x_1) dx
+\end{gather*}
+Si può facilmente trovare con la formula della gaussiana che
+la probabilità di trovare un valore tra $x_i$ e $x_i + dx$ non è altro che
+trovare la probabilità tra $x_i, x_i$ (dato la continuità della funzione)
+che tuttavia non posso calcolare in quanto non conosco né $X$ né $\sigma$. 
+Si può dimostrare intanto che $P_{TOT} = P_1 \cdot \dots \cdot  P_n$
+ossia
+\begin{align}
+    P_{TOT} = \left(\frac{dx}{\sqrt{2\pi} \sigma}\right)^{n} \prod \exp\left(-\frac{(x_i - X)^{2} }{2\sigma ^{2} }\right) 
+\end{align}
+Mi chiedo infatti quali siano i valori più plausibili per
+$X$ e $\sigma$ che giustifichino la forma della Gaussiana. \\
+Per fare ciò mi devo ricondurre al principio di Massima 
+verosimiglianza. Dati gli $N$ valori misurati, le migliori stime
+per $\sigma$ e $X$ sono quei valori per i quali le misure
+assumano la massima probabilità: possiamo ragionare sui teoremi delle funzioni
+continue e pensare ai valori e calcolare quando si azzera la derivata
+\begin{gather*}
+    \frac{\partial P_{TOT}}{\partial X} = \left(\frac{dx}{\sqrt{2\pi} \sigma}\right)^{n} \frac{\partial }{\partial X}  \exp\left(-\frac{\sum x_i - X }{2\sigma ^{2} }\right)
+\end{gather*}
+Risolvendo la derivata, per far si che si azzeri bisogna che
+\begin{gather*}
+    \sum (x_i - X) = 0 \Rightarrow X = \frac{\sum x_i}{N}
+\end{gather*}
+Potrei anche vedere se dopo $X$ la funzione decresca (si) e che prima
+cresca (si) allora ho trovato il valore giusto per $X$. \\
+Consideriamo la stessa procedura per $\sigma$
+\begin{gather*}
+        \frac{\partial P_{TOT}}{\partial \sigma} = \left(\frac{dx}{\sqrt{2\pi} \sigma}\right)^{n} e^{()}\frac{1}{\sigma^{N + 1} }\left(-N + \frac{\sum (x_i - X)^{2} }{\sigma^{2} }\right) = 0
+\end{gather*}
+Si ottiene allora il seguente caso: dato che $\bar{x}$ è un valore che io
+costruisco e che, per definizione, risiede molto vicino al valore
+vero $X$, io so che
+\begin{gather*}
+    \sum (x_i - \bar{x} )^{2} \leq \sum (x_i - X)^{2}
+\end{gather*} 
+Perché, non avendo infinite misure, io so che la distanza tra i valori $x_i$ e $\bar{x}$
+è una sottostima rispetto agli scarti quadratici rispetto al valore vero $X$ anche se la media
+$\overline{x}$ risiede molto vicino al valore vero. Posso allora trovare la deviazione
+standard utilizzando la migliore stima per $X$, ossia la media: 
+\begin{gather*}
+    \sigma = \sqrt{\frac{\sum (x_i - \overline{x})^{2} }{N}}
+\end{gather*}
+In questo modo sto sottostimando il valore vero e otterrò un valore
+sempre minore di quello effettivo: per aggiustarlo basta sottostimare
+anche il denominatore con la cosiddetta \textbf{correzione di Bessel},
+la quale è valida perché più è grande il numero di misure e più la differenza tra le
+due è minore formulazioni è minore. In questo modo introduco un grado di libertà al denominatore 
+per cui ho bisogno di almeno due misure per poter determinare l'incertezza su $\overline{x}$
+\begin{align}
+    \sigma = \sqrt{\frac{\sum (x_i - \overline{x})^{2} }{N - 1}} 
+\end{align}
+
+\section{Giustificazione della somma in quadratura}
+Se consideriamo una misura del tipo $g  = f(x, y, z, \dots)$ possiamo
+calcolare come
+\begin{gather*}
+    \Delta g = \left| \frac{\partial f}{\partial x}  \right|\Delta x + \left| \frac{\partial f}{\partial y}  \right| \Delta y + \dots  
+\end{gather*}
+Ma se l'errore fosse di natura accidentale la migliore
+stima di questo valore diventa la somma in quadratura
+e dunque
+\begin{gather*}
+    \Delta g \approx \sqrt{\sum\left(\frac{\partial f}{\partial x_i} \right)^{2} \Delta x_i} 
+\end{gather*}
+La dimostrazione di questa si articola in quattro punti: \\
+I) Prendiamo un caso in cui $g = x + A$ dove $x$ presenta
+una certa incertezza e $A$ è invece un numero puro
+allora anche $g$ si può scrivere come una gaussiana traslata
+e con lo stesso $\sigma$. Possiamo anche verificare che
+$\sigma_x = \sigma_g$.
+\begin{gather*}
+    P(x, x + d x) = \frac{1}{\sqrt{2\pi}\sigma_x} \exp\left(-\frac{(x - X)^{2} }{2\sigma_x^{2} }\right)\\
+    P(g) = P(g, g + dg) = \frac{1}{\sqrt{2\pi}\sigma_x} \exp\left(-\frac{(g - (x + A))^{2} }{2\sigma_x^{2} }\right) dg
+\end{gather*}
+Mi aspetto che $G = X + A$, il che è vero, ed è dunque verificata. \\
+II) Se invece prendessimo $g = Bx$ allora per lo stesso procedimento mi aspetto
+di ottenere
+\begin{gather*}
+    P(g) = P(g, g + dg) = \frac{1}{\sqrt{2\pi}\sigma_x}\exp\left(-\frac{\left(\frac{g}{B} - X\right)^{2} }{2\sigma_x^{2} }\right) \frac{dg}{B} = \\
+    \frac{1}{\sqrt{2\pi}\sigma_xB}\exp\left(-\frac{\left(g - Bx\right)^{2} }{2\sigma_x^{2}B^{2} }\right) dg
+\end{gather*}
+Si vede subito che $G = Bx$ traslata e il parametro di larghezza è deformato: $\sigma_g = \sigma_xB$  e quindi
+fare misure indirette ha ripercussioni anche sull'incertezza. \\
+III) Prendiamo il caso in cui la relazione sia $z = x + y$, le misure $x$ e $y$ saranno
+normalmente distribuite intorno al loro valore vero $X$ e $Y$ e avranno
+allora larghezza $\sigma_x$ e $\sigma_y$. Le probabilità di ottenere
+un particolare valore di $x_i$ e $y_i$ è
+\begin{gather*}
+    P_x(x_i) = P(x, x + dx) = \frac{1}{\sqrt{2\pi}\sigma_x}\exp\left(-\frac{(x_i - X)^{2} }{2\sigma_x^{2} }\right)dx \\
+    P_y(y_i) = P(y, y + dy) = \frac{1}{\sqrt{2\pi}\sigma_x} \exp\left(-\frac{(y_i - Y)^{2} }{2\sigma_y^{2} }\right)dy
+\end{gather*}
+La probabilità di ottenere una certa coppia di valori
+$x_i$ e $y_i$ da misurare $x$ e $y$ indipendenti è data da
+\begin{gather*}
+    P_{x + y}(x_i, y_i) = P_x(x_i)P_y(y_i)= \frac{1}{2\pi \sigma_x\sigma_y}\exp\left(-\frac{(x_i - X)^{2} }{2\sigma_x^{2}} - \frac{(y_i - Y)^{2} }{2\sigma_y^{2} }\right) dx\ dy
+\end{gather*}
+Vogliamo ora dimostrare che $P(z)$ sia una gaussiana utilizzando la seguente identità:
+\begin{gather*}
+    \frac{x^{2} }{A} + \frac{y^{2} }{B} = \frac{(x + y)^{2} }{A + B} + \frac{(Bx + Ay)^{2} }{AB(A + B)}
+\end{gather*}
+Ottenendo all'interno dell'esponente:
+\begin{gather*}
+    \frac{(x_i - X)^{2} }{\sigma_x^{2} } + \frac{(y_i - Y)^{2} }{\sigma_y^{2} } = \frac{(x_i - X + y_i - Y)^{2} }{\sigma_x^{2}+\sigma_y^{2} } + \frac{\left(\sigma_y^{2} (x_i - X) - \sigma_y^{2}(y_i - Y)\right)^{2} }{\sigma_x^{2}\sigma_y^{2}(\sigma_x^{2} + \sigma_y^{2} )} \\
+\end{gather*}
+Posso allora chiamare il secondo termine del secondo membro come 
+\begin{gather*}
+    \alpha = \frac{\sigma_y^{2}(x_i - X)-\sigma_y^{2}(y_i - Y)}{\sigma_x\sigma_y\sqrt{\sigma_x^{2}+\sigma_y^{2} } }
+\end{gather*}
+Ottenendo
+\begin{gather*}
+    P_{x+y}(x_i, y_i) = \frac{1}{2\pi \sigma_x \sigma_y}\exp\left(-\frac{1}{2}\left(\frac{(z_i - X - Y)^{2} }{\sigma_x^{2}+\sigma_y^{2} } \right)\right) \exp\left(-\frac{\alpha^{2} }{2}\right)dx \ dy = P(x_i + y_i , \alpha)
+\end{gather*}
+Essa è l'espressione che corrisponde alla probabilità
+di trovare il valore $z_i$ con una particolare coppia di valori $x_i$ e $y_i$. 
+Se vogliamo la probabilità $P_z(z_i)$ di ottenere un valore
+$z_i$ indipendentemente dalla particolare coppia scelta: dovremmo
+sommare i contributi di tutte le coppie di valori tali che
+$z_i  = x_j + y_j$ ossia i contributi $P_{x + y}(x_i, y_i)$ 
+in cui il primo termine esponenziale è sempre lo stesso 
+mentre il secondo differisce a seconda della coppia scelta e quindi
+l'integrazione di questi termini è un risultato del 
+tipo
+\begin{gather*}
+    P(x + y) = P_z(z_i) = \int_{-\infty}^{+\infty} P(x + y, \alpha) \ d\alpha = \frac{1}{\sqrt{2\pi}\sqrt{\sigma_x^{2} + \sigma_y^{2} }  }\exp\left(-\frac{(z_i - x - y)^{2} }{2(\sigma_x^{2} + \sigma_y^{2} )}\right)
+\end{gather*}
+Il che ci porta alla seguente osservazione
+\begin{gather*}
+    Z = X + Y \\
+    \sigma_z = \sqrt{\sigma_x^{2} + \sigma_y^{2} } 
+\end{gather*}
+Il fatto che si possa sommare in quadratura e ridurre l'errore
+rispetto alla somma lineare è dovuto al fatto che è estremamente improbabile
+una fluttuazione statistica concorde ad entrambe le grandezze misurate
+direttamente. 
+
+IV) Il caso generale \\
+Prendiamo il caso generale di una certa $g = f(x_1, \dots, x_n)$ 
+arriveremo a dimostrare che 
+\begin{gather*}
+    \sigma_g = \sqrt{\sum \left(\frac{\partial f}{\partial x_i} \sigma_{x_i}\right)^{2} } 
+\end{gather*}
+Per dimostrarla prendiamo il caso più semplice di
+$g = f(x, y)$ e prendendo come ipotesi $\frac{\sigma_x}{|x|}<<1$ e $\frac{\sigma_y}{|y|}<<1$ in tali
+condizioni possiamo sviluppare con Taylor ed ottenere
+\begin{gather*}
+    g_i = f(x_i, y_i) = f(X, Y) + \frac{\partial f}{\partial x}\left|_{x = X, y = Y} (x - X) + \frac{\partial f}{\partial y}  \right|_{x = X, y = Y} (y - Y)  
+\end{gather*}
+Tale relazione esprime il valore della grandezza $g$ misurata indirettamente con tre termini
+\begin{enumerate}
+    \item E' la costante $f(x, y)$ dello stesso tipo della
+    costante $A$ del caso $1$;
+    \item E' costituita dal fattore costante $\left.\frac{\partial f}{\partial x} \right|_{x = X, y = Y}$ moltiplicato
+    per la variabile $x - X$ che, come si nota dal caso uno è distribuita
+    attorno al valore vero $0$ con parametro di larghezza $\sigma_x$. Secondo il caso $2$ questo
+    termine sarà distribuito attorno al valore vero $0$ e parametro di
+    larghezza $\left.\frac{\partial f}{\partial x} \right|_{x = X, y = Y}\sigma_x$. 
+    \item E' analoga alla alla precedente distribuita attorno
+    a $0$ con distanza $\left.\frac{\partial f}{\partial x} \right|_{x = X, y = Y}\sigma_y$.
+\end{enumerate}
+Combinando questi $3$ termini e ricordando la terza dimostrazione si conclude
+che i valori $g_i$ sono distribuiti normalmente 
+intorno al valore vero $f(X, Y)$ con parametro di larghezza
+dato da
+\begin{align}
+    \sigma_g = \sqrt{\left(\left.\frac{\partial f}{\partial x}\right|_{x = X, y = Y}\right)^2\sigma_x^{2} + \left(\left.\frac{\partial f}{\partial y}\right|_{x = X, y = Y} \right)^{2}\sigma_y^{2} } 
+\end{align}
+
+
+\section{Deviazione standard della media}
+Ricorda che la stima di $\sigma$ abbiamo dimostrato essere
+\begin{gather*}
+    \sigma_x = \sqrt{\frac{\sum (x_i - \bar{x} )^{2} }{N - 1}} 
+\end{gather*}
+Dato $\overline{x} = \frac{\sum x_i}{N}$ come migliore stima di $X$, dimostriamo che $\sigma_{\bar{x} } = \frac{\sigma}{\sqrt{N} }$
+facendo una serie di $N$ misure avrò una certa media $\bar{x}$; rifacendo l'esperimento $N$ volte, troverò
+che $\bar{x}_2 \neq \bar{x}_1$ e così per le altre medie che ripeto. Posso allora definire
+le misure associate a ciascuna media nella seguente maniera.  
+\begin{gather*}
+    m = 1, \qquad x_{1, 1}, x_{1, 2}, \dots\qquad \to \overline{x_1}\\
+    \vdots \\
+    m  \qquad x_{m, 1}, x_{m, 2}, \dots \qquad \to \overline{x_m} 
+\end{gather*}  
+Dove $m$ indica l'indice univoco di ciascuna media 
+Potrò allora definire la \textbf{distribuzione di media} $P(\bar{x} )$
+e osservare come si distribuiscono le misure e ricordando che ciascuna media è calcolata come
+\begin{gather*}
+    \bar{x} = \frac{\sum x_i}{N}
+\end{gather*}
+Posso affermare che nei casi $g = x+ A, g = Bx, g = x_1 + x_2$, queste
+medie si distribuiscono secondo una gaussiana e anche che $\overline{x}$ è il
+valore centrato di una gaussiana, della quale posso ricavare la sua
+ampiezza attraverso la propagazione dell'errore:
+\begin{gather*}
+    g = \frac{\sum x_i}{N} \ \Longrightarrow \ \sigma_g = \sqrt{\sum \left(\frac{\partial f}{\partial x_i} \sigma_{x_i}\right)^{2} } 
+\end{gather*} 
+Con la somma in quadratura si può ricavare allora che
+\begin{gather*}
+    \sigma_g = \sqrt{\sum\left(\frac{1}{N}\sigma_x\right)^{2} } = \frac{\sigma_x}{\sqrt{N} }
+\end{gather*}
+Anche questa Gaussiana sarà centrata attorno al valore vero
+$X$ e avrà una larghezza minore di 
+\begin{gather*}
+    \sigma_{\bar{x} } = \frac{\sigma_x}{\sqrt{N} }
+\end{gather*}
+La Gaussiana dei singoli valori invece risulterà più larga
+e più bassa
+\begin{gather*}
+    \bar{x} \pm \frac{\sigma_x}{\sqrt{N} }
+\end{gather*} e possiamo stimare anche l'incertezza
+sul valore di $\sigma_x$ come
+\begin{gather*}
+    \sigma_x \pm \frac{\sigma_x}{\sqrt{2(N - 1)} }
+\end{gather*}
+L'incertezza relativa rispetto a $\sigma$ diminuisce notevolmente 
+al crescere del campione di misure. Se volessimo migliorare
+la precisione di un fattore $10$ dovremmo aumentare $N$ di un
+fattore $100$. \\ 
+Questi strumenti non tengono conto di opportune componenti
+sistematiche e si possono usare se gli errori sistematici sono
+trascurabili ma se $N \to +\infty$ arriverò comunque ad un certo punto in
+cui l'errore accidentale sarà comunque minore dell'errore sistematico
+e di conseguenza le ipotesi per l'utilizzo di questi strumenti verrebbero meno.
+
+\chapter{Rigetto di dati}
+\section{Il problema del rigetto di dati}
+A volte può capitare che dei dati possano sembrare \emph{sbagliati} anche se in realtà,
+dato un numero di misurazioni molto alto, è perfettamente normale trovarli anche
+se molto improbabili. In questo caso la conoscenza della distribuzione
+di Gauss si rivela molto utile in quanto ci permette di \emph{scartare} dei dati che
+potremmo definire \emph{scomodi}. Decidere quali dati scartare il più delle volte è soggettivo in quanto
+si potrebbe star scartando un dato magari misurato male (strumento tarato male o
+lettura errata) ma, potenzialmente, si potrebbe star scartando la parte più
+interessante del nostro set.
+
+\section{Criterio di Chauvenet}
+Si introduce allora un criterio che ci permette
+di scartare misure improbabili dal nostro set di dati: 
+utilizzando la probabilità della Gaussiana posso determinare
+se un dato è da scartare perché poco probabile
+oppure è da tenere. Si inizia calcolando innanzitutto $\bar{x}$ e $\sigma_x$
+e prendendo il valore $x_s$ di cui vogliamo valutare la probabilità 
+di ottenerlo. Ipotizzando una Gaussiana ideale posso ricavare
+la probabilità di ottenere un certo risultato semplicemente utilizzando 
+il numero di deviazioni standard dal centro della campana:
+\begin{gather*}
+    t_s = \frac{|x_s - \bar{x}| }{\sigma_x}
+\end{gather*}
+Si può allora calcolare la relativa probabilità di ottenere quel valore
+come 
+\begin{align}
+    P(|x - \bar{x}| \geq t_S \sigma_x) = 1 - erf(t_s)
+\end{align}
+Che prende il nome di probabilità a due code della Gaussiana;
+nel caso in cui questa misura sia molto distante dal valore
+attorno al quale è centrata la distribuzione allora è possibile
+eliminarla giustificando che la probabilità di ottenere questo dato rispetto
+al nostro set di dati è molto bassa. Per farlo è possibile definire
+il \textbf{numero di misure atteso}:
+\begin{gather*}
+    N_{att} = P \cdot N 
+\end{gather*}
+Il \textbf{Criterio di Chauvenet} ci dice che se questo numero di misure
+attese è $> 0.5$ allora la misura non è da scartare, altrimenti è da
+scartare. Questo criterio rappresenta una convenzione e per questa ragione è
+da considerare come tale e non come una regola univocamente accettata. Inoltre, ogni volta che si
+scarta una misura bisogna fare attenzione e ricalcolare
+i valori della gaussiana e per questo è consigliabile eliminare al
+più un valore con questo criterio. E' possibile anche
+scartare un gruppo di misure: in questo caso dobbiamo moltiplicare il valore
+convenzionale di misure atteso $0.5$ per il numero di misure che
+si vuole scartare. Se questo gruppo di misure è abbastanza
+numeroso rispetto al totale questo potrebbe essere sintomo di un
+\textbf{errore sistematico}.
+
+
+\chapter{Covarianza e livello di confidenza}
+\section{La covarianza nella propagazione degli errori}
+Supponiamo di avere delle misure ricavate dalla relazioni funzionali
+$g = f(x_1, \dots, x_n)$, sappiamo che l'errore conosciuto sia
+\begin{gather*}
+    \sigma_g \approx \sqrt{\sum \left(\frac{\partial f}{\partial x_i} \sigma_{x_i}\right)^{2} } 
+\end{gather*}
+Possiamo allora ricavare una formula più generale e partendo dal
+caso particolare due misure del tipo $g = f(x, y)$, esse sono sempre misurate
+a coppia ed in un certo senso sono associate. Per esempio potremmo
+misurare il valore $g$ attraverso un pendolo semplice e ricavare i
+diversi valori e ottenere la media come la sommatoria dei valori $g_i$ oppure
+ottenere
+\begin{gather*}
+    g = f(x, y) = f(\bar{x}, \bar{y}  ) + \left.\frac{\partial f}{\partial x}\right|_{x = \bar{x}, y = \bar{y}  } (x - \bar{x} ) +   \left.\frac{\partial f}{\partial y}\right|_{x = \bar{x}, y = \bar{y}  } (y - \bar{y} )
+\end{gather*} 
+E questo vale ovviamente se l'errore relativo rispetto ad entrambe $x$ e $y$
+è molto minore di uno. Si ottiene che la media di questa misura $g$ è
+data dallo sviluppo al primo grado della funzione media ottenendo
+\begin{align}
+    \bar{g} \approx \frac{1}{N} \sum \left(f(\bar{x}, \bar{y}  ) + \left.\frac{\partial f}{\partial x}\right| (x - \bar{x} ) +   \left.\frac{\partial f}{\partial y}\right|(y - \bar{y} )\right) 
+\end{align}
+E dato che la sommatoria degli scarti è zero, allora
+\begin{gather*}
+    \bar{g} = f(\bar{x}, \bar{y}  ) 
+\end{gather*}
+Possiamo allora calcolare la \textbf{varianza} per la misura $g$ (sviluppando al primo grado
+con Taylor )
+\begin{gather*}
+    \sigma_g^{2} = \frac{\sum (g_i - \bar{g} )^{2} }{N - 1} \approx  \frac{1}{N - 1}\sum \left(f(\bar{x}, \bar{y}  ) + \frac{\partial f}{\partial x} (x_i - \bar{x} )  + \frac{\partial f}{\partial y}(y_i - \bar{y} ) - f(\bar{x}, \bar{y}  )\right)^{2} = \\
+    \frac{1}{N - 1} \sum \left(\left(\frac{\partial f}{\partial x} \right)^{2} (x_i - \bar{x}  )^{2} + \left(\frac{\partial f}{\partial y} \right)^{2} (y_i - \bar{y} )^{2} + 2 \frac{\partial f}{\partial x}\frac{\partial f}{\partial y} (x_i - \bar{x} ) (y_i - \bar{y} )\right)  
+\end{gather*}
+Posso allora scomporre la parentesi in tre sommatorie ed osservare che
+\begin{align}
+    \sigma_g^{2} \approx \left(\frac{\partial f}{\partial x} \right)^{2}\sigma_x^{2} + \left(\frac{\partial f}{\partial y} \right)^{2}\sigma_y^{2} + 2\frac{\partial f}{\partial x}\frac{\partial f}{\partial y} \sigma_{x, y}        
+\end{align}
+Dove l'ultimo termine prende il nome di \textbf{covarianza}, ossia dà informazione
+sulla dipendenza l'una dall'altra delle due variabili $x, y$. Le due variabili sono
+indipendenti tra di loro se e solo se  $\sigma_{x, y} \to 0$.
+dobbiamo tenere conto della covarianza quando le variabili sono correlate
+tra di loro 
+\begin{itemize}
+    \item \textbf{correlate positivamente}: $\sigma_{x, y} > 0$;
+    \item \textbf{correlate negativamente} o \textbf{anticorrelate}: $\sigma_{x, y} < 0$;
+    \item \textbf{non correlate}: $\sigma_{x, y} = 0$.
+\end{itemize}
+Nel caso di covarianza nulla allora avrò per ogni sovrastima di $x$ una
+sottostima di $y$ e quindi in una relazione del tipo $g = f(x, y)$ so ch
+se le misure sono indipendenti tra di loro allora la covarianza sarà sempre zero
+poiché i contributi saranno mediamente ugualmente positivi e negativi. Anche 
+se le misure non sono correlate allora non è detto che siano indipendenti,
+mentre, è vero che, per $N$ molto grande, grandezze dipendenti
+siano correlate. E' vero però che indipendenti $\Rightarrow$ non correlate.
+
+\section{Dimostrazione della conservatività della somma delle incertezze assolute}
+Sappiamo che se $g = x + y$, allora $\Delta g = \Delta x + \Delta y$.
+Voglio allora dimostrare che questa è una stima conservativa utilizzando la 
+\textbf{disuguaglianza di Cauchy-Schwartz} la cui tesi è che
+\begin{gather*}
+    |\sigma_{x, y}| \leq \sigma_x \sigma_y
+\end{gather*}
+Sappiamo allora che
+\begin{gather*}
+    \sigma_x \sigma_y \geq |\sigma_{x, y}| \geq \sigma_{x, y}
+\end{gather*}
+Il che ci porta a giustificare che la somma lineare delle due incertezze assolute
+è una stima conservativa dell'errore infatti possiamo esprimere 
+\begin{gather*}
+    \sigma_g^{2} \approx \left(\frac{\partial f}{\partial x} \sigma_x\right)^{2} + \left(\frac{\partial f}{\partial y}\sigma_{y} \right)^{2} + 2\frac{\partial f}{\partial x}\frac{\partial f}{\partial y}\sigma_{x, y } \leq \\
+    \left(\frac{\partial f}{\partial x} \right)^{2}\sigma_x^{2} + \left(\frac{\partial f}{\partial y} \right)\sigma_{y}^2 + 2 \left| \frac{\partial f}{\partial x} \right| \left| \frac{\partial f}{\partial y}  \right| \left| \sigma_{x, y} \right|      \leq\\
+        \left(\frac{\partial f}{\partial x} \right)^{2}\sigma_x^{2} + \left(\frac{\partial f}{\partial y} \right)\sigma_{y}^{2} + 2 \left| \frac{\partial f}{\partial x} \right| \left| \frac{\partial f}{\partial y}  \right| \sigma_{x} \sigma_y\\
+        = \left(\frac{\partial f}{\partial x}\sigma_x + \frac{\partial f}{\partial y} \sigma_y \right)^{2} 
+\end{gather*}   
+Allora si ottiene la tesi
+\begin{align}
+    \sigma_g \leq   \frac{\partial f}{\partial x}\sigma_x + \frac{\partial f}{\partial y} \sigma_y
+\end{align}
+Si vede allora che il massimo valore per la deviazione standard sulla misura di $g$ è quello
+che si ottiene è quello che si ottiene allora sommando linearmente i valori assoluti delle
+incertezze misurate direttamente. \\
+Dimostriamo ora la disuguaglianza di Cauchy-Schwartz. \\
+Considero innanzitutto una funzione ausiliaria come
+\begin{gather*}
+    A(t) = \frac{1}{N - 1} \sum \left((x_i - \bar{x} ) + t(y_i - \bar{y} )\right)^{2}  
+\end{gather*}
+Che è sempre maggiore di zero e quindi il suo minimo è anch'esso
+maggiore di zero. Ora posso derivare questa funzione e trovare questo minimo:
+\begin{gather*}
+    \frac{1}{N - 1} \sum \left(2\left((x_i - \bar{x} ) + t(y_i - \bar{y} )\right)(y_i - \bar{y} )\right) = 0
+\end{gather*}
+Per avere il minimo posso portare dentro le sommatorie e quindi spezzarle nel seguente modo:
+\begin{gather*}
+    2\left(\frac{1}{N - 1}\sum(x_i - \bar{x} )(y_i - \bar{y} ) + t\sum \frac{(y_i - \bar{y} )^{2} }{N - 1}\right) = 0
+\end{gather*}
+E quindi
+\begin{gather*}
+    2(\sigma_{x, y} + t\sigma_y^{2} ) = 0
+\end{gather*}
+Avremmo allora che per trovare il minimo
+\begin{gather*}
+    t_{min} = - \frac{\sigma_{x, y}}{\sigma_y^{2} }
+\end{gather*}
+E quindi si ottiene la tesi che cercavamo nella dimostrazione precedente.
+
+
+\section{Livello di confidenza}
+Può accadere spesso di verificare la compatibilità di due 
+o più misure in modo statistico: chiamiamo $x_m$ la misura effettuata di una grandezza 
+$x$ che soddisfa due ipotesi principali:
+\begin{itemize}
+    \item Errori non sistematici;
+    \item Un alto numero di misure.
+\end{itemize}
+Stimerò la misura allora come $x_m \pm \sigma$ e ci chiediamo se questo valore
+sia o meno compatibile con un certo $x_e$: prima di tutto si era detto che
+un valore (non statisticamente) è compatibile con un altro se il suo valore
+vero si trova all'interno della barra d'errore dell'altro valore. \\
+Con un approccio un pochino più statistico supponiamo che
+all'interno di quell'intervallo si possa trovare
+$x_e$ con una probabilità del $68\%$. Nel caso in cui
+$x_e$ caschi fuori dall'intervallo allora possiamo utilizzare lo
+stesso approccio utilizzato per il criterio di Chauvenet: allora chiamo $t$
+la distanza in deviazioni standard in modo da relazionare
+la discrepanza delle due misure con la deviazione standard. Ovviamente mi aspetterei 
+$t = 0$ anche se è statisticamente impossibile che due misure siano perfettamente uguali
+tra di loro. 
+\begin{gather*}
+    t = \frac{|x_m - x_e|}{\sigma}
+\end{gather*}
+Posso allora ricavarmi la probabilità di ottenere un certo valore $x$
+generico che disti dal valore ottenuto più di
+$t\sigma$.
+\begin{gather*}
+    P(|x - x_e| \geq t\sigma) = 1 - \int_{x_e - t\sigma}^{x_e + t\sigma}p(x) \ dx = 1 - erf(t)
+\end{gather*}
+Dobbiamo allora decidere quando una probabilità è tale che da ritenere ragionevole
+la distanza trovata e definire la compatibilità. Convenzionalmente 
+si considera accettabile un valore di probabilità di almeno il $5\%$.
+Si dice il \textbf{livello di confidenza} la probabilità opposta del $95\%$ e possiamo allora
+dire che una probabilità del $5\%$ corrisponde a $t = 1.96$. \\
+Se allora $x_e$ dista più di questo valore in deviazioni standard allora è ragionevole pensare
+che tale distanza non sia dovuta a fluttuazioni statistiche a che invece
+ci siano stati degli errori nelle misure. Possiamo allora indicare il livello di confidenza
+quando si svolgono delle misure proprio secondo questo criterio. Se una misura anomala è in genere
+oltre i $5\sigma$ di solito è una misura da attribuire ad una nuova scoperta come negli
+esperimenti del CERN.
+
+\section{Confronto tra due misure}
+Se volessimo confrontare due misure tipo 
+\begin{gather*}
+    x_1 \pm \sigma_1 \qquad \qquad x_2 \pm \sigma_2
+\end{gather*}
+Possiamo fare un ragionamento un base alla \textbf{discrepanza} tra le due misure:
+\begin{gather*}
+    \tau_m = |x_1  - x_2|
+\end{gather*}
+Il valore ideale per la discrepanza tra due misure è ovviamente zero, l'idea di utilizzare
+questa proprietà è analoga a quella del caso del confronto con un valore dato.
+Propago allora l'errore per ricavarmi l'errore sulla discrepanza come
+errore in quadratura $\sigma_{\tau} = \sqrt{\sigma_1^{2} + \sigma_2^{2}  } $ e posso allora 
+calcolarmi la \textbf{discrepanza normalizzata} in termini di $\tau$ e quindi
+\begin{gather*}
+    t = \frac{|\tau_m - \tau_e|}{\sigma_{\tau}} = \frac{\tau_m}{\sigma_{\tau}} = \frac{|x_1 - x_2|}{\sigma_{\tau}}
+\end{gather*}
+E quindi la probabilità di ottenere un valore al di fuori di questo
+intervallo è allora 
+\begin{gather*}
+    P(|\tau - \tau_e| \geq t\sigma_{\tau}) = 1 - erf(t)
+\end{gather*}
+Se si ragionasse con un livello di confidenza analogo 
+dovremmo trovare ad una distanza di circa $2\sigma$.
+
+
+\chapter{Medie pesate}
+\section{La media pesata}
+Avendo fatto varie misure di una certa grandezza la \textbf{media pesata}
+ci permette di combinarle in modo da ottenere un unico valore. L'unico
+prerequisito della media pesata è, ovviamente, la compatibilità tra le misure.
+Supponendo di aver fatto determinate misure si può, dato che queste sono
+compatibili, combinarle assegnando un certo peso ad ognuna di esse 
+in modo che alcune risultino più "importanti" di altre; si pesano inoltre anche
+le incertezze delle singole misure in modo che alcune incertezze siano più significative
+di altre.
+Possiamo allora scrivere la probabilità di ottenere un certo valore arbitrariamente
+vicino a tre valori misurati e ricavarne la probabilità massima:
+posso pensare questa probabilità come una funzione del valore vero e trovare 
+quel valore vero che rende la probabilità maggiore possibile 
+\begin{gather*}
+    P(x_1, x_1 + dx ) = \frac{1}{\sqrt{2\pi} \sigma_1} \exp\left(-\frac{(x_1 - x)^{2} }{2\sigma_1^{2} }\right)  = P_1
+\end{gather*}
+La probabilità complessiva sarà proporzionale a
+\begin{gather*}
+    P_{tot} = P(x_1)P(x_2)P(x_3) \propto \frac{1}{\sigma_1 \sigma_2 \sigma_3} \exp\left(-\sum\left(\frac{(x_i - x)^{2} }{\sigma_i^{2} }\right)\right)
+\end{gather*}
+Avrò allora che le probabilità delle altre due misure posso indicarle con $P_2$ d $P_3$ e allora
+la probabilità complessiva di ottenere una misura tra $x_1 + dx$ e le altre due misure
+considerate, (se sono ovviamente indipendenti e quindi non correlate) sarà data dalla minimizzazione dei quadrati:
+\begin{gather*}
+    P_{tot} = \prod P_i = \frac{1}{\sigma_1^{2} \sigma_2^{2} \sigma_3^{2}} \exp\left(-\frac{\chi^{2} }{2}\right) \ (dx)^{3} \\
+    \chi^{2} = \frac{(x_1 - x)^{2} }{\sigma_1^{2} } + \frac{(x_2 - x)^{2} }{\sigma_2^{2} } + \frac{(x_3 - x)^{2} }{\sigma_3^{2} }  = \sum\left(\frac{(x_i - x)^{2} }{\sigma_i^{2} }\right)
+\end{gather*}
+Allora derivando rispetto al valore vero $x$ ottengo l'espressione della minimizzazione
+del $chi$ quadrato:
+\begin{gather*}
+    x = \frac{\frac{x_1}{\sigma_1^{2} } + \frac{x_2}{\sigma_2^{2} } + \frac{x_3}{\sigma_3^{2} }}{\frac{1}{\sigma_1^{2} } + \frac{1}{\sigma_2^{2} } + \frac{1}{\sigma_3^{2} }}
+\end{gather*}
+In termini generali posso affermare che
+\begin{align}
+    x_{MP} = \frac{\sum \frac{x_i}{\sigma_i^{2} }}{\sum \frac{1}{\sigma_i^{2} }}
+\end{align}
+Possiamo chiamare i pesi $\omega_i = \frac{1}{\sigma_i^{2} }$ 
+e ottenere una formulazione più generale attraverso i pesi
+\begin{align}
+     x_{MP} = \frac{\sum x_i \omega_i}{\sum w_j}
+\end{align}
+L'incertezza da associare a questo valore si può ottenere allora dalla propagazione
+dell'errore.
+
+
+\section{L'incertezza associata alla media pesata}
+Come posso allora ricavare l'incertezza sulla media pesata $\sigma_{MP}$?
+Per fare questo posso riscrivere l'incertezza secondo la definizione e ottenere:
+\begin{gather*}
+    \sigma_{MP}^{2} = \sum\left(\frac{\partial x_{MP}}{\partial x_i} \sigma_i\right)^{2}\\
+        \frac{\partial x_{MP}}{\partial x_i} = \frac{\partial }{\partial x_i} \frac{x_1 \omega_1 + \dots + x_n \omega_n}{\sum \omega_j} = \\
+    \frac{1}{\sum \omega_s} \left(\frac{\partial }{\partial x_i}(x_1 \omega_1) + \dots + \frac{\partial }{\partial x_i} (x_i \omega_i) + \dots + \frac{\partial }{\partial x_n} \frac{\partial }{\partial x_i} (x_n \omega_n)    \right) =\frac{1}{\sum \omega_j} \omega_i  \\
+    \ \Longrightarrow \ \sigma_{MP}^{2} = \sum \left(\frac{\omega_i}{\sum \omega_j}\right)^{2} \frac{1}{\omega_i} = \frac{1}{\left(\sum \omega_j\right)^{2} } \sum \omega_i = \frac{1}{\sum \omega_i} 
+\end{gather*}
+Si ottiene allora l'incertezza sulla media pesata come
+\begin{align}
+    \sigma_{MP} = \sqrt{\frac{1}{\sum \frac{1}{\sigma_i^{2} }}} 
+\end{align}
+
+
+\section{Applicazioni della media pesata}
+Nel caso di misure ripetute della stessa grandezza e sapendo che tutti i pesi sono identici, viene meno l'utilizzo
+delle formule complesse della media pesata e favorendo dunque l'utilizzo delle formule semplici
+viste in precedenza. La media pesata infatti si può utilizzare
+se e solo se gli errori sono di natura accidentale e non di natura sistematica
+altrimenti si potrebbero assegnare pesi grandi a misure fatte con errori
+sistematici grandi.
+
+
+\chapter{Relazioni tra grandezze fisiche}
+\section{Il metodo grafico}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \label{Fig 1.1}
+    \caption{Misure rispetto al modello lineare}
+    \begin{tikzpicture}
+        \draw[->] (0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->] (0, 0) -- (0, 4) node[at end, left] {$y$};
+        \draw[-, dashed] (0, 1) -- (4, 3);
+        \filldraw (1, 1.2) circle (1pt);
+        \filldraw (1.5, 2)circle (1pt);
+        \filldraw (2, 1.8) circle (1pt);
+        \filldraw (2.5, 2.4) circle (1pt);
+        \draw[-] (1, 0.1) -- (1, -0.1) node[at end, below] {$x_i$};
+        \draw[-] (-0.1, 1.2) -- (0.1, 1.2) node[at start, left] {$y_i$};
+        \draw[|-|, red] (1, 0.6) -- (1, 1.8) node[at end, left] {$\sigma_y$};
+        \draw[|-|, red] (0.7, 1.2) -- (1.3, 1.2) node[at start, below] {$\sigma_x$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Ipotizziamo di aver acquisito delle grandezze $x$ e $y$, vogliamo trovare la relazione che
+lega le due grandezze come $y = f(x)$. Iniziando
+dalla relazione $y = A + Bx$, si può utilizzare il metodo grafico, ossia
+possiamo utilizzare un grafico su carta millimetrata per poter studiare la distribuzione trovata
+e verificare che sia compatibile con una distribuzione lineare. \\
+In generale i punti possiedono però anche delle barre di errore e quindi
+dopo aver rappresentato anche quelle è possibile determinare
+se un punto appartiene al modello lineare oppure se è troppo distante per
+potere essere ragionevolmente considerato. La statistica ci dice che si 
+aspetta una compatibilità del $68\%$ e ricordandoci che nel caso
+ci fossero punti molto distanti dagli altri essi possono essere
+scartati con opportune considerazioni.
+
+\section{Determinazione di $A$ e $B$}
+Per ricavare i coefficienti $A$ e $B$ nel modello di relazione lineare $y = A + Bx$
+possiamo ricorrere ai seguenti metodi: posso ricavare $B$, ovvero il \textbf{coefficiente angolare},
+prendendo una coppia di punti e utilizzando la relazione 
+\begin{gather*}
+    B = \frac{y_2 - y_1}{x_2 - x_1}
+\end{gather*}
+E' consigliabile prendere punti più distanti possibili
+in quanto la quadrettatura del foglio millimetrato ci darà una 
+incertezza di $1mm$.
+In generale si prendono i punti in cui la retta interseca 
+i bordi del foglio (ovviamente sempre che siano i più comodi). \\
+Per ricavare $A$ posso seguire la seguente procedura:
+\begin{gather*}
+    A = y_0 - B x_0
+\end{gather*}
+Dove $(x_0, y_0)$ è il punto maggiormente vicino al bordo di
+sinistra del grafico sempre per una questione di approssimazione
+e una volta determinati tali valori dovremmo ricavare le
+\textbf{incertezze} associate. In generale non ci sarà solo una retta 
+a soddisfare la nostra relazione ma ne avremo molte di più. \\
+Posso adattare \textbf{criteri soggettivi} per determinare la retta
+da considerare; normalmente si prende quella che passa più vicino possibile a
+più punti possibili. Dopodiché cerchiamo gli estremi ovvero la
+retta più pendente e quella meno pendente che soddisfano ancora i
+nostri prerequisiti e scrivere allora
+\begin{align*}
+    A_{best}& \quad B_{best} \to \text{retta probabile} \\
+    A_{min}& \quad B_{min} \to \text{retta meno inclinata} \\
+    A_{max}& \quad B_{max} \to \text{retta più inclinata}
+\end{align*}
+Possiamo ricavare allora l'errore sulla migliore stima di $A$ e $B$ come
+lo scarto massimo tra la migliore stima e il loro valore massimo e minimo
+\begin{gather*}
+    A_{best} \pm \Delta A \qquad B_{best} \pm \Delta B
+\end{gather*}
+Ovviamente bisogna approssimare le cifre significative
+a causa della limitatezza dei quadretti.
+
+\section{Relazione non lineare}
+Nel caso di una relazione non lineare il metodo grafico diventa molto
+più complicato: prendiamo per esempio il caso $y = A + Bx^{2}$. 
+Un metodo potrebbe essere prendere in relazione una grandezza e la funzione
+associata alla seconda grandezza e allora la relazione diventa 
+lineare nella seguente maniera:
+\begin{gather*}
+    y = A + Bg(x) \qquad g(x)  = x^{2} 
+\end{gather*} 
+Un altro modo per ottenere una relazione lineare è quella di poter 
+"sistemare" l'asse delle ascisse in modo tale che diventi lineare.
+
+\section{Metodo dei minimi quadrati}
+Con il metodo dei minimi quadrati posso ottenere un \emph{fit grafico} molto più preciso
+che con il metodo grafico visto fino ad ora: questo metodo infatti si basa univocamente sul
+nostro set di dati e ci permette di determinare la retta migliore dal punto di vista
+statistico. Partiamo da una situazione di una
+coppia di misure e supponiamo che le incertezze su $y$ abbiano tutte la
+stessa grandezza, altrimenti andrebbero separate. Possiamo allora studiare,
+grazie alla statistica, la probabilità
+\begin{gather*}
+    P(y_1, y_1 + dy), \dots, P(y_i, \dots, y_i + dy)
+\end{gather*}
+Per ipotesi possiamo considerare che ogni valore $y_i$ sia
+legato ad un certo $x_i$ e quindi possiamo dire che la 
+probabilità di ottenere un certo valore $y_i$ sia data da
+\begin{gather*}
+    P(y_i, y_i + dy) \approx \frac{1}{\sqrt{2\pi} \sigma_i} \exp \left(-\frac{\left(y_i - (A + Bx_i)\right)^{2} }{2\sigma_i^{2} }\right) \ dy
+\end{gather*}
+Possiamo inoltre dire che le incertezze sulle singole $y_i$ sono tutte
+uguali in quanto sono state ricavate attraverso il medesimo strumento
+e dunque è ragionevole pensare che $\sigma_{y_1} = \dots = \sigma_{y_n}$. Inoltre
+posso utilizzare il principio di Massima verosimiglianza e quindi esprimere la
+probabilità totale come
+\begin{gather*}
+    P_{tot} =  \left(\frac{dy}{\sqrt{2\pi} }\right)^{n} \frac{1}{\prod \sigma_i} \exp\left(-\frac{1}{2}\sum\frac{(y_i - A - Bx_i)^{2} }{\sigma_i^{2} }\right) = \left(\frac{dy}{\sqrt{2\pi} }\right)^{n} \frac{1}{\prod \sigma_i} \exp\left(-\frac{\chi^{2} }{2}\right) \\
+    \text{dove } \chi = \sum \frac{(y_i - A - Bx_i)^{2} }{\sigma^{2} }
+\end{gather*}
+Il valore $y_i - A - Bx_i$ è lo scarto lungo l'asse $y$ del valore misurato
+e del punto in cui la retta interseca l'intervallo (idealmente sarebbe zero). Applicando
+ora il principio di massima verosimiglianza le migliori stime di $A$ e $B$ sono quei valori
+per i quali la loro probabilità è massima. \\
+Il valore massimo si ha in corrispondenza del minimo esponente dell'esponenziale; questo
+si può osservare sempre con il principio di Massima verosimiglianza che facendo la derivata di questa funzione a due variabili e imponendo che sia uguale a zero,
+l'unico termine che devo porre uguale a zero è
+il termine all'interno dell'esponenziale e dunque posso dire che
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \frac{\partial \chi^{2} }{\partial A} = \sum\left(-\frac{1}{\sigma^{2} }2(y_i - A - Bx_i)\right) = 0 \\
+        \frac{\partial \chi^{2} }{\partial B} = \sum\left(-\frac{1}{\sigma^{2} }2(y_i - A - Bx_i)x_i\right) = 0 \\
+    \end{array}
+    \right. \\
+    \left\{\begin{array}{l}
+        \sum A + B\sum x_i = \sum y_i \\
+        A \sum x_i + B \sum x_i^{2} = \sum x_i y_i 
+    \end{array}\right.
+\end{gather*}
+Possiamo risolvere il sistema in forma matriciale ed ottenere
+\begin{gather*}
+    \begin{pmatrix}
+        n & \sum x_i \\
+        \sum x_i & \sum x_i^{2}  
+    \end{pmatrix} \begin{pmatrix}
+        A \\
+        B
+    \end{pmatrix} = \begin{pmatrix}
+        \sum y_i \\
+        \sum x_i y_i
+    \end{pmatrix}
+\end{gather*}
+E quindi trovare le costanti $A$ e $B$ coe
+\begin{align}
+    A &= \frac{\sum x_i^{2}\sum y_i - \sum x_i \sum x_i y_i}{n\sum x_i^{2} - (\sum x_i)^{2} } \\
+    B &= \frac{n\sum x_i y_i - \sum x_i \sum y_i}{n\sum x_I^{2} - (\sum x_i)^{2}  }
+\end{align}
+
+
+\section{Incertezze tra $A$ e $B$}
+Possiamo considerare le grandezze $A$ e $B$ come ottenute indirettamente 
+e quindi posso propagare l'errore ed ottenere $\sigma_A$ nell'ipotesi che gli errori siano
+stati tutti accidentali.
+\begin{gather*}
+    \sigma_A^{2} = \sum \left(\frac{\partial f}{\partial x_i} \sigma_{x_i} \right)^{2} + \sum \left(\frac{\partial f}{\partial y_i} \sigma_{y_i}\right)^{2}   
+\end{gather*}
+Dato che si è specificato che l'incertezza sulle $x$ sia molto più piccola di quella 
+sulle $y$, allora posso ignorare il primo termine del secondo membro e scrivere
+semplicemente (ovviamente considerando che tutte le incertezze su tutti
+gli $y_i$ siano uguali) che
+\begin{gather*}
+    \sigma_A^{2} = \sum \left(\frac{\partial f}{\partial y_i} \sigma_{y_i}\right)^{2}   
+\end{gather*}
+Ora, posso svolgere la parziale dentro le parentesi e ottenere:
+\begin{gather*}
+\frac{\partial A}{\partial y_i} = \frac{\partial }{\partial y_i}  \frac{\sum x_i^{2}\sum y_i - \sum x_i \sum x_i y_i}{n\sum x_i^{2} - (\sum x_i)^{2} }  \Rightarrow \\
+\frac{\partial }{\partial y_i} = \frac{1}{n \sum x_i^{2} - (\sum x_i)^{2} } \cdot \left(\sum x_i^{2} - x_j \sum x_i \right) = \frac{1}{\Delta}\left(\sum x_i^{2} - x_j \sum x_i \right)\\
+\Delta = n \sum x_i^{2} - (\sum x_i)^{2}
+\end{gather*}
+E quindi posso risolvere la seguente:
+\begin{gather*}
+    \sigma_A^{2} =  \sum\left(\frac{1}{\Delta}\left(\sum x_i^{2} - x_j \sum x_i \right)\right)^{2}  \sigma_y^{2} = \\
+    \sum \left(\frac{1}{\Delta^{2} }\left(\left(\sum x_i^{2} \right)^{2} + x_j^{2} \left(\sum x_i\right)^{2}  - 2x_j \sum x_i \sum x_i^{2} \right) \right)\sigma_y^{2} = \\
+    \frac{\sigma_y^{2} }{\Delta^{2} } \left(n\left(\sum x_i^{2} \right)^{2} + \sum x_j^{2} \left(\sum x_i\right)^{2} -2 \sum x_i \sum x_i^{2} \sum x_j\right) = \\
+    \frac{\sigma_y^{2} }{\Delta^{2} } \left(n\left(\sum x_i^{2} \right)^{2} - \sum x_i^{2} \left(\sum x_i\right)^{2}   \right) = \\
+    \frac{\sigma_y^{2} }{\Delta^{2} } \left(\sum x_i^{2} \right)\left(n \sum x_i^{2} - \left(\sum x_i \right)^{2} \right)
+\end{gather*}
+Si ottiene allora, dato che l'ultima parentesi è uguale a $\Delta$
+\begin{align}
+    \sigma_A = \sigma_y \sqrt{\frac{\sum x_i^{2} }{\Delta}} 
+\end{align}
+Possiamo allora applicare lo stesso ragionamento per $B$ e quindi ottenere
+\begin{gather*}
+    \sigma_B^{2} = \sum \left(\frac{\partial B}{\partial y_i} \right)^{2}\sigma_y^{2}   
+\end{gather*}
+E quindi dato
+\begin{gather*}
+    \frac{\partial B}{\partial y_i} =  \frac{1}{\Delta} \left(n x_j  - \sum x_i \right) \\
+    \Delta = n \sum x_i^{2} - (\sum x_i)^{2}
+\end{gather*}
+Posso risolvere la seguente:
+\begin{gather*}
+    \sigma_B^{2} = \sum \left(\frac{1}{\Delta} \left(n x_j - \sum x_i\right)\right)^{2} \sigma_y^{2} = \\
+    \frac{1}{\Delta^{2} } \sum \left(n^{2} x_j^{2} + \left(\sum x_i\right)^{2} - 2nx_j \sum x_i  \right)   = \\
+    \frac{\sigma_y^{2} }{\Delta^{2} } \left(n^{2} \sum x_i^{2} + n\left(\sum x_i\right)^{2} -  2n \sum x_i \sum x_j \right) = \\
+    \frac{\sigma_y^{2} }{\Delta^{2} } \left(n^{2} \sum x_i^{2} - n\left(\sum x_i\right)^{2}   \right)^{n}  
+\end{gather*}
+Allora dato che nell'ultimo termine c'è nuovamente $\Delta$ si ottiene
+\begin{align}
+    \sigma_B = \sigma_y \sqrt{\frac{n}{\Delta}} 
+\end{align}
+
+
+\section{Linearità e coefficiente di correlazione lineare}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 4}
+    \caption{Grafico per il fit}
+    \begin{tikzpicture}
+        \draw[->] (0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->] (0, 0) -- (0, 4) node[at end, left] {$y$};
+        \draw[-, dashed] (0, 0.3) -- (4, 4);
+        \draw[-, red] (0, 0.5) -- (4, 3.6);
+        \draw[-, cyan] (0, 0.1) -- (4, 4.2);
+        \filldraw (1, 1) circle (1pt);
+        \filldraw (2, 2.2) circle (1pt);
+        \filldraw (3, 2.8) circle (1 pt);
+        \filldraw (4, 3.8) circle (1pt);
+        \draw[|-|] (1, 1.3) -- (1, 0.7);
+        \draw[|-|] (2, 2.5) --  (2, 1.9);
+        \draw[|-|] (3, 3.2) -- (3, 2.4);
+        \draw[|-|] (4, 4.2) -- (4, 3.4);
+        \filldraw[red] (1.5, 1) circle (1pt);
+        \draw[|-|, red] (1.5, 1.4) -- (1.5, 0.6) node[midway, right] {da scartare};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Osservando il grafico possiamo ricavare la distanza dei valori
+dalla retta e, con la minimizzazione dei quadrati, possiamo allora 
+determinare la Linearità del campione di dati che abbiamo e verificare quindi
+che la distribuzione dei dati sia compatibile con l'errore
+accidentale e che sia effettivamente una distribuzione lineare di dati. \\
+Se la relazione è davvero lineare allora mi aspetterò che
+\begin{gather*}
+    Y_i = A + B X_o \approx A + B x_i
+\end{gather*}
+Dovremmo avere che $y_i - A - B x_i = 0$ sia il più piccolo
+possibile. Nonostante si conosca solo dati che
+non mi permettano di determinare questa distribuzione di scarti, si sa che
+tutti i valori $y_i$ sono distribuiti normalmente intorno
+al valore vero $A + Bx_i$ e le deviazioni $y_i - A - Bx_i$ sono anch'esse
+distribuite normalmente attorno al valore vero $0$ e con lo
+stesso parametro di larghezza $\sigma_y$.
+\begin{gather*}
+    \overline{\sigma_y} = \frac{\sqrt{\sum (y_i - A - Bx_i)^{2} } }{N - 2}
+\end{gather*} 
+Questo mi da il valore dello sparpagliamento dei valori rispetto alla retta
+vera (che tuttavia non ho), la quale è ottenuta secondo il metodo dei minimi quadrati:
+la quale ha due parametri, e quindi due gradi di libertà e da qui segue il fattore $N - 2$
+al denominatore. \\
+Se graficamente trovo che
+\begin{itemize}
+    \item $\overline{\sigma_y} \approx \sigma_y$: La \textbf{fluttuazione media} dei valori $y$
+    rispetto alla retta dei minimi quadrati è confrontabile con
+    l'incertezza sperimentale;
+    \item $\overline{\sigma_y} >> \sigma_y$: La fluttuazione è molto maggiore
+    di quanto ci si potrebbe aspettare dall'incertezza misurata e quindi non è
+    molto normale, questo implica che abbiamo sottostimato l'incertezze oppure che
+    i dati potrebbero non avere una distribuzione lineare;
+    \item  $\overline{\sigma_y} << \sigma_y$: se le barre di errore
+    fossero state valutate meglio, avremmo avuto una minoranza di punti che non contiene
+    la retta: probabilmente gli errori sperimentali non sono stati sovrastimati e quindi, se 
+    fossero stati calcolati meglio, alcuni punti potrebbero non appartenere alla retta trovata.
+\end{itemize} 
+Possiamo anche ragionare con grandezze non fisiche con il metodo
+dei minimi quadrati e trovare quindi una sequenza di valori (se è possibile ovviamente)
+rappresentarla come relazione lineare utilizzando il
+coefficiente di correlazione lineare
+\begin{align}
+    r = \frac{\sum (x_i - \bar{x} )(y_i - \bar{y} )}{\sqrt{\sum (x_i - \bar{x} )^{2} \sum (y_i - \bar{y} )^{2} } } \qquad \left( = \frac{\sigma_{x, y}}{\sigma_x \sigma_y}\right)
+\end{align}
+Data la tesi del teorema di Cauchy-Schwartz, posso dire che $-1 \leq r \leq 1$. Se il modello
+fosse lineare, allora $r$ assumerebbe o $-1$ oppure $1$. Possiamo allora ottenere da queste ipotesi che
+\begin{gather*}
+    \bar{y} = \frac{\sum y_i}{N} = A + \frac{B\sum x_i}{N} = A + B\bar{x}  
+\end{gather*}
+E quindi sostituendo si ottiene che
+\begin{gather*}
+    y_i - \bar{y} = B(x_i - \bar{x} ) 
+\end{gather*}
+E allora 
+\begin{gather*}
+    r = \frac{B}{|B|} = \pm 1
+\end{gather*}
+Avendo un certo set di misure possiamo ricavare la retta coi minimi quadrati e quindi con
+$A$ e $B$ possiamo interpolare e scoprire i valori $y'$ ai quali corrisponderebbero determinati
+valori di $x'$. In questo modo posso anche ricavarmi la covarianza nel modello lineare ottenendo allora:
+\begin{gather*}
+    \sigma_y^{2} = \left(\frac{\partial y}{\partial A} \right)^{2}\sigma_A^{2} + \left(\frac{\partial y}{\partial B} \right)^{2}\sigma_B^{2} 2\frac{\partial y}{\partial A} \frac{\partial y}{\partial B}\sigma_{A, B}  \\
+    \sigma_{A, B} = -\sigma_y^{2} \frac{\sum x_i}{\Delta} 
+\end{gather*}
+
+
+\section{Metodo dei minimi quadrati pesati}
+Studiamo il caso in cui le incertezze dei valori non siano simili
+tra di loro e assumendo come sempre errori puramente accidentali ci fermiamo
+a definire intanto
+\begin{gather*}
+    \chi^{2} = \frac{\sum (y_i - A - Bx_i)^{2} }{\sigma_y^{2} } = \sum \omega_i (y_i - A - Bx_i) ^{2} 
+\end{gather*}
+E quindi posso risolvere il sistema per trovare il punto di minimo
+\begin{gather*}
+    \left\{\begin{array}{l}
+        0 = \frac{\partial \chi^{2} }{\partial A} = -2\sum \omega_i (y_i - A - Bx_i) \\
+        0 = \frac{\partial \chi^{2} }{\partial B} = -2\sum \omega_i(y_i - A  -B x_i) 
+    \end{array}\right.
+\end{gather*}
+
+Ottenendo allora 
+\begin{align}
+    A &= \frac{\sum \omega_i x_i^{2} \sum \omega_i y_i - \sum \omega_i x_i - \sum \omega_i x_i y_i}{\sum \omega_i \sum \omega_i x_i^{2} - \left(\sum \omega_i x_i\right)^{2} }\\
+    B &= \frac{\sum \omega_i \sum \omega_i x_i y_i - \sum \omega_i x_i \sum\omega_i y_i}{\sum \omega_i \sum \omega_i x_i^{2} - \left(\sum \omega_i x_i\right)^{2}  }
+\end{align}
+Con il metodo dei quadrati pesati si tende a dare più importanza ai valori con
+la minore incertezza, altrimenti adattando il metodo standard avremo un risultato diverso. Propagando
+l'errore in maniera analoga si ottiene allora
+\begin{align}
+    \sigma_A = \sqrt{\frac{\sum \omega_i x_i^{2} }{\Delta \omega}}\\
+    \sigma_B = \sqrt{\frac{\sum \omega_i}{\Delta \omega}}  
+\end{align}
+E anche in questo caso posso definire $\overline{\sigma}$ che mi permette di verificare
+se i miei valori abbiano senso oppure no. Infatti
+se $y_i - A - Bx_i \approx \sigma_{y_i}$ allora mi aspetto che
+\begin{gather*}
+    \chi^{2} = \sum\frac{(y_i - A - Bx_i)^{2} }{\sigma_{y_i}^{2} }  
+\end{gather*} 
+Dati i due gradi di libertà di questo calcolo, allora ottengo
+che
+\begin{gather*}
+    \frac{\chi^{2} }{2} \sim 1. 
+\end{gather*}
+
+\section{Varianza efficace e relazioni non lineari}
+Possiamo anche studiare il caso in cui le incertezze su $x$ non siano approssimabili 
+e quindi data la relazione tra i due errori, la banda di errore
+su $x$ è legata alla banda di errore su $y$ secondo la seguente relazione
+\begin{gather*}
+    \sigma_{y_i} = \tan\alpha \sigma_{x_i} = \frac{dy}{dx}  \sigma_{x_i}
+\end{gather*}
+Posso allora definire la \textbf{varianza efficace} l'errore totale e quindi,
+utilizzando la somma in quadratura e ricordando che la derivata rispetto ad $x$ di $y$
+è proprio $B^{2}$ e che se la relazione fosse lineare avrei $\tan^{2}\alpha = B^{2}$, allora posso
+definire
+\begin{gather*}
+    \sigma_{y_i} = \sqrt{\sigma_{y_i}^{2} \left(\frac{\partial y}{\partial x} \right)^{2}\sigma_{x_i}^{2}   }  = \sqrt{\sigma_{y_i}^{2} + B^{2} \sigma_{x_i}^{2}}    
+\end{gather*}  
+ Un qualunque polinomio del tipo $y = A + Bx + \dots$ 
+sono relazioni non lineari per $x$ e $y$ ma lineari 
+per $A$ e $B$ se provassimo a rifare i calcoli otterrei
+\begin{gather*}
+    \chi^{2} = \sum \frac{(y_i - A - Bx \dots)}{\sigma_{y_i}^{2} }  
+\end{gather*}
+Procedendo a fare la derivata prima rispetto ad ogni variabile $A$, $B$, $\dots$ 
+allora è possibile risolverlo . \\
+Se le funzioni non fossero lineari nemmeno nei parametri allora dovrei provare
+a linearizzare tutta la funzione attraverso il metodo grafico riscrivendo
+parti della funzione in funzione di $Y$ e $X$. 
+\begin{gather*}
+    f(x) = \alpha e^{\beta x} \\
+    \ln y = \ln \alpha + \beta x \\
+    Y = \ln y, A = \ln \alpha, B = \beta, X = x \\
+    Y = A + BX.
+\end{gather*}
+Se le incertezze sono uguali allora si utilizza il metodo dei minimi quadrati:
+\begin{gather*}
+    \sigma_{y_i} = \left|\frac{d \ \ln y_i}{d y_i} \right| \sigma_{y_i} = \frac{1}{y_i}\sigma_{y_i} 
+\end{gather*}
+
+\chapter{Distribuzione binomiale}
+La distribuzione binomiale spesso è associata con la probabilità
+di trovare l'asso in un dado, ossia avere un certo numero di misure ripetute.
+La distribuzione di Poisson è quella che viene fuori da eventi casuali con
+tempo caratteristico ben definito (per esempio l'emissione spontanea
+di fotoni da parte di atomi). Nel caso di un dado a sei facce si 
+elencano alcuni casi:
+\begin{enumerate}
+    \item La probabilità di trovare una faccia specifica è proprio $\frac{1}{6}$ e che non
+        esca quella faccia è la complementare $p' = \frac{5}{6}$. 
+    \item La probabilità di trovare tre facce uguali in tre lanci ripetuti e consecutivi
+    è proprio $\frac{1}{6^{3}}$.
+    \item La probabilità di trovare 2 facce uguali in tre lanci è $ppp' + pp'p + p'pp = 3p^{2}p' $.
+    Poiché ho tre disposizioni possibili di risultati. 
+\end{enumerate}
+Nel caso generale io chiamo $n$ il numero complessivo di prove ed il numero di
+successi come $\nu$ e quindi:
+\begin{gather*}
+    P(\nu \ \text{successi in n prove}) =
+\end{gather*}
+\begin{align}
+   b_{n, p}(\nu) = \frac{n!}{\nu! (n - v)!} \cdot  p^{\nu} q^{n - \nu}  
+\end{align}
+Ho una distribuzione binomiale in funzione di $\nu$ con n e p fissati. (dove $q = 1 -p$). Questa
+funzione non è molto diversa da una gaussiana, ma è una funzione discreta
+perché è definita nei naturali. Il disaccordo tra la binomiale e la gaussiana
+si riduce al crescere di n e quando $n \to \infty $ è proprio una gaussiana.
+Verifico:
+\begin{align}
+    \bar{\nu} &= \frac{1}{N}\sum_{i = 0}^{n} \nu_i = np\\
+    \sigma_{\nu} &= \sqrt{\sum_{i = 0}^{n} \frac{(\nu_i - \bar{\nu} )^{2} }{N-1}} = \sqrt{np (1 - p)} 
+\end{align} 
+
+\section{Approssimazione della binomiale con la gaussiana}
+La distribuzione gaussiana ci permette di approssimare la funzione binomiale. A livello teorico
+sono la stessa curva ma la binomiale tratta valori discreti mentre la Gaussiana tratta valori continui. 
+La distribuzione binomiale $B_{n, p}(\nu)$ è ben approssimata per valori di n molto grande dalla
+Gaussiana con la stessa media e la stessa deviazione standard:
+\begin{align}
+    B_{n, p}(\nu) &\approx G_{X, \sigma} (\nu) \\
+    X = np \qquad& \sigma = \sqrt{np(1 - p)} 
+\end{align}
+
+\section{Distribuzione di Gauss per gli errori casuali}
+Supponendo di avere solo errori causali (i sistematici sono trascurabili) della
+stessa entità $\epsilon$, allora il nostro valore fluttuerà tra: $x = X - n\epsilon$
+e $x = X + n\epsilon$. Se capita che $\nu$ sorgenti diano errori positivi e $(n  - \nu)$
+errori negativi allora il risultato sarà:
+\begin{gather*}
+    x = X + \nu \epsilon - (n - \nu)\epsilon \\
+    = X + (2\nu - n) \epsilon
+\end{gather*} 
+La probabilità di questo risultato ora è proprio la binomiale:
+\begin{gather*}
+    P(\nu \ errori \ positivi) = B_{n, 1/2} (\nu)
+\end{gather*}
+Se il numero di sorgenti n è grande e $\epsilon$ è sufficientemente piccola, allora
+le nostre misure sono distribuite normalmente e quindi per essere più precisi $\sigma_\nu
+= \sqrt{np(-1p)} = \sqrt{\frac{n}{4}}$. La deviazione standard è quindi $\sigma_x = 2\epsilon\sigma_\nu$.
+Se ora $n \to \infty$ e $\epsilon \to \infty $ allora la binomiale diventa la gaussiana.
+
+\chapter{Distribuzione di Poisson}
+La distribuzione di Poisson è una distribuzione che si utilizza
+molto per i decadimenti radioattivi in quanto si basa su eventi casuali
+con un certo intervallo di tempo ben determinato. Ci permette di determinare
+come fluttuano i successi in un dato bin quando ripeto le stesse misure.
+Quando si esegue un plot di dati con $n$ molto grande e $p$ molto piccola, allora
+una distribuzione binomiale è approssimabile ad una funzione più semplice chiamata distribuzione
+di Poisson, la quale è definita come:
+\begin{align}
+    P_{\mu}(\nu) = e^{-\mu} \cdot  \frac{\mu^{\nu} }{\nu!} 
+\end{align}
+Per cui si ottiene: 
+\begin{gather*}
+    \bar{\nu} = \mu , \qquad \sigma_{\nu} = \sqrt{\mu} = \sqrt{\mu}   
+\end{gather*}
+
+$\bar{\nu}$ è proprio il valore della Gaussiana teorica che io costruisco
+seguendo proprio la distribuzione di Poisson che ottengo misurandolo
+dai dati. L'errore sul valore di $\bar{\nu}$ è $\sqrt{\bar{\nu}  }$.
+
+\section{$\mu$ come conteggio medio atteso}
+Perché $\mu = \bar{\nu}$? Questo perché 
+\begin{gather*}
+    \bar{\nu} = \sum_{\nu = 0}^{\infty } \nu P_{\mu}(\nu) = \sum_{\nu = 0}^{\infty } \nu e^{-\mu} \frac{\mu^{\nu} }{\nu!} 
+\end{gather*}
+Che diventa:
+\begin{gather*}
+    \bar{\nu} = \mu e^{-\mu} \sum_{\nu = 1}^{\infty } \frac{\mu^{\nu - 1} }{(\nu - 1)!}    
+\end{gather*}
+Si nota che nella serie vi è proprio lo sviluppo di taylor di $e^{\mu}$ per cui:
+\begin{align}
+    \bar{\nu} = \mu 
+\end{align} 
+Il parametro $\mu$ è proprio il numero medio di conteggi atteso. Talvolta si può ottenere 
+il tasso medio R con cui si verificano gli eventi:
+\begin{gather*}
+    \mu = \text{tasso} \times \text{tempo} = RT
+\end{gather*}
+
+\section{Deviazione standard}
+La distribuzione di Poisson fornisce la probabilità di ottenere un risultato $\nu$ in un esperimento
+in cui si conteggiano eventi che avvengono casualmente ma ad un tasso medio definito. La
+deviazione standard di qualunque distribuzione è proprio la radice quadrat della media degli scarti:
+\begin{align}
+    \sigma_\nu^{2} = \bar{\nu^{2}} - \bar{\nu}^{2}    
+\end{align}
+Quindi si ottiene che:
+\begin{align}
+    \sigma_\nu = \sqrt{\mu} 
+\end{align}
+
+\section{Approssimazione di Poisson con la Gaussiana}
+Così come la binomiale, la distribuzione di Poisson dà risultati per valori discreti
+ed è definita con un solo parametro, non è simmetrica rispetto ad un valore e non ha una
+forma a campana. Per valori di $\mu \to \infty$ la distribuzione di Poisson tende
+ad assumere la forma di una Gaussiana così come la binomiale per grandi valori dei parametri.
+
+\section{Rimuovere il rumore di fondo}
+Nel caso del conteggio delle radiazioni da un certo campione, spesso il rumore di fondo
+(in questo caso la radiazione di altri campioni vicini o dei raggi cosmici), potrebbe alterare
+i risultati del nostro esperimento. Supponendo di contare $\nu_{tot}$ di eventi in un tempo
+$T_{tot}$ e poi $\nu_{fondo}$ eventi di sottofondo in un tempo $T_{fondo}$. Ovviamente non
+si sottrae direttamente ma dobbiamo prima calcolare i tassi:
+\begin{gather*}
+    R_{tot} = \frac{\nu_{tot}}{T_{tot}} \qquad R_{fondo} = \frac{\nu_{fondo}}{T_{fondo}}
+\end{gather*}
+e poi calcolare il tasso come differenza:
+\begin{gather*}
+    R_{sorg} = R_{tot} - R_{fondo}
+\end{gather*}
+Le incertezze nei tassi di errori vanno calcolate con la propagazione degli errori e non
+con il metodo della radice quadrata: assumendo $\nu_{tot} = \mu \pm \sqrt{\mu}$ allora l'errore
+sui tassi è:
+\begin{gather*}
+    R_{tot} = \frac{\nu_{tot}}{T_{tot}} \pm \frac{\sqrt{\mu}}{T_{tot}} \\
+    R_{fondo} = \frac{\nu_{fondo}}{T_{fondo}} \pm \frac{\sqrt{\mu}}{T_{fondo}}
+\end{gather*} 
+Nella sottrazione si combinano in quadratura in quanto certamente casuali ed indipendenti.
+
+\chapter{Il test del chi-quadrato per una distribuzione}
+\section{Cosa è il Chi-quadrato}
+Come determino se la distribuzione risultante è consistente con quella teorica
+attesa? Utilizzo il chi-quadrato che mi permette di determinare la consistenza
+dei risultati attesi. Se facessi $n$ misure per le quali conosco $\sigma$ posso
+calcolare i valori attesi e la deviazione standard e quindi definisco:
+\begin{align}
+    \chi^{2} = \sum\left(\frac{\text{valore osservato - valore atteso}}{deviazione}\right)^{2}  
+\end{align}
+
+Se la distribuzione di $x$ è $\chi^{2} + n$, se conosco allora
+$\chi^{2}$ dovrebbe allora essere dell'ordine di $n$. Se $\chi^{2} >> n$
+allora è molto probabilmente sbagliata. Il procedimento per la 
+scelta degli intervalli intermedi viene calcolato dipende dal fatto che la grandezza
+sia continua o lineare. \\
+Misure continue: se la funzione è continua allora la probabilità che un valore cada nella curva è
+esattamente l'integrale tra un certo valore $a$ e $b$. IN generale l'area totale dell'integrale
+non sarai mai superiore ad $1$.
+Misure di una variabile continua: si  può verificare l'accordo tra una distribuzione reale ed una attesa attraverso
+l'utilizzo del $\chi^{2}$.
+
+\section{I gradi di libertà}
+In generale il numero di gradi di libertà ci permette di definire
+il numero di dati "Non impiegati" nei calcoli e si calcola come
+il numero di dati osservato meno quello dei dati calcolati dai dati per determinare
+i numeri attesi. 
+
+\end{document}

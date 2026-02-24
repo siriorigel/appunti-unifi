@@ -1,0 +1,206 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di Analisi}
+\author{Tommaso Miliani}
+\date{02-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Dimostrazione teorema di esistenza ed unicità di Cauchy locale}
+Abbiamo già dimostrato il teorema di esistenza ed unicità 
+del teorema. Ora si dimostra tutto il teorema basata sulla formulazione
+integrale:
+\begin{proof}
+    Posso definire $M = \max \left| f(x, y) \right|$ nell'insieme $I \times J$ e possiamo
+    definire $\delta < \min\{a, \frac{b}{M}, \frac{1}{L}\}$. Se definiamo
+    l'insieme $B$ come l'insieme delle funzioni continue $C^{0}$ tali che hanno la norma
+    del sup della differenza:
+    \begin{gather*}
+        B = \{u(x) \in C^{0}(I_\delta) : ||u - y_0||_{C^{0} (I_\delta) } \leq b\}
+    \end{gather*} 
+    Si osserva che $B$ è sottoinsieme dell'insieme $C^{0}$ e dunque è una palla chiusa e allora
+    $(B, || ||_{C^{0} })$ è uno spazio di Banach  perché è un sottoinsieme chiuso di dello
+    spazio normato $(C^{0}(I_\delta),||\cdot ||_{C^{0} } )$ che è completo.
+    POsso allora definire una funzione
+    \begin{gather*}
+        F : B \to C^{0} \qquad F(u) = z \qquad z(x) = y_0 + \int_{x_0}^{x} f(t, u(t))dt \forall x \in I_\delta 
+    \end{gather*}
+    Vogliamo provare ora che  $Im \ F \subseteq B$: infatti se applico la definizione di
+    $F$ e sia $u \in B$, allora posso dire che $F(u) \in C^{0}$: infatti:
+    \begin{gather*}
+        |F(u) - y_0| = |z(x) - y_0| \leq \left| \int_{x_0}^{x} \left| f(t, u(t)) \right| \ dt  \right|  
+    \end{gather*}
+    Si osserva che $\forall x \in I_\delta$ si ha che $t \in [x_0, x] \subseteq I$:
+    \begin{gather*}
+        u(t) \in J \ \Longrightarrow \ ||u - y_0||_{C^{0} } \leq b  \ \Longrightarrow \ \left| u(t) - y_0 \right| \leq b \forall x \in I_\delta 
+    \end{gather*}
+    Allora si ha che
+    \begin{gather*}
+        (t, u(t)) \in I \times J \ \Longrightarrow \ |f(t, u(t))| \leq M \leq M|x_0 - x| \leq M \delta, x \in I_\delta
+    \end{gather*}
+    Dato che avevo scelto $\delta$ più piccolo sicuramente di $\frac{b}{M}$, allora posso dire che
+    quella espressione è $\leq b$: ho dimostrato allora che $\forall x \in I_\delta$ $f(u, u(t)) \leq b$ anche se non mi basta
+    per dire che le immagini sono contenute in $B$. Quindi posso dire che
+    \begin{gather*}
+        \max  |F(u) - y_0| \leq b \ \Longrightarrow \ ||F(u) - y_0||  \leq b \ \Longrightarrow \ F(u) \subseteq B
+    \end{gather*} 
+    L'idea è dimostrare ora che questa funzione $F$ ha un punto fisso attraverso il
+    teorema delle contrazioni: posso considerare ora il valore assoluto tra le funzioni:
+    \begin{gather*}
+        |F(y_1) - F(y_2)| \leq \left| \int_{x_0}^{x}\left|f(t, y_1(t))  - f(t, y_2(t))\right| \ dt\right| 
+    \end{gather*}
+    Posso allora maggiorare l'integrale seconodo la definizione di funzione Lipszitchiana poiché
+    valgono le ipotesi del teorema:
+    \begin{gather*}
+        \leq L|x - x_0| \ ||y_1 - y_2||_{C^{0}(I_\delta) }
+    \end{gather*}
+    Maggiorato già con la norma: posso allora dire che è
+    \begin{gather*}
+        \leq L\delta ||y_1 - y_2||_{C^{0}(I_\delta) }
+    \end{gather*}
+    Quindi posso dire che l'immagine di
+    \begin{gather*}
+        ||F(y_1) - F(y_2)||_{C^{0}(I_\delta) } = \max \left| F(y_1) - F(y_2) \right| \leq L\delta ||y_1 - y_2||_{C^{0}(I_\delta) } 
+    \end{gather*}
+    allora per definizione, dato che delta è stato preso più piccolo di $M$, ho dimostrato che
+    è Lipszitchiana e quindi anche una contrazione. 
+    Allora posso dire che
+    \begin{gather*}
+        F: B \to B, (B, ||\cdot ||_{C^{0}(I_\delta) })
+    \end{gather*}
+    UNo spazio completo e con $F$ contrazione rispetto a $||\cdot ||_{C^{0}(I_\delta) }$ allora per il teorema
+    delle contrazioni esiste una unica soluzione del problema di Cauchy nella forma integrale:
+    \begin{gather*}
+        y = y(x) : F(y) = y \ \Longrightarrow \ y(x) = y_0 + \int_{x_0}^{x}f(t, y(t))\ dt
+    \end{gather*}
+    Cioè $y$ risolve il teorema di Cauchy integrale.
+\end{proof}
+
+
+\section{Le funzioni a 2 variabili}
+IN questo corso ci si concentra solo sulle funzioni a due variabili anche
+se i procedimenti da applicare nel caso di più variabili sono gli stessi per
+le funzioni a due variabili. Nel caso di funzioni a due variabili cambiano
+molto le proprietà delle funzioni ed i loro teoremi rispetto alle loro
+controparti ad una variabile sola. Lo spazio metrico $\mathbb{R}^{n}$ è uno spazio metrico
+molto speciale. Preso un certo insieme
+\begin{definition}[Insieme aperto in $\mathbb{R }^{2}$ ]
+    \begin{gather*}
+    A \subset \mathbb{R}^{2} 
+\end{gather*} 
+Questo è aperto se e solo se $\forall (x_0, y_0) \in A \exists R > 0$ tale che
+\begin{gather*}
+    B_R (x_0, y_0) = \{(x, y) \in \mathbb{R}^{2} : ||(x, y) - (x_0, y_0)||_{\epsilon} < R \} \subset  A
+\end{gather*}
+\end{definition}
+\begin{definition}[Insieme chiuso in $\mathbb{R}^{2}$ ]
+    \begin{gather*}
+        E \subset \mathbb{R}^{2}   
+    \end{gather*}
+    dove $\overline{E}$ è il più più piccolo chiuso in $\supseteq E$ (ossia la chiusura di $E$)
+    e dove $ \dot{E}$ è il più grande aperto $\subseteq E$ ( interno). 
+\end{definition}
+\begin{definition}[Dominio su $\mathbb{R}^{2}$ ]
+    $D$ è un dominio se $D = \overline{A}$ con $A$ insieme aperto e
+    \begin{gather*}
+        D =\dot{D} \cup \ni D
+    \end{gather*} 
+\end{definition}
+I grafici di una funzione a più variabili si chiama \textbf{superficie}. 
+\begin{example}[esercizio tipo in una funzione a due variabili]
+    \begin{gather*}
+        f(x, y) = \ln(1 - x^{2} - y^{2}  )
+    \end{gather*}
+    \begin{itemize}
+        \item Determinare il dominio naturale
+        \item Descrivere le linee di livello 
+        \item Trovare $\min/\max $ di $f$ su di un insieme $Q$
+        \begin{gather*}
+            Q = \{|x| \leq \frac{1}{2}, |y| \leq \frac{1}{2}\}
+        \end{gather*}
+    \end{itemize}
+    Il dominio naturale della funzion sarà dato da:
+    \begin{gather*}
+        D = \{(x, y) \in \mathbb{R}^{2} : 1 - x^{2} - y^{2} > 0   \} \ \Longrightarrow \  D= \{(x ,y) \in \mathbb{R}^{2} : x^{2} + y^{2} < 1   \}
+    \end{gather*}
+    Ossia la circonferenza di raggio uno centrata sull'origine.
+\end{example}
+POsso ora definire le linee di livello come
+\begin{gather*}
+    f(x, y) = t = \ln(1 - x^{2} - y^{2}  ) \ \Longrightarrow \ e^{t} = 1 - x^{2} - y^{2}.   
+\end{gather*}
+OSsia
+\begin{gather*}
+    \left\{\begin{array}{l}
+        (x, y) \in D \\
+        x^{2} + y^{2} = 1 - e^{t}   
+    \end{array}\right.
+\end{gather*}
+\begin{itemize}
+    \item $t > 0 \ \Longrightarrow \ U_t = \emptyset$;
+    \item $t = 0 \ \Longrightarrow \ U_t = \{(0, 0)\}$;
+    \item $t < 0 \ \Longrightarrow \ U_t$ è una circonferenza di raggio $R = \sqrt{1 - e^{t} }$. 
+\end{itemize}
+Nel limite in cui $t$ tende a meno infinito allora si ottiene la circonferenza di
+raggio $1$ e quindi $U_t$ coinciderà con l'insieme del
+$\ni D$. Si possono trovare ora il minimo ed il massimo della funzione nell'insieme $Q$ 
+
+\section{Limiti di funzioni in due variabili}
+I limiti in due funzioni funzionano in maniera simile ai limiti in una variaabile 
+\begin{align}
+    \lim_{(x, y) \to (x_0, y_0)}f(x, y) = L  
+\end{align}
+Per cui la metrica
+\begin{gather*}
+    ||(x, y) - (x_0, y_0)|| \to 0 \Longleftrightarrow |f(x_0), L | \to 0
+\end{gather*}
+
+
+
+\end{document}

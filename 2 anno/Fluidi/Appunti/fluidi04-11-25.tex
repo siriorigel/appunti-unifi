@@ -1,0 +1,205 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{}
+\author{Tommaso Miliani}
+\date{04-11-24}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Entropia nelle trasformazioni liquido gas}
+\subsection{Come la pressione e la temperatura sono relazionate in una trasformazione dal liquido al gas}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0);
+        \draw[->](0, 0) -- (0, 4);
+        \draw(0.5, 3) -- (1, 1.5) node[at start, above] {$T$} -- (3, 1.5) -- (3.5, 0.5) ;
+        \draw[dashed](0, 1.5) -- (1, 1.5) node[at start, left] {$p_s$};
+        \draw[dashed](1, 0) -- (1, 1.5) node[at start, below] {$V_l$};
+        \draw[dashed](3, 0) -- (3, 1.5) node[at start, below] {$V_g$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Durante il passaggio di stato la pressione rimane 
+costante e la temperatura pure durante un passaggio di stato,
+tuttavia, fissata una temperatura, trovo una pressione che
+rimane costante e viceversa. Si possono relazionare queste grandezze
+mediante la TDS. Si vuole trovare, fissata la temperatura, la pressione
+della trasformazione che dipende, data la TDS, solamente dal volume
+\begin{gather*}
+    T \ dS = T\left(\frac{\partial p}{\partial T} \right)_V dV \ \Longrightarrow \ \left(\frac{\partial p_s}{\partial T} \right)_V = \frac{d p}{dT}
+\end{gather*}
+Ossia la pressione dipende interamente dalla temperatura:
+\begin{gather*}
+    T \ dS = T \frac{dp_s}{dT}  \ dV
+\end{gather*}
+Integrando da entrambe le parti si ha che
+\begin{gather*}
+    Q = T \frac{\partial p_s}{\partial T}(V_g - V_l) 
+\end{gather*}
+Ossia la quantità di calore scambiato dipende dalla differenza di volume 
+tra lo stato gassoso e quello liquido e dal calore latente di vaporizzazione:
+\begin{gather*}
+    Q = M l_V = T \frac{dp_s}{ dT}(V_g - V_l) 
+\end{gather*}
+E dunque si ottiene l'equazione di Clapayron:
+\begin{align}
+    \frac{\partial p_s}{\partial T} = \frac{Ml_V}{T(V_g - V_l)} 
+\end{align}
+Questa equazione, se si trascura il volume del liquido rispetto a quello del gas,
+(in generale è vero), allora l'equazione può essere semplificata notevolmente:
+\begin{align}
+    \frac{\partial p_s}{\partial T} = \frac{Ml_V}{TV_g} 
+\end{align}
+In prima approssimazione un fluido gassoso è un gas perfetto: introducendo questa
+approssimazione all'equazione si ottiene allora, per una mole di gas:
+\begin{gather*}
+    p_s V_g = RT \ \Longrightarrow \  V_g = \frac{RT}{p_s}
+\end{gather*}
+Allora 
+\begin{align}
+    \frac{\partial p_s}{\partial T} = \frac{Ml_V}{RT^{2}}p_s  
+\end{align}
+Posso anche esprimere la temperatura di ebollizione di un fluido in funzione della
+pressione de fluido stesso
+\begin{align}
+    \frac{\partial T_e}{\partial p} = \frac{RT_e^{2}}{ pMl_V}  
+\end{align}
+Nel caso reale con l'atmosfera,  con l'utilizzo della legge fondamentale dei gas di stato:
+\begin{gather*}
+    dp = -\rho g \ dz \ \Longrightarrow \ \frac{\partial T_e}{\partial p} = - \rho g \frac{RT_e^{2}}{pMl_V}
+\end{gather*}
+Dove $M$ è la densità molare del fluido considerato e $\rho$ la densità dell'aria.
+
+\subsection{Trasformazioni da solido a gas}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0);
+        \draw[->](0, 0) -- (0, 4);
+        \draw(0.5, 3) -- (1, 1.5) node[at start, above] {$T$} -- (3, 1.5) -- (3.5, 0.5) ;
+        \draw[dashed](0, 1.5) -- (1, 1.5) node[at start, left] {$p_s$};
+        \draw[dashed](1, 0) -- (1, 1.5) node[at start, below] {$V_s$};
+        \draw[dashed](3, 0) -- (3, 1.5) node[at start, below] {$V_l$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nelle trasformazioni da solido a gas si ha la situazione analoga:
+per cui posso esprimere (sfruttando le equazioni trovate prima):
+\begin{gather*}
+    \frac{\partial p}{\partial T} =  \frac{Ml_F}{T(V_l - V_s)} 
+\end{gather*}
+Generalmente le sostanze quando fondono aumentano il loro volume, 
+tuttavia, per alcune sostanze il volume del liquido è minore del volume
+del solido. Per l'acqua, per esempio, $V_l - V_s < 0$. Quando aumenta
+la pressione, la temperatura di fusione diminuisce.  Per questa categoria di fluidi 
+però si osserva il fenomeno macroscopico di galleggiamento della parte solida
+sulla parte liquida. Nel caso dell'acqua, normalmente tutto il ghiaccio
+è inferiore alla temperatura di fusione, ma l'aumento di pressione all'interno 
+del ghiacciaio fa sì che lo strato a contatto con il terreno sia liquido. 
+
+\section*{Fisica statistica}
+\section*{Introduzione}
+\section{Potenziali termodinamici e principi variazionali}
+\subsection{Spiegazione della correzione di Maxwell nell'equazione di Van Der Walls}
+L'equazione di Van Der Walls mi permette di esprimere il potenziale 
+in funzione del volume e della pressione. La coesistenza nek grafico 
+corrisponde al fatto che si sceglie una pressione $p_{l, g}$, ossia la pressione 
+nella quale il liquido ed il gas sono in equilibrio in modo tale che la
+vera isoterma è quella prevista di Van Der Walls ma risulta che le due 
+aree $A_1$ e $A_2$ sono le stesse. Questa è una conseguenza del principio variazionale. 
+Il volume nel quale il gas è tutto gas è $V_g$ mentre il volume nel quale il 
+gas è tutto liquido è $V_l$ e nel punto in cui la curva isoterma incrocia il punto
+di contatto delle due aree lo si chiama $V^{\star}$. 
+\begin{gather*}
+    F = U - TS \ \Longrightarrow \ dF = -S \ dT - p\ dV
+\end{gather*}
+Nel caso in cui si è a temperatura costante si avrà 
+\begin{gather*}
+    dF = -p \ dV
+\end{gather*}
+Ossia posso ricavare $F$ come funzione del volume intergando 
+sulla curva a volume costante
+\begin{gather*}
+    F(T, V) = - \int_{T}^{} p \ dV
+\end{gather*}
+Dato che la funzione $p$ è dato dalla funzione Van Der Walls, posso 
+trovare la funzione
+\begin{gather*}
+    F = - \frac{8}{3}\tilde{T} \ln \left(\tilde{V} - \frac{1}{3}\right) - \frac{3}{\tilde{V}} + F_0(\tilde{T})
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$-F$};
+        \draw(0.5, 1) .. controls (0.7, 1.8) .. (1.5, 1.5);
+        \draw(1.5, 1.5) .. controls (1.8, 1.8) and (2, 2.5) .. (2.5, 2.5);
+        \draw[dashed](0.7, 1.2) -- (0.7, 0) node[at end, below] {$V_l$};
+        \draw[dashed](1.5, 1.5) -- (1.5, 0) node[at end, below] {$V^{\star}$};
+        \draw[dashed](2.2, 2.2) -- (2.2, 0) node[at end, below] {$V_g$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Dove $\tilde{V}$ è il volume rapportato al punto critico (per cui è adimensionale)
+mentre il termine $F_0$ è la costante per cui si integra. Si può dunque ragionare
+sulla funzione senza necessariamente risolvere l'integrale ed ottenere questa funzione. 
+Credendo a Van Der Walls, questo ci predice che $F$ è minore di quella prevista
+da Vam Der Wallss, ma il sistema, dato che vuole minimizzare la sua energia interna,
+allora eseguirà una transizione di fase. $F$ varia dunque in funzione del volume 
+in modo lineare in quanto è una interpolazione tra l'energia del liquido e quello del gas.
+Allora variando ciascuna delle due fasi posso minimizzare la $F$. 
+
+
+
+\end{document}

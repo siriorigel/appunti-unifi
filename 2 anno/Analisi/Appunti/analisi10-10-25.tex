@@ -1,0 +1,229 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di analisi}
+\author{Tommaso Miliani}
+\date{10-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Esercizi vari}
+\begin{example}
+    Trovare il piano tangente al grafico di
+    \begin{gather*}
+        f(x, y) = x \sin (y^{2} ) 
+    \end{gather*}
+    Nel punto $(0; \sqrt{\frac{\pi}{4}}; 0 )$. Per vedere che esiste il piano
+    ho bisogno che la funzione sia differenzibile. Utilizzo allora
+    il teorema generale della differenziabilità: se $f$ è $C^{1}$ in $\mathbb{R}^{2}$,
+    e lo è in quanto è composizione di prodotti di funzioni elementari. Dato che ho
+    una funzione che è $C^{1}$ su tutto il piano, allora ammette il piano tangente.
+    La tangente ha allora equazione
+    \begin{gather*}
+        z = <Df(P_0); \underline{x} - P_0> + z_0
+    \end{gather*}   
+    Ossia il prodotto scalare tra la derivata di $f$ in $P_0$ e il vettore
+    $x - P_0$. ALlora la derivata di $f$:
+    \begin{gather*}
+        f_x(x, y) = \sin(y^{2} ) \\
+        f_y(x, y) = 2xy\cos(y^{2} )
+    \end{gather*}
+    Allora il gradiente nel punto $P_0$ è:
+    \begin{gather*}
+        D(f(P_0)) = \begin{pmatrix}
+            \sin\left(\sqrt{\frac{\pi}{4}} \right)^{2} \\
+            0 
+        \end{pmatrix} = \begin{pmatrix}
+            \frac{1}{\sqrt{2} } \\
+            0
+        \end{pmatrix}
+    \end{gather*}
+    Il piano avrà allora espressione:
+    \begin{gather*}
+        \Pi_{P_0} : z = \begin{pmatrix}
+            \frac{1}{\sqrt{2} } \\
+            0
+        \end{pmatrix} \begin{pmatrix}
+            x - 0 \\
+            y - \sqrt{\frac{\pi}{4}}
+        \end{pmatrix} + 0 \ \Longrightarrow \ z = \frac{x}{\sqrt{2} }
+    \end{gather*}
+\end{example}
+
+Un'altro esempio:
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) ellipse (1 and  0.5);
+        \draw(1, 0) -- (0, 2) -- (-1, 0);
+        \draw(0, 0) -- (1, 0) node[midway, below] {$r$};
+        \draw(0, 0) -- (0, 2) node[midway, left] {$h$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+So che l'errore massimo è $\epsilon = 0.1 \ cm$ sulle misure. Stimare
+l'errore massimo sul volume dato $r = 10 \ cm$ e $h = 25 \ cm$.
+\begin{gather*}
+    V(h, r) = \frac{\pi}{3}r^{2}h  
+\end{gather*}
+Dato che presentano delle incertezze, posso calcolare il differenziale di $V$
+come 
+\begin{gather*}
+    dV = 2\frac{\pi}{3}hr \ dr + \frac{\pi}{3}r^{2} \ dh 
+\end{gather*}
+Ossia il differenziale di $V$, cioè l'operatore lineaere che mi da
+l'approssimazione della funzione. Dato il differenziale, e dato che gli
+errori massimi sono uguali, allora l'errore massimo su $V$ è
+\begin{align*}
+    \epsilon (V) &= \frac{\pi}{3}2rh\epsilon + \frac{\pi}{3}r^{2}\epsilon = \\
+    &= \frac{\pi}{3}60 = 20 \pi 
+\end{align*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}[scale = 0.2]
+        \draw(0, 0) -- (15, 0);
+        \draw(0, 0) -- (0, 15);
+        \filldraw(1, 3) circle (3pt);
+        \filldraw(3, 3) circle (3pt);
+        \filldraw(1, 7) circle (3pt);
+        \filldraw(6, 15) circle (3pt);
+        \draw[->, cyan] (1, 3) -- (6, 15);
+        \draw[->, red] (1, 3) -- (3, 3);
+        \draw[->, green](1, 3) -- (1, 7);
+    \end{tikzpicture}    
+\end{wrapfigure}
+\begin{example}
+    \begin{gather*}
+        f: \mathbb{R}^{2} \to \mathbb{R}^{2}, \qquad f \in C^{1}(\mathbb{R}^{2} )   
+    \end{gather*}
+    Sapendo che la derivata direzionale:
+    \begin{gather*}
+        v_1 \quad \vv{AB} \qquad \frac{\partial f}{\partial v_1} (A) = 3 \\
+        v_1 \quad \vv{AC} \qquad \frac{\partial f}{\partial v_2} (A) = 26    
+    \end{gather*}
+    Dove $A = (1, 3), B = (3, 3 ), C = (1, 7), D = (6, 15)$. Si calcoli
+    $\frac{\partial f}{\partial w}(A)$ dove $w = \vv{AD}$.   
+    I vettori
+    \begin{gather*}
+        v_1 = \frac{B - A}{|\cdot |} = (1, 0) \\
+        v_2 = \frac{C - A}{|\cdot |} = (0, 1) \\
+        w = \frac{D - A}{|\cdot |} = (\frac{5}{13}; \frac{12}{13})
+    \end{gather*}
+    Utilizzando il teorema del gradiente:
+    \begin{gather*}
+        \frac{\partial f}{\partial w}  = <D(f(A)) ; w> = <(3, 26); (\frac{5}{3}; \frac{12}{13})> = 
+    \end{gather*}
+\end{example}
+L'esempio precedente poteva anche essere risolto in maniera diversa nel caso
+in cui $v_1, v_2$ non fossero stati paralleli agli assi. Potevo
+porre allora la derivata parziale della funzione rispetto
+ai vettori come il prodotto scalare con il gradiente:
+\begin{gather*}
+    \frac{\partial f}{\partial v_1} = <Df; v_1> = a_1 f_x + b_1 f_y = 3 \\
+    \frac{\partial f}{\partial v_2} = <Df; v_2> = a_2 f_x + b_2 f_y = 26  
+\end{gather*}
+Dove $v_1 = (a_1, b_1), v_2 = (a_2, b_2)$. Posso ora esprimere il vettore
+$w$ come combinazione lineare dei due vettori:
+\begin{gather*}
+    w = \alpha <Df; v_1> + \beta <Df, v_2> = \alpha \frac{\partial f}{\partial v_1} + \beta \frac{\partial f}{\partial v_2}  
+\end{gather*}
+
+\begin{lemma}
+    Se si ha una funzione definita su di un insieme aperto ed è anche
+    differenziabile nell'insieme dei punti del dominio tali per cui
+    \begin{gather*}
+        f: \mathbb{A} \to \mathbb{R} \qquad P_0 \equiv (x_0, y_0) \in U_k = \{(x, y) \in A : d(x, y) = k\}
+    \end{gather*}
+    Allora 
+    \begin{align}
+        D(f(P_0)) \perp U_k \in \mathbb{R}
+    \end{align}
+\end{lemma}
+\begin{proof}
+    Vicino a $P_0$ $U_k$ ha al forma
+    \begin{gather*}
+        \begin{pmatrix}
+            x(t) \\
+            y(t)
+        \end{pmatrix} = \underline{x}(t) \qquad t \in \mathbb{I}
+    \end{gather*}
+    Chiamata allora la funzione $g(t)  =f(\underline{x}(t))$, devo dimostrare
+    ora che il gradiente sia perpendicolare alla linea di livello: ossia
+    il prodotto scalare tra 
+    \begin{gather*}
+        Df(P_0) \perp U_k \in P_0 \ \Longrightarrow \ Df(P_0) \perp \underline{x}(t) \in P_0
+    \end{gather*}
+    Devo allora verificare che il vettore del differenziale sia peprendicolare
+    alla retta tangente: ossia la derivata del vettore $\dot{\underline{x}}(t)$
+    dove $\underline{x}(t) = P_0$.  Devo allora ottenere
+    \begin{gather*}
+        \boxed{f_x(P_0)\dot{x}(t) + f_y (P_0)\dot{y}(t) = 0}
+    \end{gather*}
+    Se siamo su una linea di livello, allora vale la relazione
+    \begin{gather*}
+        g(t) = f(\underline{x}(t)) = k \ \Longrightarrow \ g'(t) = 0
+    \end{gather*}
+    La derivata della funzione $g$ è 
+    \begin{gather*}
+        g'(t) = <Df(\underline{x}(t)); \dot{x}(t)> = f_x(\underline{x}(t))\dot{x}(t) + f_y(\underline{x}(t))\dot{y}(t)
+    \end{gather*}
+    Allora mi manca solamente da calcolarla in $t_0$. 
+\end{proof}
+
+\begin{theorem}[Teorema delle funzioni con gradiente nullo]
+    Se il gradiente di una funzione è nullo in un insieme aperto $A$, allora 
+    è costante nell'insieme aperto se $A$ è aperto e connesso.
+    Se invece $A= A_1 \cup A_2$ allora esiste sicuramente 
+    \begin{align}
+        f \equiv k_1 \in A_1 \qquad f \equiv k_2 \in A_2
+    \end{align}
+\end{theorem}
+
+\end{document}

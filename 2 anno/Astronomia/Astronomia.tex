@@ -1,0 +1,2491 @@
+\documentclass[a4paper, oneside]{book}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{svg}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{patterns}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz/]
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di Astronomia}
+\author{Tommaso Miliani}
+\date{2025/2026}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[chapter]
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{lemma}{Proposizione}[chapter]
+\newtheorem{observation}{Osservazione}[chapter]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[chapter]
+
+% Useful definitions for Tikz
+\def\proton(#1,#2){%
+    \fill[color=red] (#1,#2) circle (5pt);
+    \node at (#1,#2) {\texttt{+}};
+}
+\def\neutron(#1,#2){%
+    \fill[color=gray] (#1,#2) circle (5pt);
+}
+\def\electron(#1, #2){%
+    \fill[color=cyan] (#1, #2) circle (3pt);
+    \node at (#1, #2) {\texttt{-}};
+}
+\def\orbit(#1, #2, #3){
+    \draw (#1, #2) circle (#3);
+}
+
+\maketitle
+
+\tableofcontents
+
+\chapter*{Introduzione al corso}
+Il corso si divide in tre sezioni:
+\begin{enumerate}
+    \item Astronomia sferica: ossia l'astronomia celeste, cenni storici,
+    trigonometria sferica;
+    \item L'indagine astronomica: ossia l'utilizzo di strumenti come telescopi
+    per compiere misurazioni ed osservazioni sulle stelle; la determinazione dell'età
+    delle stelle e l'osservazione stellare in generale;
+    \item Gravitazione e meccanica celeste: campo e potenziale celeste con
+    legge di Gauss, problema dei due e tre corpi, fluidi auto gravitanti (fluidi + gravità),
+    struttura stellare.
+\end{enumerate}
+L'esame consiste in un colloquio orale diviso in tre domande,
+una per parte del corso.
+
+
+\part{Introduzione ai concetti dell'astronomia}
+\chapter{Sfera celeste}
+\section{Il cielo come proiezione}
+Gli astri delle costellazioni e gli altri corpi hanno tutti distanze diverse ma
+a noi appaiono proiettati su di una superficie: dalle tre coordinate per individuare un astro ne bastano
+quindi due. La Terra, ruotando sul proprio asse, fa si che ruoti il cielo intorno
+e quindi le stelle visibili di notte: tutti i pianeti e le stelle ruotano attorno al polo
+Nord celeste, che non è altro che il prolungamento del polo nord terrestre sulla sfera celeste.
+Dato che si tratta di una superficie sferica, otteniamo le coordinate degli oggetti
+attraverso gli angoli: servono allora due cerchi per determinare da dove considerare gli
+angoli.\\
+Tutti gli astri sorgono da Est e tramontano ad Ovest: tuttavia con la latitudine può cambiare
+l'osservazione dei corpi celesti: in particolar modo cambia l'altezza del Sole. Si può tuttavia utilizzare come riferimento
+la stella Polare in quanto il polo Nord celeste è molto vicino a quella stella; si utilizza anche
+la proiezione dell'equatore sulla sfera celeste chiamato \textbf{equatore celeste}. \\
+Si hanno dunque due tipi di sistemi di coordinate astronomici: sistemi locali e assoluti.
+Per passare ad un sistema di coordinate assoluti io utilizzo l'equatore celeste o l'eclittica in quanto non 
+dipende dalla latitudine; si utilizza anche il sistema delle stelle fisse che ci permette
+di ottenere le coordinate di un astro rispetto ad una stella fissa nel cielo (ossia una stella il cui moto proprio
+è veramente molto piccolo). 
+
+\section{Sistemi di coordinate}
+\subsubsection{Sistema orizzontale}
+Il sistema di coordinate più immediato e quello più naturale è il sistema di coordinate locale
+che ci consente di ottenere le coordinate di un oggetto attraverso due coordinate:
+\begin{itemize}
+    \item Azimut: coordinate rispetto all'asse Sud-Nord: ossia la differenza
+    angolare rispetto al Nord ($0 \sim 360$°)
+    \item Altezza: coordinata rispetto all'orizzonte ($-90 \sim 90$°).
+\end{itemize}
+
+\subsubsection{Sistema equatoriale relativo}
+Si utilizza l'inclinazione dell'asse terrestre costante rispetto alle
+stelle fisse, utilizzando il meridiano locale. E' un sistema di coordinate
+solidale con la Terra e ci permette di definire due coordinate (è ancora locale perché dipende da dove
+sono sulla Terra):
+\begin{itemize}
+    \item Declinazione $\delta$: Ossia l'angolo tra l'oggetto e l'equatore celeste che diventa il
+    cerchio fondamentale della sfera celeste;
+    \item Angolo orario $h$: si misura in ore e ci indica proprio lo spostamento rispetto al
+     meridiano  locale celeste (ottenuto con il prolungamento del meridiano sulla sfera celeste) .
+\end{itemize}
+
+\subsubsection{Sistema equatoriale assoluto}
+Questo sistema di coordinate è definito a partire da due coordinate
+ma a differenza di quello relativo, questo è fisso rispetto alle stelle fisse e
+permette di avere le stesse coordinate per un oggetto a prescindere
+dalla posizione sulla superficie terrestre.
+\begin{itemize}
+    \item Declinazione $\delta$: Ossia la differenza angolare rispetto al cerchio fondamentale
+    (ossia l'equatore celeste);
+    \item Ascensione retta $\alpha$: ossia la declinazione angolare rispetto al meridiano di Greenwich 
+    sulla sfera celeste. 
+\end{itemize}
+Si può ottenere il \textbf{tempo siderale locale}: ossia il il tempo siderale è il tempo che
+impiega la Terra a compiere un giro completo rispetto alle stelle (che è circa 3 min e 56 secondi più veloce
+del giorno solare a cui siamo abituati).
+\begin{align}
+    \Theta = h_{\gamma} = h + \alpha
+\end{align}
+Con questo, possiamo ottenere le coordinate equatoriali assolute
+conoscendo il nostro angolo orario e viceversa. 
+
+\subsubsection{Sistema eclitticale}
+In questo sistema di coordinate il cerchio fondamentale è l'Eclittica, ossia
+il piano dell'orbita terrestre ed il cerchio di riferimento è il cerchio 
+meridiano passante per i poli e i punti equinoziali. Come coordinate si utilizzano
+le seguenti:
+\begin{itemize}
+  \item \textbf{Latitudine eclittica} $\beta$: ossia l'angolo rispetto all'eclittica;
+  \item \textbf{Longitudine eclittica} $\gamma$: ossia la longitudine rispetto al punto di contatto tra l'equatore
+  celeste e l'eclittica (ossia rispetto all'equinozio di primavera). 
+\end{itemize}
+
+\subsubsection{Il sistema galattico}
+Per studiare corpi nella galassia si utilizzano le coordinate locali rispetto 
+al Sole e come piano fondamentale quello galattico e il piano rispetto al quale
+determino la longitudine galattica utilizzo la congiungente Sole Centro della Galassia.
+
+
+\chapter{Trigonometria sferica}
+\section{Triangoli sferici e prime definizioni della trigonometria sferica}
+\begin{wrapfigure}{c}{0.8\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{grossa.png}
+    \caption{I triangoli sferici}
+\end{wrapfigure}
+Un triangolo sferico $ABC$ è formato da tre archi appartenenti a
+tre cerchi massimi. Se $r$ è il raggio della sfera, allora si ha che 
+l'arco $|AB| = r\theta$.  Possiamo trovare l'area del triangolo sferico 
+che è proporzionale al suo eccesso sferico che è sempre diverso da zero
+ed è diverso per ogni triangolo. L'\textbf{eccesso sferico} è la differenza tra
+la somma dei tre angoli interni del triangolo e l'angolo piatto. Se le
+ampiezze degli angoli sono $\alpha, \beta, \gamma$, allora l'eccesso sferico sarà
+\begin{align}
+    E = \alpha + \beta + \gamma - \pi
+\end{align}
+L'area di un triangolo sferico è allora
+\begin{align}
+    A = Er^{2} 
+\end{align}
+
+\section{Coordinate sferiche e trasformazioni}
+\begin{wrapfigure}{r}{0.32\textwidth}
+    \centering
+    \caption{Le coordinate sferiche}
+    \includegraphics[width=0.32\textwidth]{coordinate sferiche.png}
+\end{wrapfigure}
+Se ruotiamo due sistemi cartesiani di un certo angolo $\chi$, mantenendo invariata
+la $x$ in modo tale che $x = x'$.  
+\begin{gather*}
+    \left\{\begin{array}{l}
+        x' = x \\
+        y' = y\cos \chi + z\sin\chi \\
+        z' = -y\sin\chi + z\cos\chi
+    \end{array}\right.
+\end{gather*}
+Possiamo allora passare alle coordinate sferiche nel seguente modo:
+\begin{align*}
+    x &= \cos\psi\cos\theta  &x' &= \cos\psi'\cos\theta' \\
+    y &= \sin\psi\cos\theta  &y' &= \sin\psi'\cos\theta' \\
+    z &= \sin\theta &z' &= \sin\theta'
+\end{align*}
+A questo punto si possono ottenere le seguenti relazioni risolvendo utilizzando le
+relazioni che si sono viste fino ad ora per i sistemi di coordinate sferici:
+
+\begin{align*}
+    \cos\phi'\cos\theta &= \cos\psi\cos\theta \\
+    \sin\psi'\cos\phi' &= \sin\psi\cos\theta\cos\chi + \sin\theta\sin\chi \\
+    \sin\theta' &= -\sin\psi\cos\theta\sin\chi + \sin\theta\cos\psi
+\end{align*}
+
+
+\begin{wrapfigure}{r}{0.35\textwidth}
+    \centering
+    \caption{Applicazioni al triangolo sferico}
+    \includegraphics[width=0.35\textwidth]{applicazioni al triangolo sferico.png}
+\end{wrapfigure}
+Si possono allora applicare le coordinate nelle espressioni
+del triangolo sferico. Considerando il seguente sistema di riferimento 
+nell'immagine, posso trovare le seguenti relazioni per gli angoli
+$\psi, \theta, \chi$:
+\begin{gather*}
+    \psi = \alpha - 90\text{°} \qquad \theta = 90\text{°} - b  \qquad \chi = c \\
+    \psi' = 90\text{°} - \beta \qquad \theta ' = 90 \text{°} - a
+\end{gather*}
+Si ottiene allora dalla trigonometria (nell'assunzione secondo la quale il raggio della sfera sia molto 
+grande):
+\begin{align*}
+    \sin \beta \sin a &= \sin \alpha \sin b \\
+    \cos \beta \sin a &= -\cos \alpha \sin b \cos c + \cos b \sin c \\
+    \cos a &= \cos \alpha \sin b \sin c + \cos b \cos c 
+\end{align*}
+Da qui posso utilizzare la regola sei seni per ottenere le seguenti relazioni
+\begin{gather*}
+    \frac{\sin a}{\sin \alpha} = \frac{\sin b}{\sin B} = \frac{\sin c}{\sin \gamma}
+\end{gather*}
+
+\section{Il triangolo nautico : da equatoriale relativo a orizzontale}
+\begin{wrapfigure}{r}{0.35\textwidth}
+    \centering
+    \caption{Il triangolo nautico}
+    \includegraphics[width=0.35\textwidth]{Triangolo nautico.png}
+\end{wrapfigure}
+Il triangolo nautico serve per trasformare le coordinate
+equatoriali relative nel sistema orizzontale. Oppure si possono utilizzare le
+trasformazioni inclinando di un angolo negativo : 
+qui $S$ equatoriale, $S$' è il sistema orizzontale. 
+\begin{gather*}
+    \psi = 90\text{°} - h  \qquad \theta = \delta \\
+    \psi' = 90\text{°} - \alpha \qquad \theta' = a \\
+    \chi = -(90\text{°} - \phi)
+\end{gather*}
+Impostati ora gli angoli , posso ricavare mediante il sistema di riferimento
+delle coordinate sferiche mediante le relazioni:
+\begin{align*}
+    \sin\alpha\cos a &= \sin h \cos \delta \\
+    \cos\alpha \cos a &= \cos h \cos \delta \sin \phi - \sin \delta \cos \phi \\
+    \sin a &= \cos h \cos \delta \cos \phi + \sin \delta \sin \phi
+\end{align*}
+Possiamo osservare che la trasformazione da equatoriale relativo ad orizzontale
+ci permette di ottenere le coordinate azimutali e di altezza (le quali per un osservatore
+poco esperto sono concettualmente più facili da capire ed utilizzare) di un certo oggetto
+se qualcuno ha trovato le coordinate equatoriali relative.
+
+
+\section{Il tempo siderale: da equatoriale assoluto a relativo}
+Per trasformare le coordinate equatoriali assolute, ossia la posizione
+di un astro dal catalogo o dalle effemeridi. La posizione da catalogo indica la
+posizione di uh astro secondo i cataloghi stellari ad una certa ora
+e giorno dell'anno mentre la posizione di un astro dalle effemeridi è la posizione
+di un astro tramite il giorno giuliano e il tempo siderale alla mezzanotte di
+Greenwich. Nel sistema orizzontale serve il tempo siderale
+(TS locale) ovvero l'angolo orario del punto $\gamma$:
+\begin{align}
+    \Theta = h_{\gamma} = h + \alpha
+\end{align}
+Puntando verso un astro di riferimento con un telescopio
+dotato di montatura equatoriale posso leggere $h$ sul disco orario e ricavare
+allora $TS$ in quell'istante. Altrimenti servirebbe un orologio specifico più rapido di 
+circa 3min e 56 secondi rispetto a quelli standard. 
+
+\section {Culminazione, levata e tramonto degli astri}
+Ci poniamo al meridiano di Greenwich (per cui $h = \alpha = 0$). L'altezza massima 
+raggiunta da un astro si troverà come
+\begin{align}
+    a_{max} = 90\text{°} - \phi + \delta \ \Longrightarrow \ z_{min} = \phi - \delta
+\end{align}
+L'altezza massima è anche chiamate culminazione superiore o transito di un astro; un
+astro risulta \textbf{circumpolare} (ossia rimane sempre sopra l'orizzonte) per
+una data latitudine se
+\begin{gather*}
+    \delta > 90\text{°} - \phi
+\end{gather*}
+Sempre nella terza relazione possiamo porre $a = 0$ l'angolo orario
+di levata e tramonto di un astro si ricava da:
+\begin{align}
+    \cos h = -\tan\delta \tan\phi
+\end{align}
+
+\section{Variazioni di coordinate}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \caption{Precessione}
+    \includegraphics[width=0.3\textwidth]{Screenshot 2025-09-22 195611.png}
+\end{wrapfigure}
+Esistono molti motivi per cui le stelle
+ possono cambiare nel tempo le loro
+ coordinate. Il primo è il loro moto
+ proprio, dato che su tempi lunghi non
+ esistono vere stelle fisse. Scomponendo
+ la velocità in tangenziale e radiale, solo
+ la velocità tangenziale porta a variazioni
+ di coordinate celesti, mentre la componente
+ radiale è misurabile tramite effetto
+ Doppler (più preciso). Il satellite Gaia
+ sta mappando un miliardo di stelle con
+ precisione di 20 micro secondi d'arco
+ (distanze e moti propri). \\
+ L'asse terrestre in realtà non è fisso: a
+ causa della non-sfericità della Terra si ha
+ un moto di precessione con periodo di 26
+ mila anni. Il punto d'Ariete si sposta in
+ modo retrogrado sull'eclittica, con
+ incremento delle longitudini galattiche di
+ 50''/anno (precessione degli equinozi).
+ Differenziando le trasformazioni tra i due
+ sistemi eclitticale ed equatoriale assoluto:
+ \begin{gather*}
+     d\delta = d\gamma \sin\epsilon\cos\alpha \\
+     d\alpha = d\gamma(\sin\epsilon\sin\alpha\tan\delta + \cos\epsilon)
+ \end{gather*}
+ Ulteriori correzioni che coinvolgono pure
+ l'angolo di inclinazione sono dovute alla
+ Luna (nutazione, periodo di 18.6 anni), di
+ entità minore e spesso trascurate.
+ Il moto di rivoluzione terrestre
+ provoca l'aberrazione (velocità
+ finita della luce, max 21'', solo
+ 0.3'' per la rotazione) e per stelle
+ vicine la parallasse annua (se la
+ distanza è un parsec vale 1'').
+ C'è poi la rifrazione (per $a\lessapprox10$°).
+
+
+\chapter{Misura del tempo}
+\section{Gnomoni meridiane e orologi solari}
+Il moto diurno del Sole è lo strumento più ovvio per poter misurare il tempo.
+Si utilizzava ai tempi lo \textbf{gnomone}, ossia la punta di un palo che proietta la sua 
+ombra su di una \textbf{meridiana}, la quale, al mezzogiorno, individua esattamente
+l'asse Nord-Sud; le ombre che proietta sono diverse per ogni stagione. Si usa invece
+l'orologio solare che è una meridiana che presenta anche le ore sopra di essa. \\
+Il giorno è definito come due passaggi successivi in meridiana da parte del Sole; tuttavia
+via mentre la terra gira la Terra sta anche girando intorno al Sole: essendo il giorno definito come
+un moto di 24h, il giorno siderale è sempre minore del giorno solare. Se definisco
+$P$ il tempo assoluto di un anno di $P = 365.2564$ e il giorno normale come $\tau = 1$ e
+$\tau_s$ la durata del giorno siderale rispetto a quello normale, ottengo il numero di giorni
+in più come
+\begin{gather*}
+    \frac{P}{\tau_s} - \frac{P}{\tau} = I
+\end{gather*}
+Nell'uso civile ci si rifà alle 24h anche se il giorno in realtà ha
+durata variabile durante i mesi dell'anno. Si può trovare la durata del giorno effettivo
+come la differenza tra l'ora solare vera e l'ora solare media:
+\begin{gather*}
+    E.T. = T - T_M
+\end{gather*}
+Se ci cercasse di scattare delle foto del Sole alla stessa ora solare media della culminazione del
+Sole con una macchina fissa, sovrapponendo le immagini di tutto l'anno si ottiene una visualizzazione
+delle differenze della durata del giorno ed il vero moto del Sole nel cielo chiamato \textbf{Analemma solare}.
+
+\section{Tempo universale e fusi orari}
+Dato che il Sole non può sorgere in tutti i punti della Terra
+allo stesso momento, si definisce un tempo universale
+rispetto al meridiano di Greenwich e si utilizzano i fusi orari
+(essenzialmente degli sfasamenti rispetto all'orario standard) 
+per ogni zona della terra. Esistono ben 24 fusi orari e ogni paese decide quale 
+utilizzare per determinare l'ora. \\
+Essendo che la rotazione della Terra non è uniforme, non posso definire il secondo come
+$1/86400$ del giorno solare, come era definito una volta, ma si è passati a
+definire il secondo secondo degli orologi atomici che correggono gli
+effetti della relatività generale basandosi sulla variazione energetica degli
+elettroni nell'atomo di Cesio-133. Anche la definizione di anno non è universale in quanto
+nel corso della storia si sono susseguiti diversi calendari, ognuno ottenuto attraverso
+metodi di calcolo dei giorni diversi tra di loro. Giulio Cesare impose che
+l'anno sarebbe durato $365.25$ giorni, ma rispetto al Calendario Gregoriano si è arrivati
+ad uno sfasamento di 10 giorni nel 1582; per ovviare al problema, i bisestili non erano stati
+più contati ogni 4 anni ma in modo tale da avere 97 bisestili ogni 400
+anni invece che 100.
+Si può stimare allora il tempo siderale conoscendo i giorni che mancano all'equinozio di primavera
+e aggiungendo dodici ore in quanto si misurano da SUD
+\begin{align}
+    \Theta \approx T + 12h + n \cdot 4min
+\end{align}
+
+\part{Osservazione e studio della sfera celeste}
+\chapter{I telescopi}
+\section{I parametri fondamentali dei telescopi}
+Per poter compiere osservazioni sulla radiazione
+luminosa proveniente dagli oggetti celesti si fa utilizzo di uno strumento
+ottico che prende il nome di \textbf{telescopio}. Esistono diverse tipologie di
+telescopi che vengono utilizzati 
+ognuno nel loro campo di applicazione.  Galileo Galilei fu il primo ad
+utilizzare e realizzare telescopi per l'osservazione della sfera celeste. Qualunque
+sia la tipologia di telescopio, ognuno di essi presenta i seguenti parametri:
+\begin{itemize}
+    \item \textbf{Apertura} ($D$): ossia il diametro dell'obbiettivo (anche chiamato 
+    specchio primario nei riflettori), che determina il potere di raccolta di luce (proporzionale a $D^{2}$).
+    \item \textbf{Lunghezza focale} ($f$): la distanza tra l'obbiettivo ed il piano focale
+    che definisce, insieme all'oculare, l'ingrandimento del telescopio.
+    \item \textbf{Rapporto focale} ($\frac{f}{\#}= \frac{f}{D}$): È una quantità adimensionale che descrive 
+    la velocità o luminosità del sistema: un telescopio "veloce" ha $\frac{f}{D}$ basso ($\frac{f}{1}$  fino a $\frac{f}{6}$), 
+    apre a campi molto ampi (con tempi di esposizione veloci). Un telescopio "lento" ha 
+    un $\frac{f}{D}$ alto, ossia $\frac{f}{10}$ fino a $\frac{f}{20}$, fornendo maggiori ingrandimenti 
+    (e dunque aprendo a campi più stretti), ma con tempi di esposizione lunghi. Il significato di $\frac{f}{\#}$ vuol dire che
+    la lunghezza focale è $\#$ volte l'apertura. Il reciproco di $\frac{f}{D}$ è anche chiamato f number ($F$). 
+    \item \textbf{Tempo di esposizione}: Non è propriamente una caratteristica
+    dei telescopi; il tempo di esposizione è il tempo per cui si mantiene aperto l'obbiettivo
+    sulla sorgente in modo da poter raccogliere quanta più luce possibile
+    per avere immagini più luminose.
+    \item \textbf{Oculare}: E' una lente che sta dopo il punto focale della lente primaria
+    e ha la focale sull'occhio dell'osservatore. Oculari diversi possiedono ingrandimenti diversi. 
+    \item \textbf{Campo di vista} (FOV): porzione di cielo che riesce a vedere il telescopio.
+    È inversamente proporzionale alla lunghezza focale a
+    parità di oculare. Spesso è il rilevatore al piano focale a determinare il FOV finale. 
+    \item \textbf{Ingrandimento} (M): è dato dal rapporto tra $f$ e $f_{\text{oculare}}$, l'ultima dipende dall'oculare che si sceglie. 
+    E' logico quindi pensare che più è "lungo" l'oculare e più ingrandimenti ottengo.
+    \item \textbf{Scala spaziale}: Lega le dimensioni angolari a misure spaziali al piano focale. La \textbf{Plate scale} è data come
+    segue:
+    \begin{gather*}
+        Ps [arcsec/mm] = \frac{206265}{f} \ (mm)
+    \end{gather*}
+    Infatti, quando si osserva il cielo, si osserva una proiezione di una porzione
+    del cielo sul piano dell'immagine. Questa grandezza lega le dimensioni degli angoli reali a quella
+    del piano dell'immagine e si ricava nella seguente maniera: 
+    \begin{gather*}
+        \tan \theta = \frac{D}{f} \ \Longrightarrow \ \theta \approx \frac{D}{f}
+    \end{gather*} 
+    Si può convertire questa a arcosecondi definiti come
+    $1 \ rad = 180 \cdot  3600 \ arcsec$. Si può dunque esprimere l'angolo in radiante e quindi il plate scale come
+    \begin{gather*}
+        \theta \approx \frac{D}{f} \cdot  180 \cdot  3600 \ \Longrightarrow \ \theta = \frac{180\cdot 3600}{F}
+    \end{gather*}
+    \item \textbf{Potere risolutivo}: E' l'angolo minimo oltre al quale il telescopio non riesce a distinguere 
+    tra due sorgenti puntiformi ad una data lunghezza d'onda. Questo si può ricavare dal limite di diffrazione
+    fatto nel corso di ottica, secondo l'equazione di Rayleigh, legata all'apertura del telescopio:
+    \begin{gather*}
+        \theta_r \approx 1.22 \  \frac{\lambda}{D}\text{°} \quad \quad \theta_r \approx 2.5 \cdot  10^{5} \frac{\lambda}{D} '' 
+    \end{gather*}
+\end{itemize}
+
+\section{Telescopi rifrattori}
+\subsection{Il telescopio Galileiano}
+Il telescopio Galileiano presenta una lente primaria convergente ed un oculare con lente
+divergente in modo tale che l'oculare viene a trovarsi prima del fuoco dell'obiettivo,
+ad una distanza da questo pari alla distanza focale dell'oculare. Questo telescopio produce immagini dritte 
+ma ha un campo molto ristretto ($\frac{f}{10}$ e $\frac{f}{15}$):
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (7, 0);
+        \draw[<->](2, -1.5) -- (2, 1.5);
+        \draw[>-<](5, -1) -- (5, 1);
+        \draw[cyan](0.1, 1.7) arc (160:180:0.5) node[midway, left] {$\alpha$};
+        \draw(0, 1.5) -- (2, 1.5) -- (5, 0.75) -- (6, 0.75);
+        \draw[dashed](6, 0.75) -- (6.5, 0.75);
+        \draw(0, -1.5) -- (2, -1.5) -- (5, -0.75) -- (6, -0.75);
+        \draw[dashed](6, -0.75) -- (6.5, -0.75);
+        \draw[cyan](0, 1.75) -- (2, 1.5) -- (5, -0.25) -- (6, -0.65);
+        \draw[cyan](0, 0.25) -- (2, 0) -- (5, -0.65) -- (6, -1);
+        \draw[cyan](0, -1.25) -- (2, -1.5) -- (5, -1) -- (6, -1.35);
+    \end{tikzpicture}
+\end{gather*}
+
+
+
+\subsection{Il telescopio Kepleriano}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=1.2]
+        \draw(0, 0) -- (5, 0);
+        \draw[<->](2, -1) -- (2, 1);
+        \draw[<->](4, -1) -- (4, 1);
+        \draw[red](0, 0.75) -- (2, 0.75) -- (4, -0.25) -- (4.75, -0.25);
+        \draw[cyan](0, 0.75) -- (2, 0) -- (3.5, -0.75) -- (4, -0.75) -- (5, 0.75);
+        \draw[cyan](0, 1.5) -- (2, 0.75) -- (3.5, -0.75) -- (4.5, 0.75);
+        \draw[very thick, cyan](3.5, 0) -- (3.5, -0.75) node[midway, left] {$h$};
+        \draw[cyan](0.5, 0.55) arc (135:180:0.75) node[midway, left] {$\alpha$}; 
+        \draw[cyan](0.5, 1.3) arc (135:180:0.75) node[midway, left] {$\alpha$}; 
+        \filldraw(4.5, 0) circle (1pt) node[anchor = north west] {$F_2$};
+        \filldraw(3.5, 0) circle (1pt)node[anchor = south] {$F_1$};
+        \draw[cyan](4.75, 0.38) arc (62:0:0.4) node[midway, right] {$\beta$};
+        \draw[cyan](4.25, 0.38) arc (62:0:0.4) node[midway, right] {$\beta$};
+        \draw[very thick] (2, 0) -- (4, 0);
+        \draw[very thick, cyan](2, 0) -- (3.5, -0.75);
+        \draw[very thick, cyan](3.5, -0.75) -- (4, 0);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il telescopio Kepleriano è il tipo di telescopio più semplice da realizzare. È un telescopio 
+costituito da due lenti convergenti poste ad una distanza che è la somma delle loro lunghezze focali, in modo tale che
+il fuoco primario cada all'interno del tubo e l'oculare intercetta i raggi convergenti.
+Questa tipologia di telescopio presenta dunque un percorso ottico più lungo di quello
+Galileiano ma produce una immagine capovolta dell'oggetto osservato pur presentando un campo visivo
+più ampio e luminoso ($\frac{f}{5}$ e $\frac{f}{15}$). Si vede come non sia possibile ridurre maggiormente lo spessore delle lenti
+per poter ottenere $F$ number più grossi 
+poiché quest'ultime diventerebbero estremamente fragili. Questo perché il vetro è un fluido estremamente viscoso. La lente più grande
+mai realizzata è l'elemento L-1 progettato per la fotocamera del Vera C. Rubin Observatory con un diametro
+di $1.57$ metri.
+
+\section{Telescopi riflettori}
+I telescopi riflettori utilizzano la riflessione invece della rifrazione per poter 
+concentrare i raggi luminosi. La luce di un dato oggetto celeste colpisce uno specchio primario
+concavo, viene riflessa e poi focalizzata verso un punto o verso un secondo specchio 
+che ne devia il fascio verso l'oculare o il sensore.
+\subsection{Il telescopio newtoniano}
+Il telescopio newtoniano è il telescopio riflettore a configurazione più semplice. Il 
+suo specchio primario è uno specchio paraboloidale mentre il suo specchio secondario è
+uno specchio piano diagonale. In questo modo arriva un'immagine specchiata
+e capovolta. Questo telescopio ha un $F$ number basso
+di circa $\frac{f}{3} \sim \frac{f}{10} $. 
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[dashed](0, 0) -- (7, 0);
+        \draw[very thick](0, 1.25) -- (6, 1.25) -- (6, -1.25) -- (2, -1.25) -- (2, -2);
+        \draw[very thick](0, -1.25) -- (1, -1.25) -- (1, -2);
+        \draw(5.5, 1.1) -- (5.85, 1.1) -- (5.85, -1.1) -- (5.5, - 1.1);
+        \draw(5.5, -1.1) .. controls (5.8, -0.55) and (5.8, 0.55) .. (5.5, 1.1);
+        \draw[cyan](0, 1) -- (5.55, 1) -- (1.8, 0.3) -- (1.5, -2);
+        \draw[cyan](0, -1) -- (5.55, -1) -- (1.2, -0.3) -- (1.5, -2);
+        \draw[thick] (1.1, -0.4) -- (1.9, 0.4);
+    \end{tikzpicture}
+\end{gather*}
+
+
+\subsection{Configurazioni moderne}
+Tra le varie configurazioni moderne di telescopi riflettori si hanno 
+\begin{itemize}
+    \item Telescopio Cassegrain: classico telescopio con $F$ number alto, uno specchio
+    primario parabolico e uno specchio secondario iperbolico, l'immagine è capovolta.
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[very thick](0, 1.25) -- (6, 1.25) -- (6, 0.25);
+            \draw[very thick](6, -0.25) -- (6, -1.25) -- (0, -1.25);
+            \draw(5.5, 1.1) -- (5.85, 1.1) -- (5.85, 0.25) -- (5.7, 0.25);
+            \draw(5.5, -1.1) -- (5.85, -1.1) -- (5.85, -0.25) -- (5.7, -0.25);
+            \draw(5.5, 1.1) .. controls (5.75, 0.7) and (5.67, 0.4) .. (5.7, 0.25);
+            \draw(5.5, -1.1) .. controls (5.75, -0.7) and (5.67, -0.4) .. (5.7, -0.25);
+            \draw[cyan](0, 1) -- (5.55, 1) -- (1.8, 0.3) -- (6.75, 0);
+            \draw[cyan](0, -1) -- (5.55, -1) -- (1.8, -0.3) -- (6.75, 0);
+            \draw[thick] (1.75, 0.4) arc (10:-10:2.5);
+            \filldraw[align = center] (6.75, 0) circle (1pt) node[anchor = north west] {Fuoco del \\ Cassegrain};
+            \draw[dashed] (1.8, 0.3) -- (0.6, 0) -- (1.8, -0.3);
+            \filldraw[align = center](0.6, 0) circle (1pt) node[anchor = north] {Fuoco \\ Primario};
+        \end{tikzpicture}
+    \end{gather*}
+    \item Ritchey-Chrétien: telescopio con $F$ number alto simile al Cassegrain ma con due specchi iperbolici.
+    Permette la correzione di "coma" e dell'astigmatismo e produce un'
+    immagine capovolta. 
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[very thick](0, 1.25) -- (6, 1.25) -- (6, 0.25);
+            \draw[very thick](6, -0.25) -- (6, -1.25) -- (0, -1.25);
+            \draw(5.5, 1.1) -- (5.85, 1.1) -- (5.85, 0.25) -- (5.6, 0.25);
+            \draw(5.5, -1.1) -- (5.85, -1.1) -- (5.85, -0.25) -- (5.6, -0.25);
+            \draw(5.5, 1.1) .. controls (5.6, 0.7) and (5.6, 0.4) .. (5.6, 0.25);
+            \draw(5.5, -1.1) .. controls (5.6, -0.7) and (5.6, -0.4) .. (5.6, -0.25);
+            \draw[cyan](0, 1) -- (5.55, 1) -- (1.8, 0.3) -- (6.75, 0);
+            \draw[cyan](0, -1) -- (5.55, -1) -- (1.8, -0.3) -- (6.75, 0);
+            \draw[thick] (1.75, 0.4) arc (10:-10:2.5);
+            \filldraw[align = center] (6.75, 0) circle (1pt) node[anchor = north west] {Fuoco del \\ R-C};
+            \draw[dashed] (1.8, 0.3) -- (0.6, 0) -- (1.8, -0.3);
+            \filldraw[align = center](0.6, 0) circle (1pt) node[anchor = north] {Fuoco \\ Primario};
+        \end{tikzpicture}
+    \end{gather*}
+    \item Gregoriano: presenta un tubo più lungo degli altri due tipi di telescopi con uno specchio primario 
+    parabolico ed uno specchio secondario ellittico positivo. Dunque produce un immagine reale dritta.
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[very thick](0, 1.25) -- (6, 1.25) -- (6, 0.25);
+            \draw[very thick](6, -0.25) -- (6, -1.25) -- (0, -1.25);
+            \draw(5.5, 1.1) -- (5.85, 1.1) -- (5.85, 0.25) -- (5.7, 0.25);
+            \draw(5.5, -1.1) -- (5.85, -1.1) -- (5.85, -0.25) -- (5.7, -0.25);
+            \draw(5.5, 1.1) .. controls (5.75, 0.7) and (5.67, 0.4) .. (5.7, 0.25);
+            \draw(5.5, -1.1) .. controls (5.75, -0.7) and (5.67, -0.4) .. (5.7, -0.25);
+            \draw[cyan](0, 1) -- (5.55, 1) -- (1.8, 0.3) -- (6.75, 0);
+            \draw[cyan](0, -1) -- (5.55, -1) -- (1.8, -0.3) -- (6.75, 0);
+            \draw[thick] (1.75, 0.4) arc (170:190:2.5);
+            \filldraw[align = center] (6.75, 0) circle (1pt) node[anchor = north west] {Fuoco del \\ Gregoriano};
+            \draw[dashed] (1.8, 0.3) -- (0.6, 0) -- (1.8, -0.3);
+            \filldraw[align = center](0.6, 0) circle (1pt) node[anchor = north] {Fuoco \\ Primario};
+        \end{tikzpicture}
+    \end{gather*}
+\end{itemize}
+
+\section{Montatura dei telescopi}
+I telescopi si montano su delle basi che ne guidano il movimento ed il puntamento. Le montature
+si dividono in due categorie principali:
+\begin{itemize}
+    \item Altazimutali: muovono il telescopio sull'asse verticale e asse orizzontale (secondo altitudine e azimut).
+    Sono intuitive da usare per puntare oggetti luminosi ad occhio, ma richiedono delle correzioni simultanee
+    su entrambi gli assi per seguire le stelle.
+    \item Equatoriali: possiedono un asse parallelo all'asse terrestre chiamato
+    \textbf{asse polare}. Un solo motore o sistema di inseguimento mantiene l'oggetto al centro del
+    campo visivo, compensando la rotazione della Terra. 
+\end{itemize}
+
+\subsection{Montature Coudé e Nasmyth}
+Si analizzano ora altre due tipologie di montature 
+nel caso in cui si necessiti di focali più lunghe del telescopio stesso. Queste montature
+sono utilizzate nei telescopi riflettori.
+\paragraph{Montatura Coudé} \mbox{} \\
+\noindent La montatura Coudé utilizza una serie di specchi terziari e quaternari che indirizzano la luce lungo l'asse di montatura
+verso un piano focale esterno. In questo modo lo strumento rimane fermo quando il telescopio si muove. Questa
+montatura permette di collocare strumenti pesanti in posizione fissa evitando dunque carichi sull'ottica mobile, 
+come per esempio per spettrografi ad alta risoluzione, garantendo un'elevata stabilità termica 
+e meccanica degli strumenti utili nella spettroscopia ad alta risoluzione. Ha anche il vantaggio di alimentare
+in modo semplice sistemi di calibrazione e fibre ottiche verso strumenti remoti. Lo svantaggio di questa montatura è 
+che per un telescopio a montatura già altazimutale si deve anche utilizzare un
+\textbf{derotatore} per compensare la rotazione degli astri in quanto il piano dell'immagine ruota mentre si insegue l'astro. 
+Inoltre, dato che si aggiungono più specchi, c'è una perdita considerevole di luce.
+
+\paragraph{Montatura Nasmyth} \mbox{} \\ \noindent
+La montatura Nasmyth utilizza uno specchio terziario che indirizza la luce orizzontalmente insieme all'asse verticale (altitudine) 
+verso un lato del telescopio. Quindi la montatura Nasmyth si muove con il telescopio lungo l'asse azimutale ma il fascio di luce
+rimane orizzontale rispetto al terreno. Come nella montatura Coudé, il campo visivo ruota mente si mette a fuoco un particolare oggetto,
+che può essere compensato utilizzando un derotatore o montando lo strumento su di una piattaforma ruotante che ruota con il campo visivo.
+
+\section{Aberrazioni}
+Le aberrazioni sono delle deviazioni del sistema ottico dal comportamento previsto dal limite parassiale.
+Queste sono un difetto di un sistema ottico (lente o specchio) che causa la deviazione dei raggi di luce
+dalla loro traiettoria ideale, impedendo la formazione di una immagine perfetta e puntiforme di un oggetto puntiforme. 
+Esse sono delle sfocature o distorsioni dell'immagine finale. Le aberrazioni sono una conseguenza intrinseca della natura ondulatoria e
+del comportamento della luce (riflessione o rifrazione) quando interagisce con superfici non ideali. Esistono
+due principali tipologie di aberrazioni:
+\begin{itemize}
+    \item Monocromatiche: sono aberrazioni che si verificano anche con singole lunghezza d'onda.
+    \item Cromatiche: si verificano con luce composta da più lunghezze d'onda.
+\end{itemize}
+
+\subsection{Monocromatiche}
+Sono dovute alla geometria del sistema ottico e al fatto che i raggi non parassiali vengono 
+focalizzati in punti diversi. La teoria delle aberrazioni di Seidel le descrive matematicamente al terzo ordine, estendendo 
+anche l'approssimazione parassiale (non in programma). Esistono diverse tipologie di aberrazione
+\begin{itemize}
+    \item \textbf{Aberrazione sferica}: i raggi paralleli all'asse ottico che passano 
+    attraverso le zone periferiche di una lente sferica convergono in un punto focale diverso rispetto a quelli che passano vicino al centro. 
+    \item \textbf{Coma}: Si manifesta per oggetti posti fuori dall'asse ottico. L'immagine di un
+    oggetto puntiforme non è un punto vero e proprio ma forma una sorta di scia che si allunga radialmente causata
+    dalle differenze di ingrandimento dei raggi che attraversano diverse zone della lente. 
+    \item \textbf{Astigmatismo}: Anch'esso per oggetti fuori dall'asse ottico. L'immagine 
+    di un punto si forma come se fossero due linee focali di cui una radiale (tangenziale) ed una circonferenziale (sagittale),
+    a distanze diverse dalla lente. Questo porta a immagini che sono nitide solo in una direzione. 
+    \item \textbf{Curvatura di campo}: Un sistema ottico con curvatura di campo non proietta un oggetto piano su di un immagine 
+    piana ma su di una superficie curva. Di conseguenza, non è possibile mettere a fuoco per intero tutto l'oggetto su di un sensore piano.
+    \item \textbf{Distorsione}: non altera la nitidezza ma è deforma geometricamente l'immagine. Le linee rette, specialmente quelle lontane dall'asse 
+    ottico, appaino curve. Esistono due tipologie di distorsioni: a \textbf{barilotto} (con linee curve verso l'esterno) o a \textbf{cuscinetto} 
+    (con linee curve verso l'interno). 
+\end{itemize}
+
+\subsection{Cromatiche}
+Si verificano con luce composta da diverse lunghezze d'onda (luce bianca) a causa della \textbf{dispersione}, ossia la dipendenza 
+dell'indice di rifrazione di un materiale dalla lunghezza d'onda. 
+
+\subsection{Aberrazioni nei rifrattori}
+Nel telescopio Galileiano non è presente nessuna aberrazione cromatica aggiuntiva all'oculare ma la nitidezza dell'immagine è
+limitata dal piccolo obiettivo. Mentre per il Kepleriano si ha una aberrazione cromatica dell'obiettivo visibile senza
+vetri correttivi, necessitando di oculari di qualità per mantenere il contrasto. 
+
+\section{Strumentazione ausiliaria}
+Il telescopio è solo uno strumento per ingrandire oggetti molto lontani anche se, da solo,
+non è sufficiente per osservazioni scientifiche. Al telescopio si aggiunge dunque della strumentazione,
+che prende il nome di strumentazione piano focale, che utilizza l'immagine prodotta dal telescopio stesso
+per analizzare la radiazione che vi arriva. I principali strumenti che analizzano le immagini prodotte
+dai telescopi sono i seguenti:
+\begin{itemize}
+    \item \textbf{Spettrometri}: analizzatori di spettro.
+    \item \textbf{Fotometri}: analizzatori di flusso.
+    \item \textbf{Polarimetri}: analizzatori di polarizzazione.
+\end{itemize}
+
+\section{Location dei telescopi}
+I telescopi professionali sono spesso situati lontani dall'inquinamento luminoso (e atmosferico)
+delle città, oppure nello spazio. Per condurre osservazioni molto precise è anche possibile combinare
+diversi telescopi in tutta la Terra, come l'Event Horizon Telescope che ha ricavato la prima
+immagine di un buco nero. Per ovviare al problema dell'assorbimento atmosferico di 
+determinate lunghezze d'onda e dell'inquinamento luminoso delle città, è possibile utilizzare i \textbf{radiotelescopi},
+i quali, permettono di compiere osservazioni nelle onde radio. Questa tipologia di telescopi sono
+costituiti da delle enormi parabole che possono anche essere combinate in array come il \textbf{Very large array} in Messico.
+Alternativamente è possibile utilizzare dei telescopi nello spazio per ovviare a tutti i problemi connessi 
+all'atmosfera. Alcuni di questi telescopi sono il \textbf{James Webb Space Telescope}, un telescopio Cassegrain ad infrarossi, 
+o l'\textbf{Euclid} (un telescopio ottico e ad infrarossi). Questi telescopi sono situati nel punto $L_2$, anche chiamato \textbf{Secondo punto Lagrangiano}, 
+dove le forze orbitali e gravitazionali si bilanciano, permettendo ai telescopi di rimanere fermi (relativamente) 
+rispetto alla Terra, orbitando con lo stesso periodo orbitale. 
+
+
+\chapter{Fotometria}
+La maggior parte delle osservazioni astronomiche si fonda sull'acquisizione di radiazione elettromagnetica. La \textbf{fotometria}
+si occupa di misurare il flusso
+di una sorgente in una banda di lunghezze d'onda per ottenere informazioni sulla sorgente stessa. Dalle
+misure fotometriche si ottengono:
+\begin{itemize}
+    \item \textbf{Intensità}: detta anche \textbf{Radianza} o \textbf{Brillanza}.
+    \item \textbf{Flusso}: anche chiamato densità di flusso o \textbf{Emittanza} se emesso da una sorgente di radiazione o \textbf{Irradianza} se raccolto da un rilevatore.
+    \item \textbf{Luminosità}: quantità di "erg" ricevuta per unità di tempo.
+    \item \textbf{Densità di energia}: ossia la radiazione contenuta in un dato volume.
+    \item \textbf{Magnitudine}: misura logaritmica della luminosità apparente.
+    \item \textbf{Colori}: differenza di magnitudine tra due bande, utile per stimare la temperatura di un corpo celeste, la composizione, distanza, \dots.
+\end{itemize}
+
+\section{Sistemi fotometrici}
+Un sistema fotometrico è un insieme di \textbf{filtri} e \textbf{procedure di calibrazione} usati per misurare 
+la luminosità di un oggetto celeste in specifiche bande di lunghezza d'onda, confrontando le misure fatte con strumenti diversi in tempi diversi. Fornisce informazioni sul colore e quindi sulla temperatura, composizioni 
+e stato evolutivo degli oggetti. Le componenti principali di un sistema ottico sono le seguenti:
+\begin{itemize}
+    \item \textbf{Filtri}: selezionano intervalli di lunghezze d'onda (come l'ultravioletto, il blu, 
+    verde, rosso e infrarosso, onde gamma, onde radio e così via). 
+    \item \textbf{Curve di trasmissione}: descrivono l'efficienza del sistema filtro-ottica-rilevatore. 
+    \item \textbf{Stelle standard}: Sono utilizzate per calibrare le misurazioni effettuate dai sistemi fotometrici. 
+\end{itemize}
+Alcuni sistemi fotometrici diffusi sono il Johnson-Cousins UBVRI, ossia il più famoso sistema fotometrico. È un sistema fotometrico
+storico che utilizza filtri per gli ultravioletti, il blu, il verde, il rosso e gli infrarossi,così definito
+\begin{align*}
+    \begin{tabular}{c c c}
+        & $\lambda_0(nm)$ & $\Delta \lambda(nm)$\\
+        \textcolor{purple}{U} & 365 & 70 \\
+        \textcolor{cyan}{B} & 440 & 100 \\
+        \textcolor{green}{V} & 550 & 90 \\
+        \textcolor{orange}{R} & 700 & 220 \\
+        \textcolor{red}{I} & 880 & 240 
+    \end{tabular}
+\end{align*}
+
+\clearpage
+\section{Intensità}
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \centering
+    \caption{Schematizzazione dell'Intensità attraverso una definita superficie $dA$}
+    \begin{tikzpicture}
+        \draw(0, 0) ellipse (0.5 and 1);
+        \draw[dashed](0, -1) -- (0, 1);
+        \filldraw(0, 0) circle (1pt);
+        \node at (-0.2, 0) {$P$};
+        \node at (-0.5, -1.2) {$dA\cos\theta$};
+        \draw[rotate around={55:(0, 0)}, red] (0, 0) ellipse (0.5 and 1); 
+        \node[red] at (-0.75, 1.25) {$dA$};
+        \draw[->, red](0, 0) -- (1, 1.42) node[at end, right] {$\vv{n}$ };
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$I_{\nu}$};
+        \draw(0.5, 0.71) arc (55:0:0.85) node[midway, right] {$\theta$};
+        \draw[cyan] (0, 0) -- (2.5, 1);
+        \draw[cyan] (0, 0) -- (2.5, -1);
+        \draw[cyan](2.5, 0) ellipse (0.5 and 1);
+        \node[cyan] at (2.2, -1.1) {$d\Omega$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Assumendo che una certa quantità di radiazione fluisca attraverso una superficie $dA$. 
+Una parte di tale radiazione attraverserà $dA$, entro l'angolo solido $d\Omega$ centrato lungo 
+la direzione indicata dalla freccia in figura, formante un angolo di $\theta$ con la normale alla 
+superficie $dA$. Si può determinare la quantità di energia caratterizzata da una frequenza tra
+$\nu$ e $\nu + d\nu$ entrante l'angolo solido $d\Omega$ in un certo intervallo di tempo $dt$ come
+\begin{align}
+    dE_\nu = I_\nu \cos\theta \ dA \ dv \ d\Omega \ dt
+\end{align}
+In questa formula si identificano le seguenti:
+\begin{itemize}
+    \item $I_\nu$ prende il nome di \textbf{Intensità specifica} della radiazione 
+considerata ad una data frequenza $\nu$ nella direzione dell'angolo solido $d\Omega$.
+Infatti, la sua unità di misura è Wm$^{-2}$Hz$^{-1}$sr$^{-1}$, dove
+$sr$ è lo \textbf{steradiante}. 
+    \item $dA\cos\theta$: si deve al fatto che l'elemento di superficie considerato $dA$  è visto dalla
+    direzione $\theta$. 
+\end{itemize}
+Adesso è possibile definire l'Intensità luminosa totale a tutte le frequenze come l'integrale su 
+tutto il dominio delle frequenze:
+\begin{align}
+    I = \int_{0}^{+\infty } I_\nu d\nu 
+\end{align}
+L'Intensità può assumere diversi nomi:
+\begin{itemize}
+    \item \textbf{omogenea}: se $\frac{dI_\nu}{dP} = 0$;
+    \item \textbf{isotropa}: se $\frac{dI_\nu}{d\Omega} = 0$;
+    \item \textbf{stazionaria}: se $\frac{dI_\nu}{dt} = 0$. 
+\end{itemize}
+
+
+\subsection{Costanza dell'Intensità luminosa trasportata da un raggio luminoso}
+È possibile dimostrare come l'Intensità luminosa non dipenda dalla distanza.
+Date due superfici $dS_1$, $dS_2$, con vettori normali $\vv{n_1}$ e $\vv{n_2}$, angoli solidi
+$d\Omega_1$ e $d\Omega_2$ e angoli rispetto ai vettori normali di $\theta_1$ e $\theta_2$:
+\begin{gather*}
+    dE_1 = I_1 \ dS_1 \cos\theta_1 \ dt_1 \ d\Omega_1 \qquad dE_2 = I_2 \ dS_2 \cos\theta_2 \ dt_2 \ d\Omega_2 
+\end{gather*}
+Se le due superfici sono spaziate tra loro di una certa distanza $D$, allora è possibile
+esprimere gli angoli sferici nella seguente maniera: 
+\begin{gather*}
+    d\Omega_1 = \frac{dS_2\cos\theta_2}{D^{2}} \qquad d\Omega_2 = \frac{dS_1 \cos\theta_1}{D^{2}}
+\end{gather*}
+Dunque
+\begin{gather*}
+    I_1 \ dS_1\cos\theta_1 \ dt_1 \frac{dS_2 \cos\theta_2}{D^{2}} = I_2 \ dS_2 \cos\theta_2\ dt_2 \frac{dS_1\cos\theta_1}{D^{2}}
+\end{gather*}
+Ossia
+\begin{gather*}
+    I_1 dt_1 = I_2 dt_2
+\end{gather*}
+per far sì che l'energia che attraversa le due superfici sia uguale, si deve porre $dt_1 = dt_2 = dt$. 
+Se così fosse si avrebbe che $dE_1 = dE_2$, dunque $I_1 = I_2$. 
+
+\subsection{Brillanza superficiale del Sole}
+Si assuma 
+
+
+
+\clearpage
+\section{Flusso}
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \centering
+    \caption{Rappresentazione del flusso}
+    \begin{tikzpicture}[scale=1.4]
+        \draw(0, 0) -- (3, 0);
+        \draw(0, 0) -- (0, 3);
+        \draw(0, 0) -- (2.5, -0.5);
+        \draw(0, 3) arc (90:0:3);
+        \draw(0, 3) arc (71:0:3.72);
+        \draw(3, 0) arc (-37:-51:3);
+        \draw[<-](1.4, 0) arc (-37:-51:1.4) node[at start, above] {$\phi$};
+        \draw[green](1.7, 0) arc (-37:-51:1.7) node[midway, right] {$d\phi$};
+        \draw(0, 0) -- (0.75, 2.65);
+        \draw[->](0, 1.5) arc (71:58:1.85) node[midway, above] {$\theta$};
+        \draw[thick, green](0.75, 2.65) arc (58:50:3.72);
+        \draw[thick, green](1, 2.83) arc (70:60:3) ;
+        \draw[thick, green](1, 2.83) -- (0.75, 2.65);
+        \draw[thick, green](1.17, 2.33) -- (1.47, 2.62);
+        \node[green] at (0.9, 2.3)  {$d\theta$};
+        \node[green] at (1.75, 2.3) {$d\phi\sin\theta$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il flusso, o densità di flusso, esprime la potenza della radiazione per unità di area, avendo 
+dunque grandezza fisica Wm$^{-2}$Hz$^{-1}$, per il flusso rispetto ad una certa frequenza $\nu$. 
+\begin{align}
+        F_{\nu} = I_{\nu} \oint _{4\pi} \cos\theta \ d\Omega
+\end{align}
+Dato che il flusso è un'unità di misura molto grande, si utilizza il Jansky, che vale $10^{-26}$ Wm$^{-2}$ Hz$^{-1}$.
+È possibile determinare il flusso attraverso una superficie sferica attraversata da un'intensità isotropa, 
+partendo dalla definizione di un piccolo angolo solido:
+\begin{gather*}
+    d\Omega = \frac{dA\cos\theta}{r^{2} }
+\end{gather*}
+Si ottiene allora che il flusso (rispetto ad una data lunghezza d'onda $\lambda$), è
+dato dalla seguente:
+\begin{align*}
+    F_\lambda = \int_{0}^{2\pi}d\phi\int_{0}^{\pi} d\theta I_\lambda \cos\theta\sin\theta 
+    = 2\pi I_\lambda \int_{0}^{\pi}\cos\theta\sin\theta \ d\theta 
+    = 2\pi I_\lambda \left[\frac{\sin^{2}\theta}{2}\right]^{\pi}_{0} = 0
+\end{align*}
+Data la simmetria della sfera, se si potesse osservare contemporaneamente sia la metà rivolta verso 
+l'osservatore, che quella non rivolta verso l'osservatore, il flusso totale sarebbe nullo, e dunque la sfera
+apparirebbe completamente buia. Se invece il flusso emergesse da solo metà 
+della superficie sferica con Intensità isotropa, si otterrebbe un integrale
+diverso da zero:
+\begin{align*}
+    F_\lambda &= \int_{0}^{2\pi}d\phi\int_{0}^{\frac{\pi}{2}} d\theta I_\lambda \cos\theta\sin\theta = \\
+    &= 2\pi I_\lambda \int_{0}^{\frac{\pi}{2}} d\theta \cos\theta \sin\theta = 2\pi I_\lambda \left[\frac{\sin^{2}\theta}{2}\right]^{\frac{\pi}{2}}_{0} = \pi I_\lambda
+\end{align*}
+
+\subsection{Flusso in un punto $P$ a distanza $D$ prodotto da una stella: il flusso specifico.}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw(0, 0) circle (1);
+        \draw(0, 0) -- (0, 1) node[midway, left] {$R_{\star}$} -- (5, 0) node[midway, above] {$r$};
+        \draw(0, 0) -- (5, 0) node[midway, below] {$D$};
+        \draw(2, 0) arc (180:169:3) node[midway, left] {$\theta_r$};
+        \filldraw(5, 0) circle (1pt) node[anchor = south]{$P$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si analizza ora il flusso della radiazione luminosa in un punto $P$ a grande distanza $D$ prodotto da una stella.
+La stella è schematizzabile come se fosse un corpo sferico ad emissione isotropa. 
+L'angolo $\theta$ su cui si integra arriva fino a $\theta_r$, definito dalla trigonometria come
+\begin{gather*}
+    \sin\theta_r = \frac{R_{\star}}{D}
+\end{gather*}
+nel caso in cui l'angolo tra $R_\star$ e $D$ sia $\frac{\pi}{2}$. Ogni elemento della superficie
+avrà un flusso infinitesimo, definito come prima, che contribuisce al flusso totale emesso
+dalla stella. Si può adesso quantificare il flusso specifico di questa stella $f_\lambda$ ad una certa
+distanza come il flusso semisferico per unità di angolo solido. Dunque 
+\begin{align*}
+    f_\lambda &= \int_{0}^{\theta_r} d\theta \int_{0}^{2\pi} d\phi I_\lambda \cos\theta \sin\theta  = 2\pi \int_{0}^{\arcsin \frac{R_\star}{D}} I_\lambda \cos\theta\sin\theta \ d\theta  \\
+    &= 2\pi I_\lambda \int_{0}^{\frac{R_\star}{D}}\sin\theta d\sin\theta  = 2\pi \int_{0}^{\frac{R_\star}{D}}y \ dy = 2\pi I_\lambda \left[\frac{y^{2}}{2}\right]^{\frac{R_\star}{D}}_{0} = \pi \frac{R_\star^{2}}{D^{2}}I_\lambda 
+\end{align*} 
+Il flusso è proporzionale a $\frac{1}{D^{2}}$. 
+
+\clearpage
+\section{Luminosità}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=1.2]
+        \draw[dashed](0, 0) -- (3, 0) node[midway, above] {$D$};
+        \filldraw[orange] (0, 0) circle (0.4);
+        \draw[red] (3, 0) circle (0.15);
+        \node[orange] at (0, 0.75) {Stella};
+        \node[red] at (3, 0.5) {$f_\lambda$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+La \textbf{luminosità specifica} corrisponde al flusso totale che passa attraverso 
+la superficie che contiene la sorgente. La luminosità specifica avrà dunque
+dimensioni WHz$^{-1}$.
+\begin{align}
+    L_\nu = \int_{A} F_\nu \ dA
+\end{align}
+Per una stella si integra il flusso sulla sua superficie $A$, se $F_\lambda = \pi I_\lambda$ è costante.
+Dunque, dato che $A$ corrisponde esattamente alla superficie della stella, 
+se questa avesse raggio $R_\star$ si otterrebbe
+\begin{align}
+    L_\lambda = 4\pi R^{2}_\star F_\lambda 
+\end{align}
+Dove $F_\lambda$ è il flusso emesso dalla superficie della stella. Se l'osservatore si ponesse ad una 
+certa distanza $D$ da questa stella, la quale si assume emetta isotropicamente con $F_\lambda = \pi I_\lambda$ e che
+non ci sia assorbimento lungo $D$, allora si ha che
+\begin{gather*}
+    f_\lambda = \frac{L_\lambda}{4\pi D^{2}} = \frac{4\pi R_\star^{2}F_\lambda}{4\pi D^{2}} = \frac{R_\star^{2}}{D^{2}}\pi I_\lambda
+\end{gather*} 
+
+\section{Densità di energia}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (0.75, 0.38);
+        \draw[dashed](1, 0.5) -- (3, 1.5);
+        \draw[rotate around={30:(3, 1.5)}](3, 1.5) ellipse (0.4 and 0.7);
+        \draw[->](3, 1.5) -- (4, 2) node[at end, right] {$I$};  
+        \draw[rotate around={30:(1, 0.5)}](1, 0.5) ellipse (0.4 and 0.7);
+        \draw(0.75, 1.15) -- (2.7, 2.13);
+        \draw(1.3, -0.13) -- (3.35, 0.9);
+        \draw[<->](1.3, -0.33) -- (3.35, 0.7) node[midway, below] {$c \ dt$};
+        \node at (2.9, 1.8) {$dA$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si può calcolare la densità di energia di un campo di radiazione contenuta in un certo volume 
+\begin{gather*}
+    dV = dA \cdot c \ dt
+\end{gather*}
+Supponendo che della radiazione con intensità $I$ attraversi una superficie 
+$dA$ perpendicolarmente, e che questa radiazione percorra un certo spazio $c \cdot dt$
+riempiendo dunque un volume di $dV = c \ dt \ dA$. L'energia attraverso questo volume è 
+data dalla seguente relazione
+\begin{gather*}
+    dE = I \ dA \ d\Omega \ dt = \frac{I}{c}\ d\Omega \ dV
+\end{gather*}
+Pertanto è possibile ricavare la densità di energia $u$ come la derivata rispetto 
+al volume dell'energia:
+\begin{gather*}
+    \left.\frac{dE}{dV}\right|_{\Omega} = \left. u \right|_{\Omega} = \frac{I}{c} \ d\Omega 
+\end{gather*}
+Se l'emissione di $I$ è isotropa, allora è possibile integrare per ottenere la densità di energia come
+\begin{align}
+    u = \oint_{4\pi} \left. u \right|_{\Omega} d\Omega = \frac{4\pi}{c}I 
+\end{align}
+
+\subsection{Relazione tra radiazione elettromagnetica e unità radiometrica}
+Si utilizza il \textbf{Vettore di Poynting} per descrivere il flusso di energia associato alla propagazione del campo elettromagnetico:
+\begin{align}
+    \vv{S} = \frac{1}{\mu_0}\vv{E} \times \vv{B}   
+\end{align}
+Il modulo di questo vettore si trova secondo le seguenti relazioni
+\begin{gather*}
+    \frac{E}{B} = c \ \Longrightarrow \ I = \frac{1}{T}\int_{T} \left| \vv{S}  \right| dt = \frac{1}{c\mu_0} \frac{E_{rms}^{2}}{2} 
+\end{gather*}
+
+\clearpage
+\section{Fotometria nei telescopi}
+\subsection{Sorgente puntiforme}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3.5, 0) node[at end, below] {$\lambda$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$I_\lambda$};
+        \draw[cyan](0, 0.05) -- (0.75, 0.05) node[at end, below] {380};
+        \draw[cyan](2.25, 0.05) -- (3, 0.05) node[at start, below] {750};
+        \draw[cyan](0.75, 0.05) .. controls (0.85, 0.1) and (0.9, 0.2) .. (1, 1.5) -- (2, 1.5) .. controls (2.1, 0.2) and (2.15, 0.1) .. (2.25, 0.05);
+        \draw(0, 0) .. controls (0.75, 0.1) and (1.3, 2.1) .. (1.5, 2) .. controls (2.25, 0.75) and (2.75, 0.5) .. (3.5, 0.2);
+        \draw[red](1.4, 0.05) .. controls (1.65, 0) and (1.7, 1.7) .. (1.75, 1.75) .. controls (1.8, 1.7) and (1.85, 0) .. (2.1, 0.05);
+        \node[red] at (1.9, 1.9) {$\epsilon_\lambda$};
+        \node[cyan] at (0.75, 1.75) {$\eta_\lambda$};
+        \node at (1.5, 2.4) {$I_\lambda$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Le immagini delle galassia o dei corpi celesti sono la combinazione di 
+immagini prese con filtri diversi e combinate insieme per ottenere le immagini
+"belle" che si vedono su internet. L'occhio umano, durante il processo evolutivo, è stato
+tarato per osservare meglio la radiazione luminosa dello spettro vicino al colore verde.
+Ricordando i parametri del telescopio, si può determinare l'energia 
+raccolta dal telescopio da una sorgente puntiforme secondo la seguente relazione:
+\begin{align}
+    E = \pi \frac{R_{\star}^{2} }{d^{2} }A \int_{0}^{+\infty }I_{\lambda}\eta_\lambda\epsilon_\lambda \  \Delta t  \ d\lambda
+\end{align}
+Dove 
+\begin{itemize}
+    \item $I_{\lambda}$: intensità luminosa in funzione della lunghezza d'onda
+    \item $\eta_\lambda$: estinzione atmosferica e interstellare;
+    \item $\epsilon_\lambda$: efficienza del filtro, ossia l'assorbimento del filtro.
+    \item $A$: apertura della lente del telescopio;
+    \item $\Delta t$: tempo di esposizione.
+\end{itemize}
+Per una sorgente luminosa puntiforme dunque $E \propto A$. 
+
+\subsection{Sorgente estesa}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw(0, 0) ellipse (0.25 and  0.75);
+        \node at (0, 1.3) {$A$};
+        \draw[<->](0.1, 0.75) -- (0.8, 0.75) node[midway, above] {$f$};
+        \draw[<->](-0.1, -0.75) -- (-2.4, -0.75) node[midway, below] {$D$};
+        \draw[<->](-2.9, -0.5) -- (-2.9, 0.5) node[midway, left] {$S$};
+        \draw(-2.8, -0.5) -- (-2.25, -0.25) -- (-2.25, 0.75) -- (-2.8, 0.5) -- (-2.8, -0.5);
+        \filldraw(-2.5, 0) circle (1pt) node[anchor = south] {$P$};
+        \draw[->](-2.5, 0) -- (-2, 0) node[at end, right] {$I$};
+        \draw[green](0, -0.75) -- (-2.5, 0) -- (0, 0.75);
+        \draw[green](-1, 0) ellipse (0.15 and 0.45);
+        \node[green] at (-1.1, -0.6) {$\Omega$};
+        \draw(0.75, -0.2) -- (1.05, -0) -- (1.05, 0.3) -- (0.75, 0.1) -- (0.75, -0.2);
+        \draw[<->](1.15, -0) -- (1.15, 0.3) node[midway, right] {$S'$};
+        \draw[red](-2.25, 0.75) -- (0.75, -0.2);
+        \draw[red](-2.25, -0.25) -- (0.75, 0.1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso di una sorgente estesa si deve anche considerare la dimensione dell'elemento sensibile 
+che definisce la porzione di sorgente estesa rilevata. Se si indica con $S$ l'estensione della sorgente,
+al piano focale questa sorgente non sarà più puntiforme ma avrà una estensione pari a $S'$.
+Chiamando $A$ l'apertura del telescopio, $f$ la sua lunghezza focale e $D$ la distanza dell'oggetto
+osservato rispetto alla lente, si ottiene l'angolo solido per la sorgente in $P$ ed il rapporto tra
+la dimensione reale dell'oggetto e la dimensione sul led della CCD (sensore) come: 
+\begin{gather*}
+    \Omega = \frac{A}{D^{2} } \qquad \frac{S^{2} }{D^{2} } = \frac{S'^{2} }{f^{2} }
+\end{gather*}
+Allora il flusso in funzione della lunghezza d'onda sarà
+\begin{gather*}
+    f_\lambda = \frac{S^{2} }{D^{2} }I_\lambda \qquad f_\lambda = \frac{I_\lambda}{D^{2} } \pi R_{\star}^{2} 
+\end{gather*}
+Dunque l'energia che riceve il rilevatore ad una certa lunghezza d'onda sarà data, per una certa esposizione $\Delta t$, da
+\begin{gather*}
+    E_\lambda = I_\lambda \Omega S^{2}\eta_\lambda \epsilon_\lambda \Delta t 
+\end{gather*}
+Per ottenere l'energia totale ricevuta per tutte le lunghezze d'onda si deve integrare 
+\begin{align}
+    E = \Delta t A \frac{S'^{2} }{f^{2}}\int I_\lambda\eta_\lambda\epsilon_\lambda \ d\lambda 
+\end{align}
+Dove gli estremi di integrazione non sono definiti in quanto dipendono dalle
+lunghezze d'onda determinate dal filtro utilizzato. Per una sorgente estesa dunque
+$E \propto \frac{A}{f^{2}} = \left(\frac{1}{F^{\#}}\right)^2$.  
+Il parametro $\epsilon_\lambda$ determina la \textbf{Magnitudine monocromatica} 
+nel sistema fotometrico di Johnson-Morgan-Cousins e dipende da svariati fattori 
+come il rilevatore, il filtro, il telescopio ma anche le condizioni atmosferiche. Infatti, il cielo ha tantissime variabili che possono interferire
+    sulla qualità delle osservazioni. Parametri come l'umidità, la luce zodiacale,
+    il vento e l'inquinamento possono modificare sostanzialmente la quantità di luce raccolta. 
+Quando vengono soddisfatte queste condizioni si parla di fotometria assolute. 
+
+
+\chapter{Magnitudini}
+\section{La scala della magnitudine e i tipi di magnitudine}
+L'idea di classificare le stelle in base alla loro luminosità è nata
+già nell'antica Grecia con Ipparco, il quale divise le stelle
+in 6 classi: nella prima classe c'erano le stelle molto luminose mentre
+nella classe 6 ci stavano le stelle appena percettibili. Si introducono
+adesso i concetti principali della \textbf{magnitudine}.
+
+\subsection{Magnitudine apparente}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (4.5, 0) node[at end, right] {$\log F$};
+        \draw[->](0, -1) -- (0, 4.5) node[at end, left] {$m$};
+        \draw(0.5, 4) -- (4, 0.5);
+        \draw[dashed](0.5, 0) -- (0.5, 4) node[at start, below] {$F$};
+        \draw[dashed](0, 0.5) -- (4, 0.5);
+        \draw[dashed](4, 0) -- (4, 0.5) node[at start, below] {$100F$};
+        \draw[dashed](0, 4) -- (0.5, 4);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Norman R. Pogson nel 1856 si accorse che la risposta dell'occhio umano alla 
+differente luminosità dei corpi celesti non era lineare, bensì logaritmica. Egli 
+diede dunque forma matematica alla classificazione di Ipparco secondo il grafico a fianco.
+Definì che il rapporto tra le luminosità apparenti delle stelle di classe $n$ e $n+1$ era pari a
+$100^{\frac{1}{5}}$, ossia circa $\approx 2.512$.  
+Si può ottenere la \textbf{magnitudine apparente} di un corpo come
+\begin{align}
+    m = -100^{\frac{1}{5}}\log\frac{F}{F_0} \ \approx \ -2.5\log\frac{F}{F_0}
+\end{align}
+La magnitudine apparente è dunque definita in funzione della densità di flusso osservata, $F$,
+stabilendo, per esempio, che alla magnitudine zero corrisponda un valore noto e standard di $F_0$. 
+La magnitudine è tarata in modo tale che $F_0$ corrisponda al flusso della stella Vega; in altre parole,
+la stella Vega ha magnitudine zero. Per ricavare la differenza tra la magnitudine tra due oggetti celesti 
+con magnitudine $m_1$ e $m_2$, si potrebbe esprimere considerando la scala di  Ipparco ed
+esprimo le magnitudini $ 1$ e $6$ come
+\begin{gather*}
+    1 = a \log F + b \\
+    6 = a \log F + b
+\end{gather*}
+Facendo la sottrazione membro a membro si ha
+\begin{gather*}
+    -5 = a \log \frac{100F}{F} \ \Longrightarrow \ a \approx -2.5
+\end{gather*}
+Allora la differenza di magnitudini tra due oggetti è data da:
+\begin{gather*}
+    m_1 = -2.5\log F_1 + b \\
+    m_2 = -2.5\log F_2 + b
+\end{gather*}
+Dunque si ottiene
+\begin{gather*}
+    m_1 - m_2 = -2.5\log \frac{E_1}{E_2} = -2.5\log\frac{F_1}{F_2}
+\end{gather*}
+Tutti gli oggetti con magnitudine più grande di zero sono meno luminosi
+di Vega mentre tutti gli oggetti con magnitudine più piccola di zero sono
+più luminosi di Vega. Questa tipologia di magnitudine prende il nome di \textbf{apparente}
+perché dipende dallo strumento con cui si compiono le osservazioni, dalla lunghezza
+d'onda osservata e dalla distanza dell'oggetto dall'osservatore. La magnitudine fino ad ora discussa non fornisce dunque alcun tipo di 
+informazione sulla luminosità propria di un oggetto.
+
+\subsection{Magnitudine monocromatica}
+La magnitudine monocromatica si definisce con $\epsilon_\lambda$ secondo il 
+sistema fotometrico Johnson-Morgan-Cousins e non è facile da definire. Infatti essa dipende
+dalle seguenti condizioni 
+\begin{itemize}
+    \item Rilevatore 
+    \item Filtri
+    \item Telescopio
+    \item Osservatorio
+    \item Cielo fotometrico
+\end{itemize}
+Nel caso in cui queste condizioni siano perfette, si parla di fotometria assoluta.
+
+\subsection{Magnitudine bolometrica}
+La magnitudine \textbf{bolometrica} è la magnitudine che si otterrebbe se
+si riuscisse a misurare la radiazione emessa da un corpo celeste in tutto lo spettro. 
+In pratica è impossibile poiché la maggior parte della radiazione di un corpo celeste è 
+assorbita dall'atmosfera e dal mezzo interstellare, oltre che è impossibile,
+con un singolo rilevatore, osservare tutta la radiazione emessa da un corpo celeste. Si può derivare
+la magnitudine bolometrica applicando la \textbf{correzione bolometrica}. 
+\begin{align}
+    m_{bol} = m_V - BC
+\end{align}
+Sempre che si assuma $\eta_\lambda = \epsilon_\lambda = 1$. Per le stelle di tipo 
+spettrale F5 (come il Sole), $BC = 0$. 
+
+\section{Lunghezza d'onda efficace}
+Assumiamo $F(\lambda)$  sia variabile all'interno della banda spettrale monocromatica,
+si calcola la sua variazione totale come
+\begin{gather*}
+    F(\lambda) \approx F(\lambda_0) + \left.\frac{dF(\lambda)}{d\lambda}\right|_{\lambda = \lambda_0} (\lambda - \lambda_0 )
+\end{gather*}
+Di conseguenza è possibile integrare da entrambe le parti per ottenere l'energia che giunge
+al telescopio da una certa distanza $D$
+\begin{align*}
+    E  &\approx A\frac{R_{\star}^{2} }{D^{2} }\Delta t \int_{0}^{\infty } \left(F(\lambda_0) + \left.\frac{dF(\lambda)}{d\lambda}\right|_{\lambda_0}(\lambda - \lambda_0)\right) \eta_\lambda \epsilon_\lambda \ d\lambda = \\
+    &= A \frac{R_{\star}^{2} }{D^{2} } \Delta t \left(F(\lambda_0)\int_{0}^{\infty }\eta_\lambda \epsilon_\lambda \ d\lambda + \left.\frac{dF(\lambda)}{d\lambda}\right|_{\lambda_0}\int_{0}^{\infty } (\lambda - \lambda_0)\eta_\lambda \epsilon_\lambda \ d\lambda\right) = \\
+    &= A \frac{R_\star^{2}}{D^{2}}\Delta t F(\lambda_0)\int_{0}^{+\infty } \eta_\lambda \epsilon_\lambda \ d\lambda  
+\end{align*}
+Il secondo integrale è nullo poiché il flusso di una variazione infinitesima è
+anch'esso infinitesimo. Dunque si può ottenere il valore di $\lambda_0$, anche chiamato \textbf{lunghezza d'onda efficace}, 
+come il valore medio di $\lambda$ pesato su $\eta_\lambda$ e $\epsilon_\lambda$. 
+\begin{gather*}
+    \lambda_0 = \frac{\int_{0}^{\infty }\lambda\eta_\lambda \epsilon_\lambda \ d\lambda}{\int_{0}^{\infty }\eta_\lambda \epsilon_\lambda \ d\lambda}
+\end{gather*}
+
+\section{Magnitudine assoluta}
+La \textbf{magnitudine assoluta} è una grandezza che descrive la vera luminosità di un oggetto
+celeste e non dipende dalla sua posizione rispetto all'osservatore. Per rendersi indipendenti 
+dalla posizione, si fa in modo di definire la magnitudine assoluta come la magnitudine apparente dell'oggetto
+come se fosse posto a $10$ parsec di distanza dall'osservatore. Dunque
+la magnitudine assoluta si ricava mediante la differenza tra 
+\begin{align}
+    m - M \approx -2.5\log \frac{F(r)}{F(10 \ pc)} = -2.5 \log\frac{E(r)}{E(10 \ pc)}=  -2.5 \log \left(\frac{10 \ pc}{r}\right)^{2}
+\end{align} 
+Dove $r$ è la distanza effettiva dell'oggetto dall'osservatore. Con questa formulazione è 
+dunque possibile sia ricavare la magnitudine assoluta che la distanza, se si
+ha una della due.  Svolgendo i conti e semplificando, la differenza prende il nome di \textbf{modulo di distanza}:
+\begin{align}
+    m - M = 5\log r - 5 
+\end{align}
+Dove $r$ è dato in parsec. 
+
+\section{Indice di colore}
+L'\textbf{indice di colore} fornisce informazioni sul colore della stella e dunque della sua
+temperatura e, in prima approssimazione, sembrerebbe che non dipenda dalla distanza (anche se si dimostrerà che
+non è così). Si ricava l'indice di 
+colore per una data stella facendo la differenza tra le magnitudini 
+corrispondenti a 2 filtri di colore diversi. Ad esempio, si utilizza la
+differenza tra la banda blu e quella verde:
+\begin{gather*}
+    B - V = m_B - m_V = -2.5 \log \frac{F_B}{F_V} + const
+\end{gather*}
+La costante dipende dal sistema fotometrico utilizzato (Infatti sistemi fotometrici 
+differenti potrebbero avere scale differenti):
+\begin{gather*}
+    m_B = m_{B_0} - 2.5 \log F_B + 2.5 \log F_{B_0} \\
+    m_V = m_{V_0} - 2.5 \log F_V + 2.5 \log F_{V_0}
+\end{gather*}
+La costante sarà allora
+\begin{gather*}
+    c = m_{B_0} - m_{V_0} + 2.5 \log \frac{F_{B_0}}{F_{V_0}}
+\end{gather*}
+Nel sistema JMK si ha che $m_{B_0} = m_{V_0} = 0$ e quindi i flussi 
+$F_{B_0}$ e $F_{V_0}$ sono dati tali per cui $B  - V = 0$ per
+la stella Vega: questa si chiama \textbf{convenzione di Vega}. La costante
+prende il nome di \textbf{zero point} che cambia in base al sistema fotometrico
+scelto: in questo modo se so quali sistemi utilizzo posso passare
+dalle magnitudini delle stelle ai flussi.  
+In questo modo si può correlare direttamente l'emissione di luce
+colorata con la temperatura: nel caso dell stella Vega, l'emissione tra il blu
+ed il verde è zero  allora $B - V$. In una stella blu
+$V > B$, allora la banda $B$ è più luminosa in quanto è proporzionale
+al logaritmo inverso: si ha prevalenza di flusso blu rispetto al flusso verde:
+\begin{align*}
+    B - V < 0 \ &\Longrightarrow \ \text{Stella blu} \\
+    B - V > 0 \ &\Longrightarrow \ \text{Stella giallo-verde}
+\end{align*}
+Come si vedrà poi in dettaglio nella sezione dedicata alle stelle, più una stella emette 
+in luce blu, e più è calda rispetto ad una stella che ha una emissione maggiore sulla banda verde.
+
+
+\chapter{Effetti dell'atmosfera}
+L'atmosfera terrestre presenta sia vantaggi che svantaggi per l'osservazione e lo
+studio della sfera celeste.  I problemi principali derivati dall'atmosfera per
+l'astronomia sono i seguenti:
+\begin{itemize}
+    \item Solo la finestra ottica e radio sono (quasi) completamente libere;
+    \item Seeing: è la misura della qualità della risoluzione angolare di un 
+    osservazione astronomica da Terra, limitata dalla \textbf{turbolenza atmosferica};
+    \item Airglow: effetto naturale e artificiale dovuto alla luce
+    \item Rifrazione: causa angoli zenitali grandi;
+    \item Estinzione;
+\end{itemize}
+Altri effetti dovuti all'atmosfera sono la presenza di nuvole e vento che ostacolano le osservazioni 
+mentre l'umidità ed il particolato atmosferico deteriorano i telescopi. 
+
+\section{Estinzione atmosferica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \begin{tikzpicture}[scale=1.2]
+        \draw[<->](0.5, 0) -- (0.5, 2) node[midway, left] {$H$};
+        \draw(1, 0) -- (4, 0);
+        \draw[red, ->](2, 0) -- (2, 2) node[at end, left] {$x$};
+        \draw[orange, ->](2, 0)-- (3, 2) node[at end, right] {$x'$};
+        \draw[->](3, 2) -- (2.75, 1.5) node[at end, right] {$I_{0\lambda}$}; 
+        \draw(2, 1) arc (90:65:1) node[midway, above] {$\theta$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+È possibile schematizzare l'atmosfera come se fossero una serie
+di piani paralleli tra loro con indici di rifrazione diversi. Nel caso in cui le distanze
+zenitali non siano troppo elevate, dunque $\theta < 60$°, si possono fare le seguenti considerazioni. 
+Una stella che è posta ad una distanza zenitale $\theta$ attraversa una quantità di 
+atmosfera pari a
+\begin{align}
+    x = \frac{H}{\cos\theta}
+\end{align}
+$H$ indica l'altezza totale dell'atmosfera allo zenith e $I_{0\lambda}$ l'intensità proveniente dal corpo 
+celeste osservato.   \\ \noindent
+Si può definire adesso $k_\lambda(x)$ come il \textbf{coefficiente di estinzione} atmosferica (che dipende dunque
+solo dalla quota e non dall'angolo). Secondo la legge di Lambert-Beer si può esprimere come 
+si attenua l'intensità luminosa in funzione del coefficiente di estinzione. 
+\begin{align}
+    dI_\lambda = I_\lambda k_\lambda(x) \ dx'
+\end{align}
+Se la direzione di una stella è come quella in figura, si può definire il cammino
+$dx'$ infinitesimo come
+\begin{gather*}
+    dx' = \frac{dx}{\cos \theta} = \sec \theta \ dx \ \Longrightarrow \ dI_\lambda = I_\lambda k_\lambda(x) \sec\theta \ dx 
+\end{gather*}
+Si integra ora per separazione delle variabili ottenendo 
+\begin{gather*}
+    \int_{I_{0\lambda}}^{I_\lambda} \frac{dI_\lambda '}{I_\lambda'} = \int_{H}^{0} k_\lambda(x) \sec\theta \ dx \ \Longrightarrow \ \left[\ln I_\lambda'\right]^{I_0}_{I_{0\lambda}}  = - \int_{0}^{H}k_\lambda (x) \sec \theta \ dx 
+\end{gather*}
+Ottenendo allora 
+\begin{gather*}
+    I_\lambda = I_{0\lambda}\exp\left(- \int_{0}^{H}k_\lambda (x) \sec \theta \ dx\right) = I_{0\lambda}\exp\left(-\sec\theta \int_{0}^{H} d\tau_\lambda \right)
+\end{gather*}
+Dove si è definito
+\begin{gather*}
+    d\tau_\lambda = k_\lambda(x) \ dx 
+\end{gather*}
+come lo \textbf{spessore ottico}. In termini di magnitudini si può relazionare il passaggio attraverso una
+atmosfera "più fitta" secondo le seguenti espressioni:
+\begin{gather*}
+    m_\lambda - m_{\lambda0} = -2.5\log \frac{I_\lambda}{I_{0\lambda}} = -2.5 \frac{-sec\theta \int_{0}^{H}d\tau_\lambda }{\ln 10}
+\end{gather*}
+Ottenendo dunque 
+\begin{align}
+    m_\lambda = m_{0\lambda} + \frac{2.5}{\ln 10} \sec\theta \int_{0}^{H}d\tau_\lambda 
+\end{align}
+Chiamato allora l'ultimo integrale come $\tau_{1\lambda}$, ossia la \textbf{massa d'aria}, si può definire
+\begin{gather*}
+    x_\lambda = 2.5 \log e \tau_{1\lambda} \approx 1.086 \tau_{1\lambda}
+\end{gather*}
+Dunque si ottiene 
+\begin{align}
+    m_\lambda = m_{0\lambda} + x_\lambda \sec \theta
+\end{align}
+Nel caso limite di $\theta = 60$° si ha che $\sec \theta = 2$. Per determinare il coefficiente di estinzione si 
+deve osservare il moto di una stella nel suo cammino in cielo per
+diverse masse d'aria si può ricavare la magnitudine $m_\lambda$ per diversi 
+valori della secante di $\theta$ per determinare la magnitudine reale che si 
+avrebbe senza atmosfera tramite un fit lineare quando $\theta \to 0$. 
+
+\section{Seeing}
+Si definisce \textbf{seeing} il parametro che quantifica la sfocatura dell'immagine
+dovuta all'atmosfera. Infatti l'atmosfera presenta le seguenti caratteristiche
+\begin{itemize}
+    \item L'atmosfera è composta da strati d'aria con temperature e densità diverse. 
+    \item Ogni strato ha un indice di rifrazione diverso
+\end{itemize}
+L'immagine di ogni stella appare come un disco tremolante e sfocato. Un seeing buono è tra 
+$0.5'' \sim 1.5''$, limitando la \textbf{risoluzione effettiva} dei telescopi a Terra, influenzando 
+la qualità delle immagini e la precisione fotometrica e astrometrica.
+Inoltre, l'atmosfera produce anche \textbf{diffrazione},
+ossia il fenomeno per il quale le onde si propagano dietro a degli ostacoli. In particolare 
+se un onda luminosa attraversa una fenditura circolare produce una figura di diffrazione 
+che assume la forma della \textbf{Figura di Airy}: ossia un disco centrale con tanti dischi intorno.
+La distanza tra il primo minimo ed il picco (dove $D$ è il diametro della fenditura):
+\begin{gather*}
+    \Delta \theta_D = 1.22 \frac{\lambda}{D}
+\end{gather*}
+Questo allargamento angolare è dovuto al fenomeno della diffrazione ed è difficilmente 
+eliminabile. Dato che l'allargamento è un
+fenomeno casuale, si potrebbe dire che abbia una distribuzione Gaussiana; posso 
+allora determinare (attraverso il principio di FWHM) che
+ $\Delta \theta_S$, ossia l'angolo di allargamento dovuto alla
+\textbf{rifrazione} dell'atmosfera, si metta in relazione con $\Delta \theta_D$:
+\begin{gather*}
+    \Delta \theta_S \geq \Delta \theta_D
+\end{gather*}
+In buoni siti, si ha che $\Delta \theta_S$ è dell'ordine di circa un arcosecondo. Per telescopi
+piccoli con aperture dell'ordine di $0.1 \ m$:
+\begin{gather*}
+    \Delta \theta_S = \Delta\theta_D = 1.22 \frac{\lambda}{D}
+\end{gather*}
+Si definisce il \textbf{parametro di Fried} che definisce, in funzione
+della lunghezza d'onda, l'apertura del telescopio al limite dell'angolo di diffrazione:
+\begin{align}
+    1.22 \frac{\lambda}{\Delta \theta_S} = r_0
+\end{align}
+Quindi $\Delta\theta_D$ mi indica il limite teorico al di sotto del quale
+non si riesce più a distinguere due sorgenti puntiformi. Generalmente, per telescopi con
+grande potere risolutivo, si può utilizzare solamente $\Delta \theta_S$ in quanto
+il $\Delta \theta_D$ sarà sempre molto minore.
+
+\section{Estinzione interstellare e intergalattica}
+Se tra la sorgente e l'osservatore non c'è il vuoto la radiazione viene diffusa
+o assorbita dal mezzo interstellare e da quello intergalattico (che ha un effetto minore). Sebbene
+molto rarefatto, le distanze stellari sono talmente tanto elevate che non è possibile ignorare il 
+suo contributo. Si può comparare il numero di particelle per centimetro cubo:
+\begin{align*}
+    &\text{Media Via Lattea}& \ &\Longrightarrow \ &1 \ \text{cm}^{-3} \\
+    &\text{Mezzo intergalattico}& \ &\Longrightarrow \ &10^{-3}  \ \text{cm}^{-3} \\
+    &\text{Aria al L.D.M.}& \ &\Longrightarrow \ &2.4\cdot 10^{23}\ \text{cm}^{-3}
+\end{align*}
+che vengono fuori dalla relazione
+\begin{gather*}
+    n = \frac{P}{kT} \qquad T = 300 \ K, P = 10^{5} \ Pa
+\end{gather*}
+Per una stella con luminosità $L_0$ ad una certa distanza $r$, la luminosità scenderà 
+ad un valore $L_\lambda$ e a distanza $r + dr$ ad un valore $L_\lambda - dL_\lambda$ a
+causa dell'assorbimento (isotropo). Si ha allora che
+\begin{gather*}
+    dL_\lambda = - \alpha_\lambda L_\lambda \ dr
+\end{gather*}
+Dove $\alpha_\lambda$ prende il nome di \textbf{opacità}. Si definisce
+\begin{gather*}
+    d\tau_\lambda = \alpha_\lambda \ dr
+\end{gather*}
+come \textbf{spessore ottico}. Dunque si esprime la variazione di luminosità della
+stella in funzione dello spessore ottico come 
+\begin{align}
+    dL_\lambda = -L_\lambda \ d \tau_\lambda
+\end{align}
+Integrando ora la luminosità dalla sorgente all'osservatore si avrà che
+\begin{align}
+    \int_{L_{0}}^{L_\lambda} \frac{dL_\lambda'}{L_\lambda'} = - \int_{0}^{\tau_\lambda} d \tau_\lambda ' \ \Longrightarrow \ L_\lambda = L_{0} e^{-\tau_\lambda}  
+\end{align}
+Il flusso della superficie della stella è dato da
+\begin{gather*}
+    F_{\lambda_0} = \frac{L_{\lambda_0}}{4\pi R_\star^{2}}
+\end{gather*}
+Mentre il flusso ad una profondità ottica 
+\begin{gather*}
+    f_\lambda = \frac{L_\lambda}{4\pi r^{2}} \ \Longrightarrow \ f_\lambda = F_0 \frac{R_\star^{2}}{r^{2}}e^{-\tau_\lambda}
+\end{gather*}
+Per determinare la magnitudine assoluta, si ricava il flusso a 10 pc senza estinzione interstellare:
+\begin{gather*}
+    f_\lambda (10 pc) = F_0 \frac{R_\star^{2}}{(10 pc)^{2}}
+\end{gather*}
+Si determina ora la magnitudine della stella 
+\begin{gather*}
+    m - M = -2.5 \log \frac{f_\lambda(r)}{f_\lambda(10 pc)} = -2.5\log\frac{F_0 \frac{R_\star^{2}}{r^{2}}e^{-\tau_\lambda}}{F_0 \frac{R_\star^{2}}{10^{2}}} = 5 \log \frac{r}{10 pc} + 2.5 \tau_\lambda \log e
+\end{gather*}
+Dunque, definendo $A_\lambda = 2.5 \tau_\lambda \log e$, come il valore dell'estinzione 
+del mezzo interstellare, si ottiene la seguente espressione
+per il modulo di distanza:
+\begin{align}
+    m - M = 5\log \frac{r}{10 pc } + A_\lambda
+\end{align} 
+Dove $m$ è la magnitudine apparente estinta e $M$ la magnitudine assoluta corretta per l'estinzione 
+interstellare.
+
+
+\section{Arrossamento interstellare}
+Come avviene nell'atmosfera terrestre, la luce blu viene diffusa di più della
+luce rossa, anche per le osservazioni nell'universo si assiste al fenomeno 
+dell'\textbf{arrossamento interstellare}. L'indice di colore 
+$B-V$ aumenta. La magnitudine $m_V$ di una stella risulta essere
+\begin{align*}
+    m_V &= M_V + 5\log \frac{r}{10 pc} + A_V \\
+    m_B &= M_B + 5 \log \frac{r}{10 pc} + A_B
+\end{align*} 
+Assumendo che $M_V$ e $M_B$ siano non estinte, si può determinare l'indice $B-V$ come
+\begin{gather*}
+    B - V = m_B - m_V = M_B - M_V + A_B - A_V 
+\end{gather*}
+Equivalentemente
+\begin{align}
+    B - V = (B - V)_0 + E_{B - V}
+\end{align}
+Dove $(B- V)_0= M_B - M_V$ e prende il nome di \textbf{indice di colore intrinseco}
+di una stella mentre $E_{B - V} = A_B - A_V$ viene chiamato \textbf{eccesso di colore}.
+Esiste una relazione che lega l'estinzione nella banda $V(A_V)$ e l'eccesso di colore $E_{B - V}$. Dunque 
+la magnitudine associata ha un valore all'incirca costante per tutte le stelle.  
+\begin{align}
+    R = \frac{A_V}{E_{B - V}} \approx 3.0
+\end{align}
+Grazie a tale relazione si ottiene il valore di $A_V$ da misure dell'eccesso di colore:
+\begin{align}
+    A_V \approx 3 E_{B - V}
+\end{align}
+
+\section{Ottica adattiva contro ottica attiva}
+L'ottica attiva: 
+\begin{itemize}
+    \item Corregge lentamente deformazioni statiche o a lungo termine dallo specchio primario
+    dovute a gravità, temperatura o flessioni meccaniche: lo specchio primario è mosso 
+    da degli attuatori che ne modificano la forma e sensori che misurano la forma dello specchio
+    correggendolo ogni minuti / ore. 
+    \item Mantiene lo specchio nella form ottimale.
+    \item Frequenza di correzione molto bassa. 
+    \item Alcuni telescopi di grande diametro come VLT e LBT e Keck. 
+\end{itemize}
+L'ottica adattiva: 
+\begin{itemize}
+    \item Corregge in tempo reale le distorsioni rapide introdotte dalla turbolenza 
+    atmosferica utilizzando un sensore di fronte d'onda che misura le distorsioni della luce stellare 
+    centinaia o migliaia di volte al secondo mentre uno specchio secondario cambia forma 
+    in tempo reale. 
+    \item Ripristina un fronte d'onda piatto per ottenere immagini quasi al limite di diffrazione. 
+    \item Frequenza di correzione altissima (centinaia di hertz). 
+    \item Sistemi AO, VLT, Subaru. 
+\end{itemize}
+
+
+
+\part{Le Stelle}
+\chapter{Radiazione e spettroscopia}
+\section{Meccanismi di radiazione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'atomo di Elio secondo Bohr}
+    \begin{tikzpicture}
+        \orbit(0, 0, 1);
+        \neutron(0.1, -0.1);
+        \neutron(-0.1, 0.1);
+        \proton(0.1, 0.1);
+        \proton(-0.1, -0.1);
+        \electron(1, 0);
+        \electron(-0.5, 0.845);
+        \draw[thick, ->](-1.5, 1.2) -- (-0.6, 0.84) node[at end, above] {$\gamma$};
+        \draw[thick, ->](1, 0.1) -- (1, 1) node[at end, right] {$\vv{v}$};
+    \end{tikzpicture}
+\end{wrapfigure}
+Senza scendere troppo nei dettagli, e ricordando quanto già fatto al corso di Chimica,
+la radiazione elettromagnetica è emessa o assorbita da atomi e molecole quando queste passano
+da un livello di energia all'altro. Gli elettroni, quando passano da un livello energetico 
+all'altro secondo la seguente relazione
+\begin{align}
+    E_f - E_i = \Delta E = h\Delta\nu 
+\end{align}
+Dove $h = 6.626 \cdot 10^{-34} Js$ e prende il nome di \textbf{costante di Planck}. I livelli 
+energetici concessi per gli elettroni non sono continui ma \textbf{quantizzati}: questo 
+vuol dire che agli elettroni, in un atomo, sono consentiti solamente determinati livelli energetici.  
+Se si bombardasse un atomo con dei fotoni con una certa energia, accadrebbe che 
+gli elettroni dello \textbf{stato fondamentale} possano saltare ad un livello energetico superiore 
+che prende il nome di \textbf{stato eccitato}. Se
+l'energia del fotone $\gamma$ è molto maggiore dell'energia $\Delta E$ necessaria per
+poter far saltare l'elettrone allo stato eccitato, allora l'elettrone viene strappato 
+all'atomo e quest'ultimo prende il nome di \textbf{ionizzato}.
+A meno che non ci sia un flusso di fotoni che tenga stabile gli elettroni
+allo stato eccitato, dopo un tempo $\delta \tau \approx 10^{-8} \ s$, gli elettroni decadono
+rilasciando indietro lo stesso pacchetto di energia $\gamma$ che li ha
+investiti, tornando dunque allo stato fondamentale. \\ \noindent
+Secondo il modello di Bohr, gli elettroni negli atomi orbitano il nucleo secondo orbite
+circolari a determinate distanze $r$. Il primo postulato di Bohr asserisce che il momento angolare
+dell'elettrone è un multiplo di $\hbar$:
+\begin{align}
+    m_e v r = n\hbar
+\end{align}
+Dove $m_e$ è la massa dell'elettrone, $v$ la sua velocità orbitale, $r$ il suo 
+raggio orbitale e $\hbar = \frac{h}{2\pi}$. L'interpretazione del primo postulato di Bohr
+discende dalla natura ondulatoria dell'elettrone: dato che esso è un onda, esso è 
+rappresentato come un onda stazionaria, dunque la lunghezza della sua orbita deve essere un multiplo 
+della lunghezza di de Broglie
+\begin{gather*}
+    \lambda = \frac{\hbar}{q_e} = \frac{\hbar}{mv}
+\end{gather*}
+Dove $q_e = m_e v$. Tuttavia, secondo le leggi dell'elettrodinamica, una particella carica in orbita circolare
+dovrebbe emettere radiazione elettromagnetica, perdendo dunque energia e dunque facendo decadere
+la sua orbita. Dunque è necessario introdurre il secondo postulato di Bohr per poter spiegare come gli elettroni riescano 
+ad orbitare l'atomo di idrogeno senza "cadere" nel nucleo. Il secondo postulato di Bohr afferma che 
+un elettrone non emette alcuna radiazione elettromagnetica se si muove lungo un orbita permessa, l'emissione 
+avviene dunque solamente quando vi è un salto energetico. L'energia da fornire per far saltare un elettrone 
+ad un livello più alto (o quella emessa se scende ad un livello più basso) è data dalla seguente relazione
+\begin{gather*}
+    h\nu = E_{n_2} - E_{n_1}
+\end{gather*} 
+Secondo la legge di Coulomb, la forza di attrazione esercitata dal protone
+sull'elettrone è la seguente
+\begin{gather*}
+    F = \frac{1}{4\pi\epsilon_0} \frac{e^{2}}{r_n^{2}}
+\end{gather*}
+Dove
+\begin{itemize}
+    \item $\epsilon_0 = 8.82 \cdot 10^{-12} C^{2}N^{-1}m^{-2}$: permeabilità del vuoto
+    \item $e = 1.6 \cdot 10^{-19} C$: carica dell'elettrone
+    \item $r_n$: distanza dell'elettrone dal nucleo.  
+\end{itemize}
+L'accelerazione della particella che si muove lungo l'orbita circolare è dunque
+\begin{gather*}
+    a = \frac{v_n^{2}}{r_n}
+\end{gather*}
+applicando la seconda legge di Newton si ottiene che
+\begin{gather*}
+    m_e \frac{v_n^{2}}{r_n^{2}} = \frac{1}{4\pi\epsilon_0} \frac{e^{2}}{r_n^{2}}
+\end{gather*}
+Si ottiene allora 
+\begin{gather*}
+    v_n = \frac{e^{2}}{4\pi\epsilon_0 \hbar n} \qquad r_n = n^2 \frac{4\pi\epsilon_0\hbar^{2}}{me^{2}}
+\end{gather*}
+L'energia totale di un elettrone che si trovi nell'orbita $n$ è data dalla somma della 
+sua energia cinetica $T$ e potenziale $V$ e risulta dunque pari a 
+\begin{gather*}
+    E_n = T + V = \frac{1}{2}m_ev_n^{2}- \frac{e^{2}}{4\pi\epsilon_0r_n} = -\frac{me^{4}}{32\pi^{2}\epsilon_0^{2}\hbar^{2}n^{2}} = -k\frac{1}{n^{2}}
+\end{gather*}
+Dunque si esprime, con $k$ una costante, la variazione di energia per un certo livello energetico
+\begin{gather*}
+    h\nu = \Delta E = k\left(\frac{1}{n_1^{2}} - \frac{1}{n_2^{2}}\right)
+\end{gather*} 
+In termini della lunghezza d'onda
+\begin{gather*}
+    \frac{1}{\lambda} = \frac{\nu}{c} = \frac{k}{hc} \left(\frac{1}{n_1^{2}} - \frac{1}{n_2^{2}}\right)
+\end{gather*}
+$\frac{k}{hc}$ prende il nome di \textbf{costante di Rydberg} e si indica con $R = 1.097 \cdot 10^{7} m^{-1}$, facendo diventare
+così
+\begin{align}
+    h\nu = R\left(\frac{1}{n_1^{2}} - \frac{1}{n_2^{2}}\right)
+\end{align} 
+
+\section{Leggi di Kirchhoff}
+Kirchhoff formulò tre leggi che descrivono come si formano i diversi tipi di spettri in base
+alle condizioni fisiche della sorgente e del mezzo attraversato dalla radiazione. 
+\begin{enumerate}
+    \item \textbf{Legge dello spettro continuo}: Un corpo caldo e denso emette uno spettro continuo: tutte le lunghezze
+    d'onda sono presenti senza interruzioni;
+    \item \textbf{Legge dello spettro a righe di emissione}: un gas caldo rarefatto emette
+    radiazione solo a lunghezze d'onda caratteristiche degli elementi presenti. Questo 
+    prende il nome di spettro a righe brillanti. Ogni elemento ha dunque uno spettro di emissione 
+    unico. 
+    \item \textbf{Legge dello spettro a righe di assorbimento}: se la radiazione di uno spettro continuo attraversa 
+    un gas più freddo e rarefatto, questo assorbe fotoni a lunghezze d'onda specifiche, generando 
+    dunque uno spettro continuo con righe scure. Le righe di assorbimento coincidono con quelle di emissione 
+    dello stesso elemento. 
+\end{enumerate}
+
+\clearpage
+\section{Allargamenti di riga}
+Lo spettro di assorbimento è suscettibile a tre tipologie
+di allargamento (ossia quando il gas non è perfetto le bande
+di assorbimento e di emissione sono allargate):
+\begin{itemize}
+    \item \textbf{Allargamento naturale}
+    \item \textbf{Allargamento collisionale}
+    \item \textbf{Allargamento termico (o Doppler termico)}
+\end{itemize}
+
+\subsection{Allargamento naturale}
+L'allargamento di riga naturale è dovuto alla meccanica quantistica e al principio di indeterminazione 
+di Heisenberg. La durata finita dello stato eccitato introduce un'incertezza in energia, 
+dunque quando un'elettrone eccitato decade verso uno stato fondamentale emette una radiazione 
+con un profilo allargato (l'onda che viene emessa non è certa). 
+
+\subsection{Allargamento collisionale}
+È una tipologia di allargamento dovuta all'eccitazione delle molecole di un gas
+non rarefatto: più è alta la sua temperatura e la sua pressione e maggiormente le
+bande di assorbimento e di emissione risultano allargate a causa degli urti delle particelle. 
+Gli urti, infatti, perturbano i livelli energetici ed è dunque tipico in atmosfere stellari 
+dense, poiché i gas ad alte temperature aumentano la probabilità di collisione
+delle loro particelle.
+
+\subsection{Allargamento termico (o Doppler termico)}
+L'origine dell'allargamento Doppler è il moto termico casuale causato dalle particelle. Gli atomi che
+si muovono verso l'osservatore risulteranno avere una frequenza maggiore (spostamento verso il blu), 
+mentre quelli che si avvicinano risulteranno avere una frequenza minore (spostamento verso il rosso)
+L'effetto redshift si quantifica come
+\begin{gather*}
+    z = \frac{\lambda_{o} - \lambda_{em}}{\lambda_{em}}
+\end{gather*}
+
+\section{Spettro continuo}
+Gli spettri di emissione continua si originano per effetto delle ricombinazioni 
+e delle transizioni free-free. Nelle ricombinazioni gli atomi catturano gli elettroni liberi, 
+le cui energie non sono quantizzate, e dunque le righe di emissione che si originano 
+da queste transizioni possono avere qualsiasi lunghezza d'onda, il risultato è che si 
+origina uno spettro continuo. Altrimenti si possono anche formare per gas otticamente spessi
+o ad alta pressione, poiché all'aumentare della pressione gli atomi si avvicinano 
+da loro e disturbano l'uno i livelli energetici dell'altro. Se la pressione è troppo alta,
+le righe si sovrappongono e dunque c'è emissione di spettro continuo. Anche i solidi e liquidi
+gli atomi sono ancora più vicini tra di loro rispetto ai gas e si perturbano a vicenda. 
+
+\subsection{Corpo nero}
+Un \textbf{corpo nero} è un oggetto che non riflette o diffonde la luce che vi incide, ma
+la assorbe e la riemette completamente. Un corpo nero è, dunque, una sorta di radiatore perfetto
+anche se, nella realtà, un radiatore perfetto non esiste, alcuni corpi hanno uno spettro di 
+emissione assimilabile a quello di un corpo nero, come il Sole, le Stelle...  \\ \noindent
+La radiazione dipende solamente dalla temperatura $T$ e non dal materiale di cui 
+è costituito, né dalla sua forma. La distribuzione della sua radiazione segue la \textbf{legge di Planck}:
+\begin{align}
+    B_\nu(T) = \frac{2h\nu^{3}}{c^{2}\exp\left(\frac{h\nu}{kT}\right) - 1} \ \text{Wm}^{-2}\text{sr}^{-1}\text{Hz}^{-1}
+\end{align}
+Chiamato anche radiazione termica che ha la caratteristica di essere un'emissione isotropa. La funzione di Planck
+si può esprimere anche in funzione di $\lambda$ 
+\begin{gather*}
+    -B_\nu d\lambda = B_\nu d\nu \ \Longrightarrow \ B_\lambda = -B_\nu \frac{d\nu}{d\lambda} = B_\nu \frac{c}{\lambda^{2}}
+\end{gather*}
+Dunque si ottiene la funzione di Planck come 
+\begin{align}
+    B_\lambda(T) = \frac{2hc^{2}}{\lambda^{5} \exp\left(\frac{hc}{k\lambda T}\right) - 1} \ \text{Wm}^{-2}\text{sr}^{-1}\mu\text{m}^{-1}
+\end{align}
+Si ottiene l'intensità totale della radiazione emessa da un corpo nero integrando su tutto il dominio delle
+frequenze o delle lunghezza d'onda secondo la seguente:
+\begin{align}
+    B(T) = \int_{0}^{\infty } B_\nu(T) \ d\nu = \int_{0}^{\infty }B_\lambda (T) \ d\lambda 
+\end{align}
+Risolvendo il primo integrale
+\begin{gather*}
+    \int_{0}^{\infty }B_\nu(T) \ d\nu = \frac{2h}{c}\int_{0}^{\infty }\frac{\nu^{3}}{\exp\left(\frac{h\nu}{kT}\right) - 1} d\nu \quad x = \frac{h\nu}{kT} \ \Longrightarrow \ B(T) = \frac{2hk^{4}T^{4}}{c^{2}h^{4}} \int_{0}^{\infty } \frac{x^{3}}{e^{x} - 1} \ dx  = \frac{2k^{4}}{c^{2}h^{3}} \frac{\pi^{4}}{15}T^{4}
+\end{gather*}
+Dunque, chiamando 
+\begin{gather*}
+    A = \frac{2k^{4}\pi}{15c^{2}h^{3}}
+\end{gather*}
+Si ottiene 
+\begin{align}
+    B(T) = AT^{4}
+\end{align}
+Poiché la radiazione di emissione di un corpo nero è isotropa, allora si può esprimere la densità di flusso $F$ come
+\begin{align}
+    F = \pi B = \sigma T^{4}
+\end{align}
+che prende il nome di \textbf{legge di Stefan-Boltzmann}, dove
+$\sigma = \pi A$, che prende il nome di \textbf{costante di Stefan-Boltzmann}.
+\begin{figure}[h]
+    \centering
+    \caption{Distribuzioni di intensità di corpi neri aventi temperature di 12000K, 9000K e 6000K,
+    le lunghezze d'onda si ottengono con la relazione di Wien, dato che le temperature sono in relazione
+    tra loro come 4:3:2, le lunghezze d'onda sono in relazione 1:4, 1:3, 1:2 e le intensità sono 
+    proporzionali a $4^{4}$, $3^{4}$, $2^{4}$.}
+   \includesvg[width=1\textwidth]{temperatura.svg}
+\end{figure}
+Da questa si trova la relazione tra luminosità di una stella e la sua temperatura superficiale
+a partire dalla luminosità della stella espressa come il flusso:
+\begin{align}
+    L = 4\pi R_\star^{2}F = 4\pi R_\star^{2}\sigma T^{4}
+\end{align}
+La temperatura che si ottiene da questa relazione prende il nome di
+\textbf{temperatura efficace}. La luminosità è legata alla magnitudine bolometrica
+secondo la seguente relazione
+\begin{gather*}
+    M_{\text{bol}} - M_{\text{bol}, \odot} = - 2.5 \log \frac{L}{L_\odot} 
+\end{gather*}
+Dunque, secondo la relazione sulla luminosità
+\begin{align}
+    M_{\text{bol}} - M_{\text{bol}, \odot} = -5\log\frac{R}{R_\odot} - 10 \log \frac{T}{T_\odot}
+\end{align}
+La lunghezza d'onda del massimo si può trovare uguagliando a zero la derivata di
+$B_\lambda(T)$ rispetto a $\lambda$. Il risultato 
+\begin{align}
+    \lambda_{\text{max}} T = b
+\end{align}
+è nota come \textbf{Legge dello spostamento di Wien}, mentre $b$ prende il nome di
+\textbf{costante dello spostamento di Wien} e ha come valore $b = 0.28978 \cdot 10^{-2}$Km.
+La funzione di Planck può essere approssimata in due casi. Se $\lambda \approx \lambda_{\text{max}}$,
+ossia quando
+\begin{gather*}
+    \frac{hc}{\lambda k T} >> 1 \ \Longrightarrow \ \exp\left(\frac{hc}{\lambda k T}\right) >> 1
+\end{gather*}
+e la planckiana può essere scritta in quella che viene anche chiamata \textbf{approssimazione di Wien}:
+\begin{align}
+    B_\lambda(T) \approx \frac{2hc^{2}}{\lambda^{5}} \exp\left(-\frac{hc}{k\lambda T}\right)
+\end{align}
+
+
+(TODO) (rifare il grafico)
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \includegraphics[width=0.35\textwidth]{PlanckWienRayleigh.png}
+\end{wrapfigure}
+\noindent Se invece si avesse $\lambda >> \lambda_{\text{max}}$, allora si avrebbe che 
+\begin{gather*}
+    \frac{hc}{\lambda k T} << 1 \ \Longrightarrow \ \exp\left(\frac{hc}{\lambda k T}\right) \approx 1 + \frac{hc}{\lambda k T}
+\end{gather*}
+e la planckiana può essere scritta nella forma definita come \textbf{approssimazione di Rayleigh-Jeans}:
+\begin{align}
+    B_\lambda(T) \approx \frac{2c^{2}kT}{\lambda^{4}}
+\end{align}
+L'approssimazione di Rayleigh, tuttavia, è l'unica prevista dalla fisica classica. Il problema di 
+questa approssimazione è che, quando $\lambda$ tende a zero, la radiazione luminosa 
+emessa aumenterebbe senza alcun limite. Talea accadimento non trovava alcun riscontro nelle osservazioni 
+ed era noto come \textbf{catastrofe ultravioletta}. L'approssimazione di Wien, invece, 
+risulta conforme coi dati sperimentali. 
+
+
+\section{Temperature}
+La temperatura in astrofisica variano da 0K alle decine di milioni di gradi. Si possono definire differenti temperature
+a seconda del processo di definizione: relazioni diverse producono temperature con definizioni diverse. La temperatura
+di una stella, per esempio, è ottenibile attraverso una relazione con un corpo nero ma, anche se le
+stelle non sono veri e propri corpi neri, il loro spettro è approssimabile a quello di un corpo nero una volta
+che le linee spettrali sono eliminate. In condizioni di \textbf{equilibrio termodinamico} tutte le temperature
+hanno lo stesso valore. 
+
+\subsection{Temperatura efficace $T_{\text{e}}$}
+La \textbf{temperatura efficace} è la temperatura corrispondente, per definizione,
+alla temperatura del corpo nero che irradia una quantità di energia uguale a quella della stella considerata.
+Per trovare il valore di $T_{e}$, sarà dunque necessario utilizzare la legge di Stefan-Boltzmann. Se la densità di flusso
+alla superficie della stella sarà pari ad $F$ dalla legge di Stefan-Boltzmann
+\begin{align}
+    T_e = \sqrt[4]{\frac{F}{\sigma}} 
+\end{align}
+Se il raggio della stella è $R_\star$ allora 
+\begin{gather*}
+    B(T_e) \approx B_\star(T)
+\end{gather*}
+Dunque, se la luminosità della stella è $L = 4\pi R_\star^{2}$ e la densità di flusso $F'$ ad 
+una distanza $r$ sarà 
+\begin{gather*}
+    F' = \frac{L}{4\pi r^{2}} = \left(\frac{\alpha}{2}\right)^{2}\sigma T_e^{4} 
+\end{gather*}
+Dunque per misurare $T_e$ si devono conoscere le dimensioni della stella ed il flusso 
+emesso da essa. 
+
+\subsection{Temperatura di brillanza $T_b$}
+Se si assume che ad una determinata lunghezza d'onda $\lambda$ la densità di flusso sulla superficie 
+della stella $F_\lambda$ si possa ottenere dalla legge di Planck, si può derivare la \textbf{temperatura di brillanza}
+$T_b$. Nel caso di emissione isotropa $F_\lambda = \pi B_\lambda(T_b)$. Se la stella ha raggio
+$R_\star$ e distanza pari a $r$, allora si osserverà una densità di flusso pari a
+\begin{align}
+    F_\lambda' = \frac{R_\star^{2}}{r^{2}}F_\lambda
+\end{align}
+Anche in questo caso si deve conoscere la dimensione angolare della stella $\alpha$. Si ottiene dunque
+la temperatura di brillanza prima attraverso la luminosità della stella
+\begin{gather*}
+    B_\lambda = \frac{2ck}{\lambda^{4}}T_b
+\end{gather*}
+Dunque
+\begin{align}
+    T_b = \left(\frac{2}{\alpha}\right)^{2} \frac{F_\lambda' \lambda^{4}}{2\pi ck}  
+\end{align}
+
+\subsection{Temperatura di colore $T_c$}
+La \textbf{temperatura di colore} $T_c$ è legata alla temperatura di picco del corpo 
+nero, dunque non serve conoscere le dimensioni della stella. Si misura dunque lo spettro a due 
+lunghezze d'onda diverse o in due bande diverse. Assumendo ora che la distribuzione di intensità 
+segue la legge di Planck, si uguaglia il rapporto tra le due densità di flusso al rapporto
+delle corrispondenti relazioni di Planck:
+\begin{gather*}
+    \frac{F_{\lambda_1}'(T)}{F_{\lambda_2}'(T)} = \frac{B_{\lambda_1}(T)}{B_{\lambda_2}(T)} = \frac{\lambda_2^{5}}{\lambda_1^{5}} \frac{\exp\left(\frac{hc}{\lambda_2 kT}\right) - 1}{\exp\left(\frac{hc}{\lambda_1 kT}\right) - 1}
+\end{gather*}
+Il valore della temperatura, ossia la temperatura di colore, definisce la temperatura del colore 
+nell'intervallo $\lambda_1$ e $\lambda_2$ considerato. In magnitudini
+\begin{gather*}
+    m_{\lambda_1} - m_{\lambda_2} = -2.5 \log \frac{F_{\lambda_1}'}{F_{\lambda_2}} + c = -2.5\log \frac{B_{\lambda_1}}{B_{\lambda_2}} + c
+\end{gather*}
+Se la temperatura non è troppo alta, si può utilizzare l'approssimazione di Wien:
+\begin{gather*}
+    m_{\lambda_1} - m_{\lambda_2} = -2.5 \log \left(\frac{\lambda_2}{\lambda_1}\right)^{5} + 2.5 \frac{hc}{kT_c}\left(\frac{1}{\lambda_1} - \frac{1}{\lambda_2}\right) \log e + c 
+\end{gather*}
+Dunque
+\begin{align}
+    m_{\lambda_1} - m_{\lambda_2} = a + \frac{b}{T_c}
+\end{align}
+Si evince che l'indice di colore è $\propto \frac{1}{T_c}$. 
+
+\subsection{Temperatura cinetica $T_k$}
+La \textbf{temperatura cinetica} $T_k$ è legata all'energia cinetica delle molecole
+di nel gas. In particolare, nel caso di un gas ideale, la teoria cinetica dei gas consente di derivare una relazione
+semplice tra l'energia cinetica del gas e la sua temperatura
+\begin{gather*}
+    E_k = \frac{1}{2}m\overline{v}^{2} = \frac{3}{2}kT_k
+\end{gather*}
+La relazione assume dunque che le particelle abbiano tutte massa $m$ e che
+la velocità media sia $\overline{v}$, mentre $k$ è la costante di Boltzmann. Dunque
+\begin{align}
+    T_k = \frac{mv^{2}}{3k}
+\end{align} 
+
+\subsection{Temperatura di eccitazione $T_{\text{exc}}$}
+La \textbf{temperatura di eccitazione} $T_{\text{exc}}$ è la temperatura ricavata 
+dalla distribuzione di Boltzmann. 
+\begin{align}
+    \frac{n_i}{n_0} = \frac{g_i}{g_0} \exp\left(-\frac{\Delta E}{kT_\text{exc}}\right)
+\end{align}
+Se la distribuzione degli atomi nei diversi livelli sia dovuta esclusivamente alle
+loro collisioni, allora la temperatura di eccitazione uguaglia quella cinetica.
+
+\subsection{Temperatura di ionizzazione $T_i$}
+La \textbf{temperatura di ionizzazione} $T_i$ si ottiene confrontando il numero di atomi
+nei diversi stati di ionizzazione. Poiché le stelle non si comportano come veri corpi neri, i valori che
+si ottengono per le temperature di eccitazione e di ionizzazione dipendono dalle righe spettrali
+degli che vengono utilizzate. 
+
+
+\chapter{Stelle}
+\section{La classificazione stellare}
+Una \textbf{stella} è un oggetto celeste costituito da gas e plasma nel quale si è raggiunto l'equilibrio tra la forza
+gravitazionale e la pressione interna dovuta alle reazioni termonucleari. 
+A seconda dell'emissione spettrale di una stella, è possibile classificare
+le stelle in \textbf{classi spettrali}, le quali dipendono dal colore apparente
+(appunto lo spettro di emissione). La seguente classificazione prende il nome
+di \textbf{classificazione Harvard}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{classificazione-spettrale.png}
+\end{figure}
+
+
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \centering
+    \includesvg[width=0.45\textwidth]{H-R_diagram.svg}
+\end{wrapfigure}
+\noindent 
+Oltre alle classi O-M, esistono anche altre due classi oltre la M, ossia le classi L e T, alle quali 
+appartengono le \textbf{nane brune}, che sono delle stelle deboli di bassa temperatura superficiale 
+e con un colore rosso. Inoltre esistono anche le classi C e S, le quali sono stelle con temperature simili a quelle 
+G-K-M ma con composizione chimica differente. \\
+\noindent Oltre alla classificazione Harvard esiste anche un'altra classificazione per le stelle, 
+la quale è nata per integrare il sistema Harvard aggiungendo come informazione
+la \textbf{luminosità intrinseca}. Rispetto al sistema Harvard si aggiungono due dettagli fondamentali
+\begin{itemize}
+    \item \textbf{Tipo spettrale}: oltre alla classificazione da O a M, sono state
+    introdotte delle sottoclassi numeriche che indicano la temperatura superficiale;
+    \item \textbf{Classe di luminosità}: espressa in numeri romani, indica la gravità superficiale e dunque
+    la fase evolutiva. Essa va da $\mathbf{I}_a$ (supergiganti brillanti), $\mathbf{I}_b$ (supergiganti), fino a $\mathbf{V}$,  ossia le stelle nane. 
+\end{itemize}
+
+\clearpage
+\section{Popolazioni stellari}
+Le stelle sono classificate in gruppi, chiamate \textbf{popolazioni}, basate principalmente sulla composizione chimica 
+(metallicità) e sull'età. Inizialmente introdotta da Walter Bade negli anni 40, le classi principali sono ora
+\begin{itemize}
+    \item \textbf{Popolazione I}
+    \begin{itemize}
+        \item \textbf{Metallicità}: alta ($Z \geq 0.01$), ricche di elementi più pesanti dell'elio.
+        \item \textbf{Età}: giovani (milioni di anni a pochi miliardi di anni).
+        \item \textbf{Localizzazione}: dischi galattici, bracci a spirale e ammassi aperti.
+        \item \textbf{Esempi}: Sole, stelle O e B nei bracci a spirale.
+        \item \textbf{Origine}: formate da has arricchito da generazioni precedenti di stelle
+    \end{itemize}
+    \item \textbf{Popolazione II}
+    \begin{itemize}
+        \item \textbf{Metallicità}: bassa ($Z \leq 0.001$), povere di metalli (poiché si sono formate agli albori dell'universo)
+        \item \textbf{Età}: molto antiche (diversi miliardi di anni)
+        \item \textbf{Localizzazione}: alone galattico, ammassi globulari e bulge centrale.
+        \item \textbf{Esempi}: giganti rosse negli ammassi globulari, cefeidi a corto periodo.
+        \item \textbf{Origine}: nate quando l'universo era molto giovane.
+    \end{itemize}
+    \item \textbf{Popolazione III}: sono l'ultimo tipo di popolazione (aggiunta dopo le altre due) e per questo
+    sono solo una popolazione teorica: sono state teorizzate poiché non si spiegava la metallicità delle stelle 
+    di popolazione II. 
+    \begin{itemize}
+        \item \textbf{Metallicità}: nulla ($Z \approx 0$).
+        \item \textbf{Età}: prime stelle dopo il Big Bang
+        \item \textbf{Caratteristiche}: masse molto elevate, vita breve, responsabili della prima nucleosintesi di elementi pesanti
+    \end{itemize}
+\end{itemize}
+
+
+\section{Diagramma HR}
+\begin{wrapfigure}{r}{0.54\textwidth}
+    \centering
+    \includegraphics[width=0.54\textwidth]{HRDiagram.png}
+\end{wrapfigure}
+Il \textbf{diagramma Hertzsprung-Russell}, anche chiamato \textbf{diagramma HR}, è un diagramma che mette in relazione
+la magnitudine assoluta delle stelle ed i tipi spettrali delle stelle. Le stelle nel diagramma non sono distribuite in modo uniforme
+ma si trovano concentrate in due gruppi distinti:
+\begin{itemize}
+    \item \textbf{Main sequence}
+    \item \textbf{Giants}
+\end{itemize} 
+Il ramo delle giganti si dispone in diversi gruppi: 
+il ramo orizzontale, il ramo delle giganti rosse ed il ramo asintotico. Il 
+ramo orizzontale è caratterizzato da stelle giganti con magnitudine 
+assoluta vicino allo zero. Il ramo delle giganti rosse parte tra le stelle di 
+tipo K e M, mentre il ramo asintotico parte dal ramo orizzontale per raggiungere la sommità 
+del ramo delle giganti rosse. Le stelle giganti del ramo orizzontale sono circa
+100 volte più luminose del Sole e, dal momento che le stelle nane e giganti dello stesso tipo
+spettrale sono caratterizzate dalla stessa temperatura superficiale, la differenza di 
+luminosità si ha nel raggio. Le stelle più luminose sono le \textbf{supergiganti}, alle quali 
+appartiene \textbf{Betelgeuse},una stella nella costellazione di Orione che è 20000 volte più luminosa 
+del Sole e avente 400 volte il raggio della nostra stella. Le nane bianche, invece, sono delle stelle 
+molto deboli ma molto numerosi. \\ \noindent
+Il diagramma HR è stato notevolmente ampliato grazie al lavoro del satellite Gaia,
+il quale, tra il 2014 e il 2025, ha compiuto oltre 3 trilioni di osservazioni, creando uno dei cataloghi stellari
+più forniti di tutti i tempi (con 580 milioni di oggetti). 
+
+\section{Come le stelle si mantengono in vita e sprigionano energia: la catena protone-protone}
+Le stelle mantengono continuamente un equilibrio tra forza di gravità e la pressione
+sprigionata dal nucleo della stella. La pressione che permette alle stelle di non collassare
+su sé stesse è data dalla \textbf{fusione nucleare}: ossia il processo nel quale
+due atomi di idrogeno collidono tra loro. Il processo di fusione nucleare nelle stelle 
+di sequenza principale prende il nome di \textbf{catena protone-protone}, che è costituita
+dai seguenti passaggi:
+\begin{align*}
+    &(1)  &\ce{^{1}H} + \ce{^{1}H} &\to \ce{^{2}H} + \ce{e+} + \nu_e \\
+    &  &\ce{^{1}H} + \ce{^{1}H} + \ce{e-} &\to \ce{^{2}H} + \nu_e \\
+    &(2)  &\ce{^{2}H} + \ce{^{1}H} &\to \ce{^{3}He} + \gamma \\
+    &(3)  &\ce{^{3}He} + \ce{^{3}He} &\to \ce{^{4}H} + 2\ce{^{1}H}
+\end{align*}
+Per ciascuna delle reazioni (3), le reazioni (1) e (2) devono compiersi due volte. 
+La reazione (1) ha una probabilità molto bassa, il suo risultato è che il neutrino 
+scappa velocemente dalla stella, mentre il positrone ($\ce{e+}$), incontra un elettrone e si 
+annichiliscono formando due raggi gamma. La reazione sotto la (1) (che è molto simile), 
+è invece più probabile e porta alla reazione (2), la quale è molto veloce. L'ultimo passo della catena
+si può svolgere in tre modi, ma quello più probabile è quello riportato ed è anche
+responsabile del 91\% dell'energia prodotta da una stella della sequenza principale.  
+
+\section{Cenni di evoluzione stellare: i tempi scala}
+Le stelle non sono degli oggetti fissi ed eterni nella vastità del cosmo. Esse sono infatti soggette ad una evoluzione continua 
+al loro interno che prende il nome di \textbf{evoluzione stellare}. A seconda della massa della stella, la vita di essa può essere più 
+o meno lunga: stelle che bruciano idrogeno molto velocemente emettendo grandi quantità di energia tendono a vivere molto meno 
+di stelle che emettono poca radiazione. Esistono tre principali tempi scala evolutivi nelle stelle. 
+\begin{itemize}
+    \item \textbf{Tempo scala nucleare} ($t_n$);
+    \item \textbf{Tempo scala termico} ($t_t$);
+    \item \textbf{Tempo scala dinamico (o freefall)} ($t_d$).
+\end{itemize}
+Poiché si è già detto come le stelle della sequenza principale (ossia stelle simili al 
+nostro Sole) producano grandi quantitativi di energia, tuttavia è possibile classificare le 
+energie prodotte dalle stelle secondo tre categorie principali
+\begin{itemize}
+    \item \textbf{Energia gravitazionale (e termica)}: 
+    \begin{gather*}
+        E_{gra} \approxeq E_{term} \approxeq \frac{1}{2}\frac{GM_\star^{2}}{R_\star} \approxeq 1.9 \cdot 10^{41} \ J
+    \end{gather*}
+    \item \textbf{Energia chimica}: nell'ottocento si pensava che il Sole fosso composto per metà
+    di carbonio e ossigeno, dunque si può calcolare l'energia chimica associata come 
+    \begin{gather*}
+        E_{chi} = \frac{M_\star}{28m_H} E_{CO} = \approxeq 6.4 \cdot 10^{37} \ J
+    \end{gather*}
+    Dove $E_{CO} = 10 \ eV$, con $eV = 1.6 \cdot 10^{-19} \ J$ e $m_H = 1.67 \cdot 10^{-27}$ kg.
+\end{itemize}
+Dato che il Sole è in vita da $t_\circledcirc \approxeq 4.5 \cdot 10^{9}$ anni, se si assume che abbia sempre 
+avuto una luminosità costante e pari a  $L_\circledcirc = 3.8 \cdot 10^{26}$ W, si ricava che 
+il sole abbia speso un energia pari a 
+\begin{gather*}
+    E_{TOT} = L_\circledcirc \cdot t_\circledcirc \approxeq 5.5 \cdot 10^{43} \ J
+\end{gather*}
+Si vanno ora ad analizzare i tempi scala dell'evoluzione stellare. \\ \noindent
+\subsection{Tempo scala nucleare}
+Il \textbf{tempo scala nucleare} è il tempo che occorre alla stella per emettere tutta l'energia che
+è stata prodotta per mezzo delle reazioni nucleari. Il suo valore si può stimare calcolando il tempo che impiega 
+la stella a trasformare tutto l'Idrogeno in Elio. Dal momento che solamente $\alpha = 0.79 \%$ della frazione di massa 
+a riposo dell'idrogeno viene convertita in energia e che venga consumato almeno il 10 \% dell'idrogeno disponibile prima 
+che si inneschino altre reazioni nucleari all'interno della stella. Dunque 
+\begin{align}
+    t_n \approx \frac{0.0079 \cdot 0.1 \cdot M_\star c^{2}}{L_\star}
+\end{align}
+Dove $M_\star$ è la massa della stella e $L_\star$ la sua luminosità. Il tempo 
+caratteristico del Sole è di $t_{n_\circledcirc} \approx 10^{10}$ anni. Dunque il tempo scala di una 
+qualsiasi stella della sequenza principale si ottiene secondo la seguente
+\begin{align}
+    t_n \approx \frac{ML_\circledcirc}{M_\circledcirc L} \cdot 10^{10} \ \text{anni}
+\end{align}
+\subsection{Tempo scala termico}
+Il \textbf{tempo scala termico} è il tempo scala che occorrerebbe ad una stella per irradiare tutta la 
+sua energia se la sorgente di produzione (ossia le reazioni nucleari) venisse improvvisamente spenta. Il 
+teorema del Viriale stabilisce che l'energia cinetica dovuta al moto termico delle particelle è pari a 
+\begin{align}
+    2E_K + U = 0 \ \Longrightarrow \ t_t = \frac{\frac{1}{2}G \frac{M_\star^{2}}{R_\star}}{L_\star}
+\end{align}
+Dato che, per il Sole, è $t_t \approx 2 \cdot 10^{7}$ anni, si può ricavare per una stella qualsiasi secondo 
+\begin{align}
+    t_t = \frac{\left(\frac{M_\star}{M_\circledcirc}\right)^{2}}{\frac{R_\star}{R_\circledcirc}\cdot \frac{L_\star}{L_\circledcirc}} \cdot  2\cdot 10^{7} \ \text{anni}
+\end{align}
+\subsection{Tempo scala dinamico (o di freefall)}
+Il \textbf{tempo scala dinamico (o di freefall)} è il tempo che impiegherebbe la stelal a collassare su
+sé stessa se la pressione che la sostiene cessasse del tutto. Si può stimare calcolando il tempo che una particella 
+impiegherebbe a raggiungere il centro dalla superficie e corrisponde a metà del periodo 
+ottenibile secondo la terza legge di Keplero se al semiasse maggiore dell'orbita si sostituisse
+mezzo raggio della stella:
+\begin{gather*}
+    \frac{\left(\frac{R_\star}{2}\right)^{3}}{(2 t_d)^{2}} = \frac{GM_\star}{4\pi^{2}}
+\end{gather*}
+Dunque si ottiene che
+\begin{gather*}
+    t_d = \frac{\pi}{2}\sqrt{\frac{R_\star^{3}}{2GM_\star}}  
+\end{gather*}
+Per il Sole, il tempo dinamico è circa 30 minuti. Dato che la massa di una stella si esprime come
+\begin{gather*}
+    M_\star = \frac{4\pi}{3} \rho_\star R_\star^{3}
+\end{gather*}
+Si può esprimere il tempo dinamico
+\begin{align}
+    t_d = \sqrt{\frac{3\pi}{32G\rho_\star}} 
+\end{align} 
+
+\section{Parametri che si ricavano dalle osservazioni}
+Dall'osservazione di una stella si riescono a ricavare diversi parametri 
+\begin{itemize}
+    \item \textbf{Distanza}: metodo diretto con misura della parallasse geometrica 
+    \item \textbf{Luminosità}: Nota la distanza, è possibile misurare il flusso $f$ il quale,
+    dopo essere stato opportunamente corretto per l'assorbimento interstellare, permette di ricavare
+    la luminosità di una stella.
+    \begin{gather*}
+        L  = 4\pi d^{2}f
+    \end{gather*} 
+    \item \textbf{Temperatura}: Determinando l'indice di colore, è possibile derivare la temperatura
+    di colore secondo la seguente:
+    \begin{gather*}
+        B - V = a + \frac{b}{T_c}
+    \end{gather*}
+    Se si assume che la stella emetta come un corpo nero, allora la sua temperatura
+    efficace sarà uguale a quella di colore. 
+    \item \textbf{Raggio}: Con metodi interferometrici si ricava il diametro delle stelle, così 
+    come con le occultazioni lunari o con le binarie ad eclisse. Nota la luminosità e la temperatura
+    efficace, invece, si ricava il raggio tramite
+    \begin{gather*}
+        R_\star = \frac{L}{4\pi\sigma T_e^{4}}
+    \end{gather*}
+    \item \textbf{Massa}: la massa delle stelle si può determinare solo studiando il moto di stelle doppie interagenti
+    gravitazionalmente. 
+    \item \textbf{Rotazione}: la rotazione delle stelle si misura tramite l'effetto Doppler studiando 
+    l'allargamento dello spettro: se una stella gira in senso antiorario, allora la parte
+    destra della stella avrà uno spostamento verso il rosso mentre la parte sinistra verso il blu. 
+\end{itemize}
+
+
+
+
+
+
+
+\chapter{Distanze cosmiche}
+\section{Scala delle distanze cosmiche}
+La distanza degli oggetti astronomici è fra i parametri più importanti
+e difficili da misurare (forse il parametro più difficile). Non esiste, inoltre, 
+un unico metodo per la misura delle distanze, ma si ricorre ad una successione di tecniche
+calibrate l'una sull'altra, nota come \textbf{scala delle distanze cosmiche}. Si suddividono 
+i metodi per misurare le distanze in due categorie principali: 
+\begin{enumerate}
+    \item \textbf{Metodi diretti}: si basano sulle misure geometriche che non richiedono 
+    dunque stime sulla luminosità intrinseca. Il metodo diretto per eccellenza è la 
+    \textbf{parallasse trigonometrica} (o parallasse annua). Le incertezze di questi metodi 
+    dipendono principalmente dalla precisione strumentale. 
+    \item \textbf{Metodi indiretti}: si basano su oggetti astrofisici o relazioni calibrate. Un esempio
+    sono le \textbf{candele standard}, ossia le \textbf{Cefeidi} e le \textbf{Supernovae $I_a$} e le \textbf{relazioni dinamiche}
+    (Tully - Fisher, Faber-Jackson). La distanza è derivata dunque da una misura osservabile e 
+    da un modello empirico o teorico che lega tale osservazione alla luminosità intrinseca. 
+\end{enumerate}
+Si riassumono le caratteristiche delle due metodologie nella seguente tabella
+\begin{gather*}
+    \begin{tabular}{l | l | l}
+        & Misure dirette & Misure indirette \\
+        \hline
+        Tipologia di misura & geometriche & fotometriche o dinamiche \\
+        Dipendenza dai modelli & minima & elevata \\
+        Campo di applicazione & migliaia di parsec & intero universo \\
+        Incertezze principali & errore strumentale & sistematico, legato alla calibrazione
+    \end{tabular}
+\end{gather*}
+
+\section{I metodi diretti: la parallasse annua}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \caption{Rappresentazione della parallasse annua}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (1);
+        \draw(0, 0) -- (0, -1) node[midway, left] {$AU$};
+        \draw(0, 0) -- (5, 0) node[midway, above] {$d$};
+        \filldraw[yellow](0, 0) circle (3pt);
+        \draw(0, -1) -- (5, 0);
+        \draw(0, 1) -- (5, 0);
+        \draw[dashed](5, 0) -- (6, 0.25);
+        \draw[dashed](5, 0) -- (6, -0.25);
+        \filldraw[cyan] (5, 0) circle (2pt) node[anchor = south] {Stella};
+        \draw(3.5, 0.3) arc (165:180:1) node[midway, left] {$p$};
+        \filldraw[align = center](6, 0.25)  circle (2pt) node[anchor = south] {Posizione \\ apparente};
+        \filldraw(6, -0.25) circle (2pt);
+        \filldraw[cyan](0, -1) circle (1pt) node[anchor = north] {Terra};  
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il metodo della parallasse annua si basa sullo spostamento delle stelle nella volta celeste 
+in riflesso allo spostamento terrestre intorno al Sole. Se le misure sono effettuate da Terra, questo 
+metodo è affidabile fino a circa 30 parsec (ossia circa 100 anni luce). Se le misure sono effettuate dallo spazio, 
+invece, è affidabile fino a circa 9 kiloparsec. Adesso si definisce propriamente cosa si intende 
+con \textbf{parallasse}: essa è l'angolo sotteso $p$ che si riferisce alla posizione apparente di 
+una stella in due punti della Terra separati distanza nota (come l'orbita
+terrestre). 
+\begin{gather*}
+    \tan p = \frac{1 \ \text{AU}}{d} \ \Longrightarrow \ p = \arctan\left(\frac{1 \ \text{AU}}{d}\right)
+\end{gather*} 
+Per stelle che approcciano la distanza massima di validità di questo metodo, è possibile 
+utilizzare la seguente approssimazione 
+\begin{gather*}
+    p \approx \frac{1 \ \text{AU}}{d}
+\end{gather*}
+Ottenendo dunque la distanza in unità astronomiche
+\begin{align}
+    d(AU) = \frac{206265}{p}
+\end{align}
+Dove $d$ è la distanza in unità astronomiche e $p$ è misurato in arco secondi. Si può
+definire il \textbf{Parsec} come la distanza alla quale un oggetto celeste
+mostra una parallasse annua di un arco secondo quando osservato
+con la parallasse annua:
+\begin{gather*}
+    d(pc) = \frac{1}{p}
+\end{gather*}
+Di conseguenza il parsec è un unità di misura spaziale che vale esattamente 206265 AU e,
+inoltre, misura la distanza percorsa dalla luce in $3.26$ anni.
+
+
+
+\section{I metodi indiretti}
+\subsection{Candele standard: Cefeidi}
+Le cefeidi sono delle stelle pulsanti, ossia delle stelle la cui luminosità varia in modo periodico. 
+Occupano una posizione specifica nel diagramma HR fuori dalla sequenza principale in una fascia che
+prende il nome di \textbf{fascia di instabilità}. In questa fascia si trovano stelle 
+che, a causa delle loro caratteristiche fisiche, sono soggette a pulsazioni periodiche (ossia 
+variazioni periodiche della loro magnitudine). la distanza delle cefeidi si misura dal loro periodo di pulsazione ($P$) e 
+dalla loro magnitudine apparente ($m_\lambda$). \\ \noindent
+Inizialmente si conosce, dalle cefeidi più vicine, delle relazioni  PL calibrate che legano la magnitudine 
+alla pulsazione della stella utilizzando le bande V e I (in quanto sono quelle meno 
+sensibili alla polvere interstellare, così come le bande J, H, K). 
+\begin{gather*}
+    M_\lambda = a_\lambda \log P + b_\lambda
+\end{gather*}
+Dove $a_\lambda$ e $b_l\lambda$ sono i parametri ricavati dalle Cefeidi locali tramite 
+satelliti come Gaia o LMC. Attraverso la misurazione di $P$ si ottiene allora $M_\lambda$. Per
+trovare sia $P$ che $m_\lambda$ si seguono i seguenti passaggi
+\begin{itemize}
+    \item  Si acquisiscono dei dati fotometrici da cui si misura $m_\lambda$ in 
+    funzione del tempo (si osserva la stella per circa 20 o 30 settimane).
+    \item Si costruisce dunque la \textbf{curva di luce}, ossia $m_\lambda$ in funzione
+    del tempo a partire dai dati di osservazione (cercando sempre un picco ed un minimo).
+    \item Si esegue un fit dei dati per trovare il periodo e la magnitudine apparente media
+    $\left< m_\lambda \right>$ (e relativa incertezza). 
+    \item Si corregge l'estinzione $E(B - V)$, ottenendo una magnitudine "corretta":
+    \begin{gather*}
+        \left< m_\lambda\right>^{\circ}  = \left< m_\lambda \right> - R_\lambda E(B - V)
+    \end{gather*}
+\end{itemize} 
+Adesso, da $\left< m_\lambda \right>^{\circ}$ e da $M_\lambda$ si ottiene il \textbf{modulo di distanza}:
+\begin{align}
+    DM = \left< m_\lambda \right>^{\circ} - M_\lambda
+\end{align}
+E dunque si ottiene la distanza in parsec secondo la seguente relazione
+\begin{align}
+    d = 10^{\frac{DM + 5}{5}}
+\end{align}
+Di seguito si elencano le distanze minime raggiungibili da diversi strumenti con questa metodologia:
+\begin{gather*}
+    \begin{tabular}{l | c | c | c}
+        Strumento & $m_{\text{lim}}$ & $M_I$ tipica \\
+        \hline
+        Telescopio da Terra 2 - 4 m & 21-22 & -5 & $\sim$ 3 Mpc \\
+        Hubble ST (ottico) & 26-27 & -5 & $\sim$ 30 Mpc \\
+        JW ST (Infrarosso) & 28-29 & -5 & $\sim$ 100 Mpc
+    \end{tabular}
+\end{gather*}
+In futuro l'Extremely Large Telescope, dovrebbe riuscire ad arrivare a magnitudini apparenti 
+limiti di 30-31, con distanza massima di $\sim$ 200 Mpc. 
+
+
+\subsection{Candele standard: Supernovae $I_a$ }
+Le \textbf{supernovae} di tipo $I_a$ sono esplosioni termonucleari di nane bianche 
+che si trovano in sistemi binari. Sono delle ottime candele standard in quanto la loro 
+luminosità a picco è molto uniforme. Questa tipologia di supernovae si originano quando 
+una nana bianca si accresce con i gas della stella compagna, arrivando oltre la massa limite
+di $M_{\max} \approx 1.4 M_{\circ}$ (massa di Chandrasekhar). Quando la nana bianca esplode, 
+libera un energia di $\approx 10^{51}$ erg. Questa tipologia di oggetti celesti
+è molto più luminosa delle Cefeidi e sono visibili in galassie per cui esiste la misure di distanza
+con le Cefeidi (per eseguire la calibrazione). \\ \noindent
+Per poter eseguire il calcolo della distanza con questa tipologia di oggetti si utilizzano
+\begin{itemize}
+    \item Immagini fotometriche: si acquisiscono molte immagini (per esempio in banda B), per circa
+    un mese e si costruisce una curva di luce da cui ci si calcola la magnitudine
+    apparente in banda al picco ($m_B(t_\text{max})$) e il \textbf{parametro di declino} $\Delta m_B$, 
+    definito come 
+    \begin{gather*}
+        \Delta m_B = m_B (t_\text{max} + 15 d) - m_B(t_{\max})
+    \end{gather*}
+    Dunque $\Delta m_B$ misura di quanto scende la magnitudine nei 15 giorni dopo al picco.
+    \item Legge di Philips: una relazione empirica che lega la magnitudine assoluta al picco $M_B$ (in una data banda), 
+    al parametro di declino $\Delta m_B$. Applicando questa legge si ottiene 
+    \begin{gather*}
+        M_B = M_B' + \gamma(\Delta m_B - 1.1)
+    \end{gather*}
+    Dove $M_B'$ è il \textbf{valore di calibrazione} ottenuto dalle cefeidi (zero point a circa -19.3) e $\gamma$
+    indica la pendenza empirica ($\sim 1.1$ magnitudine per unità di $\Delta m_B$). Questi due parametri sono ricavati 
+    da supernovae locali a distanza nota (con metodo della parallasse o cefeidi) per definire le calibrazioni. 
+    La magnitudine apparente al picco $m_B(t_{\max})$ si corregge, inoltre, per l'estinzione ($E(B - V)$) e dal confronto 
+    con $M_B$ si trova il $DM$:
+    \begin{align}
+        DM = m_B^{\text{cor}} (t_{\max}) - M_B
+    \end{align}
+    E da qui la distanza secondo la relazione vista prima.
+\end{itemize}
+
+
+\section{L'espansione dell'universo: la legge di Hubble}
+La legge di Hubble è una relazione lineare fra la distanza di un dato oggetto 
+celeste ed il suo redshift ($z$). Il redshift, determinato come 
+\begin{gather*}
+    z = \frac{\Delta \lambda}{\lambda_{em}} = \frac{\lambda_{o} - \lambda{em}}{\lambda_{em}} = \frac{\lambda_{o}}{\lambda_{em}} - 1
+\end{gather*}
+misura lo spostamento verso il rosso, ossia di quanto la radiazione osservata risulta spostata verso la 
+banda rossa (se l'oggetto di cui stiamo facendo l'osservazione si allontana), oppure verso la banda blu
+(se l'oggetto si sta avvicinando). Ricorrendo alla relazione
+\begin{gather*}
+    \lambda = \frac{c}{\nu} \ \Longrightarrow \ 1 + z = \frac{\nu_{em}}{\nu_{o}}
+\end{gather*}
+Da qui si ottiene la \textbf{Legge di Hubble}:
+\begin{align}
+    \nu = H_0 d
+\end{align}
+Dunque l'effetto Doppler 
+\begin{align}
+    \frac{\Delta \lambda}{\lambda_{em}} = \frac{v}{c} = z
+\end{align}
+Adesso, dividendo per la velocità della luce i due membri della legge di Hubble si ottiene la relazione
+che lega la distanza al redshift:
+\begin{align}
+    d = \frac{c}{H_0}z
+\end{align}
+Dove $H_0 = 70$ km s$^{-1}$ Mpc$^{-1}$. 
+
+
+\chapter{Stelle binarie}
+\section{Stelle binarie visuali e stelle binari ottiche}
+Dal momento che ciò che si vede nella volta celeste è una proiezione degli oggetti celesti, 
+si potrebbe pensare che, quando due stelle sono vicine tra loro, esse siano 
+delle stelle binarie, tuttavia questo non è il caso nella maggior parte delle volte. Si deve
+dunque operare una distinzione tra le stelle binarie \textbf{visuali} (ossia che sono 
+gravitazionalmente legate tra loro) e le binarie \textbf{ottiche}, le quali appaiano essere
+delle stelle binarie, ma non sono assolutamente legate tra loro gravitazionalmente. Esistono 
+anche sistemi multipli di stelle che sono gravitazionalmente legati tra loro. Le stelle singole, 
+come il Sole, sono meno del 50 \% del totale dei sistemi di stelle mentre i sistemi costituiti
+da almeno due stelle costituiscono la maggioranza e, solitamente, hanno una struttura gerarchica: 
+una stella attorno alla quale orbita una coppia di stelle oppure due coppie di stelle. Un esempio 
+è Castore e Polluce, Castore è un sistema multiplo di almeno 6 stelle e Polluce è una stella singola, 
+così come Mizar e Alcor. 
+
+\section{Le binari visuali}
+Le stelle binarie visuali sono quelle stelle che presentano una separazione angolare maggiore 
+di un decimo di arcosecondo (si possono dunque osservare solo con il telescopio). Il problema delle 
+binarie visuali è determinare l'orbita delle stelle in quanto l'orbita del sistema è 
+proiettata nel piano del cielo. Serve dunque la distanza del sistema binario e si deriva la 
+massa totale del sistema secondo la terza legge di Keplero.  Si distinguono dunque due tipi di orbite
+\begin{itemize}
+    \item \textbf{Orbita apparente}: è l'orbita che si vede e misura dalla Terra: è dunque
+    la proiezione dell'orbita vera sul fondo del cielo. Questo piano bidimensionale sul quale si ha 
+    l'orbita visuale (e che è perpendicolare alla nostra linea di vista) prende il nome di \textbf{Piano del Cielo}.
+    \item \textbf{Orbita reale}: è l'ellisse che la stella secondaria $M_2$ percorre fisicamente attorno alla primaria $M_1$, 
+    o, più correttamente, attorno al centro di massa. Essa giace su un piano nello spazio chiamato \textbf{Piano Orbitale}. 
+\end{itemize}
+Il problema principale è che un'ellisse (orbita vera) proiettata su un piano inclinato 
+appare comunque come un'ellisse, ma con forma e orientamento diversi da quella reale. Come 
+possiamo ricostruire l'ellisse tridimensionale reale partendo dall'ellisse bidimensionale 
+che si osserva? 
+Per tracciare questa orbita, si raccolgono una coppia di dati $(\theta, \rho)$, che descrivono gli angoli
+di posizione del sistema e le separazioni angolari della coppia, determinando $a''$ come il semiasse 
+dell'orbita apparente e periodo $P$. Si può convertire in unità reali calcolando la distanza $d$ della stella nel sistema
+ed il semiasse maggiore diventerà dunque 
+\begin{gather*}
+    [AU]a = a'' \cdot d[pc]
+\end{gather*}
+Se si considera $s = d \cdot \theta$, come la \textbf{distanza lineare} in unità astronomiche, 
+si può determinare l'angolo in radianti a partire dall'angolo in arcosecondi come 
+\begin{gather*}
+    \theta(rad) = \text{arcosecondi} \cdot  \frac{\pi}{648000} 
+\end{gather*}
+da cui si ricava la parallasse. \\ \noindent
+Per quanto riguarda la determinazione dell'orbita vera, innanzitutto si trova la massa
+totale del sistema come 
+\begin{align}
+    M_1 + M_2 = \frac{a^{3}}{P^{2}}[M_{\circledcirc}]
+\end{align}
+Dove $a$ è in unità astronomiche e $P$ è in anni. Se poi si riesce a ricostruire le orbite
+delle singole stelle attorno al loro centro di massa, allora
+si ha che
+\begin{align}
+    \frac{M_1}{M_2} = \frac{a_2}{a_1}
+\end{align}
+
+\noindent
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il centro di massa di stelle binarie}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (2, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, 2) node[at end, left] {$y$};
+        \draw[->](0, 0) -- (-1 ,-1) node[at end, below]{$z$};
+        \draw[->](0, 0) -- (1, 1) node[midway, above] {$\vv{r_1}$ };
+        \draw[->](0, 0) -- (2, 1.2) node[midway, below] {$\vv{r_2}$ };
+        \filldraw(1, 1) circle (1pt) node[anchor = south] {$M_1$};
+        \filldraw(2, 1.2) circle (1pt) node[anchor = south] {$M_2$};
+        \filldraw(1.5, 1.1) circle (1pt) node[anchor = south] {$P$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Dove $a_1$ e $a_2$ sono i semiassi maggiori delle due orbite ellittiche attorno ai centri di massa. 
+La definizione del centro ci massa del sistema è dato dalla seguente 
+\begin{align}
+    \vv{r_{CM}} = \frac{M_1 \vv{r_1} + M_2 \vv{r_2}  }{M_1 + M_2}
+\end{align}
+dove $\vv{r_1}$ e $\vv{r_2}$ sono i vettori posizione delle due masse e $P$ è il punto di 
+equilibrio delle due masse. Spostando il centro del sistema di riferimento in $P$ si vede come 
+\begin{gather*}
+    M_1 r_1 = M_2 r_2 
+\end{gather*}
+entrambe le ellissi delle orbite delle due stelle condividono un fuoco comune (ossia il centro di massa).
+Dato che la relazione sopra vale sempre, essa vale anche quando si trovano ai periapsi e all'apoapsi  (ossia 
+punto più vicino e lontano, rispettivamente, di un orbita ellittica, analogo al perielio e afelio o perigeo e apogeo).
+Dato che il semiasse maggiore è la somma dei semiasse $a_1$ e $a_2$, e che vale
+\begin{gather*}
+    M_1 r_{1, apo} = M_2 r_{2, apo} \qquad M_1 r_{1, per} = M_2 r_{2, per}
+\end{gather*}
+Da qui si ottiene 
+\begin{gather*}
+    \frac{M_1}{M_2} = \frac{a_2}{a_1}
+\end{gather*}
+
+\subsection{I nodi}
+L'orbita della stella secondaria è un'ellisse chiusa. Muovendosi lungo la sua orbita, essa attraversa il piano 
+del cielo in due punti specifici che, per definizione, si trovano sulla linea dei Nodi e dunque prendono il nome 
+di \textbf{Nodi}:
+\begin{itemize}
+    \item \textbf{Nodo Ascendente} ($\Omega$): è il punto in cui la stella secondaria attraverso 
+    il piano allontanandosi all'osservatore. La sua velocità radiale (componente
+    $z$ della velocità) passa da negativa (verso di noi) a positiva (via da noi).
+    \item \textbf{Nodo Discendente} ($\omega$): è il punto in cui la stella secondaria attraversa
+    il piano del cielo avvicinandosi all'osservatore. La sua velocità radiale passa 
+    da positiva a negativa. 
+\end{itemize}
+Si definisce allora \textbf{linea dei nodi} come l'intersezione tra il piano orbitale di un corpo ed 
+il piano di riferimento che, per le binarie visuali, è il piano del cielo. Questo segmento congiunge i
+nodi ascendente e discendente. La linea dei nodi è la linea di riferimento fondamentale per due dei sei elementi che 
+descrivono l'orientamento dell'orbita:
+\begin{enumerate}
+    \item \textbf{Inclinazione}: ossia l'angolo tra il piano orbitale e il piano del cielo. Ossia 
+    l'angolo tra la linea di vista e la normale al piano orbitale: 
+    \begin{itemize}
+        \item $i = 0$°: orbita "face-on": l'orbita vera e apparente coincidono e la linea dei nodi è indefinita
+        \item $i = 90$°: orbita "edge-on": le stelle si muovono avanti e indietro. Questo è il caso limite che
+        dà origine alle \textbf{binarie ad eclissi}. 
+    \end{itemize}
+    \item \textbf{Longitudine del Nodo Ascendente} ($\Omega$): definisce
+    l'orientamento della Linea dei Nodi sul piano del cielo. È un angolo misurato sul piano del cielo a partire da
+    una direzione di riferimento (il Nord celeste) e, ruotando verso Est, fino a incontrare 
+    la direzione del Nodo Ascendente. 
+\end{enumerate}
+
+\section{Binarie spettroscopiche}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \caption{}
+    \includegraphics[width=0.5\textwidth]{binarie-spettroscopiche.png}
+\end{wrapfigure}
+Quando le binarie visuali sono troppo vicine per poter essere distinte, anche dai telescopi 
+ottici più potenti del mondo, l'unico modo per poter distinguere tali stelle è 
+utilizzare uno spettroscopio. Nel caso in cui un oggetto osservato presenti uno spettro dalle 
+variazioni periodiche dovuto all'effetto Doppler, si è in presenza di un sistema binario: 
+la separazione delle righe spettrali è massima quando una delle due stelle si avvicina 
+all'osservatore mentre l'altra è lontana. In questi sistemi binari, il periodo di variazione 
+delle righe è legato al periodo orbitale delle stelle. Non si ricavano le orbite ma la 
+velocità delle due stelle in funzione del tempo. \\ \noindent
+Se si assumesse delle orbite circolari, 
+\begin{gather*}
+    m_1 a_1 = m_2 a_2 \qquad a = a_1 + a_2 \ \Longrightarrow \ a_1 = \frac{am_2}{m_1 + m_2}
+\end{gather*}
+Dunque si ricava la ???????????
+
+
+\section{Binarie fotometriche}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \caption{I differenti tipi di binarie fotometriche}
+    \includegraphics[width=0.5\textwidth]{stelle-fotometriche.png}
+\end{wrapfigure}
+Sono delle stelle che mostrano variazioni periodiche della loro magnitudine, 
+dovute al fatto che le due stelle passano l'una di fronte all'altra note come 
+\textbf{variabili ad eclisse}, dunque l'inclinazione del sistema è prossima 90°
+e sono dunque le uniche stelle binarie di cui si è in grado di ricavare con certezza 
+l'inclinazione e dunque misurare con precisione la massa. Si misura la 
+\textbf{curva di luce}, ossia una variazione della magnitudine in funzione del tempo. 
+Esistono tre tipologie di curve di luce:
+\begin{itemize}
+    \item \textbf{Algol} (classiche): eclissi nette, si vedono dunque due minimi 
+    chiari nella curva di luce (uno più pronunciato rispetto all'altro).
+    \item \textbf{$\beta$ Lyrae}: tipologia di curve di luce in cui vi è un contatto 
+    leggero tra le due stelle, la forma delle due stelle diventa dunque quasi ellissoidale
+    e la luce varia quasi continuamente. 
+    \item \textbf{$W$ Ursa Majoris}: sistema binario a contatto in cui le curve di luce 
+    sono quasi sinusoidali. 
+\end{itemize}
+I parametri che si possono ricavare dalla curva di luce sono i seguenti: 
+\begin{itemize}
+    \item \textbf{periodo orbitale}: distanza tra ripetizioni identiche nella curva;
+    \item \textbf{profondità dell'ellisse primaria e secondaria}: ossia 
+    $\Delta m_1$ e $\Delta m_2$ determino i raggi stellari relativi $\frac{r_1}{a}$ e $\frac{r_2}{a}$ 
+    e l'inclinazione $i$. 
+\end{itemize}
+
+\chapter{Esopianeti}
+\section{Sistemi planetari}
+La nostra Galassia contiene $10^{11}$ stelle e circa $10^{9} \sim 10^{10}$ stelle 
+potrebbero far parte di un sistema planetario.
+Un sistema planetario consiste di diversi oggetti di natura non stellare in orbita attorno ad una stella o ad un sistema stellare.
+Dato che la \textbf{fascia abitabile} (ossia il range di orbite che 
+supporta acqua liquida e atmosfera a temperature simili a quelle della Terra)
+è molto piccola, la ricerca di esopianeti (e dunque la vita) è una missione 
+difficile poiché dipende dalla luminosità della stella e dal tipo spettrale della stella: 
+stelle meno luminose avranno una zona abitabile molto vicina alla stella, 
+mentre stelle più luminose avranno una zona abitabile molto più lontana dalla stella stessa.
+
+\section{Esopianeti}
+I pianeti che non appartengono al sistema solare, ossia che orbitano attorno a una stella diversa dal Sole,
+prendono il nome di \textbf{esopianeti} o \textbf{pianeti extrasolari}. Esistono diverse tipologie 
+di esopianeti a seconda delle loro caratteristiche superficiali e a seconda delle loro dimensioni:
+\begin{itemize}
+    \item \textbf{Hot Jupiter}: giganti gassosi molto caldi e vicini alla stella, 
+    con periodo orbitali minore di 10 giorni.
+    \item \textbf{Super-Terre}: pianeti rocciosi con massa compresa tra le 1 e le 10
+    masse terrestri, spesso più grandi della Terra ma più piccoli di Nettuno.
+    \item \textbf{Mini-Nettuni}: corpi con strati gassosi spessi attorno al nucleo roccioso o ghiacciato.
+    \item \textbf{Pianeti terrestri}: analoghi alla Terra o a Marte, target primari per la ricerca di abitabilità.
+    \item \textbf{Pianeti freddi e ghiacciati}: pianeti con orbite lontane, analoghi a Urano e Nettuno.
+\end{itemize}
+Al momento si sono riusciti ad osservare ben 5528 esopianeti confermati nella nostra galassia, di cui 
+solamente 7 non sono classificati.
+
+\section{Tecniche di rilevamento degli esopianeti}
+Esistono 4 tipologie principali di rilevamento per gli esopianeti:
+\begin{itemize}
+    \item \textbf{Astrometria}: rilevamento dello spostamento della stella sul piano del cielo causato dal moto orbitale
+    indotto dal pianeta, efficiente per sistemi in cui il pianeta è grande quasi quanto la stella in orbite 
+    molto grandi. Il contro è in questi sistemi, il pianeta richiede un tempo molto lungo per completare la sua orbita.
+    \item \textbf{Doppler shift}: questo metodo utilizza l'effetto Doppler nella stella ospite indotta dall'attrazione
+    gravitazionale del pianeta, ossia dipende dalle velocità radiali: dunque l'entità
+    dell'effetto Doppler permette di definire la massa del pianeta. Dunque questo metodo 
+    è efficiente se i pianeti sono massicci ed orbitano vicino alla stella. 
+    \item \textbf{Transit}: tecnica basata sul monitoraggio della diminuzione di luminosità quando 
+    il pianeta passa davanti alla stella formando dunque una curva di luce. La diminuzione della luminosità della stella
+    permette la determinazione del diametro del pianeta.  Quando il pianeta transita davanti alla stella,
+    alcuna della luce passa attraverso l'atmosfera del pianeta, rendendo possibile
+    studiare la composizione dell'atmosfera del pianeta. Quando il pianeta
+    si torna dietro la stella, la sua emissione di infrarossi è completamente oscurata. Studiando 
+    la riduzione della radiazione infrarossa si può determinare la temperatura del pianeta.  Questa tecnica
+    è possibile applicarla solo per meno dell'1 \% dei pianeti in quanto richiede che 
+    l'inclinazione dell'orbita sia quasi 90°. 
+    \item \textbf{Immagine diretta}:  isolamento della luce del pianeta separandola da quella della stella 
+    con tecniche di coronografia o ottica adattiva (si cerca di fare una foto al pianeta eliminando la radiazione
+    della stella e cercando di isolare il pianeta).
+\end{itemize}
+
+
+\end{document}

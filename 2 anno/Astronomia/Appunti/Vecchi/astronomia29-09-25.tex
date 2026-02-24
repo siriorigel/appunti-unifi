@@ -1,0 +1,133 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di astronomia}
+\author{Tommaso Miliani}
+\date{29-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Esempio superficie attraversata da una intensità isotropa (DA RIVEDERE)}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw (0, 0) circle (2);
+        \draw[->](0, 0) -- (2.5, -0.5) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, 2.5) node[at end, left] {$z$};
+        \draw[->](0, 0) -- (-2, -2) node[at end, below] {$y$};
+        \draw(-2, 0) -- (2, 0);
+        \draw[thin, dashed](0, 0) -- (0.75, 1);
+        \draw[thin, dashed](0, 0) -- (1, 1.05);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si può esprimere il flusso attraverso la sfera come:
+\begin{gather*}
+    F_{\nu} = I_{\nu} \oint _{4\pi} \cos\theta \ d\Omega
+\end{gather*}
+Possiamo considerare una superficie sferica, possiamo allora considerare
+il flusso attraverso una superficie sferica molto piccola. Si considera allora il piccolo
+angolo sferico 
+\begin{gather*}
+    d\Omega = \frac{dA\cos\theta}{r^{2} }
+\end{gather*} 
+Possiamo utilizzare un integrale doppio per determinare l'angolo
+solido che sottende alla superficie sarà allora determinato nel seguente modo:
+
+
+
+Dato la simmetria della sfera, se si potesse vedere tutta la sfera luminosa nella sua
+interità allo stesso momento si osserverebbe che la sfera apparirebbe buia.
+
+\section{Determinare il flusso luminoso da una stella distante da uno osservatore}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (1);
+        \draw(0, 0) -- (0.5, 0.85) node[midway, left] {$R_{\star}$} -- (4, 0) node[midway, above] {$r$};
+        \draw(0, 0) -- (4, 0) node[midway, below] {$D$};
+        \draw(2, 0.4) arc (168:180:2) node[midway, left] {$\theta_r$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso determinare il flusso specifico di un piccolo elemento sulla stella
+come
+\begin{gather*}
+    d F_{\nu} =  I_{\nu} \oint_{0}^{\theta_r} \cos\theta \sin\theta \ d\theta d \phi
+\end{gather*}
+L'angolo $\theta$ va da $0$  a $\theta_r$, ossia l'angolo che si ha tra l'asse ottico e la congiungente
+tra la parte superiore della stella e l'occhio (che è molto molto piccolo). Quindi ogni elemento
+di superficie avrà un certo flusso infinitesimo, dato che $\sin\theta_r = \frac{R_{\star}}{D}$ poiché
+mi sono messo nelle condizioni nelle quali l'angolo tra $R_{\star}$ e $D$ è $90$°,  data
+la simmetria della sfera, posso dire che
+\begin{gather*}
+    F_{\nu} = 2\pi I_{\nu} \oint_{0}^{\theta_r} \cos\theta \sin\theta \ d\theta
+\end{gather*}
+Risolvendo questo integrale si ottiene la seguente conclusione:
+\begin{gather*}
+    F_{\nu} = 2I_{\nu}\pi \int_{0}^{\frac{R_{\star}}{D}}\sin\theta d\sin\theta = \pi I_{\nu}\left(\frac{R_{\star}}{D}\right)^{2} 
+\end{gather*}
+
+\section{Luminosità}
+La Luminosità nel sistema internazionale ha come unità di grandezza $W \cdot hz^{-1}$ rispetto ad
+una certa superficie scelta $A$, misura il l'integrale di flusso:
+\begin{align}
+    L_{\nu} = \int_{A} F_{\nu} \ dA 
+\end{align}
+Se la superficie è sferica si ottiene la Luminosità emessa da una sfera
+sulla superficie della sfera stessa di raggio $R_{\star}$:
+\begin{align}
+    L_{\nu} = 4\pi R_{\star}^{2}F_{\nu} 
+\end{align}
+Se volessi trovare il flusso ad una certa distanza $D$ dalla superficie della sfera come
+\begin{align}
+    f_{\nu} = \pi I_{\nu}\left(\frac{R_{\star}}{D}\right)^{2} 
+\end{align}
+
+
+\end{document}

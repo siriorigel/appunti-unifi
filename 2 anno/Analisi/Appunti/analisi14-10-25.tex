@@ -1,0 +1,70 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di analisi}
+\author{Tommaso Miliani}
+\date{14-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Polinomio di Taylor per funzioni a due variabili}
+Nella trattazione del Polinomio di Taylor ci si ferma  al secondo grado. Definita una
+funzione $f$ definita su di un insieme aperto $A \subset \mathbb{R}^{2} $, come $f : A \to \mathbb{R}$. 
+Se $\underline{x} \in A$ tale che il segmento $[x, y]$ sta in $A$, ossia 
+\begin{gather*}
+    \underline{x}(t) = \underline{x} + th 
+\end{gather*}
+Per ogni $t$ questo oggetto sta in $A$. Allora $f(x + h)$ si scrive come 
+\begin{gather*}
+    f(x + h) = f(x)  + \left< Df(\underline{x}), h \right> + o(\left| \underline{h} \right| ) 
+\end{gather*}
+Se $f$ è $C^{1}$, allora esiste un teta scalare tra zero ed  tale che $f(\underline{x} + \underline{h}) = f(\underline{x}) + \left< Df(\underline{x} + \theta \underline{h}); h  \right>$. 
+
+
+
+\end{document}

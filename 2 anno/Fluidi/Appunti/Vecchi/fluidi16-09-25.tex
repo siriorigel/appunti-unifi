@@ -1,0 +1,221 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti fluidi}
+\author{Tommaso Miliani}
+\date{16-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Introduzione al corso}
+Il corso di Fluidi si divide in tre parti 
+\begin{enumerate}
+    \item Termodinamica: studia processi non di carattere meccanico che si manifestano a livello
+    macroscopico
+    \item Statistica: la fisica statistica coniuga la meccanica con la statistica che si usa nelle applicazioni
+    che vanno al di là della fisica classica: da un fondamento microscopico agli effetti della termodinamica.
+    \item Meccanica dei fluidi: sistemi materiali macroscopici per lo studio dei fluidi.
+\end{enumerate}
+Prima di tutto si inizia con un cappello che collega le tre parti;
+poi si inizia con statica dei fluidi, dopo termodinamica, poi statistica e infine
+dinamica dei fluidi. Questo perché alcuni strumenti di analisi due saranno
+utilizzati per la parte di dinamica dei fluidi e statistica. \\
+L'esame è diviso in tre domande orali (una per sezione) (niente prova scritta) con esercizi
+applicati alla realtà e di effetto pratico (che sono fatti a lezione).
+Il libro consigliato è "Elementi di meccanica di fluidi" di Egidio Landi, per la parte di termodinamica
+"Termodinamica" di Enrico Fermi e per la parte di fisica statistica le dispense del prof
+in quanto non ci sono libri che facciano al caso del corso. \\
+Il vantaggio di studiare tre discipline in un corso è che si riesce ad avere una idea più
+completa dei sistemi che si studiano.
+
+\section{Statica dei fluidi}
+\subsection{Introduzione alla statica dei fluidi}
+Il caso più semplice della fisica è quello dell'approssimazione del
+punto materiale; cosa succede allora se io aumentassi il numero di punti materiali
+e li mettessi tutti insieme? Se si mettono insieme in modo da poter costituire un
+corpo rigido allora avrei da risolvere diverse equazioni per poter determinare il comportamento
+del corpo; nessun materiale reale gode di questa proprietà ma è solo una idealizzazione
+che vale entro certe approssimazioni. Il modello del corpo rigido funziona molto
+bene per i corpi solidi che in prima approssimazione sono ben descrivibili con questo modello, mentre
+nel caso dei fluidi questa approssimazione non è valida. \\
+Nei sistemi fluidi si considera allora il movimento degli atomi neutri
+all'interno del fluido (non di plasmi) e quindi si può, utilizzando le conoscenze
+di Fisica I, determinare come questi si muovono.
+
+\subsubsection{L'atomo di Feynman}
+In questo studio dei fluidi utilizziamo la definizione di atomo così come la aveva data Feynman: gli atomi sono dei punti materiali
+che si attraggono se sono sufficientemente vicini ma se troppo vicini si respingono.
+Essenzialmente a livello macroscopico l'atomo è visto come piccole palline che costituiscono il corpo. Possiamo
+allora definire diverse proprietà della materia che utilizziamo per la descrizione dei fluidi:
+\begin{itemize}
+    \item Gli atomi sono dei punti materiali che hanno una certa massa $m$ che obbediscono alle leggi della meccanica
+    di Newton;
+    \item Un campione di materia è un insieme di $N$ atomi (ossia un numero molto grande) che
+    possono essere chiusi in un contenitore ideale (ossia con pareti rigide e fisse).  
+    \item Gli atomi interagiscono tra di loro solo tramite forze conservative, ossia che possono
+    essere derivate e che queste forze dipendono esclusivamente dalla distanza tra
+    gli atomi stessi; questo vuol dire che compiono solo urti completamente elastici con il contenitore.
+\end{itemize}
+Posso allora dare una definizione concreta alle forze intermolecolari, iniziando definendo $r_0$ come la distanza caratteristica
+che ha definito Feynman oltre la quale gli atomi si attraggono ma entro la quale si respingono.
+\begin{itemize}
+    \item Se la distanza tra i due atomi è maggiore ma dello stesso ordine di $r_0$,
+    allora le forze sono attrattive.
+    \item Se la distanza è minore di $r_0$, allora la forza è repulsiva. 
+    \item Le interazioni decadono molto velocemente con l'aumentare della distanza.
+\end{itemize}
+
+\subsubsection{Il potenziale di interazione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il potenziale di interazione}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (4, 0) node[at end, below] {$r$};
+        \draw[->](0, -2) -- (0, 2) node[at end, left] {$V(r)$};
+        \draw(0.5, 2) .. controls (1.2, -2) and (1.7, -2) ..  (3, 0);
+        \draw(3, 0) -- (4, 0);
+        \draw[dashed](4, 0) -- (5, 0);
+        \draw[dashed](1.55, 3) -- (1.55, -2) node[at end, right] {$r_0$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso allora definire il \textbf{potenziale di interazione} tra due atomi come $V(r)$ e 
+quindi posso relazionare le tre condizioni precedenti con il potenziale, il quale deve diventare 
+costante quando i due oggetti si trovano a grandi distanze in quanto la forza diventa trascurabile.
+Posso fissare un sistema di riferimento inerziale e dunque
+posso dire che l'energia totale del sistema sarà data da
+\begin{align}
+    E = K + V\ \Longrightarrow \ \frac{1}{2}\sum |\vec{v}_i|^{2}  + U(\vec{r}_1, \dots, \vec{r}_n  )
+\end{align}
+Data l'ipotesi che ci siano solo delle forze conservative all'interno del sistema
+che studiamo, allora posso riscrivere la componente potenziale (la quale dipende da $n$ variabili),
+è scrivibile come la somma di tutte le possibili coppie e dunque
+\begin{align}
+    U(\vec{r}_1, \dots, \vec{r}_n  ) = \sum_{i = 0}^{n} \sum_{j = i + 1}^{n}  V(\left| \vec{r}_i - \vec{r}_j   \right| )
+\end{align}
+Posso anche esprimere anche l'energia potenziale attraverso la sommatoria rispetto a tutte le coppie
+escludendo l'elemento già considerato (quindi si dimezza la sommatoria):
+\begin{align}
+    U(\vec{r}_1, \dots, \vec{r}_n  ) = \frac{1}{2}\sum_{i = 1}^{n} \sum_{j = 1 (i \neq j)}^{n} V(\left| \vec{r}_i - \vec{r}_j   \right| )  
+\end{align}
+I termini contano solo se la distanza è minore $a$ volte $r_0$: fissato allora un istante di tempo
+posso scegliere un atomo e dire quali coppie possono effettivamente contribuire
+all'energia potenziale e quindi ogni atomo interagisce solo con gli atomi vicini che si trovano
+nella sfera (e quindi posso esprimerlo come $a \cdot  r_0$), posso allora approssimare con un pochino meno termini
+rispetto a $\frac{N(N -1 )}{2}$ in quanto ogni atomo interagisce solo con gli altri
+all'interno della sfera di interazione.
+\begin{gather*}
+    U(\vec{r}_1, \dots, \vec{r}_n  ) = \frac{1}{2}\sum_{i = 0}^{n}\sum_{j \in S(i)}^{n}V(\left| \vec{r}_i - \vec{r}_j   \right| )  
+\end{gather*}
+Quanti sono allora gli atomi massimi consentiti all'interno della sfera di interazione
+$S(i)$ rispetto ad un dato atomo $j$? Se prendessi allora questa sfera di raggio
+$a \cdot r_0$, si ottiene una stima che dipende da $r_0$ e lo divido per il volume della singola sferetta
+(il quale è sempre una approssimazione per eccesso perché non considero che siano rigide) per determinare il
+numero di atomi $n_s$ che interagiscono con l'atomo.
+La sfera di interazione ha raggio $a \cdot r_0$ (dove $a$ è un numero) e il singolo atomo ha raggio $\frac{r_0}{2}$
+e quindi devo fare il rapporto tra i volumi delle sfere e ottengo $n_s \approx (2a)^{d}$, dove $d$ è la dimensione
+(piano = 2, spazio = 3). Si ottiene allora che per $a = 2.5$, $d = 2$ si ha $n_s \approx 25$, per $d = 3$ e $n_s \approx 125$.
+La dimensione è legata a partire dal volume della sfera, infatti il raggio è elevato alla dimensione
+dello spazio considerato. \\
+L'energia potenziale degli atomi nella materia è direttamente proporzionale al numero di atomi
+infatti si ottiene che è proporzionale a $Nn_s$ invece che $N^{2}$ come si era detto prima (abbiamo allora escluso $N$ dati). Quando una grandezza soddisfa questa proprietà allora
+è una grandezza \textbf{estensiva}: la maggioranza dei termini non conta e dunque l'energia di un sistema è
+una grandezza estensiva, se così non fosse allora la materia non si comporterebbe come si comporta.
+
+
+\subsubsection{L'interazione tra due parti di uno stesso contenitore}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \caption{L'interazione tra due recipienti uniti}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (3, 2);
+        \filldraw (0.5, 1) circle (0pt) node[anchor = south] {$N_1$};
+        \filldraw (2, 1) circle (0pt) node[anchor = south] {$N_2$};
+        \draw(1, 2) -- (1, 0);
+        \draw[dashed](1.2, 2) -- (1.2, 0);
+        \draw[dashed](0.8, 2) -- (0.8, 0);
+        \filldraw(4, 1.5) circle (0pt) node[anchor = south] {$N_1N_2 \propto L^{d} $ };
+        \filldraw(4, 1) circle (0pt) node[anchor = south] {$N_{1,2} \propto L^{d - 1} $ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Immaginando di suddividere il contenitore in due parti allora avremo un po' del fluido che sta da una parte e un
+po' che sta dall'altra: questa divisione va fatta in modo tale che le due parti debbano essere macroscopiche
+(non pochi atomi da una parte e il resto dall'altra). Come posso determinare l'energia di questo sistema?
+Dato allora il sistema $N_1 + N_2 = N$, ossia il numero di atomi del primo più il secondo compartimento
+mi dà gli atomi totali (con $N >>>> 1$).  Devo dividere il contenitore
+in modo tale che il "divisore" sia di una dimensione in meno dello spazio considerato (es nello spazio un piano)
+in modo tale che sia uniforme. \\
+Posso allora esprimere l'energia totale come
+\begin{gather*}
+    E = E_1 + E_2 + E_{1,2} \\
+    E_1 =  \frac{1}{2}\sum_{i = 1}^{N_1}\left| \vec{v^{1} }_i  \right|^{2} + U (\vec{r}_1^{1} , \dots \vec{r}_2^{1}   )  \propto N_1  \\
+    E_2 =  \frac{1}{2}\sum_{i = 1}^{N_2}\left| \vec{v^{2} }_i  \right|^{2} + U (\vec{r}_1^{2} , \dots \vec{r}_2^{2}   )  \propto N_2
+\end{gather*}
+Come si nota, esiste anche un contributo di interazione tra le due parti che posso esprimere come:
+\begin{gather*}
+    E_{1, 2} = \frac{1}{2}\sum_{i = 1}^{N_1}\sum_{j \neq i}^{N_2} V\left(\left| \vec{r^{N_1} }_i   - \vec{r^{N_2} }_j   \right| \right)  
+\end{gather*}
+Il contributo di questa interazione è molto più piccola dell'interazione $E_1$ e $E_2$ in quanto solamente gli atomi
+molto vicini al bordo che divide i due sistemi interagiscono tra di loro (zona tratteggiata) e dunque
+più cresce $N$ allora più diminuisce questo contributo. Inoltre si osserva che sono proporzionali ad un certo $L$ che è dato
+dai limiti fisici del contenitori (chiamata scala libera):
+\begin{gather*}
+    L \propto N_1^{\frac{1}{d}} \ \Longrightarrow \ N_{1, 2} \propto N_1^{\frac{d- 1}{d}} \qquad \text{uguale per $N_2$}
+\end{gather*}
+Se $N_1$ cresce, allora $N_{1, 2}$ diventa molto piccolo.  Si ha che l'energia complessiva di un sistema
+che ho arbitrariamente diviso in due pezzi avrà l'energia della somma dei due contributi ignorando il
+termine di interazione tra le due parti purché siano macroscopici (infatti non sarebbe vero
+se una delle due componenti avesse pochi atomi).
+\begin{align}
+    E \approx E_1 + E_2 \qquad \qquad per \  N >>>> 1 \ \Longrightarrow \ E = E_1 + E_2
+\end{align}
+Allora ottengo che l'energia è una \textbf{quantità additiva} (infatti è vero per $m$ divisioni fino a che
+le componenti sono macroscopiche). Tutte queste considerazioni sono valide se e solo se
+io continuo a ignorare i contributi all'esterno della sfera di interazione e considerando quindi che quei contributi convergano a zero in modo
+sufficientemente rapido: infatti l'analisi ci insegna che somme di piccole quantità molto grandi non sempre
+convergono a numeri finiti. Si può dimostrare che devono convergere a zero più velocemente di 
+$r^{-d} $ (dove $d$ è nuovamente la dimensione dello spazio) (per l'interazione gravitazionale questo non è vero infatti). 
+
+\end{document}

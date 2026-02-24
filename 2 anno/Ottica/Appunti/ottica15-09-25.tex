@@ -1,0 +1,339 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti ottica}
+\author{Tommaso Miliani}
+\date{15-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Introduzione al corso}
+Il corso di ottica si propone di studiare i quattro fenomeni principali dell'ottica:
+\begin{enumerate}
+    \item Ottica geometrica: approssimazione della luce come un insieme
+    di raggi luminosi e come essi si propagano nel vuoto (lenti e formazioni
+    di immagini);
+    \item Polarizzazione: Dato che la luce è una onda elettromagnetica, e dato che
+    il campo è un campo di vettori, il campo elettrico e luminoso è un vettore
+    che oscilla nel tempo e questa oscillazione è proprio la polarizzazione;
+    \item Diffrazione: il fenomeno per il quale la luce si diffonde;
+    \item Interferenza: il fenomeno più complicato e bello della luce: due sorgenti luminose
+    con campi opposti l'uno rispetto all'altro possono interferire distruttivamente
+    e quindi non creare alcuna luce, ovviamente esiste anche l'interferenza costruttiva.
+\end{enumerate}
+Il peso di ogni relazione è un decimo sul totale del voto. Il restante sessanta percento
+del voto è legato ad un compito in classe (molto simili l'uno all'altro). La media pesata di 
+questi voti dà il voto finale (senza orale).
+Non si potrà essere super rigorosi in questo corso, ma si daranno le basi dell'ottica attraverso
+un approccio più pragmatico e semplice in quanto sarebbe necessario studiare prima fisica
+due e fisica quantistica.
+
+\section{Ottica Geometrica}
+\subsection{Le onde elettromagnetiche}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \filldraw(0, 0) circle (1pt) node[anchor=south] {$e_1$};
+        \filldraw(3, 0) circle (1pt) node[anchor=south] {$e_2$};
+        \draw[->](0, 0.05) -- (-1, 0.05) node[at end, above] {$\vec{F}$};
+        \draw[->](3, 0) -- (4, 0) node[at end, above] {$\vec{F}$};
+        \draw[->, red](0, -0.05) -- (-1, -0.05) node[at end, below] {$\vec{\Delta S}$ };
+        \draw[->] (0, 0) -- (1, 0) node[at end, above] {$\vec{r}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Prendiamo per esempio due elettroni, noi sappiamo che si respingono
+poiché tra di loro agisce la forza di Coulomb, che ha modulo:
+\begin{gather*}
+    \vec{F} = k\frac{q_1q_2}{r^{2} } \hat{r}  
+\end{gather*}
+Questa forza dipende dalla carica delle due particelle e dalla direzione $r$ congiungente.
+Se io spostassi la carica $1$ di un certo $\Delta S$, la carica due non si accorgerebbe
+di questo spostamento in modo immediato e quindi la relazione precedente non 
+sarebbe più valida: in generale la relazione vale solamente nella statica, ossia se le due
+particelle sono immobili. Avendo allora un ritardo nel cambiamento dell'interazione rispetto 
+all'istante in cui è avvenuto lo spostamento, siamo allora costretti ad introdurre due campi vettoriali che si propagano con una
+velocità finita. Questi campi sono il campo magnetico ed il campo elettrico ($\vec{B}$ e $\vec{E}$  )
+secondo delle leggi definite da Maxwell. \\
+La forza che agisce sulle due cariche è un vettore e dunque per esprimere
+come cambia un vettore, ho bisogno di un vettore per descrivere questa variazione:
+posso esprimere allora con la legge di Lorentz come una carica risente della presenza di un
+campo elettrico e di un campo magnetico attraverso la seguente:
+\begin{align}
+    \vec{F}_q = q(\vec{E} + \vec{v} \times \vec{B}  ) 
+\end{align}
+Dalle equazioni di Maxwell nel vuoto (ossia in assenza di cariche e correnti di cariche), introduciamo
+quindi l'operatore \textbf{Laplaciano quadro}, ossia un operatore differenziale
+che si applica al campo elettrico e anche a quello magnetico secondo la seguente: 
+\begin{align}
+    \vec{ \nabla}^{2} \vec{E} &= \epsilon_0 \mu_0 \frac{\partial^{2}  \vec{E} }{\partial t^{2} } \\
+    \vec{ \nabla}^{2} \vec{B} &= \epsilon_0 \mu_0 \frac{\partial^{2}  \vec{B} }{\partial t^{2} } 
+\end{align} 
+L'operatore Laplaciano agisce su ogni componente del vettore campo elettrico o campo magnetico.
+Possiamo vedere cosa succede per $\vec{E}_x$:
+\begin{gather*}
+    \epsilon_0 \mu_0 \frac{\partial^{2}  \vec{E}_x }{\partial t^{2} } = \frac{\partial ^{2} E_x }{\partial x^{2} } + \frac{\partial ^{2} E_x }{\partial y^{2} } + \frac{\partial^{2}  E_x}{\partial z^{2} } 
+\end{gather*} 
+Questa equazione mi esprime il contributo rispetto ad un singolo asse e va sotto il nome di \textbf{equazione delle onde} ed è analoga all'equazione delle onde
+per tutte le onde che si studiano (sonore, luminose, radio ...):
+\begin{align}
+    \frac{1}{v^{2} } \frac{\partial^{2} \psi(x, t)}{\partial t^{2} } = \frac{\partial ^{2} \psi(x, t) }{\partial x^{2} }  
+\end{align}
+In questo caso $v$ rappresenta la velocità di propagazione dell'onda rispetto ad un sistema
+di riferimento inerziale (per ora in quanto non si considera la relatività). Si può trovare una
+soluzione generale a questa equazione come 
+\begin{gather*}
+    \psi(x, t) = f(x - vt)
+\end{gather*}
+Ossia prendo una funzione $f$ a caso in modo tale che abbia la stessa forma di $\psi$ e dunque
+se calcolata in $x - vt$ sarà soluzione della mia equazione. Devo allora verificare che sia soluzione
+attraverso la doppia derivata e vedere che effettivamente sia soluzione:
+\begin{gather*}
+    \frac{\partial f}{\partial x} = f'(x - vt) \\
+    \frac{\partial ^{2} f }{\partial x^{2} } = f''(x - vt)  \\
+    \frac{\partial f}{\partial t} f'(x - vt) \cdot (-v)  \\
+    \frac{\partial ^{2} f }{\partial t^{2} } = f''(x - vt) \cdot  (-v) \cdot (-v)
+\end{gather*}
+Risolvendo l'equazione con $\psi$ posso allora dire che
+\begin{gather*}
+    f''(x - vt) = \frac{1}{v^{2} } v^{2} f''(x - vt) 
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il grafico della funzione generica $f(x)$}
+    \begin{tikzpicture}
+        \draw[->](-3, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$f(x)$};
+        \draw[cyan](-3, 0) .. controls(-2, 3.5)  and (0, 0) ..  (2, 0);
+        \draw[cyan](2, 0) .. controls  (2.5, 1)  and (3, 2) .. (4, 0);
+        \draw[dashed](-2.6, 0) -- (-2.6, 1) node[at start, below] {$x = \alpha$};
+        \draw[dashed, red] (-2.6, 1) -- (2.75, 1) node[midway, above] {$f(\alpha)$};
+        \draw[dashed](2.75, 1) -- (2.75, 0) node[at end, below] {$\alpha + vt$};
+        \draw[red](-2.6, 0) -- (2.75, 0);
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+E quindi ho dimostrato che è soluzione generica dell'equazione.
+Al tempo $t = 0$ io calcolo la funzione $f(x - vt)$ e dunque mi chiedo
+dopo un tempo $t$ in quale punto dello spazio la funzione $f$ assumerà
+lo stesso valore $f(\alpha)$ ? Ossia nel punto in cui
+$x - vt = \alpha$ e allora l'$x$ cercato è $\alpha + vt$. In qualche modo mi
+sono spostato di una certa quantità $vt$ e dunque in quel punto il campo assumerà
+nuovamente il valore che aveva nel punto $\alpha$. E' per questo che si parla di equazione
+delle onde che si muovono di velocità $v$ poiché queste onde si propagano nello spazio
+secondo $vt$.\\
+Le costanti che ho utilizzato fino ad ora sono
+\begin{align}
+    \epsilon_0= 8.85 \cdot  10^{-12}\  \frac{C^{2} }{m^{2}N } 
+\end{align}
+E la permeabilità magnetica nel vuoto la costante dielettrica nel vuoto:
+\begin{align}
+    \mu_0 = 4\pi \cdot  10^{-7} \ \frac{T\cdot m}{A} 
+\end{align}
+La velocità di propagazione delle onde elettromagnetiche nel vuoto è proprio
+\begin{align}
+    c = \sqrt{\frac{1}{\epsilon_0 \mu_0}} = 299792458\ \frac{m}{s}  
+\end{align}
+
+\subsection{La soluzione semplice: le onde piane}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'ipotesi graficamente}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (2, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (-1, -1) node[at end, below] {$z$};
+        \draw[->](0, 0) -- (0, 2) node[at end, left] {$y$};
+        \draw(-0.25, -0.25) -- (-0.25, 1.75);
+        \draw(-0.75, -0.75) -- (-0.75, 1.25);
+        \draw(0, 0.25) -- (-1, -0.75);
+        \draw(0, 0.75) -- (-1, -0.25);
+        \draw[->, cyan](-0.75, 0.5) -- (-0.25, 1) node[at end, above] {$\vec{E} $};
+    \end{tikzpicture}    
+\end{wrapfigure}
+La soluzione più semplice all'equazione delle onde è l'onda piana:
+questa equazione ha come ipotesi che $\vec{E}$ e $\vec{B}$ siano uniformi
+in un piano perpendicolare alla direzione di propagazione. Se considerassimo
+l'asse $x$ come l'asse di propagazione e consideriamo che il nel piano $yz$ entrambi i campi
+siano uniformi e quindi che le derivate rispetto agli assi $y$ e $z$ siano zero.
+Ottengo allora, nel caso di onda piana e quindi nel caso più semplice:
+\begin{gather*}
+    \epsilon_0 \mu_0 \frac{\partial^{2} E_x}{\partial x^{2} } = \frac{1}{c^{2} } \frac{\partial ^{2} E_x}{\partial t^{2} }  \\
+    \epsilon_0 \mu_0 \frac{\partial^{2} E_y}{\partial y^{2} } = \frac{1}{c^{2} } \frac{\partial ^{2} E_y}{\partial t^{2} }  \\
+    \epsilon_0 \mu_0 \frac{\partial^{2} E_z}{\partial z^{2} } = \frac{1}{c^{2} } \frac{\partial ^{2} E_z}{\partial t^{2} } 
+\end{gather*}  
+Possiamo ora assumere che dalle equazioni di Maxwell il vettore
+campo elettrico non può essere diretto lungo la direzione della propagazione dell'onda
+e quindi le uniche componenti che rimangono sono quelle perpendicolari all'asse di propagazione
+e dunque $E_x = 0$. Si tratteranno d'ora in poi onde sinusoidali, ossia le onde che hanno
+la seguente espressione:
+\begin{align}
+    E_{y, z} = A\cos\left(k(x - vt) + \phi\right)
+\end{align}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'onda elettromagnetica}
+    \begin{tikzpicture}[scale=0.5]
+        \draw[->](-4, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, -4) -- (0, 4) node[at end, left] {$E_{y, z}$};
+        \draw[<->](-3, -1) --( 3, -1) node[midway, below] {$\lambda$};
+        \draw[color=cyan]   plot (\x,{cos(\x r)});
+
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+Il periodo spaziale dopo il quale la mia onda torna ad assumere lo stesso
+valore (ossia dopo $2\pi$) posso ottenerlo imponendo che 
+\begin{gather*}
+    k \cdot  \lambda = 2\pi \ \Longrightarrow \ k = \frac{2\pi}{\lambda}
+\end{gather*}
+E quindi chiamerò d'ora in poi $\lambda$ come \textbf{lunghezza d'onda} e $k$ il
+\textbf{vettore d'onda}, le quali sono intrinsecamente legate l'una all'altra. L'altra quantità
+che si usa per descrivere le onde elettromagnetiche è la frequenza e la pulsazione. Concentrandosi 
+su di un certo valore di $x$ e lasciando che il tempo trascorra, il campo elettrico nel punto $x$ prefissato
+inizierà ad oscillare e dunque questo avviene in un certo tempo
+\begin{gather*}
+    kv T = 2\pi \ \Longrightarrow \ T = \frac{2\pi}{c \cdot  k} \ \Longrightarrow \ T = \frac{2\pi}{\omega}
+\end{gather*}
+Chiamo allora $\omega = c \cdot  k$ la \textbf{pulsazione}. Sostituendo con l'espressione
+della lunghezza d'onda ottengo
+\begin{gather*}
+    T = \frac{\lambda}{c} \ \Longrightarrow \ \omega = c \cdot  \frac{2\pi}{\lambda}
+\end{gather*}
+La direzione del campo elettrico è detta \textbf{polarizzazione} e nel caso più semplice di onda
+piana noi abbiamo che la direzione del campo e del modulo è costante e quindi posso dire che il vettore
+\begin{gather*}
+    \vec{E} = \vec{E}_0 \cos\left(kx - \omega t + \phi\right)
+\end{gather*}  
+In questo caso l'onda piana con la direzione del campo elettrico non cambia nel tempo ed è 
+nel piano $yz$ sempre costante e quindi vale la precedente. Se volessi esprimerla nella direzione
+generica per cui 
+\begin{gather*}
+    \vec{r} = x \hat{u}_x + y\hat{u}_y + z\hat{u}_z    \\
+    \vec{E} = \vec{E}_0 \cos\left(\hat{k} \cdot \vec{r} - \omega t + \phi \right)  
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}[scale=1.5]
+        \draw[->](-0.5, -0.5) -- (1, 1) node[at end, below] {$\hat{k}$ };
+        \draw[|-|](0.25, -0.25) -- (0.5, 0) node[midway, below] {$\lambda$};
+        \draw(0.25, -0.25) -- (-0.25, 0.25);
+        \draw(0.5, -0) -- (0, 0.5);
+        \draw(0.75, 0.25) -- (0.25, 0.75);
+    \end{tikzpicture}    
+\end{wrapfigure}
+In questo caso il vettore $\hat{k}$ mi indica la direzione di propagazione
+della mia onda e dunque posso risolvere il prodotto scalare con il vettore
+direzione $\vec{r}$ e ottenere che la direzione di propagazione ed il suo verso
+sono proprio quelli di $\hat{k}$.    Posso rappresentare le onde utilizzando solo il 
+fronte d'onda (ossia il picco dell'onda) con larghezza $\lambda$.
+Maxwell considera che il campo magnetico oscilla in fase rispetto al campo elettrico 
+e quindi tutte le volte che si ha un onda che si propaga nello spazio, oltre che al campo
+elettrico che oscilla insieme all'onda, si ha anche il campo magnetico che oscilla
+insieme all'onda in fase (ossia traslato rispetto al campo elettrico), inoltre
+il campo magnetico oscilla perpendicolarmente rispetto al campo magnetico.
+
+
+
+%Inserire immagine delle onde qui
+%\begin{wrapfigure}{r}{0.4\textwidth}
+%    \centering
+%    \caption{}
+%    \includegraphics[width=0.4\textwidth]{}
+%\end{wrapfigure}
+Sempre secondo Maxwell il modulo del campo magnetico si rapporta al modulo del campo
+elettrico secondo la relazione
+\begin{gather*}
+    \left|\vec{B}\right| = \frac{\left| \vec{E}  \right| }{c} 
+\end{gather*}
+Dato che la forza su di una carica è esprimibile come
+\begin{gather*}
+    \vec{F} = q\left(\vec{E} + \vec{v} \times \vec{B}   \right) 
+\end{gather*}
+E quindi posso esprimere la forza sulla particella come come
+$q\left| \vec{E}  \right| $ poiché nell'espressione del prodotto 
+vettoriale si ottiene che il prodotto dei moduli sullo stesso asse diventa
+\begin{gather*}
+    q\left| \vec{v}  \right| \left| \vec{B}  \right| \sin \theta = q \frac{|\vec{v}| }{c}\left| \vec{E}  \right| \sin\theta   
+\end{gather*} 
+Data l'espressione del modulo del campo magnetico posso trascurare 
+il termine $\frac{\left| \vec{v}  \right| }{c}$ solo se la velocità dell'onda è molto piccola (in generale solo nei solidi).
+
+\subsection{Materiali dielettrici}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Materiali dielettrici}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (0.25);
+        \draw(0, 0) circle (0.5);
+        \filldraw(0, 0) circle (0pt) node[] {$+$};
+        \filldraw(0, 0.5) circle (2 pt) node[anchor = south] {$e^ -$};
+        \draw(3, 0) circle (0.25);
+        \draw(3.5, 0) ellipse (1 and 0.5);
+        \filldraw(3, 0) circle (0pt) node[] {$+$};
+        \filldraw(3.5, 0.5) circle (2 pt) node[anchor = south] {$e^ -$};
+        \draw[->](4, -1) -- (3, -1) node[midway, below] {$\vec{E}$};
+    \end{tikzpicture}    
+\end{wrapfigure}Il mezzo dielettrico è un mezzo nel quale gli elettroni sono liberi di muoversi in modo molto
+limitato e quindi, avendo una ridotta mobilità, la componente del campo magnetico è molto piccola rispetto al
+campo elettrico. Un campo elettrico applicato alle cariche tende a far allontanare
+gli elettroni dai nuclei e quindi si distribuiscono diversamente nello spazio
+rispetto allo stato di quiete in quanto la forza elettrica riesce ad influenzare
+la distribuzione di carica senza farle muovere liberamente (nei metalli le cariche si muovono
+liberamente ma nei materiali dielettrici come il vetro, non lo fanno)  \\
+Quando un onda entra in un materiale dielettrico essenzialmente modifica la sua lunghezza
+d'onda e quindi la pulsazione e dunque la lunghezza d'onda nel vuoto si relaziona
+a quella nel materiale dielettrico secondo la relazione
+\begin{align}
+    \lambda' = \frac{\lambda_v}{n}
+\end{align}
+Dove $\lambda_v$ è la lunghezza d'onda nel vuoto e $n$ la \textbf{costante dielettrica} del materiale in questione.
+
+
+\end{document}

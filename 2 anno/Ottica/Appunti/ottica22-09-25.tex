@@ -1,0 +1,371 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di ottica}
+\author{Tommaso Miliani}
+\date{22-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Le lenti sottili}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La lente sottile}
+    \begin{tikzpicture}
+        \draw[dashed](0, 0) -- (5, 0);
+        \draw(0, 0) -- (1.15, 1.15);
+        \draw(1.5, 1.5) arc (130:230:2);
+        \filldraw(0, 0) node[anchor = east] {$P$};
+        \draw(1.7, 1.5) arc (160:200:4.5);
+        \draw[<->, thick, red] (0.8, 0) -- (1.4, 0) node[midway, above] {$d$};
+        \draw(1.15, 1.15) -- (1.6, 1.4) -- (4.5, 0);
+        \draw[<->, cyan](0, -0.1) -- (0.75, -0.1) node[midway, below] {$p$};
+        \draw[<->, cyan](1.45, -0.1) -- (4.5, -0.1) node[midway, below] {$q$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Possiamo ora andare ad analizzare il comportamento di una lente
+sottile e non di una sfera di vetro come si era trattato prima.
+Data sempre una sorgente posta in $P$ e come $p$ la distanza
+tra la sorgente e la prima interfaccia; posso chiamare $d$ come
+lo spessore della lente e $q$ come la distanza tra il punto di arrivo
+sull'orizzontale del fascio di luce e la seconda interfaccia.
+$R_1$ e $R_2$ sono $>0$ se il centro delle curvature si trova
+a destra della superficie sferica. Si ottiene da questo modello
+la seguente relazione
+\begin{gather*}
+    \frac{1}{p} + \frac{1}{q} = \frac{n_2 - n_1}{n_1}\left(\frac{1}{R_1} + \frac{1}{R_2}\right)+ \frac{n_2 d}{p(p - d)}
+\end{gather*}
+Data l'ipotesi di lente sottile $d$ è molto piccolo: in questo modo posso semplificare
+la formula in questione con la seguente:
+\begin{align}
+    \frac{1}{p} +\frac{1}{q} = \frac{n_2 - n_1}{n_1} \left(\frac{1}{R_1} + \frac{1}{R_2}\right) = \frac{1}{f}
+\end{align} 
+Dove $f$ è chiamata \textbf{lunghezza focale} e questa relazione si chiama
+\textbf{formula del costruttore di lenti} poiché per realizzare una lente
+con una certa focale devo sapere i raggi di curvatura delle interfacce e il loro
+coefficiente di rifrazione. Si ottiene anche la legge delle lenti sottili che dovremmo verificare in laboratorio
+ossia il primo membro uguale al terzo. 
+
+\subsection{La lente convergente}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Caso A}
+    \begin{tikzpicture}
+        \draw(-2.5, 0) -- (2.5, 0);
+        \draw[<->](0, -2) -- (0, 2) node[at end, above] {$f > 0$};
+        \draw[->](-2, 2) -- (-1, 2);
+        \draw[->](-2, 1) -- (-1, 1);
+        \draw[->](-2, -1) -- (-1, -1);       
+        \draw[->](-2, -2) -- (-1, -2);
+        \filldraw (-1, 2 ) circle (0pt) node[anchor = south] {$p \to \infty $};
+        \filldraw(1.5, 0) circle (1pt) node[anchor = south] {$Q$};
+        \draw(-1, 2) -- (0, 2);
+        \draw(-1, 1) -- (0, 1);
+        \draw(-1, -1) -- (0, -1);
+        \draw(-1, -2) -- (0, -2);
+        \draw(0, 2) -- (1.5, 0);
+        \draw(0, 1) -- (1.5, 0);
+        \draw(0, -1) -- (1.5, 0);
+        \draw(0, -2) -- (1.5, 0);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso di $f > 0$ si parla di \textbf{lente convergente}. Possiamo allora studiare 
+i casi limite per capire il significato fisico di $f$. Una lente convergente
+è una lente sottile e possiamo distinguere diversi casi.
+\begin{itemize}
+    \item Il primo caso è il caso in cui la distanza rispetto alla lente è infinita 
+    e ha la caratteristica in cui tutti i raggi convergono nel medesimo punto $Q$.
+    \item Il secondo caso si ha quando $p$ sia molto piccoli (siamo sempre nell'ipotesi parassiale)
+    allora il termine $q$ nella formula si annulla e la lente mi fa convergere i fasci
+    luminosi all'infinito. 
+    \item Il terzo caso è quello della configurazione $2f - 2f$, ossia la configurazione
+    in cui $p = 2f$ 
+    \begin{gather*}
+        \frac{1}{2f} + \frac{1}{q} = \frac{1}{f} \ \Longrightarrow \ \frac{1}{q} = \frac{1}{f} - \frac{1}{2f} \ \Longrightarrow \ \frac{1}{q} = \frac{1}{2f}
+    \end{gather*}
+    E quindi anche $q = 2f$, in questo modo i raggi che partono da $P$
+    convergono tutti sul punto simmetrico rispetto alla lente $Q$.
+    Per una lente \textbf{convergente} i punti a distanza $f$ dalla lente (supponendo sempre che
+    la sorgente sia a sinistra rispetto alla lente) per cui il punto a destra della lente si chiamerà
+    \textbf{fuoco primario} della lente convergente, mentre il fuoco a sinistra della lente
+    è chiamato \textbf{fuoco secondario}. 
+    \item Posso considerare infine un ultima configurazione:
+    se $p < f$ posso ottenere intanto l'espressione per $q$:
+    \begin{gather*}
+        \frac{1}{q} = \frac{p - f}{fp} \ \Longrightarrow \ \frac{fp}{p - f} = q
+    \end{gather*}
+    La lente non riesce a far convergere i fasci di luce nel fuoco
+    ma riesce solo a defletterli. Per cui la direzione dei raggi deflessi
+    mi individua un punto in cui convergono le loro direzioni $Q$ e la distanza
+    $q$ è allora negativa.
+    \end{itemize}
+Se il punto focale della sorgente è sinistra della lente si dice che
+    si ha una \textbf{immagine reale della sorgente}, altrimenti se il punto
+    focale è a sinistra della lente si parla di \textbf{immagine virtuale della sorgente}.
+    L'immagine è definita come il luogo dei punti dove si intersecano fisicamente
+    i raggi provenienti da fuori della lente; nel caso dell'immagine virtuale sono i
+    prolungamenti.
+
+\subsection{La lente divergente}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La lente divergente}
+    \begin{tikzpicture}
+        \draw(-3, 0) -- (3, 0);
+        \draw[>-<](0, 2) -- (0, -2);
+        \draw[->](-2, 1) -- (-1, 1);
+        \draw[->](-2, -1) -- (-1, -1);
+        \draw(-1, 1) -- (0, 1);
+        \draw(-1, -1) -- (0, -1);
+        \draw[->](0, 1) -- (2, 2);
+        \draw[->](0, -1) -- (2, -2);
+        \draw[red](0, 1) -- (-2, 0);
+        \draw[red](0, -1) -- (-2, 0);
+        \filldraw[red] (-2, 0) node[anchor = south] {$Q$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Le lenti con $f < 0$ si chiamano \textbf{divergenti}. La legge delle lenti
+sottili è sempre valida e studiamo solo un caso per la lente divergente con
+sorgente all'infinito. La legge delle lenti sottili mi mette in relazione
+\begin{gather*}
+    \frac{1}{q} = \frac{1}{f} \qquad f < 0 \\ \Longrightarrow \ q=f
+\end{gather*}
+Allora la mia lente produrrà delle immagini virtuali sulla sinistra della lente
+sul fuoco secondario: allora i fuochi si invertono e il fuoco secondario
+diventerà il fuoco primario e viceversa. Non esistono invece delle immagini reali create
+da questa lente in quanto i raggi che giungono dall'infinito
+vengono sempre deflessi (ossia toccano la lente e vengono rifratti a differenza della
+lente convergente che invece fa convergere i fasci luminosi in un medesimo punto $Q$).
+
+
+
+\section{Il problema della formazione delle immagini}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}        
+        \filldraw[purple] (0, 0) -- (1.7, -0.7) -- (0, -0.7);
+        \filldraw[purple] (0, 0) -- (0, 1) -- (-2.5, 1);
+        \filldraw[red](0, 0) -- (0, 1) -- (1, 0);
+        \filldraw[red](1, 0) -- (1.7, -0.7) -- (1.7, 0);
+        \filldraw[green](-1, 0) -- (0, 0) -- (0, -0.7);
+        \filldraw[green](-1, 0) -- (-2.5, 0) -- (-2.5, 1);
+        \draw(-3, 0) -- (3, 0);
+        \draw[<->](0, -2) -- (0, 2);
+        \filldraw(1, 0) circle(1pt) node[anchor = north] {$F$};
+        \filldraw(-1, 0) circle (1pt) node[anchor = north] {$F'$};
+        \draw[->](-2.5, 0) -- (-2.5, 1) node[midway, left] {$h$};
+        \filldraw(-2.5, 1) circle (1pt) node[anchor = south] {$P'$};
+        \draw(-2.5, 1) -- (0, 1);
+        \draw(0, 1) -- (2, -1) node[at end, right] {$1$}; 
+        \draw(-2.5, 1) -- (0, -0.7);
+        \draw(0, -0.7) -- (2, -0.7);
+        \filldraw(1.7, -0.7) circle (1pt) node[anchor = north east] {$Q'$};
+        \filldraw(-2.5, 0) circle (1pt) node[anchor = north] {$P$};
+        \filldraw(1.5, 0) circle (1pt) node[anchor = south] {$Q$};
+        \draw[<->](1.7, 0) -- (1.7, -0.7) node[midway, right] {$h'$};
+        \draw(-2.5, 1) -- (1.7, -0.7);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Studiamo ora una sorgente $P'$ posta fuori dalla'asse ottico per
+studiare il problema della formazione delle immagini da parte di una lente. 
+Il punto $P'$ sta quindi ad una certa distanza rispetto all'asse ottico. Sappiamo
+che tutti i raggi che vengono dall'infinito convergono sul fuoco: il raggio $1$
+deve passare per il fuoco primario. Il raggio $2$ che invece è sparato da $P'$ passando per
+il fuoco $F'$ deve necessariamente diventare perpendicolare alla lente. Il punto $Q$
+dipende dalla distanza della sorgente rispetto alla lente (il punto $Q$ coincide solo con $F$ quando
+i raggi vengono dall'infinito). Posso considerare quindi $q$ come la distanza dal punto $Q$
+e $q'$ come la distanza da $Q'$. Posso considerare i due triangoli simili rossi e vedere che vale la seguente
+\begin{gather*}
+    \frac{q' - f}{f} = \frac{h'}{h}
+\end{gather*}
+Per i triangoli verdi invece si ottiene la seguente relazione:
+\begin{gather*}
+    \frac{p - f}{f} = \frac{h}{h'}
+\end{gather*}
+Se le pongo uguali le espressioni per il rapporto di $h$ e $h'$ allora si
+ha
+\begin{gather*}
+    \frac{q' - f}{f} = \frac{f}{p - f} \ \Longrightarrow \ q' - f = \frac{f^{2} }{p - f} \ \Longrightarrow \ q' = \frac{fp}{p - f}
+\end{gather*}
+Si può allora arrangiare l'equazione come
+\begin{gather*}
+    \frac{1}{q'} = \frac{p - f}{fp'} = \frac{1}{f} - \frac{1}{p} = \frac{1}{q}
+\end{gather*}
+Allora ho dimostrato che $q = q'$ e dunque i punti $Q$ e $Q'$ giacciono
+sullo stesso piano perpendicolare all'asse ottico: anche per immagini estese
+questa relazione vale ed è proprio come vede l'occhio umano.
+I triangoli simili viola si ottengono perché il fascio di luce che viene da $P'$ 
+e passa per il centro della lente giunge in $Q'$ in quanto non c'è alcuna
+deflessione nel caso di una lente sottile. 
+\begin{gather*}
+    \frac{p -f}{f} = \frac{h}{h'}
+\end{gather*}
+Se si moltiplica per $\frac{p}{p}$ allora si ottiene la formula dell'\textbf{ingrandimento}:
+\begin{align}
+    \frac{h'}{h} = -\frac{q}{p}
+\end{align}
+Il segno meno mi ricorda che l'immagine si ribalta rispetto alla sorgente
+nel caso in cui sia $p$ che $q$ siano positivi.
+
+\subsection{Sbagliare il piano d'immagine}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(-3, 0) -- (3, 0);
+        \draw[<->](0, -2) -- (0, 2);
+        \draw(-2, 1) -- (0, -1);
+        \draw(-2, 1) -- (0, 1);
+        \draw(0, 1) -- (2, -1);
+        \draw(0, -1) -- (2, -1);
+        \draw(-2, 1) -- (2, -1);
+        \filldraw(1, 0) circle (1pt);
+        \filldraw(-1, 0) circle (1pt);
+        \draw[orange, thick](0, 1) -- (0, -1) node[midway, anchor = south west] {$D$};
+        \draw(2.5, 2) -- (2.5, -2);
+        \draw(2, -1) -- (2.5, -1.5);
+        \draw(2, -1) -- (2.5, -1.25);
+        \draw(2, -1) -- (2.5, -1);
+        \draw[thick, orange] (2.5, -1) -- (2.5, -1.5) node[midway, right] {$d$};
+        \draw[dashed] (2, 2) -- (2, -2);
+        \filldraw(2.25, 2) node[anchor = south] {$\delta x$};
+        \draw[<->](0.1, 1) -- (1.9, 1) node[midway, above] {$q$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Quando si fa una foto non riesco a mettere a fuoco tutti gli
+oggetti di una scena ma devo concentrarmi su oggetti che hanno una certa distanza dal
+piano immagine per poter essere rappresentati sul questo piano. Se sbagliassi il piano dell'immagine, 
+potrei chiamare la distanza del punto di formazione dell'immagine dalla lente
+e $D$ come la dimensione della lente; analogamente posso chiamare $d$ la
+dimensione dell'immagine attraverso la lente. Posso anche avere un piano
+su cui giace $d$ (ossia il piano sbagliato dell'immagine perché
+magari ho sbagliato a mettere a fuoco l'immagine).
+L'unico modo che ho per mettere a fuoco l'immagine ora è
+ridurre la dimensione della lente 
+\begin{gather*}
+    \frac{d}{D} = \frac{\delta x}{q} \ \Longrightarrow \ d = \frac{\delta x}{q}D
+\end{gather*}
+Dove $\delta x$ è la distanza tra il piano dell'immagine "giusto" e quello
+sbagliato su cui c'è $d$: in questo modo posso ridurre lo spread
+dei raggi luminosi ed ottenere una immagine nitida. E' simile a quando si strizza l'occhio anche se in quel caso
+si modifica anche il cristallino. Come è possibile che in alcune immagini sia sempre tutto a fuoco? 
+Si può spingere al limite il concetto di messa a fuoco attraverso una \textbf{camera stenopeica}: ossia una camera
+che mi permette di avere tutto a fuoco e tutto sullo stesso piano immagine attraverso una dimensione della
+lente $D$ molto piccola. Il prezzo da pagare è che passa pochissima luce all'interno della
+camera perdendo così tanta luminosità dell'immagine.
+
+\section{La legge del costruttore di lenti e i vari tipi di lenti}
+La legge del costruttore di lenti ci dice che
+\begin{gather*}
+    f = \frac{n_1}{n_2 - n_1}\left(\frac{R_1R_2}{R_2 - R_1}\right) 
+\end{gather*}
+Si possono ricavare tre tipi fondamentali di lenti da questa formula
+\subsection{Lente piano convessa}
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw(0, 0) -- (2, 0);
+        \draw(1, 1) -- (1, -1);
+        \draw(1, 1) arc(150:210:2);
+        \draw(1.5, 0) -- (0.78, 0.55) node[midway, above] {$R$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Questa lente ha una interfaccia con raggio di curvatura
+normale e un raggio di curvatura assimilabile a infinito;
+si ottiene allora la formulazione per la lunghezza focale 
+dalla legge del costruttore di lenti
+\begin{gather*}
+    f = \frac{n_1}{n_2 - n_1} R
+\end{gather*}
+Più la lente è piccola e più la lunghezza focale è piccola e la lente ha
+allora la capacità di far convergere molto i fasci luminosi. 
+
+\subsection{Lente biconvessa}
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw(-0.2, 1) arc(150:210:2);
+        \draw(0.2, 1) arc(30:-30:2);
+        \draw(-0.2, 1) -- (0.2, 1);
+        \draw(-0.2, -1) -- (0.2, -1);
+        \draw(-1, 0) -- (1, 0);
+    \end{tikzpicture}    
+\end{wrapfigure}
+La lente biconvessa è una lente che non ha più una superficie piana ma ha due
+superficie sferiche con $R_1 > 0$ e $R_2 < 0$. Nel caso in cui $|R_1| = |R_2| = |R|$ si
+ha la seguente relazione:
+\begin{gather*}
+    f = \frac{n_1}{n_2 - n_1} \left(\frac{R(-R)}{-2R}\right)
+\end{gather*}
+Complessivamente la mia focale sarà data da 
+\begin{gather*}
+    f = \frac{n_1}{n_2 - n_1}\frac{R}{2} 
+\end{gather*}
+Il potere convergente è ora maggiore in quanto riesce a convergere
+più vicino alla lente (dato che la focale è la metà dell'altra lente).
+
+
+\subsection{La lente piano concava}
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw(0, 0) -- (2, 0);
+        \draw(1, -1) -- (2, -1);
+        \draw(2, -1) -- (2, 1);
+        \draw(2, 1) -- (1, 1);
+        \draw(1, 1) arc(30:-30:2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Con questo tipo do lente si ha che la focale  
+è negativa e dunque ho realizzato una lente 
+convessa che avrà in modulo la stessa lunghezza focale della
+lente piano convessa ma con segno opposto
+\begin{gather*}
+    f = -\frac{n_1}{n_2 - n_1}R
+\end{gather*}
+
+\end{document}

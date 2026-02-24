@@ -1,0 +1,350 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti Termodinamici}
+\author{Tommaso Miliani}
+\date{17-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Continuo altra volta}
+La funzione $g(T)$ dipende da come è fatto il gas anche se in generale
+la funzione dipende solamente dalla classe a cui appartiene il gas.
+\begin{itemize}
+    \item Gas \textbf{Monoatomici}: sono gas che presentano solamente molecole
+    monoatomiche;
+    \item Gas \textbf{Diatomici}: sono gas con molecole diatomiche (anche fatte
+    con atomi diversi come il $CO$).
+    \item Gas \textbf{Poliatomici}: sono gas con più di una molecola (ma non lineare)
+    per esempio il gas $CO_2$ è considerato diatomico in quanto è lineare.
+\end{itemize}
+Il valore della costante non dipende dalla temperatura ma solo dalla classe
+di appartenenza del gas:
+\begin{gather*}
+    \begingroup
+    \setlength{\tabcolsep}{10pt} % Default value: 6pt
+\renewcommand{\arraystretch}{1.5} % Default value: 1
+    \begin{tabular}[10]{c | c | c | c | c}
+        & $\frac{C_V}{R}$ & $\frac{C_P}{R}$ & $\gamma = \frac{C_P}{C_V}$ & \\
+        \hline
+        Monoatomici & $\frac{3}{2}$ & $\frac{5}{2}$ & $\frac{5}{3}$ & \\
+        \hline
+        Diatomici & $\frac{5}{2}$ & $\frac{7}{2}$ & $\frac{7}{5}$ & \\
+        \hline
+        Poliatomici & 3 & 4 & $\frac{4}{3}$ &
+    \end{tabular}
+    \endgroup
+\end{gather*}
+Dove $\gamma$ è il rapporto tra le due capacità termiche. Gli esperimenti
+ci dicono che quando la temperatura si abbassa notevolmente vicino a zero kelvin,
+la capacità termica dei gas inizia a dipendere dalla temperatura fino a raggiungere zero. 
+Avendo la dipendenza della capacità termica dalla temperatura, posso ricavare 
+l'energia interna attraverso la capacità termica. Considerandoci
+nel caso impossibile di $T = 0$ Kelvin, possiamo, per un gas perfetto
+l'equazione:
+\begin{gather*}
+    \frac{dU}{dT} = 0
+\end{gather*}
+INtegrando da entrambe le parti posso ottenere che
+\begin{gather*}
+    \int_{0}^{T} \frac{dU}{dT} \ dT = \int_{0}^{T}\mathcal{C}_V \ dT \ \Longrightarrow \ U(T) - U(0) = \mathcal{C}_V T
+\end{gather*}
+Si è trovato allora che l'energia interna di un sistema a volume costatante è proprio
+\begin{align}
+    U(T) = \mathcal{C}_V T
+\end{align}
+Siccome si sa che 
+\begin{gather*}
+    \mathcal{C}_P - \mathcal{C}_V = nR
+\end{gather*}
+Dato che $\gamma \mathcal{C}_V = \mathcal{C}_P$, posso ottenere,
+sostituendolo nell'espressione di prima e poi nell'energia interna:
+\begin{align}
+    U(T) = T\frac{nR}{\gamma - 1} = \frac{pV}{\gamma - 1}
+\end{align}
+
+\section{Determinare le isoterme adiabatiche di un gas perfetto}
+Si possono determinare ora le isoterme adiabatiche di un gas perfetto,
+in quanto non c'è scambio di energia termica con l'esterno. Adesso
+posso utilizzare il primo principio specializzato in tanti aspetti:
+\begin{gather*}
+    dU = - \delta L \ \Longrightarrow \ \mathcal{C}_V dT = - pdV
+\end{gather*}
+Allora posso ottenere l'equazione per l'isoterma attraverso la seguente:
+\begin{gather*}
+    \mathcal{C}_V \ dT = -\frac{nRT\ dV}{V} \ \Longrightarrow \ \frac{dT}{T} = -\frac{nR}{\mathcal{C}_V}\frac{dV}{V}
+\end{gather*}
+Ai fini della notazione sappiamo che $T, n, \mathcal{C}_V$ sono costanti. Per 
+semplificare ancora di più l'equazione, posso esprimere $\mathcal{C}_V$ in funzione
+del rapporto $\gamma$. Adesso possiamo avere una sostituzione comoda che
+mi permette di annullare la dipendenza da $nR$:
+\begin{gather*}
+    \frac{dT}{T} = -(\gamma - 1)\frac{dV}{V}
+\end{gather*}
+SI può integrare da un certo stato di riferimento indicato
+con le coordinate termodinamiche $O \equiv T_0, p_0, V_0$ fino ad uno stato
+qualunque che vogliamo considerare $S \equiv (T, p, V)$. Dato che la pressione
+non esiste nell'equazione (è fissata), allora posso semplicemente integrare
+\begin{gather*}
+    \int_{T_0}^{T} \frac{dT}{T} = -(\gamma - 1)\int_{V_0}^{V} \frac{dV}{V}
+\end{gather*}
+Chiaramente si sta considerando una trasformazione quasi statica, allora
+posso integrare questa espressione e considerare queste considerazioni come valide,
+risolvendo ora l'integrale:
+\begin{gather*}
+    \ln \frac{T}{T_0} = -(\gamma - 1)\ln\frac{V}{V_0}
+\end{gather*}
+Adesso posso fare l'esponenziale per entrambi i membri e dunque posso 
+ottenere il rapporto tra le pressioni in funzione del volume:
+\begin{gather*}
+    \frac{T}{T_0} = \left(\frac{V}{V_0}\right)^{-(\gamma -1)} 
+\end{gather*}
+Ossia
+\begin{gather*}
+    TV^{\gamma -1} = T_0V_0^{\gamma -1}  
+\end{gather*}
+Si è ottenuta allora la prima legge che lega le trasformazioni
+isoterme adiabatiche alla legge dei gas come
+\begin{align}
+    TV^{\gamma -1} = \text{const} 
+\end{align}
+Vale anche l'analoga
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 3)  node[at end, left] {$p$};
+        \filldraw(1, 3) circle (1pt);
+        \draw(1, 3) .. controls (1.5, 1.2) and (2.25, 0.8) .. (3, 0.5);
+        \draw[dashed](1, 3) .. controls (1.5, 2) and (2, 1.6) .. (3, 1.5);
+        \draw[dashed](3, 1.5) -- (3, 0) node[at end, below] {$V_f$};
+        \draw[dashed](1, 0) -- (1, 3) node[at start, below] {$V_i$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+\begin{align}
+    T^{\gamma}p^{1 - \gamma} = \text{const}  
+\end{align}
+E' chiaro che se volessi altre coordinate potrei semplicemente 
+esprimerle attraverso la legge di stato dei gas perfetti per ottener 
+l'espressione di altre coordinate termodinamiche; per esempio
+possiamo ottener
+\begin{align}
+    pV^{\gamma} = \text{const} 
+\end{align}
+Questa curva non è proprio né un iperbole né un paraboloide. La curva
+isoterme sono meno ripide delle adiabatiche. Ne segue che il lavoro
+compiuto per fare una trasformazione isoterma è sempre maggiore
+della corrispondente trasformazione adiabatica dallo stesso
+stato iniziale allo stesso volume finale. Si dimostra considerando il lavoro di una trasformazione
+adiabatica come
+\begin{gather*}
+    L = \int_{V_0}^{V} p \ dV 
+\end{gather*}
+Dato che
+\begin{gather*}
+    L = \frac{p_0V_0^{\gamma} }{V^{\gamma} } \ \Longrightarrow \ L = \int_{V_0}^{V} \frac{p_0V_0^{\gamma} }{V^{\gamma} } \ dV = p_0 \int_{V_0}^{V} \left(\frac{V_0}{V}\right)^{\gamma} \ dV 
+\end{gather*}
+Allora si ha
+\begin{gather*}
+    L = p_0V_0\int_{1}^{\frac{V}{V_0}} x^{-\gamma} \ dx = \frac{p_0 V_0}{1 - \gamma} \left(\left(\frac{V}{V_0}\right)^{1 - \gamma}  - 1\right) 
+\end{gather*}
+Dove $x = \frac{V}{V_0}$. Dato che $\gamma > 1$, si ha che il lavoro è esattamente
+\begin{gather*}
+    L = \frac{nRT_0}{\gamma - 1} \left(1 - \left(\frac{V}{V_0}\right)^{1 - \gamma}\right) 
+\end{gather*}
+Ottenendo allora una nuova equazione per l'isoterma per un gas perfetto:
+\begin{align}
+    pV^{\gamma} = p_0V_0^{\gamma} = nRT_0V_0^{\gamma -1}   
+\end{align}
+Con $\gamma = 1$ si ottiene esattamente l'equazione di stato per i gas reali. Nel
+calcolo del lavoro non si è utilizzato il rapporto tra le capacità termiche (e non
+si può mettere $\gamma = 1$ anche se posso considerare il suo limite)
+\begin{gather*}
+    \lim_{\gamma \to 1} \frac{nRT_0}{\gamma - 1} \left(1 - \left(\frac{V}{V_0}\right)^{1 - \gamma}\right) 
+\end{gather*}
+Posso allora ottenere il lavoro come
+\begin{gather*}
+    L = nRT_0 \ln\left(\frac{V_0}{V}\right)
+\end{gather*}
+Possiamo definire una classe di trasformazioni con un esponente che
+$k$ che vogliamo in modo tale che la pressione ed il volume
+sono legate tra di loro secondo una costante. 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Visualizzazione delle curve politropiche}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$p$};
+        \filldraw(1, 2) circle (1pt);
+        \draw[green](0.5, 2) -- (2.5, 2) node[at end, right] {$k = 0$};
+        \draw[cyan](1, 0.5) -- (1, 2.5) node[at start, below] {$k = \infty $};
+        \draw(0.75, 2.5) .. controls (1.2, 1.4) and ( 2, 1) .. (2.5, 0.8 ) node[at end, right] {$k = 1$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per ogni valore del parametro $k$ posso definire classi di trasformazioni che
+prendono il nome di \textbf{politropiche}:
+\begin{itemize}
+    \item $k < 1$: curve meno ripide;
+    \item $k > 1$: curve più ripide;
+    \item $k = \gamma$: equazioni della famiglia delle adiabatiche.
+    \item $k = 1$: sono isoterme.
+    \item $k = 0$: E' una trasformazione a pressione costante;
+    \item $k \to \infty $: E' una trasformazione a volume costante. 
+\end{itemize}
+Queste funzioni sono un'eccellente approssimazioni delle trasformazioni termodinamiche reali. Posso
+determinare la quantità infinitesima di lavoro durante una di queste trasformazioni politropiche è
+definito come
+\begin{gather*}
+    \delta L = p \ dV = p_0V_0^{k}V^{-k} \ dV = p_0 V_0^{k} d\frac{V^{1 - k} }{1 - k}   = \\
+    d\left(\frac{p_0V_0^{k} V^{-k} V}{1 - k}\right) = d\left(\frac{pV}{1 - k}\right) = d\left(\frac{nRT}{1 - k}\right)
+\end{gather*}
+Allora posso ottenere che il lavoro è proprio
+\begin{gather*}
+    \delta L = \frac{nR}{1 - k} \ dT
+\end{gather*}
+Allora per ogni trasformazione politropica quasi statica per un
+gas perfetto con $k\neq 1$ il lavoro è esprimibile come
+\begin{align}
+    L_k = \frac{nR}{1 - k}(T - T_0) = \frac{nR}{1 - k}\Delta T
+\end{align}
+
+\subsection{Utilizzo del primo principio nelle politropiche}
+Dato il primo principio 
+\begin{gather*}
+    (\delta Q)_k = dU + + \delta L = \mathcal{C}_V dT + \frac{nR}{1 - k}dT
+\end{gather*}
+E quindi si ha l'espressione per la capacità termica della 
+politropica per un gas perfetto nelle condizioni di stato  quando
+$k = 0$:
+\begin{gather*}
+    \mathcal{C}_k = \mathcal{C}_V + \frac{nR}{1 - k}
+\end{gather*}
+Dove
+\begin{gather*}
+    \mathcal{C}_V = \frac{nR}{\gamma - 1}
+\end{gather*}
+In una isoterma ($k = 1$), possiamo ottenere l'espressione
+della pressione come $p = \text{const}\rho$ e dunque nelle
+politropiche:
+\begin{gather*}
+    p = \text{const}\rho^{k} 
+\end{gather*}
+
+
+\section{Misurazione della capacità termica di un gas perfetto}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'esperimento di Ruchardt}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (4, 0) -- (4, 2) -- (2.5, 2) -- (2. 5, 3);
+        \draw(0, 0) -- (0, 2) -- (1.5, 2) -- (1.5, 3);
+        \draw(2, 2.5) circle (0.5) node[anchor = center] {$m$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+L'esperimento per determinare la capacità termica di un gas perfetto 
+è stato per la prima volta fatto dal fisico tedesco Ruchardt. L'esperimento
+prevede una bottiglia (per cui con un collo molto sottile\footnote{Il collo nel disegno
+non è sottile per semplicità di rappresentazione}). Si inserisce ora una palla nel collo di bottiglia
+e all'interno del recipiente il gas per cui si vuole determinare la capacità termica 
+(ovviamente nelle condizioni di gas perfetto).
+La pallina all'interno del collo è in grado di scorrere
+senza attrito, dunque la pressione del gas sulla
+pallina è uguale a quella atmosferica $p = p_0$ ma,
+dato che c'è anche la massa $m$ a premere sul gas
+\begin{gather*}
+    p = p_0 + \frac{mg}{S}
+\end{gather*}
+Dove $S$ è l'area del cilindro del collo della bottiglia poiché (oltre ad un motivo geometrico)
+le forze che agiscono sulla sfera c'è anche un vincolo fisico: se la risultante
+della forze non fosse zero, allora il corpo ruoterebbe su sé stesso generando
+energia cinetica senza che gliene sia fornita alcuna.
+Se la pallina si muove di una certa $y$, molto piccola, rispetto al sistema di riferimento
+allora il volume del gas varia in relazione allo spostamento per la sezione del collo di bottiglia:
+\begin{gather*}
+    dV = Sy
+\end{gather*}
+Adesso posso esprimere questa variazione di volume secondo la legge
+del gas perfetto nelle trasformazioni politropiche:
+\begin{gather*}
+    pV^{\gamma} = \text{const} 
+\end{gather*}
+Posso allora dire che
+\begin{gather*}
+    V^{\gamma}dp + \gamma V^{\gamma -1} pdV = 0 \\
+    dp + \gamma \frac{V^{\gamma -1 } }{V^{\gamma} } pdV = 0  
+\end{gather*}
+Ossia
+\begin{gather*}
+    dp = -\frac{\gamma p}{V}dV = -\frac{\gamma pS }{V}y
+\end{gather*}
+Dato che è presente una pressione sulla pallina, allora ci deve anche
+essere una forza associata alla pressione a cui è sottoposta la pallina:
+\begin{gather*}
+    F = Sdp = -\gamma \frac{pS^{2} }{V}y
+\end{gather*}
+Allora, posso impostare la prima cardinale e
+ottenere l'espressione di un o oscillatore armonico
+\begin{gather*}
+    ma = -\frac{\gamma pS^{2} }{V}y
+\end{gather*}
+Allora posso dire che la pulsazione del moto è
+\begin{gather*}
+    \omega = \sqrt{\frac{\gamma p S^{2} }{mV}} 
+\end{gather*}
+E dunque posso ottenere il periodo di oscillazione
+\begin{gather*}
+    \tau = \frac{2\pi}{\omega}
+\end{gather*}
+Risolvendo ed elevando al quadrato posso dire che
+\begin{align}
+    \gamma = \frac{4\pi^{2}mV }{\tau^{2}S(p_0S + mg) }
+\end{align}
+
+\end{document}

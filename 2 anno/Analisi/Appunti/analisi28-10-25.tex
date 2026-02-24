@@ -1,0 +1,308 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+\usepgfplotslibrary{polar}
+
+\title{Analisi}
+\author{Tommaso Miliani}
+\date{28-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Curve in forma polare}
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (2, 0);
+        \draw[->](0, 0) -- (0, 2);
+        \draw(0, 0) -- (1.5, 1) node[midway, above] {$\rho$};
+        \draw(0.75, 0.5) arc (30:0:1) node[midway, right] {$\theta$};
+        \filldraw(0, 0) circle (1pt) node[anchor = north east]{$O$};
+        \filldraw(1.5, 1) circle (1pt) node[anchor = south west] {$P(\theta)$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si possono rappresentare anche le curve in forma polare (come in Fisica 1):
+\begin{gather*}
+    \rho = \rho(\theta) \quad \rho(\theta) > 0 \quad \theta \in I
+\end{gather*}
+Le coordinate polari ci permettono di esprimere i punti con le seguenti 
+coordinate
+\begin{gather*}
+    \underline{r}(\theta) = \begin{pmatrix} 
+    \rho \cos\theta \\
+    \rho \sin\theta \end{pmatrix} 
+\end{gather*}
+
+\begin{example}
+    La curva
+    \begin{gather*}
+        \rho(\theta) = A\theta \qquad A > 0, \theta \geq 0
+    \end{gather*}
+    ha grafico 
+    \begin{gather*}
+  \begin{tikzpicture}[scale=0.6]
+    \begin{polaraxis}
+      [no marks,samples=201,smooth,domain=0:4]
+      \addplot+[color = cyan] (4*180*x,x);
+    \end{polaraxis}
+  \end{tikzpicture}
+    \end{gather*}
+\end{example}
+
+
+\section{Integrali di linea di prima specie }
+SI definiscono ora gli integrali di linea di prima specie e alcuni loro teoremi ed applicazioni generali.
+La definizione è simile a quella degli integrali di analisi uno, ma si tiene conto del
+fatto che la curva può muoversi nel tempo. 
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Proiezione dell'integrale di linea di una superficie su di una curva in $\mathbb{R}^{2}$  }
+    \begin{tikzpicture}
+        \filldraw(0, 0) circle (1pt) node[anchor = north] {$A \equiv \underline{r}(a)$};
+        \filldraw(2, 1) circle (1pt) node[anchor = north west] {$B \equiv \underline{r}(b)$};
+        \draw(0, 0) .. controls (1, 0) and (1.2, 1) .. (2, 1);
+        \filldraw(0, 1) circle (1pt);
+        \filldraw(2, 2) circle (1pt);
+        \draw(0, 1) .. controls (1, 3) and (1.5, 1.8) .. (2, 2);
+        \draw[dashed](0, 0) -- (0, 1);
+        \draw[dashed](2, 1) -- (2, 2);
+        \filldraw(1.07, 0.5) circle (1pt) node[anchor = north west] {$(x(t), y(t))$};
+        \node at (1, 2.5) {$\gamma$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+\begin{definition}
+    Si definisce integrali di linea (o curvilinei)  l'integrale
+    come l'area del sottografico di una funzione in cui le variabili
+    spaziali $x, y$ si muovono lungo la curva $\underline{r}(t)$. 
+    Rispetto all'integrale dell'analisi uno c'è il termine correttivo dovuto al movimento 
+    della curva (che si muove lungo lo spazio e il tempo)
+    \begin{gather*}
+        \left| d\underline{r}(t) \right| = \sqrt{\dot{x}^{2}(t) + \dot{y}^{2}(t)  }  \ dt
+    \end{gather*}
+    Dunque posso definirlo come 
+    \begin{align}
+        \int_{a}^{b}f(x(t), y(t)) \sqrt{\dot{x}^{2}(t) + \dot{y}^{2}(t)  }  \ dt = \int_{\gamma} f(x, y) \ ds
+    \end{align}
+    E si può dimostrare che dipende solamente dal sostegno della curva.
+\end{definition}
+
+\begin{theorem}[L'integrale di linea di prima specie dipende solo dal sostegno]
+    Non ho copiato le ipotesi
+
+    \begin{align}
+        \int_{a}^{b}f(\underline{x}(t)) \left| \dot{\underline{x}(t)} \right| \ dt = \int_{\alpha}^{\beta} f(\underline{r}(u))\left|  \dot{\underline{r}(u)}\right| \ du  
+    \end{align}
+    E quindi è ben definito
+    \begin{align}
+        \int_{\gamma} f  \ dS = \int_{a}^{b} f(\underline{x}(t)) \left| \dot{\underline{x}(t)} \right| \ dt 
+    \end{align}
+    Il $dS$ è un simbolo che ci permette di ricordare 
+\end{theorem}
+\begin{proof}
+    Sia
+    \begin{gather*}
+        g :[a, b] \to [\alpha, \beta ]
+    \end{gather*}
+    Un cambio di parametro che mi permetta di dire che $t \to u = g(t)$. Supponiamo che
+    $g \in C^{1}$ e che la sua derivata sia positiva, allora il cambio di parametro 
+    mantiene l'orientazione.  Questo vuol dire che 
+    \begin{gather*}
+        \underline{x}(t) = \underline{r}(g(t))
+    \end{gather*} 
+    Si calcola ora
+    \begin{gather*}
+        \int_{\alpha}^{\beta} f(\underline{r}(u)) \left| \dot{\underline{r}(u)} \right| \ du \underset{u = g(t)}{=} \int_{a}^{b} f(\underline{r}(g(t)))   g'(t)\left| \dot{\underline{r}(g(t))} \right|  \ dt = \int_{a}^{b} f(\underline{x}(t))\left| \dot{\underline{x}(t)} \right| \ dt 
+    \end{gather*}
+    La prima uguaglianza è vera perché il minimo dell'immagine è data dal minimo della funzione, 
+    dunque, essendo $\alpha$ l'immagine di $a$ e $\beta$ l'immagine di $b$, allora è possibile
+    fare quell'uguaglianza. Inoltre,  il vettore tangente 
+    \begin{gather*}
+        \left| \dot{\underline{r}(u)} \right| = \left| \dot{\underline{r}}(g(t)) \right| \left| \dot{g}(t) \right| \underset{g' > 0}{=} g'(t)\left| \dot{\underline{r}(g(t))} \right|   
+    \end{gather*}
+    E l'ultima uguaglianza è data dalla derivata di vettori. Si vede inoltre che non dipendono
+    nemmeno dal verso scelto: sono infatti legati alla geometria della curva e non
+    alla parametrizzazione.
+\end{proof}
+
+\begin{observation}
+    Deriva direttamente dalla dimostrazione del problema
+    \begin{align}
+        f = 1 \qquad \int_{\gamma} f \ dS = \int_{a}^{b} \left| \dot{\underline{x}}(t) \right| \ dt = \mathfrak{L}(\gamma) 
+    \end{align}
+\end{observation}
+
+Le applicazioni di questi integrali sono varie:
+\begin{itemize}
+    \item Massa di un filo con densità: 
+    \begin{gather*}
+        \rho(x, y, z)  \quad M_\gamma  = \int_{\gamma} \rho \ dS = \int_{a}^{b} \rho (x(t), y(t), z(t)) \left| \dot{\underline{x}} (t) \right| \ dt 
+    \end{gather*}
+    Oppure, se  è data la densità
+    \begin{gather*}
+        \rho(t) = M_\gamma \int_{a}^{b} \rho(t)\left| \dot{\underline{x}}(t) \right| \ dt 
+    \end{gather*}
+    \item Centro di massa del filo materiale $G(x_G, y_G, z_G) $:
+    \begin{gather*}
+        x_G = \frac{1}{m_G} \int_{\gamma} \rho \ dS 
+    \end{gather*}
+    In maniera analoga si ottengono anche le altre due coordinate. 
+\end{itemize}
+
+\begin{observation}
+    Se $\rho \equiv 1$ e $M_\gamma = \mathfrak{L}_\gamma$ allora il centro
+    di massa corrisponde con il centro geometrico:
+    \begin{gather*}
+        B(x_B, y_B, z_B)  \qquad x_B = \frac{1}{L} \int_{\gamma} x \ dS
+    \end{gather*}
+\end{observation}
+
+\begin{example}
+    \begin{gather*}
+        \underline{x}(t) = \begin{pmatrix} t^{2} \\
+        t^{2} + 1   \end{pmatrix} 
+    \end{gather*}
+    Sia $\gamma$ il sostegno della funzione. Si determini 
+    \begin{itemize}
+        \item Provare che $x$ è parametro di riferimento (lasciata per esercizio)
+        \item Calcolare $\mathfrak{L}(\gamma) = L$ (lasciata per esercizio)
+        \item Calcolare il baricentro geometrico
+        \item Calcolare la massa di un filo con densità
+    \end{itemize}
+    iii) Si trova il baricentro come
+    \begin{gather*}
+        \underline{x}(t) = \begin{pmatrix} 2t \\
+        3t^{2}  \end{pmatrix}_{t \in {0, 2}} 
+    \end{gather*}
+    Sia il punto del baricentro definito come $B(x_B, y_B)$, allora
+    \begin{gather*}
+        L x_B = \int_{\gamma} x \ dS = \int_{0}^{2} t^{2} \left| \dot{\underline{x}}(t) \right| 
+    \end{gather*}
+    Dato che
+    \begin{gather*}
+        \left| \dot{\underline{x}}(t) \right| = \sqrt{4t^{2} + 9t^{4}  } = t\sqrt{4 + 9t^{2} }  
+    \end{gather*}
+    Allora
+    \begin{gather*}
+        \int_{0}^{2}t^{3}\sqrt{4 + 9t^{2} } \ dt \overset{Parti}{=}   
+    \end{gather*}
+    Analogamente posso ottenere
+    \begin{gather*}
+        L y_B = \int_{\gamma} \int_{0}^{2} (t^{3} + 1 ) t \sqrt{4 + 9t^{2} } \ dt
+    \end{gather*}
+    (DA finire per esercizio). \\
+    iv) Si determina ora la massa del filo come 
+    \begin{gather*}
+        m_\gamma = \int_{\gamma} \rho \ dS = \int_{0}^{2} \rho(x(t), y(t)) \left| \dot{\underline{x}}(t) \right| \ dt = \int_{0}^{2} \sqrt{1 + \frac{9}{4}t^{2} } t \sqrt{4 + 9t^{2} } \ dt  
+    \end{gather*}
+    Lasciata per esercizio. 
+\end{example}
+
+
+\section{Esercizi sul teorema del Dini}
+\begin{example}
+    Calcolare il limite \begin{gather*}
+        \lim_{x \to 2} \frac{f(x) -1}{x - 2} 
+    \end{gather*}
+    Dove
+    \begin{gather*}
+        y = f(x) = x + \ln x - y - \ln y -1 - \ln 2 = 0
+    \end{gather*}
+    E' definita in un intorno di $x = 2$ e $y = 1$. Dunque per
+    il teorema del Dini esiste un $y = f(x) $ tale che $f \in C^{1}$
+    e dunque $F(x, f(x) ) = 0$, ossia il punto $(2, 1)$ appartiene alla 
+    linea di livello zero e dunque sappiamo che
+    \begin{gather*}
+        f(2) = 1 \ \Longrightarrow \ \lim_{x \to 2} f(x)  = 2 
+    \end{gather*} 
+    E dunque il limite è un infinitesimo. Posso allora applicare Taylor di primo grado
+    (in quanto il denominatore è di grado 1), allora scopro che
+    \begin{gather*}
+        f(x)  = f(2) + f'(2) (x - 2) + o(x - 2)
+    \end{gather*}
+    Per sapere chi è $f'(2)$ si ricorre al teorema del Dini per cui
+    \begin{gather*}
+        f'(2) = -\frac{F_x(2, 1)}{F_y(2, 1)} = \frac{3}{4}
+    \end{gather*}
+    Dunque lo sviluppo diventa
+    \begin{gather*}
+        f(x)  = 1 + \frac{3}{4}(x - 2) + o(x - 2)
+    \end{gather*}
+    E dunque segue che
+    \begin{gather*}
+        \lim_{x \to 2} \frac{f(x)  - 1}{x - 2} = \lim_{x \to 2} \frac{\frac{3}{4}(x - 2) + o(x -2)}{x - 2} = \frac{3}{4}  
+    \end{gather*}
+    Calcolare ora il limite per
+    \begin{gather*}
+        \lim_{x \to 2}\frac{f(x)  - 1 - \frac{3}{4}(x - 2)}{(x -2)^{2} } 
+    \end{gather*}
+    Posso sviluppare ora Taylor al secondo ordine e poter risolvere ora il limite,
+    per il Dini
+    \begin{gather*}
+        f'(x) = -\frac{F_x(x, f)}{F_y(x, f)} = \frac{1 + \frac{1}{x}}{1 + \frac{1}{x}} \in C^{1} 
+    \end{gather*}
+    E dunque 
+    \begin{gather*}
+        f''(x)  = \frac{\left(-\frac{1}{x^{2} }\right)\left(1 + \frac{1}{f}\right) - \left(1 + \frac{1}{x}\right)\left(-\frac{f'}{f^{2} }\right)}{\left(1+ \frac{1}{f}\right)^{2} }
+    \end{gather*}
+    Dunque ho tutti i valori
+    \begin{gather*}
+        f(2) = 1 \qquad f'(2) = \frac{3}{4} \qquad f''(2) = \frac{5}{32}
+    \end{gather*}
+    E dunque lo sviluppo diventa
+    \begin{gather*}
+        f(x)  = 1 + \frac{3}{4}(x - 2) + \frac{5}{64}(x - 2 )^{2}  + o(x - 2)^{2} 
+    \end{gather*}
+    E quindi il limite
+    \begin{gather*}
+        \lim_{x \to 2} \frac{f(x)  - 2 - \frac{3}{4}(x - 2)}{(x - 2)^{2} } = \frac{5}{64} 
+    \end{gather*}
+\end{example}
+
+
+
+\end{document}

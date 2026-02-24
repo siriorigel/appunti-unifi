@@ -1,0 +1,255 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fluidodinamica}
+\author{Tommaso Miliani}
+\date{05-12-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Riassuntino altra volta}
+La \textbf{pressione ram} è l'espressione della portanza
+degli arei: il flusso con una certa velocità $\vv{u}$ che sbatte contro 
+un ostacolo è deviato e cambia la sua quantità di moto, 
+quando viene spinto verso il basso, l'ostacolo subisce una forza verso l'alto.
+Un applicazione semplice del problema può essere la seguente: supponendo 
+di avere una conduttura che ha sezione uguale $\Sigma$ da entrambe le parti 
+ed un flusso entrante ed uscente, chiaramente, se il gomito della conduttura
+non è inchiodato, il fluido esercita sul gomito una certa spinta che si determina 
+attraverso il teorema di Bernoulli. Per il principio di Leonardo si ha che la quantità di 
+massa che passa istantaneamente è:
+\begin{gather*}
+    Q_m = \rho u_k \Sigma
+\end{gather*}
+La quantità di moto è possibile calcolarlo prendendo una sezione parallela
+al flusso:
+\begin{gather*}
+    \vv{F_1} = \rho \vv{u_1} \cdot u_1 \Sigma   
+\end{gather*}
+Allora 
+\begin{gather*}
+    \int_{V}^{} \frac{\partial \vv{p_u} }{\partial t} dV + \int_{V}^{}  \vv{\nabla} (\rho\vv{u}\cdot u  ) = -\int_{V}^{}  \vv{\nabla}p \ dV + \int_{V}^{}  \rho \vv{g} \ dV 
+\end{gather*}
+Si ottiene dunque la seguente uguaglianza
+\begin{gather*}
+    \frac{dQ}{dt} + \int_{\Sigma(V)}^{} (\rho \vv{u} \cdot \vv{u}  ) \cdot \hat{u} \ d \sigma = - \int_{\Sigma}^{}   \rho \hat{u} \ d\sigma = - \vv{\nabla} p + \rho \vv{u}   
+\end{gather*}
+
+Invece nel punto 2:
+\begin{gather*}
+    \vv{F_2} = \rho \vv{u_2} \cdot u_2  \Sigma 
+\end{gather*}
+$u_1 = u_2$ e $\vv{u_2} = -\vv{u_1}$  dato che deve valere il principio di Leonardo,
+si ha che la variazione della quantità di moto è esattamente legata alla forza che
+applica il fluido sulla conduttura
+\begin{gather*}
+    \vv{F_T} = - q_{1, 2} \vv{u_1} - q_{1, 2} \vv{u_2} = -2q_{1, 2} \vv{u_1}    
+\end{gather*}
+Dunque il fluido ha un flusso negativo di quantità di moto: perde quantità
+di moto entrando nella conduttura e dunque 
+\begin{gather*}
+    F = 2q\vv{u} 
+\end{gather*} 
+
+\section{Pala eolica}
+Nelle pale eoliche le pale girano poiché sono messe in moto dal fluido che
+colpisce la pala eolica: supponendo di conoscere la superficie della pala, 
+la velocità del vento e la potenza erogata dalla pala. A questo punto si
+può determinare il rendimento della pala, la velocità del vento dopo la pala e la
+spinta che il flusso esercita sulla pala. 
+\begin{gather*}
+    Q_M = \rho u_1 \Sigma
+\end{gather*}
+Mi posso calcolare il flusso di energia cinetica che 
+entra nella pala, ossia la potenza che agisce sulla pala. 
+\begin{gather*}
+    P = Q_M \frac{u_1^{2}}{2}
+\end{gather*}
+Il rendimento è dunque la differenza tra la potenza iniziale meno quella 
+assorbita:
+\begin{gather*}
+    \eta = \frac{P_E}{P_1}
+\end{gather*}
+Dove $P_E$ è la potenza assorbita dalla pala (ossia l'energia per unità di tempo 
+sottratta al vento) e $P_1$ è la potenza in entrata. Dato che tutto si deve
+conservare, allora si ha che la potenza in uscita è data
+\begin{gather*}
+    P_2 = P_1 - P_E
+\end{gather*}
+Dato che il flusso di massa si conserva:
+\begin{gather*}
+    Q_M \frac{u^{2}_2}{2} = Q_M\frac{u_1^{2}}{2}(1 - \eta)
+\end{gather*}
+A questo punto posso ottenere la velocità del vento dopo la pala 
+in funzione del rendimento della pala
+\begin{gather*}
+    u_2 = u_1\sqrt{1 - \eta} 
+\end{gather*}
+Dato che la variazione di quantità di moto è data da
+\begin{gather*}
+    -\rho u_1 \Sigma_1 \vv{u_1} - \rho u_2 \Sigma_2 \vv{u_2}  
+\end{gather*}
+Allora la forza esercitata sulla pala è proprio
+\begin{gather*}
+    \vv{F} = -Q_M\vv{u_1}  \cdot (1 - \sqrt{q - \eta} )
+\end{gather*}
+
+\section{Ricavare la prima legge della dinamica per Fluidodinamica}
+Date le leggi della Fluidodinamica
+\begin{gather*}
+    \frac{\partial \rho}{\partial t} + \vv{\nabla} (\rho \vv{u} ) = 0 \\
+    \vv{u} \left(\rho\dots\right) 
+\end{gather*}
+si può ricavare la prima legge della dinamica per la Fluidodinamica lavorando
+per un fluido incomprimibile
+\begin{gather*}
+    -\vv{\nabla}p \cdot \vv{u} - \rho \vv{\nabla}p\phi_G \cdot \vv{u}    
+\end{gather*}
+Dato che
+\begin{gather*}
+    \vv{\nabla} (a \cdot \vv{B} ) = \vv{B} \cdot \vv{\nabla}a + a\vv{\nabla}\cdot \vv{B}     
+\end{gather*}
+Da cui si può semplificare quella sopra come 
+\begin{gather*}
+    -\vv{\nabla}(p \vv{u} ) = \vv{u}\vv{\nabla}p + p\vv{\nabla}\vv{u}     
+\end{gather*}
+Ossia
+\begin{gather*}
+    -\vv{u}\vv{\nabla}p +p\vv{\nabla}\vv{u}   - \vv{\nabla}(\rho \phi_G \vv{u}  ) + \phi_G\vv{\nabla}(p\vv{u} ) 
+\end{gather*}
+Dato che si è in regime incomprimibile, allora si deve avere che la divergenza del vettore
+$\vv{u}$ è nulla, allora posso riscrivere come 
+\begin{gather*}
+    -\vv{\nabla}(p\vv{u} )- \vv{\nabla}(\rho \phi_G \vv{u} ) - \frac{\partial \rho\phi_G}{\partial t}   
+\end{gather*} 
+Si svolge il seguente
+\begin{gather*}
+    \rho\vv{u}((\vv{u} \vv{\nabla}  )\vv{u} ) \ \Longrightarrow \ \sum_i \rho u_i \sum _k u_k\frac{\partial u}{\partial x_k} 
+\end{gather*}
+Si può provare ora a fare la divergenza di
+\begin{gather*}
+    \vv{\nabla}\left(\rho \frac{u^{2}}{2} \vv{u} \right) \ \Longrightarrow \ \sum_{k} \frac{\partial }{\partial x_k}  \rho \frac{u^{2}}{2}u_k = \frac{u^{2}}{2} \sum_k \frac{\partial \rho u_k}{\partial x_k} + \rho \sum _k u_k \frac{\partial }{\partial x_k}\frac{u^{2}}{2}  
+\end{gather*}
+Questa diventa proprio
+\begin{gather*}
+    \frac{u^{2}}{2}  \vv{\nabla} (\rho \vv{u} ) + \rho \sum_k u_k \sum_i \frac{\partial u_i^{2}}{2\partial x_k} = \frac{u^{2}}{2}\vv{\nabla}(\rho \vv{u} )   + \sum_k \rho u_k \sum_i u_i \frac{\partial u_i}{\partial x_k} 
+\end{gather*}
+Ottenendo
+\begin{gather*}
+    \frac{u^{2}}{2} \vv{\nabla}(\rho \vv{u} ) + \sum_i \rho u_i \sum_k u_k \frac{\partial u_i}{\partial x_k}  
+\end{gather*}
+L'ultimo termine è proprio
+\begin{gather*}
+    \rho\vv{u}((\vv{u} \vv{\nabla}  )\vv{u} )
+\end{gather*}
+Dunque
+\begin{gather*}
+    \vv{\nabla}\left(\rho \frac{u^{2}}{2} \vv{u} \right) = \frac{u^{2}}{2} \vv{\nabla}(\rho \vv{u} )+  \rho\vv{u}((\vv{u} \vv{\nabla}  )\vv{u} )
+\end{gather*}
+Combinando nell'equazione di continuità
+\begin{gather*}
+    \frac{\partial }{\partial t} \left(\frac{\rho}{2}u^{2} + \rho \phi_G\right) - \vv{\nabla} \left(\left(\frac{\rho}{2}u^{2} + p + \rho \phi_g\right) \vv{u} \right) = 0  
+\end{gather*}
+Si ottiene allora il principio di conservazione di energia della Fluidodinamica,
+per cui si ottiene l'energia interna e nella seconda espressione, rispettivamente, il flusso
+di energia cinetica del gas, il lavoro delle forze di pressione e di quella di gravità.
+In condizioni stazionarie l'espressione dell'energia diventa
+\begin{gather*}
+    \vv{\nabla}\left(\left(\frac{\rho}{2}u^{2} + p + \rho \phi_G\right) \vv{u} \right) = 0 
+\end{gather*}
+Dato che lungo una linea di flusso deve essere costante, allora devo necessariamente avere
+che
+\begin{gather*}
+    \vv{\nabla} \left(\rho \vv{u}\left(\frac{u^{2}}{2} + \frac{p}{\rho} + \phi_G\right) \right) 
+\end{gather*}
+È il teorema di Bernoulli applicato alla linea di flusso: ossia una conduttura con superficie
+piccola che si approssima a linea di flusso. 
+
+\section{Conservazione dell'energia meccanica in condizioni in cui esiste una legge barotropica}
+Dall'equazione di continuità e dall'equazione di moto, supponendo di avere una legge
+barotropica $p = p(\rho)$, è possibile definire una quantità differenziale
+dividendo per la densità $w = \frac{dp}{\rho}$, ossia
+\begin{gather*}
+    \vv{\nabla} \frac{p}{\rho}  =\vv{\nabla} w
+\end{gather*}
+Allora l'equazione di moto
+\begin{gather*}
+    \left(- \rho \vv{\nabla}w + \phi_G \vv{\nabla}p  \right) \vv{u} \ \Longrightarrow \ \rho \vv{u} \cdot \vv{\nabla} w = \vv{\nabla}(\rho w \vv{u} ) - w\vv{\nabla}(\rho \vv{u} )   = \vv{\nabla}(\rho w \vv{u} ) + w\frac{\partial \rho}{\partial t}    
+\end{gather*}
+Ossia
+\begin{gather*}
+    \vv{\nabla}(\rho w \vv{u} ) + \frac{\partial \rho w}{\partial t} - \rho \frac{\partial w}{\partial t}    
+\end{gather*}
+Data ora la definizione di derivata rispetto al tempo di $w$, si ha che
+\begin{gather*}
+    \vv{\nabla}(\rho w \vv{u} ) + \frac{\partial (\rho w - p)}{\partial t}  
+\end{gather*}
+Adesso dentro l'equazione di moto si ottiene la seguente
+\begin{gather*}
+    \frac{\partial }{\partial t}(\frac{\rho}{2} u^{2} + \rho \phi_G - \rho w - p) + \vv{\nabla} \left(\left(\frac{\rho}{2} u^{2} + p\phi_G + \rho w\right) \vv{u} \right) = 0  
+\end{gather*}
+Posso dunque definire l'energia interna per unità di volume come 
+\begin{gather*}
+    U = \rho w - p
+\end{gather*}
+allora posso definire
+\begin{gather*}
+    w = \frac{U}{\rho} + \frac{p}{\rho}
+\end{gather*}
+Dunque $w$ è l'\textbf{entalpia specifica per unità di massa}.
+Per un gas perfetto si ha che è definita come 
+\begin{gather*}
+    w = \frac{\gamma}{1 - \gamma} \frac{p}{\rho}
+\end{gather*}
+
+
+
+\end{document}

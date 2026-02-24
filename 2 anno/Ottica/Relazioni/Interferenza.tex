@@ -1,0 +1,382 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\usepackage{svg}
+\usepackage{float}
+%\definecolor{page}{rgb}{0.129,0.157,0.212}
+%\pagecolor{page}
+%\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Esperienza Interferenza}
+\author{Gruppo 19 \\ Fabbri Marco, Miliani Tommaso, Mongatti Giulio, Tinacci Lorenzo}
+\date{10 Dicembre 2025}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Scopo dell'esperienza ed ipotesi}
+Lo scopo dell’esperienza è l’utilizzo di un interferometro di Michelson per effettuare:
+\begin{itemize}
+    \item Misura della lunghezza d’onda ignota di un laser verde;
+    \item Misura della lunghezza d’onda centrale $\lambda_0$ e della larghezza $\Delta \lambda_0$  dello spettro di emissione di un LED bianco;
+    \item Misura della banda spettrale di trasmissione di un filtro verde Thorlabs centrato attorno $\lambda_0$ con larghezza $\Delta \lambda$. 
+\end{itemize}   
+E dunque verificare che l'intensità luminosa totale sul rilevatore, proveniente da due specchi a distanza
+diversa dal cubo polarizzatore, vari secondo le seguenti relazioni fondamentali al variare della distanza dei cammini
+ottici $\Delta L$: \\
+per onda monocromatica:
+\begin{align}
+    I(\Delta L)  = I_0 \sin^{2}\left(k\Delta L\right)
+\end{align}
+e per radiazione con spettro gaussiano centrato in $\lambda_0$ e con larghezza $\Delta\lambda$ non monocromatica:
+\begin{align}
+    I(\Delta L) = \frac{I_0}{2}\left(1 - \exp\left(-\frac{(2\pi\Delta L)^{2}}{(\Delta \lambda)^{2}}\right) \cos\left(\frac{4\pi\Delta L}{\lambda_0}\right) \right)
+\end{align}
+
+\section{Schema generale di misura}
+Tutte le misure sono effettuate mediante la misura del segnale di intensità in uscita dell'interferometro
+al variare della differenza di lunghezza dei cammini ottici, indicata con $\Delta L$, dei due rami e mediante il confronto con
+il segnale ottenuto utilizzando un laser metrologico ad \ce{He-Ne} ad elevata lunghezza di coerenza.
+\paragraph{Laser verde} \mbox{} \\
+Si può ottenere la lunghezza d'onda del laser verde secondo la seguente relazione
+\begin{align}
+    \lambda_V = \lambda_R \cdot F
+\end{align}
+E, con il metodo delle derivate logaritmiche, il suo errore:
+\begin{align}
+    \Delta \lambda_V = \left(\left| \frac{\Delta F}{F} \right| \right) \lambda_V
+\end{align}
+Dove $F$ è il fattore correttivo che si stima nel programma di analisi dati ottenuto sovrapponendo 
+i profili dei massimi dei laser verde e rosso, in funzione della tensione delle singole misure effettuate in 
+laboratorio. Facendone media e scarto massimo si ottiene il valore di $F$ ed il suo relativo errore. L'errore sulla lunghezza
+d'onda del laser $\Delta \lambda_R$ è trascurabile. 
+
+\paragraph{Led bianco e led bianco con filtro} \mbox{} \\
+Si ricava la lunghezza d'onda attorno alla quale è centrata la distribuzione
+di luce gaussiana del led secondo la seguente relazione:
+\begin{align}
+    \lambda_0 = F' \lambda_R.
+\end{align}
+Dove $F'$ (e il suo analogo $F''$) sono i fattori correttivi, rispettivamente, per il led bianco 
+ed il led bianco con filtro verde. Per ricavare $F'$ e $F''$ sono state eseguite media e scarto massimo
+di valori ottenuti dai grafici dei massimi acquisiti in laboratorio (6 per il LED bianco e 2 per
+il LED con il filtro).
+Alternativamente, nel caso si sia eseguita una sola presa dati per il LED bianco con e senza filtro
+verde, è possibile stimare un intervallo di $F'$ e $F''$ nel quale i profili dei massimi siano
+paralleli all'ordine dei massimi del laser a \ce{He-Ne}, in modo da determinare media e scarto
+massimo a partire dagli estremi di questo intervallo.  
+Dunque, l'errore associato alla lunghezza d'onda dipende interamente
+dall'errore sul parametro $F$ in quanto l'errore sulla lunghezza d'onda
+del laser \ce{He-Ne} è conosciuto con infinita precisione.
+\begin{align}
+    \Delta \lambda_0  = \left| \frac{1}{F'} \right|\Delta F' \lambda_0 
+\end{align}
+Una volta ricavato il fattore $F$ dal confronto si può determinare la lunghezza di coerenza
+secondo:
+\begin{align}
+    l_c = n\frac{\lambda_0}{4}.
+\end{align}
+Per stimare il numero di massimi con relativo errore abbiamo, per ogni grafico dell'intensità, contato il numero di massimi $n$ presenti
+sopra la linea di mezza altezza e fatto la media, mentre per l'errore abbiamo scelto il più grande tra: scarto massimo, il numero 1, il numero
+di picchi che non si riesce a determinare con esattezza. 
+Per l'errore di $l_c$ si utilizza dunque la propagazione degli errori con le derivate logaritmiche:
+\begin{align}
+    \Delta l_c = \left(\left| \frac{1}{\lambda_0} \right| \Delta \lambda_0 + \left| \frac{1}{n} \right|\Delta n  \right)l_c
+\end{align}
+Si può dunque stimare la larghezza dello spettro di emissione $\Delta \lambda$, ed il suo relativo
+errore, secondo la seguente relazione:
+\begin{align}
+    l_c = \frac{\lambda_0^{2}}{2\pi\Delta \lambda} \ \Longrightarrow \ \Delta \lambda = \frac{\lambda_0^{2}}{2\pi l_c}
+\end{align}
+Ed il suo errore associato diventa:
+\begin{align}
+    \delta\Delta\lambda = \left(\left| \frac{2}{\lambda_0} \right| \Delta \lambda_0 + \left| \frac{1}{l_c} \right| \Delta l_c \right) \Delta\lambda
+\end{align}
+
+
+
+\section{Apparato sperimentale}
+Di seguito si riportano le due configurazioni per l'apparato sperimentale per le
+due parti dell'esperienza:
+\begin{gather*}
+    \begin{tikzpicture}
+        \begin{scope}
+        \filldraw[red](5, 0) rectangle (5.2, 1);
+        \node[red] at (4.5, 0.5) {laser};
+        \node[red] at (4.5, 0.2) {rosso};
+        \draw(5.1, 1) -- (5.1, 7) -- (2, 7) -- (2, 6);
+        \draw(4.9, 1.5) -- (5.3, 1.5);
+        \draw(4.7, 2.2) -- (5.5, 2.2);
+        \draw(4.8, 7.3) -- (5.4, 6.7);
+        \draw(1.7, 6.7) -- (2.3, 7.3);
+        \draw(1.8, 6) rectangle (2.2, 5.6);
+        \draw(1.8, 6) -- (2.2, 5.6);
+        \draw(1.8, 5.8) -- (-1, 5.8) -- (-1, 2);
+        \draw(-1.3, 5.5) -- (-0.7, 6.1);
+        \filldraw[green](-1.1, 2) rectangle (-0.9, 1);
+        \node at (-1.6, 1.5) {laser};
+        \node at (-1.6, 1.2) {ignoto};
+        \draw(2, 5.6) -- (2, 5); 
+        \draw(1.7, 5) rectangle (2.3, 4.7);
+        \node at (3.3, 5) {diaframma};
+        \node at (3.3, 4.7) {circolare};
+        \draw(2, 4.7) -- (2, 3);
+        \draw(1.8, 3) rectangle (2.2, 2.6);
+        \draw(2.2, 3) -- (1.8, 2.6);
+        \draw(2.2, 2.8) -- (3.5, 2.8);
+        \draw(3.5, 3) rectangle (4.2, 2.6);
+        \node at (3.95, 3.2) {rilevatore};
+        \draw(2, 2.6) -- (2, 1);
+        \draw(1.7, 1) rectangle (2.3, 0.7);
+        \node at(1.5, 0.85) {$S_1$};
+        \draw(1.8, 2.8) -- (0.5, 2.8);
+        \draw(0.2, 3.1) rectangle (0.5, 2.5);
+        \node at (0, 2.75) {$S_2$}; 
+        \draw[|-|](2.5, 2.6) -- (2.5, 1) node[midway, right] {$L_1$};
+        \draw[|-|](1.8, 3.3) -- (0.5, 3.3) node[midway, above] {$L_2$};
+        \draw(2.1, 0.7) -- (2.1, -0.5) -- (1.3, -0.5) -- (1.3, -0.15);
+        \draw(1, -0.15) -- (1.6, -0.15);
+        \draw(1, 0.15) -- (1.6, 0.15);
+        \draw(1.3, 0.15) -- (1.3, 0.5) -- (1.9, 0.5) -- (1.9, 0.7);
+        \end{scope}
+        \begin{scope}[xshift=8cm]
+        \draw(1.9, 4.7) rectangle (2.1, 5.3);
+        \node at (2, 5.55) {led bianco};
+        \draw(1.8, 4) -- (2.2, 4);
+        \draw(2, 4.7) -- (2, 3);
+        \draw(1.8, 3) rectangle (2.2, 2.6);
+        \draw(2.2, 3) -- (1.8, 2.6);
+        \draw(2.2, 2.8) -- (3.5, 2.8);
+        \draw(3.5, 3) rectangle (4.2, 2.6);
+        \node at (3.95, 3.2) {rilevatore};
+        \draw(2, 2.6) -- (2, 1);
+        \draw(1.7, 1) rectangle (2.3, 0.7);
+        \node at(1.5, 0.85) {$S_1$};
+        \draw(1.8, 2.8) -- (0.5, 2.8);
+        \draw(0.2, 3.1) rectangle (0.5, 2.5);
+        \node at (0, 2.75) {$S_2$}; 
+        \draw[|-|](2.5, 2.6) -- (2.5, 1) node[midway, right] {$L_1$};
+        \draw[|-|](1.8, 3.3) -- (0.5, 3.3) node[midway, above] {$L_2$};
+        \draw(2.1, 0.7) -- (2.1, -0.5) -- (1.3, -0.5) -- (1.3, -0.15);
+        \draw(1, -0.15) -- (1.6, -0.15);
+        \draw(1, 0.15) -- (1.6, 0.15);
+        \draw(1.3, 0.15) -- (1.3, 0.5) -- (1.9, 0.5) -- (1.9, 0.7);
+        \end{scope}
+    \end{tikzpicture}
+\end{gather*}
+L’apparato sperimentale consiste in un interferometro di Michelson assemblato su di un tavolo
+ottico con i seguenti componenti ottici:
+\begin{itemize}
+    \item $S_1$: specchio montato saldamente ad una ceramica
+    piezoelettrica collegata ad un generatore di rampa lineare in tensione.
+    \item $S_2$: lo specchio fisso.
+    \item Laser ad \ce{He-Ne} di lunghezza d’onda nota: 632.816 nm.
+    \item Rilevatore al silicio per la misura della intensità $I$ in uscita dell’interferometro.
+    \item Sistema di lenti che funge da telescopio per il laser rosso, ovvero da amplificatore della dimensione del fascio laser.
+    \item Diaframma mobile volto a bloccare parte del fascio del laser rosso.
+    \item Oscilloscopio digitale con relativo software d’acquisizione dati.
+    \item Utilizzo di un programma di analisi e manipolazione dei dati scritto in Mathematica.
+\end{itemize} 
+Inoltre, $L_1$ e $L_2$ sono le due distanze, rispettivamente, dalle specchio mobile sulla ceramica piezoelettrica e dalle specchio fisso
+dal cubo polarizzatore. 
+L’interferometro è racchiuso tra pareti nere in cartone e viene ulteriormente coperto durante ogni misurazione.
+Per digitalizzare i segnali della tensione del generatore (V) e dell’intensità del laser (I),
+si utilizza l'oscilloscopio digitale facilitandone, inoltre, la raccolta e la conseguente analisi
+dei dati. Per la seconda parte dell'esperienza, si utilizzano inoltre:
+\begin{itemize}
+    \item Un LED bianco;
+    \item Un filtro Thorlabs da avvitare sul rilevatore, centrato attorno a
+    $\lambda_0 = 532 \pm 2$ nm e con larghezza $\Delta \lambda = 5 \pm 1$ nm.
+\end{itemize}
+
+\section{Presa dati}
+\subsection{Laser di lunghezze d'onda diverse}
+Prima di effettuare la prima misura, bloccato il laser verde, si chiude il diaframma fino a minimizzarne l’apertura,
+per poi regolare l’altezza del rilevatore in modo che esso sia centrato dal fascio rosso. Successivamente si riapre
+il diaframma e si pone un foglio a coprire il rilevatore al fine di effettuare una seconda calibrazione: le manopole
+dello specchio vengono finemente regolate in maniera da eliminare la pulsazione di colore rosso visibile sul foglio,
+la quale deriva da direzioni non parallele dei fasci copropaganti. Si passa in seguito ad allineare il laser di
+lunghezza d’onda ignota usufruendo di uno specchio e di un cubo polarizzatore. Al fine di ottimizzare tale procedura,
+si blocca inizialmente il laser rosso e si regola lo specchio per centrare il diaframma con apertura minima.
+Si perfeziona, infine, l’allineamento del laser verde con quello rosso toccando finemente le manopole del cubo.
+Per effettuare le misurazioni, si copre l'interferometro con un coperchio nero in cartone. Dalla registrazione dei profili di intensità
+$I$, al variare della tensione $V$ di ciascun laser, possiamo ricavare una misura del rapporto F tra le lunghezze
+d’onda delle due radiazioni. Si procede dunque alla misurazione: uno dei due fasci viene bloccato e si azionano
+il generatore e l’oscilloscopio digitale, che, in particolare, legge dal rilevatore valori d’intensità tra intervalli
+brevissimi, per poi salvarli. Il programma fornito dal costruttore dell’oscilloscopio permette di visualizzare la
+variazione d’intensità nel tempo entro i limiti massimi del programma, in prossimità di cui si decide di interrompere
+la registrazione dei dati. Regolando il guadagno di ingresso, si modifica, inoltre, il segnale in input nel programma
+per meglio visualizzare l’andamento dell’intensità nel tempo. Fermata la raccolta dati, tramite un programma di
+Mathematica, si crea un grafico dei massimi dell'intensità del fascio luminoso al variare del voltaggio.
+Il programma permette di visualizzare simultaneamente il profilo di intensità di entrambi i laser, e permette
+poi di roto-traslare il profilo di intensità del laser verde in modo che lo sperimentatore possa arbitrariamente
+sovrapporlo con quello del laser rosso, tale operazione di sovrapposizione permette di misurare il fattore correttivo $F$.
+Si ripetono 4 misure in totale, ove, a seguito di ognuna di esse, ciascun sperimentatore disallinea il laser verde
+ruotando le manopole dello specchio e del cubo, in maniera tale che il successivo sperimentatore possa portare
+l’apparato sperimentale nella configurazione che lui ritiene ottimale prima di procedere alla misura successiva.
+Da alcune prove precedenti la prima misura è oltretutto emersa l’importanza nel non creare eccessivo rumore durante
+tutta la procedura: smuovendo il banco ottico o colpendo oggetti nei suoi pressi, si vedeva chiaramente dal grafico
+la presenza di perturbazioni nell’andamento dell’intensità. 
+
+\subsection{LED bianco e filtro verde}
+Conclusa la prima parte dell'esperienza, i laser vengono bloccati e viene posizionata un LED di fronte al cubo polarizzatore come riportato in figura. Per procedere alla seconda misura, si è cercato di far convergere il più possibile la luce in uscita dal LED sul rilevatore, per cui si è, di fronte, posizionata una lente convergente. Trovare l’asset migliore di posizionamento delle componenti ottiche è stata, in particolare, una procedura che ha richiesto numerosi tentativi. Per orientarsi al meglio nel trovare la posizione migliore, si è posto un foglio davanti il rivelatore e si sono fatte varie prove spostando le due componenti ottiche ed azionando il generatore finché non si intravedeva la banda spettrale sul foglio, segno di interferenza sul rilevatore. 
+
+\section{Dati}
+\subsection{Laser verde}
+Dopo aver preso quattro set di dati per le oscillazioni del laser verde in funzione
+della tensione applicata alla ceramica piezoelettrica, si è ottenuto le seguenti misure 
+per $F$:
+\begin{gather*}
+    \begin{tabular}{c c c c c }
+        \hline
+        $F$ & $F_1$ & $F_2$ & $F_3$ & $F_4$ \\
+        \hline
+        Misure & 0.870 &  0.817 & 0.828 & 0.849 \\
+        \hline
+    \end{tabular}
+\end{gather*}
+Da cui si un valore per $F$ di $0.84 \pm 0.03$. Da questo valore, poiché il costruttore ci fornisce la lunghezza d’onda del laser rosso
+di $\lambda_R = 632.816$ nm, si ottiene il valore  
+per la lunghezza d'onda del laser verde: $\lambda_V = 530 \pm 20$ nm
+secondo le relazioni specificate nello schema generale di misura.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.70\textwidth]{compatibilita-verde.pdf}
+                \caption{Esempio di allineamento delle curve dei massimi per una delle misure del laser verde}
+    \end{figure}
+
+\subsection{Interferenza luce bianca e luce bianca con filtro}
+\paragraph{Led bianco} \mbox{} \\
+Nel caso della luce LED, seguendo una procedura analoga, possiamo misurare la lunghezza
+d’onda centrale $\lambda_0$ del suo spettro di emissione usando la medesima
+relazione utilizzata per il laser verde. Con la relazione (9) è possibile stimare la
+lunghezza di coerenza attesa, la quale risulta essere di $l_{c\text{ atteso}} \pm \Delta l_{c\text{ atteso}} = 9.0 \pm 1.9 \ \mu$m. Anche qui $F'$ è il fattore correttivo utilizzato per comparare il led bianco con 
+il laser rosso, come nel seguente grafico:
+    \begin{figure}[H]
+        \centering
+        \includesvg[width=0.75\textwidth]{confronto-bianco-rosso.svg}
+    \end{figure} \mbox{} \\
+Si può poi misurare, grazie al programma di analisi dati scritto in Mathematica, la lunghezza di coerenza $l_c$. Una volta ottenuto
+il profilo di intensità del LED bianco in funzione della tensione, si conta il numero $n$ di massimi
+che intercorrono tra il punto di massima intensità della funzione e quello che ha un picco a metà
+di essa rispetto al centro della curva nel seguente grafico:
+    \begin{figure}[H]
+        \centering
+        \includesvg[width=0.9\textwidth]{coerenza-bianca.svg}
+    \end{figure} \mbox{} \\
+Nella seguente tabella si riportano le misure ottenute per il led bianco
+\begin{gather*}
+    \begin{tabular}{c c c c c }
+        \hline
+        Intervallo tensione (V) &F' & Intensità a metà altezza (I) &  N   & $\Delta N$ \\
+        \hline
+        0.55 - 0.72     &0.846   &1.3565          &4.0 &  1.0 \\
+        0.80 - 0.95     &0.746   &1.2155          &5.0 &  1.0\\
+        0.78 - 0.93     &0.918   &1.009           &5.0 &  1.0\\
+        0.76 - 0.88     &0.968   &1.1345          &4.0 &  1.0\\
+        0.90 - 1.01     &0.818   &0.3835          &5.0 &  1.0\\
+        0.85 - 0.96     &0.914   &0.38725         &5.0 &  1.0\\
+        \hline
+    \end{tabular}
+\end{gather*}
+Da cui si sono ricavate le seguenti stime, e gli errori, per ciascuna grandezza: 
+\begin{itemize}
+    \item $F' \pm \Delta F'= 0.87 \pm 0.12$;
+    \item $n \pm \Delta n = 5 \pm 1$;
+    \item $\lambda_0 \pm \Delta \lambda_0 = (550 \pm 80 )$ nm;
+    \item $l_c \pm \Delta l_c = (0.7 \pm 0.3) \  \mu\text{m}$;
+    \item $\Delta \lambda \pm \delta \Delta \lambda = (70 \pm 40)$ nm.
+\end{itemize}
+
+\paragraph{Led bianco con filtro verde} \mbox{} \\
+Secondo gli stessi procedimenti, e l'utilizzo delle medesime relazioni,
+si è determinato $F''$ per la luce del led bianco che passa attraverso un
+filtro verde. Dal seguente grafico di confronto
+    \begin{figure}[H]
+        \centering
+        \includesvg[width=0.70\textwidth]{confronto-filtro.svg}
+    \end{figure} \mbox{} \\
+si sono ricavate le seguenti misure:
+\begin{gather*}
+    \begin{tabular}{c c c c c}
+        \hline
+        Intervallo tensione (V) &F' & Intensità a metà altezza (I) &  N   & $\Delta N$ \\       
+        \hline
+        0.55 - 1.40    & 0.860  & 0.5126 &        45  &2 \\
+        0.54 - 1.40    & 0.868  & 1.613  &        45  &2 \\
+        \hline
+    \end{tabular}
+\end{gather*}
+E dunque si sono ricavate le stime e gli errori associati per ciascuna grandezza:
+\begin{itemize}
+    \item $n \pm \Delta n = 45 \pm 2$;
+    \item $F'' \pm \Delta F'' = 0.864 \pm 0.004$;
+    \item $\lambda_0 \pm \Delta \lambda_0 = (547 \pm 3)$ nm;
+    \item $l_c \pm \Delta l_c = (6.2 \pm 0.3) \  \mu\text{m}$;
+    \item $\Delta \lambda \pm \delta \Delta \lambda = (7.7 \pm 0.5)$ nm.
+\end{itemize}
+Dove la lunghezza di coerenza è stata ricavata dal seguente grafico:
+    \begin{figure}[H]
+        \centering
+        \includesvg[width=\textwidth]{coerenza-filtro.svg}
+    \end{figure}  
+
+    \clearpage
+\section{Commento qualitativo}
+Per quanto riguarda la prima parte dell’esperienza, la misura ottenuta per la stima della lunghezza d’onda
+ignota risulta consistente con la lunghezza d’onda associata al
+colore verde del laser (circa 532 nm). Nella seconda parte dell’esperienza, dopo aver stimato $F$, $\lambda_0$, $\Delta \lambda$ e
+$l_c$ del led bianco, si può notare come gli errori relativi alle misure ottenuti siano alquanto importanti. Si suppone che ci`o sia
+dovuto ad un notevole errore relativo sulla misura dei massimi in funzione della tensione e a dei problemi
+che abbiamo riscontrato nell’allineamento del LED rispetto al fascio del laser \ce{He-Ne}: nonostante le ripetute prove, lo spazio ridotto su cui si potevano posizionare il LED e la lente convergente non ci ha portato ad ottenere una pulsazione della banda spettrale centrata esattamente all’altezza del foro del rilevatore, la quale è verso il basso. Tuttavia, la stima di
+$\lambda_0$ rientra entro l’intervallo teoricamente atteso tra circa 550 e 600 nm. Nella parte finale dell’esperienza
+abbiamo ottenuto valori con errori minori, tuttavia $n$ è il valore di $\lambda_0$, né il valore di $l_c$ e $n$ è il valore di $\Delta \lambda$
+risultano compatibili con i valori forniti dal costruttore. Sospettiamo che questo sia dovuto, nuovamente,
+alle difficoltà incontrate nell’allineamento del fascio collimato del led con il laser \ce{He-Ne}. Nel nostro caso $\lambda_0$
+risulta più alta del valore atteso invece, a causa di un non elevato numero di massimi, $l_c$ è inferiore al valore
+fornito dal costruttore, infine $\lambda_0$ risulta essere maggiore di $\lambda_0$ atteso e $\Delta \lambda$ risulta minore del valore atteso.
+
+\end{document}

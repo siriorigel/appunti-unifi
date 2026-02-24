@@ -1,0 +1,72 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{DOmande Geom}
+\author{Tommaso Miliani}
+\date{}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Domande}
+\begin{itemize}
+    \item Dimostrazione matrice ortogonale
+    \item Dimostrazione relazione rango-determinante
+    \item Operazioni di secondo tipo come affliggono il determinante di una matrice?
+    \item Equivalenza rango per righe e rango per colonne
+    \item Perché l'immagine di una matrice è generata dalle colonne di della matrice
+    \item Dimostrazione dimensione dello spazio di partenza di una funzione lineare
+    \item Polinomio caratteristico di una matrice
+    \item Criterio di diagonalizzabilità
+    \item Sottospazio somma 
+    \item Molteplicità algebrica e geometrica
+    \item Forma hermitiana e matrice hermitiana
+    \item Gram Schmidt e Gram Schmidt due. 
+    \item Modulo di una forma bilineareo
+    \item Cosa è una base di uno spazio vettoriale
+    \item Spazio duale
+\end{itemize}
+
+\end{document}

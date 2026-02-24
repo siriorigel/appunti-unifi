@@ -1,0 +1,351 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica}
+\author{Tommaso Miliani}
+\date{17-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Il Momento angolare}
+Dato che un sistema di $n$ punti ha $n \cdot 3$ gradi di libertà
+ed il corpo rigido ne ha $6$, allora dobbiamo trovare un'analoga
+per le forze esterne in modo tale che possa descrivere tutti i gradi di libertà.
+Si definisce allora il momento angolare per un sistema di punti come
+\begin{align}
+    \vec{L}_{\Omega} =  \sum_{i = 1}^{n} (P_i - \Omega) \times m_i \vec{v}_i  = \sum_{i = 1}^{n} (P_i - \Omega) \times \vec{q}_i  = \sum_{i = 1}^{n}\vec{l}_i  
+\end{align}
+Scegliendo un punto qualsiasi $\Omega$ che non deve per forza
+coincidere con l'origine degli assi cartesiani (è totalmente
+arbitrario) e per ciascun punto del sistema posso definire il vettore
+posizione e spostamento. Tutte le definizioni del momento angolare sono 
+ugualmente valide, così come la somma dei singoli momenti angolari ed il momento
+angolare del sistema o del singolo punto è una quantità vettoriale rispetto ad
+un punto qualsiasi $\Omega$. Scegliendo un sistema di riferimento
+qualsiasi, posso allora definire la distanza rispetto all'origine delle coordinate come::
+\begin{gather*}
+    \vec{r}_{i, \Omega} = \vec{r}_i - \vec{r}_{\Omega}  
+\end{gather*}
+
+\section{Seconda equazione cardinale della dinamica}
+Derivando rispetto al tempo la somma del momento angolare 
+allora, essendo che ci sono molte cose che dipendono dal tempo
+ottengo:
+\begin{gather*}
+    \dot{\vec{L} }_{\Omega} = \sum_{i = 1}^{n}(P_i - \Omega) \times m_i \vec{a}_i + \sum_{i = 1}^{n} (\vec{v}_i - \vec{v}_{\Omega}) \times m_i \vec{v}_i     
+\end{gather*}
+Noi sappiamo che per la seconda di Newton la risultante delle forze è proprio
+la somma delle masse per accelerazione, posso allora spezzare la somma ottenendo:
+\begin{gather*}
+    \vec{v}_i \times \vec{v}_i = 0  
+\end{gather*}
+Faccio allora la somma solo sul secondo prodotto vettoriale della seconda somma  ottenendo allora
+una nuova espressione del momento angolare:
+\begin{gather*}
+    \dot{\vec{L} } = \sum_{i = 1}^{n} (P_i - \Omega) \times \vec{F}_i - \vec{v}_{\Omega}\times \sum_{i = 1}^{n}m_i\vec{v}_i      
+\end{gather*}
+Data la definizione di momento di una forza rispetto ad un polo (punto)
+$\Omega$ qualsiasi, come:
+\begin{align}
+    \vec{M} = (P - \Omega) \times \vec{F}  
+\end{align}
+Dato che le forze sono la somma delle forze interne ed esterne, allora
+posso dire che le forze sono la somma delle forze dovute a tutti gli altri
+punti 
+\begin{gather*}
+    \vec{F}_i = \sum_{j \neq  i}^{n}\vec{F}_{i, j}^{(INT)} + \vec{F}_i^{(EXT)}      
+\end{gather*}
+Dato questo la somma dei momenti angolari diventa:
+\begin{gather*}
+    \sum_{i = 1}^{n}(P - \Omega) \times \vec{F}_i = \sum_{i = 1}^{n}\sum_{j \neq i}^{n}  (P_i - \Omega) \times F_{i, j}^{(INT)} + \sum_{i = 1}^{n}(P_i - \Omega) \times \vec{F}_i^{(EXT)}   
+\end{gather*}
+Allora posso esprimere il momento angolare come la seconda cardinale:
+\begin{align}
+\boxed{    \dot{L}_{\Omega} = \vec{M}_{\Omega}^{(EXT)} - \vec{v}_{\Omega}\times \vec{Q}     
+}\end{align}
+
+Opzioni per calcolare il momento quando il secondo termine è nullo
+\begin{enumerate}
+    \item $\vec{v}_{\Omega} = 0$;
+    \item $\Omega = C_M$;
+    \item $\vec{v}_{\Omega} \times \vec{v}_{CM} = 0$.   
+\end{enumerate} 
+Si nota ora che con questa equazione (vettoriale) con tre gradi di libertà
+ottengo 6 equazioni scalari con le due cardinali. Con le tre equazioni
+cardinali della dinamica si può descrivere qualsiasi moto. E' sempre
+vero che le informazioni della seconda sono indipendenti dalla prima? NO, in generale
+non è vero poiché in moti come quello traslatorio le informazioni che
+ottengo da questa 
+
+\subsection{Il cambio di polo(rinuncia agli studi)} 
+Se invece di avere il polo $\Omega$ utilizzassi il polo
+$\Omega'$ e quindi imponessi il momento angolare con questo 
+nuovo polo $\Omega'$  non cambierebbe assolutamente nulla:
+\begin{gather*}
+    \vec{L}_{\Omega} = \sum_{i = 1}^{n}(P_i - \Omega) \times m_i \vec{v}_i = \sum_{i = 1}^{n} ((P_i - \Omega') - (\Omega' - \Omega)) \times m_i \vec{v}_i     
+\end{gather*}
+Tornerei a quella di partenza con $\Omega'$. Se volessi spezzare
+invece la sommatoria si otterrebbe:
+\begin{gather*}
+    \vec{L}_{\Omega} = \vec{L}_{\Omega'} + (\Omega' - \Omega) \times \vec{Q}   
+\end{gather*}
+Se la quantità di moto è zero allora il momento angolare non dipende dal polo scelto .
+Per il modulo delle forze con un polo diverso si ha che
+\begin{gather*}
+    \vec{M}_{TOT}^{EXT} = \sum_{i = 1}^{n}(P_i - \Omega)\times \vec{F}_i = \sum_{i = 1}^{n}(P_i - \Omega') \times \vec{F} + \sum_{i = 1}^{n} (\Omega' - \Omega) \times \vec{F}_i  = \\
+    \vec{M}_{TOT, \Omega'}^{EXT} + (\Omega' - \Omega) \times \vec{F}_i^{EXT}        
+\end{gather*}
+Se cambio quindi il polo il momento cambia, se però la risultante delle forze esterne è uguale
+a zero, allora il momento risultante delle forze esterne è indipendente dal polo.
+Se $\Omega' = C_M$ allora il momento angolare rispetto ad un polo generico 
+è il momento angolare rispetto al centro di massa :
+\begin{gather*}
+    \vec{L}_{\Omega} = \vec{L}_C + (C - \Omega) \times M\vec{v}_c   
+\end{gather*}
+Che succede se $\Omega = C_M$ e $\vec{v}_{\Omega} = 0$?
+si ottiene il seguente sistema:
+\begin{gather*}
+    \left\{\begin{array}{l}
+       \vec{F}^{TOT} = \dot{\vec{Q} } \Rightarrow \vec{F}^{EXT} = 0 \Rightarrow \vec{Q} const      \\
+       \vec{M}_{\Omega}^{EXT} = \dot{\vec{L}}_{\Omega}  \Rightarrow \vec{M}_{\Omega}^{EXT} = 0 \Rightarrow \vec{L}_{\Omega} const   
+    \end{array}\right.
+\end{gather*} 
+Che è proprio la terza cardinale. Dalla seconda e terza di Newton si ottengono
+le equazioni con cardinali con $\vec{L}, \vec{Q}$ isolati. SI ottiene, per un sistema di due punti:
+\begin{gather*}
+    \vec{Q} = \vec{q}_1 + \vec{q}_2 = const \\
+    \dot{\vec{Q}} = 0 = \dot{\vec{q}}_1 + \dot{\vec{q}}_2 \\
+    \vec{F}_{1, 2} = -\vec{F}_{2, 1}        
+\end{gather*}  
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Francobollo 1}
+    \begin{tikzpicture}
+        \draw[dashed](0, 0) -- (3, 0);
+        \filldraw(0, 0) circle (1pt) node[anchor = east] {$m_1$} ;
+        \filldraw(3, 0) circle (1pt) node[anchor = west] {$m_2$} ;
+        \draw[->](0, 0) -- (0, -1) node[at end, left] {$\vec{v}_1$};
+        \draw[->](3, 0) -- (3, 1) node[at end, right] {$\vec{v}_2$};
+        \draw[->](2, 1) arc(0:180:0.5) node[midway, above] {$\vec{\omega}$};
+        \filldraw(1.5, 0) circle (1pt) node[anchor = south] {$C$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Ottenendo metà del secondo principio della dinamica. 
+Posso esprimere il momento angolare come:
+\begin{gather*}
+    \vec{L}_C = (P_1 - C)\times m_1 \vec{v}_1 + (P_2 - C)\times m_2 \vec{v}_2 \\
+    m_1 = m_2 = m \\
+    |P_1 - C| = |P_2 - C| = d   \\
+    |\vec{v}_1| = \omega d, |\vec{v}_2| = \omega d  
+\end{gather*}
+Si può ora esprimere tutto in coordinate polari attraverso l'utilizzo
+di un angolo $\phi$ e quindi:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        (P_1 - C) = d\hat{u}_r  \Rightarrow  \vec{v}_1 = d\dot{\hat{u}}_r = d \dot{\phi} \hat{u}_{\phi}   \\
+        (P_2 - C) = d\hat{u}_r   \Rightarrow  \vec{v}_2 = d\dot{\hat{u}}_r = d \dot{\phi} \hat{u}_{\phi}
+    \end{array}\right.
+\end{gather*}
+In un moto di sola rotazione(non c'è traslazione del sistema che sta ruotando)
+e quindi la scelta del polo non è obbligatoria. In generale il momento angolare
+aiuta quando si hanno fenomeni di rotazione.
+
+\subsection{Il momento angolare non è sempre parallelo alla velocità angolare}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Francobollo 2}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (0, 4);
+        \draw(-1, 1) -- (1, 3);
+        \draw[dashed](-2, 2) -- (2, 2);
+        \filldraw(-1, 1) circle (1pt) node[anchor = east] {$m_2$};
+        \filldraw(1, 3) circle (1pt) node[anchor = west] {$m_2$};
+        \draw(0.5, 2.5) arc(45:0:0.7) node[midway, right] {$\alpha$};
+        \draw[->](-0.25, 3.5) arc(180: 360: 0.25) node[at end, above] {$\vec{\omega}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Le coordinate polari non posso più utilizzarle in questo esercizio
+poiché siamo nelle tre dimensioni ma posso utilizzare le coordinate 
+cilindriche. 
+
+\section{Caso delle forze parallele}
+Date le equazioni cardinali si possono ottenere:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \vec{F}^{(INT)} = \dot{\vec{P}}_{TOT} \\
+        \vec{M}_{\Omega}  = \dot{\vec{L}}_{\Omega} + (V r \times \vec{P}_{TOT} )  
+    \end{array}\right.
+\end{gather*}
+Dato allora il caso della somma delle forze come:
+\begin{gather*}
+    \vec{F}^{INT} = \sum_{i = 1}^{n} \vec{F}_i = \left(\sum_{i = 1}^{n} f_i\right) \hat{ u}    
+\end{gather*}
+Allora si ha che il vettore distanza delle forze è proprio 
+il vettore applicazione delle forze:
+\begin{align}
+    \vec{r}_f = \frac{\sum_{i = 1}^{n} f_i \vec{r}_i }{\sum_{i = 1}^{n} f_i} 
+\end{align}
+Ossia la media pesata delle forze totali.
+Per la formula della somma delle forze i due
+sistemi hanno lo stesso risultante: basta dimostrare che
+abbiano lo stesso momento risultante:
+\begin{gather*}
+    \vec{M} = \sum_{i} (\vec{r}_i \times f_i \hat{u}) = \left(\sum_{i} f_i \vec{r}_i \right) \times \hat{u} = \vec{r}_f \times \vec{F}   
+\end{gather*}
+
+\subsection{Il caso della forza peso}
+Nel caso della forza peso, considerata la forza peso come:
+\begin{gather*}
+    \vec{g} = -g\hat{k}  
+\end{gather*}
+si ha allora che $f_i = -m_ig$ e dalle relazioni precedenti si ottiene che
+applicata nel punto $\vec{r}_G$ quel polo prende il nome
+di \textbf{baricentro}, che nei corpi non troppo estesi coincide con il centro 
+di massa e si esprime come:
+\begin{align}
+    \vec{r}_G = \frac{1}{M}\sum_{i = 1}^{n}m_i \vec{r}_i = \vec{r}_C    
+\end{align} 
+
+\subsection{L'utilizzo del baricentro: la forza di trascinamento nei sistemi complessi}
+Dato un sistema di riferimento assiale, le forze parallele
+si applicano tutte nel centro di massa poiché sono tutte parallele.
+\begin{gather*}
+    \vec{F}_{T, i} = -m_i \vec{a}_{O'}  
+\end{gather*}
+E quindi la loro somma è proprio la 
+risultante di tutte le forze applicate.
+
+\section{Lavoro ed energia nei sistemi}
+Per un sistema di punti è ragionevole pensare
+che l'energia cinetica sia la somma dell'energia cinetica
+di tutti i punti e quindi dato un sistema di riferimento
+(con terna di assi sempre parallele a quella del sistema fisso)
+e dalle equazioni cardinali e scelto $\vec{r} = (O' - O)$ si ottiene
+allora: 
+\begin{gather*}
+    \vec{r}_i = \vec{r}_i' + \vec{r}_C \\
+    \vec{v}_i = \vec{v}_i' + \vec{v}_C      
+\end{gather*} 
+Data allora la definizione del vettore posizione
+come media pesata delle forze, si può ottenere:
+\begin{gather*}
+    \vec{r}_C = \frac{\sum_{i = 1}^{n} m_i (\vec{r}_i' + \vec{r}_C)}{\sum_{i = 1}^{n}m_i} 
+\end{gather*}
+
+
+\subsection{Teorema di Konig per l'energia cinetica}
+L'energia cinetica di un sistema di punti è esattamente la somma
+delle energie cinetiche di tutti i punti del sistema:
+\begin{align}
+    K = &\sum_{i = 1}^{n}\frac{1}{2}m_i v_i^{2} = \sum_{i = 1}^{n}\frac{1}{2}m_i \vec{v}_i \cdot  \vec{v}_i = \\
+    &\sum_{i = 1}^{n}\frac{1}{2}m_i (\vec{v}_i' + \vec{v}_C) \cdot  (\vec{v}_i' + \vec{v}_C )  = \\
+    &\sum_{i = 1}^{n} \frac{1}{2}m_i v_i^{2} + \sum_{i = 1}^{n}m_i \vec{v}_i' \vec{v}_C  + \sum_{i = 1}^{n}\frac{1}{2}m_i \vec{v}_C^{2}   
+\end{align}
+I singoli termini allora indicano grandezze diverse: il primo termine p proprio
+l'energia cinetica rispetto al centro di massa, il secondo termine è sempre zero mentre
+la terza grandezza è l'energia cinetica del centro di massa.
+Il teorema di Konig per l'energia cinetica ci dice proprio che l'energia cinetica
+di un sistema è sempre esprimibile come la somma dell'energia cinetica del centro di massa
+come se avesse la massa in un punto e velocità del centro di massa
+ed un termine che è l'energia cinetica rispetto al centro di massa per
+ogni punto. 
+\begin{gather*}
+    \delta L_i = dK_i \\
+    \sum_{i = 1}^{n}\delta L_i  = \sum_{i = 1}^{n}dK_i = dK
+\end{gather*}
+Generalmente il lavoro delle forze interne è diverso da zero mentre
+posso ignorare spesso il lavoro delle forze esterne (dimostrato mooolto più avanti)
+per il corpo rigido però posso dire che il lavoro delle forze interne sia zero.
+
+\subsection{Teorema di Konig per il momento angolare}
+Rispetto ad un polo $\Omega$ scriviamo:
+\begin{gather*}
+    \vec{L}_{\Omega} = \sum_{i = 1}^{n}(P_i - \Omega)\times m_i \vec{v}_i \\
+    \sum_{i = 1}^{n}((P_i - C) + (C - \Omega))\times m_i (\vec{v}_i + \vec{v}_C)    
+\end{gather*} 
+Spezzando tutto allora:
+\begin{gather*}
+    \sum_{i = 1}^{n}(P_i - C) \times m_i \vec{v}_i' + \sum_{i = 1}^{n}(C - \Omega) \times m_i \vec{v}_i ' + \sum_{i = 1}^{n} (P_i - C) \times m_i \vec{v}_C + \sum_{i = 1}^{n}(C - \Omega) \times m_i \vec{v}_C    
+\end{gather*}
+Il secondo ed il terzo termine sono zero poiché è esattamente la distanza dal centro
+meno la distanza dal centro per la definizione di centro di massa:
+$P_i - C$ è esattamente (quando sommo tutte le masse) la distanza dal centro di massa dal centro di massa
+. Gli altri due pezzi sono combinati ottenendo:
+\begin{gather*}
+    \vec{L}_{\Omega} = \vec{L}_C' + (C - \Omega) \times M\vec{v}_C   
+\end{gather*} 
+Il primo termine è proprio il momento angolare rispetto al centro di massa:
+\begin{gather*}
+    \vec{L}_C' = \sum_{i = 1}^{n}(P_i - C) \times m_i \vec{v}_i   
+\end{gather*}
+mentre il secondo termine è il momento angolare del centro di massa
+\begin{gather*}
+    (C - \Omega) \times M\vec{v}_C 
+\end{gather*}
+IN meccanica quantistica il primo termine è proprio lo spin
+di una particella (in altri testi si usa anche per gli oggetti macroscopici)
+che è intrinseco della particella. Per il corpo rigido sarà molto utile
+per definire il momento angolare.
+
+\subsection{Il momento angolare del moto circolare uniforme}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Mom. angolare cerchi}
+    \begin{tikzpicture}
+        \draw(0, 0) circle(2) node[anchor = east] {$O$};
+        \draw(0, 0) -- (1.41, 1.41) node[midway, below] {$\vec{r}$};
+        \draw[->](1.41, 1.41) -- (1, 1.82) node[at end, right] {$\vec{v}$};
+        \draw[->](0, 0) -- (0.5, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) --(0, 0.5) node[at end, left] {$y$};
+        \draw[->] (0.4, 0) arc (0:45:0.4) node[midway, right] {$\phi$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel moto circolare uniforme è accelerato ed il suo momento angolare
+è dato dalla relazione:
+\begin{gather*}
+    \vec{L}_O  = \vec{r}\times m\vec{v} = (mr^{2})\dot{\phi}\hat{k}   
+\end{gather*}
+Con le seguenti sostituzioni:
+\begin{gather*}
+    v = \omega r = \dot{\phi}r \\
+    w = \dot{\phi}
+\end{gather*}
+Il teorema delle forze vive mi dice che è costante l'energia cinetica
+e la forza centripeta non compie lavoro sulla traiettoria (quindi è accelerato)
+e cambia la direzione della velocità ma non compie nessun lavoro
+sul corpo e quindi l'energia cinetica è costante.
+
+\end{document}

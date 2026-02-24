@@ -1,0 +1,256 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\pagecolor{black}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica (BANCHI)}
+\author{Tommaso Miliani}
+\date{13-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Esercizi banchi}
+\subsection{Esercizio su moodle (DPM)}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Figsnd0i}
+    \caption{culo}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (4, 0);
+        \draw(2.5, 0) rectangle (3, 0.5) node[midway] {$B$};
+        \draw(2.75, 0.5) -- (2.75, 2) node[midway, right] {$l$};
+        \draw(2.75, 2) -- (1.25, 1) node[midway, above] {$l$};
+        \filldraw(1.25, 1) circle (1pt) node[anchor= east] {$A$};
+        \draw[->](3.5, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](3.5, 0) -- (3.5, 0.5) node[at end, left] {$y$};
+        \draw[->, very thick, red](1.25, 1) -- (2, 1.5) node[midway, above] {$\vec{T}_A$};
+        \draw[->, very thick, red](1.25, 1) -- (1.25, 0.25) node[at end, right] {$m_A\vec{g}$};
+        \draw[->, very thick, red](2.75, 0) -- (2.75, -0.5) node[at end, right] {$m_B\vec{g}$};
+        \draw[->, very thick, red](2.75, 0.5) -- (2.75, 1) node[at end, right] {$m_B\vec{g}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Presi due punti materiali e con l'approssimazione
+che il filo è teso e che i due oggetti appesi sono due
+punti materiali, si assume anche che B sia in quiete e che
+A parta da fermo quando $\theta = \frac{\pi}{2}$.\\
+Posto il sistema di riferimento, allora posso misurare l'accelerazione
+con un sistema di riferimento ideale e il filo inizialmente
+uguale e potrebbe scorrere (si assume quindi un solo grado di libertà 
+dicendo che B è in quitee e che il filo non scorra).
+Studiando B si ottiene la relazione:
+\begin{gather*}
+     \vec{T}_B  + \vec{N} + m_b \vec{g} = 0   
+\end{gather*}
+Studiano invece A, il quale si muove all'istante zero e quindi
+posso dier:
+\begin{gather*}
+    m_A\vec{a}_A = m_A \vec{g} + \vec{T}_A   
+\end{gather*}
+Ora dato che A si muove, la sua traiettoria sarà una parabola 
+e quindi posso dire dall'equazione vettoriale devo capire quando si alza:
+con la schematizzazione del problema posso dire che B si alza quando A inizia
+a muoversi, definiti allora i versori di A, posso dire che la proiezione
+lungo $\hat{n}$ è dato da: 
+\begin{gather*}
+    -m_A l \dot{\theta}^{2} = m_A g \cos\theta - T_A 
+\end{gather*}
+ALlora posso dire che:
+\begin{gather*}
+    T_A = m_A g \cos\theta + m_A l \dot{\theta}^{2} 
+\end{gather*}
+E quindi
+\begin{gather*}
+    N = m_B g - T_B \geq 0
+\end{gather*}
+E allora posso riscrovere, dato che la velocitià di A posso esprimerla
+come $l \dot{\theta}$,
+\begin{gather*}
+    m_A(g \cos\theta + \frac{v_A^{2} }{l}) \leq m_B g 
+\end{gather*}
+DAto che tutte le forze sono conservative, allora posso utilizzare
+la conservazione dell'energia meccanica anche perché c'è solo un vincolo:
+\begin{gather*}
+    E = \frac{1}{2}m_A v_A^{2} + m_A gy_A 
+\end{gather*} 
+Allora essendo che tutta questa per deginizione è una costatne,
+allora devo eguagliarla all'energia al tempo zero:
+\begin{gather*}
+    E_i  = E(v_A = 0, y_A = l) \Rightarrow = m_A g l \\
+\end{gather*}
+Imponendo le due uguaglianze ottengo:
+\begin{gather*}
+    v_A^{2} = 2g(l -y_A) 
+\end{gather*}
+Sostituendo la velocità nella formula trovata prima posso ottenere,
+posto
+\begin{gather*}
+    \Delta y = l - y_A = l\cos\theta \geq 0
+\end{gather*}
+Da qui trovo il coseno di teta e quindi Sostituendo tutto 
+nell'espressione sopra
+\begin{gather*}
+    m_A(\frac{\Delta y}{l} + 2\frac{\Delta y}{l}) \leq m_B
+\end{gather*}
+Allora ottengo l'espressione per il delta y come:
+\begin{gather*}
+    \Delta y_{max} = \frac{m_B l}{3m_A}
+\end{gather*}
+Ossia il valore massimo oltre il quale la masssa $B$ inizia
+ad alzarsi e quindi fa scorrere il filo. 
+
+\subsection{Esercizio di esame febbraio 2021}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{asd}
+    \caption{IMMAGINE IDS DS MDOOODLE DE D}
+    \begin{tikzpicture}
+        
+    \end{tikzpicture}    
+\end{wrapfigure}
+DAto il testo (che si spera l'utente abbia letto) si fanno le seguenti
+assunzioni: essendo la guida fissa, essa è descritta dall'equazione
+$y = kx^{2}$, avendo a che fare con un punto materiale non essendoci
+attrito, ho anche a che fare con un vincolo bilatero, e ho un SDR inerziale
+poiché la guida non si sposta ed è fissa. Quello che posso fare è
+scrivere le forze in gioco e la reazione vincolare della guida. Per
+ipotesi di mancanza di attrito so anche che $N$ è ortogonale alla
+traiettoria. Tutte le forze sono conservative e quindi l'energia meccanic
+si conserva ed il vincolo è bilatero 
+\begin{gather*}
+    E = \frac{1}{2}mv^{2} - mgy =  const = 0. 
+\end{gather*} 
+Allora posso ricavare la velocitià:
+\begin{gather*}
+    v = \sqrt{2gy} 
+\end{gather*}
+Essendo $y = kx^{2}$, la $y$ finale, ossia quella priam che tocchi terra
+è qurlla della x massima e quindi la $x_{MAX}$ è semplicemente L e allora 
+\begin{gather*}
+    v_F = \sqrt{2gkL^{2} } 
+\end{gather*} 
+PUNTO B: \\
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{dfs}
+    \caption{fdas}
+    \begin{tikzpicture}
+        
+    \end{tikzpicture}    
+\end{wrapfigure}
+Mentre $\vec{N}_x$ è concorde con l'asse di riferimento, allora
+il segno di $\vec{N}_y$ non lo è e per come abbiamo scelto il sistema
+di riferimento non è possibile che sia concorde.
+DAto che la guida può solo spingere ma non tirare, allora
+\begin{gather*}
+    \vec{N}_x, \vec{N}_y \geq 0  
+\end{gather*}
+Ora
+\begin{gather*}
+    \vec{N} + m\vec{g} = m\vec{a}   
+\end{gather*}
+Che posso proiettare lungo la direzione $x$ ed $y$ ed ottengo
+che 
+\begin{gather*}
+    N_x = m\dot{x} \\
+    mg - m\dot{y} = N_y
+\end{gather*}
+DAto che si hanno due gradi di libertà, dobbiamo utilizzare delle
+approssimazioni: fin tanto che il corpo è attaccato alla guida allora
+questo soddisfa le equazioni della guida:
+\begin{gather*}
+    \vec{r} = P - O = x\hat{i} + kx^{2}\hat{j}    
+\end{gather*}
+Derivando, si ottiene l'eqauzione della velocitià:
+\begin{gather*}
+    \vec{v} = \dot{x}\hat{i} + 2kx\dot{x} \hat{j}   
+\end{gather*}
+Derivando ancora:
+\begin{gather*}
+    \vec{a} = \ddot{x}\hat{i} + 2k(\dot{x}^{2} + x\ddot{x})\hat{j}  
+\end{gather*}
+Il secondo metodo è utilizzare l'energia meccanica:
+\begin{gather*}
+    v^{2}  =2gy  
+\end{gather*}
+Sostituendo la relaszione ottenuta preimac di v:
+\begin{gather*}
+    v^{2} = \dot{x}^{2}(1 + 4k^{2}x^{2}) = 2gkx^{2}   
+\end{gather*}
+Allora:
+\begin{gather*}
+    \dot{x}^{2} = \frac{2gkx^{2} }{1 + 4k^{2}x^{2}  } 
+\end{gather*}
+METODO ALTERNATIVO: \\
+COnsiderato che $\vec{N}_y$ e $\vec{N}_x$ non sono più generici
+e io so che $N$ deve essere ortogonale alla traiettoria:
+allora se vado a disegnare la traiettoria, avrò un versore tangente
+ed un versore invece ortogonale ad $\hat{u}_t$:
+\begin{gather*}
+    \vec{N} \cdot  \hat{u}_C = 0 \\
+    \vec{N} \cdot \vec{v} = 0 \\     
+\end{gather*}   
+Sostituendo quelle equzioni della velocitià allora posso ottenere:
+\begin{gather*}
+    N_x \dot{x} - N_y2kx\dot{x} = \dot{x}(N_x - 2kxN_y)
+\end{gather*}
+Ci sono allora due soluzioni per questa equazione:
+\begin{gather*}
+    N_x = 2kxN_y \quad e \quad x = 0
+\end{gather*}
+Da l'equazione:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        N_x = m\ddot{x} \\
+        N_Y = m(g - \ddot{y})
+    \end{array}\right. \\
+    \ddot{x} = \frac{N_x}{m} = \frac{2kxN_y}{m}
+\end{gather*}
+Sostituendo all'interno della equzione per $N_y$ allora:
+\begin{gather*}
+    mg - N_y = m2k(\dot{x} + \frac{2kxN_y}{m})
+\end{gather*}
+SO anche che:
+\begin{gather*}
+    \dot{x}^{2} = \frac{2gkx^{2} }{1 + 4k^{2}x^{2}  } 
+\end{gather*}
+ALlora sostituendo e raccogliendo $N_y$:
+\begin{gather*}
+    N_y(1  + 4k^{2}x^{2} ) = mg(1 - \frac{4k^{2} x^{2} }{1 + 4k^{2} x^{2}  })
+\end{gather*}
+E allora:
+\begin{gather*}
+    N_y = \frac{mg}{(1 + 4k^{2}x^{2} )^{2} }
+\end{gather*}
+E allora non si stacca mai dalla guida. 
+
+\end{document}

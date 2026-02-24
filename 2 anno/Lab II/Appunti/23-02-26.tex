@@ -1,0 +1,179 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di lab II}
+\author{Tommaso Miliani}
+\date{23-02-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Introduzione}
+Informazioni generali:
+\begin{itemize}
+    \item Prof: Piergiulio Lenzi e Nicola Poli
+    \item Libri: "Esperimenti di elettricità e magnetismo", di Poggi; 
+    Carlà "Appunti di elettronica per fisici". 
+    \item Esame: 4 esperienze in laboratorio:
+    \begin{itemize}
+        \item Metodo potenziometrico e fem;
+        \item Amplificatore operazionale in continua
+        \item Caratterizzazione in frequenza di un filtro attivo
+        \item Caratterizzazione di linee di trasmissione. 
+    \end{itemize}
+    Inoltre, la prova finale è un orale che consiste in esercizio su corrente continua o 
+    alternata e un colloquio su argomenti teorici e sperimentali affrontati nel corso. 
+\end{itemize}
+Le esperienze sono organizzate così
+\begin{itemize}
+    \item Consegna iniziale dell'elaborato entro una settimana dallo svolgimento;
+    \begin{itemize}
+        \item Consegna ai docenti dell'elaborato
+        \item Peer-review con un altro gruppo 
+        \item Comunicazione e commenti dell'elaborato di un altro gruppo
+    \end{itemize}
+    \item Consegna entro due settimane di una seconda versione rivista e corretta, 
+    la quale sarà oggetto della revisione e valutazione da parte dei docenti.
+\end{itemize}
+
+\section{Definizioni di unità di misura}
+Legge di Ohm 
+\begin{gather*}
+    V = IR
+\end{gather*}
+i portatori di carica sono gli elettroni, la cui carica è minuscola. Dal 2019 la carica dell'elettrone 
+è stata definita come $e = 1.602176634 \cdot 10^{-19} \ C$, fissata come costante nel sistema 
+internazionale. A partire da questa si definisce l'ampere, ossia la corrente: 
+\begin{gather*}
+    1 \ C = 1 \ A \cdot 1 \ s \ \Longrightarrow \ 1 A = \frac{1\ C}{1 \ s } \qquad I = \frac{dq}{dt}
+\end{gather*}
+In laboratorio non si misurano quantità microscopiche (non si contano i singoli elettroni) anche se 
+in alcuni esperimenti esiste una sorta di granularità: il fatto che la corrente è data da piccoli oggetti porta
+ad un rumore di fondo chiamato \textbf{Shock noise}, che è misurabile. L'aspetto microscopico è molto importante 
+anche se nel corso di Lab II non viene misurato. Tutte le tecniche moderne per misurare la corrente sotto lo shock noise 
+sono delle tecniche che permettono di andare oltre le tecniche di statistica classica per contare gli elettroni 
+ed i fotoni. \\ \noindent
+Supponendo di avere a che fare con un conduttore e di avere degli elettroni di conduzione che sono 
+liberi di spostarsi (in genere sono un paio per atomo). La densità del rame è di 9 g per cm$^{3}$, mentre il 
+peso molare è 63.5 g per mole. Il numero di elettroni per centimetro cubo per il rame è
+\begin{gather*}
+    n = \frac{6 \cdot 10^{23} \frac{el}{mol}}{63.5 \frac{g}{mol}} \cdot 9  \frac{g}{cm^{3}} \approx 9 \cdot 10^{22} \frac{el}{cm^{3}}
+\end{gather*} 
+Il passaggio che si esegue da discreto a continuo in fisica II è utilizzando una funzione di densità continua e ben definita in modo 
+tale che contenga un numero sufficientemente grande di elettroni tale per cui sia una funzione costante. La funzione definite in fisica II 
+di densità $\rho(x, y, z)$ descrive la densità di carica $\rho = n\cdot l$, dove $l$ è il lato 
+considerato dell'ordine del nanometro. \\ \noindent
+L'effetto di una forza su di una carica è data dal campo elettrico che risente questa carica dal campo elettrico:
+\begin{gather*}
+    \vv{F} = q \vv{E}  
+\end{gather*}
+Dunque, producendo un accelerazione sulla particella, si potrebbe affermare ch
+la velocità del flusso possa variare nel tempo. In realtà, il fatto che gli elettroni non sono 
+propriamente liberi di muoversi, fa sì che gli elettroni sbattano tra loro e dunque esista
+una sorta di frizione o \textbf{resistenza} che impedisce agli elettroni di andare più veloci, facendo sì 
+che si instauri una velocità costante e non una accelerazione costante. Ci si può anche chiedere come si confronta la velocità
+rispetto alla velocità che deriva dall'agitazione termica del conduttore. Se si considera la nube elettronica
+come se fosse una nube di gas costituita da elettroni, la velocità ad una data temperatura si ricava mediante la seguente
+\begin{gather*}
+    \frac{1}{2}m v_T^{2} = \frac{3}{2}k_B T
+\end{gather*}
+La velocità termica in un qualsiasi metallo è pari a
+\begin{gather*}
+    v_T = \sqrt{\frac{3k_BT}{m_e}} \approx 1.2 \cdot 10^{5} \frac{m}{s} 
+\end{gather*}
+All'equilibrio termodinamico gli elettroni sono effettivamente fermi poiché tutti gli 
+elettroni si muovono in tutte le direzioni e dunque il loro moto medio è nullo.
+Si vuole arrivare ad una relazione tra il campo elettrico esterno alla velocità di deriva alla quale 
+si spostano gli elettroni che danno origine alla corrente descritta dalla legge di Ohm. Se 
+si ponesse un campo elettrico al metallo, un qualche elettrone (che si ipotizza parta da fermo)
+arriverà ad una certa velocità $\Delta v$ entro un tempo $\Delta t$ fino a che non sbatte 
+contro un altra particella tornando a velocità nulla. In questo lasso di tempo il moto risulta 
+accelerato e dunque il suo delta velocità 
+\begin{gather*}
+    \Delta \vv{v} = \vv{a} \Delta t = \frac{\vv{F} }{m}\Delta t = -\frac{e\vv{E} }{m}\Delta t  
+\end{gather*} 
+Se l'urto è elastico, in media, la velocità di deriva degli elettroni sarà uguale a
+\begin{gather*}
+    \left< \vv{v_d}  \right>  = - \frac{e\vv{E} }{2m}\Delta T
+\end{gather*}
+Si osserva che essa è proporzionale al campo. Il $\Delta T$ è il tempo che intercorre 
+da una posizione all'altra e si può indicare come 
+\begin{gather*}
+    \Delta t = \frac{\Delta l}{v_T}
+\end{gather*}
+Dove $\Delta l$ è il cammino libero medio delle particelle e dunque la velocità di deriva sarà 
+\begin{align}
+    \vv{v_d} = -\frac{e\vv{E} }{2m} \frac{\Delta l}{v_T} 
+\end{align}
+Ipotizzando che il cammino libero medio dipenda solamente dalla velocità termica, allora tutte le quantità 
+sono costanti (che dipendono dalla temperatura) indipendenti dal campo elettrico, ottenendo la proporzionalità
+della velocità di deriva dal campo elettrico. Esiste dunque una dipendenza dalla resistenza alla temperatura:
+maggiore è la temperatura e maggiore sarà la resistenza poiché minore è la velocità di deriva degli elettroni.
+
+\subsection{Vettore densità di corrente}
+Si definisce ora il \textbf{densità di corrente}: si determina l'equazione di continuità, 
+la quale deriva dal principio di conservazione della carica e che, in gergo, dà luogo alla 
+prima legge di Kirchhoff e vale in \textbf{condizioni stazionarie}, le quali non sono le stesse 
+di fisica II. Per fisica II niente si muove in un conduttore, mentre per questo corso si intende
+condizioni di corrente stazionaria. Se in un conduttore il campo è costante, allora anche la corrente 
+è costante (solo per una parte del corso). La densità di corrente è dunque definita come il flusso 
+di un vettore attraverso una superficie S:
+\begin{align}
+    I = \int_{S} \vv{J} \cdot \hat{n} d S = \int_{S} \vv{J} \cdot \vv{dS}      
+\end{align}
+Dove $\vv{J} = n  q \cdot \vv{v_d} $,  che è dunque proporzionale al campo elettrico e, inoltre,
+è parallelo anche a $\vv{E}$. Per convenzione si dice che la corrente va da + a meno anche se, a muoversi,
+sono gli elettroni. Le unità di misura di $\vv{J}$ sono 
+\begin{gather*}
+    \left[J \right] = \frac{1}{m^{3}} \cdot C \cdot \frac{m}{s} = \frac{A}{m^{2}}
+\end{gather*} 
+Ossia densità di corrente di superficie.
+
+
+
+\end{document}

@@ -1,0 +1,326 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Termodinamica}
+\author{Tommaso Miliani}
+\date{28-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Finire la dimostrazione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La macchina anti Clausius}
+    \begin{tikzpicture}
+        \draw(-0.5, 0) rectangle (1.5, 1) node[midway] {$\sim C + M$};
+        \draw[very thick, ->](1.5, 0.5) -- (2.5, 0.5) node[at end, right] {$L = Q + Q_2$};
+        \draw(-0.5, -1) rectangle (1.5, -2) node[midway] {$T_2$};
+        \draw[very thick, ->](0.5, -1) -- (0.5, 0) node[midway, right] {$Q + Q_2$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si presuppone l'esistenza di un dispositivo anti Clausius che permetta
+di trasferire calore da un termostato a temperatura inferiore a quello
+con calore superiore che produce un certo lavoro. Dunque
+questa macchina si riassume come se fosse un dispositivo Anti-Clausius 
+che produce del lavoro dato del calore $Q + Q_2$, dove $Q_2 < 0$. Allora abbiamo dimostrato che se si nega
+uno dei due teoremi, allora è negato anche l'altro. Dunque entrambe le
+macchine che si sono create allora violano entrambi i principi: questo vuol
+dire che le due formulazioni sono, in qualche modo, collegate tra di loro. 
+\begin{gather*}
+    \boxed{KP \ \Longleftrightarrow \ C}
+\end{gather*}
+
+\section{Il rendimento di una macchina termica: il rapporto tra il calore totale e quello assorbito}
+Si è detto che la macchina termica può compiere solo scambi in un
+certo verso, che succede però nel caso in cui una macchina
+termica scambi calore con diversi termostati? Ci deve essere almeno un
+termostato al quale cede del calore, altrimenti si violerebbero gli enunciati
+del secondo principio della termodinamica; mentre è consentito prendere
+calore da molteplici termostati. 
+\begin{gather*}
+    Q_1, \dots, Q_j \geq 0 \qquad  Q_{j + 1}, \dots, Q_n < 0 
+\end{gather*}
+Per i termostati $T_1, \dots, T_n$ con $ 1 < j  < n - 1$. Posso chiamare 
+allora \textbf{calore assorbito}, il calore che la macchina termica prende dai
+termostati
+\begin{align}
+    Q_a = \sum_{i = 0}^{j}  Q_i 
+\end{align}
+E \textbf{calore ceduto} il calore che la macchina termia cede a certi termostati
+\begin{align}
+    \sum_{i = j +1}^{n} Q_i 
+\end{align}
+Una macchina termica deve dunque convertire energia termica in energia meccanica, è quindi
+possibile definire una quantità che mi permetta di dire quanto bene una macchina
+termica riesce a trasformare il calore in lavoro che prende il nome
+di \textbf{rendimento} o \textbf{efficienza} definito come 
+\begin{align}
+    \eta = \frac{L}{Q_a}
+\end{align}
+Se non si fa nessuna ipotesi su questa macchina, io posso solo sapere che
+l'efficienza di una qualsiasi macchina termica sia positiva, se si suppone invece che
+la macchina sia ciclica (come sarà da qui in poi), allora l'efficienza è uguagliabile
+al rapporto tra il calore complessivo e quello assorbito, ossia
+\begin{align}
+    \eta = \frac{L}{Q_a} = \frac{Q}{Q_a} = \frac{Q_a + Q_e}{Q_a} = 1 + \frac{Q_c}{Q_a} = 1 - \frac{\left| Q_c \right| }{Q_a} 
+\end{align}
+Ossia l'efficienza dipende da quanto calore cede ed assorbe la macchina per una
+macchina ciclica. Per il secondo principio della dinamica, dato che $Q_c \neq 0$, allora
+l'efficienza di una macchina ciclica non potrà mai essere il $100\%$, dunque 
+il rendimento per una macchina termica ciclica deve essere
+\begin{gather*}
+    0 \leq \eta < 1
+\end{gather*}
+
+\section{Macchine termiche che scambiano calore con due soli termostati}
+Nel caso in cui una macchina termica (ciclica) scambi solo calore con due termostati,
+in questa situazione è possibile definire il \textbf{Teorema di Carnot}.
+\begin{remark}[Teorema di Carnot]
+Fra tutte le macchine cicliche che compiono lavoro tra $T_1 < T_2$ si considerano le macchine
+reversibili il cui rendimento è sempre 
+\begin{align}
+    \eta_R \geq \eta
+\end{align}
+Inoltre, se due macchine diverse sono entrambe reversibili, allora il
+loro rendimento è equivalente:
+\begin{align}
+    \eta_{R'} = \eta_R
+\end{align}
+\end{remark}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Macchina $R$ reversibile e macchina $M$ non reversibile}
+    \begin{tikzpicture}
+        \draw(0, 2) rectangle (3, 3) node[midway] {$T_1$};
+        \draw(0, -1) rectangle (3, -2) node[midway] {$T_2$};
+        \draw(0.5, 0.5) circle (0.5) node[anchor = center] {$R$};
+        \draw[very thick, ->](0.5, 2) -- (0.5, 1) node[midway, left] {$Q_{1R}$};
+        \draw[very thick, ->](0.5, 0) -- (0.5, -1) node[midway, left] {$Q_{2R}$};
+        \draw(2.5, 0.5) circle (0.5) node[anchor = center] {$M$};
+        \draw[very thick, ->](2.5, 0) -- (2.5, -1) node[midway, right] {$Q_{2M}$};
+        \draw[very thick, ->](2.5, 1) -- (2.5, 2) node[midway, right] {$Q_{1M}$};
+        \draw[very thick, ->](3, 0.5) -- (4, 0.5) node[at end, right] {$L_M$};
+        \draw[very thick, ->](1, 0.5) -- (1.5, 0.5) node[midway, above] {$L_R$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+E' cruciale dire che questa cosa vale solamente nell'insieme
+di queste due temperature assegnate. Se così non fosse, sarebbe
+possibile costruire macchine termiche reversibili che hanno rendimento estremamente
+piccolo, prossimo a zero, in questo modo posso dire che tutte le altre macchine
+hanno rendimento zero, il che sarebbe assurdo.
+Si dimostra ora determinando un certo numero di cicli per ogni 
+macchina termica come $N_R$ il numero di cicli della macchina reversibile
+e $N_M$ il numero di cicli della macchina non reversibile. Data la ciclicità delle
+macchine, posso dire che la macchina reversibile assorbe un certo
+calore e produce un certo lavoro
+\begin{gather*}
+    Q_{1R}' = N_R Q_{1R} \quad L'_R = N_R L_R \quad Q'_{2R} = N_R Q_{2R} \\
+    Q_{1M}' = N_R Q_{1M} \quad L'_M = N_M L_M \quad Q'_{2M} = N_M Q_{2M} \\
+\end{gather*}
+E lo stesso per la macchina non reversibile. Adesso posso fare in modo che il calore che 
+è assorbito dalla prima macchina sia lo stesso di quello della macchina non 
+reversibile per ogni ciclo, allora posso aggiustare il numero di cicli per le macchine
+per ottenere il calore assorbito da ogni macchina in quel numero di cicli e quindi
+\begin{gather*}
+    Q_{1R}' = N_R Q_{1R} = N_MQ_{1M} = Q'_{1M}
+\end{gather*}
+Posso allora chiamare i vari rendimenti totali come
+\begin{gather*}
+    \eta_M' = \frac{L_M'}{Q_{1M}'} = \frac{N_ML_M}{N_MQ_{1M}} = \eta_M
+\end{gather*}
+E la stessa cosa per la macchina rendimento. Si è dimostrato un corollario
+del teorema:
+\begin{observation}
+    L'efficienza di una macchina non dipende dal numero di cicli che si esegue
+    ma è una caratteristica intrinseca della macchina.
+\end{observation}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La macchina risultante}
+    \begin{tikzpicture}
+        \draw(0,0) ellipse (1 and 0.5) node[midway] {$M - R$};
+        \draw[very thick, <->](1, 0) -- (2, 0) node[at end, above] {$L_M - L_R$};
+        \draw[very thick, <->](0, -0.5) -- (0, -1.5) node[midway, right] {$Q_{2M} - Q_{2R}$};
+        \draw(-1, -1.5) rectangle (1, -2.5) node[midway] {$T_2$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Sfruttando l'ipotesi della macchina reversibile, la macchina $R$ subisce lavoro 
+e dunque i segni dei calori si invertono. Questa diventa dunque una macchina frigorifera
+che è in grado di cedere calore al termostato più caldo prendendolo da quello 
+più freddo. L'effetto complessivo della macchina al contrario è quello della macchina
+che produce come lavoro il lavoro complessivo e scambia come calore il calore complessivo.
+Tuttavia, dato che abbiamo imposto che $Q_{1R} = Q_{1M}$, questa macchina scambia
+solo calore con il termostato $T_2$, allora, per non andare contro al secondo principio
+della termodinamica, devo necessariamente avere che
+\begin{gather*}
+    L_M - L_R \leq 0
+\end{gather*}
+E dunque
+\begin{gather*}
+    \frac{L_M}{Q_1} \leq \frac{L_R}{Q_1} \ \Longrightarrow \ \eta_R \geq \eta_M
+\end{gather*}
+Si dimostra ora la seconda parte dell'enunciato. Supponiamo dunque che quella macchina
+$M$ sia reversibile, allora posso fare esattamente la stessa dimostrazione invertendo 
+solamente la macchina $M$ e non la macchina $R$, ottenendo
+\begin{gather*}
+    \eta_M \geq \eta_R 
+\end{gather*}
+Ma dato che prima ho dimostrato il contrario, allora deve necessariamente risultare che
+\begin{gather*}
+    \eta_M = \eta_R
+\end{gather*}
+
+\section{Il ciclo di Carnot}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il ciclo di Carnot}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$p$};
+        \filldraw(1, 3) circle (1pt) node[anchor = south] {$A$};
+        \filldraw(2.25, 2.25) circle (1pt) node[anchor = south] {$B$};
+        \filldraw(3.5, 1) circle (1pt) node[anchor = west] {$C$};
+        \filldraw(1.5, 1.75) circle (1pt) node[anchor = north] {$D$};
+        \draw[very thick, ->](1, 3) .. controls (1.5, 2.45) and (1.8, 2.35) .. (2.25, 2.25);
+        \draw[very thick, ->](2.25, 2.25) .. controls (2.6, 1.5) and (3.25, 1) .. (3.5 ,1);
+        \draw[very thick, ->](3.5, 1) .. controls (2.5, 1) and (2, 1.4) .. (1.5, 1.75);
+        \draw[very thick, ->](1.5, 1.75) .. controls (1.4, 1.8) and (1.2, 2) .. (1, 3);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Presa una macchina termica reversibile ciclica, possiamo farle 
+fare il ciclo di Carnot. I questa macchina termica si ha un gas perfetto
+che dal punto $A$ si espande in maniera quasi statica (compiendo 
+allora un arco di iperbole a temperatura costante) e dopo una espansione
+adiabatica da $B$ a $C$ in modo tale che la sua temperatura non 
+segua più una isoterma. Successivamente eseguo una compressione
+quasi statica per cui la trasformazione $CD$ sia a temperatura costante
+e chiudo il ciclo con una trasformazione $DA$ adiabatica quasi statica.
+Quello che si sa è che l'energia interna $AB$ non cambia, così come 
+l'energia interna per la trasformazione $CD$:
+\begin{gather*}
+    U(A) = U(B) \qquad Q_1 = L_{AB} = nRT_1\ln\frac{V_B}{V_A} \\
+    U(C) = U(D) \qquad Q_2 = L_{CD} = nRT_2\ln\frac{V_D}{V_C}
+\end{gather*}
+Ossia la quantità $Q_1$ è il calore scambiato con il termostato a $T_1$ ed
+il calore $Q_2$ quello con il termostato $T_2$. 
+Si può ora determinare il rendimento della macchina come 
+\begin{gather*}
+    \eta = 1 + \frac{Q_C}{Q_A} = 1 + \frac{Q_2}{Q_1}
+\end{gather*}
+Per cui
+\begin{gather*}
+    \frac{Q_2}{Q_1} = \frac{T_2}{T_1} \frac{\ln \frac{V_D}{V_C}}{\ln\frac{V_B}{V_A}}
+\end{gather*}
+Si utilizza l'informazione della quasi staticità per poter trovare informazioni sulle relazioni
+tra i due volumi. Conviene dunque utilizzare le informazioni sulle 
+temperature per le trasformazioni adiabatiche per il gas perfetto ($TV^{\gamma - 1}$) e dunque 
+posso esprimere 
+\begin{gather*}
+    T_1V_A^{\gamma - 1} = T_2V_D^{\gamma - 1}  \\
+    T_1V_B^{\gamma - 1} = T_2B_C^{\gamma - 1}  
+\end{gather*}
+Allora posso ottenere il rapporto dei volumi come 
+\begin{gather*}
+    \left(\frac{V_A}{V_B}\right)^{\gamma -1} = \left(\frac{V_D}{V_C}\right)^{\gamma - 1}  \ \Longrightarrow \ \ln\frac{V_D}{V_C} = \ln\frac{V_B}{V_A}
+\end{gather*}
+Allora si conclude che
+\begin{gather*}
+    \frac{Q_2}{Q_1} = -\frac{T_2}{T_1}
+\end{gather*}
+Si esprime allora il rendimento in maniera esplicita per una macchina che compie il ciclo di 
+Carnot:
+\begin{align}
+    \eta_R = 1 - \frac{T_2}{T_1}
+\end{align}
+Questa vale anche per i gas non perfetti (anche se non sono 
+in grado di trovare i lavori per le varie trasformazioni).
+Se si esegue il ciclo di Carnot in senso opposto, allora le quantità di calore
+sono al contrario ed il lavoro è contrario e dunque la trasformazione 
+è reversibile. Se il gas è perfetto le quantità di calore sono semplicemente date 
+dalla relazione di stato dei gas perfetti e dunque è possibile determinare sia il calore 
+scambiato che il lavoro eseguito.
+
+\section{Misurare la temperatura termodinamica assoluta}
+Con il termometro a gas perfetto non posso misurare tutte le temperature: non posso 
+misurare temperature sotto la soglia della temperatura critica del gas con cui eseguo la misura.
+Con una macchina termica è possibile però eseguire una misura della temperatura di un termostato
+con temperatura incognita $T$ se affianco la macchina ad un termostato a 
+temperatura $T_0$:
+\begin{gather*}
+    T = T_0 \frac{|Q|}{|Q_0|}
+\end{gather*}
+In linea di principio si potrebbe scegliere questa come definizione
+operativa di temperatura che si distingue dall'altra 
+poiché al posto di $T$ si usa $\theta$:
+\begin{gather*}
+    \theta = \theta_0 \frac{|Q|}{|Q_0|}
+\end{gather*}
+Adesso posso utilizzare il rendimento
+\begin{gather*}
+    \eta = \ - \frac{|Q_2|}{Q_1} = 1 - \frac{\theta_2}{\theta_1}
+\end{gather*}
+Che non è altro che la definizione di temperatura utilizzando il rendimento
+(ossia la temperatura termodinamica assoluta)
+di una macchina di Carnot. Dunque questi due metodi per definire la
+temperatura stanno tra di loro come
+\begin{gather*}
+    \frac{\theta_2}{\theta_1} = \frac{T_2}{T_1}
+\end{gather*}
+Ponendo $\theta_0$ una temperatura comoda di riferimento (come il punto triplo dell'acqua),
+posso utilizzare una macchina termica che lavori tra questa sorgente e $\theta_0$ e
+la sorgente che voglio determinare a temperatura $\theta$. 
+Non è possibile raggiungere lo zero termico nella scala Kelvin in quanto, se fosse possibile,
+una macchina termica che compie del lavoro ed è posta a contatto con due
+termostati, con il termostato allo zero termico scambierebbe esattamente zero calore e dunque
+violerebbe il secondo principio della termodinamica poiché lavorerebbe cedendo calore 
+alla sorgente a temperatura $\theta_0$. D'ora in poi si utilizza $\theta = T$. 
+
+\end{document}

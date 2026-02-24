@@ -1,0 +1,400 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fisica II}
+\author{Tommaso Miliani}
+\date{23-02-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Intro}
+Informazioni generali sul corso
+\begin{itemize}
+    \item Prof: Massimo Gurioli
+    \item Esercitazioni: Giovanni Ferioli, Francesco Biccari
+    \item Libri: Mencuccini Silvestri Fisica II (facile) o Jackson Elettrodinamica classica e Griffiths Introduction to Electrodynamics (difficili);
+    \item Esame: scritto + orale, il voto dello scritto vale 1 ANNO e si entra
+    all'orale con 18 (si può entrare a fare l'orale anche con 17 ma ci sarà un esercizio
+    all'orale). Lo scritto ha 3 esercizi con tre domande ciascuno, di cui si deve anche
+    trovare i valori numerici. La valutazione totale deriva in LARGA parte dal voto dell'orale (il voto dello scritto è solo per 
+    entrare, dunque anche chi entra con 18 può arrivare a 30).
+\end{itemize}
+Il corso si divide in due parti
+\begin{itemize}
+    \item Elettrostatica;
+    \item Elettrodinamica
+\end{itemize}
+
+\section{Cenni storici e introduzione all'elettrostatica}
+Il primo fenomeno studiato è quello dell'elettrizzazione (per strofinio)  come 
+quando si strofina la plastica o l'ambra. Un'altro fenomeno studiato nell'antica Grecia 
+è sicuramente la magnetizzazione, studiando la magnetite, iniziarono a scoprire che questi materiali
+si attraevano tra loro. Con il procedere degli anni, si è iniziato a capire come alcuni 
+materiali attraessero altri materiali mentre altri si respingevano tra loro, alcuni naturalmente, 
+altri mediante strofinio, come se dovessero essere caricati. Nel settecento si iniziò 
+a studiare le correnti, i fulmini, fino ad arrivare a Maxwell.
+
+\section{Sviluppo storico}
+Per misurare i fenomeni elettrici con precisione si doveva utilizzare
+\begin{enumerate}
+    \item MOlta carica
+    \item Saperla conservare
+    \item Saperla misurare
+    \item Inventare uno strumento che poteva misurare con precisione la forza al variare della distanza
+    \item Trovare un modello o legge matematica
+    \item Infine definire delle leggi che unificassero tutti i fenomeni distinti.
+\end{enumerate}
+
+\subsection{Generatori di carica}
+I generatori di carica utilizzavano lo strofinio 
+
+\subsection{Accumulo di carica}
+Dai generatori di carica si potevano (tramite la bottiglia di Leida), estrarre questa carica. La
+bottiglia di Leida era una sorta di condensatore (costituito da una bottiglia di vetro ricoperta da un foglio di alluminio).
+
+\subsection{Misuratori}
+Per poter studiare la carica era necessario misurarla utilizzando degli strumenti che avevano
+delle lamelle che divergevano per effetto delle forze elettromagnetiche
+
+\subsection{Misuratori di forza}
+Utilizzando dei misuratori di forza, ora era possibile introdurre il concetto di forza anche 
+ai fenomeni elettrostatici attraverso un pendolo di torsione ideato da Coulomb. 
+
+\subsection{Modelli}
+Coulomb introdusse ora un modello magnetico attraverso le masse delle particelle (che tuttavia
+non funzionò molto bene), mentre il modello per le cariche elettriche funziona ancora oggi interpolando 
+i dati sperimentali. Coulomb, nonostante i grandi errori, pensò che anche questa legge dovesse andare come 
+il quadrato della distanza (così come aveva fatto Newton) poiché secondo lui fittava meglio i dati. Ad oggi si 
+sa che quel due è preciso fino a $10^{-16}$. 
+\begin{gather*}
+    F = k_e \frac{q_1 q_2}{R^{2}}
+\end{gather*}
+Per misurare questa forza si definisce il Coulomb come 
+\begin{gather*}
+    \vv{F} = \frac{1}{4\pi\epsilon_0} \frac{q_1 q_2}{r^{2}}\vv{r}  
+\end{gather*}
+Mentre nel sistema CGS si utilizza lo statC, ossia $1 \ \text{statC} \approx 3.33564 \cdot 10^{-10} \ C$. 
+
+\section{Storica dell'elettrodinamica}
+Alessandro Volta fu il primo fisico a capire che era possibile utilizzare una differenza
+di potenziale per poter far fluire cariche nei conduttori per utilizzarla per svariati usi. Grazie ad
+Ampere si è creato uno strumento per misurare questa corrente, mentre grazie a Ohm si è arrivati a delle leggi sulla 
+corrente mentre Oersted è riuscito ha capire che con le correnti si muovevano anche 
+i campi magnetici, poi è stato il turno di Faraday a scoprire le linee di forza di un conduttore. \\ 
+Solo Maxwell è riuscito a dare forma alle leggi e ai modelli elettrodinamici aggiungendo un termine che 
+ha chiamato \textbf{corrente di spostamento}:
+\begin{gather*}
+    \vv{\nabla} \times \vv{B} = \mu_0 \vv{J} + \boxed{ \mu_0 \epsilon_0 \frac{\partial \vv{E} }{\partial t}}
+\end{gather*}
+Dopo Maxwell, Poynting (chiede all'esame sennò scopa culo di tutti), che ha verificato l'esistenza dell'onda elettromagnetica. 
+
+
+\section{Definizione della forza elettrostatica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \filldraw(0, 0) circle (1pt) node[anchor = north] {$Q$};
+        \filldraw(2, 1) circle (1pt) node[anchor = north] {$q$};
+        \draw[dashed](0, 0) -- (2, 1);
+        \draw[->](2, 1) -- (3, 1.5) node[midway, above] {$\vv{r}$ };
+        \draw[->](0, 0) -- (1, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (-0.7, -0.3) node[at end, below] {$y$};
+        \draw[->](0, 0) -- (0, 1) node[at end, left] {$z$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Date due cariche puntiforme (molto piccole data la grande distanza che le separa),
+l'approssimazione di cariche puntiforme è molto utile dal punto di vista matematico è molto utile in quanto 
+non c'è bisogno di alcun modello per descriverle. La forza tra loro è data da
+\begin{gather*}
+    \vv{F_q}  = \frac{1}{4\pi\epsilon_0}\frac{qQ}{r^{2}}\hat{r} 
+\end{gather*}
+Il segno della forza descrive l'attrattività o repulsività della forza. 
+Si definisce il campo elettrico della forza 
+\begin{gather*}
+    \vv{E}(\vv{r} ) =  \lim_{q \to 0} \frac{\vv{F_q} }{q} 
+\end{gather*}
+Ci vuole l'accortezza, da parte dello sperimentatore, di verificare che la carica di prova 
+non perturbi la distribuzione di carica che genera il campo elettrico. Per poter misurare dunque
+il campo elettrico si deve utilizzare una carica di prova sempre più vicina a zero di intensità. La 
+successione di cariche che tende verso zero deve convergere verso un certo valore, come nel seguente grafico:
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$q$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$F_q$};
+        \filldraw(0.5, 0.5) circle (1pt); 
+        \filldraw(1, 1) circle (1pt);
+        \filldraw(1.5, 1.5) circle (1pt);
+        \filldraw(2, 2) circle (1pt);
+        \filldraw(2.5, 2.25) circle (1pt);
+        \filldraw(3, 2.5) circle (1pt);
+    \end{tikzpicture}
+\end{gather*}
+Solamente vicino a zero 
+il campo elettrico è definito come lineare, per cariche lontane dallo zero, invece, la forza non è più lineare. 
+Nel limite di carica puntiforme, il campo elettrico per la carica puntiforme è equivalente a
+\begin{gather*}
+    \vv{E}(\vv{r}) = \frac{1}{4\pi\epsilon_0}\frac{Q}{r^{2}}\hat{r}  = \frac{1}{4\pi\epsilon_0} \frac{Q}{r^{3}}\hat{r} 
+\end{gather*}
+
+\noindent
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (1, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, 1) node[at end, left] {$z$};
+        \draw[->](0, 0) -- (-0.7, -0.5) node[at end, below] {$y$};
+        \draw[->](0, 0) -- (1, 1) node[midway, above] {$\vv{r'}$ };
+        \draw[->](0, 0) -- (3, 1) node[midway, below] {$\vv{r}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Quando un corpo ha carica, lo spazio intorno a lui viene modificato e non è più vuoto
+e prende il nome di \textbf{campo elettrico} (ossia un campo vettoriale) e descrive una forma di energia nell'universo 
+misurabile e concreta. Un campo vettoriale è un vettore associato ad ogni punto dello spazio, e dunque 
+funzione del punto dello spazio ed è univocamente definito se si conosce la divergenza ed il rotore, oltre che alle
+sue boundary conditions in un certo volume. Dato che il campo è derivato dalla forza, e la forza totale 
+su di un corpo è la somma vettoriale delle forze, il campo in un punto dello spazio è la somma 
+dei campi su quel punto; il fatto che valga per le forze il prinicpio di sovrapposizione, vale anche per il campo. 
+Se si avessero due cariche, prima si dovrebbe trovare una relazione che valga anche quando la carica 
+non è nell'origine. La carica $\vv{r'}$ è la \textbf{carica sorgente}, mentre la carica di prova $q$ è quella 
+che prende il nome di \textbf{carica di campo}. Il campo elettrico è dunque definito come
+\begin{gather*}
+    \vv{E}(\vv{r} ) = \frac{1}{4\pi\epsilon_0}\frac{Q}{\left| \vv{r}- \vv{r'}   \right|^{3} } (\vv{r} - \vv{r'}  )
+\end{gather*} 
+Presa un insieme numerabile di cariche, $\vv{r'}$ diventa scomodo e dunque la coordinata sorgente è $\vv{r_i}$. Dunque la 
+formula di prima diventerà 
+\begin{gather*}
+    \vv{E} = \vv{E}_1 + \vv{E}_2   
+\end{gather*}  
+sfruttando il principio di sovrapposizione, per cui se si calcolasse il campo in un punto $\vv{r}$ qualsiasi, esso è dato 
+dalla somma dei due campi che generano le due sorgenti. Il risultato è
+\begin{gather*}
+    \vv{E}(\vv{r} ) = \frac{1}{4\pi\epsilon_0}\left(\frac{Q_1}{\left| r - r_1 \right|^{3} } (\vv{r} - \vv{r_1}  ) + \frac{Q_2}{\left| r - r_2 \right|^{3} }(\vv{r} - \vv{r_2}  )\right)  = \frac{1}{4\pi\epsilon_0} \sum_{i = 1}^{2}\frac{Q_i}{\left| r - r_i \right|^{3} }(\vv{r} - \vv{r_i}  ) 
+\end{gather*}
+
+\noindent
+Questa equazione definisce in maniera definitiva il problema elettrostatico delle cariche. Si vuole ora determinare la distribuzione di carica su di un volume.
+Si introduce dunque il concetto di densità di carica eseguendo $N$ partizioni $d\tau_i$.  In ogni partizione del volume considerato
+c'è una carica
+\begin{gather*}
+    dQ = \rho (\vv{r} )d\tau
+\end{gather*}
+Se si volesse calcolare il campo rispetto ad un punto $\vv{r}$, allora, per il principio di sovrapposizione, si deve eseguire la somma
+di tutti i volumetti e dunque la somma diventa un integrale di volume. 
+\begin{gather*}
+    \begin{array}{l}
+        d\tau \to 0 \\
+        N \to \infty 
+    \end{array} \ \Longrightarrow \ \vv{E}(\vv{r} ) = \frac{1}{4\pi\epsilon_0} \int_{\tau} \frac{dQ(\vv{r'} )  }{\left| r - r' \right|^{3} } (\vv{r} - \vv{r'}  )
+\end{gather*} 
+Ottenendo dunque
+\begin{align}
+    \vv{E}(\vv{r} ) =  \frac{1}{4\pi\epsilon_0}\int_{\tau} \frac{\rho(\vv{r} )}{\left| r - r' \right|^{3} }(\vv{r} - \vv{r'}  )d\tau 
+\end{align}
+
+\begin{example}[Risoluzione di un esercizio di distribuzione di carica e filo infinito]
+    Consideriamo un cilindro lungo $2L$ e che abbia una sezione di raggio $d$, su questo
+    è distribuita, in modo uniforma, una carica totale $Q$ e si vuole calcolare il campo sull'asse
+    ad una certa distanza $x$. Si vuole determinare questa distribuzione secondo le seguenti condizioni:
+    $d << L$ e $d << x$. Posso eseguire dunque la seguente approssimazione: si può ignorare le
+    dimensioni fisiche del cilindro e si può allora definire la arica sul piccolo volumetto $dz$:
+    \begin{gather*}
+        dQ = \rho dz S
+    \end{gather*}
+    Dove $S = \pi d^{2}$. Adesso si può riscrivere
+    \begin{gather*}
+        dQ = \rho dz S = \lambda dz \qquad \lambda = \rho S
+    \end{gather*}
+    A questo punto si può trattare il problema come se fosse un filo: la densità non è più 
+    carica su metro cubo ma carica su metro (infatti $\lambda$ è la densità lineare). 
+    \begin{gather*}
+        E(x, 0) = \frac{1}{4\pi\epsilon_0} \int_{-L}^{L} \frac{\lambda dz}{\left| x^{2} + z^{2} \right|^{\frac{3}{2}} }(x\hat{x} - z\hat{z}  )  \qquad 
+        \begin{array}{l}
+            \vv{r} = x\hat{x} \\
+            \vv{r'} = z\hat{z}    
+        \end{array} \ \Longrightarrow \  \vv{r} -\vv{r'} = x\hat{x} - z\hat{z}    
+    \end{gather*}
+    Si può ora procedere a risolvere i due integrali: il secondo integrale è 
+    nullo in quanto i contributi in $z$ sono sempre simmetrici, mentre l'altro integrale
+    \begin{gather*}
+        \frac{\lambda x\hat{x} }{4\pi\epsilon_0}\int_{-L}^{L} = \frac{1}{(x^{2} + z^{2})^{\frac{3}{2}}} dz 
+    \end{gather*}
+    La soluzione di questo integrale non è immediata e non è da sapere per i compiti, ma la sua soluzione è la seguente:
+    \begin{gather*}
+        \frac{\lambda x \hat{x} }{4\pi \epsilon_0} \frac{1}{x^{2}} \left.\frac{z}{\sqrt{x^{2} + z^{2}} }\right|_{-L}^{L} = \frac{\lambda}{4\pi\epsilon_0}\frac{\hat{x} }{x}\left(\frac{2L}{\sqrt{x^{2} + z^{2}} }\right)
+    \end{gather*}
+    $\lambda 2L$, data la definizione di $\lambda$, dà tutta la carica contenuta nel filo. Dunque, sull'asse $x$, quello
+    che conta è la carica totale. Quando ci si allontana dal filo, ossia quando $x >> L$, la soluzione diventa 
+    \begin{gather*}
+        \frac{\lambda 2L\hat{x} }{4\pi \epsilon_0x^{2}} = \frac{Q}{4\pi\epsilon_0 } \frac{\hat{x} }{x^{2}}
+    \end{gather*}
+    E dunque, se si è sufficientemente lontani, la carica diventa puntiforme. Che succede invece se, per un filo 
+    finito, si vuole determinare il campo in un punto molto vicino? Negli esercizi si può dire che esiste un filo indefinito carico
+    con $Q$ ben definito, ci si pone nel caso $L >> x >> d$, dunque il campo:
+    \begin{gather*}
+        \vv{E}(x) = \frac{1}{2\pi\epsilon_0}\frac{\lambda }{x} \hat{x}  
+    \end{gather*}
+    In questo caso il campo non va come $\frac{1}{r^{2}}$ ma come $\frac{1}{r}$, così come si era visto per la
+    definizione di campo quando la carica è sufficientemente piccola. Il motivo fisico è perché il filo è infinito: se è 
+    distribuita su di un filo infinito, si ottengono risultati molto strani. 
+\end{example}
+
+\section{Teorema di Gauss}
+Il teorema di Gauss mi dice che, scelta una superficie chiusa e orientata, il flusso del 
+campo elettrico attraverso questa superficie chiusa è uguale alla carica contenuta diviso 
+$\epsilon_0$, unendo dunque il flusso ed il campo magnetico. 
+Se si prende la sezione $S$ di un tubo, la quantità di massa che passa attraverso a questa superficie
+è data da 
+\begin{gather*}
+    \Delta M = \rho v \ dt S
+\end{gather*}
+Si divide ora per il tempo considerato $\Delta t$, ottenendo:
+\begin{gather*}
+    \frac{\Delta M}{\Delta t} = \rho v S \ \Longrightarrow \ J \cdot \hat{n} S  
+\end{gather*}
+Dove $\hat{n}$ è la normale alla superficie $S$ scelta. La quantità di materia che 
+fluisce in un tubo in un certo tempo è data da questa espressione prendendo il nome di 
+\textbf{flusso di $\vv{J} $ attraverso $S$}  indicato con $\Phi_{\vv{J}}(S)$. Se la superficie
+fosse inclinata, dovrei anche considerare l'angolo tra $\hat{n}$ e $\vv{v}$: dunque 
+introduco il coseno:
+\begin{gather*}
+    \frac{\Delta M}{\Delta t} = JvS_2\cos\theta
+\end{gather*}   
+Secondo il teorema di \textbf{Cavalieri}, $S = S_2\cos\theta$, dunque il flusso 
+non dipende dalla superficie scelta all'interno del tubo. Se poi $\vv{J}$ dipendesse dalla 
+superficie in qualche modo, allora dovrei anche fare l'integrale di superficie
+\begin{gather*}
+    \Phi_{\vv{J} }(S) = \int_{S} \vv{J}(r') \cdot \hat{u} \ dS   
+\end{gather*}
+Fuori dal tubo il flusso è ovviamente zero. Detto questo si può utilizzare il concetto di flusso per ogni 
+campo vettoriale; è chiaro che, quando si utilizza per $\vv{E}$ in elettrostatica non fluisce nulla, ma 
+a noi interessa l'integrale sulla superficie chiusa considerata che chiamiamo flusso. L'angolo solido è 
+il concetto di angolo elevato allo spazio: l'angolo solido si definisce data una calotta sferica per cui
+\begin{gather*}
+    \Omega = \frac{S}{r^{2}}
+\end{gather*}
+Sia data una carica $Q$ e la pongo nell'origine, supponendo che questa carica sia 
+dentro una superficie a caso $S$. Si sceglie ora di calcolare il flusso attraverso un elemento
+infinitesimo di superficie chiamato $dS$:
+\begin{gather*}
+    d\Phi = \vv{E} \cdot \hat{n} \ dS  = \frac{1}{4\pi\epsilon_0}\frac{Q}{r^{2}}\hat{r} \cdot \hat{n} \ dS = \frac{Q}{4\pi\epsilon_0} \frac{dS\cos\theta}{r^{2}} = \frac{Q}{4\pi\epsilon_0} \frac{dS_n}{r^{2}}
+\end{gather*}
+secondo la definizione di flusso. Quando la superficie è infinitesima, il campo è sempre 
+uniforme sulla superficie data. Il campo adesso è conosciuto e cambia verso a seconda della carica,
+ma il fatto che il campo entra oppure esca è contenuta dentro $Q$ e dunque il campo è sempre uscente 
+ed il segno è determinato dalla carica. Il flusso è quindi entrante se è negativa e uscente se invece è 
+una carica positiva (anche se convenzionalmente $\hat{n}$ è uscente così come $\hat{r}$  ). Dato che c'è 
+$\cos\theta$, il campo elettrico non è parallela alla normale, col coseno riesco a proiettarla in 
+modo tale che siano parallele e che chiamo $dS_n$ e che considero essere un pezzetto di sfera. Dato che è 
+infinitesimo è possibile farla questa approssimazione e dunque 
+\begin{gather*}
+    \frac{dS_n}{r^{2}} = d\Omega 
+\end{gather*}
+Adesso il flusso non dipende più dalla superficie scelta ma dal cono di spazio che
+arriva all'elemento considerato. Adesso, per arrivare al teorema di Gauss, si deve integrare lungo tutta la superficie
+considerata. Ma, dato che ogni elemento infinitesimo è un elemento di calotta sferica, allora l'integrale totale 
+sarà un integrale su di una sfera:
+\begin{gather*}
+    \Phi = \int_{S}^{} d\Phi = \frac{Q}{4\pi\epsilon_0}\int_{S} d\Omega = \frac{Q}{\epsilon_0} 
+\end{gather*}
+Si è assunto, fino ad ora, che il coseno sia sempre positivo, questo perché il raggio versore è sempre uscente
+dalla superficie e dunque l'angolo rispetto alla direzione uscente è sempre compreso tra
+-90° e 90°. L'unica possibilità  per cui il coseno non sia positivo è che ci sia una superficie lungo la quale la linea di forza esce, poi rientra e poi riesce. Data
+una superficie chiusa con carica interna, la linea di forza considerata può attraversare la superficie solo un numero dispari di volte (in quanto alla
+fine DEVE sempre uscire), questo vuol dire che $\cos\theta$ è sempre positivo. Il campo sulla superficie è sempre la somma
+di tutti i campi delle cariche interne ed il risultato rimane sempre lo stesso poiché il campo gode della sovrapposizione e 
+secondo perché l'integrale è un operatore lineare, giungendo dunque alla conclusione
+\begin{align}
+    \Phi_S  = \frac{Q_{int}}{\epsilon_0}
+\end{align}
+Se si considerasse ora una carica esterna, il ragionamento che si utilizza è considerare un angolo
+solido infinitesimo che parta adesso dalla carica. Senza fare dimostrazioni precise, l'angolo solido o non 
+intercetta mai la superficie o la intercetta sempre un numero pari di volte: se entra deve anche 
+uscire (anche se fosse arzigogolata, essa incontrerà sempre la superficie un numero pari di volte). 
+Si considera ora che questa carica attraversi la superficie due volte. Si considerano le due superfici
+$dS_1$ e $dS_2$ e considero il flusso attraverso la somma di queste due superfici:
+\begin{gather*}
+    d\Phi = \vv{E_1} \cdot \hat{n_1} \ dS_1 + \vv{E_2} \cdot \hat{n_2} \ dS_2 = \frac{Q}{4\pi\epsilon_0}\left(\frac{\cos\theta_1\  dS_1}{r_1^{2}} + \frac{\cos\theta_2\  dS_2}{r_2^{2}}\right) = 0
+\end{gather*}
+Dato che $\vv{r}$ è sempre uscente, quando si arriva sulla superficie, la normale è sempre uscente, tra i due versori l'angolo
+è dunque compreso tra $\frac{\pi}{2}$ e $\pi$ per la prima superficie, mentre la seconda superficie è compreso 
+tra 0 e $\frac{\pi}{2}$. Dunque succede che, le due quantità sono sempre l'angolo solido, ma i due segno sono sempre opposti: il primo
+è sempre negativo ed il secondo può essere anche negativo. Sono dunque opposti $\cos\theta_1 \ dS_1$ e $\cos\theta_2 \ dS_2$.  
+Detto questo, il flusso fa zero perché i due moduli sono equivalenti ma hanno segno opposto. Il campo elettrico 
+di una carica esterna ad una superficie non contribuisce al flusso del campo elettrico della superficie. Riassumendo, 
+per una carica puntiforme si è trovato che il flusso 
+\begin{gather*}
+    \Phi = \frac{Q}{\epsilon_0}
+\end{gather*}
+Se la carica è interna. Se invece la carica è estena
+\begin{gather*}
+    \Phi = 0
+\end{gather*}
+Se si avessero più cariche, ovviamente si utilizza il prinicpio di sovrapposizione e la 
+linearità dell'operatore integrale, ottenendo che
+\begin{gather*}
+    \Phi = \int_{S} \sum_{i = 1}^{n} \vv{E_i}\cdot \hat{n} \ dS     
+\end{gather*}
+Il teorema non dice che il flusso totale è uguale a $\frac{Q_{int}}{\epsilon_0}$, ma lo fa per una sola carica e poi utilizzando 
+la linearità dell'operatore integrale e la sovrapposizione. Il campo $\vv{E}$ è il campo di tutto l'universo ed 
+è indipendente dalla carica che lo genera.  
+
+\begin{example}
+    Supponendo che alcune di cariche ($M$) siano interne alla superficie, mentre le altre sono 
+    interne, allora il flusso totale è
+    \begin{gather*}
+        \sum_{i = 1}^{M} \int \vv{E_i} \cdot \hat{n} \ dS = \sum_{i = 1}^{M} \frac{Q_i}{\epsilon_0} 
+    \end{gather*}
+    Mentre la somma delle altre è sempre zero.
+\end{example}
+
+
+
+
+\end{document}

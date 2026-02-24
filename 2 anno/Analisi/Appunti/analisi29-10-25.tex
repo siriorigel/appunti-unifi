@@ -1,0 +1,355 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+\usepgfplotslibrary{colormaps}
+
+\title{Analisi}
+\author{Tommaso Miliani}
+\date{29-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Campi Vettoriali e forme differenziali}
+\begin{definition}[Campo Vettoriale]
+    Dato un certo insieme $\mathbb{A} \subset \mathbb{R}^{3}$, si definisce
+    \textbf{campo vettoriale} su $\mathbb{A}$ è una funzione 
+    \begin{gather*}
+        F : \mathbb{A} \to \mathbb{R}^{3} 
+    \end{gather*} 
+    Ogni punto dello spazio associa un elemento di $\mathbb{R}^{3}$
+    (che si può pensare come un vettore tridimensionale). Se il punto
+    $(x, y, z) \in \mathbb{A}$, a questo punto il campo vettoriale associa 
+    il vettore
+    \begin{gather*}
+        F(x, y, z)  \to p\begin{pmatrix}
+                        F_1(x, y, z) \\
+                         F_2(x, y, z) \\
+                         F_3(x, y, z), 
+        \end{pmatrix} 
+    \end{gather*} 
+    Questa definizione è valida qualunque sia la dimensione di $\mathbb{R}$. 
+\end{definition}
+
+\begin{example}[Massa punto materiale]
+    Una massa puntiforme che si trova in un punto 
+    nello spazio generico $P = (x_0, y_0, z_0)$, e considerato
+    il campo gravitazionale che ci agisce, il campo sarà definito
+    come
+    \begin{gather*}
+        F(x, y, z) = -cm \frac{(x - x_0, y - y_0, z - z_0)}{\left((x - x_0)^{2}, (y - y_0)^{2}, (z - z_0)^{2}   \right)^{\frac{3}{2}} }
+    \end{gather*}
+    Ossia
+    \begin{gather*}
+        \frac{(P - P_0)}{||P - P_0||^{3} }
+    \end{gather*}
+    Ossia tutti i vettori convergono verso il punto con massa.
+    \begin{gather*}
+         \begin{tikzpicture}[scale = 0.6]
+ \begin{axis}[
+    view = {0}{90},
+  domain   = -3:3,
+]
+\addplot3[cyan, quiver={u=1*x, v=1*y, w =1*z, scale arrows=0.1, colored}, samples=16, -latex] {0};
+\end{axis}
+\end{tikzpicture}
+    \end{gather*}
+\end{example}
+
+\begin{example}[Il campo di velocità di un corpo rigido]
+    Il campo di velocità di un corpo rigido che ruota intorno all'asse $z$  con velocità
+    angolare $\omega$, il campo di velocità della velocità angolare 
+    sarà dato da
+    \begin{gather*}
+        v(x, y, z) = -\omega y \hat{i} + \omega x \hat{j}  
+    \end{gather*}
+\end{example}
+
+\begin{example}
+    Se una funzione è definita come
+    \begin{gather*}
+        f : \mathbb{A} \to \mathbb{R}
+    \end{gather*}
+    Ogni punto di $\mathbb{A}$ allora $\nabla f$ 
+    \begin{gather*}
+        \nabla f(x, y, z) := \left(\frac{\partial f}{\partial x} + \frac{\partial f}{\partial y} + \frac{\partial f}{\partial z}   \right)
+    \end{gather*}
+    SE 
+    \begin{gather*}
+        f(x, y, z) = x^{2} + y^{2} + z^{2} \ \Longrightarrow \ \nabla f = (2x, 2y, 2z)   
+    \end{gather*}
+    E dunque
+    \begin{gather*}
+                 \begin{tikzpicture}[scale = 0.6]
+ \begin{axis}[
+    view = {0}{90},
+  domain   = -3:3,
+]
+\addplot3[cyan, quiver={u=2*x, v=2*y, w =2*z, scale arrows=0.1, colored}, samples=16, -latex] {0};
+\end{axis}
+\end{tikzpicture}
+    \end{gather*}
+\end{example}
+
+\subsection{Forme differenziali}
+    Sia $V$ uno spazio vettoriale, si considera l'insieme delle applicazioni
+    lineari da $V \to \mathbb{R}$. Questo insieme è lui stesso 
+    uno spazio vettoriale poiché le applicazioni lineari si possono 
+    sommare tra di loro e si possono moltiplicare tra di loro. Lo spazio
+    della applicazioni lineari di uno spazio $V$ e si indica con $V^{\star}$. 
+    Fissata una base canonica si sa che lo spazio duale di $\mathbb{R}^{3}$ è
+    lo spazio dei vettori tale per cui
+    \begin{gather*}
+        L \in \mathbb{R}^{3\star}  \qquad \begin{array}{l}
+            a_1 = L(e_1) \\
+            a_2 = L(e_2) \\
+            a_3 = L(e_3)
+        \end{array}
+    \end{gather*}  
+    E quindi
+    \begin{gather*}
+        L(v) = a_1v_1 +a_2 v_2 + a_3 v_3 \qquad v \in \mathbb{R}^{3\star}  \qquad v =(v_1, v_2, v_3)
+    \end{gather*}
+    Si definisce una base di $\mathbb{R}^{3\star}$ come
+    \begin{gather*}
+        dx_1 : \mathbb{R}^{3} \to \mathbb{R} \qquad dx_1(v) = v_1 \\
+        dx_2 : \mathbb{R}^{3} \to \mathbb{R} \qquad dx_2(v) = v_2 \\
+        dx_3 : \mathbb{R}^{3} \to \mathbb{R} \qquad dx_3(v) = v_3 \\  
+    \end{gather*}
+    Allora $L$ lo posso scrivere come combinazione lineare di questi elementi 
+    \begin{gather*}
+        L = a_1dx_1 +  a_2dx_2 +  a_3dx_3 
+    \end{gather*}
+    Il simbolo $dx_i$ (che di solito indicano gli incrementi infinitesimi di una certa
+    variabile), sono invece elementi del duale di $\mathbb{R}^{3}$ che agiscono
+    proiettando ogni componente sul relativo asse. Ogni applicazione lineare
+    da $\mathbb{R}^{3} \to \mathbb{R}$ è scrivibile come l'operatore $dx_i$ che
+    sfrutta un certo $L$ che può cambiare. Una forma differenziale è dunque una 
+    funzione che è definita su di un sottoinsieme di $\mathbb{R}^{3} $ e per ogni 
+    elemento di $\mathbb{R}^{3}$ associa un elemento di $\mathbb{R}^{3\star}$.  
+
+\begin{definition}[Forma differenziale]
+    Sia $\mathbb{A} \subset \mathbb{R}^{3} $, una forma differenziale  $\omega$ 
+    definita su di $\mathbb{A}$ è una applicazione che 
+    \begin{align}
+        \omega : (x, y, z) \in \mathbb{A} \to L(x, y, z) \in \mathbb{R}^{3\star} 
+    \end{align} 
+    Di conseguenza, dalla definizione di $L$
+    \begin{gather*}
+        L = a_1(x, y, z)dx_1 +  a_2(x, y, z)dx_2 +  a_3(x, y, z)dx_3 
+    \end{gather*}
+    Posso costruire una forma differenziale se possiedo queste
+    tre condizioni $a_i$ ma posso anche ricavarmi le condizioni se conosco
+    già la forma differenziale.
+\end{definition}
+
+\begin{observation}
+    Posso associare un campo vettoriale ad una forma differenziale 
+    e posso anche fare l'inverso. 
+    \begin{gather*}
+        \omega(x, y, z) = a_1(x, y, z)dx_1 +  a_2(x, y, z)dx_2 +  a_3(x, y, z)dx_3 \\
+        \updownarrow \\
+        F(x, y, z) = (a_1(x, y, z), a_2(x, y, z), a_3(x, y, z))
+    \end{gather*}
+\end{observation}
+
+\begin{example}
+    Sia $f : \mathbb{A} \to \mathbb{R}$ è una funzione differenziale e chiamo 
+    differenziale di $f$ 
+    \begin{gather*}
+        df (x, y, z) = \frac{\partial f}{\partial x}(x, y, z)dx_1 + \frac{\partial f}{\partial y}(x, y, z)dx_2 + \frac{\partial f}{\partial z}(x, y, z)dx_3 
+    \end{gather*}
+\end{example}
+
+\begin{definition}
+    Sia $ \omega : \mathbb{A} \subset \mathbb{R}^{3\star} $, $\omega$ si dice
+    \textbf{esatta} se $\exists f : \mathbb{A} \to \mathbb{R}$ è 
+    differenziabile tale che
+    \begin{align}
+        \omega = df
+    \end{align}
+    Cioè se $\omega = a_1(x, y, z)dx_1 +  a_2(x, y, z)dx_2 +  a_3(x, y, z)dx_3$ e se $\exists f$ tale che
+    \begin{gather*}
+        a_1 =\frac{\partial f}{\partial x_1} \qquad a_2 = \frac{\partial f}{\partial x_2} \qquad \frac{\partial f}{\partial x_3}   
+    \end{gather*}
+    tale $f$ si chiama \textbf{primitiva}.
+\end{definition}
+
+\begin{observation}
+    Se $f$ è primitiva di $\omega$ anche $f + c $ lo è (ovviamente).
+\end{observation}
+
+\begin{definition}[Campo conservativo]
+    Sia $F : \mathbb{A} \to \mathbb{R}^{3}$ un campo
+    vettoriale e dunque  $F = (F_1, F_2, F_3)$, $F$ si dice \textbf{conservativo}
+    se $\exists f : \mathbb{A} \to \mathbb{R}$ differenziabile
+    tale che $f$ è il gradiente di questa funzione differenziabile:
+    \begin{align}
+        F = \nabla f
+    \end{align}
+    La funzione $f$ si chiama \textbf{potenziale} di $F$. 
+\end{definition}
+
+\begin{example}
+    Se $F(x, y, z)$ è il campo gravitazionale (visto prima),
+    allora il campo è conservativo e un suo potenziale (primitiva) è 
+    \begin{gather*}
+        f(x, y, z) = \frac{cm}{\left((x - x_0)^{2} + (y - y_0)^{2} + (z - z_0)^{2}  \right)^{\frac{1}{2}} }
+    \end{gather*}
+    Infatti, se si facesse
+    \begin{gather*}
+        \frac{\partial f}{\partial x} =  -cm\frac{x - x_0}{\left((x - x_0)^{2} + (y - y_0)^{2} + (z - z_0)^{2}  \right)^{\frac{1}{2}} }
+    \end{gather*}
+    Si otterrebbe 
+\end{example}
+
+\begin{observation}[Parallelismo tra campi e forme differenziali]
+    Essere un campo conservativo equivale ad essere un differenziale esatto
+    per una forma differenziale. 
+\end{observation}
+
+Non tutti i campi sono conservativi e non tutte le forme differenziali sono esatte.
+Alcuni esempi sono
+\begin{example}
+    Presa su $\mathbb{R}^{2}$  la forma differenziale
+    \begin{gather*}
+        \omega(x, y) = 3x^{2}dx - xydy 
+    \end{gather*} 
+    Non è esatta, infatti, se lo fosse, dovremmo trovare una
+    funzione $f$ tale che $\omega = df$ e dunque
+    \begin{gather*}
+        \frac{\partial f}{\partial x}(x, y) = 3x^{2} \qquad \frac{\partial f}{\partial y}(x, y) = -xy   
+    \end{gather*}
+    Se questo fosse vero, allora potrei dire che
+    \begin{gather*}
+        \frac{\partial^{2}  f}{\partial y \partial x } = 0 \qquad \frac{\partial^{2 } f}{\partial x \partial y} = -y  
+    \end{gather*}
+    Dato che le derivate parziali miste devono essere equivalenti (per le
+    ipotesi del teorema di Cauchy Schwartz), allora 
+    non è possibile che sia esatta. Un altro modo per vederlo è 
+    cercare le primitive per la $x $ e per la $y$
+    \begin{gather*}
+        f(x, y) = x^{3} + c (y)
+    \end{gather*}
+    Se questa fosse la $f$, allora la 
+    \begin{gather*}
+        \frac{\partial f}{\partial y}(x, y) = 0 + c'(y) 
+    \end{gather*}
+    Questa dipenderebbe solo dalla $y$.
+\end{example}
+
+\begin{observation}
+    Un campo su $\mathbb{R}^{n}$  è continuo in $C^{k}$ se le sue componenti
+    sono tutte continue in $C^{k}$. Con $k < n$. 
+\end{observation}
+
+\section{Lavoro di un campo vettoriale}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il lavoro su di una curva in un insieme $\mathbb{A}$}
+    \begin{tikzpicture}[scale = 1.2]
+        \draw(0, 0) .. controls (-1, 1.2) and (-0.5, 2) .. (0, 2.2);
+        \draw(0, 2.2) .. controls (1, 2.5) and (1.8, 2.5) .. (2, 1.5);
+        \draw(2, 1.5) .. controls (1.5,  1.4) and (2, 0.2) .. (0, 0);
+        \filldraw(0.5, 0.5) circle (1pt) node[anchor = north] {$P_1$};
+        \filldraw(0, 1.8) circle (1pt) node[anchor = south] {$P_0$};
+        \draw(0, 1.8) .. controls (1, 2.2) and (1.5, 2) .. (1.5, 1.7);
+        \filldraw(1.5, 1.7) circle (1pt);
+        \draw[thick, ->](1.5, 1.7) -- (2.2, 1) node[at end, right] {$F(\phi(t))$}; 
+        \draw[thick, ->](1.5, 1.7) -- (1.4, 1.3) node[at end, below] {$\dot{\phi}(t)$};
+        \draw(1.5, 1.7) .. controls (1.3, 1.4) ..  (0, 1);
+        \draw(0, 1) .. controls (-0.5, 0.8) and (-0.5, 0.5) .. (0.5, 0.5);
+        \node at(1.8, 2.5) {$\mathbb{A}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Presa una curva orientata $\gamma$ il cui sostegno 
+sia contenuto in $\mathbb{A}$, (ossia ha un verso di percorrenza
+ed è una curva). Si definisce allora il lavoro di un campo vettoriale
+lungo una curva orientata (o anche curvilineo di seconda specie).
+\begin{definition}
+    Sia $\gamma$ regolare a tratti e sia $F$ un campo continuo
+    e sia $\phi[a, b] \to \mathbb{A}$ una parametrizzazione regolare a tratti
+    di $\gamma$ e concorde con l'orientazione di $\gamma$. 
+    \begin{gather*}
+        \phi(a) = P_0 \quad \phi(b) = P_1 \quad \tau(t) = \frac{\dot{\phi}(t)}{||\dot{\phi(t)}||}
+    \end{gather*}
+    SI definisce allora il \textbf{lavoro} di $F$ su $\gamma$ come
+    \begin{align}
+        \int_{a}^{b} F(\phi(t)) \cdot  \dot{\phi(t)} \ dt 
+    \end{align}
+    Si può anche scrivere come
+    \begin{align}
+        \int_\gamma \left< F, \tau \right> d S
+    \end{align}
+    Dove in ogni punto della curva $\tau$ è tangente alla curva $\gamma$
+    e concorde con l'orientazione della curva stessa. Questo è dovuto al fatto che
+    \begin{gather*}
+        \int_{\gamma} \left< F, \tau \right> dS = \int_{a}^{b} \left< F(\phi(t)), \tau(\phi(t)) \right>  ||\dot{\phi( t)}|| \ dt
+    \end{gather*}
+    Dove  
+    \begin{gather*}
+        \tau(\phi(t)) = \frac{\dot{\phi(t)}}{|| \dot{\phi(t)}||}    
+    \end{gather*}
+    Si chiama dunque \textbf{integrale curvilineo di seconda specie} 
+    oppure \textbf{lavoro di uhn campo su di una curva} che dipende dall'orientazione
+    della curva (infatti se si percorresse la curva al contrario il lavoro
+    sarebbe lo stesso ma dovrei cambiare il segno).
+\end{definition}
+
+\begin{example}
+    Se $F(xy, y, 0)$, il lavoro sulla curva
+    \begin{gather*}
+        \phi_1 = (\cos t, \sin t, 0) \quad t \in [0, 2\pi]
+    \end{gather*}
+    contenuta nel piano $\{z = 0\}$, allora il lavoro 
+    è nullo poiché (dato che la derivata della curva è $(-\sin t, \cos t, 0)$)
+    \begin{gather*}
+        \int_{0}^{2\pi} (\cos t, \sin t, 0) \cdot  (-\sin t, \cos t, 0) \ dt 
+    \end{gather*}
+    Dai conti, si vede che l'integrale è esattamente nullo
+\end{example}
+
+\end{document}

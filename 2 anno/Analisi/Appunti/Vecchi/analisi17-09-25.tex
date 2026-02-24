@@ -1,0 +1,293 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti analisi 2}
+\author{Tommaso Miliani}
+\date{17-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{I teoremi di esistenza di Cauchy}
+\begin{wrapfigure}{r}{0.35\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (4, 0) node[at end, below] {$z$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$g(z)$};
+        \draw(0, 0) .. controls (1, 2) and (1.5, 1) .. (2, 1);
+        \draw(2, 1) .. controls (2.5, 1.5) and (3.5, 1.2) .. (4, 1.25) node[at end, right] {$g(z)$};
+        \draw(0.7, 1) -- (2, 1);
+        \filldraw(0.7, 1) circle (1pt);
+        \filldraw(2, 1) circle (1pt);
+        \draw[|-|](0.3, 0.2) -- (0.3, -0.2) node[at end, below] {$a$};
+        \draw[|-|](2.3, 0.2) -- (2.3, -0.2) node[at end, below] {$b$};
+        \draw[dashed](0.7, 0) -- (0.7, 1) node[at start, below] {$z_1$};
+        \draw[dashed](2, 0) -- (2, 1) node[at start, below] {$z_2$};
+        \draw[<->](0.2, -0.7) -- (2.8, -0.7) node[midway, below] {$I$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per spiegare il teorema di esistenza e di unicità bisogna chiarire innanzitutto
+cosa è una funzione Lipschitziana.
+\begin{definition}[Funzione Lipschitziana]
+    Presa una funzione definita come $g : I \to \mathbb{R}$, dove $I \subset \mathbb{R}$; posto
+    $[a, b] \subset I$, si dice allora che la funzione $g$ è Lipschitziana nell'intervallo $[a, b]$ se
+    $\exists L \in \mathbb{R} > 0$ tale che comunque si scelgano $a, b$ risulta che,
+    per ogni coppia di numeri $z_1, z_2 \in [a, b]$, 
+    \begin{align}
+        g(z_1) - g(z_2) \leq L|z_1 - z_2|
+    \end{align}
+    Che è equivalente alla seguente formulazione:
+    \begin{align}
+        -L \leq \frac{g(z_1) - g(z_2)}{z_1 - z_2} \leq L
+    \end{align}
+\end{definition}
+\begin{example}[Esempio di una funzione potenza]
+    \begin{gather*}
+        g(z) = z^{\alpha}, \alpha \in (0,  1) 
+    \end{gather*}
+    Se si prende un intervallo che non contiene lo zero allora è Lipschitziana
+    in quanto le rette avranno sempre una pendenza ben definita. Se invece si prendesse un intervallo che contiene anche lo
+    zero, allora si vede che non è una funzione Lipschitziana perché il rapporto
+    incrementale diventa grande quanto si vuole. 
+\end{example}
+\begin{definition}[Derivate parziali]
+    Presa $f(x, y)$ definita nel punto $(x_0, y_0)$ all'interno del
+    dominio di $F$. Si ottiene allora che la derivata parziale rispetto 
+    alla $y$ 
+    \begin{align}
+        \frac{\partial f}{\partial y}(x_0, y_0) = \lim_{h \to 0}   \frac{F(x_0, y_0 + h) - F(x_0, y_0)}{h}
+    \end{align}
+    Ossia eseguo la derivata rispetto alla variabile considerata, considerando
+    come costanti tutte le variabili per cui non derivo.
+\end{definition}
+\begin{example}[Esempio pratico]
+    \begin{gather*}
+        f(x, y) = xy^{3} + \sin y \\
+        \frac{\partial f}{\partial y}(3, y_0) = 9y^{2} + \cos y    
+    \end{gather*}
+    Nel punto $(3, y_0)$ la funzione diventa $3y^{3} + \sin y$. 
+\end{example}
+
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0);
+        \draw[->](0, 0) -- (0, 3);
+        \draw[|-|](2, 0.2) -- (2, -0.2) node[at end, below] {$x_0$};
+        \draw[|-|](2.5, 0.2) -- (2.5, -0.2);
+        \draw[|-|](1.5, 0.2) -- (1.5, -0.2);
+        \draw[|-|](0.2, 2) -- (-0.2, 2) node[at end, left] {$y_0$}; 
+        \draw[|-|](0.2, 2.5) -- (-0.2, 2.5);
+        \draw[|-|](0.2, 1.5) -- (-0.2, 1.5);
+        \filldraw (2, -0.5) node[anchor = north] {$I$};
+        \filldraw (-0.7, 2) node[anchor = east] {$J$};
+        \draw[dashed](0.2, 2.5) -- (2.5, 2.5);
+        \draw[dashed](0.2, 1.5) -- (2.5, 1.5);
+        \draw[dashed](1.5, 0.2) -- (1.5, 2.5);
+        \draw[dashed](2.5, 0.2) -- (2.5, 2.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Possiamo ora introdurre il seguente teorema
+\begin{theorem}[Teorema di esistenza di Cauchy]
+    Si considera il problema di Cauchy per una differenziale di primo
+    ordine 
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = f(x, y) \\
+            y(x_0) = y_0
+        \end{array}\right.
+    \end{gather*}
+    Possiamo supporre allora che ogni $f(x, y)$ sia definita $\forall (x, y) \in I \times J$, ossia su di un
+    prodotto cartesiano tra due sottoinsiemi qualsiasi di $\mathbb{R}:I = (x - x_0, x + x_0)$ e $J = (y - y_0, y + y_0)$. 
+    Supponiamo allora le seguenti ipotesi:
+    \begin{enumerate}
+        \item $f(x, y)$ è continua in $I \times J$;
+        \item $\exists$ costante $L > 0$ tale che la funzione $f(x, y)$ rispetta la definizione
+        di funzione Lipschitziana nell'intervallo $J \ \forall x \in I$, $\forall y_1, y_2 \in J$. 
+        \end{enumerate}
+    Allora esisterà $\delta > 0$ e esisterà una funzione $y(x)$ in una funzione definita
+    nell'insieme $(x_0 - \delta, x_0 + \delta)$. 
+\end{theorem}
+Per poter dimostrare questo teorema dovremmo allora introdurre prima dei lemmi
+che ci consentano di dimostrare il teorema
+\begin{proof}
+    \begin{lemma}[Equivalenza tra il teorema del calcolo integrale e la derivata della differenziale]
+        Sia $\delta > 0$ e supponiamo che siano valide le
+        ipotesi del teorema, allora le seguenti sono equivalenti
+        \begin{enumerate}
+            \item $\exists y(x)$ derivabile in $[x_0 - \delta, x_0 + \delta]$ tale che 
+            $y'(x) = f(x, y(x)) \ \forall x \in [x_0 - \delta, x_0 + \delta], y(x_0) = y_0$.
+            \item $\exists y(x)$ funzione continua in $[x_0 - \delta, x_0 + \delta]$ tale che
+            \begin{gather*}
+                y(x) = y_0 + \int_{x_0}^{x}f(t, y(t)) \ dt, \qquad \forall x \in (x_0 - \delta, x_0 + \delta). 
+            \end{gather*} 
+        \end{enumerate}
+    \end{lemma}
+    \begin{proof}
+        Posso dimostrare questa attraverso il teorema del calcolo integrale:
+        se $g(z)$ è continua, allora posso scrivere che $g(z) = g(z_0) + \int_{z_0}^{z}g'(t) \ dt$. \\
+        $ 1 \ \Longrightarrow \ 2$ So che $y(x)$ è una funzione che soddisfa la prima definizione e allora $y'$ è continua e quindi dal teorema
+        fondamentale del calcolo integrale io so che
+        \begin{gather*}
+            y(x) = y(x_0) + \int_{x_0}^{x}y'(t) \ dt
+        \end{gather*}
+        Allora posso dire che, dato $y'(t) = f(t, y(t))$ , posso
+        sostituire nell'integrale e ottenere la tesi. \\
+        $2 \ \Longrightarrow \ 1$: Sia $y$ una funzione che soddisfi la
+        seconda proposizione, allora posso utilizzare un'altra forma del teorema del
+        calcolo integrale per cui se $h$ è continua, allora la funzione $h(x)  \to z_0 + \int_{x_0}^{x} h(t) \ dt$ e quindi
+        se $h$ è continua e derivabile, la derivata di questa funzione è esattamente $h(x)$. Si ottiene che la funzione
+        all'interno della tesi dell'integrale è continua e quindi l'integrale è una funzione derivabile e la sua derivata
+        è esattamente (con l'implicita formulazione che $y(x_0) = y_0$)
+        \begin{gather*}
+            y'(x) = f(x, y(x))
+        \end{gather*}
+        Proprio come si voleva ottenere.
+    \end{proof}
+    \begin{lemma}[Se valgono queste considerazioni le ipotesi del teorema sono verificate]
+        Se $f$ è continua in un insieme $\mathbb{A}$, $(x_0, y_0)$ è interno all'insieme
+        e inoltre si ha che
+        \begin{enumerate}
+            \item $                \exists \frac{\partial f}{\partial y}(x, y)$.
+            \item $\frac{\partial f}{\partial y}(x, y)$ è continua 
+        \end{enumerate}
+        $\forall (x, y) \in \mathbb{A}$ e allora le ipotesi di questo teorema sono
+        verificate. 
+    \end{lemma}
+    La dimostrazione è da finire nelle prossime lezioni.
+\end{proof}
+\begin{example}[Funzione non Lipschitziana]
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = y^{\frac{2}{3}} \\
+            y(0) = 0 
+        \end{array}\right.
+    \end{gather*}
+    Quindi dico che il mio $x_0$ e $y_0$ contengano l'origine, se io facessi il
+    grafico di $y^{\frac{2}{3}}$, allora si ottiene che questo grafico è una radice simmetrica rispetto
+    all'asse $y$ e per questo non è Lipschitziana nell'intorno di $0$: le immagini non comprendono
+    le ordinate negative. 
+\end{example}
+
+\section{Equazioni a variabile separata}
+Le equazioni di funzioni a più variabili prendono il nome di funzioni a variabili separabili, ossia
+della forma 
+\begin{align}
+    y' = a(x) b(y) \ \Longrightarrow \ y'(x) = a(x)b(y(x))
+\end{align}
+Dove $a(x)$ è continua in $I \subset \mathbb{R}$ e $b(y)$ è continua
+in $J \subset \mathbb{R}$. Posso trovare delle soluzioni per queste equazioni nella
+seguente maniera: se $\overline{y}$ è univoco tale che $b(\overline{y}) = 0$ allora
+la funzione $y(x) \equiv \overline{y}$ è soluzione. Se si suppone che
+$b(y) \neq 0$ allora posso dire che se due funzioni sono uguali il loro integrale sarà uguale:
+\begin{gather*}
+    \frac{y'}{b(y)} = a(x) \ \Longrightarrow \ \frac{y'(x)}{b(y(x))} = a(x) \ \Longrightarrow \ \int\frac{y'(x)}{b(y(x))} \ dy = \int a(x) \ dx
+\end{gather*}
+Se ponessi ora $y = y(x)$ che soddisfano questa equazione
+\begin{gather*}
+    \int \frac{dy}{b(y)} = \int a(x) \ dx
+\end{gather*}
+Se $B(y)$ è una primitiva, allora posso dire che 
+\begin{gather*}
+    B(y) = A(x) + c
+\end{gather*}
+Se si riuscisse a invertire invece la funzione $B$ si ottiene che esiste una soluzione,
+la quale è data proprio da:
+\begin{gather*}
+    y(x) = B^{-1} (A(x) + c)
+\end{gather*}
+\begin{example}[Esempio di separazione di variabili]
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = \frac{1}{y} \\
+            y(0) = 2
+        \end{array}\right.
+    \end{gather*}
+    Dato che $ a(x) \equiv 1$ e $b(y) = \frac{1}{y}$, si può integrare ed ottenere che
+    \begin{gather*}
+        \frac{dy}{dx} = \frac{1}{y} \ \Longrightarrow \ \int y \ dy = \int 1 \ dx \ \Longrightarrow \ \frac{y^{2} }{2} = x + c
+    \end{gather*}
+    Dato che il quadrato non è sempre invertibile, devo stare attento alle soluzioni che
+    ottengo, in questo caso però mi va bene qualsiasi funzione inversa ed entrambre sono soluzioni
+    ma scelgo quella positiva
+    \begin{gather*}
+        y = \sqrt{2x + 2c} \ \Longrightarrow \ y = \sqrt{2x + 4} 
+    \end{gather*}
+\end{example}
+\begin{example}[Altro Esempio]
+    \begin{gather*}
+        y' = ay(1 - by), a, b > 0
+    \end{gather*}
+    In questo caso ho delle soluzioni costanti che mi permettono di dire che
+    $y(x) \equiv 0$, $y(x) \equiv \frac{1}{b}$, allora posso passare all'integrale
+    separando le variabili e ottenere:
+    \begin{gather*}
+        \int \frac{dy}{y(1 - by)} = \int a \ dx \ \Longrightarrow \ \ln\left| \frac{y}{1 - by} \right| = ax + c \\
+        \ \Longrightarrow \ \left| \frac{y}{1 - by} \right| = e^{ax} \cdot  e^{c}    = e^{ax}c_0, c_0 \in \mathbb{R}  
+    \end{gather*}
+    Dato che $c_0$ è una costante sempre positiva, posso sostituirla con $c_1 \in \mathbb{R} > 0$: 
+    \begin{gather*}
+        y = \frac{c_1e^{ax}  }{1 + bc_1e^{ax}  }
+    \end{gather*}
+\end{example}
+
+\subsection{Equazioni omogenee}
+Sono delle equazioni del tipo
+\begin{gather*}
+    y' = f(x, y)
+\end{gather*}
+dove $f(x, y)$ è omogenea di grado $0$, ossia $\forall \lambda \in \mathbb{R} \ f(\lambda x, \lambda y) = f(x, y)$.
+\begin{example}[Questa funzione differenziale è omogenea]
+    \begin{gather*}
+        y' = \frac{2xy}{x^{2} + y^{2}  } \qquad f(\lambda x, \lambda y) = \frac{2(\lambda x)(\lambda y)}{(\lambda x)^{2} + (\lambda y)^{2}  } = f(x, y)
+    \end{gather*}
+\end{example}
+
+
+\end{document}

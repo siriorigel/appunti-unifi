@@ -1,0 +1,254 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fluidodinamica}
+\author{Tommaso Miliani}
+\date{11-12-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section*{Energia ed informazione attraverso un fluido}
+\section{Onde di compressione}
+Le onde sonore sono delle onde di compressione che
+diffondono l'informazione in un fluido. Per trattarle si ipotizza
+di trattare un sistema uniforme che dunque abbia le seguenti ipotesi:
+\begin{itemize}
+    \item $p = p_0 = \text{const}$;
+    \item $\rho = \rho_0 = \text{const}$;
+    \item $\vv{u} = 0$. 
+    \item Gravità trascurabile per comodità.  
+\end{itemize}
+Si considera dunque un certo elemento fluido ad una certa posizione
+$\vv{r} = x\hat{x} + y\hat{y} + z\hat{z}$ che si sposta da questa posizione
+per qualche motivo. Posso descrivere il suo spostamento tramite 
+lo spostamento Lagrangiano $\vv{\zeta}  (\vv{r}, t )$, il quale è una funzione di una coordinata: 
+dato un punto diverso, si sposterà in modo diverso e dipenderà dal tempo. Evidentemente
+il cambiamento dell'elemento fluido definisce la velocità
+dell'elemento fluido, che si esprimerà come
+\begin{gather*}
+    \vv{u}(\vv{r}, t ) = \frac{\partial \vv{\zeta} }{\partial t}  
+\end{gather*}
+Si può provare, dalle equazioni di Eulero e di continuità, a descrivere i 
+moti di compressione 
+\begin{gather*}
+    \frac{\partial p}{\partial t} + \vv{\nabla}(\rho \vv{u} ) = 0   \\
+    \rho \left(\frac{\partial \vv{u} }{\partial t} + \vv{u} \cdot \vv{\nabla} \vv{u}    \right) = -\vv{\nabla}p 
+\end{gather*}
+Il termine nelle parentesi nella seconda è l'accelerazione nel sistema Euleriano; nell'ottica
+Lagrangiana è invece la derivata seconda rispetto al tempo di $\vv{\zeta}$, allora si può
+trasformare in:
+\begin{gather*}
+    \rho \frac{\partial^{2} \vv{\zeta} }{\partial t^{2}} = -\vv{\nabla}p 
+\end{gather*} 
+Si introduce ora un'altra ipotesi per la trattazione, ossia che le fluttuazioni 
+siano molto piccole: dunque $\rho = \rho_0 + \delta \rho$ e
+$p = p_0 \delta p$. L'ipotesi che si compie è che
+\begin{gather*}
+    \frac{\left| \delta \rho \right| }{\rho_0} << 1 \qquad \frac{\left| \delta p \right| }{p_0} << 1
+\end{gather*}
+Giustamente devo mettere il modulo poiché una variazione può essere anche negativa. Questa ipotesi,
+che prende il nome di \textbf{ipotesi di piccole perturbazioni}, mi permette di definire 
+l'equazione Lagrnagiana di prima come 
+\begin{gather*}
+    (\rho_0 - \delta \rho) \frac{\partial^{2} \vv{\zeta} }{\partial t^{2}} = - \vv{\nabla}(p_0 - \delta p) = -\vv{\nabla} \delta p   
+\end{gather*}
+Dato che il termine derivato è molto più piccolo della differenza $\rho_0 - \delta \rho$, è 
+possibile ridurre l'equazione a 
+\begin{gather*}
+    \rho_0 \frac{\partial^{2} \vv{\zeta} }{\partial t^{2}} = -\vv{\nabla} \delta p  
+\end{gather*}
+Suppongo adesso che esita una legge Barotropica per la quale si può legare la densità alla pressione,
+dunque vale che $p_0 = p(\rho_0)$ e $p = p(\rho)$. Si può anche esprimere
+$\delta p = p(\rho + \delta \rho) - p(\rho_0)$. Sviluppando in Taylor il primo termine
+in un intorno di $\rho_0$, è possibile dire che
+\begin{gather*}
+    \delta p = p(\rho_0 ) + \delta p\left(\frac{dp}{d\rho}\right)_0 + o(\delta \rho^{2}) - p (\rho_0)
+\end{gather*}
+Dunque nell'equazione di continuità:
+\begin{gather*}
+    \rho \frac{\partial^{2} \vv{\zeta} }{\partial t^{2}} = -\vv{\nabla}\left(\frac{dp}{d\rho}\right)_0 \delta p  
+\end{gather*}
+Posso togliere dal gradiente la quantità $\rho_0$ dunque
+\begin{gather*}
+    -\left(\frac{dp}{d\rho}\right)_0 \vv{\nabla} \delta p 
+\end{gather*}
+Dimensionalmente 
+\begin{gather*}
+    \left[\frac{dp}{d\rho}\right] = \left[\frac{J}{m^{3}}\right] = \left[\frac{m}{s}\right]^{2}
+\end{gather*}
+Allora posso esprimere l'equazione di prima come
+\begin{gather*}
+    \rho_0 \frac{\partial ^{2} \vv{\zeta} }{\partial t^{2}} = - C_s^{2} \vv{\nabla}\delta p  
+\end{gather*}
+\begin{gather*}
+    \frac{\partial \delta p}{\partial t} - \vv{\nabla}(\rho_0 - \delta \rho) \frac{\partial \vv{\zeta} }{\partial t} = 0    
+\end{gather*}
+Dato che il termine derivato è ancora una volta più piccolo del termine posso toglierlo e posso anche
+togliere 
+\begin{gather*}
+    \frac{\partial \delta p}{\partial t} + p_0 \vv{\nabla} + \frac{\partial \vv{\zeta} }{\partial t} = 0   
+\end{gather*}
+Derivando nuovamente rispetto al tempo, si ha
+\begin{gather*}
+    \frac{\partial ^{2}}{\partial \delta \rho} - p_0 \vv{\nabla} \frac{\partial ^{2} \vv{\zeta} }{\partial t^{2}}   = 0
+\end{gather*}
+L'ultimo termine è uguale a
+\begin{gather*}
+    p_0 \vv{\nabla} \frac{\partial ^{2} \vv{\zeta} }{\partial t^{2}} = -C_s^{2} \vv{\nabla} \vv{\nabla} \delta \rho \ \Longrightarrow \ \boxed{\frac{\partial ^{2} \delta \rho}{\partial t^{2}} - C_s^{2}\nabla^{2} \delta \rho = 0}  
+\end{gather*}
+Dunque si suppone che tutte le quantità dipendano esclusivamente da una coordinata
+nell'ipotesi di onda piana:
+\begin{gather*}
+    \frac{\partial ^{2} \delta \rho}{\partial t^{2}} - C_s^{2} \frac{\partial ^{2} \delta \rho}{\partial t^{2}} = 0   
+\end{gather*}
+Questa equazione ha le seguenti soluzioni:
+\begin{gather*}
+    \delta \rho = f_\pm(x \mp C_s t)
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Funzione $f(x \mp C_s t)$}
+    \begin{tikzpicture}
+        \draw(-1, 0) -- (2, 0);
+        \draw(0, -1) -- (0, 2);
+        \draw(-1, 0.1) .. controls (-0.75, 0.4) and (-0.25, 1.5) .. (0, 1.5) .. controls (0.25, 1.5) and (0.75, 0.4) .. (1, 0.1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Ossia qualunque funzione esprimibile in questa forma è soluzione della differenziale,
+infatti
+\begin{gather*}
+    \frac{\partial f}{\partial x} = \frac{\partial f}{\partial z} \frac{\partial f}{\partial x} \qquad \frac{d^{2} f}{d x^{2}}   = \frac{d f}{dz^{2}}\left(\frac{dz}{dx}\right)^{2} = \frac{d^{2}f}{dz^{2}} 
+\end{gather*}
+Inoltre, rispetto al tempo
+\begin{gather*}
+    \frac{\partial f}{\partial t} = \frac{df}{dt} \frac{\partial t}{\partial t} \qquad \frac{\partial ^{2} f}{\partial t^{2}} = \frac{d^{2} f}{dt^{2}} C_s^{2}   
+\end{gather*}
+Dunque qualunque funzione fatta in questa maniera è soluzione dell'equazione,
+qualunque essa sia. L'onda con $f(x + C_s t)$ è un onda che si sposta indietro,
+mentre l'altra si sposta in avanti. Le soluzioni sono dunque delle coppie di
+onde (o segnali) che si propagano in direzioni diverse: le onde di compressione dunque si muovono 
+in avanti e indietro nel fluido per generare differenza di densità e dunque di pressione. QUesto 
+non vuol dire che si debba necessariamente raggiungere la velocità di propagazione 
+dell'onda nel mezzo, infatti quando si parla le corde vocali non vibrano 
+alla velocità del suono ma la voce di propaga alla velocità del suono.
+Molto spesso le onde sono identificate dal vettore d'onda e dalla
+pulsazione. Si ha dunque il segnale che si identifica dal seno o dal coseno
+e si scrive 
+\begin{gather*}
+    \delta \rho = \cos\left(kx \pm \omega t\right)\qquad k = \frac{2\pi}{\lambda} \qquad \omega = \frac{2\pi}{T}
+\end{gather*}
+Chiaramente esiste una relazione tra il vettore d'onda e la frequenza
+verificando o che questa equazione è soluzione della differenziale, oppure che
+\begin{gather*}
+    \delta \rho = \cos\left(k \left(x \pm \frac{\omega t}{k}\right)\right) \ \Longrightarrow \ \frac{\omega}{k} = \pm C_s
+\end{gather*}
+Il rapporto ci da sempre la velocità di fase, ossia è una relazione di dispersione per
+un sistema di onde che non sono dispersive. Si può calcolare la velocità delle onde 
+di compressione secondo la seguente
+\begin{gather*}
+    C_s^{2} = \left(\frac{dp}{d\rho}\right)_0
+\end{gather*}
+Che cambia, ovviamente, dal tipo di fluido. Se volessi considerare la velocità del
+suono dovrei, innanzitutto, che il gas sia perfetto e descrivere cosa succede quando 
+il fluido è compresso oppure decompresso. Si pul pensare che la compressione sia
+così veloce che gli elementi fluidi non riescono a scambiare calore con quelli adiacenti;
+si può dire allora che il processo è adiabatico ed utilizzare una legge barotropica. 
+\begin{gather*}
+    p = p_0 \left(\frac{\rho}{\rho_0}\right)^{\gamma} \qquad \gamma = \frac{c_p}{c_V} 
+\end{gather*} 
+Se $\gamma = 1$ si ha la situazione isoterma del fas perfetto:
+\begin{gather*}
+    C_s^{2} = \gamma\frac{p_0}{\rho_0}
+\end{gather*}
+Dato che siamo in regime di gas perfetto, possiamo esprimere 
+\begin{gather*}
+    p = \frac{R\rho T}{\mu}  \qquad p_0 = \frac{R\rho_0 T}{\mu}
+\end{gather*}
+Dove $\mu$ è la massa molecolare media del gas considerato. 
+Allora
+\begin{gather*}
+    C_s^{2} = \gamma\frac{RT_0}{\mu}
+\end{gather*}
+Utilizzando il coefficiente di comprimibilità
+\begin{gather*}
+    \frac{\Delta V}{V} = \frac{\Delta p}{\xi} \approx \frac{dV}{V} = - \frac{dp}{\xi} \qquad \frac{dV}{V} = - \frac{d\rho}{\rho}
+\end{gather*}
+Allora,
+\begin{gather*}
+    \frac{d\rho}{\rho} = \frac{dp}{\xi} \ \Longrightarrow \ \frac{dp_0}{d\rho_0} = \frac{\xi}{\rho_0}
+\end{gather*}
+
+\subsection{Geometria sferica a simmetria radiale}
+In questo caso dipende solo da $r$, dunque 
+\begin{gather*}
+    \nabla^{2} \delta \rho = \frac{1}{r^{2}} \frac{d}{dr} r^{2} \frac{d\delta \rho}{dr}
+\end{gather*}
+Derivando rispetto al tempo si ha
+\begin{gather*}
+    \frac{\partial^{2} \delta \rho}{\partial t^{2}} = \dots 
+\end{gather*}
+Prendendo una funzione di appoggio $\psi$
+\begin{gather*}
+    \psi = r\delta \rho \qquad \frac{\partial \psi}{\partial r}  =\delta \rho + r \frac{\partial \delta \rho}{\partial r}  \qquad \frac{\partial^{2} \psi}{\partial r^{2}} = r \frac{\partial \delta \rho}{\partial r} + r \frac{\partial ^{2} \delta \rho}{\partial r^{2}}   
+\end{gather*}
+Sviluppando l'equazione di prima con questa funzione ausiliaria
+\begin{gather*}
+    \frac{\partial ^{2} \delta \rho}{\partial t^{2}} - C_s^{2} \frac{2}{r} \frac{\partial \delta \rho}{\partial r} - \frac{\partial ^{2} \delta \rho}{\partial t^{2}} = 0 \ \Longrightarrow \    \frac{\partial^{2} \psi}{\partial t^{2}} - C_s^{2} \frac{\partial ^{2} \psi}{\partial r^{2}}  = 0
+\end{gather*}
+Ossia si ottiene l'equazione d'onda tradizionale, dunque se si prende
+$\psi = f(r \pm C_s t)$, $\psi$ mantiene la stessa ampiezza ma $\delta \rho$ 
+diminuisce come $\frac{1}{r}$. Da questo si spiega come la lampadina 
+diminuisce di intensità quando ci si allontana da essa. 
+
+
+
+\end{document} 

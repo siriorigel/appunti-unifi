@@ -1,0 +1,225 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di fluidi}
+\author{Tommaso Miliani}
+\date{14-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{}
+Il lavoro adiabatico su di una curva qualsiasi $\gamma_1$ è lo stesso
+che di quello per un'altra curva  $\gamma_2$ se le due trasformazioni
+hanno lo stesso stato inziale e finale (anche se le trasformazioni non sono
+quasi statiche). 
+\begin{gather*}
+    L_{i \to f, \gamma_1}^{(adiabatica)} = L_{i \to f, \gamma_2}^{(adiabatica)}  
+\end{gather*}
+C'è anche un altro aspetto su di questo: se questa trasformazione 
+è anche ciclica, allora il suo lavoro è sempre zero. 
+\begin{gather*}
+    L_{i \to i}^{(adiabatica)} = 0
+\end{gather*}
+Queste conseguenze rispecchiano
+i dati sperimentali anche se non si ha una legge della fisica classica che mi permetta di 
+dire questo. Questo risultato in realtà ci dice moltissimo sulla natura: questo risultato
+è un vincolo su quello che accade a livello di trasformazioni. E' un qualcosa che ci da un sacco
+di informazioni sulla fisica.   \\
+Se io avessi una quantità di lavoro adiabatico che compie il mio sistema 
+e dipende solamente dallo stato inziale e finale, allora ci deve essere necessariamente
+una funzione che mi permetta di esprimere il lavoro in termini dello stato iniziale 
+e dello stato finale:
+\begin{align}
+    L_{i \to f}^{(adiabatica)} = F(i, f) = F(p_i, V_i, p_f, V_f) 
+\end{align}
+Inoltre questa deve essere tale che se $i \equiv f$ allora si annulla. Questa 
+funzione assomiglia molto all'energia potenziale nelle forze conservative nella
+meccanica (anche se non si sta parlando di energia potenziale). Si definisce
+questa funzione come \textbf{Energia interna}, che è definita come 
+\begin{gather*}
+    \Delta U = U(f) - U(i) = -L_{i \to f}^{(adiabatica)} 
+\end{gather*}
+Questa non è energia potenziale anche se utilizza lo stesso simbolo, ma è
+una funzione di stato. Si dimostra che è definita a meno di una costante
+poiché se si definisce $U' = U +c$, nella differenza è possibile rimuovere la costante,
+anche se la funzione $U$ non è univoca. In generale dipende solamente dallo stato iniziale e finale
+poiché c'è la condizione $F(i, i) = 0$.
+
+\section{Primo principio della termodinamica}
+In generale non esiste una trasformazione adiabatica che mi permetta di passare
+da uno stato finale $B$ ad uno stato inziale $A$, anche se esiste
+una trasformazione adiabatica che mi permetta di passare da $A$ a $B$. 
+Nel gas perfetto, per esempio, so che esiste sempre una trasformazione 
+adiabatica che mi permetta di passare da 
+\begin{gather*}
+    A(V_1, T) \to B(V_2, T) \qquad V_2 > V_1
+\end{gather*}
+anche se non esiste una trasformazione adiabatica che mi permetta di tornare 
+indietro (in altre parole non esiste al compressione adiabatica poiché
+la temperatura di un gas si alza sempre quando viene compresso).
+Si può dimostrare che per solo per un caso particolare esistono
+trasformazioni termodinamiche adiabatiche per entrambi i
+sensi supponendo che si abbiano due trasformazioni adiabatiche
+in entrambi i sensi:
+\begin{gather*}
+    A \to B \qquad B \to A
+\end{gather*}
+L'energia interna del sistema per le due trasformazioni sarà data:
+\begin{gather*}
+    U(B) - U(A) = -L_{A \to B}^{(adiabatica)} \\
+    U(A) - U(B) = -L_{B \to A}^{(adiabatica)} 
+\end{gather*}
+Ossia, quando esistono entrambe le possibilità il lavoro che va da
+uno stato all'altro è esattamente l'opposto del lavoro che
+va dall'altro stato a quello di partenza:
+\begin{gather*}
+    L_{A \to B} = -L_{B \to A}
+\end{gather*}
+Tutte le volte che non esiste una trasformazione adiabatica in un verso, esisterà
+nel verso opposto per qualsiasi stato inziale e finale e per qualsiasi trasformazione 
+termodinamica. Il resto del primo principio della termodinamica è che il lavoro
+del sistema non dipende dal set di trasformazioni che compie il sistema per
+raggiungere uno stato finale qualsiasi da uno stato iniziale qualsiasi.
+In generale posso dire che se il lavoro è esprimibile come funzione
+di stato (ossia in condizioni adiabatiche) che
+\begin{align}
+    \Delta U = -L^{(adia)} 
+\end{align}
+Dato che l'energia interna del sistema è proprio il lavoro del sistema,
+allora il lavoro che compie il sistema corrisponde alla diminuzione 
+dell'energia all'interno del sistema e che può essere usata per compiere lavoro
+meccanico sull'ambiente esterno. 
+
+
+Se il lavoro non è compiuto da una trasformazione adiabatica, allora $U$ non è una funzione di stato,
+allora è esprimibile sempre a prescindere dalle trasformazioni del sistema e dai suoi stati. Inoltre, la somma
+tra l'energia potenziale ed il lavoro del sistema è definita come una quantità
+chiamata \textbf{quantità di calore}:
+\begin{align}
+    \Delta U + L = Q
+\end{align} 
+Quando si analizza una trasformazione qualunque si ha il calore in modo univoco 
+(e senza dover sapere gli stati del sistema) e dunque
+posso riesprimere l'energia interna come
+\begin{align}
+    Q - L = \Delta U
+\end{align}
+E prende il nome di funzione matematica integrale del primo principio della termodinamica. 
+\begin{itemize}
+    \item $Q > 0$: Il sistema ha acquisito dell'energia dall'ambiente;
+    \item $Q < 0$: Il sistema ha ceduto dell'energia all'ambiente.
+\end{itemize}
+Un sistema può scambiare con l'esterno o lavoro meccanico o lavoro.
+Si può esprimere come conseguenza la forma differenziale dl primo principio
+della termodinamica:
+\begin{gather*}
+    \delta Q - \delta L = dU
+\end{gather*}
+A livello matematico è notevole in quanto le due espressioni sono 
+legate tra di loro.  
+\begin{itemize}
+    \item Adiabatica: per definizione, una trasformazione adiabatica
+    ha quantità di calore zero: le pareti adiabatiche allora non permettono il  
+    passaggio di energia di tipo termico e permettono solamente gli scambi energetici di tipo meccanico.
+    \item Trasformazione ciclica: $\Delta U = 0$, allora $Q - L = 0$ e $Q = L$. La quantità
+    di calore fornito deve equivalere al lavoro svolto dal sistema. Il lavoro sarà positivo se percorro
+    la curva in senso orario o negativo se la percorro in senso antiorario.
+\end{itemize}
+Dato che si è data una definizione operativa di calore secondo il primo principio, posso dire che
+la quantità di calore che scambio in una certa trasformazione, per definizione, è
+data da:
+\begin{gather*}
+    Q_{A \to B} = \Delta U + L_{A \to B} \qquad \Delta U = U(B) - (A) 
+\end{gather*} 
+A pressione costante se si fornisse del calore senza che aumenti il volume
+del sistema, allora posso dire che
+\begin{gather*}
+    Q = \Delta U \qquad L \approx 0
+\end{gather*}
+
+\subsection{Il mulinello di Joule}
+L'esperimento che fece Joule per definire il calore utilizzava un contenitore
+con all'interno un sistema di pale e sopra un mulinello collegato alle
+pale con dei pesi per ogni parte. L'energia potenziale dei pesi viene trasferita al sistema
+sottoforma di attrito delle pale con l'acqua, in modo tale che tutta l'energia che 
+viene fornita al sistema è dovuta solo al calore e non al lavoro 
+per cui
+\begin{gather*}
+    Q = \Delta U \ \Longrightarrow \ Q \propto \Delta T
+\end{gather*} 
+Il che mi suggerisce che
+\begin{gather*}
+    \delta Q = c\ dt
+\end{gather*}
+con $\mathcal{C}$ si indica la \textbf{capacità termica} che è definita come la quantità di  calore infinitesima
+che devo fornire al sistema per ottenere un aumento di temperatura infinitesimo. Tuttavia
+questo non è applicabile per tutti gli esprimenti (ossia quelli nei quali
+si fornisce solamente calore al sistema senza fare alcun tipo di lavoro meccanico).
+Dato che il calore fornito dipende dal tipo di trasformazione, 
+allora devo definire la capacità termica quando fisso la pressione (per le
+isobare) e quando fisso il volume (per le isocore)  in maniera diversa:
+\begin{gather*}
+    \mathcal{C}_p = \left(\frac{\delta Q}{dt}\right)_p \qquad c_V = \left(\frac{\delta Q}{dt}\right)_V
+\end{gather*}
+La capacità termica adiabatica è zero per qualsiasi sistema, mentre la capacità
+termica di una trasformazione non è definita. 
+Generalmente per i liquidi $\mathcal{C}_P \approx c_V$ mentre per i gas sono molto diversi. 
+Si definisce il \textbf{calore specifico} come
+\begin{align}
+    c = \frac{\mathcal{C}}{M}
+\end{align}
+Ossia il calore per quantità di massa. Si può anche definire
+il calore per quantità di sostanza, come 
+\begin{align}
+    c = \frac{\mathcal{C}}{n}
+\end{align}
+Ossia la capacità termica per numero di mole. IN generale, dato che è una quantità
+additiva, si ha che $\mathcal{C} \geq 0$.
+
+
+\end{document}

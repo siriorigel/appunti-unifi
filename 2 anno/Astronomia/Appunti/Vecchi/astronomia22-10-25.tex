@@ -1,0 +1,127 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Astro}
+\author{Tommaso Miliani}
+\date{22-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Diagramma HR e tipologia di stelle}
+\subsection{Gaia}
+\subsection{catena protone protone nelle stelle main sequence}
+\subsection{esercizio per casa}
+Se ho 10000 stelle con massa stellare metà di qeulla del sole, 
+in questo ammasso c'è una sola stella che è 
+\begin{gather*}
+    M_{\star} = 2 M_{\circ}
+\end{gather*}
+Quale è il colore della stella che sto osservando ?
+Di che colore è la stella con massa 10 volte la massa
+solare nello stesso ammasso?
+
+\section{Distanze stellari}
+\subsection{Scala delle distanze cosmiche}
+\subsection{Metodi diretti: metodi geometrici, la parallasse annua}
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (1);
+        \draw(0, 0) -- (0, -1) node[midway, left] {$AU$};
+        \draw(0, 0) -- (5, 0) node[midway, above] {$d$};
+        \filldraw[yellow](0, 0) circle (3pt);
+        \draw(0, -1) -- (5, 0);
+        \draw(0, 1) -- (5, 0);
+        \draw[dashed](5, 0) -- (6, 0.25);
+        \draw[dashed](5, 0) -- (6, -0.25);
+        \filldraw[cyan] (5, 0) circle (2pt);
+        \draw(3.5, 0.3) arc (165:180:1) node[midway, left] {$p$};
+        \filldraw(6, 0.25)  circle (2pt);
+        \filldraw(6, -0.25) circle (2pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+La parallasse trigonometrica è il primo metodo geometrico e si basa
+sullo spostamento angolare di un oggetto celeste sulla sfera celeste quando 
+questo oggetto è osservato a distanza di 6 mesi. Si può allora ottenere la distanza
+$d$ di un corpo celeste in funzione dell'angolo dell'osservazione $p$ e della distanza
+Terra-Sole (ossia l'unità astronomica). L'angolo $p$ è misurato in arco secondi.
+\begin{gather*}
+    \tan p = \frac{1 \ AU}{d} \ \Longrightarrow \ p \approx \frac{1 \ AU}{d}
+\end{gather*} 
+Allora si ottiene la distanza come
+\begin{align}
+    d(AU) = \frac{206265}{p}
+\end{align}
+Dove $d$ è la distanza in unità astronomiche e $p$ è misurato in arco secondi. Si può
+definire il \textbf{Parsec} come la distanza alla quale un oggetto celeste
+mostra una parallasse annua di un arco seconodo quando osservato
+con la parallasse annua:
+\begin{gather*}
+    d(pc) = \frac{1}{p}
+\end{gather*}
+La distanza di un Parsec è esattamente
+\begin{gather*}
+    1 \ pc = 206265 \ AU
+\end{gather*}
+In questo modo un parsec è la distanza percorsa dalla luce in $3.26$ anni.  \\
+Più la stella è vicina e più gli angoli della parallasse annua sono grandi ma
+più che la stella si allontana più che si incontra un limite di precisione fisico
+dello strumento utilizzato per l'osservazione della parallasse.
+Il limite della parallasse è 
+\begin{gather*}
+    \text{Terra } \to 30 \ pc \\
+    \text{Gaia } \to \ \sim 9 kpc
+\end{gather*}
+I metodi diretti dunque non sono più utilizzabili per determinare le
+distanze dei corpi celesti con distanze superiori a 9 kiloparsec.
+
+\subsection{Metodi indiretti}
+\subsection{Cefeidi}
+
+\end{document}

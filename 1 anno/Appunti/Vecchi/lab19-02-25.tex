@@ -1,0 +1,130 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{ESperienza elasticità}
+\author{Tommaso Miliani}
+\date{19-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Elasticità}
+L'esperienza dell'elasticità ha lo scopo di determinare se un oggetto
+si è comportato come un corpo rigido durante tutta la durata dell'esperimento
+mediante misurazioni indirette delle posizioni relativi tra il corpo rigido e 
+gli altri oggetti. Esistono anche i corpi non rigidi, che sono più complicati
+e che vanno analizzati caso per caso: un sistema di punti materiali con un corpo
+esteso che ha una certa forma, allora se partiamo da una situazione di equilibrio 
+e la sua accelerazione è nulla allora le forze:
+\begin{gather*}
+    \vec{a} = \frac{\sum \vec{F}_{int(i)} }{m_i} \\
+\end{gather*}
+Se un punto applica una forza esterna quello che avviene è che il corpo
+si deforma e cambiano quindi le distanze tra gli oggetti e su di lui sono
+applicate delle forze esterne oltre che a quelle interne .
+\begin{gather*}
+    \vec{a} = \frac{\sum \vec{F}_{int} + \vec{F}_{ext} }{m_i} 
+\end{gather*}
+In generale quando si ha un corpo esteso sottoposto a deformazioni e quando siamo 
+in una situazione di equilibrio allora si bilanciano le forze esterne ed interne e 
+se si smette di applicare delle forze esterne allora le forze interne agiranno
+sul sistema deformandolo. Se il corpo torna però alle condizioni iniziali dopo
+questo agire di forze, allora il corpo è elastico, altrimenti plastico.\\
+Quando si applicano delle forze su di un corpo, esso può deformarsi in vari modi:
+se la forza è verticale allora si parla di trazione o compressione, altrimenti
+se la forza è orizzontale si parla di scorrimento o taglio. Se la risultante sulla
+base libera è nulla ma il momento delle forze è $\neq 0$ ed è parallela alla base libera
+allora il corpo è sottoposto a flessione se le forze sono nello stesso senso, altrimenti
+si parla di torsione.
+
+\section{Trazioni e compressioni}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 1.1}
+    \caption{Parallelepipedo}
+    \begin{tikzpicture}
+        \draw (0, 0) -- (1, 0);
+        \draw (0, 0) -- (0, 2) node[at start, left] {$\Delta L$} node[midway, left] {$L$};
+        \draw(1, 0) -- (1.5, 0.25);
+        \draw(1.5, 0.25) -- (1.5, 2.25);
+        \draw(0, 2) -- (1, 2);
+        \draw (1, 2) -- (1.5, 2.25);
+        \draw(0, 2) -- (0.5, 2.25) ;
+        \draw(0.5, 2.25) -- (1.5, 2.25);
+        \draw (1, 2) -- (1, 0);
+        \draw[dashed] (0, 0.5) -- (1, 0.5);
+        \draw[dashed] (1, 0.5) -- (1.5, 0.75);
+        \draw[->] (0.75, 0) -- (0.75, -1) node[at end, right] {$\vec{F}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso in cui il Parallelepipedo poggi su di un piano indeformabile 
+allora si comprimerà e quindi si modificherà di un certo $\Delta L$ e 
+aumenterà la sua sezione, se sottoposto a trazione invece si allungherà causando
+una riduzione la sua sezione. \\
+Ogni materiale è dotato di una caratteristica chiamata \textbf{sforzo specifico(normale)}
+che si calcola nella seguente maniera:
+\begin{align}
+    \sigma = \frac{|\vec{F} |}{S}
+\end{align}
+Si esprime in $Pa$, $\frac{N}{m^{2} }$. VAriando lo sforzo specifico si potrebbero causare
+delle deformazioni differenti e finché questo sforzo si mantiene sotto un certo
+limite chiamato \textbf{sforzo elastico} allora la deformazione è elastica e 
+si indica come $\sigma_{e}$.
+Dal grafico, dopo la fase di elasticità, ad una piccola variazione dello sforzo
+corrisponde una grande variazione del rapporto $\Delta L /L$, in genere valido per
+molti dei materiali.
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 2.1}
+    \caption{Il grafico $\sigma $ deformazione relativa}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (4, 0) node[at end, below] {$\frac{\Delta L}{L}$};
+        \draw(0, 0) -- (0, 4) node[at end, left] {$\sigma$};
+        \draw(0, 0) .. controls (0.8, 1.8) .. (4, 2);
+        \draw[dashed](0, 1.5) -- (0.8, 1.5) node[at start, left] {$\sigma_p$};
+        \draw[dashed](0.8, 0) -- (0.8, 1.5);
+        \filldraw (0.5, -0.1) circle (0pt) node[anchor = north] {elasticità};
+        \filldraw (3, -0.1) circle (0pt) node[anchor = north] {plasticità};
+    \end{tikzpicture}    
+\end{wrapfigure}
+TUtti i materiali hanno una loro costante elastica per cui le deformazioni sono
+proporzionali alla forza impiegata.  (Adottabile se e solo se il valore di $\sigma$ sta
+dentro la curva) la forza sarà quindi:
+\begin{align}
+    F = E S \frac{\Delta L}{L}\\
+\end{align}
+$E = kg /mm^{2}$ ossia lo sforzo elastico. 
+
+\begin{tabular}{c | c | c | c}
+    & E & $\sigma$ & $\sigma$ \\
+    \hline
+    Acciaio & $ 20\cdot 10^{3}$ & 25 & 50 \\
+
+\end{tabular}
+
+\end{document}

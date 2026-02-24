@@ -1,0 +1,780 @@
+\documentclass[a4paper, oneside]{book}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di Analisi 2}
+\author{Tommaso Miliani}
+\date{2025/2026}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[chapter]
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{lemma}{Proposizione}[chapter]
+\newtheorem{observation}{Osservazione}[chapter]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[chapter]
+
+\maketitle
+
+\tableofcontents
+
+\chapter*{Introduzione al corso}
+Il corso di analisi 2 si concentra sullo studio di equazioni differenziali, 
+calcolo differenziale per funzioni vettoriali (ossia funzioni che
+da un vettore restituiscono un vettore), equazioni a più variabili e
+infine successioni e serie di funzioni. \\
+L'esame di analisi 2 è composto da uno scritto e da un orale:
+lo scritto si passa con un voto minimo di 16 e durante l'anno ci saranno
+due prove parziali che sarà a Novembre (13) e l'altro parziale i primi giorni
+di Gennaio. 
+\begin{itemize}
+    \item Si può usare un libro di testo ed un foglio A4 (UNO SOLO) nel quale
+    c'è tutto quello che si riesce a scriverci.
+    \item Si può riprovare un parziale che si è fatto male 
+    \item Si può partecipare ai parziali anche se non si è fatto analisi 1
+    \item Il libro di testo consigliato è il "Fuscolo, Marcellini Sbordone Lezioni di analisi matematica 2"
+    oppure il "Bramanti Pagani Salsa analisi matematica 2" che purtroppo per alcuni argomenti non è completo.
+    \item Nessuna dispensa quindi per esercizi svolti rifarsi ai libri di testo "Esercitazioni di analisi due". 
+\end{itemize}
+
+
+\chapter{Equazioni differenziali}
+\begin{definition}[Equazioni differenziali]
+    Un'equazione differenziale è una equazione in cui l'incognita è una funzione 
+    di una qualche variabile. L'incognita è dunque $y = f(x)$. Si dice che una equazione differenziale
+    è ordinaria se dipende solo da una variabile; nel caso di equazioni differenziali
+    che dipendono da più variabili prendono il nome di equazioni differenziali a
+    \textbf{derivate parziali}.
+\end{definition}
+
+\begin{example}[Esempi di equazioni differenziali]
+    \begin{gather*}
+        y'' - y = 0 \qquad y' = 3e^{y}  \qquad y' = 4x + 8
+    \end{gather*}
+    La soluzione della prima è $y = \sin x$ in quanto $y'' = -\sin x$ 
+    e dunque $\forall x \in \mathbb{R} \ 0 = 0$. 
+\end{example}
+
+\begin{definition}[Ordine]
+    Si definisce \textbf{ordine} il numero della derivata massima che
+    compare all'interno delle equazioni differenziali. 
+\end{definition}
+
+\begin{definition}[Forma normale]
+    Una equazione si dice in forma \textbf{normale} se la derivata più grande è
+    isolata rispetto alle altre
+    \begin{align}
+        y^{(n)} = f(x, y, y', \dots, y^{(n - 1)} )
+    \end{align}
+\end{definition}
+\begin{example}
+    \begin{gather*}
+        (y')^{2} + x^{3} = 0   \ \Longrightarrow \ y ' = \pm \sqrt{x^{3} } 
+    \end{gather*}
+    Non riesco a ricavare una equazione del primo ordine del tipo $F(x, y, y')$. 
+    Quando riesco ad isolare da una parte la derivata più grande si riesce a semplificare
+    la risoluzione delle equazioni differenziali.
+\end{example}
+
+\section{Equazioni differenziali del primo ordine}
+La forma generale delle equazioni di primo ordine è del tipo
+\begin{align}
+    y' = f(x, y)
+\end{align}
+Una soluzione per questa forma generale di equazioni differenziale è una
+funzione $y$ della variabile $x$ definita per $x \in \mathbb{A}$ (un qualche insieme)
+e tale che per ogni $x \in \mathbb{A}$ risulti che $(x, y(x))$ appartenente al dominio di
+$f(x, y)$ e inoltre la derivata di questa funzione calcolata in $x$ è uguale a $y'(x) = f(x, y(x))$.
+\begin{example}[Esempio più semplice]
+    \begin{gather*}
+        y' = g(x) 
+    \end{gather*}
+    Dove $g(x) $ è una funzione continua appartenente ad un qualche insieme $\mathbb{A}$ 
+    e quindi un'equazione di questo tipo equivale a trovare la primitiva di $g$. 
+    Allora posso dire che $G(x) + c$ è soluzione dell'equazione differenziale, ossia la
+    primitiva di $g(x)$. 
+\end{example}
+\begin{example}[Esempio di prima con soluzione diversa]
+    Nell'equazione differenziale
+    \begin{gather*}
+        y'' - y = 0
+    \end{gather*}
+    Anche il coseno è soluzione in quanto si otterrebbe $y = \cos x$. Si ottiene
+    allora che la seguente è anch'essa soluzione dell'equazione:
+    \begin{gather*}
+        C_1 \sin x + C_2 \cos x = 0
+    \end{gather*}
+    Generalmente l'equazione di $n$ ordine ha $n$ costanti $C_1, \dots, C_n$ che moltiplicano. 
+\end{example}
+\begin{example}
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = x^{2} \\
+            y(1) = 2 
+        \end{array}\right.
+    \end{gather*}
+    Si ha che la primitiva di $y'$ è proprio $y = \frac{x^{3} }{3} + C$, data la seconda condizione
+    nel sistema allora si ottiene che
+    \begin{gather*}
+        \frac{1}{3}  + C = 2 \ \Longrightarrow \ C = \frac{5}{3}
+    \end{gather*}
+\end{example}
+\section{Il problema di Cauchy}
+Se in una equazione differenziale del primo ordine avessi una situazione del tipo
+\begin{gather*}
+    \left\{\begin{array}{l}
+        y' = f(x, y) \\
+        y(x_0) = y_0
+    \end{array}\right.
+\end{gather*}
+Ossia se ho delle condizioni sulle derivate fino alla $n-1$ esima, allora
+questa tipologia di esercizi prenderà il nome di \textbf{problema di Cauchy}:
+nel caso di una equazione del secondo ordine le condizioni non sono qualsiasi ma 
+seguono il seguente schema:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        y'' = f(x, y, y') \\
+        y(x_0) = y_0 \\
+        y'(x_0) = y_1
+    \end{array}\right.
+\end{gather*}
+Esistono alcuni teoremi che permettono di definire l'insieme delle soluzioni date
+le condizioni del secondo membro di ciascuno dei due sistemi. Iniziamo dai
+teoremi di esistenza delle soluzioni per il problema di Cauchy del primo ordine
+in forma normale 
+\begin{gather*}
+    \left\{\begin{array}{l}
+        y' = f(x, y) \\
+        y(x_0) = y_0
+    \end{array}\right.
+\end{gather*}
+SI definiscono alcune ipotesi prima di procedere:
+\begin{definition}[Punto interno ad un insieme]
+    \begin{gather*}
+        Se \ \mathbb{A} \subset \mathbb{R}^{2}, (x_0, y_0) \in \mathbb{A} 
+    \end{gather*}
+    Si dice che $(x_0, y_0)$ è interno all'insieme $\mathbb{A}$, se
+    esiste un cerchio di raggio positivo tale per cui il centro sia $(x_0, y_0)$ e sia contenuto
+    dentro all'insieme $\mathbb{A}$. Nel caso in cui $\mathbb{A} \subset \mathbb{R}^{3}$ allora diciamo che un punto
+    $(x_0, y_0, z_0)$ è interno all'insieme $\mathbb{A}$ se esiste una sfera di raggio positivo tale per cui
+    $(x_0, y_0, z_0)$ sia il centro e sia contenuto all'interno dell'insieme.
+\end{definition}
+\begin{theorem}[Teorema di Peano]
+    Se la funzione $f(x, y)$ è una funzione definita e continua  in un qualche insieme
+    $\mathbb{A}$ e $(x_0, y_0) \in \mathbb{A}$, allora il problema di Cauchy ammette almeno una soluzione 
+    definita in un intorno di $x_0$.  
+\end{theorem}
+Da questo possiamo fare due considerazioni:
+\begin{enumerate}
+    \item La continuità di $f(x, y)$ è necessaria per l'esistenza di una soluzione:
+    \item La sola ipotesi di continuità non è garantisce che esista una sola soluzione
+\end{enumerate}
+\begin{example}[differenziale risolta col problema dii Cauchy]
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = y^{2/3}  \\
+            y(0) = 0
+        \end{array}\right.
+    \end{gather*}
+    Allora dato che $f(x, y) = y^{2/3}$ è definita continua sull'intervallo $\mathbb{R} \times \mathbb{R}$ e quindi
+    una funzione costante  $f(x) = 0$ ha valore zero in zero e derivata prima uguale a zero. Anche $y(x) = \frac{x^{3} }{27}$ è soluzione
+    in quanto la derivata di questa funzione $y' = \frac{x^{2} }{9}$ ed è uguale a zero se calcolata in zero.  Questo problema di Cauchy
+    ha allora due soluzioni distinte anche se in realtà ha soluzioni infinite:
+    \begin{gather*}
+        y(x) = \left\{\begin{array}{l}
+            0 \ se \ x \in (-\infty , 0) \\
+            \frac{(x - a)^{3} }{27} \ se \ x \in (a, +\infty)
+        \end{array}\right.
+    \end{gather*}
+    Il teorema di Cauchy allora mi garantisce che esitano almeno una soluzione ma 
+    non mi da la certezza che sia solo una (potrebbero essere infatti infinite).
+\end{example}
+
+
+\section{I teoremi di esistenza di Cauchy}
+\begin{wrapfigure}{r}{0.35\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (4, 0) node[at end, below] {$z$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$g(z)$};
+        \draw(0, 0) .. controls (1, 2) and (1.5, 1) .. (2, 1);
+        \draw(2, 1) .. controls (2.5, 1.5) and (3.5, 1.2) .. (4, 1.25) node[at end, right] {$g(z)$};
+        \draw(0.7, 1) -- (2, 1);
+        \filldraw(0.7, 1) circle (1pt);
+        \filldraw(2, 1) circle (1pt);
+        \draw[|-|](0.3, 0.2) -- (0.3, -0.2) node[at end, below] {$a$};
+        \draw[|-|](2.3, 0.2) -- (2.3, -0.2) node[at end, below] {$b$};
+        \draw[dashed](0.7, 0) -- (0.7, 1) node[at start, below] {$z_1$};
+        \draw[dashed](2, 0) -- (2, 1) node[at start, below] {$z_2$};
+        \draw[<->](0.2, -0.7) -- (2.8, -0.7) node[midway, below] {$I$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per spiegare il teorema di esistenza e di unicità bisogna chiarire innanzitutto
+cosa è una funzione Lipschitziana.
+\begin{definition}[Funzione Lipschitziana]
+    Presa una funzione definita come $g : I \to \mathbb{R}$, dove $I \subset \mathbb{R}$; posto
+    $[a, b] \subset I$, si dice allora che la funzione $g$ è Lipschitziana nell'intervallo $[a, b]$ se
+    $\exists L \in \mathbb{R} > 0$ tale che comunque si scelgano $a, b$ risulta che,
+    per ogni coppia di numeri $z_1, z_2 \in [a, b]$, 
+    \begin{align}
+        g(z_1) - g(z_2) \leq L|z_1 - z_2|
+    \end{align}
+    Che è equivalente alla seguente formulazione:
+    \begin{align}
+        -L \leq \frac{g(z_1) - g(z_2)}{z_1 - z_2} \leq L
+    \end{align}
+    Ossia ogni funzione ha un certo valore massimo per la sua derivata
+    prima. Una funzione non è Lipschitziana se presenta dei flessi a tangenti verticali o dei
+    punti di non derivabilità.
+\end{definition}
+Si può dare un esempio di una funzione che è Lipschitziana solo per un certo intervallo:
+\begin{example}[Esempio di una funzione potenza]
+    \begin{gather*}
+        g(z) = z^{\alpha}, \alpha \in (0,  1) 
+    \end{gather*}
+    Se si prende un intervallo che non contiene lo zero allora è Lipschitziana
+    in quanto le rette avranno sempre una pendenza ben definita. Se invece si prendesse un intervallo che contiene anche lo
+    zero, allora si vede che non è una funzione Lipschitziana perché il rapporto
+    incrementale diventa grande quanto si vuole. 
+\end{example}
+\begin{definition}[Derivate parziali]
+    Presa $f(x, y)$ definita nel punto $(x_0, y_0)$ all'interno del
+    dominio di $F$. Si ottiene allora che la derivata parziale rispetto 
+    alla $y$ 
+    \begin{align}
+        \frac{\partial f}{\partial y}(x_0, y_0) = \lim_{h \to 0}   \frac{F(x_0, y_0 + h) - F(x_0, y_0)}{h}
+    \end{align}
+    Ossia eseguo la derivata rispetto alla variabile considerata, considerando
+    come costanti tutte le variabili per cui non derivo.
+\end{definition}
+\begin{example}[Esempio pratico]
+    \begin{gather*}
+        f(x, y) = xy^{3} + \sin y \\
+        \frac{\partial f}{\partial y}(3, y_0) = 9y^{2} + \cos y    
+    \end{gather*}
+    Nel punto $(3, y_0)$ la derivata della funzione rispetto a $y$ diventa $3y^{3} + \sin y$. 
+\end{example}
+
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0);
+        \draw[->](0, 0) -- (0, 3);
+        \draw[|-|](2, 0.2) -- (2, -0.2) node[at end, below] {$x_0$};
+        \draw[|-|](2.5, 0.2) -- (2.5, -0.2);
+        \draw[|-|](1.5, 0.2) -- (1.5, -0.2);
+        \draw[|-|](0.2, 2) -- (-0.2, 2) node[at end, left] {$y_0$}; 
+        \draw[|-|](0.2, 2.5) -- (-0.2, 2.5);
+        \draw[|-|](0.2, 1.5) -- (-0.2, 1.5);
+        \filldraw (2, -0.5) node[anchor = north] {$I$};
+        \filldraw (-0.7, 2) node[anchor = east] {$J$};
+        \draw[dashed](0.2, 2.5) -- (2.5, 2.5);
+        \draw[dashed](0.2, 1.5) -- (2.5, 1.5);
+        \draw[dashed](1.5, 0.2) -- (1.5, 2.5);
+        \draw[dashed](2.5, 0.2) -- (2.5, 2.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Possiamo ora introdurre il seguente teorema
+\begin{theorem}[Teorema di esistenza di Cauchy]
+    Si considera il problema di Cauchy per una differenziale di primo
+    ordine 
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = f(x, y) \\
+            y(x_0) = y_0
+        \end{array}\right.
+    \end{gather*}
+    Possiamo supporre allora che ogni $f(x, y)$ sia definita $\forall (x, y) \in I \times J$, ossia su di un
+    prodotto cartesiano tra due sottoinsiemi qualsiasi di $\mathbb{R}:I = (x - x_0, x + x_0)$ e $J = (y - y_0, y + y_0)$. 
+    Supponiamo allora le seguenti ipotesi:
+    \begin{enumerate}
+        \item $f(x, y)$ è continua in $I \times J$;
+        \item $\exists$ costante $L > 0$ tale che la funzione $f(x, y)$ rispetta la definizione
+        di funzione Lipschitziana nell'intervallo $J \ \forall x \in I$, $\forall y_1, y_2 \in J$. 
+        \end{enumerate}
+    Allora esisterà $\delta > 0$ e esisterà una funzione $y(x)$ che risolve il sistema in una funzione definita
+    nell'insieme $(x_0 - \delta, x_0 + \delta)$. 
+\end{theorem}
+Per poter dimostrare questo teorema dovremmo allora introdurre prima dei lemmi
+che ci consentano di dimostrare il teorema
+\begin{proof}
+    \begin{lemma}[Equivalenza tra il teorema del calcolo integrale e la derivata della differenziale]
+        Sia $\delta > 0$ e supponiamo che siano valide le
+        ipotesi del teorema, allora le seguenti sono equivalenti
+        \begin{enumerate}
+            \item $\exists y(x)$ derivabile in $[x_0 - \delta, x_0 + \delta]$ tale che 
+            $y'(x) = f(x, y(x)) \ \forall x \in [x_0 - \delta, x_0 + \delta], y(x_0) = y_0$.
+            \item $\exists y(x)$ funzione continua in $[x_0 - \delta, x_0 + \delta]$ tale che
+            \begin{gather*}
+                y(x) = y_0 + \int_{x_0}^{x}f(t, y(t)) \ dt, \qquad \forall x \in (x_0 - \delta, x_0 + \delta). 
+            \end{gather*} 
+        \end{enumerate}
+    \end{lemma}
+    \begin{proof}
+        Posso dimostrare questa attraverso il teorema del calcolo integrale:
+        se $g(z)$ è continua, allora posso scrivere che $g(z) = g(z_0) + \int_{z_0}^{z}g'(t) \ dt$. \\
+        $ 1 \ \Longrightarrow \ 2$ So che $y(x)$ è una funzione che soddisfa la prima definizione e allora $y'$ è continua e quindi dal teorema
+        fondamentale del calcolo integrale io so che
+        \begin{gather*}
+            y(x) = y(x_0) + \int_{x_0}^{x}y'(t) \ dt
+        \end{gather*}
+        Allora posso dire che, dato $y'(t) = f(t, y(t))$ , posso
+        sostituire nell'integrale e ottenere la tesi. \\
+        $2 \ \Longrightarrow \ 1$: Sia $y$ una funzione che soddisfi la
+        seconda proposizione, allora posso utilizzare un'altra forma del teorema del
+        calcolo integrale per cui se $h$ è continua, allora la funzione $h(x)  \to z_0 + \int_{x_0}^{x} h(t) \ dt$ e quindi
+        se $h$ è continua e derivabile, la derivata di questa funzione è esattamente $h(x)$. Si ottiene che la funzione
+        all'interno della tesi dell'integrale è continua e quindi l'integrale è una funzione derivabile e la sua derivata
+        è esattamente (con l'implicita formulazione che $y(x_0) = y_0$)
+        \begin{gather*}
+            y'(x) = f(x, y(x))
+        \end{gather*}
+        Proprio come si voleva ottenere.
+    \end{proof}
+    \begin{lemma}[Se valgono queste considerazioni le ipotesi del teorema sono verificate]
+        Se $f$ è continua in un insieme $\mathbb{A}$, $(x_0, y_0)$ è interno all'insieme
+        e inoltre si ha che
+        \begin{enumerate}
+            \item $                \exists \frac{\partial f}{\partial y}(x, y)$.
+            \item $\frac{\partial f}{\partial y}(x, y)$ è continua 
+        \end{enumerate}
+        $\forall (x, y) \in \mathbb{A}$ e allora le ipotesi di questo teorema sono
+        verificate. 
+    \end{lemma}
+    La dimostrazione è da finire nelle prossime lezioni.
+\end{proof}
+\begin{example}[Funzione non Lipschitziana]
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = y^{\frac{2}{3}} \\
+            y(0) = 0 
+        \end{array}\right.
+    \end{gather*}
+    Quindi dico che il mio $x_0$ e $y_0$ contengano l'origine, se io facessi il
+    grafico di $y^{\frac{2}{3}}$, allora si ottiene che questo grafico è una radice simmetrica rispetto
+    all'asse $y$ e per questo non è Lipschitziana nell'intorno di $0$: le immagini non comprendono
+    le ordinate negative. 
+\end{example}
+
+\section{Equazioni a variabile separata}
+Le equazioni di funzioni a più variabili prendono il nome di funzioni a variabili separabili, ossia
+della forma 
+\begin{align}
+    y' = a(x) b(y) \ \Longrightarrow \ y'(x) = a(x)b(y(x))
+\end{align}
+Dove $a(x)$ è continua in $I \subset \mathbb{R}$ e $b(y)$ è continua
+in $J \subset \mathbb{R}$. Posso trovare delle soluzioni per queste equazioni nella
+seguente maniera: se $\overline{y}$ è univoco tale che $b(\overline{y}) = 0$ allora
+la funzione $y(x) \equiv \overline{y}$ è soluzione. Se si suppone che
+$b(y) \neq 0$ allora posso dire che se due funzioni sono uguali il loro integrale sarà uguale:
+\begin{gather*}
+    \frac{y'}{b(y)} = a(x) \ \Longrightarrow \ \frac{y'(x)}{b(y(x))} = a(x) \ \Longrightarrow \ \int\frac{y'(x)}{b(y(x))} \ dy = \int a(x) \ dx
+\end{gather*}
+Se ponessi ora $y = y(x)$ che soddisfano questa equazione
+\begin{gather*}
+    \int \frac{dy}{b(y)} = \int a(x) \ dx
+\end{gather*}
+Se $B(y)$ è una primitiva, allora posso dire che 
+\begin{gather*}
+    B(y) = A(x) + c
+\end{gather*}
+Se si riuscisse a invertire invece la funzione $B$ si ottiene che esiste una soluzione,
+la quale è data proprio da:
+\begin{gather*}
+    y(x) = B^{-1} (A(x) + c)
+\end{gather*}
+\begin{example}[Esempio di separazione di variabili]
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = \frac{1}{y} \\
+            y(0) = 2
+        \end{array}\right.
+    \end{gather*}
+    Dato che $ a(x) \equiv 1$ e $b(y) = \frac{1}{y}$, si può integrare ed ottenere che
+    \begin{gather*}
+        \frac{dy}{dx} = \frac{1}{y} \ \Longrightarrow \ \int y \ dy = \int 1 \ dx \ \Longrightarrow \ \frac{y^{2} }{2} = x + c
+    \end{gather*}
+    Dato che il quadrato non è sempre invertibile, devo stare attento alle soluzioni che
+    ottengo, in questo caso però mi va bene qualsiasi funzione inversa ed entrambre sono soluzioni
+    ma scelgo quella positiva
+    \begin{gather*}
+        y = \sqrt{2x + 2c} \ \Longrightarrow \ y = \sqrt{2x + 4} 
+    \end{gather*}
+\end{example}
+\begin{example}[Altro Esempio]
+    \begin{gather*}
+        y' = ay(1 - by), a, b > 0
+    \end{gather*}
+    In questo caso ho delle soluzioni costanti che mi permettono di dire che
+    $y(x) \equiv 0$, $y(x) \equiv \frac{1}{b}$, allora posso passare all'integrale
+    separando le variabili e ottenere:
+    \begin{gather*}
+        \int \frac{dy}{y(1 - by)} = \int a \ dx \ \Longrightarrow \ \ln\left| \frac{y}{1 - by} \right| = ax + c \\
+        \ \Longrightarrow \ \left| \frac{y}{1 - by} \right| = e^{ax} \cdot  e^{c}    = e^{ax}c_0, c_0 \in \mathbb{R}  
+    \end{gather*}
+    Dato che $c_0$ è una costante sempre positiva, posso sostituirla con $c_1 \in \mathbb{R} > 0$: 
+    \begin{gather*}
+        y = \frac{c_1e^{ax}  }{1 + bc_1e^{ax}  }
+    \end{gather*}
+\end{example}
+
+\section{Equazioni omogenee}
+Sono delle equazioni del tipo
+\begin{gather*}
+    y' = f(x, y)
+\end{gather*}
+dove $f(x, y)$ è omogenea di grado $0$, ossia $\forall \lambda \in \mathbb{R} \ f(\lambda x, \lambda y) = f(x, y)$.
+\begin{example}[Questa funzione differenziale è omogenea]
+    \begin{gather*}
+        y' = \frac{2xy}{x^{2} + y^{2}  } \qquad f(\lambda x, \lambda y) = \frac{2(\lambda x)(\lambda y)}{(\lambda x)^{2} + (\lambda y)^{2}  } = f(x, y)
+    \end{gather*}
+\end{example}
+
+Queste equazioni possono essere riscritte attraverso una opportuna funzione per essere risolte:
+\begin{gather*}
+    y' = b\left(\frac{y}{x}\right)
+\end{gather*}
+Ossia posso trasformare la differenziale come funzione di $\frac{y}{x} = t$, quindi cambio varibile
+nel seguente modo:
+\begin{gather*}
+    z(x) = \frac{y(x)}{x} \ \Longrightarrow \ y(x) = xz(x) \ \Longrightarrow \ y'(x) = z + xz'
+\end{gather*}
+Adesso posso risolvere in funzione di $z$:
+\begin{gather*}
+    b(z) = z + xz' \ \Longrightarrow \ z' = \frac{b(z) - z}{x}
+\end{gather*}
+Coni passaggi all'indietro ottengo nuovamente $y(x) = xz(x)$.
+\begin{example}
+    \begin{gather*}
+        y' = \frac{x^{3} + y^{3}  }{xy^{2} }
+    \end{gather*}
+    Se io definisco $f(x, y)$ questo oggetto è facile
+    vedere che è omogenea. Posso ora mettere in evidenza la $x$ sopra
+    e dunque ottenere
+    \begin{gather*}
+        \frac{x^{3}(1 + \frac{y^{3} }{x^{3} }) }{x^{3}(\frac{y^{2} }{x^{2} } ) } = b\left(\frac{y}{x}\right) 
+    \end{gather*}
+    Ossia si ottiene una funzione in rapporto tra $y$ e $x$, allora posso dire che
+    \begin{gather*}
+        b(t) = \frac{1 + t^{3} }{t^{2} }
+    \end{gather*}
+    Allora, data la definizione di $z'$ si ottiene
+    \begin{gather*}
+        z' = \frac{\frac{1 + z^{3} }{z^{2} } - z}{x} \ \Longrightarrow \ z' = \frac{1}{z^{2} }\frac{1}{x}
+    \end{gather*}
+    Allora per separazione di variabili possiamo trovare la soluzione come
+    \begin{gather*}
+        \int z^{2} dz  = \int \frac{dx}{x}
+    \end{gather*}
+\end{example}
+
+\section{Esistenza locale ed esistenza globale}
+\begin{example}
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = -2xy^{2}  \\
+            y(0) = -1
+        \end{array}\right.
+    \end{gather*}
+    Essendo questo un problema di Cauchy, possiamo allora risolverlo
+    con i metodi che conosciamo; tuttavia si osserva anche che, essendo
+    $f(x, y)$ continua, allora anche la differenziale è continua e quindi
+    siamo nelle ipotesi del teorema di esistenza ed unicità. Esiste allora
+    una sola soluzione per questa equazione e si trova con
+    separazione di variabili
+    \begin{gather*}
+        \int \frac{dy}{y^{2} } = \int -2x \ dx \\
+        -\frac{1}{y} = -x^{2} + c \ \Longrightarrow \  c = 1 
+    \end{gather*}
+    La soluzione è la seguente, con $ x \in \mathbb{R} - \{-1, 1\}$: 
+    \begin{gather*}
+        y = \frac{1}{x^{2} - 1}
+    \end{gather*}
+\end{example}
+I teoremi di esistenza locale mi dicono che è possibile trovare 
+delle soluzioni negli intorni di $x_0$ in quanto sono interessato solo
+alle soluzioni vicine a questo intorno. Nei teoremi di esistenza globale invece
+io considero l'intero insieme di esistenza della funzione trovando delle soluzioni globali. 
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Teorema di esistenza globale}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$y$};
+        \draw(1, -1) -- (1, 3);
+        \draw(3, -1) -- (3, 3);
+        \draw(-0.1, 1) -- (0.1, 1) node[at start, left] {$y_0$};
+        \filldraw(1.6, 0) circle (1pt) node[anchor = north] {$x_0$};
+        \filldraw(1, 0) circle (1pt) node[anchor = north east] {$a$};
+        \filldraw(3, 0) circle(1pt) node[anchor = north west] {$b$};
+        \filldraw(1.6, 1) circle(1pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+\begin{theorem}[Teorema di esistenza globale]
+    Consideriamo il problema di Cauchy del primo ordine
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = f(x, y) \\
+            y(x_0) = y_0
+        \end{array}\right.
+    \end{gather*}
+    \begin{enumerate}
+        \item $f(x, y)$ e $\frac{\partial f}{\partial y}(x, y)$ sono continue e definite
+        $\forall x \in [a, b]$, $y_0 \in \mathbb{R}$;
+        \item Esistano due valori positivi $h, k \in \mathbb{R}$ per cui risulta:
+        \begin{gather*}
+            |f(x, y)| \leq h + k|y| \qquad \forall x \in [a, b], y \in \mathbb{R}
+        \end{gather*} 
+    \end{enumerate}
+    Allora la soluzione è unica e definita su tutto $[a, b]$.
+\end{theorem}
+\begin{proof}
+    Non fatta in classe (si farà? boooh)
+\end{proof}
+
+\section{Sistemi di equazioni differenziali}
+Un sistema di equazioni differenziali è un sistema i cui membri sono vettori
+di funzioni:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        y'_1 = f_1(x, y_1, \dots, y_n) \\
+        y'_2 = f_2(x, y_1, \dots, y_n) \\
+        \vdots \\
+        y'_n = f_n(x, y_1, \dots, y_n)
+    \end{array}\right.
+\end{gather*}
+La soluzione del sistema è allora un vettore di funzioni (chiamata anche \textbf{funzione vettoriale}):
+\begin{gather*}
+    \begin{pmatrix} y_1(x) \\
+    \vdots \\
+    y_n(x) \end{pmatrix} \  x \in I, \ I \subset \mathbb{R} : \\
+    \left\{\begin{array}{l}
+        y'_1 = f_1(x, y_1(x), \dots, y_n(x)) \\
+        \vdots  \\
+        y'_n = f_n(x, y_1(x), \dots, y_n(x)) 
+    \end{array}\right.
+\end{gather*}
+Allora posso chiamare il vettore
+\begin{gather*}
+    Y(x) = \begin{pmatrix} y_1(x) \\
+    \vdots \\
+    y_n(x) \end{pmatrix} \\
+\end{gather*}
+Tale che $Y'(x)$ contenga tutte le derivate, allora posso chiamare il
+vettore funzione come $F(x, Y) = Y'$, allora posso dire che i sistemi di equazioni
+differenziali sono tutti risolvibili allo stesso modo. Se si avesse invece delle condizioni
+per tutte le derivate fino alla $n - 1$ esima, allora saremmo in presenza di un
+sistema di equazioni differenziali di Cauchy. Questo vuol dire che la sua soluzione,
+tenuto conto delle considerazioni fatte fino ad ora
+\begin{gather*}
+    \left\{\begin{array}{l}
+        Y'(x) = F(x, Y) \\
+        Y(x_0) = y_0
+    \end{array}\right.
+\end{gather*}
+
+\begin{theorem}[Teorema 1]
+    Sia $D \subset \mathbb{R}^{n + 1}$ e sia $F : D \to \mathbb{R}^{n}$,una
+    funzione continua e sia $(x_0, y_0)$ un punto interno a $D$, allora 
+    il problema di Cauchy (sistema di equazioni differenziali) ha almeno una soluzione definita in un intorno  
+    di $x_0$.
+\end{theorem}
+
+\begin{theorem}[Teorema 2]
+    Nelle ipotesi del teorema precedete supponiamo che
+    \begin{gather*}
+        \frac{\partial f_i}{\partial y_j} \qquad i, j \in \{1, \dots, n\} 
+    \end{gather*}
+    Siano continue in $D$ , allora il problema di Cauchy con sistema di equazioni
+    differenziali ha una sola soluzione definita nell'intorno di $x_0$.
+\end{theorem}
+
+\begin{theorem}[Teorema 3]
+    Supponiamo che $f_i(x, y_1, \dots, y_n)$ sia definita per ogni $i = 1,\dots, n$,
+    $\forall x \in [a, b]$ e $\forall y_1, \dots, y_n \in \mathbb{R}$ si suppone anche che
+    $f_i$ e la derivata parziale rispetto ad ogni $f_i$ rispetto a $y_j$ siano continue
+    $\forall y \in [a, b], y_1, \dots, y_n \in \mathbb{R}$. Si suppone anche che $\exists h, k  >0$ tali per cui
+    risulti 
+    \begin{align}
+        ||F(x, Y)|| \leq h + k ||Y||
+    \end{align} 
+    Con $||Y||$ si indica la norma e ogni soluzione dell'equazione $Y' = F(x , Y)$ 
+    è definita su tutto l'intervallo $[a, b]$.
+\end{theorem}
+\begin{example}[Esempio fondamentale]
+    In un sistema di equazioni differenziali di ordine $n$, tale per cui
+    \begin{gather*}
+        \underset{\heartsuit}{y_1(x) \equiv y(x) \qquad y_2(x) \equiv y'(x)} \qquad y'' = 3xy + 7y' (\star) \\
+        \left\{\begin{array}{l}
+            y_1' = y_2 \\
+            y_2' = 3xy_1 + 7y_2 (\star \star)
+        \end{array}\right. 
+    \end{gather*}
+    Se $y$ risolve $\star$ allora $y_1, y_2$ definite da $\heartsuit$ risolve $\star \star$ viceversa
+    se $(y_1, y_2)$ risolvono $\star \star$ allora la funzione $y_1$ ha ordine $\star$.  
+\end{example}
+
+
+\section{Equazioni differenziali omogenee lineari del primo ordine}
+\begin{definition}[Equazioni differenziali omogenee lineari]
+    Si chiamano equazioni differenziali lineari equazioni del tipo
+    \begin{align}
+        y^{(n)}  + a(x)_{n - 1}y^{(n - 1)} + \dots + a(x)y = f(x)
+    \end{align}
+    Se $f(x) $ è zero, allora prendono il nome di \textbf{omogenee}, altrimenti
+    \textbf{complete}. Queste equazioni si chiamano lineari perché hanno la 
+    caratteristica che riprendono le funzioni lineari negli spazi vettoriali.
+\end{definition}
+\begin{gather*}
+    y' = a(x) y = f(x)   
+\end{gather*}
+Posso utilizzare la risoluzione vista prima per cui posso eseguire un cambio di variabile
+opportuno in modo tale da renderla omogenea
+\begin{gather*}
+    z' + a(x) z = 0
+\end{gather*}
+Se $z_1$ e $z_2$ sono soluzioni dell'omogenea, allora anche $\alpha z_1(x)+\beta z_2(x)$
+sono soluzioni.  Posso dimostrarlo nel seguente modo:
+\begin{gather*}
+    (\alpha z_1(x)+\beta z_2(x))' + a(x)(\alpha z_1(x)+\beta z_2(x)) = 0 \\
+    \alpha(z_1' + a(x)z_1) + \beta(z_2' + a(x) z_2) = 0
+\end{gather*}
+Dato che $z_1$ e $z_2$ sono soluzioni, allora è verificata.  \\
+Posso ora verificare che esistono soluzioni per l'equazione
+generica $z' + a(x)z = 0$. Sia $A(x)$ una primitiva finita senza le costanti 
+di $a(x)$ e quindi $A'(x) = a(x)$. Posso eseguire allora la seguente trasformazione: 
+\begin{gather*}
+    e^{A(x)}z' + a(x)e^{A(x)}z = 0 = (e^{A(x)}z)'     \\
+    e^{A(x)}z = c \qquad c \in \mathbb{R} \qquad z = ce^{-A(x)}  
+\end{gather*}
+Esiste un modo più veloce per poter trovare le soluzioni, questo è dato dalla seguente 
+formulazione
+\begin{gather*}
+    y'e^{A(x)} + a(x)e^{A(x)}y = f(x)e^{A(x)}    \\
+    (ye^{A(x)} )' = f(x) e^{A(x)} 
+\end{gather*}
+Se considero $F(x)$ come primitiva del prodotto a destra, allora
+si ottiene che 
+\begin{gather*}
+    ye^{A(x)} = F(x) + c
+\end{gather*}
+\begin{align}
+    y = ce^{-A(x)} + e^{-A(x)}F(x)   
+\end{align}
+Si può anche utilizzare un secondo metodo per risolvere le equazioni 
+e si chiama \textbf{metodo della variazione delle costanti}.
+Penso che $c$ ora sia una funzione e non più una costante, allora dato che
+devo considerare una soluzione generale, allora devo considerare $c$ come
+funzione. Posso ottenere la derivata
+\begin{gather*}
+    y' = C'e^{-A(x)} - Ce^{-A(x)}a  \\
+    y' + a(x)y = f \ \Longrightarrow \ C' = f(x) e^{A(x)} 
+\end{gather*}
+Se $C$ ha questa espressione, ossia la primitiva di $C'$, allora 
+$C = F(x) + d, d\in \mathbb{R}$, le soluzioni sono allora
+\begin{gather*}
+    y(x) = C(x)e^{-A(x)} \ \Longrightarrow \ y(x) = (F(x) + d)e^{-A(x)}  
+\end{gather*}
+
+\begin{example}[Prima formula]
+    \begin{gather*}
+        y' + \frac{y}{x}= -\sin x \qquad \left\{\begin{array}{l}
+            a(x) = \frac{1}{x} \\
+            f(x) = -\sin x\\
+            A(x) = \int a(x) \ \Longrightarrow \ \ln |x|
+        \end{array}\right. \\
+        F(x) = \int f(x) e^{A} \ dx = \int -\sin x e^{A(x)}\ dx = \int -\sin x e^{\ln|x|} \ dx   = \left\{\begin{array}{l}
+            x > 0 : \sin x - x\cos x \\
+            x < 0 : -\sin x + x\cos x 
+        \end{array}\right. 
+    \end{gather*}
+    Allora si ottiene dalla formula di risoluzione veloce:
+    \begin{gather*}
+        y(x) = \left\{\begin{array}{l}
+            Ce^{-\ln|x|} + e^{-\ln|x|} (\sin x - x\cos x) \qquad x > 0 \\
+            Ce^{-\ln|x|} + e^{-\ln|x|} (-\sin x + x\cos x) \qquad x < 0  
+        \end{array}\right.
+    \end{gather*}
+    Si ottengono allora due due soluzioni distinte a seconda di come si
+    svolge il valore assoluto.
+\end{example}
+
+\section{Spazi di funzioni}
+\begin{definition}[Spazi di funzioni]
+    Sia $I$ un intervallo su di $\mathbb{R}$ , allora definisco lo spazio delle
+    funzioni di da $I \to \mathbb{R}$ lo spazio vettoriale che
+    contiene le funzioni con le seguenti proprietà:
+    \begin{enumerate}
+        \item $\alpha f(x)  + \beta g(x) $ appartiene allo spazio;
+        \item $f(x)  \equiv 0$.
+    \end{enumerate}
+    All'interno di questo spazio vivono anche gli spazi:
+    \begin{itemize}
+        \item     $C^{0}(I)$, ossia l'insieme dello spazio delle funzioni continue su $I \to \mathbb{R}$;
+        \item $C^{1}(I)$ è l'insieme delle funzioni continue derivabili in ogni punto
+        la cui derivata è una funzione continua e $\forall x \in I$.
+        \item $\vdots$
+        \item $C^{(n)}$ è l'insieme delle derivate $n$ esime continue.    
+    \end{itemize}
+\end{definition}
+Si possono ora risolvere le equazioni differenziali omogenee lineari
+di ordine $n$-esimo considerando la generica funzione
+\begin{gather*}
+    y = C^{(n)}(I) 
+\end{gather*}
+Posso definire l'operatore $E(y) : C^{(n)}(I) \to C^{(0)}(I)  $ come 
+l'operatore che trasforma le derivate $n$-esime continue in primitive 
+e posso esprimerla (se le soluzioni sono $y_1$ e $y_2$)
+\begin{gather*}
+    E(\alpha y_1 + \beta y_2) = \alpha E(y_1) + \beta E(y_2)
+\end{gather*}
+\begin{theorem}
+    \begin{enumerate}
+        \item L'insieme $V_0$ delle soluzioni delle equazioni differenziali omogenee lineari è uno spazio
+        vettoriale di dimensione $n$;
+        \item L'insieme delle soluzioni delle equazioni differenziali lineari è 
+        l'insieme $\{y(x) + y_f(x) : y \in V_0\}$ con $y_f$ soluzione delle equazioni differenziali lineari.
+    \end{enumerate}
+\end{theorem}
+
+
+\end{document}

@@ -1,0 +1,205 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Analisi}
+\author{Tommaso Miliani}
+\date{10-12-24}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Fine degli integrali impropri}
+Se voglio definire l'integrale sull'intervallo illimitato
+allora prima faccio il limite dell'integrale quando un suo limite
+tende a infinito e poi definisco l'integrale improprio.
+Esistono vari criteri di convergenza per l'integrale improprio:
+l'unico criterio che abbraccia le funzioni con segno variabile è proprio
+quello della: 
+\begin{theorem}[Criterio della convergenza assoluta]
+    Prendendo un numero reale $a \in R$ e sia
+    \begin{gather*}
+        \int_{a}^{c} f(t) \ dt, c > a;
+    \end{gather*}
+    Se converge
+    \begin{gather*}
+        \int_{a}^{\infty } |f(t) | \ dt.  
+    \end{gather*} allora è convergente anche
+    \begin{gather*}
+        \int_{a}^{+\infty} f(t) \ dt. 
+    \end{gather*}
+\end{theorem}
+\begin{definition}
+    LA parte positiva e negativa di f è definito nel seguente modo:
+    \begin{align}
+        f_+ &: [a, \infty) \to R . \\
+        f_x(x) = &\left\{\begin{array}{c}
+            f(x), \quad x > 0\\
+            0, \qquad x \leq 0
+        \end{array}\right. \\
+        f_- &: (-\infty , a] \to R . \\
+        f_x(x) = &\left\{\begin{array}{c}
+            -f(x), \quad x < 0 \\
+            0, \qquad x \geq 0
+        \end{array}\right.
+    \end{align}
+    Inoltre si hanno le seguenti relazioni con la funzione originaria:
+    \begin{align}
+        f(x) = f_+(x) - f_-(x). \\
+        |f(x)| = f_+(x) + f_-(x).
+    \end{align}
+\end{definition}
+
+\begin{proof}
+    Inoltre per il teorema del confronto si ha che $|f(x)|$ ha come integrale
+impoprio e per le disuguaglianze $f_+(x) \leq |f(x) \leq f_-(x)$. Allora siccome l'integrale del valore
+assoluto è convergente anche $f_+(x)$ e $f_-(x)$ sono convergenti. Per definizione
+esitono finiti:
+\begin{gather*}
+    \lim_{c \to \infty }  \int_{a}^{c} f_+(x) \ dx \\
+    \lim_{c \to \infty } \int_{a}^{c} f_-(x) \ dx.
+\end{gather*}
+E quindi è finito pure:
+\begin{gather*}
+    \lim_{c \to \infty }  \int_{a}^{c} f_+(x) \ dx - \int_{a}^{c} f_-(x) \ dx.
+\end{gather*}
+COn la proprietà della linearità degli integrali allora si dimostra che:
+esiste finito
+    \begin{gather*}
+        \lim_{c \to \infty } \int_{a}^{c} f(x) \  dx 
+    \end{gather*}
+\end{proof}
+
+Un esempio è 
+\begin{gather*}
+    \int_{1}^{+\infty } \frac{sin(x)}{x^{2} } \ dx. 
+\end{gather*}
+Passando al limite indefinito si ottiene:
+\begin{gather*}
+    \int_{1}^{+\infty } \left| \frac{sin(x)}{x^{2} } \right| \ dx
+\end{gather*}
+So che questo tipo di integrali convergono se l'esponente del denominatore
+è $> 1$. Allora posto:
+\begin{gather*}
+    \left| \frac{sin(x)}{x^{2} } \right| \leq \frac{1}{x^{2} } 
+\end{gather*}
+PEr il criterio del confronto converge questo integrale per il criterio
+del confronto converge quello di partenza. 
+Un'altro esempio:
+\begin{gather*}
+    \int_{1}^{+\infty } \frac{sin(x)}{x} \ dx 
+\end{gather*}
+Passo al valore assoluto ed ottenere la convergenza assoluta:
+\begin{gather*}
+    \int_{1}^{+\infty } \frac{sin(x)}{x} \ dx \\
+    \left| \frac{sin(x)}{x} \right| \leq \frac{1}{x}  
+\end{gather*}
+Dal momento che la seconda diverge allora anche la prima deve divergere
+in quanto il criterio del confronto non riesce a darmi informazioni
+sulla convergenza del primo. Allora intervengo integrando per parti:
+Posto quindi 
+\begin{gather*}
+    f'(x) = sin(x), \quad g(x) = \frac{1}{x} \\
+    f(x)  = -cos(x), \quad g'(x) = -\frac{1}{x^{2} } \\
+    f(x)g(x) - \int f(x)g'(x) \ dx: \\
+    \frac{-cos(x)}{x} |^{c}_{1} + \int_{1}^{c} -\frac{cos(x)}{x^{2}} \ dx. \\
+    \Rightarrow  \ \exists \ finito \ \int_{1}^{+\infty } \frac{sin(x)}{x} \ dx
+\end{gather*}
+
+\begin{lemma}
+    La convergenza non implica la convergenza assoluta.
+\end{lemma}
+
+Cosa accade se una funzione non è limitata all'interno di $(a, b]$?
+Il suo integrale non è definibile poiché c'è un asintoto in a.
+\begin{theorem}[Integrali impropri in intervalli finiti]
+    Supponiamo che sia integrabile in senso standard in $[c, b], \forall c > a$:
+    allora si applica un'operazione di limite:
+    \begin{gather*}
+        \lim_{c \to a} \int_{c}^{b} f(x) \ dx 
+    \end{gather*} 
+    Se esiste finito allora f è integrabile in senso improprio in a, b
+    con integrale convergente. Se invece esiste e fa $+ \infty$ allora f
+    è integrabile in $[a, b]$ come integrale divergente. Se questo
+    integrale non dovesse esistere allora f non è integrabile
+    nemmeno in senso improprio. Le funzioni nella forma $\frac{1}{x^{p} }$ hanno
+    come integrale tra 0 e 1 che è opposto rispetto al loro comportamento che
+    hanno quando si fa l'integrale improprio fino a $+ \infty$. DIverge
+    se $p \geq 1$ e converge altrimenti.
+\end{theorem}
+
+Si esistendono i teoremi degli integrali impropri, la convergenza
+assoluta e gli altri anche a questo tipo di integrali impropri. Tuttavia
+gli integrali devono essere fatti chiusi da una parte e aperti dall'altra.
+
+\section{Serie numeriche}
+A cosa servono? SI estende l'operazione di sommatoria a infiniti
+addendi ma sono numerabili e ciascuno dei quali ha un indice ad infiniti addendi.
+GLi insiemi infiniti sono molto diversi tra loro come
+$N, Z, Q, R$ e sono tutti infiniti ma solo N, Z, Q sono numerabili poiché
+hanno corrispondenza biunivoca.
+\begin{gather*}
+    \sum_{i = 1}^{n} a_n = ? 
+\end{gather*}
+Posto $a_n = 1$ ossia la successione costante di 1 che $= +\infty $.
+Cosa succede se faccio
+\begin{gather*}
+    \sum_{n = 1}^{+\infty } \frac{1}{n} 
+\end{gather*}
+QUesta somma fa $+ \infty $anche se sono tutti termini minori di uno
+e far pensare che tutte le volte che si sommano quantità piccole allora
+il risultato è infinito, ma 
+\begin{gather*}
+    \sum_{n = 0}^{+\infty } \frac{1}{10^{n} } = 1,\bar{1}     
+\end{gather*}
+\begin{gather*}
+    \sum_{n = 1}^{+\infty } \frac{1}{n^{2} } < +\infty  
+\end{gather*}
+Poiché si ha un'analogia con il suo integrale improprio.
+
+\begin{definition}
+    Data una successione $a_n$ di numeri reali si indica con
+    \begin{align}
+        \sum_{n = 1}^{+ \infty } 
+    \end{align}
+    La serie numerica generata da $a_n$.
+\end{definition}
+Fissato un numero naturale grande definisco:
+\begin{gather*}
+    S_n = \sum_{n = 1}^{N}a_n. 
+\end{gather*}
+Questo numero si chiama somma parziale o ridotta ennesima della serie.
+Se esiste finito
+\begin{gather*}
+    \lim_{N \to +\infty } S_N  = l, \Rightarrow \sum_{n = 1}^{+\infty } a_n   \\
+    \lim_{N \to +\infty } S_N = \pm \infty \Rightarrow  \sum_{n = 1}^{+\infty } a_n = \pm \infty \\
+    \not \exists \lim_{N \to +\infty } S_N  \Rightarrow \ la \ serie \ e' \ indefinita. 
+\end{gather*}
+
+
+
+\end{document}

@@ -1,0 +1,276 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Fisica statistica}
+\author{Tommaso Miliani}
+\date{21-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Il caso continuo}
+Si può estendere la funzione a tutto lo spazio delle fasi e dunque
+calcolare il caso continuo:
+\begin{align}
+    H(\rho) = \int_{}^{}\rho(x_1, \dots, x_{3N}, v_1, \dots, v_{3N}) \ln (\rho(\/\/))\frac{dx_1 \dots dx_{3N} dv_1 \dots dv_{3N}}{(\Delta x \Delta v)^{3N}} 
+\end{align}
+Quando si introduce la densità di probabilità è introdotta in modo che sia adimensionale:
+si deve dunque normalizzare e dunque dividere per il volumetto elementare
+mi garantisce che le due espressioni con l'integrale e con la sommatoria siano
+la stessa cosa in quanto la divisione per il volumetto mi dà che $\rho$ sia adimensionale. 
+COme si evolve questa distribuzione di probabilità nel tempo? Si giustifica 
+dunque il fatto sperimentale che i sistemi termodinamici evolvano all'equilibrio? 
+Boltzmann ha ricavato, tramite delle ipotesi aggiuntive, che l'evoluzione temporale
+della probabilità abbia la seguente forma: ossia la \textbf{master equation}:
+\begin{gather*}
+    \frac{d}{dt}p_a(t) = - \sum_{b}T_{ab}p_a(t) + \sum_{b }T_{ba}p_b(t)
+\end{gather*}
+Sono $N$ equazioni dove la prima somma è una somma su tutti i possibili processi che
+possono risultare nel fatto che all'istante $T$ si ha lo stato 
+microscopico $a$ e all'istante $T + dt$ si sia allo stato microscopico $b$ dove una 
+particella qualsiasi avrà cambiato sia la posizione che la velocità.  La transizione 
+da uno stato all'altro è determinato da $a, b$ attraverso le 
+matrici di transizione che mi permettono di dire come avvengono  
+le trasformazioni a livello stocastico:
+\begin{gather*}
+    [T_{ab}] = \frac{1}{[t]} \qquad T_{a b} \geq 0
+\end{gather*}
+I numeri dentro la matrice di transizione non dipendono dal tempo 
+e dal trascorso del sistema (non hanno memoria di ciò che è successo prima 
+al sistema): questa è un'ipotesi fortissima e prende il nome di 
+\textbf{ipotesi di Markov}, i cui processi che obbediscono a questa ipotesi 
+prendono il nome di processi Markoviani. Questa ipotesi è una generalizzazione 
+dell'ipotesi di Boltzmann sul gas perfetto. Si verifica la coerenza di questa equazione
+con le nostre ipotesi: se questa è una distribuzione, allora deve essere normalizzata:
+allora la derivata della somma deve necessariamente fare zero:
+\begin{gather*}
+    \frac{d}{dt} \sum_{a} p_a = - \sum_{a}\sum_{b } T_{ab}p_a + \sum_{a}\sum_{b}T_{ba}p_b   = \\
+    -\sum_{a}\sum_{b } T_{ab} p_a + \sum_{a}\sum_{b } T_{ab}p_a
+\end{gather*}
+Si è dimostrato ora che è normalizzata. Manca dunque una sola ipotesi per far sì che
+i sistemi tendano sempre all'equilibrio. Si impone 
+l'ipotesi della \textbf{micro-reversibilità}: secondo la quale
+la matrice $T$ è simmetrica. In questo modo la probabilità di $a \to b$ è 
+la stessa di $b \to a$: così facendo, dato che i processi termodinamici chiusi sono 
+reversibili, con questa ipotesi (che è necessaria e naturale) e grazie
+all'ipotesi di Markov (che è più forte), si può dimostrare che i sistemi termodinamici
+tendono sempre all'equilibrio. La master equation si scrive in una forma più semplice:
+\begin{gather*}
+    \frac{d}{dt}p_a(t) = \sum_{b} T_{ab}(p_b(t) - p_a(t)) 
+\end{gather*}
+Si può dunque procedere dimostrando che vale per un sistema che ha solo due stati
+possibili:
+\begin{gather*}
+    \frac{d}{dt}p_1(t) = T_{12}(p_2(t) - p_1(t))
+\end{gather*}
+Questo vuol dire che nel caso di due stati possibili, con l'ipotesi di micro-reversibilità,
+si tende ad uniformare le probabilità con il tempo: quando si raggiunge la
+situazione nella quale le probabilità sono uguali, il sistema non evolve più e dunque
+si può dire all'equilibrio. \\
+La funzione $H$ dipendendo dunque dal tempo, evolve secondo
+\begin{gather*}
+    H(t) = -\sum_{a = 1}^{N_c} p_a(t)\ln p_a(t) 
+\end{gather*}
+Dunque si deriva la funzione $H$:
+\begin{gather*}
+    \frac{d}{dt}H = -\sum_{a = 1}^{N_c} \frac{d}{dt}p_a\ln p_a - \sum_{a = 1}^{N_c}\frac{dp_a}{dt}  
+\end{gather*}
+Allora 
+\begin{gather*}
+    \frac{d}{dt}H = -\sum_{a = 1}^{N_c}\frac{dp_a}{dt}\ln p_a  
+\end{gather*}
+Posso ottenere la derivata di $p_a$ grazie alla master equation:
+\begin{gather*}
+    \frac{d}{dt}H = -\sum_{a = 1}^{N_c} \sum_{b = 1}^{N_c} T_{ab}(p_a(t) - p_b(t)) \ln p_a(t)  
+\end{gather*}
+Posso allora scambiare l'indice $a$ e $b$ in quanto, se è simmetrica, allora deve valere e dunque
+è anche vera
+\begin{gather*}
+    \frac{dH}{dt} = \sum_{a = 1}^{N_c}\sum_{b = 1}^{N_c} T_{ab}(p_b(t) - p_a(t)) \ln p_b(t)  
+\end{gather*}
+Sommando le due equazioni membro a membro e moltiplicando per $\frac{1}{2}$ si ottiene 
+la seguente espressione:
+\begin{gather*}
+    \frac{dH}{dt} = \frac{1}{2}\sum_{a = 1}^{N_c}\sum_{b = 1}^{N_c} T_{ab}(p_a(t) - p_b(t))(\ln p_a(t) - \ln p_b(t))  
+\end{gather*}
+Se si suppone che $p_b > p_a$ allora sono entrambi negativi e se invece
+$p_a > p_b$ è una somma di termini positivi in entrambi i casi e allora
+si ha che la funzione  $H$ è monotona è crescente:
+\begin{gather*}
+    \frac{dH}{dt} \geq 0
+\end{gather*} 
+Questo prende il nome di \textbf{Teorema H di Boltzmann}. Il teorema ci dice che
+se non ci sono altri vincoli, allora l'evoluzione dinamica si arresterà solamente 
+quando la probabilità è uniforme (ossia  $H$ è massima). 
+
+\section{Collisioni tra particelle e influenza sul teorema H}
+Supponendo di avere gas ideale nel quale le particelle non possono urtarsi tra 
+di loro ma compiono solo urti elastici con la parete: in quel caso le Collisioni
+cambiano solamente le componenti della velocità ed ha un enorme quantità di vincoli:
+si ha dunque una tendenza minima di crescenza di H anche se non è possibile fare in modo 
+che tutti gli stati probabilistici abbiano la stessa probabilità poiché 
+tutte le particelle devono avere la stessa velocità sempre (non si troverebbe mai 
+la distribuzione di MaxWell delle velocità in quanto le particelle 
+mantengono tutte le proprie velocità).Con le collisioni invece, le particelle si 
+scambiano quantità di moto e, indipendentemente da dove si parte, dal punto di vista 
+delle velocità tutti gli stati sono accessibili e si conserva (globalmente)
+l'energia totale mentre l'energia delle singole particelle può variare a piacere. 
+Si raggiunge dunque la massima uniformità possibile negli stati connessi.  Non è garantito 
+che la distribuzione di probabilità verso cui si tende sia quella uniforme 
+ma è garantito che $H$ cresca. \\
+Boltzmann non si rese conto che il suo risultato era di natura probabilistica, dunque 
+niente vieterebbe di dire che $H$ diminuisca; inoltre non si era reso conto che a livello di probabilità non stava dando 
+una descrizione probabilistica sufficientemente chiara. 
+
+\section{Meccanica statistica dell'equilibrio}
+Visto che i sistemi macroscopici tendono all'equilibrio, si deve
+dunque associare il raggiungimento dell'equilibrio al valore massimo di 
+$H$. Dal punto di vista microscopico l'equilibrio termodinamico è uno stato 
+in cui la distribuzione di probabilità che descrive il sistema è massima 
+compatibilmente con i vincoli (ossia le informazioni certe che si hanno sul sistema).
+Si sa che l'entropia cresce all'evoluzione del sistema (che è massima quando 
+un sistema termodinamico è all'equilibrio termodinamico) e dunque si può postulare
+che sia in qualche modo collegata alla funzione $H$ in modo tale che $S \neq H$. 
+Dunque si possono fare le seguenti considerazioni ipotizzando anche che questa sia valida pure per sistemi non isolati.
+\begin{align}
+    S = k_BH = -k_B \sum_{a } p_a\ln p_a 
+\end{align}
+Si può anche passare al caso continuo:
+\begin{gather*}
+    S = -k_B \int \rho(x, \dots, x_{3N}, v, \dots, v_{3N}) \ln (\rho^{a}(\backslash \backslash)) \frac{dx \dots dx_{3N}dv\dots dv_{3N}}{(\Delta x \Delta v)^{3N}}
+\end{gather*}
+La funzione $H$ è dunque la funzione \textbf{entropia di informazione}. 
+L'impostazione di Boltzmann aveva una visione molto dinamica dei sistemi rispetto a Gibbs
+immaginando di avere lo spazio delle fasi e di prendere uno stato
+$k$-esimo: ogni stato descrive dunque una traiettoria: per Boltzmann 
+la probabilità del $k$ esimo stato non è altro che 
+\begin{gather*}
+    p_k \frac{\Delta t_k}{\tau}
+\end{gather*}
+Ossia il tempo nel quale si trascorre nello stato $k$ rispetto al tempo di osservazione. Dunque 
+l'equilibrio per Boltzmann è quando $\tau \to \infty $. Per Gibbs invece
+non interessa l'evoluzione del sistema ma considerava solo l'equilibrio 
+del sistema in modo tale che ci siano tanti modi per realizzare un macrostato 
+di equilibrio: facendo un numero enorme di repliche del sistema e di porlo 
+in un certo stato microscopico che corrisponda ad un certo stato macroscopico 
+che voglio studiare. Dunque Gibbs dice che la probabilità all'equilibrio 
+di stare al $k$ esimo stato è semplicemente il numero di repliche del sistema che
+cadono in quell'oggetto rispetto al numero totale delle repliche:
+\begin{gather*}
+    p_k = \frac{\mathcal{N}_k}{\mathcal{N}} \qquad \mathcal{N} \to \infty 
+\end{gather*}
+Questi due punti di vista sono del tutto equivalenti se si fa la seguente ipotesi:
+\begin{gather*}
+    \lim_{\tau \to \infty } \frac{\Delta t_k}{\tau} = \lim_{\mathcal{N} \to \infty }  \frac{\mathcal{N}_k}{\mathcal{N}} \qquad \forall k
+\end{gather*}
+A tempi finiti potrebbero essere diverse, ma per tempi di osservazioni estremamente 
+lunghi, la probabilità di essere nello stesso stato microscopico nelle due visioni è la
+stessa. Prende il nome di \textbf{ipotesi ergodica} mentre questa tipologia di 
+stati prende il nome di insiemi statistici. In linea di principio qualunque 
+misura a livello macroscopico è una media di una qualche funzione che descrive
+il comportamento a livello microscopico, ossia la media sulla distribuzione di 
+probabilità all'equilibrio. Nel limite all'infinito mi definisce una funzione $O$ osservabile, 
+è uguale dunque 
+\begin{align}
+    O = \overline{ \mathcal{O}_{\tau}} = \frac{1}{\tau}\int_{0}^{\tau}\mathcal{O}(x_1(t), \dots, x_{3N}(t), v_1(t), \dots, v_{3N}(t)) \ dt \ \Longrightarrow \ O = \lim_{\tau \to \infty } \overline{\mathcal{O}_\tau} = \left< \mathcal{O} \right> \sum_{a} p_A \mathcal{O}_a     
+\end{align}
+Si può risolvere e ottenere
+\begin{gather*}
+    O = \mathcal{O}(x, v)\frac{d^{3N}xd^{3N}v}{\Delta \Gamma} \qquad \Gamma = (\Delta x \Delta v)^{3N}
+\end{gather*}
+Si può anche definire un'espressione per l'energia interna del sistema in funzione
+di questa espressione:
+\begin{gather*}
+    U = \left< E(x, v) \right> 
+\end{gather*}
+In generale la funzione energia meccanica sullo spazio delle fasi
+\begin{gather*}
+    E = \frac{m}{2} \sum_{i = 1}^{N}\left| \vv{v_i}  \right|^{2} + U^{int}(x_1, \dots, x_{3N})  
+\end{gather*}
+Avendo capito cosa è l'entropia e l'energia interna, si può fare tutto con un sistema termodinamico. Per il momento 
+non si identifica l'energia cinetica media . 
+
+\section{Sistema macroscopico completamente isolato}
+Ad un sistema macroscopico completamente isolato (racchiuso dunque 
+in pareti rigide ed adiabatiche) si può scrivere esplicitamente cosa accade a tale sistema ,
+che prende il nome di \textbf{sistema statistico microcanonico}. Dato che 
+siamo all'interno di un sistema completamente isolato, il volume è assegnato, così
+come il numero di particelle $N$, mentre la cosa meno ovvia è che la funzione 
+$E(x, v)$ sia un certo valore assegnato:
+\begin{gather*}
+    E(x, v) = E = U
+\end{gather*}
+Con queste informazioni si può determinare la distribuzione di probabilità che si 
+ha per ogni microstato come: 
+\begin{gather*}
+    \left\{\begin{array}{l}
+        p_a = 0 \\
+        p_a = \frac{1}{\mathcal{N} (E, V)}
+    \end{array}\right.
+    \qquad \forall a : E_a \neq E 
+\end{gather*}
+Con questo si è completamente specificato il vincolo , dove $\mathcal{N}$ è il numero di 
+microstati in funzione dell'energia e del volume. Si può dunque esplicitare l'espressione 
+dell'energia 
+\begin{gather*}
+    S(U, V) = -k_B \sum_{a } p_a \ln p_a \ \Longrightarrow \ S(U, V) = k_B \sum_{a} \frac{1}{\mathcal{N}(U, V)} \ln \mathcal{N}(U, V)  = k_B \ln \mathcal{N}(U, V)
+\end{gather*}
+Dove
+\begin{gather*}
+    \mathcal{N}(U, V) = \int_{E(x, v) = U} \frac{d^{3N}xd^{3N}v}{\Delta \Gamma}
+\end{gather*}
+Che si può riscrivere su tutto lo spazio delle fasi introducendo la funzione
+$\delta$ di Dirack:
+\begin{gather*}
+    \mathcal{N}(U, V) \int \delta (U - E(x, v)) \frac{d^{3N}xd^{3N}v}{\Delta \Gamma}
+\end{gather*}
+
+
+\end{document}

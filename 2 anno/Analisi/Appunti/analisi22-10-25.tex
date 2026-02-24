@@ -1,0 +1,325 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Analisi (Bianchini)}
+\author{Tommaso Miliani}
+\date{22-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Funzioni implicite}
+Capita di avere la descrizione di una curva come luogo di zeri di una
+funzione a due variabili. E' quindi fondamentale capire se questo insieme
+definisce una curva o un grafico di funzioni
+\begin{gather*}
+    \{f(x, y) = 0\}
+\end{gather*}
+\begin{example}
+    \begin{gather*}
+        f(x, y) = x^{3} - y +1  \qquad f = 0 \Longleftrightarrow y = x^{3} - 1 
+    \end{gather*}
+    E' un grafico di funzione
+\end{example}
+\begin{example}
+    \begin{gather*}
+        f(x, y) = x^{2} + y^{2} - 1  \qquad x^{2} + y^{2} = 1  
+    \end{gather*}
+    globalmente non è un grafico di funzione. Però se ragionassi localmente posso dire
+    che questo oggetto è un grafico di funzione se scegliessi in modo
+    accorto la variabile dipendente e quella indipendente. Ossia per la circonferenza, per ogni
+    arco, devo scegliere se è funzione per la $x$ o per la $y$ in modo tale che possa definire la funzione. 
+\end{example}
+
+\begin{theorem}[Teorema del Dini]
+    Considerato un insieme aperto $\mathbb{A}$ e si considera una funzione
+    \begin{gather*}
+        F: \mathbb{A} \to \mathbb{R} \qquad f \in C^{1}(\mathbb{A}) 
+    \end{gather*}
+    Preso un punto $P_0 \equiv (x_0, y_0) \in \mathbb{A}$ in modo tale che $F(x_0, y_0) = 0$ in modo
+    tale che il punto sia regolare. Allora $\exists U$ intorno di $x_0$ e $V$ intorno di $y_0$
+    tale che l'equazione tra la linea di livello zero, definisce
+    un grafico di funzione $y = f(x)$ oppure $x = g(y)$ nell'insieme $U \times V$ intorno di $P_0$.  
+    In particolare
+    \begin{itemize}
+        \item Se $F_y(x_0, y_0) \neq 0$ allora $\exists !y = f(x) : U \to V$ tale che $F(x, f(x)) = 0$.
+        Allora $f \in C^{1}(U)$ e 
+        \begin{gather*}
+            f'(x) = - \frac{F_x(x, f(x) )}{F_y(x, f(x) )} \quad \forall x \in U^{\circ} 
+        \end{gather*} 
+        \item Se $F_x(x_0, y_0) \neq 0$ allora $\exists !x  = g(y) : V \to U$ tale che $F(g(y), y) = 0$.
+        Allora $g \in C^{1}(V)$ e
+        \begin{gather*}
+            g'(y) = -\frac{F_y(g(y), y)}{F_x(g(y), y)} \quad \forall y \in V^{\circ} 
+        \end{gather*} 
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+    Dato $P_0$ un punto regolare e si suppone che la  derivata parziale rispetto
+    ad $y$ sia 
+    \begin{gather*}
+        \frac{\partial f}{\partial y} \neq  0 \qquad  F_Y(x_0, y_0) >0
+    \end{gather*}
+    Supponendo che esista $U$ un intorno di $x_0$ e $V$ un intorno di $y_0$ e
+    si dimostra che 
+    \begin{gather*}
+        F(x_0, y_0 - \delta) < 0 \forall x \in U \\
+        F(x_0, y_0 + \delta) > 0 \forall x \in U
+    \end{gather*}
+    Si deve dunque avere che
+    \begin{gather*}
+        F_y(x, y) > 0 \forall (x, y) \in \mathbb{R}
+    \end{gather*}
+    Ossia 
+    \begin{gather*}
+        F_y \in C^{2} \ \Longrightarrow \ \exists \text{rettangolo} : P_0 \in W \times V    
+    \end{gather*}
+    Tale che $W$ sia intorno di $x_0$ e $V$ intorno di $y_0$.
+    Quindi $\forall x \in W$ fissato $F(x, y)$ come funzione di $y$ è strettamente
+    crescente in funzione di $F(x_0, y)$ è strettamente crescente se $F(x_0, y_0) = 0$ 
+    Allora si deve avere che 
+    \begin{gather*}
+        F(x_0, y_0 - \delta)  <0 \quad F(x, y_0 + \delta) > 0 
+    \end{gather*}
+    Per la permanenza del segno deve esistere $U$ intorno di $x_0, U \subset W$ e in modo
+    tale che
+    \begin{gather*}
+        F(x_0, y_0 - \delta)  <0 \quad F(x, y_0 + \delta) > 0  \ \forall x \in U
+    \end{gather*} 
+    
+
+    Si dimostra ora la seconda parte del teorema. Si vuole dimostrare che
+    \begin{gather*}
+        \exists ! f : U \to V : F(c, f(x) ) = 0 \ \forall x \in U
+    \end{gather*}
+    Si considerare che $\forall x \in U$ si ha che
+    \begin{gather*}
+        y \to F(x, y) \nearrow
+    \end{gather*}
+    Con
+    \begin{gather*}
+        F(x, y _0 -\delta) < 0 \ \forall x \in U \\
+        F(x, y_0 + \delta) > 0 \ \forall x \in U \\
+        F \in C^{0}  
+    \end{gather*}
+    Per il teorema dell'esistenza degli zeri
+    \begin{gather*}
+        \forall x \in U \ \exists y \in V : F(x, y) = 0
+    \end{gather*}
+    Questo non conclude la dimostrazione in quanto potrebbero esistere più zeri,
+    dunque, visto che è strettamente crescente e dunque monotona,
+    per la monotonia, esiste un solo zero, ossia $g = f(x) $. \\
+    Si dimostra ora il terzo passo del teorema. Dato che si è visto che
+    è un grafico, vogliamo dimostrare che $f$ sia $C^{1}$ passando
+    dalla dimostrazione per cui $f \in C^{0}$. Fisso $x_1 \in U$ in modo tale
+    da considerare $ x \in U$ e considero la funzione ausiliaria 
+    \begin{gather*}
+        G(t) = F((1 - t)x_1 + tx, (1 - t)f(x_1) + tf(x) ) = F(\psi, \eta)
+    \end{gather*}   
+    Chiamo la prima variabile $\psi$ e la seconda $\eta$. 
+    $\psi$ è la parametrizzazione del segmento $x_0$ fino a $x_1$ 
+    mentre $\eta$ la parametrizzazione del segmento tra $f(x)$ e $f(x_1)$.
+    Si può dire che
+    \begin{gather*}
+        G \in C^{1}  
+    \end{gather*} 
+    per il teorema della funzione implicita ($F \in C^{1} $ ), si osserva che se si calcola
+    \begin{gather*}
+        G(0) = F(x_1, f(x_1)) = 0 \\
+        G(1) = F(x, f(x)) = 0
+    \end{gather*} 
+    Poiché sono punti che stanno su di  una linea di livello. Per il teorema di Rolle
+    esiste allora un punto che prende il nome di $\tau \in (0, 1)$ tale che
+    $G'(\tau) = 0$. 
+    \begin{gather*}
+        G'(\tau)  = F_x(\psi, \eta) \cdot  (x - x_1) + F_y(\psi, \eta) (f(x)  - f(x_1)) = 0
+    \end{gather*} 
+    Poiché $\tau$ è tale che per $\psi, \eta$, dato che sono funzioni di $t$, la funzione si annulli. 
+    \begin{gather*}
+        (f(x) - f(x_1)) (F_y((1 - \tau)x_{1} + \tau x, (1 - \tau) f(x_1) + \tau f(x) )) = -(x - x_1)(F_x(\psi, \eta))
+    \end{gather*}
+    Voglio ora fare il limite per $x \to x_1$ e dimostrare che il primo membro tenda a zero:
+    posso farlo maggiorandolo con una quantità infinitesima
+    \begin{gather*}
+        (f(x) - f(x_1)) \leq |x - x_1| \max_{(x, y) \in \mathbb{R}}\left|\frac{F_x(x, y)}{F_y(x, y)}\right| \leq |x - x_1| \frac{\max_{(x, y) \in \mathbb{R}} |F_x(x, y)|}{\min_{(x, y) \in \mathbb{R}} |F_y(x, y)|}
+    \end{gather*}
+    Il denominatore è il minimo in quanto $F_y \in C^{0}, F_y \neq  \in \mathbb{R} $ poiché la funzione è $C^{1}$.  
+    Il primo oggetto è un infinitesimo per $x \to  x_1$ mentre il secondo oggetto
+    è limitato, allora
+    \begin{gather*}
+        \lim_{x \to x_1} f(x)  = f(x_1) \ \Longrightarrow \ f \in C^{0}(U)  
+    \end{gather*} 
+    Manca adesso l'ultimo pezzo del teorema, ossia la dimostrazione per
+    la formula della derivata. La derivata per un punto $x_1$, se esiste è
+    data dal rapporto incrementale 
+    \begin{gather*}
+        f'(x_1) = \lim_{x \to x_1} \frac{f(x)  - f(x_1)}{x - x_1} = \lim_{x \to x_1} -\frac{F_x(\psi, \eta)}{F_y(\psi, \eta)} 
+    \end{gather*}
+    Si osserva che le derivate parziali rispetto a $F_x$ e $F_y$ sono continue, infatti per
+    $x \to x_1$ si osserva che
+    \begin{gather*}
+        \psi = (1 - \tau) x_1 + \tau x \to x_1  \\
+        \eta = (1 - \tau)f(x_1) + \tau f(x) \to f(x_1)
+    \end{gather*}
+    Adesso ho entrambe le derivate continue e dunque posso esplicitare il limite del rapporto incrementale
+    \begin{gather*}
+        - \frac{F_x(x_1, f(x_1))}{F_y(x_1, f(x_1))}
+    \end{gather*}
+    E' quindi dimostrato
+\end{proof}
+
+\begin{observation}
+    Il teorema del DIni vale anche se $F_y(x_0, y_0) \neq 0$ e solo $F_y \in C^{0}$
+    e anche se $F_x(x_0, y_0)$ e solo se $F_x \in C^{0}$.   
+\end{observation}
+
+\begin{theorem}[Teorema del DIni in tre variabili]
+    Il teorema del dini ha una formulazione in $n$ variabili, anche se
+    in questo corso non ci interessa. In tre variabili si tratta di 
+    grafici di superfici e non più di un grafico su di un piano. In $n$
+    variabili sarebbe la superficie di un iperpiano in dimensione $n - 1$. 
+    Preso una funzione \begin{gather*}
+        F(x, y, z) \in C^{(1)}(\mathbb{A}) \quad \mathbb{A} \subset \mathbb{R}^{3} 
+    \end{gather*} 
+    Con $\mathbb{A}$ un insieme aperto e tae che sia un punto 
+    \begin{gather*}
+        P_0 \equiv  (x_0, y_0, z_0) \in \mathbb{A} \ \Longrightarrow \ \exists \text{intorno di } P_0 \leq \mathbb{A} 
+    \end{gather*}
+    Tale che
+    \begin{gather*}
+        \left\{F(x, y, z) = 0\right\}  \cap  \text{ intorno di } P_0 \text{ è grafico } Z = f(x, y)
+    \end{gather*}
+    Inoltre $f \in C^{1}$ e 
+    \begin{gather*}
+        \frac{\partial f}{\partial x}(x, y) = - \frac{F_x(x, y, f(x, y))}{F_z(x, y, f(x, y))} \\
+        \frac{\partial f}{\partial y}(x, y) = - \frac{F_y(x, y, f(x, y))}{F_z(x, y, f(x, y))} 
+    \end{gather*} 
+    localmente vicino a $(x_0, y_0)$. 
+\end{theorem}
+
+
+\begin{observation}
+    Si può dire, geometricamente, che una curva non è un grafico di funzione
+    \begin{gather*}
+        \begin{tikzpicture}[scale = 0.6]
+            \draw[->](0, 0) -- (4, 0);
+            \draw[red](2, -2) -- (2, 2);
+        \end{tikzpicture} \qquad \begin{tikzpicture}
+            \draw[->](1, 0) -- (3, 0);
+            \draw[red](2, 1) .. controls (1, 0) .. (2, -1);
+        \end{tikzpicture} \quad \begin{tikzpicture}
+            \draw(-1, 1) -- (1, -1);
+            \draw(-1, -1) -- (1, 1);
+            \filldraw(0, 0) circle (1pt) node[anchor = east] {$P_0$};
+        \end{tikzpicture}
+    \end{gather*}
+    Non sono grafici di $y = y(x)$ e non sono grafici di $x = x(y)$.
+    Oppure se il grafico presenta un bivio in un intorno di $P_0$.
+\end{observation}
+
+\begin{observation}
+    Se $r(t)$ è una curva regolare per $t \in I$ allora $\forall t_0 \in I^{\circ}$ il \textbf{sostegno}
+    è localmente un grafico (ossia il disegno, la curva nel piano) per il teorema del Dini. Provare a dimostrarlo con
+    quel teorema.
+\end{observation}
+
+\begin{observation}
+    Se una funzione è $F \in C^{2}$ e vale il teorema del Dini, allora
+    anche le sottofunzioni $f, g$ sono $ \in C^{2}$.  
+\end{observation}
+
+Dallo sviluppo di Taylor per una funzione 
+\begin{gather*}
+    f(x)  = f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2}(x - x_0)^{2} + o((x - x_0)^{2} )
+\end{gather*}
+Posso trovare con il teorema del Dini la derivata prima
+\begin{gather*}
+    f(x)  = y_0  - \frac{F_x(x, f(x) )}{F_y(x, f(x) )}
+\end{gather*}
+Per trovare la derivata seconda devo necessariamente derivare
+\begin{gather*}
+    f''(x) = \left(- \frac{F_x(x, f(x) )}{F_y(x, f(x) )}\right)' = - \frac{(F_x(x, f(x) ))' F_y(x_0, f(x) ) - F_x(x, f(x) )(F_y(x, f(x) ))'}{(F_y(x, f(x) ))^{2} } = \\
+    -\frac{1}{(F_y)^{2} } \left((F_{x, x} + F_{x, y} f')F_y - F_x(F_{y, x} + F_{y, y}f')\right)_{x, f(x) }
+\end{gather*}
+Dato che $F \in C^{2}$, allora le derivate miste sono uguali. QUesta derivazione
+non è applicata negli esercizi ma si deriva esplicitamente la funzione senza passare
+da questa definizione.
+
+\begin{example}
+    \begin{gather*}
+        F(x, y) = x^{2} - x^{4} - y^{2} =    
+    \end{gather*}
+    Si ricava che 
+    \begin{gather*}
+        DF = \left(\begin{array}{c}
+            2x - 4x^{3} \\
+            -2y 
+        \end{array}\right) = \left(\begin{array}{c}
+            x(1 - 2x) \\
+            -y
+        \end{array}\right)
+    \end{gather*}
+
+    \begin{gather*}
+        \begin{tikzpicture}
+            \begin{axis}[grid=major, domain=-5:5,
+            y domain=-5:5]
+            \addplot3[
+            surf,
+            shader=interp,
+            samples=50,
+            ] {x^2 - x^4 - y^2   };
+            \end{axis}
+        \end{tikzpicture}
+    \end{gather*}
+\end{example}
+
+
+
+
+
+\end{document}

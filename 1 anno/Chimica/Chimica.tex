@@ -1,0 +1,3274 @@
+\documentclass[a4paper, oneside]{book}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=1in,
+            right=1in,
+            top=1in,
+            bottom=1in,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel} % italian package
+\usepackage{pgfplots} % plots
+\usepackage{tabularx} % tables
+\usepackage{chemfig} %chemical figures 
+\usepackage[version = 4]{mhchem} %chem
+\usepackage{wrapfig} %wrapping images in text
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Chimica I}
+\author{Tommaso Miliani}
+\date{2024/2025}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[chapter]
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Modello atomico della materia}
+\section{La materia}
+\subsection{Introduzione}
+Le sostanze che ci circondano sono razionalizzabili sulla base del modello atomico
+della materia: tutta la materia è costituita da miscele omogenee o eterogenee di sostanze
+pure o individui chimici che si presentano in diversi stati di aggregazione.
+Le \textbf{miscele omogenee} sono miscele di sostanze che non si possono fisicamente
+distinguere tra loro; le \textbf{miscele eterogenee} sono miscele contenenti più fasi 
+fisicamente distinte l'une dalle altre. \\
+Una sostanza può anche essere \textbf{pura} se è un sistema che possiede una composizione costante: 
+le sostanze pure si dividono in \textbf{elementari} (ossia atomi della stessa specie) o
+\textbf{composta} se costituita da atomi di specie diverse come l'acqua.
+
+\subsection{Elementi e formule delle sostanze}
+Le specie naturali di elementi sono individuate sulla tavola periodica fino al numero
+atomico 93. Dall'elemento 93 in poi iniziano gli elementi artificiali (o transuranici),
+che presenti in natura. Gli atomi si uniscono per formare le \textbf{molecole}. \\
+Le sostanze inoltre si possono rappresentare attraverso le \textbf{formule chimiche}:
+\begin{enumerate}
+    \item La \textbf{formula minima}, stechiometrica o elementare, si ricava
+    dall'analisi elementare della sostanza come \ce{NaCl}, \ce{H2O}...
+    \item La \textbf{formula molecolare} fornisce più informazioni di quella minima:
+    nonostante possa sembrare simile, la formula molecolare ci dice esattamente
+    di quanti e quali atomi è costituita una molecola e non le proporzioni tra gli atomi.
+    (ad esempio \ce{NaSO4} è la minima di \ce{Na2S2O8}).
+    \item Quando si vuole rappresentare bidimensionalmente una struttura molecolare, si ricorre alla
+    \textbf{formula di struttura}: \vspace{0.5cm}\\
+    \chemfig{O = C = O} \hspace{1cm} \chemfig{H - C(-[2]H)(-[-2]H) - H}
+\end{enumerate}
+Le sostanze inoltre, si dicono \textbf{organiche} se contengono atomi di carbonio
+e idrogeno.
+
+\section{L'atomo}
+\subsection{Il modello atomico}
+L'atomo è composto da un \textbf{nucleo} all'interno del quale ci sono i \textbf{protoni} ed i \textbf{neutroni},
+mentre all'esterno del nucleo si muovono gli \textbf{elettroni}. Di queste particelle solo l'elettrone
+è elementare, infatti più avanti si vedrà come il protone ed il neutrone siano
+composti da particelle ancora più piccole chiamate \textbf{quark}.
+Di seguito le proprietà delle particelle che compongono l'atomo:
+\begin{center}
+    \begin{tabular}{| m{3cm} | m{3cm} | m{3cm} | m{3cm} |}
+        \hline
+        Particella & Protone & Neutrone & Elettrone \\
+        \hline
+        Massa/kg & $1,673 \cdot 10^{-27}$ & $1,675 \cdot 10^{-27}$ & $9,1094 \cdot 10^{-31}$ \\
+        \hline
+        Massa/uma & $1,007277$ & $1,008665$ & $5,4851 \cdot 10^{-4}$\\
+        \hline
+        Carica/C & $1,6022 \cdot 10^{-19}$ & - & $-1,6022 \cdot 10^{-19}$ \\
+        \hline
+        Raggio/m & $8,751(61) \cdot^{-16}$ & $\sim 8 \cdot 10^{-16}$ & $10^{-18} > r > 10^{-22}$ \\ 
+        \hline
+    \end{tabular}
+\end{center}
+Il numero di protoni in un atomo si chiama \textbf{numero atomico} indicato con $Z$, mentre
+il numero di protoni più il numero di neutroni dà il numero di massa. Un atomo, inoltre,
+può essere uno ione se non ha più carica neutra: (+ = \textbf{catione}, - = \textbf{anione}).
+
+\subsection{Isotopi e difetto di massa}
+Dal momento che il numero di massa atomica dipende dal numero di protoni e neutroni ed il
+numero di protoni definisce un elemento, ogni elemento può avere più masse atomiche pur
+mantenendo le stesse proprietà: questi elementi si chiamano \textbf{isotopi}. \\
+Dal momento che la massa è contenuta per la maggior parte nel nucleo, come è possibile
+che i protoni possano rimanere così tanto attaccati pur risentendo di una forte forza di
+repulsione? Se il protone ed il neutrone fossero scinti dal nucleo, intanto, il protone potrebbe
+continuare a vagare per ben $10^{25}$ anni prima di poter avere il $50\%$ di possibilità
+di decadere; mentre il neutrone decadrebbe dopo soli $886$ secondi. \\
+Ciò che accade è che esiste una forza, chiamata \textbf{forza nucleare forte}, mediata
+da delle particelle chiamate \textbf{gluoni} le quali agiscono sui \textbf{quark} con
+una intensità $100$ volte maggiore della forza elettrostatica che fa respingere tra loro
+i protoni.\\
+Per poter scindere un atomo, bisognerebbe utilizzare un'energia pari alla massa atomica per
+la velocità della luce, come dimostrato dall'equazione $E = mc^{2}$.
+Tuttavia, la massa effettiva di un atomo è minore della massa dei protoni e dei neutroni combinati.
+Questa perdita di massa  si chiama \textbf{difetto di massa} $\delta m$ e rappresenta
+l'energia necessaria per scindere il nucleo nei suoi componenti (anche chiamata
+\textbf{energia di legame nucleare})che cresce quasi linearmente con l'aumentare dei protoni.
+Il principio di fusione nucleare sfrutta il fatto che fondendo due atomi di idrogeno in deuterio,
+questi incontrano difetto di massa e fondendoli a loro volta in elio, questi subiscono un'ulteriore
+difetto di massa che libera moltissima energia.
+
+\subsection{Nuclidi stabili}
+Generalmente un nuclide è stabile se rimangono inalterati per moltissimo tempo (più di quello
+che siamo in grado di misurare con accuratezza) e generalmente gli atomi più stabili sono
+quelli con numero Z e N pari, in quanto tendono ad accoppiarsi a due a due.
+Via via che il numero di protoni aumenta però, ci si rende conto che il numero di neutroni tende
+ad essere sempre $\geq$ al numero di protoni in modo da poter bilanciare le cariche nel nucleo.
+Nuclei molto grandi tuttavia, diventano molto instabili e tendono ad avere un tempo di
+decadimento sempre più basso. In natura esistono $206$ nuclidi stabili.
+
+\section{Peso atomico degli elementi}
+\subsection{Massa atomica e peso atomico degli elementi}
+L'unità di misura della massa atomica è definita \emph{massa relativa} e come unità
+di misura è stato scelto un dodicesimo della massa del nuclide \ce{^{12}C}.
+Per determinare la massa atomica di un elemento formato da più isotopi bisogna fare 
+una media pesata delle masse dei singoli nuclidi che lo compongono; per \ce{^{1}H} e \ce{^{2}H}:
+\[
+    \ce{^{1}H} = 1,007825 (99,985\%) \quad \ce{^{2}H} = 2,014102 (0,015\%)
+\]
+La massa atomica media risulta essere dunque $1,007976$.
+Questo numero si chiama anche \textbf{peso atomico} (è solo un numero puro però) mentre
+il \textbf{peso atomico standard} è il peso atomico per la miscela isotopica naturale
+di un dato elemento. Si può anche definire il \textbf{peso molecolare}, ossia la somma dei 
+pesi atomici in una molecola. Se non si è certi del numero di molecole di una sostanza, allora
+si parla di \textbf{peso formula}, ossia la somma dei pesi molecolari degli
+atomi che compaiono nella formula della sostanza come $\ce{NaCl} = 58,443$. 
+
+\section{Grandezze fisiche fondamentali e mole}
+\subsection{La mole}
+Il SI ha 7 grandezze fondamentali (vedere lab I); quella più importante per la chimica
+è sicuramente la \textbf{mole} ossia la misura della quantità di sostanza.
+La mole in chimica definisce la quantità di sostanza in quanto non si è in grado
+di poter lavorare con unità di misura come il kilo poiché gli oggetti trattati 
+sono dell'ordine dei nanometri.
+L'unità dio misura della mole è definita dunque come la \emph{quantità di sostanza
+che contiene esattamente $6,02214076 \cdot 10^{23}$ unità elementari}, anche chiamata
+\textbf{costante di Avogadro}:
+\[
+    N_A = 6,02214076 \cdot 10^{23} mol^{-1}
+\]
+La \textbf{massa molare} è il rapporto tra massa e quantità di sostanza indicata 
+con $M$ e coincidendo (alla $9^a$ cifra decimale) al peso atomico della sostanza.
+Per la \ce{CO2} è:
+\[
+    M = \frac{m (g)}{n (mol)} = \frac{44,011 g}{1 mol} = 44,011 g \cdot mol^{-1}. 
+\] 
+
+\section{Energia, temperatura e stati della materia}
+\subsection{Energia}
+L'\textbf{energia} è la capacità di svolgere lavoro da un sistema, manifestandosi
+sotto diversi aspetti:
+\begin{enumerate}
+    \item L'\textbf{energia cinetica}:
+    \[
+        E_{cin} = \frac{1}{2}mv^{2},
+    \]
+    \item L'\textbf{energia potenziale}:
+    \[
+        E_{pot} \ (gravitazionale) = mgh,
+    \]
+    \item L'\textbf{energia potenziale elettrostatica} che risente un elettrone nel campo di un nucleo:
+    \[
+        E_{pot} \ (elettrostatica) = -\frac{Ze^{2}}{r}
+    \]
+    \item L'\textbf{energia complessiva}:
+    \[
+        U = E_{pot} + E_{cin}
+    \]
+\end{enumerate}
+
+\subsection{Stati di aggregazione della materia}
+Le particelle si aggregano tra di loro quando l'energia del sistema aggregato
+diminuisce rispetto a quella del sistema isolato. Nei gas vale:
+\[
+    \langle E_{cin}\rangle = \frac{1}{2}m\langle v^{2}\rangle = \frac{3}{2}k_B T.
+\]
+dove $k_B = 1,380649 \cdot 10^{-23} J K^{-1}$ è la costante di Boltzmann. Se si fornisce
+energia ad un gas, le sue molecole si muoveranno più velocemente e di conseguenza
+aumenterà la temperatura del gas stesso.
+Aumentando sempre di più la temperatura si raggiunge la ionizzazione di un gas e lo stato
+della materia adesso prenderà il nome di \textbf{plasma}, ossia uno stato in cui gli
+elettroni non appartengono èiù ad un atomo ma sono liberi di muoversi.
+Ci sono diversi tipi di legame tra atomi:
+\begin{center}
+    \begin{tabular}{| m{3cm} | m{3cm} |}
+        \hline
+        Legame & Energia \\
+        \hline
+        Covalente & $10^{2} - 10^{3} \ kJ \ mol^{-1}$\\
+        \hline
+        Ionico & $10^{2} - 10^{3} \ kJ \ mol^{-1}$\\
+        \hline
+        Metallico & $10^{1} - 10^{3} \ kJ \ mol^{-1}$\\
+        \hline
+        Idrogeno & $10 - 40 \ kJ \ mol^{-1}$\\
+        \hline
+        Van der Waals & $0,1 - 10 \ kJ \ mol^{-1}$\\
+        \hline
+    \end{tabular}
+\end{center}
+
+\section{Unità di misura nel SI e loro definizione}
+\begin{center}
+    \begin{tabular}{| m{1.2cm} | m{1cm} | m{0.8cm} | m{1.5cm} | m{8.7cm} |}
+        \hline
+        Nome & Unità & Dim.  & Dicitura & Definizione \\
+        \hline
+        secondo & s, \emph{t} & T  & tempo & La durata di 9192631770 periodi della 
+        radiazione corrispondente alla transizione tra due livelli iperfini
+        nell'atomo di cesio 133 al suo stato fondamentale\[
+            1 \ s = \frac{9192631770}{\Delta \nu_{Cs}} 
+        \] \\
+        \hline
+        metro & m, \emph{l} & L &  lunghezza & La distanza percorsa dalla luce nel
+        vuoto in 1/299792458 secondi \[
+            1 \ m = \frac{9192631770}{299792458} \cdot \frac{c}{\Delta \nu_{Cs}}
+        \] \\
+        \hline
+        kilo & kg, \emph{m} & M & massa & Il kilogrammo è definito ponendo la
+        costante di Planck \emph{h} esattamente uguale a $6,62607015 \cdot 10^{-34}
+        J \cdot s \cdot (kg \cdot m^2 \cdot s)$ \[
+            1 \ kg = \frac{299792458^2}{9192631770 \cdot 6,62607015 \cdot 10^{-34}}
+            \cdot \frac{h \Delta \nu_{Cs}}{c^2}
+        \]\\
+        \hline
+        ampere & A, \emph{i} & I & corrente elettrica & Il flusso di esattamente $1,602176634
+        \cdot 10^{-19}$ volte la carica elementare per secondo: \[
+            1 \ A = \frac{e \Delta \nu_{Cs}}{1,602176634 \cdot 10^{-19} \cdot 9192631770}
+        \] \\
+        \hline
+        kelvin & K, \emph{T} &  & temp. termodinamica & Il Kelvin è definito
+        ponendo il valore numerico della costante di Boltzmann: \[
+            1 \ K = \frac{1,380649 \cdot 10^{-23}}{9192631770 \cdot 6,62607015 \cdot 10^{-34}}
+            \cdot \frac{k_B}{h \Delta \nu_{Cs}} 
+        \] \\
+        \hline
+        mole & mol, \emph{n} & N & quantità di sostanza & La quantità di sostanza che
+        contiene esattamente $6,02214076 \cdot 10^{23}$ unità elementari. \\
+        \hline
+        candela & cd & J & intensità luminosa & L'intensità luminosa, in una qualunque
+        direzione, di una sorgente che emette una radiazione monocromatica alla frequenza
+        di $5,4 \cdot 10^{14}$ Hz (verde) e che ha un'intensità radiante di 
+        1/683 watt per steradiante. 
+        \[
+            1 \ cd = \frac{1}{683 \cdot 9192631770^2 \cdot 6,62607015 \cdot 10^{-34}}
+            \cdot \frac{K_{cd}h \Delta \nu_{Cs}^{2}}{sr}
+        \] \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\chapter{Modello elettronico degli atomi e proprietà periodiche}
+\section{Introduzione alla meccanica quantistica}
+L'elettrone è la particella dotata di  carica negativa mentre il protone 
+quella con carica positiva. Sarebbe dunque logico se i protoni e gli elettroni nel nucleo
+si potessero attrarre tra di loro causando il collassino degli elettroni  nel nucleo. 
+Tuttavia nessun modello fisico è in grado di spiegare come questo non accada. L'unica
+teoria che è in grado di spiegarlo è la \textbf{meccanica quantistica}, che tratta l'energia
+come se fossero dei pacchetti chiamati \textbf{quanti}, e dei quali non è possibile 
+determinare contemporaneamente posizione e quantità di moto.
+
+\subsection{Radiazione elettromagnetica}
+\begin{wrapfigure}{r}{0.35\textwidth} \label{Fig 2.1}
+    \centering
+    \caption{Un'onda elettromagnetica}
+    \includegraphics[width=0.35\textwidth]{onda}
+\end{wrapfigure}
+La luce è una porzione ristretta della radiazione elettromagnetica, la quale si propaga
+nel vuoto con velocità $c$, ed ha altre proprietà come la \textbf{frequenza}, ossia il numero
+di volte in cui il vettore campo elettrico assume l'intero ciclo di valori in un secondo ($\nu$),
+e la lunghezza di questa oscillazione, ossia la \textbf{lunghezza d'onda} ($\lambda$).
+Inoltre, l'\textbf{ampiezza} dell'onda è il massimo valore assunto dal campo elettrico o magnetico,
+mentre l'\textbf{intensità} della radiazione è proporzionale al quadrato dell'ampiezza delle onde elettrica
+o magnetica. Data una direzione di propagazione, esistono ortogonali ad essa ed ortogonali fra loro
+un campo elettrico ed uno magnetico, ed i loro vettori hanno andamenti sinusoidali in
+fase tra l'uno e l'altro. \\ 
+Se si potesse vedere un'onda elettromagnetica, si osserverebbe un fenomeno chiamato
+\textbf{treno d'onda}, o \textbf{pacchetti d'onda}, in quanto la luce, è emessa a "pacchetti",
+poiché ha una frequenza limitata. Così come vedremmo passare i vagoni di un treno
+con una frequenza se i vagoni sono corti, più è corta la lunghezza d'onda, maggiore 
+sarà la sua frequenza.
+In una lampadina, i fasci di luce sono emessi in modo \textbf{non coerente}, ossia
+sono emessi con fasi diverse portando ad un'interferenza distruttiva.
+Quando un fascio di luce ha tutti i pacchetti della medesima frequenza, la radiazione
+diventa \textbf{monocromatica}, altrimenti si chiama \textbf{policromatica}. I fasci
+di luce si separano per \textbf{diffrazione}, mentre l'insieme di fasci luminosi si
+chiama \textbf{spettro} (Fig 2.2).
+\begin{figure}
+    \label{Fig 2.2}
+    \centering
+    \caption{Lo spettro elettromagnetico}
+    \includegraphics[width=0.90\textwidth]{onde}
+\end{figure}
+
+\subsection{Quantizzazione dell'energia}
+Ogni sistema fisico non può assumere qualsiasi valore di energia ma può solo assumere 
+determinati valori di energia, per cui per poter passare da un livello $E_1$ ad un livello
+$E_1$ dovremmo fornire un'energia pari a:
+\[
+    E_2 - E_1 = h \nu
+\] 
+\textbf{assorbendo} questo quanto di energia, il sistema innalzera il suo livello di energia
+e potrà comunque tornare al livello energetico precedente attraverso l'\textbf{emissione spontanea}
+di un quanto. Se il sistema a livello $E_2$ è colpito da un quanto di luce e torna allo stato
+energetico $E_1$, allora il sistema avrà emesso un quanto con la stessa fase di quello
+da cui è stato colpito ma di intensità doppia (\textbf{emissione stimolata}).
+Dall'equazione di Einstein deriva che:
+\[
+    E = mc^2 \quad \Rightarrow \quad h\nu = mc^2 
+\]
+La \textbf{massa relativistica} dei fotoni è (con massa invariante nulla):
+\begin{equation}
+    m = \frac{h \nu}{c^2}
+\end{equation}
+Ne risulta che fotoni con lunghezza d'onda minore hanno massa maggiore (e quindi più energia).
+
+\subsection{Dualismo onda particella e principio di indeterminazione di Heisenberg}
+Un'elettrone che si muove con velocità v ha un'energia $E = mv^2 = h \nu$, quindi:
+\begin{equation}
+    \lambda = \frac{h}{mv}.
+\end{equation}
+Questa è l'idea di base della \emph{meccanica ondulatoria}: la luce è sia
+un'onda che una particella poiché si comporta come un'onda ma possiede una massa.
+Nel mondo microscopico la dualità onda particella non può essere ignorata mentre nel
+mondo macroscopico, date le enormi masse rispetto a quelle delle particelle subatomiche,
+le lunghezze d'onda sono talmente piccole da essere impossibile da rilevare. \\
+Heisenberg nel 1925 arriva a concludere che alla base della meccanica quantistica
+sta il \textbf{principio di indeterminazione}: secondo questa legge il prodotto degli errori 
+nella determinazione della quantità di moto e della posizione di un elettrone non 
+può essere minore di una certa quantità:
+\begin{equation}
+    \Delta x \Delta p \geq \frac{h}{2\pi}
+\end{equation}
+Nel mondo macroscopico questi errori sono talmente piccoli da essere completamente 
+trascurabili, mentre per un elettrone no: se si avesse un'errore di $1/10^{10}$ sulla 
+quantità di moto di un elettrone, l'errore risultante sulla posizione darebbe circa $10^6$ metri!.
+Il principio di indeterminazione si applica a tutte le misure \textbf{coniugate}, ossia tutte
+quelle misure che hanno le dimensioni di h (qta. di moto e posizione o energia e tempo).
+Cercare di osservare la quantità di moto di un pacchetto o la posizione è 
+come decidere se cercare di osservare un'onda o una particella. 
+
+\section{Interazione radiazione elettromagnetica - elettrone}
+\subsection{L'effetto fotoelettrico}
+Esponendo una lastra di metallo sottovuoto ad una radiazione elettromagnetica, si ha
+emissione di elettroni, i quali, sono raccolti su un elettrodo carico positivamente.
+Gli elettroni sono legati al metallo con una energia $E_0$ che dipende dal tipo di metallo,
+\[
+    se \ E = h \nu \geq E_0
+\]
+si ha emissione di elettroni, la frequenza al di sopra della quale si ha emissione si
+chiama ($\nu_0$) \textbf{frequenza di soglia}. Ciò che è importante notare è che non
+importa quanti fotoni al di sotto della frequenza di soglia si mandino al metallo; nessun
+elettrone sarà emesso. Il numero di elettroni emessi dipende dunque dal numero di 
+fotoni con $E \geq E_0$. L'energia in eccesso diventa energia cinetica:
+\begin{equation}
+    \Delta E = E - E_0 = \frac{1}{2}mv^2
+\end{equation} 
+Questo effetto fu spiegato da Einstein nel 1905 e questo gli garantì il nobel nel 1921.
+
+\subsection{Lo spettro dell'atomo di idrogeno}
+L'atomo di idrogeno è costituito da un protone e da un elettrone, essendo che l'elettrone
+può assumere solo alcune energie permesse, se bombardato con l'intero spettro luminoso,
+l'idrogeno emetterà soltanto le frequenze che è riuscito ad assorbire: i due spettri risultanti
+si chiameranno rispettivamente \textbf{spettro di emissione} e \textbf{spettro di assorbimento}
+Le energie permesse dall'elettrone sono quindi vincolate dalla relazione:
+\begin{equation}
+    E = - \frac{1}{n^2}\cdot \frac{2k_C^{2}\pi^2me^4}{h^2}
+\end{equation}
+dove $n \in N$, m la massa dell'elettrone, $e$ la sua carica e $k_C$  una costante 
+pari a $8,99 \cdot 10^9 JmC^2$. $n$ è il \textbf{numero quantico principale}, tutti gli stati
+superiori ad uno nell'atomo di idrogeno si chiamano $stati \ eccitati$. \\
+Un'elettrone colpito da un certo fotone in grado di farlo eccitare, ha due possibilità
+una volta che il suo n è aumentato: emettere un fotone e tornare ad n = 1 oppure
+passare prima per uno stadio intermedio emettendo così due fotoni. L'energia di
+transizione da uno stato eccitato $n_j$ ad uno stato fondamentale o di minor energia $n_i$:
+\begin{equation}
+    \Delta E = h\nu = \frac{2k_C^{2}\pi^2me^4}{h^2}\left(\frac{1}{n_i^2}-\frac{1}{n_j^2}\right)
+\end{equation} 
+Un livello di energia dato da un $n = \infty$ è il livello di energia di un elettrone
+che non interagisce più con un dato nucleo
+
+\section{L'elettrone nell'atomo di idrogeno (Il modello di Bohr)}
+\subsection{Equazione di Schrodinger}
+Determinare un elettrone all'interno di un orbitale non è facile come determinare
+un elettrone che si muove nello spazio, Schrodinger sviluppò un'equazione differenziale
+le cui soluzioni, chiamate \textbf{funzioni d'onda}, sono le funzioni desiderate:
+\begin{equation}
+    \hat{H}\psi = E\psi
+\end{equation}
+dove $\psi$ è la funzione d'onda e $\hat{H}$ l'operatore hamiltoniano dell'energia.
+\begin{definition}
+    $\hat{H}$ è un'operatore \textbf{monadico}, ossia agisce sulla funzione trasformandola,
+    a differenza di un operatore \textbf{diadico} (come +, -, $\times$ e /) che ne  ha bisogno
+    di due. Se invece un operatore moltiplica una funzione per una costante senza alterarla,
+    come: $f(x) = x \ \Rightarrow 3f(x) = 3x$, il numero 3 è un \textbf{autovalore} e la nuova funzione
+    è un \textbf{autofunzione} di quell'operatore. \\ 
+    Nell'equazione di Schrodinger $\psi$ è un'autofunzione dell'operatore hamiltoniano, per l'atomo
+    di idrogeno questo diventa: 
+    \[
+        \hat{H} = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} +
+        \frac{\partial^2}{\partial z^2} + \frac{8 \pi^2 m}{h^2}V
+    \]
+    Nell'elettrone inoltre $V = -e^2/r$ dove r è la distanza dal nucleo.
+\end{definition}
+L'equazione nella sua forma più estesa diventa quindi:
+\begin{equation}
+    \frac{\partial^2 \psi}{\partial x^2} + \frac{\partial^2 \psi}{\partial y^2} +
+    \frac{\partial^2 \psi}{\partial z^2} + \frac{8 \pi^2 m}{h^2}V \psi = E\psi
+\end{equation}
+$\psi$ ammette infinite soluzioni all'equazione, a ciascuna delle equali è associata
+$\psi_i$ ed un corrispondente valore dell'energia data da $E_i$. Questo tuttavia
+non contraddice il principio di indeterminazione poiché non si potrà mai conoscere
+il tempo per cui l'elettrone manterrà quel livello di energia: l'elettrone si
+deve trovare dunque in uno \textbf{stato stazionario}.
+Inoltre, per ogni stato $n_i$ di energia $E_i$ dell'atomo di idrogeno corrispondono
+ben $n^2$ funzioni $\psi$ diverse. \\
+Prendendo un volume $d\tau$ molto piccolo, la funzione $\psi^2 d\tau$ è la probabilità
+di trovare l'elettrone in quel determinato volume, ossia la risoluzione dell'integrale
+di questa funzione in quella regione, $\psi^2$ è la \emph{densità elettronica} in quel volume.
+
+\subsection{L'atomo di idrogeno: numeri quantici ed orbitali}
+Risolvendo l'equazione di Schrodinger per l'atomo di idrogeno, si nota che più funzioni
+d'onda possono dare la stessa energia e sono dette quindi \textbf{degeneri}. Ogni
+funzione d'onda è caratterizzata da tre parametri chiamati \textbf{numeri quantici}.
+
+\begin{wrapfigure}{r}{0.50\textwidth} \label{Fig 2.3}
+    \centering
+    \caption{Alcuni orbitali}
+    \includegraphics[width=0.50\textwidth]{orbitali}
+\end{wrapfigure}
+
+\begin{enumerate}
+    \item \textbf{Numero quantico principale}: indicato col simbolo $n$ ed è un numero
+    naturale e determina le energie permesse.
+    \item \textbf{Numero quantico secondario}: indicato con $l$, assume qualsiasi valore intero
+    $0 \leq l \leq n -1$ e determina il \emph{momento angolare} di un sottolivello.
+    \item \textbf{Numero quantico magnetico}: indicato come $m_i$, assume tutti i valori interi
+    $-l \leq m_i \leq l$.
+\end{enumerate}
+
+E' da notare come la funzione d'onda tenda a dare lo $0\%$ di probabilità quando
+il raggio r dal nucleo tende ad infinito. Le forme geometriche degli orbitali hanno
+dunque senso se e solo se si sceglie un valore di probabilità inferiore al 100\%.
+Un'orbitale diventa dunque una regione di spazio delimitato dalla superficie $\psi^2$
+costante. Le forme degli orbitali nelle figure sono sempre volumi al cui interno
+si ha il 90\% di probabilità di trovare l'elettrone. La forma geometrica dell'orbitale cambia
+dunque a seconda del valore di $\psi^2$ selezionato. \\
+Il numero quantico $l$ è responsabile per identificare la forma dell'orbitale mentre il
+numero magnetico $m$ definisce l'orientazione dell'orbitale.
+
+\subsection{La distribuzione della probabilità radiale}
+Prendendo in considerazione il volume di un cubo molto piccolo $d\tau$ ($\psi^2$), la probabilità di
+trovare l'elettrone nell'orbitale 1s ha densità elettronica finita sul nucleo: addirittura
+Fermi nel 1930 propose che l'orbitale 1s potesse stare a contatto col nucleo.
+
+\begin{wrapfigure}{l}{0.50\textwidth} \label{Fig 2.4}
+    \centering
+    \caption{Funzione orbitale 1s}
+    \includegraphics[width=0.40\textwidth]{Orbitale-1s.png}
+\end{wrapfigure}
+
+E' possibile rappresentare dunque rappresentare la funzione dell'orbitale utilizzando
+una sfera di raggio r molto piccolo definita come $4\pi r^2 dr$. La frazione totale di
+elettrone che si trova distanza r dal nucleo è data dal prodotto $\psi^2$ per il guscio
+appena descritto ed ha il massimo in $a_0 = 53 pm$. \\
+Invece, nell'orbitale 2s, le tre funzioni nel grafico diventano zero quando raggiungono
+$2a_0$, quindi la probabilità di trovare l'elettrone $\psi^2 = 0$, ovvero diventa una
+\textbf{superficie nodale}. Un'orbitale nello strato n avrà $n-1$ superfici nodali,
+la cui geometria sarà definita da l ed m. \\
+I valori di $\psi$ dipendono dai tre numeri quantici, e possono avere sia segno negativo
+che positivo: questo perché in un atomo i vari orbitali si sovrappongono ed il segno di
+$\psi$ ci dice che la sovrapposizione delle funzioni d'onda è sempre zero, mentre il segno di
+di $\psi^2$ è sempre positivo dato il quadrato. Quando invece le densità elettroniche,
+che sono proporzionali a $\psi^2$ si sovrappongono e si compenetrano, vi è competizione
+tra i vari orbitali dello stesso strato, per cui gli orbitali s risulteranno sempre quelli
+più penetranti e si troveranno con più probabilità vicini al nucleo rispetto agli orbitali
+p e d.
+
+\begin{figure}
+    \label{Fig 2.5}
+    \centering
+    \caption{Funzione orbitale 2s}
+    \includegraphics[width=0.40\textwidth]{Orbitale-2s.png}
+\end{figure}
+
+\subsection{Il numero quantico di spin}
+A tutte le particelle elementari è associata una proprietà intrinseca chiamata \emph{spin},
+le particelle si comportano infatti come se ruotassero attorno al proprio asse: gli elettroni
+possono assumere solo $+1/2$ o $-1/2$. Queste particelle con spin semintero (dette fermioni),
+non possono coesistere nello stesso stato energetico con lo stesso spin per il principio di Pauli.\\
+Associato al momento angolare c'è sempre un \textbf{momento magnetico}: questo momento
+magnetico fa si che una particella si orienti all'interno di un campo magnetico, dando
+proiezioni dello spin della particella sull'asse del campo magnetico
+chiamata \textbf{asse di quantizzazione}.
+
+\section{Configurazione elettronica degli atomi polielettronici e tavola periodica}
+L'Equazione di Schrodinger può essere risolta in modo accurato solo per l'atomo di
+idrogeno perché per atomi con più elettroni l'equazione può essere risolta solo in modo
+approssimativo a causa del potenziale del nucleo dotato da più protoni ed elettroni. \\
+Anche se approssimative, le soluzioni dell'equazioni ci dice che si può ancora parlare
+di orbitali 1s, 2s... anche per gli atomi polielettronici. In questi atomi però, l'energia
+dell'orbitale non dipende più dal numero n ma anche da l. Tuttavia, all'aumentare di Z,
+l'energia dell'orbitale diminuisce in modo sostanziale, anche se non come ci si aspetti poiché
+il potenziale del nucleo è "nascosto" dagli altri elettroni nell'atomo. Per queste motivazioni
+l'orbitale 4s ha meno energia dell'orbitale 3d e, per questo, il 4s si riempie prima, ma dopo Z = 0,
+l'energia del 3d diminuisce ancora, permettendo di riempirlo prima. \\
+\begin{wrapfigure}{l}{0.20\textwidth} 
+    \label{Fig 2.6}
+    \centering
+    \caption{Ordine di riempimento degli orbitali}
+    \includegraphics[width=0.20\textwidth]{Ordine-orbitali.jpg}
+\end{wrapfigure}
+Lo stesso comportamento si osserva per gli orbitali 4d e 4f, e questo spiega la posizione
+anomala degli elementi di \emph{transizione, lantanoidi e attinoidi} nella tavola periodica.  \\
+Generalmente la configurazione elettronica di un atomo si indica come segue:
+\[
+    Carbonio \ (C) = \ 1s^2 2s^2 2p^2 \qquad oppure \qquad [He]2s^2 2p^2
+\]
+La prima notazione è la configurazione elettronica completa, mentre la seconda utilizza
+la configurazione elettronica del gas nobile più "a sinistra" mentre $2s^2 2p^2$ è la 
+\textbf{configurazione elettronica esterna}.
+Il riempimento degli orbitali segue la regola proposta in \ref{Fig 2.6} anche se
+esistono molti elementi che completano prima orbitali con energia superiore di altri.
+La tavola periodica è inoltre suddivisa in diversi gruppi di elementi: il gruppo 1
+è il gruppo dei metalli alcalini, quelli del gruppo 2 sono i metalli alcalino-terrosi,
+quelli dei gruppi 3-12 sono i metalli di transizione, quelli del gruppo 15 sono i
+pnicogeni, il 16 sono i calcogeni, il 17 sono gli alogeni ed il 18 i gas nobili.
+
+\section{Proprietà periodiche}
+\subsection{Energia di ionizzazione}
+\begin{wrapfigure}{l}{0.65\textwidth} 
+    \label{Fig 2.7}
+    \centering
+    \caption{Energia di prima ionizzazione}
+    \includegraphics[width=0.65\textwidth]{Ionizzazione.png}
+\end{wrapfigure}
+L'energia di ionizzazione è l'energia minima che occorre fornire ad un atomo
+\emph{isolato gassoso} per togliergli un elettrone. L'\textbf{energia di prima ionizzazione}
+è quando si sottrae un elettrone ad un atomo neutro. Dal momento che ogni volta che
+si sottrae un elettrone ad un atomo esso riduce le sue dimensioni, l'energia di seconda,
+terza e di n-esima ionizzazione saranno via via crescenti. Sulla tavola periodica l'energia
+di prima ionizzazione cresce lungo ciascun periodo e salendo lungo un gruppo. La crescita
+lungo un periodo tuttavia non è costante ma è discontinua a causa della configurazione elettronica
+che spesso si altera seconda degli orbitali che vengono toccati: nei metalli di transizione spesso
+accade che si tolgano elettroni dello strato $ns$, il che li avvicina alla configurazione dell'atomo
+precedente, ma dal momento che gli altri orbitali sono più vicini al nucleo, questi risentiranno
+di una carica positiva molto più alta che porta ad avere una aumento di energia di ionizzazione.
+
+\subsection{Affinità elettronica ed elettronegatività}
+L'\textbf{affinità elettronica} è l'energia necessaria per legare un elettrone ad un atomo gassoso isolato,
+se è positiva allora il processo è molto favorevole.
+Generalmente il processo di aggiunta di un secondo elettrone è sempre sfavorevole
+in termini energetici a causa della carica globale negativa dell'atomo che ha già un elettrone di troppo.
+Il concetto di affinità elettronica e di energia di prima ionizzazione ci permettono
+di definire anche il concetto di \textbf{elettronegatività}, ossia la misura della
+tendenza di un atomo ad attrarre le coppie di elettroni di legame. L'elettronegatività
+si determina a partire dall'equazione di Mulliken: 
+\begin{equation}
+    \chi = k (E_I + A)
+\end{equation}
+
+Utilizzando la scala di Mulliken non si hanno le elettronegatività di tutti gli elementi,
+così si utilizza la scala Allred-Rochow, la quale calcola il valore di attrazione di
+un nucleo sull'elettrone di un doppietto. \\
+Generalmente l'elettronegatività cresce lungo il periodo e diminuisce lungo un gruppo.
+
+\subsection{Dimensioni atomiche}
+Le dimensioni di un atomo non possono essere misurate empiricamente in quanto variano
+a seconda degli altri atomi a cui sono legati, tuttavia la scala di raggio atomico proposta
+da J.C Slater ci fornisce una indicazione del raggio atomico di atomi legati in sostanze
+elementari con una deviazione standard di circa $12 pm$.
+IL raggio atomico cresce lungo un gruppo tranne che per il passaggio tra $4d$ e $5d$ in
+quanto dopo l'Afnio si ha la \textbf{contrazione lantanoidica} a causa del riempimento
+degli orbitali $4f$ (interni). \\
+Quando un atomo perde un elettrone, esso si carica positivamente e i suoi orbitali si
+contraggono (la contrazione è più accentuata quando scompare completamente un orbitale),
+mentre quando si carica negativamente, gli orbitali si espandono.
+
+
+
+\chapter{Legame covalente}
+\section{Il legame chimico}
+Con la parziale eccezione dei gas nobili, tutti gli elementi della tavola periodica hanno
+la tendenza a formare legami con altri atomi, questa tendenza nasce dal principio di 
+\textbf{minima energia}: secondo questo principio gli atomi tendono a formare legami
+tra loro se questo abbassa la loro energia. 
+
+\subsection{Il legame covalente nelle molecole biatomiche}
+La formazione di un legame chimico avviene solo quando l'energia dei due atomi legati è
+minore di quella dei due atomi isolati: ossia se le forze di repulsione/attrazione si bilanciano
+perfettamente. \\
+Nei gas nobili generalmente questo non avviene in quanto hanno tutti gli orbitali completi e 
+generalmente si respingono tra loro, tuttavia per altri atomi, gli elettroni che si 
+avvicinano di entrambi gli atomi tenderanno a disporsi con spin antiparallelo e quindi
+soddisfano il principio di minima energia andando a mettere in comune un elettrone e
+facendo così aumentare la densità elettronica tra i due nuclei. Se si avvicinano troppo,
+le forze repulsive li faranno allontanare, altrimenti, se si dispongono alla \textbf{distanza di legame},
+formeranno un legame covalente.
+
+\section{Il legame chimico secondo il metodo dell'orbitale molecolare}
+Un modello che possa spiegare il legame covalente deve riflettere la sua natura quantomeccanica,
+in analogia con quella dell'elettrone: estendendo il concetto di struttura elettronica sovrapponendo
+gli orbitali e considerando il diverso potenziale elettrostatico dovuto alla presenza di più
+di un nucleo e quindi bisogna considerare l'estensione degli orbitali su almeno due atomi della
+molecola.
+
+\subsection{Molecole e ioni biatomici del primo periodo}
+Risolvendo l'equazione di Schrodinger si ottengono funzioni d'onda del sistema (considerati idrogeno ed elio)
+che sono in questo caso orbitali molecolari. Il potenziale è tuttavia descritto non più da
+un solo nucleo ma da ben due nuclei atomici a distanza r, per cui l'operatore Hamiltoniano
+diventa per due orbitali 1s dei due atomi isolati:
+\[
+    \psi_L = \frac{1}{\sqrt{2}}\psi_1 + \frac{1}{\sqrt{2}}\psi_2
+\]
+ossia l'\textbf{orbitale molecolare di legame} e si indica con $\sigma$, l'altro è invece
+descritto da;
+\[
+    \psi_A = \frac{1}{\sqrt{2}}\psi_1 + \frac{1}{\sqrt{2}}\psi_2
+\]
+ed è l'\textbf{orbitale molecolare di antilegame} e si indica come $\sigma^*$.
+Questa è tuttavia un'approssimazione (con buona precisione) in quanto le
+equazioni valgono solo con un elettrone in gioco.
+L'aumento della densità elettronica di $\psi_L$ rispetto ai due atomi isolati
+riduce la repulsione tra i nuclei e quindi l'energia 
+\[
+    \hat{H}_M\psi_L = E_L\psi_L
+\]
+è minore rispetto a quella della combinazione dei due orbitali atomici.
+L'energia
+\[
+    \hat{H}_M\psi_A = E_A\psi_A.
+\]
+è invece maggiore di quella dei due orbitali atomici.
+La molecola di \ce{H2} possiede due elettroni che si possono sistemare entrambi con spin
+antiparallelo nell'orbitale molecolare di legame $\sigma$. Il risultato è che il sistema
+ha diminuito la propria energia. In questo caso l'orbitale di legame $\sigma$ presenta
+due elettroni e si indica come $\sigma^2$, mentre l'orbitale di antilegame sarà
+$\sigma^{*}$ poiché non ci sono elettroni non di legame mentre nel caso di
+\ce{H2^{-}} l'orbitale di antilegame sarà $\sigma^{*1}$. \\
+Si ottiene quindi che \textbf{l'ordine di legame} si ottiene sottraendo al numero
+degli elettroni negli orbitali di legame quello degli elettroni 
+negli orbitali di antilegame e dividendo per due. Una molecola come \ce{He2} non può
+esistere poiché gli orbitali sarebbero $\sigma^2$ e $\sigma^{*2}$ per cui l'energia
+che si è ridotta andando a creare l'orbitale $\sigma^2$ è bilanciata da quella spesa
+per l'orbitale di antilegame.
+
+\subsection{La sovrapposizione degli orbitali atomici e gli orbitali
+molecolari per le molecole biatomiche del secondo periodo}
+Nelle condizioni di formazione di un legame, i due elettroni occupano la stessa
+regione caratterizzata da alta densità elettronica, quest'area in comune è chiamata
+\textbf{area di sovrapposizione}. Si può dire che il legame chimico covalente risulta 
+dalla sovrapposizione di due orbitali atomici di due atomi contenenti ciascuno un elettrone
+creando così un unico orbitale molecolare di legame e di antilegame. Il risultato è identico
+anche se si avvicinano un \ce{H^{+}} ed un \ce{H^{+}}. \\
+Perché dopo il primo periodo non si considerano più gli orbitali $1s$ nei legami?
+Questo è dovuto alla dispersione energetica: una volta che $\sigma$ e $\sigma^*$ sono stati
+riempiti, non c'è più guadagno energetico e quindi gli orbitali si combinano per
+ridare funzioni atomiche: la loro forma è più vicina alla forma degli orbitali
+atomici di partenza. \\
+Per descrivere ora il legame che intercorre tra un orbitale s ed uno p, bisogna
+ricordare che $\psi$ descrive l'orbitale e che per formare il legame occorre che la
+sovrapposizione tra i due orbitali avvenga fra zone in cui le funzioni $\psi$ abbiano
+lo stesso segno: la sovrapposizione diventa più efficace quanto maggiore è il valore
+assoluto della somma delle funzioni $\psi$. Nei legami con orbitali di tipo $p$, i legami
+possono essere sia di tipo $\sigma$ se i loro assi sono collineari, ma anche di tipo $\pi$
+se i piani nodali coincidono. A differenza di un legame $\sigma$, nel legame $\pi$ 
+l'ampiezza della zona di sovrapposizione varia ruotando un atomo rispetto all'altro:
+essa è massima quando i piani nodali coincidono e zero quando sono ortogonali.
+\begin{wrapfigure}{l}{0.65\textwidth} 
+    \label{Fig 3.1}
+    \centering
+    \caption{Forma schematica (\textbf{a}) di un orbitale molecolare
+    $\sigma(s-s)$, (\textbf{b}) di un orbitale $\sigma(s-p_z)$ e (\textbf{c}) di un $\pi(p_x-p_x)$}
+    \includegraphics[width=0.65\textwidth]{orbitali-a-confronto.png}
+\end{wrapfigure}
+Il primo legame è sempre di tipo $\sigma$, infatti si può pensare che gli atomi
+si orientino e si dispongano in modo tale da far si che si ottenga la migliore 
+sovrapposizione. Ne deriva che il legame $\pi$ sia molto meno stabile e che blocchi la
+rotazione poiché i piani nodali devono coincidere e quindi gli assi degli orbitali sono paralleli.
+Formato un legame $\sigma$, si possono formare solo altri due legami $\pi$, poiché una volta
+formati i primi orbitali $\sigma$ e $\sigma^*$, questi non danno più contributo successivo
+alla densità elettronica e quindi ulteriori elettroni non possono occupare lo spazio
+dell'orbitale formato dal legame $\sigma$. L'unica scelta rimasta è poter fare altri due
+legami $\pi$. Si noti inoltre che l'orbitale $\sigma^*$ ha energia minore di un orbitale
+successivo $\pi$ e quindi viene riempito per primo. \\
+Dal momento che la sovrapposizione degli orbitali $p$ nel legame $\pi$, risulta che la
+separazione energetica degli orbitali $\pi-\pi^*$ è minore della separazione energetica
+degli orbitali $\sigma_{pz}-\sigma^*_{pz}$. Quanto minore è la separazione energetica tra
+gli orbitali $2s$ e $2p$, tanto maggiore è la separazione tra i diversi orbitali $\sigma$
+per cui l'orbitale di legame $\sigma_{pz}$ è ad energia maggiore rispetto a quelli $\pi$.
+Questo spiegherebbe come sia possibile l'esistenza di molecole come \ce{N2} in
+quanto il suo ordine di legame raggiunge 3 utilizzando 4 orbitali di legame ed un di antilegame
+(utilizza $\sigma_2$ insieme a tutti gli orbitali di legame $\pi$ mentre per l'antilegame usa
+solo l'orbitale $\sigma_1^*$).
+
+\section{Il formalismo di Lewis e la regola dell'ottetto}
+A questo punto è chiaro che il modello dell'orbitale molecolare giustifichi come
+gli atomi mettano in compartecipazione tanti elettroni quanti ne servono per
+raggiungere l'ottetto (la configurazione del gas nobile più vicino). \\
+G.N. Lewis propose un metodo per la rappresentazione grafica di questo modello
+attraverso l'utilizzo di trattini per rappresentare o i legami covalenti o
+i doppietti elettronici non di legame:
+\begin{center}
+    \chemfig{\charge{90=\|,180=\|,270=\|}{F}-\charge{0=\|,90=\|,-90=\|}{F}}
+\end{center}
+Inoltre, le coppie di non legame tenderanno a distanziarsi tra loro:
+\[
+    Sbagliato:\chemfig{\charge{90 = \|, -90 = \|}{O}=\charge{90 = \|, -90 = \|}{O}} \qquad
+    Giusto: \charge{135=\|,225=\|}{O}=\charge{45 = \|, -45=\|}{O}
+\]
+Questa formulazione non è in grado tuttavia di descrivere le proprietà paramagnetiche
+di certe sostanze come l'ossigeno, non fa distinzione tra legami $\sigma$ e $\pi$
+e non ci dice da quali orbitali derivano i legami.
+
+\section{Geometria e legame nelle molecole.}
+\subsection{La regola delle repulsioni delle coppie di valenza}
+In una qualsiasi molecola \ce{AB2}, la sua configurazione può variare notevolmente ed essere come:
+\chemfig{B-A-B} oppure \chemfig{B-[:42.75]A-[:-42.75]B}, etc..
+Le disposizioni delle molecole sono le seguenti:
+\begin{center}
+    \begin{tabular}{| m{3cm} | m{2cm} | m{7cm} |}
+        \hline
+        Nome & Angolo & Geometria delle molecole ed esempio \\
+        \hline
+        Planare & 180° & \chemfig{\charge{135 = \|, 225 = \|}{O}-C-\charge{45 = \|, -45 = \|}{O}} \\
+        Trigonale planare & 120° & \chemfig{H-[:30]B(-[:90]H)-[:-30]H}  \\
+        Trigonale angolare & 120° & \chemfig{O-[:30]\charge{90 = \|}{S}-[:-30]O} \\
+        Tetraedrica & 109,5° & \chemfig{(H>:[:45])C(-[2]H)(<[:170]H)(-[:-20]H)} \\
+        Tetraedrica piramidale & 107,3° & \chemfig{(H>:[:65])\charge{90 = \|}{N}(<[:195]H)(-[:-15]H)} \\
+        Tetraedrica angolare &  104,5° & \chemfig{H-[:+42.75]\charge{45 = \|, 135 = \|}{O}-[:-42.75]H} \\
+        Trigonale bipiramidale & 120° e 90° & \chemfig{(Cl>:[:30])P(-[2]Cl)(<[:165]Cl)(-[0]Cl)(<|[-2]Cl)}\\
+        Ottaedrica & 90° & \chemfig{(F>:[:30])S(-[2]F)(<[:150]F)(-[-2]F)(<:[:-30]F)(<:[:30]F)}\\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsection{GLi orbitali ibridi}
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \label{Fig. 3.2}
+    \centering
+    \caption{Ibridazione di un orbitale s e tre orbitali p che dà luogo a quattro
+    orbitali sp. Sotto le sezioni di superficie di $\psi^2$}
+    \includegraphics[width=0.45\textwidth]{Orbitali-sp.png}
+\end{wrapfigure}
+Per rimanere collegati al concetto di orbitale molecolare, avendo già visto che due o
+più orbitali sia atomici che molecolari, possono combinarsi tra loro per dare lo stesso
+numero di orbitali diversi per forma ed energia (pur mantenendo l'energia totale del sistema).
+Combinando queste funzioni d'onda si ottengono dunque diverse combinazioni di
+orbitali che minimizzano la repulsione elettrostatica: si parla di \textbf{orbitali ibridi}.
+Combinando per esempio orbitali $s$ e $p$ si ottengono nuove funzioni d'onda
+chiamati orbitali $s-p$. Questi orbitali sono orientati
+tra loro a 120° l'uno dall'altro e, a causa della formazione di un nuovo orbitale,
+la loro energia è minore di un orbitale $p$. \\
+\vspace{2cm}
+\label{Tabella 3.2}
+\begin{center}
+    \begin{tabular}{| m{1.8cm} | m{4.4cm} | m{5.5cm} | m{2.5cm} |}
+    \hline
+    Ibridazione & Orbitali atomici che formano orbitale ibrido & disposizione spaziale 
+    degli assi degli orbitali ibridi & Esempi di molecole \\
+    \hline
+    \[sp\] & \[s + p_z\] & \chemfig{-} lineare & \ce{CO2}, \ce{XeF2}  \\
+    \[sp^2\] & \[s + p_x + p_z\] & \chemfig{-[:30](-[:-30])-[2]} trigonale planare 
+    & \ce{BF3}, \ce{CO3^{2-}}, \ce{SO2} \\
+    \[sp^3\] & \[s + p_x + p_y + p_z\] & \chemfig{-[:30](-[:-30])(-[:-60])-[2]}
+    Tetraedrica & \ce{CH4}, \ce{NH4^{+}}, \ce{NH3}, \ce{H2O}. \\
+    \[dsp^2\] & \[s + d_{x^2-y^2} + p_x + p_y\] & \chemfig{-[:15](-[-1])(-[:15])(-[:135])}
+    Quadrata planare & --- \\
+    \[dsp^3\] & \[\left\{\begin{array}{c}
+        s + d_{x^2 - y^2} + p_x + p_y + p_z \\
+        \space \\
+        \space \\
+        \space \\
+        \space \\
+        \space \\
+        s + d_{z^2} + p_x + p_y + p_z \\
+    \end{array}\right.\] &
+    \[
+    \begin{array}{c}
+        \chemfig{-[:15](-[-1])(-[:15])(-[2])(-[3])} \text{piramidale quadrata} \\
+        \chemfig{-[:60](-[-2])(-[0])(-[2])(-[3])} \text{trigonale bipiramidale}
+    \end{array}
+    \] & \ce{PCl5} \\
+    \[d^2sp^3\] & \[s + d_{x^2 - y^2} + d_{z^2} + p_x + p_y + p_z\] &
+    \chemfig{-[:15](-[-2])(-[-1])(-[:15])(-[2])(-[3])} Ottaedrica &
+    \ce{IF5}, \ce{SF6} \\
+    \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Geometria molecolare di \ce{CH4}, \ce{NH3} e \ce{H2O}}
+Sulla base della teoria VSEPR, queste sono le disposizioni spaziali delle molecole:
+\[
+    \chemfig{C(<|[:-30]H)(-[2]H)(<:[:210]H)(<[:255]H)} \qquad
+    \chemfig{\charge{90 = \|}{N}(<|[:-30]H)(<:[:210]H)(<[:255]H)} \qquad
+    \chemfig{\charge{90 = \|, -30 = \|}{O}(<:[:180]H)(<[5]H)}
+\]
+La molecola di \ce{CH4} ha una struttura tetraedrica semplice poiché nessun doppietto
+è escluso dai legami e dunque le molecole di idrogeno sono equidistanti. Nella molecola
+di \ce{NH3} invece essendoci solo tre legami ed un doppietto, i tre idrogeni
+si disporranno in modo tale da formare la base del tetraedro mentre lo spazio
+che nel \ce{CH4} sarebbe destinato all'ultimo idrogeno è occupato dal doppietto
+non di legame: questo fa si che l'angolo H-N-H sia minore a 107°.
+Nella molecola d'acqua invece ci sono due doppietti di non legame,
+e quindi vale lo stesso ragionamento dell'\ce{NH3}, tuttavia essendoci due doppietti
+l'angolo H-O-H sarà più piccolo a solo 105°.
+
+\subsection{La regola dell'ottetto ed i suoi limiti}
+Generalmente un atomo che impiega solo orbitali $s$ e $p$ tende a formare un massimo
+di quattro legami e ad assumere una configurazione esterna con 8 elettroni di valenza.
+Se c'è un numero di elettroni dispari, allora un elettrone occupa da solo un orbitale
+Nella molecola \ce{NO} anche se non otteziale, comunque si hanno gli orbitali tutti
+impiegati o nei legami o da elettroni di non legame. \\
+Negli atomi come il fosforo, seppur dello stesso gruppo dell'azoto, ha anche gli elettroni
+del gruppo $d$, che gli consentono di fare più legami (l'energia richiesta per gli
+orbitali d è compensata da un maggior numero di legami). 
+In generale tutte le volte che sono coinvolti gli orbitali $d$ si ha l'\textbf{espansione 
+dell'ottetto}: lo zolfo (analogo dell'ossigeno) può fare fino a sei legami grazie agli
+orbitali $d$. \\
+PEr Z molto grande invece non si usano più orbitali dello stesso livello energetico in quanto
+la differenza di energia tra gli orbitali va via via riducendosi.
+I gas nobili invece dà luogo a composti promuovendo gli orbitali $s$ e $p$ completi.
+
+\section{Numero di ossidazione e polarità dei legami}
+\subsection{Polarità dei legami}
+Nei legami tra molecole con forte differenza di elettronegatività, accade che 
+gli elettroni siano attratti più verso l'atomo più elettronegativo e quindi
+la densità elettronica aumenta nei pressi di quest'ultimo. Il legame che ne deriva è
+il legame covalente polare (omopolare quando è tra atomi uguali). Quando il 
+$\Delta$elettronegatività è molto alto allora si parla di \textbf{legame ionico}
+(Cap. 4).
+
+\subsection{Numero di ossidazione}
+Il \textbf{numero di ossidazione} è la carica (positiva o negativa) di un atomo
+in un legame o composto quando tutti gli atomi di legame sono assegnati all'atomo
+più elettronegativo determinata a partire dal numero di elettroni in più o in meno
+rispetto all'atomo neutro. \\
+Il numero di ossidazione di un composto non dipende dal formalismo con cui è scritta
+la formula (nel caso di specie contenenti due atomo dello stesso elemento legato
+tra loro il numero di ossidazione dipende anche dal numero di legami covalenti
+tra i due atomi) e non dipende dal numero di legami covalenti formati da un dato atomo,
+inoltre la somma di tutti i numeri di ossidazione in un composto è sempre pari alla
+carica di quel composto.\\
+\[
+    \begin{array}{c}
+            \chemfig{H-\charge{0 = \|, 90 = \|, -90 = \|}{Cl}} \\
+             \text{H ha numero di ossidazione +1}
+    \end{array}
+    \begin{array}{c}
+        \chemfig{H-[:28]\charge{45 = \|, 135 = \|}{O}-[:-28]H} \\
+        \text{O ha numero di ossidazione -2.}
+    \end{array}
+\]
+
+
+\section{La risonanza}
+\subsection{Formule limite}
+Accade spesso che alcune formule di struttura possano essere scritte in più modi:
+\[
+\left[ \ \chemfig{\charge{120 = \|, 210 = \|, -60 = \|}{O}-[:30]\charge{90 = \|}{N}=[:-30]\charge{15 = \|, -75 = \|}{O}} \ \right]^{-}
+\quad \longleftrightarrow \quad \left[
+    \ \chemfig{\charge{120 = \|, 210 = \|, -60 = \|}{O}=[:30]\charge{90 = \|}{N}
+    -[:-30]\charge{15 = \|, -75 = \|}{O}} \
+\right]^{-}
+\]
+Le due formule sono identiche ma dal momento che l'ossigeno che non ha il doppio legame deve
+completare l'ottetto, la copia di legame $\pi$ è delocalizzata sui tre atomi della molecola
+e "passa" da un atomo all'altro degli ossigeni. notazione usata sopra per \ce{NO2} è
+definita come \textbf{formula limite}  e la freccia indica cambiamento di distribuzione
+elettronica ma non di geometria. Si dice anche che è un \textbf{ibrido di risonanza}.
+Entrambe le formule limite contribuiscono alla definizione della formula reale in quanto 
+ogni formula limite ci dice quali legami sono fatti ed hanno la stessa geometria.
+La risonanza tuttavia avviene anche tra numeri diversi di legame:
+\[
+    \chemfig{\charge{180= \|}{N}~N-\charge{0=\|, -90 = \|, 90 = \|}{O}} \quad
+    \longleftrightarrow \quad 
+    \chemfig{\charge{135= \|, 225 = \|}{N}=N=\charge{-45 = \|,45 = \|}{O}}
+\]
+Esse non sono energeticamente equivalenti poiché i legami $\pi$ di \chemfig{N-N} non 
+ha la stessa energia di quello \chemfig{N-O}, tuttavia sono formule limite perché
+differiscono nella distribuzione degli elettroni.
+Se le due formule fossero equivalenti allora le frazioni del legame $\pi$ di risonanza 
+sarebbero rispettivamente $1/2$ ed $1/2$.
+
+\subsection{Contributo relativo delle formule limite alla descrizione della struttura molecolare}
+Se si misurasse l'energia di una formula limite si troverebbe che essa è maggiore della
+della molecola reale (e quindi meno stabile): quindi la formula con energia minore tra
+quelle limite è quella che fornisce una descrizione più reale della molecola effettiva.
+Il concetto di \textbf{carica formale} è utile per determinare le formule di risonanza
+e la loro energia: questa è la differenza tra il numero di elettroni dell'atomo libero
+e quello attribuitegli formalmente in una formula di struttura. Nella seguente struttura
+le cariche formali sono rispettivamente -1, +1 e 0.
+\[
+\chemfig{\charge{135= \|, 225 = \|}{N}=N=\charge{-45 = \|,45 = \|}{O}}
+\]
+La \textbf{separazione di carica} è l'esistenza di cariche formali di segno opposto
+nella stessa formula; se una formula ha una separazione di carica minore allora ha
+anche energia minore. Se in due formule limite entrambe hanno la stessa separazione di
+carica allora è più stabile (e quindi più probabile) quella con gli elettroni sull'atomo
+più elettronegativo.
+
+\subsection{Formule limite con diverso numero di legami}
+Nella molecola \ce{BF3}, generalmente il boro fa tre legami $\sigma$, uno con ogni \ce{F},
+tuttavia, esso ha ancora un orbitale vuoto e quindi può formare un legame $\pi$ con 
+uno dei fluori. Il legame $\pi$ \chemfig{B-F} non è molto forte poiché c'è grande
+$\Delta$elettronegatività e quindi le formule limite per la molecola sono tre con un doppio
+legame con uno dei fluori e una con solo legami sigma. Ogni legame \chemfig{B-F} è formato
+da un legame $\sigma$ e solo da $<10\%$ di legame $\pi$. \\
+Con atomi del terzo periodo, avendo a disposizione anche orbitali $d$, si possono ottenere
+molte più formule di risonanza, anche se per ragioni di schematicità si possono rappresentare
+con una sola formula, trascurando gli orbitali $d$, la formula otteziale di alcune molecole
+e che mostra che i legami devono essere equivalenti.
+
+\section{Sommario regole per la scrittura delle formule di struttura}
+Data una formula molecolare e conoscendo l'atomo centrale (in genere l'atomo meno
+elettronegativo tranne l'idrogeno), si procede per la scrittura delle formule
+nella seguente maniera:
+\begin{enumerate}
+    \item Legare l'atomo centrale tutti gli atomi con un legame semplice;
+    \item Sommare gli elettroni di valenza degli atomi, addizionate/sottratte al numero di
+    cariche negative o positive;
+    \item Disporre tutti i possibili elettroni sugli atomi periferici e disporre 
+    anche gli elettroni rimanenti dopo aver sistemato gli elettroni di legame
+    e le coppie solitarie degli atomi periferici sull'atomo centrale;
+    \item determinare le posizioni degli atomi intorno all'atomo centrale attraverso
+    la repulsione delle coppie elettroniche;
+    \item distribuire gli elettroni in modo da scrivere formule o formule limite accettabili.
+\end{enumerate}
+
+\section{Energia di legame}
+Le caratteristiche principali di un legame \chemfig{A-B} sono la distanza di legame,
+e l'energia di legame. Per convenzione si definisce l'energia di legame l'\textbf{
+energia necessaria per rompere il legame} e quindi è per convenzione positiva,
+mentre è negativa l'energia immagazzinata nel sistema \chemfig{A-B}. Sperimentalmente
+l'energia di legame è misurata come il $\Delta$\textbf{entalpia} nella trasformazione:
+\[
+    \chemfig{A-B_{(g)}} \ \to \ \ce{A_{(g)}}+ \ce{B_{(g)}}
+\] 
+Il numero di legami si chiama \textbf{ordine di legame} e può essere un numero intero
+oppure una frazione nel caso di formule limite.
+
+\section{Orbitale molecolare per molecole poliatomiche}
+L'orbitale molecolare per le molecole biatomiche, anche gli orbitali non di legame
+partecipano al legame in quanto l'energia degli orbitali di antilegame spesso hanno energia
+maggiore che del terzo orbitale $p_z$ come nel caso di \ce{H2O}. Se $p_z$ non fosse
+occupato da due elettroni, allora l'angolo di legame sarebbe di soli 90°, poiché l'energia
+degli orbitali di antilegame aumenta a causa delle sovrapposizione degli orbitali 
+$2s$ dell'ossigeno e $1s$ dell'idrogeno. Aumentando dunque l'angolo della molecola,
+si osserva che l'energia del sistema diminuisce maggiormente e in questo modello 
+l'orbitale $2p_z$ rimane invariato, mentre nel modello degli orbitali
+ibridi si sovrappone a $s$ e $p$. Secondo quindi il modello OMC, ossia degli orbitali
+molecolari canonici, l'orbitale $2p_z$ rimane invariato, mentre nel modello degli orbitali
+ibridi anche questo si sovrappone agli altri orbitali.\\
+Nel caso del \ce{CH4} è invece molto più facile poiché secondo la teoria
+dell'OMC, i quattro orbitali di legame hanno uno energia più bassa degli altri tre,
+mentre secondo la teoria del VSEPR si hanno quattro orbitali ibridi di pari energia
+e coincidono con la descrizione degli orbitali ibridi $sp^3$.
+
+
+\chapter{Il legame metallico}
+\section{I metalli}
+I metalli sono gli elementi sulla tavola periodica che possiedono pochi elettroni
+esterni ed hanno energie di ionizzazione molto basse. Sono metalli non solo gli
+elementi del primo e secondo gruppo (tranne l'idrogeno), ma anche alcuni che si trovano
+in fondo agli ultimi gruppi della tavola periodica e anche quelli di 
+transizione del blocco $d$. \\
+Nella struttura dei metalli si possono trovare fino a 12 altri atomi intorno ogni
+atomo metallico e generalmente possiedono molti meno elettroni di valenza che
+orbitali disponibili. Questo rende impossibile il modello del legame covalente
+a coppia di elettroni localizzati tra due atomi, poiché ci sarebbero molte formule di
+risonanza valide (nel caso dei metalli alcalini fino a 7).\\
+Il modello di legame tra metalli può quindi essere interpretato come un continuo
+scambio di elettroni tra gli ioni metallici nel reticolo che, se sottoposti a
+campo elettrico, si muovono dando vita a conduzione elettrica.
+
+\section{Il modello a bande}
+Il legame dei metalli è dunque un modello a bande, considerata un'estensione dell'orbitale
+molecolare.
+\begin{wrapfigure}{r}{0.40\textwidth} \label{Fig 4.1}
+    \centering
+    \caption{Schema di orbitale molecolare per la molecola \ce{Li2}}
+    \includegraphics[width=0.40\textwidth]{Schema-Litio.png}
+\end{wrapfigure}
+Prendendo come esempio il Litio (con soli tre elettroni), nella figura \ref{Fig 4.1}
+è raffigurato il modello dell'orbitale molecolare (non considerando la teoria degli
+orbitali ibridi), gli elettroni stanno dunque nell'orbitale $\sigma_s$, ad energia più
+alta si trovano gli orbitali vuoti $\sigma_s^*, \sigma_p, \pi_p, \pi_p^*$ ed infine
+$\sigma_p^*$, continuando ad aggiungere altri atomi di litio, gli orbitali
+si infittiscono sempre di più fino a disporsi secondo delle bande di energia,
+se la banda $\sigma_s$ si tocca con un la banda degli orbitali corrispondenti
+$\sigma_s^*$, allora si ha un'unica banda $2s$ \textbf{semiriempita}, e quindi un
+elettrone può passare da un orbitale riempito ad uno vuoto e l'energia
+necessaria sarà quella cinetica.
+
+\section{Il modello della conduzione elettrica in un solido}
+Nel modello a bande si ha la risposta alla conduttività/isolamento di un materiale.
+Se si applica un certo campo elettrico ad un materiale, gli elettroni tenderanno
+a muoversi e due elettroni che vanno in verso opposto uno risulterà accelerato
+dal campo, l'altro rallentato. Tuttavia se il campo non riesce a creare sufficiente 
+$\Delta$Energia, allora non si avrà alcun salto quantico e gli elettroni non
+saranno accelerati in quanto il sistema può assorbire solo determinate energie
+quantizzate. \\
+Se si applica un campo elettrico ad un materiale con bande piene e vuote a contatto,
+allora gli elettroni possono saltare da un livello energetico all'altro in quanto
+le bande, dal momento che sono fitte, permettono passaggio di elettroni con salto
+quantico di energia \textbf{uguale} a quella impartita dal campo. Se invece una banda
+è completamente piena, allora il materiale è isolante in quanto è richiesta
+più energia per passare alla banda sopra. \\
+Un conduttore è un materiale che presenta \textbf{bande parzialmente occupate} e gli
+isolanti bande complete di elettroni separate da quelle vuote da un grande salto di energia. \\
+Se le due bande sono separate ma il salto energetico è piccolo, allora si hanno le 
+caratteristiche di un \textbf{semiconduttore}. La banda inferiore è chiamata
+\emph{banda di valenza}, mentre quella superiore \emph{banda di conduzione}.
+
+\section{Configurazione elettronica e proprietà elettriche}
+Nel gruppo 1, i metalli alcalini utilizzano la banda semiriempita $ns^1$, mentre
+gli alcalino-terrosi del gruppo 2 utilizzano gli orbitali $p$ (vuoti) che si sovrappongono
+a quelli $s$: gli elettroni di valenza occuperanno gli orbitali di minore energia, e in
+questo caso si ha guadagno netto di energia e si spiega il legame solido degli elementi
+oltre che alla conducibilità elettrica; si applica lo stesso ragionamento per i 
+metalli del gruppo 13 ($ns^2np^1$). \\
+Nel gruppo 14 invece il carbonio esiste in due forme allotropiche (grafite e diamante),
+nel diamante si formano tanti legami quanti elettroni di valenza (ossia 4), quindi si
+hanno $4N$ orbitali di legame e $4N$ orbitali di antilegame, il che fa sì che ci
+sia un grande salto energetico tra le due bande di legame e di antilegame, il
+carbonio nella sua forma a diamante è perciò un isolante elettrico. 
+Negli altri elementi del gruppo 14, via via che si scende nel gruppo diminuisce
+il salto energetico tra le bande, facendo sì che lo \ce{Sn} sia conduttore a causa
+della maggiore \textbf{delocalizzazione} dei legami, mentre Silicio e Germanio
+sono semiconduttori, la cui conducibilità aumenta con la temperatura. \\
+La grafite invece è un buon conduttore elettrico poiché esistono bande di tipo
+$\pi$ e $\pi^*$ che sono molto vicine le une alle altre e comprese tra quelle
+$\sigma$ e $\sigma^*$. \\
+Aggiungendo invece atomi con più o meno elettroni ad un semiconduttore (nel caso
+del Silicio si usa \ce{P, As} oppure il \ce{B}), la conduzione può essere aumentata
+(\textbf{drogaggio}). Quando il Silicio è drogato con atomi con più elettroni, allora
+si ha che gli elettroni in più si localizzano sulla banda di conduzione, altrimenti
+sulla banda di valenza.
+
+\section{Conduzione termica}
+Quando si fornisce energia ad un metallo conduttore la sua conduzione diminuisce
+poiché la velocità superiore degli elettroni aumenta il moto casuale e quindi non
+passano dalle bande di valenza a quelle di conduzione. \\
+Una proprietà interessante dei metalli e la loro alta conducibilità termica
+dovuta alla delocalizzazione degli elettroni su tutto il solido che redistribuiscono
+l'energia assorbita ovunque. Se un materiale non riesce a redistribuire questa energia
+con facilità, allora si parla di \textbf{isolante termico}.
+
+\section{Energia del legame metallico}
+L'energia del legame metallico è definita nello stesso modo, qualunque sia 
+il tipo di legame nei metalli. L'energia del legame varia notevolmente a seconda
+del numero di elettroni coinvolti nel legame metallico, dal momento che gli elettroni
+sono delocalizzati su tutto il solido, questi schermano le cariche degli elettroni
+interni non di valenza (\textbf{\emph{core} ionico} del metallo). Questo mare di
+elettroni è quindi il collante che tiene insieme il metallo.
+Le temperature di fusione ed ebollizione aumentano lungo il periodo fino ai gruppi
+5-6-7, successivamente diminuiscono poiché ci sono più elettroni che orbitali vuoti
+e gli elettroni tendono dunque a localizzarsi vicino al nucleo con spin antiparallelo.
+
+\section{L'idrogeno}
+Sebbene si sia detto come l'idrogeno non sia un metallo, esso in condizioni molto estreme,
+ossia con altissime pressioni e temperatura, dà luogo non più a molecole di \ce{H2} ma
+a molecole di \ce{H}, le quali sono tenute insieme da un legame metallico. Questo
+è stato scoperto da una sonda della navicella Galileo nel '95 che ha confermato
+la presenza di idrogeno metallico (liquido) nel mantello di Giove.
+
+
+\chapter{Il legame ionico}
+\section{Il modello del legame ionico}
+Il legame ionico si associa ad una tipologia di composti che prendono il nome di
+\textbf{composti ionici} i quali a temperatura ambiente sono solidi cristallini 
+elettricamente neutri. La condizione di minima energia tra due ioni di 
+carica opposta è la minima energia data dalla legge di Coulomb:
+\begin{align}
+    E_{pot} = k_C \frac{Q_A Q_B}{r}
+\end{align}
+Dove $k_C$:
+\begin{align}
+    k_C = \frac{1}{4\pi\epsilon_0} = 8.9875\cdot 10^{9} JmC^{-2}  
+\end{align}
+Dove $\epsilon_0$ è la \textbf{permittività nel vuoto}:
+\begin{align}
+    \epsilon_0 = 8.8542 \cdot 10^{-12}J^{-1}m^{-1}C^{2}    
+\end{align}
+Se $Q_AQ_B$ è un prodotto negativo allora la potenziale è negativa, il che
+vuol dire che si attraggono, altrimenti si respingono. Per decidere ora se la
+coppia formata da due particelle cariche $A^+$ e $B^{-} $ sua stabile energeticamente
+si valutano i contributi delle singole energie: l'energia di Ionizzazione di
+A è positiva e quindi è sfavorevole, l'affinità di B è positiva e quindi favorevole
+e l'energia di interazione elettrostatica è grande e negativa (il che va bene se questa
+più l'affinità bilanciano l'energia di ionizzazione di A). La maggior parte delle
+coppie ioniche è molto più stabile in legame che da sole (come \ce{NaCl}), in questi
+casi un livello energetico minore si ha con reticoli cristallini tridimensionali
+in cui ogni particella $A^{+}$ si circonda di particelle $B^{-}$ e viceversa
+rendendo solido il composto a temperatura ambiente. In ogni caso il
+rapporto tra cationi ed anioni all'interno di un legame ionico è quello dell'uguaglianza
+tra cariche positive e negative. \\
+Inoltre il legame ionico non è direzionale in quanto l'attrazione si ha in tutte le direzioni. \\
+Assumendo ora che gli ioni siano sfere perfette , l'energia complessiva di attrazione
+e repulsione dipende dalla carica degli ioni e dalla distanza tra i loro baricentri:
+\begin{align}
+    E_{pot} = k_C N_A M \frac{Q_BQ_A}{r}
+\end{align}  
+Dove M è la costante di \emph{Madelung} che è sempre maggiore di uno: il che ci porta
+a dire che è più stabile un sistema con gli ioni legati tra loro piuttosto che senza interazione.
+
+\section{Energia reticolare e costante di Madelung}
+Nel caso di \ce{Cl^{-}} e \ce{Na^{+}} il reticolo cristallino cubico fa si che si
+alternino strati del cubo con contributi negativi a contributi positivi
+ognuno sempre minore in valore assoluto di quello prima, andando a formare una serie
+convergente ad un certo valore di M ($M = 1.7475$ per \ce{NaCl}) quando il 
+numero di reticoli sono $\to \infty $. Così moltiplicando M per $-k_Ce^{2}/r$ si ottiene
+l'energia di interazioni di uno ione \ce{Cl^{-}} con gli altri ioni e
+quindi si ottiene l'\textbf{energia potenziale di interazione}di una mole \ce{NaCl}:
+\begin{gather*}
+    E = -k_CMN_A\frac{e^{2} }{r}
+\end{gather*}  
+Il valore della costante di Madelung dipende sopratutto dalla struttura cristallina
+della sostanza ma non dalla sua natura chimica ed è sempre $> 1$.
+
+\section{Ioni che costituiscono le sostanze ioniche}
+\begin{tabular}{| m{1cm} | m{2.5cm} | m{5cm} |}
+    \hline
+    Gruppo & Configurazione & Ioni \\
+    \hline
+    1 & $ns^{1}$ & \ce{M^{+}} (tranne H) \\
+    \hline
+    2 & $ns^{2}$ & \ce{M^{2+}}  \\
+    \hline
+    13 & $ns^{2}np^{1}$ & \ce{M^{3+}} e poliatomici negativi \\
+    \hline
+    14 & $ns^{2}np^{2}$ & poliatomici negativi e monoatomici positivi    \\
+    \hline
+    15 & $ns^{2}np^{3}$ & poliatomici negativi \\
+    \hline
+    16 & $ns^{2}np^{4}$ & \ce{X^{2-}} e poliatomici negativi \\
+    \hline
+    17 & $ns^{2}np^{5}$ & \ce{X^{-}} e ioni poliatomici negativi  \\
+    \hline    
+\end{tabular}
+
+\section{Geometria locale dei composti ionici}
+Ogni ione è circondato dal maggior numero di ioni di carica opposta
+ed il limite degli ioni che possono circondare un altro ione di segno opposto
+è dato dal rapporto tra i raggi dello ione positivo fratto quello negativo.
+\begin{tabular}{m{3cm} m{3cm}}
+    \hline
+    Numero di coordinazione & $\frac{r^{+} }{r^{-} }$ \\
+    \hline
+    3 & 0.155 - 0.225 \\
+    4 & 0.255 - 0.414 \\
+    6 & 0.414 - 0.732 \\
+    8 & 0.732 - 1
+\end{tabular}
+Il \textbf{numero di coordinazione} è il numero di ioni di segno opposto
+attorno allo ione più piccolo del composto ionico. La geometria di coordinazione
+invece tende a rendere distanti gli ioni di segno uguale e per questo
+solo a determinati raggi si può avere un certo numero di coordinazione.
+
+\section{Validità del modello ionico}
+Questo modello è valido se e solo se l'energia trovata 
+corrisponde all'energia necessaria per la dissociazione del legame ionico
+misurata sperimentalmente: nel caso di \ce{NaCl} queste sono rispettivamente
+867 e 768 kJ $mol^{-1}$, il che è abbastanza preciso per un modello che non tiene in
+considerazione la repulsione elettronica: se si volesse un modello che tenga conto di questo,
+allora dovremmo correggere la formula come segue:
+\begin{align}
+    E_{rec} = -E_{pot} = k_CN_A\frac{Me^{2} }{r}\left( 1 - \frac{1}{n} \right).
+\end{align}
+Dove n è esattamente un numero che varia da 6 a 10 a seconda del tipo di ioni.
+La Validità del modello può anche dipendere dal carattere covalente di un composto:
+alcuni composti con un carattere molto covalente si ha una sovrapposizione degli 
+orbitali che porta ad imprecisioni nel calcolo teorico dell'energia di dissociazione.
+
+\section{Carattere ionico, covalente e numeri di ossidazione degli atomi nei composti ionici}
+Il carattere covalente in un legame ionico dipende dalla direzionalità del legame:
+se un legame ionico non ha molte molecole di coordinazione allora ha un carattere tendente
+al covalente, altrimenti è puramente ionico. Questo accade perché in un legame covalente si ha una
+forte penalizzazione per la violazione degli angoli di legame è molto più grande rispetto
+allo ionico in quanto in quest'ultimo non ci sono coppie elettroniche che si respingono e
+gli ioni si impacchettano in modo più efficiente: è per questo che
+nell'\ce{NaCl} ogni ione è circondato da altri 6 ma il carbonio forma al
+massimo 4 legami. \\
+Anche se è corretto parlare di aumento di carattere ionico quando aumenta il $\Delta$ elettronegatività
+,tuttavia non si raggiungerà mai il 100\% di carattere ionico in quanto si formerebbe una 
+coppia ionica non stabile. \\
+Per quanto riguarda il numero di ossidazione invece si ha che nei composti ionici
+corrisponde alla carica dei singoli ioni, mentre nei poliatomici vale sempre
+la regola di assegnare gli elettroni a quello più elettronegativo.
+
+\chapter{Interazioni di Van der Waals ed il ponte ad idrogeno}
+\section{Interazioni di Van der Waals}
+\subsection{Modello per dispersione}
+Le sostanze a stato elementare sono molecole discrete ed i legami al loro intero solo tali
+da far raggiungere la configurazione del gas nobile più vicino a tutti gli atomi interessati dal legame. 
+Come è possibile che quindi queste sostanze possano essere solide se non formano
+altri legami? \\
+Esistono quindi delle \textbf{forze di coesione intermolecolari} spiegate
+attraverso \textbf{dipoli momentanei reciprocamente indotti}. In linea teorica in un atomo
+gassoso non si dovrebbe avere la formazione di dipoli momentanei poiché il baricentro delle cariche
+positive e negative dovrebbero coincidere col centro dell'atomo, tuttavia, muovendosi, gli elettroni,
+tendono a modificare il campo elettrostatico generando \textbf{dipoli momentanei}, che,
+essendo causali, la loro media è nulla nel tempo. \\
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 6.1}
+    \caption{Il moto degli elettroni intorno al nucleo genera dipoli momentanei}
+    \includegraphics[width=0.4\textwidth]{Dipoli.png}
+\end{wrapfigure}
+Prendendo in considerazione più atomi si osserva come questi dipoli momentanei
+possano influenzare anche gli atomi vicini andando a far muovere in modo coordinato
+gli elettroni di atomi adiacenti la cui media non sarà più zero poiché sono orientati
+testa-coda con altri atomi creando delle vere e proprie forze momentanee di attrazione
+chiamate \textbf{forze di attrazione} o di \textbf{London} con energia potenziale:
+\begin{align}
+    E_{AB} = -\frac{3}{2}\frac{I_AI_B}{2(I_A + I_B)} \frac{\alpha_A \alpha_B}{r^{6} }
+\end{align}
+Dove $I_A$ e $I_B$ sono le energia di ionizzazione delle molecole coinvolte e r è la distanza
+fra i baricentri delle molecole e $\alpha$ è la loro \textbf{polarizzabilità} ossia la facilità
+con cui si può deformare la distribuzione degli elettroni delle molecole in presenza
+di un campo elettrico in modo tale che i baricentri delle cariche positive e negative non coincidano più. \\
+La polarizzabilità è una proprietà periodica che cresce scendendo lungo un gruppo
+e da destra verso sinistra. L'energia dovuta alla forza di London è positiva poiché
+è l'energia dovuta per rompere l'interazione.
+
+\subsection{I dipoli}
+Un dipolo elettrico è costituito da due cariche elettriche di segno opposto a distanza $d$, e con
+un vettore momento dipolo chiamato $\mu$ che va dal polo positivo a quello negativo il cui modulo vale
+\begin{align}
+    \mu = Qd
+\end{align}
+mentre l'energia potenziale di un dipolo è data da:
+\begin{align}
+    U = -\mu
+\end{align}
+
+\subsection{Molecole polari ed interazioni per orientazione ed induzione}
+Quando i baricentri delle cariche positive e negative in una molecola non coincidono
+allora tale molecola possiede un momento polare permanente  e la direzione, verso
+e modulo dipendono dalla geometria della molecola. Questo può dipendere da molti fattori
+come l'orientazione degli orbitali esterni e l'elettronegatività delle molecole. 
+Le molecole polari si attraggono tra loro in modo da massimizzare l'interazione dipolo-dipolo
+e quando sono libere di orientarsi allora la loro attrazione si media a:
+\begin{align}
+    E_{AB} = -\frac{2}{3k_BT}\frac{1}{k_C^{2}}\frac{\mu_A^{2} \mu_B^{2} }{r^{6} }
+\end{align}
+Questa interazione è anche chiamata \textbf{interazione per orientazione} perché le molecole
+polari si orientano in un campo elettrico. \\
+L'energia dovuta alla polarità di una molecola però è solo una componente
+dell'energia totale nelle interazioni molecolari: infatti ogni dipolo induce un'altro 
+dipolo con un energia di \textbf{interazione di Debye} molto piccola:
+\begin{align}
+    E_{AB} = - \frac{2}{k_C^{2} r^{6} } (\mu_A^{2} \alpha_B + \mu_B^{2} \alpha_A )
+\end{align}
+
+\section{Il legame ponte ad idrogeno}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 6.2}
+    \caption{Il legame ad idrogeno nella molecola d'acqua}
+    \includegraphics[width=0.4\textwidth]{Legami-idrogeno.png}
+\end{wrapfigure}
+Alcune molecole polari mostrano forze di coesione molto maggiori di quelle
+prevedibili in base alla semplice orientazione del dipolo o alla loro polarizzabilità
+e son o caratterizzate dalla presenza di atomi elettronegativi e legami con atomi
+di idrogeno. In queste molecole le interazioni deboli prendono il
+nome di \textbf{ponte ad idrogeno} in quanto si ha interazione elettrostatica tra
+l'idrogeno e gli atomi elettronegativi. Questo tipo di legame è più forte delle interazioni
+deboli e per questo vi si riferisce come se fosse un debole legame chimico in quanto è
+solo un ordine di grandezza più debole di quello covalente. Questo tipo
+di legame spiegherebbe il comportamento anomalo dell'acqua che è meno densa
+allo stato solido che allo stato liquido: questo perché allo stato solido si
+devono rompere alcuni di quei legami.
+
+\section{Stato di aggregazione di una sostanza molecolare ed energia del legame intermolecolare}
+La temperatura standard di ebollizione di un liquido può essere espressa come la somma
+delle forze di interazione intermolecolare allo stato condensato. Molecole con 
+basse temperature di fusione, ebollizione hanno delle interazioni intermolecolari
+molto deboli rispetto a quelle che hanno punti molto più alti. Inoltre 
+un altro fattore importante è la polarizzabilità, la quale, aumentando, tende
+a far aumentare la temperatura di fusione ed ebollizione, così come la grandezza
+della molecola.
+
+\chapter{Stati e proprietà della materia}
+\section{Il modello e le proprietà dello stato solido}
+\subsection{Il principio di massimo impacchettamento}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 7.1}
+    \caption{\textbf{a)} massimo impacchettamento di un piano di sfere,
+    \textbf{b)} struttura non a massimo impacchettamento}
+    \includegraphics[width=0.5\textwidth]{Massimo-impacchettamento.png}
+\end{wrapfigure}
+Lo \textbf{stato solido} o \textbf{stato cristallino} è uno stato della materia
+in cui le molecole di una data sostanza presentano il massimo impacchettamento possibile
+con una disposizione ordinata che si ripete periodicamente nello spazio. Nonostante
+il massimo impacchettamento possibile sia dovuto al principio di minima energia, 
+alcuni fattori come la direzionalità delle interazioni, la non sfericità delle
+molecole e le dimensioni diverse di ogni particella 
+
+\subsection{impacchettamento ideale di sfere di uguali dimensioni}
+Le varie strutture di massimo impacchettamento (posto che le molecole costituenti siano
+delle sfere perfette ) si ha con numero di coordinazione 12 a livello
+tridimensionale. In generale, qualsiasi sia la struttura di massimo impacchettamento
+data da sfere piene, la loro frazione di volume occupata sarà sempre di
+$\frac{\pi}{3\sqrt{2}} \sim 0.7405$. Tra le strutture più comuni adottate dalle
+sostanze, si hanno la \textbf{cubica a corpo centrato} e quella
+\textbf{cubica semplice}.
+
+\subsection{La forma delle cavità comprese fra le sfere nelle strutture a massimo impacchettamento}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 7.2}
+    \caption{Forma delle cavità: \textbf{b)} tetraedrica generata da \textbf{a)}
+    e \textbf{d)} generata da \textbf{c)}.}
+    \includegraphics[width=0.5\textwidth]{Cavita.png}
+\end{wrapfigure}
+All'interno delle strutture a massimo impacchettamento si hanno generalmente due
+tipologie di cavità: una \textbf{tetraedrica} ed una \textbf{ottaedrica}. Nelle
+strutture piane, la cavità che si forma è triangolare, e quando vi si appoggia
+sopra un'altra struttura si formano delle cavità tetraedriche. Generalmente
+si originano cavità tetraedriche quando si ha uno spazio all'interno di 4 sfere
+e si originano cavità ottaedriche quando si ha uno spazio all'interno di 6 sfere.
+
+\section{Strutture dei composti ionici}
+Solitamente nei composti ionici quando si raggiunge il massimo impacchettamento
+sono gli anioni che si avvicinano moltissimo tra di loro fino a toccarsi quasi
+(posto che si stia modellizzando gli atomi come sfere perfette) mentre
+i cationi tendono a disporsi all'interno delle cavità lasciate dagli
+anioni. Nella struttura dell' \ce{NaCl}, gli ioni \ce{Cl^{-}} tendono
+ad avvicinarsi così tanto da essere in contatto tra di loro ed acquisiscono
+un numero di coordinazione 12 mentre gli ioni \ce{Na^{+}} è solo 6. 
+
+\section{Strutture dei solidi molecolari e covalenti}
+\subsection{Sostanze costituite da molecole discrete}
+Quando le molecole hanno una forma sferica le forze di interazione sono adirezionali e 
+la sostanza allo stato solido assume una conformazione ben precisa ed il baricentro
+(nei gas nobili e negli alogeni ) tende ad essere al centro della sfera
+nel reticolo a massimo impacchettamento poiché agiscono solo forze di London. \\
+all'interno di sostanze con interazioni più forti come i ponti ad idrogeno, allora
+la struttura non è mai quella di massimo impacchettamento come nel caso del ghiaccio:
+avendoci 4 ponti ad idrogeno, allora 4 atomi di ossigeno sono circondati
+da solo 4 atomi di idrogeno non rendendola compatta.
+
+\subsection{Solidi con struttura covalente polimera}
+I solidi polimeri sono quelle sostanze che presentano legami solo ed
+esclusivamente covalenti; questo vuol dire che presentano un carattere che si
+discosta molto dalle strutture di massimo impacchettamento: il legame covalente è un
+legame fortemente direzionale e quindi queste molecole raggiungono la stabilità soltanto
+quando raggiungono il numero di legami massimo possibile e non quando raggiungono
+il il maggior numero possibile di altri atomi intorno. \\
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 7.3}
+    \caption{\textbf{a)} disposizione tetraedrica dei legami nel diamante;
+    \textbf{b)} reticolo cubico del diamante}
+    \includegraphics[width=0.4\textwidth]{diamante.png}
+\end{wrapfigure}
+La struttura modello è quella del diamante: ogni atomo di carbonio forma 4 legami covalenti
+con altri 4 atomi di carbonio, i quali, a loro volta, formano altri 4 legami
+covalenti e così via: non si ha quindi una struttura ben definita a massimo impacchettamento
+poiché ogni atomo di carbonio si lega solo con altri 4 atomi di carbonio anche se la
+struttura è assimilabile a quella di un reticolo cubico.\\
+Un'altra particolarità è proprio l'impossibilità di determinare in modo geometrico
+come si distribuiscono spazialmente le sostanze covalenti: questo perché spesso sono
+costituiti da strati di atomi tenuti insieme dalle forze di Van der Waals come
+nel caso della grafite. Nella grafite ogni atomo di carbonio è legato con 3 altri 
+atomi di carbonio formando un reticolo con numero di coordinazione 3; l'orbitale $\pi$ 
+è invece condiviso con gli altri reticoli in modo da formare una struttura a strati 
+con un sistema di elettroni delocalizzati. \\
+Ne deriva che diamante e grafite sono sostanze \textbf{allotropiche} del carbonio.
+
+\section{Cristalli reali e difetti reticolari}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \label{Fig 7.4}
+    \caption{\textbf{a)} difetti di Schottky; \textbf{b)} difetti di Frenkel}
+    \includegraphics[width=0.4\textwidth]{Difetti-reticolari.png}
+\end{wrapfigure}
+Tutta la trattazione fino ad ora è stata effettuata secondo l'assunzione che i cristalli
+fossero perfetti; tuttavia questo non è sempre il caso (non lo è mai) e quindi inevitabilmente
+presenteranno delle impurezze, che possono essere ridotte mediante la ricristallizzazione.
+Quando gli atomi vibrano e traslano (traslano poco a temp. ambiente) possono aprirsi delle cavità
+in cui si insediano degli atomi estranei, i quali creano dei \textbf{difetti reticolari}. Esistono
+imperfezioni di \textbf{Schottky} quando si parla di imperfezione del reticolo
+ideale (ossia quando mancano ioni o molecole) o imperfezioni di \textbf{Frenkel} quando
+un atomo o ione si insedia in una cavità che normalmente dovrebbe essere vuota. \\
+Inoltre se il processo di cristallizzazione avviene troppo velocemente allora accade
+che gli atomi non riescono a disporsi in modo ideale e quindi danno origine a
+\textbf{dislocazioni}. Si ha anche un difetto ottico delle sostanze ioniche chiamato
+\textbf{centri di colore}: ossia quando per qualche motivo uno ione negativo perde il proprio
+elettrone (il quale rimane nella stessa posizione poiché è vincolato dal campo di
+potenziale degli altri ioni) divenendo quindi neutro e traslando per via del moto termico. \\
+Cosa c'è alla fine di un solido? Generalmente gli atomi si avvicinano tra di loro oppure
+come nei metalli aumentano il numero di ossidazione e si legano a specie ossidanti come
+l'ossigeno. 
+
+\section{Alcune proprietà delle sostanze solide correlate al legame chimico}
+\begin{enumerate}
+    \item \textbf{Durezza}: della durezza(ossia la resistenza alla scalfitura)
+    è responsabile l'energia dei legami covalenti e viene misurata secondo la \textbf{
+    scala di Mohs} (il cui limite massimo è il diamante con 10, ed il limite inferiore
+    è il talco con 1) nella quale ogni gradino rappresenta una durezza 10 volte maggiore
+    dell'elemento prima sulla scala;
+    \item \textbf{Fragilità}: della Fragilità (ossia la possibilità di frattura
+    del cristallo per sollecitazioni meccaniche) è responsabile la direzionalità del legame:
+    legami covalenti portano alla rottura del cristallo poiché molto direzionali mentre
+    solidi tenuti insieme da interazioni deboli sono molto malleabili;
+    \item \textbf{Malleabilità} e \textbf{Duttilità}: La Malleabilità dipende soprattutto dalla adirezionalità
+    dei legami (quindi solo interazioni deboli e ionici) poiché prevede lo slittamento
+    di lamine di cristallo sopra le altre.
+\end{enumerate}
+Quando un metallo è molto malleabile ma poco duro questo dipende dalla barriera di
+potenziale che si oppone allo scorrimento di un piano di atomi rispetto ad un altro
+e dalle proprietà atomiche dell'elemento.
+
+\section{Modello e proprietà dello stato gassoso}
+\subsection{Equazione di stato dei gas ideali}
+Le particelle che costituiscono un sistema allo stato gassoso possiedono
+energia cinetica maggiore dell'energia di interazione ed occupano tutto lo spazio
+disponibile. La materia allo stato gassoso possiede 4 proprietà: due estensive
+ossia mole e volume e due intensive ossia temperatura e pressione; dall'equazione
+dei gas ideali è possibile ricavare da solo tre di esse la quarta:
+\begin{align}
+    PV = nRT
+\end{align}
+Il valore di R è:
+\begin{align}
+    R = 8.31446261815324 mol^{-1} K^{-1}  
+\end{align}
+Questa legge contiene anche le leggi di \emph{Boyle, Gay-Lussac e Avogadro}
+che dicono rispettivamente che a temperatura costante un aumento della pressione
+causa una diminuzione del volume; dipendenza del volume dalla temperatura a pressione
+costante e viceversa; e la terza ci dice che a volumi uguali di gas ideali
+alla stessa temperatura e pressione contengono la stessa quantità di sostanza.
+Un esempio di validità è la seguente relazione:
+\begin{gather*}
+    \ce{CH4 + 2O2 -> CO2 + 2H2O}
+\end{gather*}
+
+\subsection{Postulati e risultati della teoria cinetica dei gas: il modello ideale}
+Queste conclusioni possono permetterci di razionalizzare il comportamento di un gas
+in modo ideale con poche modifiche: (anticipando la teoria cinetica dei gas) i gas
+ideali hanno le seguenti proprietà:
+\begin{enumerate}
+    \item Le particelle di un gas ideale sono tutte uguali tra di loro e si muovono
+    di moto rettilineo uniforme in direzioni diverse;
+    \item il volume delle particelle è trascurabile;
+    \item Non ci sono interazioni tra le particelle e con le pareti del contenitore
+    e gli urti sono perfettamente elastici.
+\end{enumerate}
+\begin{figure}
+    \centering
+    \label{Fig 7.5}
+    \caption{Energia cinetica media del gas ideale a varie temperature}
+    \includegraphics[width=0.65\textwidth]{energia-cinetica-media.png}
+\end{figure}
+
+SI può trovare con queste leggi la distribuzione delle particelle dei gas chiamata
+\emph{distribuzione di Maxwell-Boltzmann} nella quale il punto della curva più alto
+contiene la frazione più grande di particelle con una data energia e la curva non è 
+mai simmetrica ma tende a decrescere velocemente verso zero e a decrescere
+lentamente verso energie molto più alte. Aumentando la temperatura aumenta l'energia
+più probabile così come l'energia media. QUesta curva è descritta con
+la seguente formula:
+\begin{align}
+    f(E) = 2(k_BT)^{-\frac{3}{2}} \sqrt{\frac{E_{cin}}{\pi}}\cdot \exp\left(-\frac{E_{cin}}{k_BT}\right) 
+\end{align}
+Da cui l'energia cinetica media delle particelle  $\left< E_{cin}\right>$ è data da:
+\begin{align}
+    E_{cin} = \frac{3}{2}k_BT
+\end{align} 
+
+\section{Gas reali}
+\subsection{l'equazione di Van Der Waals per i gas reali}
+l'Equazione di stato che rappresenti il comportamento di un gas reale con maggior 
+precisione è sicuramente l'equazione di Wan Der Waals:
+\begin{align}
+    \left( P  + a\frac{n^{2} }{V^{2} } \right) (V - nb) = nRT
+\end{align}
+Dove a e b sono fattori correttivi specifici per ogni gas: il valore di b
+è chiamato covolume o volume proprio ed è il volume vero delle molecole in stato
+gassoso poiché in stato condensato è minore. Inoltre non essendo gli urti
+perfettamente elastici ed essendoci forze di attrazione e repulsione fra le particelle
+allora il termine $a(n^{2 }/V^{2})$ chiamato \textbf{pressione interna} rappresenta
+questa correzione (più le particelle interagiscono tra loro e minore è la pressione
+esercitata sulle pareti).
+
+\subsection{Discostamento dei gas reali dal comportamento ideale}
+Un approccio utile per poter determinare il comportamento dei gas reali è 
+utilizzando il \textbf{fattore di comprimibilità}:
+\begin{align}
+    Z = \frac{V^{R}_m }{V^{I}_m }
+\end{align}
+Dove $V^{R}_m$ è il volume occupato da una mole di gas reale e l'altro 
+quando è ideale. Utilizzando la relazione dei gas ideali si ottiene:
+\begin{align}
+    Z = \frac{V^{R}_m P^{R} }{RT}
+\end{align} 
+Per i gas reali ora si ottiene:
+\begin{align}
+    Z = \frac{V_m^{R} }{V^{R} - b } - \frac{a}{V^{R}RT }
+\end{align}
+Il quale varia a seconda della temperatura e a seconda del gas:
+al di sopra della \textbf{temperatura di Boyle} il fattore è sempre
+$> 1$ per qualsiasi gas.
+
+\subsection{Uso dell'equazione di stato del gas ideale per i gas reali}
+L'equazione di stato dei gas ideali mette in relazione il volume di un gas
+con la qta. di moli gas e viceversa. In modo analogo possiamo definire quindi
+il \textbf{volume molare standard} ossia il volume alle condizioni standard
+(temp = 0°C) e ad un bar per il gas ideale come:
+\begin{align}
+    V_M = \frac{RT}{P}
+\end{align}
+Da questo si calcola la \textbf{densità standard} per qualsiasi gas:
+\begin{align}
+    d_G = \frac{M_G}{V_M} = \frac{PM}{RT}
+\end{align}
+Dove M è la massa molare e G è il gas considerato.
+
+\subsection{I gas nelle miscele gassose}
+Nelle miscele gassose i gas si comportano tutti come se fossero un unico gas con
+delle proprietà ben definite (nell'assunzione che il gas reale si possa
+approssimare ad un gas ideale); tuttavia si può conoscere la
+pressione di un solo gas (ossia la \textbf{pressione parziale}) di un gas
+se fosse l'unico nel recipiente. Se n moli di un gas A occupano un volume V
+allora la sua pressione parziale è data da:
+\begin{align}
+    P_A = \frac{n_ART}{V}
+\end{align}
+Quindi generalizzando si ha per N gas:
+\begin{align}
+    P_{tot} = \sum_{i = 1}^{N}& P_i = n_{tot} \frac{RT}{V} \\
+    P_A &= \frac{n_A}{N} 
+\end{align}
+
+\subsection{Effusione dei gas}
+L'effusione dei gas è la diffusione di un gas da un recipiente pieno ad uno vuoto
+e la sua velocità (ossia la quantità di moli che attraversa il foro per unità di tempo)
+dipende dalla velocità(temperatura e pressione) e dalla massa molare.
+Secondo quindi la \textbf{Legge di Graham} la velocità di effusione è:
+\begin{align}
+    v_A \propto \left(\frac{T}{M_A}\right)^{\frac{1}{2}} 
+\end{align}
+Se ci sono due gas in effusione allora la legge ci dice che:
+\begin{align}
+    \frac{v_A}{v_B} = \left(\frac{M_B}{M_A}\right)^{\frac{1}{2}}  
+\end{align}
+Se il gas A è 4 volte più leggero del gas B, allora esso passerà 2 volte
+più velocemente dell'altro. 
+
+\section{Modello e proprietà dello stato liquido}
+\subsection{Proprietà dello stato liquido}
+Lo stato liquido è lo stato intermedio tra gassoso e solido poiché se
+da un lato le particelle possiedono un certo moto caotico in tutte le direzioni
+come nei gas, dall'altro invece sono comunque vincolate dalle deboli forze di 
+interazione che le tengono unite e dall'energia potenziale che è negativa
+(molto di più di quella gassosa).
+\begin{enumerate}
+    \item \textbf{isotropia} :  le proprietà dei liquidi sono le stesse in qualunque direzione esse sono misurate.
+    \item \textbf{tensione superficiale}: la forza che si oppone in un liquido all'aumento della superficie esterna,
+    la quale tende a far assumere ai gruppi di molecole una forma sferica. 
+    \item \textbf{capillarità}: la capillarità è una proprietà che deriva proprio dalla tensione
+    superficiale che tende a far salire un liquido in un capillare quando le forze con le
+    pareti di un capillare (forze adesive) sono maggiori della forza peso. 
+    \item \textbf{viscosità}: la viscosità è la caratteristica di un liquido di opporsi
+    al passaggio di una sostanza al suo interno (o la resistenza allo slittamento di una
+    lastra di particelle rispetto all'altra). Ovviamente sostanze con ponti ad idrogeno tra le
+    molecole sono quelle più viscose. 
+\end{enumerate}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{energia-interna.png}
+    \caption{Comparazione delle energie interne tra solidi, liquidi e gas}
+    \label{Fig 7.6}
+\end{figure}
+
+\subsection{Modello strutturale dei liquidi}
+All'interno dei liquidi esistono cavità più o meno grandi tra le molecole: questo determina
+il comportamento di alcune molecole ad oscillare (se non sono vicine ad una cavità
+proprio come nei solidi) oppure a convertire la propria energia cinetica in traslazionale
+andando ad occupare queste cavità; dal momento che questo comportamento è tipico dei
+gas e che l'energia cinetica aumenta all'aumentare della temperatura, allora, mano a mano
+che la temperatura cresce, aumenta il carattere gassoso dei liquidi.
+
+\section{Sostanze vetrose o amorfe}
+Alcune sostanze sono chiamate amorfe o vetrose quando hanno proprietà 
+intermedie fra liquidi e solidi. Questo tipo di sostanze, sebbene presenti delle
+proprietà riconducibili ai solidi, non presenta un reticolo cristallino geometrico,
+ordinato e periodico, il che le rende molto più simili ad un sistema liquido. Una sostanza
+vetrosa può essere immaginata come un liquido senza proprietà traslazionali
+ossia come un liquido ad altissima viscosità. \\
+La formazione di questo tipo di sostanze si ha quando si raffredda velocemente 
+un liquido: questo porta all'abbassamento repentino dell'energia traslazionale
+che porta le molecole a congelarsi in posizioni casuali, impedendo la formazione
+di un reticolo ordinato e periodico. Le sostanze ioniche tendono a non dare
+vita a sostanze vetrose in quanto presentano strutture cristalline molto semplici.
+
+\chapter{Equazioni chimiche, stechiometria e nomenclatura}
+\section{Significato quantitativo delle formule}
+\subsection{Numeri di ossidazione degli elementi nei composti}
+Nelle reazioni che coinvolgono l'ossigeno, questo ha sempre numero di ossidazione
+pari a $+2$ e l'idrogeno sempre $+1$. Nelle reazioni la somma dei numero di ossidazione deve
+sempre fare 0.
+
+\subsection{Periodicità dei numeri di ossidazione}
+I numeri di ossidazione seguono un andamento periodico che è correlato al numero di
+elettroni nello strato più esterno e quindi dipendendo dall'elettronegatività
+i primi 3 gruppi sono quelli che di solito hanno numero di ossidazione positivo.
+
+\section{Reazioni chimiche}
+\subsection{Equazioni chimiche}
+Le equazioni chimiche permettono di rappresentare su carta cosa accade nel mondo della
+chimica all'interno della quale deve valere il principio di conservazione
+della massa per cui se una reazione non è completa bisogna procedere con il processo
+di bilanciamento della reazione. 
+
+\subsection{Bilanciamento delle equazioni chimiche}
+Bilanciare un'equazione chimica significa fare in modo che il numero di atomi di ciascun
+elemento sia lo stesso da entrambe le parti dell'equazione. Si dividono le reazioni in classi:\\
+\textbf{Reazioni acido base}: \\
+Una reazione acido-base consiste nel trasferimento di un protone da una specie all'altra
+(da acido a base): 
+\begin{gather*}
+    \ce{H3O^{+}  + OH^{-}  -> 2H2O}
+\end{gather*}
+La somma algebrica in queste equazioni delle cariche deve essere la stessa da ambedue le parti.\\
+\textbf{Reazioni di formazione di composti di coordinazione o complessazione}: \\
+Per esempio aggiungendo \ce{NH3} ad una soluzione acquosa di sale di Nichel si ottiene:
+\begin{gather*}
+    \ce{Ni^{2+} + 6NH3 -> Ni(NH3)_{6}^{2-}}
+\end{gather*}
+\textbf{Reazioni di precipitazione}
+Le reazioni di precipitazione è una reazione nella quale si forma dei prodotti che non solubili
+nel solvente utilizzato come nel caso di:
+\begin{gather*}
+    \ce{2Ag^{+}  + H2S - > Ag2S + 2H^{+} }
+\end{gather*}
+
+\textbf{Reazioni di ossidoriduzione}
+Di gran lunga le più articolate, queste sono delle reazioni in cui almeno una coppia di atomi
+cambia il proprio numero di ossidazione come nella seguente:
+\begin{gather*}
+    \ce{O2 + 2H2 -> 2H2O }
+\end{gather*}
+Dal momento che ogni atomo di idrogeno passa da zero a +1 come numero di ossidazione ed
+ogni ossigeno da 0 a -2, il numero di elettroni persi da una specie deve essere uguale al
+numero di elettroni acquisiti dall'altra. Si scrive quindi la seguente reazione:
+\begin{gather*}
+    \ce{Zn + 2H^{+}  -> Zn^{2+} + H2}
+\end{gather*}
+Poiché lo zinco è attaccato da un acido, allora perde due elettroni portando alla seguente:
+\begin{gather*}
+    \ce{Zn -> Zn^{2+} + 2e^{-} }
+\end{gather*}
+E quindi ogni atomo di idrogeno
+\begin{gather*}
+    \ce{2H^{+}  + 2e^{2}  -> H_{2}}
+\end{gather*}
+La specie che perde elettroni si chiama \textbf{riducente} e quella che acquisisce
+elettroni \textbf{ossidante} e acquista elettroni riducendo il proprio numero di
+ossidazione. \\
+Nella seguente reazione si ha un'ossidazione del magnesio:
+\begin{gather*}
+    \ce{MnO^{-}_{4}  + 5e^{-}  -> Mn^{2+}} 
+\end{gather*}
+Così si aggiungono 8 idrogeni (poiché avviene in ambiente acido)
+per bilanciare le cariche:
+\begin{gather*}
+    \ce{MnO^{-}_{4}  + 8H^{+}  + 5e^{-}  -> Mn^{2+} + 4 H2O}
+\end{gather*}
+Se nello stesso ambiente abbiamo anche la seguente
+\begin{gather*}
+    \ce{Fe^{2+} -> Fe^{3+} + e^{-} }
+\end{gather*}
+Allora il numero di elettroni il numero di elettroni dell'ossidante deve essere uguale 
+al numero di elettroni del riducente e quindi moltiplichiamo per 5 quest'ultima 
+e sommando tutto si ottiene:
+\begin{gather*}
+    \ce{MnO^{-}_{4} + 8H^{+}  + 5Fe^{2+} -> Mn^{2+} + 5Fe^{3+} + 4H_{2}O}
+\end{gather*}
+
+Generalmente invece delle semireazioni è più rapido bilanciare la reazione seguendo tre passaggi:
+\begin{enumerate}
+    \item Bilanciamento del numero di elettroni;
+    \item bilanciamento delle cariche;
+    \item bilanciamento degli atomi di idrogeno ed ossigeno.
+\end{enumerate}
+Per esempio la seguente reazione:
+\begin{gather*}
+    \ce{Cr_{2}O^{2-}_{7} + I^{-}  -> I_{2} + Cr^{3+}}
+\end{gather*}
+Dal momento che avviene in ambiente acido, si osserva che:
+\begin{gather*}
+    \ce{2I^{-}  -> I_{2} + 2e^{-} } \\
+    \ce {Cr2O^{2-}_{7} + 6e^{-}  -> 2Cr^{3+}}  
+\end{gather*}
+Si bilanciano gli elettroni e quindi:
+\begin{gather*}
+    \ce{6I^{-}  -> 3I_{2} + 6e^{-} } \\
+    \ce {Cr2O^{2-}_{7} + 6e^{-}  -> 2Cr^{3+}}  
+\end{gather*}
+Dal momento che c'è una differenza di 14 cariche, si procede adesso
+a bilanciare le cariche aggiungendo a destra 14\ce{OH-} oppure 14\ce{H+} a sinistra
+poiché l'ambiente è acido, allora si utilizzano gli idrogeni e si aggiungono le molecole d'acqua:
+\begin{gather*}
+    \ce{Cr2O^{2-}_{7} + 6I^{-}  + 14H^{+}  -> 3I_{2} + 2Cr^{3+}+ 7H2O} 
+\end{gather*}
+
+\subsection{Agenti ossidanti e riducenti}
+Sono potenziali agenti ossidanti tutte quelle sostanze che fanno alzare il numero di ossidazione
+ad una sostanza all'interno di una reazione chimica e riducenti tutte quelle sostanze
+che invece fanno ridurre il numero di ossidazione delle altre sostanze. \\
+Quando invece una sostanza in una reazione chimica genera due specie chimiche diverse
+allora si parla di reazione di \textbf{dismutazione} come nella seguente:
+\begin{gather*}
+    \ce{Cl_{2} + H_{2}O -> Cl^{-}   + ClO^{-}  + 2H^{-} } \\
+    \ce{3MnO^{2-}_{4} + 4H^{+}  -> 2 MnO^{-}_{4} + MnO_{2} + 2H_{2}O }
+\end{gather*} 
+Nella seconda per esempio, per bilanciarla, si segue la stessa fatta per le ossidoriduzioni
+ma scrivendo che uno ione \ce{MnO^{2-}_{4}} reagisce con un'altro uguale:
+\begin{gather*}
+    \ce{MnO^{2-}_{4} + MnO^{2-} -> MnO^{-}_{4}  + MnO_{2}}
+\end{gather*}
+E poi bilanciando secondo il metodo delle ossidoriduzioni.
+
+\subsection{significato quantitativo delle reazioni chimiche}
+La formula per ottenere il numero di moli dati i grammi di una certa sostanza ed il suo
+peso molare è la seguente:
+\begin{align}
+    \frac{m(g)}{M(g\cdot mol^{-1}  )} = n(mol)
+\end{align} 
+
+\section{Soluzioni e la loro composizione}
+Quando si tratta di \textbf{soluzioni} ci si riferisce a sistemi omogenei liquidi costituiti da
+più di una sostanza e con una composizione variabile (possono essere anche solide). Un sistema gassoso
+è sempre miscibile e quindi sempre omogeneo qualsiasi gas li costituisca. \\
+Nelle soluzioni si possono ricavare con semplici formule la percentuale di un soluto
+come massa o volume:
+\begin{align}
+    \frac{m(soluto)}{m(soluzione)} \cdot 100 &= \%m(soluto) \\
+    \frac{V(soluto)}{V(soluzione)} \cdot 100 &= \%V(soluto)
+\end{align}
+Si può anche esprimere la composizione di una sostanza come il rapporto tra 
+quantità di soluto e e quantità di sostanza totale ottenendo la \textbf{frazione molare}
+del soluto 
+\begin{align}
+    x = \frac{n(soluto)}{n(soluto) + n(solvente)}
+\end{align}
+E la frazione molare del solvente come:
+\begin{align}
+    x(solvente) = \frac{n(solvente)}{n(soluto) + n(solvente)}
+\end{align}
+Di solito la concentrazione di una soluzione è espressa come \textbf{concentrazione
+molale} espressa come $mol \cdot  kg^{-1}$ e indicata generalmente col simbolo $b$ oppure $C_m$ 
+oppure come  \textbf{concentrazione di qta. di sostanza} $mol\cdot dm^{-3}$ indicata
+come $c$ o $C_m$. Mentre la prima non dipende dalla temperatura la seconda si
+così come la \textbf{solubilità}.
+
+\section{Regole per la nomenclatura}
+\subsection{Ioni mono e poli atomici e gruppi funzionali inorganici}
+Gli ioni monoatomici positivi mantengono il nome dell'elemento, se invece sono
+legati ad idrogeno perdono il suffisso -\emph{onio}. Gli anioni monoatomici
+mantengono il nome dell'elemento e aggiungono il suffisso -\emph{uro} mentre gli anioni
+poliatomici prendono il suffisso -\emph{uro} mentre la maggior parte dei poliatomici
+ha il suffisso ato con il numero di ossidazione dell'atomo centrale (di, tri, tetra-...)
+In tabella ci sono alcuni dei gruppi funzionali più importanti.
+\begin{center}
+    \begin{tabular}{c | c}
+        -\ce{CO} & carbonile \\
+        -\ce{CrO2} & cromile \\
+        -\ce{NO} & nitrosile \\
+        -\ce{NO2} & nitrile \\
+        -\ce{OH} & ossidrile \\
+        -\ce{PO} & fosforile \\
+        -\ce{SO} & tionile \\
+        -\ce{SO2} & solfonile \\
+        -\ce{VO} & vanadile \\
+        -\ce{UO2} & uranile 
+    \end{tabular}
+\end{center}
+
+\subsection{Composti binari}
+Nei composti binari tra metalli e non metalli il nome del metallo non subisce cambiamenti
+rispetto al nome dell'elemento libero mentre quello del non metallo prende il suffisso -\emph{uro}
+e si può utilizzare il numero di ossidazione per indicare il composto come cloruro di ferro(3) 
+indica che il cloro è ossidato con numero -3.\\
+Gli ossidi di elementi non metallici con comportamento acido si chiamano \textbf{anidridi}.
+
+\subsection{Ossiacidi ed i loro sali}
+Per gli ossiacidi e per i i sali si seguono le regole per la nomenclatura dei composti
+binari utilizzando i suffissi -ico ed ato rispettivamente come nella tabella aggiungendo
+il numero di ossidazione dell'atomo centrale.
+\begin{center}
+    \begin{tabular}{c | c}
+        Acido \\
+        \hline 
+        Prefisso & Suffisso \\
+        \emph{ipo-} & \emph{-oso} \\
+        & \emph{-oso} \\
+        & \emph{-ico} \\
+        \emph{per-} & \emph{-ico} 
+    \end{tabular}
+    \begin{tabular}{c | c}
+        Anione \\
+        \hline
+        Prefisso & Suffisso \\
+        \emph{ipo-} & \emph{-ato} \\
+        & \emph{-ito} \\
+        & \emph{-ato} \\
+        \emph{per-} & \emph{-ato} 
+    \end{tabular}
+\end{center}
+Tabella per identificare (dall'alto verso il basso) i composti con numero
+di ossidazione maggiore nei composti con più numeri di ossidazione. \\
+
+Il prefisso \emph{perosso-} è usato per tutti i composti che contengono il perossido
+\chemfig{-O-O-}. \\
+I nomi di sali che contengono idrogeni hanno il prefisso \emph{idrogeno-}
+
+\subsection{Composti di coordinazione}
+
+
+\chapter{Proprietà delle sostanze correlate ai modelli del legame chimico}
+\section{Sostanze elementari, composti e modelli di legame che li razionalizzano}
+\subsection{Struttura delle sostanze elementari}
+La prima grande suddivisione delle sostanze è tra non metalli e  metalli; quest'ultimi 
+costituiscono la maggioranza degli elementi in natura ed il loro legame generalmente è a
+massimo impacchettamento e anche allo stato liquido mantengono un'alto numero di coordinazione
+ed il legame metallico; mentre i non metalli presentano molti tipi di legami different
+tutti in base agli elettroni di valenza. \\
+Generalmente la tendenza a formare legami di tipo $\pi$ diminuisce scendendo lungo ciascun
+gruppo a causa dell'aumento del raggio atomico.  \\
+Una grossa differenza tra metalli e non metalli allo stato elementare risiede nella quantità
+di elettroni allo strato di valenza: prima del gruppo 13 gli elementi non hanno elettroni a 
+sufficienza per poter completare la loro configurazione, il che li porta a preferire un legame
+delocalizzato ossia il legame metallico. Solo il Boro è un'eccezione in quanto tende a
+forare legami covalenti boro boro per dar vita a molecole molto grosse. \\
+Da questo deriva che tutti gli elementi dopo il gruppo 14 debbano essere non metalli, tuttavia
+non è così perché alcuni elementi nei periodi sottostanti sono ancora metalli come lo stagno e
+il piombo poiché aumentando il periodo aumenta la compenetrazione degli orbitali s e quindi
+si hanno sempre meno elettroni disponibili per il legame. \\
+Gli atomi nelle \textbf{sostanze elementari polimere} sono sempre tenuti insieme da legami
+covalenti e a seconda di come si struttura il legame possono essere completamente covalenti
+se hanno strutture tridimensionali oppure avere interazioni deboli altrimenti. \\
+Esistono inoltre moltissime \textbf{sostanze elementari molecolari} i cui legami covalenti
+sono presenti solo all'interno delle molecole, il che porta ad avere interazioni di Van Der
+Waals per tenere insieme le varie molecole . \\
+Infine le molecole monoatomiche dei gas nobili presentano deboli interazioni di Van Der Waals.
+
+\subsection{Strutture dei composti}
+Passando dalle sostanze elementari ai composti si ha la stessa suddivisione tra polimeri e composti
+molecolari, più la classe dei composti ionici. Nei \textbf{composti covalenti polimeri}
+come \ce{SiO2} si hanno legami covalenti che creano strutture tridimensionali, mentre in altri
+composti covalenti polimeri si hanno legami solo su due dimensioni. \\
+Quando i legami covalenti non si estendono a tre dimensioni allora si hanno le interazioni
+di Van Der Waals che tengono insieme i "fogli molecolari" oppure si hanno i ponti ad idrogeno. \\
+Anche i \textbf{composti covalenti molecolari} nei loro stati condensati si ripete l'analogia
+con le sostanze elementari molecolari: legami covalenti intramolecolari e interazioni deboli
+intermolecolari. \\
+Esistono infine anche molti composti ionici con \textbf{ioni polimerici} , così come
+legami ionici all'interno di strutture molecolari con legami metallici e covalenti soprattutto
+se presenti ioni poliatomici.  Nei composti ionici invece ci possono anche essere molecole 
+d'acqua che occupano cavità specifiche del cristallo o che interagiscono con altre
+componenti del composto.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{Legami-elementi.png}
+    \caption{Tipi di legame degli elementi allo stato elementare. Il blu indica
+    elementi con legami metallici, il verde con legami covalenti polimeri e l'arancione
+    quello con legami covalenti molecolari.}
+    \label{Fig 9.1}
+\end{figure}
+
+\section{Serie di composti inorganici}
+\subsection{Composti binari con idrogeno: idruri}
+L'atomo di idrogeno ha solo un elettrone ed un protone; questo gli conferisce 
+la proprietà di impiegare solo legami covalenti oppure diventare lo ione idruro \ce{H^{-}}
+Nella figura qua sotto sono rappresentati i principali tipi di idruri.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{Tipi-idruri.png}
+    \caption{I principali tipi di idruri}
+    \label{Fig 9.2}
+\end{figure}
+Questi sono suddivisi in 4 gruppi:
+\begin{enumerate}
+    \item Idruri ionici (in blu);
+    \item Idruri molecolari (in arancione);
+    \item Idruri polimeri con atomi di idrogeno a ponte (in verde);
+    \item Idruri di elementi di transizione (non in tabella);
+\end{enumerate}
+Gli idruri ionici contengono lo ione \ce{H^{-}} ed hanno caratteristiche basiche
+mentre gli idruri del gruppo 17 e 18 sono forti acidi. Gli idruri dal gruppo 14 al
+gruppo 17 sono tutti gassosi tranne che per \ce{H2O} e \ce{HF} che sono liquidi. \\
+Nell'idruro di boro invece l'alta energia di ionizzazione del boro porta alla
+formazione di un composto ionico anche se una molecola discreta come \ce{BH3} è favorita
+poiché il boro ha comunque 4 orbitali dando vita ad una molecola del tipo \ce{B2H6} che
+ha 2 idrogeni a ponte tra i due atomi di boro dando vita a due orbitali molecolari
+di legame che contengono due elettroni ciascuno e deriva dalla sovrapposizione
+di 3 orbitali atomici. \\
+Coi metalli di transizione si possono anche avere dei composti non stechiometrici solidi
+con proprietà metalliche ma più fragili ed in genere conduttori elettrici con la stessa
+struttura dei metalli puri ma più espansa poiché gli atomi di idrogeno si dispongono nelle
+cavità.
+
+\subsection{Composti binari con gli alogeni: alogenuri}
+Gli elementi del gruppo 17 hanno i più elevati valori di affinità elettronica e di
+elettronegatività dell'intera tavola periodica. Pertanto tendono quasi sempre ad acquisire
+elettroni oppure a formare legami covalenti con numero di ossidazione -1. Qui sotto
+sono rappresentati composti più comuni con gli alogeni ed il loro carattere:
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{Alogenuri-composti.png}
+    \caption{Gli alogenuri più comuni}
+    \label{Fig 9.3}
+\end{figure}
+\begin{enumerate}
+    \item Alogenuri ionici(blu);
+    \item alogenuri covalenti molecolari (arancione);
+    \item ALogenuri covalenti polimeri (verdi);
+\end{enumerate}
+Generalmente gli alogenuri con metalli sono tutti ionici, altrimenti covalenti; tuttavia
+esistono anche composti covalenti molecolari con metalli nel gruppo 13. \\
+Alogenuri molecolari monomeri sono tipici del boro e degli elementi elettronegativi
+del gruppo 14, 15, 16. Mano a mano che l'elettronegatività degli elementi cresce
+ci sono sempre più elementi legati con \ce{F} e \ce{Cl} poiché sono gli elementi più elettronegativi.
+Negli alogenuri con i metalli più pesanti invece quest'ultimi tendono ad assumere numero
+di ossidazione più piccolo di quelli permessi.\\
+I rapporti degli alogenuri più stabili sono quelli con rapporto 1:1, mentre mano a mano
+che cresce il numero di  alogeni nella molecola e più reattivi diventano.
+
+\subsection{Composti binari con l'ossigeno}
+L'ossigeno è l'elemento più elettronegativo dopo il fluoro e per questo tende ad assumere
+sempre numero di ossidazione negativo (tranne quando lega col fluoro) di -2 negli \textbf{ossidi},
+altrimenti di -1 nei \textbf{perossidi}. Nella tabella sono riportati i composti più comuni:
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{Composti-ossigeno.png}
+    \caption{Composti con l'ossigeno}
+    \label{Fig 9.4}
+\end{figure}
+\begin{enumerate}
+    \item ossidi ionici (blu)
+    \item ossidi molecolari (arancione);
+    \item ossidi polimeri (verde);
+\end{enumerate}
+Gli ossidi del primo e secondo gruppo sono praticamente ionici e caratterizzati dalla presenza
+dello ione \ce{O^{2-}} e sono solidi e con temperature di fusione molto elevate. \\
+Con gli elementi del gruppo 14 invece si hanno numeri di ossidazione variabili nei loro composti
+con l'ossigeno e gli ossidi più comuni in genere sono quelli con il numero di ossidazione che 
+corrisponde al massimo e a quello minore di due unità. \\
+In generale gli ossidi, spostandosi da sinistra verso destra lungo un periodo variano
+lo stato di aggregazione e le loro proprietà chimiche portando a da solidi ionici a ossidi molecolari
+bassofondenti o liquidi ed infine a ossidi gassosi passando contemporaneamente da basici 
+ad acidi (poiché più e forte il carattere ionico maggiore è il carattere di \ce{O^{2-}} che è una base forte).
+
+\subsection{Composti ternari con ossigeno ed idrogeno}
+I composti formati da un metallo, un semimetallo o un non metallo e da idrogeno ed ossigeno
+sono chiamati idrossidi. Nella tabella i più comuni idrossidi.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{Tipi-idrossidi.png}
+    \caption{idrossidi}
+    \label{Fig 9.5}
+\end{figure}
+\begin{enumerate}
+    \item Idrossidi ionici (blu);
+    \item Idrossidi polimeri (verde);
+    \item Idrossidi molecolari (arancione);
+\end{enumerate}
+I composti Ionici e polimeri sono tutti solidi , mentre quelli molecolari sono liquidi o solidi
+e mai gassosi a causa dei ponti ad idrogeno. Esistono sia idrossidi basici che ossiacidi
+con non metalli e idrossidi anfoteri che invece sono insolubili.
+
+\section{Composti ionici formalmente derivati dagli acidi: i sali}
+\subsection{Sali binari}
+Nei sali binari i legami ionici sono l'unico tipo di legame e generalmente appartengono
+a questa categoria i solfuri, i seleniuri e gli altri sali calcogeni. Generalmente solubili,
+i sali binari con elementi alcanino-terrosi non sono molto solubili e quelli del gruppo 14
+sono ancora meno solubili.
+
+\subsection{Sali ternari e più complessi}
+Molto più numerosi sono invece quelli ternari nei quali, oltre al legame ionico, c'è anche
+un legame covalente 
+
+\section{Composti organici}
+I composti organici formano le \textbf{sostanze organiche} caratterizzate da legami covalenti
+tra idrogeno e carbonio. La grande stabilità del legame C--C tende a far formare catene molto lunghe
+di carbonio. I composti organici prendono diversi nomi a seconda dei legami, della lunghezza
+della catena e della forma della catena o seconda dei \textbf{gruppi funzionali} a loro collegati.\\
+Si chiamano \textbf{idrocarburi} divisi in \textbf{alifatici} o \textbf{aromatici} a second
+delle loro caratteristiche di legame. Si dividono ulteriormente a seconda del numero di legami dei
+carboni coinvolti: quando si hanno quattro legami si parla allora di \textbf{alcani}, 
+altrimenti se fanno un legame doppio \textbf{alcheni} e se ne fanno un legame triplo \textbf{alchini}.
+\begin{center}
+    \begin{tabular}{| c | c | c | c |}
+        \hline
+        & Alcani & Alcheni & Alchini \\
+        \hline 
+        Formula minima & \ce{C_{n}H_{2n+2}} & \ce{C_{n}H_{2n}} &  \ce{C_{n}H_{2n-2}} \\
+        \hline
+    \end{tabular}
+\end{center}
+Gli alcani possiedono moltissimi isomeri soprattutto grazie al fatto che i
+gruppi funzionali possono attaccarsi alla catena principale di carbonio virtualmente ovunque.
+I \textbf{cicloalcani} sono degli idrocarburi formati da catena chiusa ad anello con formula
+minima uguale a quella degli alcheni. Dal momento che i legami $\pi$ sono più deboli di
+quelli $\sigma$, gli alcheni ed gli alchini sono molto più instabili.\\
+Gli \textbf{idrocarburi aromatici} sono composti con struttura ad anello chiuso planare con
+legami $\sigma$ tra gli atomi di carbonio e di idrogeno con orbitali $\pi$ delocalizzati sopra e sotto
+l'anello. Di seguito i gruppi funzionali più comuni e dopo i sostituenti costituiti da atomi di carbonio ed idrogeno.
+\begin{center}
+    \begin{tabular}{c | c | c}
+        Gruppo & Nome & Composti \\
+        \hline
+        \chemfig{-X} & Alogeno & Alogenuri \\
+        \hline
+        \chemfig{-OH} & Ossidrile & Alcoli e fenoli \\
+        \hline
+        \chemfig{-SH} & Solfidrile & Tioalcoli e tiofenoli \\
+        \hline
+        \chemfig{-[-1]O-[-3]} & Ossigeno etereo & Eteri \\
+        \hline
+        \chemfig{-[-1]S-[-3]} & Zolfo tioetereo & Tioeteri \\
+        \hline
+        \chemfig{-[-1]{C}(-[-3])(=O)} & Carbonile & Chetoni \\
+        \hline 
+        \chemfig{H-[-1]{C}(-[-3])(=O)} & Formile & Aldeidi \\
+        \hline 
+        \chemfig{-C(=[1]O)(-[-1]OH)} & Carbossile & Acidi carbossilici \\
+        \hline
+        \chemfig{-NH_{2}} & Ammino & Ammine \\
+        \hline
+        \chemfig{-[-1]{C}(-[-3])(=NH)} & Immino & Immine \\
+        \hline 
+        \chemfig{-C(=N)} & Ciano & Nitrili \\
+        \hline 
+        \chemfig{-C(=[1]O)(-[-1]HN^{-})} & Carbossiammidico & Ammidi \\
+        \hline
+        \chemfig{-C(=[1]O)(-[-1]OR)} & Alcossicarbonile & Esteri \\
+    \end{tabular}
+\end{center}
+\begin{center}
+    \begin{tabular}{c | c}
+        Gruppo & Nome \\
+        \hline
+        \chemfig{-CH_{3}} & Metile \\
+        \hline
+        \chemfig{-CH_{2}CH_{3}} & Etile \\
+        \hline
+        \chemfig{-(CH_{2})_{n}H} & Alchile \\
+        \hline
+        \chemfig{-C=C-} & Alchenile \\
+        \hline
+        \chemfig{-C=C-} & Alchinile \\
+        \hline
+        \chemfig{--[1]=-[-1]=[-3]-[-4]=[-5]} & Fenile \\
+    \end{tabular}
+\end{center}
+All'interno di una catena carboniosa ci possono essere più sostituenti così come più gruppi funzionali;
+di grande interesse sono soprattutto gli \textbf{amminoacidi} ossia un gruppo amminico, un carbossilico,
+un idrogeno ed un sostituente:
+\begin{gather*}
+    \chemfig{R-C(-[2]H)(-[-2]NH_{2})-C(=[1]O)(-[-1]OH)}
+\end{gather*}
+
+\section{Composti di coordinazione}
+\subsection{Definizione}
+questi sono composti nei quali:
+\begin{enumerate}
+    \item Un atomo centrale è circondato da altri atomi con cui forma legami covalenti polari;
+    \item Il numero di legami che forma è sempre maggiore del suo numero di ossidazione;
+    \item Gli atomi che si legano donano una loro coppia di elettroni da far finire nell'orbitale 
+    vuoto di questo atomo centrale;
+    \item L'identità di quelli solubili in acqua rimane inalterata in soluzione.
+\end{enumerate}
+
+TODO PAGINA 280
+\section{Isomeria}
+L'isomeria strutturale degli idrocarburi non è un fenomeno raro nella chimica;
+tornado agli amminoacidi, anche essi presentano due isomeri: uno "destrorso" ed
+uno "mancino" a seconda se il sostituente si trova a destra o a sinistra del gruppo
+amminico: solo quelli levogiri ("mancini") sono utilizzati nelle cellule. \\
+Esistono vari tipi di isomeria ma quando si parla di composti in cui atomi o gruppi di atomi
+possono occupare nella molecola posizioni diverse allora si parla di \textbf{isomeria
+configurazionale} ed \textbf{isomeria geometrica}. \\
+Esiste anche un tipo di isomeria chiamata \textbf{isomeria ottica} che si riferisce
+alla proprietà di alcune molecole di avere un centro di simmetria interno o
+esterno alla molecola stessa. Le molecole che non hanno piani di simmetria interni
+sono chiamate \textbf{chirali}. \\
+Due molecole le cui formule di struttura siano immagini speculari non sovrapponibili
+sono chiamate isomeri ottici o \textbf{enantiomeri}. Anche se sembrano diverse queste
+molecole, hanno proprietà fisiche e chimiche esattamente identiche ma si differenziano
+tra loro poiché fanno ruotare in senso diverso i fasci di luce polarizzati. Quando
+si mischiano insieme due sostanze che fanno ruotare di un certo grado la luce in un senso
+e di un certo grado nel senso opposto e facendovi passare un fascio di luce polarizzata
+non si vede alcuna modifica, allora siamo di fronte ad un \textbf{racemo}. \\
+Quando inoltre due molecole che sono speculari ma non sovrapponibili, che se ruotate diventano
+sovrapponibili, allora prendono il nome di \textbf{diasteroisomeri}. 
+
+\section{Colore delle sostanze}
+Il colore dei solidi può essere osservato per trasparenza oppure per riflessione; nel
+primo caso la sostanza è attraversata dalla luce bianca ed assorbe alcune frequenze quantizzate
+lasciando passare le altre mentre per la riflessione dipende dalle proprietà della superficie
+della sostanza anche se le frequenze riflesse sono uguali a quelle della trasparenza.
+Sostanze come il vetro ed il diamante (se costituite da un solo cristallo senza
+imperfezioni) sono completamente trasparenti mentre le sostanze formate da molti
+cristalli tendono a non esserlo (come il sale) poiché disperdono la luce in tutte le direzioni. \\
+In generale le sostanze che sono colorate sono quelle le cui radiazioni riflesse e/o
+lasciate passare cadono proprio nell'intervallo della radiazione luminosa.  I metalli in
+particolare sono in grado di assorbire un ampia gamma di radiazione luminosa data il loro
+ampio intervallo di stati elettronici eccitati e quindi, poiché ogni elettrone eccitato
+tende a tornare subito nel suo stato iniziale, riemette tutta la radiazione assorbita
+andando così a risultare completamente riflettenti. 
+
+\section{Proprietà magnetiche delle sostanze}
+Ogni elettrone possiede un leggero campo magnetico intrinseco legato al suo spin il cui valore è:
+\begin{align}
+    \mu = 2.00232\sqrt{s(s + 1)} \frac{he}{4\pi m_e} = 1.734 \frac{he}{4\pi m_e} = 1.724 \mu_B 
+\end{align}
+La costante in frazione è chiamata \textbf{magnetone di Bohr} che esprime il momento magnetico
+per cui elettroni nello stesso orbitale hanno stesso modulo di momento ma con segno opposto. \\
+Quando le sostanze hanno momento magnetico pari a zero sono chiamate \textbf{diamagnetiche} mentre
+le specie che possiedono elettroni spaiati sono \textbf{paramagnetiche} con numero di spin pari alla somma
+dello spin dell'elettrone.  A temperatura ambiente queste proprietà magnetiche
+non sono visibili in quanto il moto casuale degli elettroni tende a mascherarle, tuttavia se poste
+all'interno di un campo magnetico allora viene \textbf{indotto} un momento magnetico
+proporzionale alla forza del campo e inversamente proporzionale alla temperatura. Una sostanza
+diamagnetica quindi tende ad essere spinta verso zone di minore intensità del campo magnetico mentre
+una sostanza paramagnetiche viene attratta verso il punto di massima intensità. \\
+Se si toglie il campo magnetico le sostanze paramagnetiche tornano ad essere diamagnetiche
+poiché l'energia cinetica dei dipoli li porta ad orientarsi in modo casuale, tuttavia le
+sostanze \textbf{ferromagnetiche} mantengono localmente (all'interno di \textbf{domini}) l'orientazione dei dipoli
+continuando a generare un campo magnetico anche dopo essere state tolte da un campo magnetico esterno
+poiché i singoli domini si allineano dando vita ad un campo magnetico che prima non c'era.
+Le sostanze \textbf{ferrimagnetiche} invece hanno un campo magnetico naturale originato
+dalla combinazione di molecole paramagnetiche di tipi diversi e con elettroni spaiati. \\
+Le sostanze paramagnetiche sono generalmente composti di coordinazione formati da metalli
+che hanno gli orbitali $d$ semiriempiti e quindi con elettroni spaiati. Quando sono presenti
+molti elettroni (ma non tutti quelli necessari per riempire gli orbitali) allora essi possono
+disporsi in due modi: seguendo la regola di Hund (rimanendo spaiati e quindi dando origine
+ad una configurazione ad \textbf{alto spin}) oppure se la separazione è maggiore del 
+guadagno energetico allora tenderanno ad assumere una configurazione tale per cui
+si disporranno negli orbitali già semiriempiti andranno a creare una configurazione con
+pochi elettroni spaiati (\textbf{basso spin}).
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{spin-magneti.png}
+    \caption{Configurazioni ad alto (blu) e basso spin(arancione) di alcuni  complessi ionici}
+    \label{Fig 9.6}
+\end{figure}
+
+\chapter{Termodinamica}
+\section{Concetti di base}
+\subsection{Entropia, entalpia e energia libera}
+La termodinamica è una delle branche fondamentali della fisica e che si applica pure alla chimica
+sebbene si trattata con una giustificazione intuitiva basata sull'osservazione microscopica e sulle implicazioni chimiche.
+Nella termodinamica si considera il contributo all'abbassamento dell'energia totale del sistema
+che è non può essere correlato solo alle variazione dell'\textbf{energia interna} $\Delta U$. Se 
+si cede calore a un gas si fa aumentare l'energia cinetica delle particelle che lo compongono,
+aumentandone la temperatura; tuttavia se il volume rimane costante, allora deve anche aumentare
+la pressione (oppure il contrario). Per cui tenendo conto anche della teoria cinetica dei gas
+si chiama la variazione di energia interna (i cui contributi sono $\Delta U$ e $P\Delta V$ (
+ossia la produzione eventuale di lavoro meccanico)) come
+variazione di \textbf{entalpia} $\Delta H$. \\
+L'\textbf{energia libera} è la grandezza che il sistema tende a minimizzare in una trasformazione 
+e si definisce come
+\begin{align}
+    \Delta G = \Delta H - T\Delta S
+\end{align} dove $-T\Delta S$ è il contributo a 
+raggiungere la configurazione di particelle statisticamente più favorevole. In questa definizione
+$\Delta S$ è la variazione della funzione di stato chiamata \textbf{entropia}. \\
+Una trasformazione è \textbf{spontanea} quando tende a far abbassare l'energia libera. Il \textbf{
+calore} è un mezzo con cui l'energia può essere scambiata tra due sistemi mentre il \textbf{lavoro}
+è una forma di energia che il sistema scambia con l'ambiente durante la trasformazione. Detto questo
+si enunciano le leggi della termodinamica:
+\begin{enumerate}
+    \item Se due sistemi sono in equilibrio termico con un terzo, allora sono in equilibrio anche tra loro;
+    \item L'energia non si crea né si distrugge ma può solo cambiare forma e l'energia totale dell'Universo è costante;
+    \item L'entropia di un sistema isolato non in equilibrio aumenta e raggiunge un massimo quando il sistema raggiunge l'equilibrio;
+    \item Se la temperatura di un sistema si avvicina allo zero assoluto, la sua entropia diminuisce fino a zero o fino ad
+    un valore molto piccolo.
+\end{enumerate} 
+
+\subsection{Informazione, ordine e disordine}
+L'energia può essere ripartita tra le particelle in moltissimi modi (\textbf{stati}) e a sua volta si possono anche
+ottenere delle permutazioni tra i valori energetici delle particelle chiamati \textbf{microstati} e l'entropia
+è correlata direttamente al numero di questi microstati:
+\begin{align}
+    S = k_N \ln W
+\end{align}
+Dove W è il numero di microstati (1 per un cristallo perfetto). Il concetto di microstato
+è strettamente legato sia alla temperatura che alla posizione delle particelle per cui
+in gas per ogni valore di T, P e V ci sono tantissimi microstati: più grande è il numero di
+microstati e più "disordinato" è il sistema e quindi si ha una perdita di informazioni
+sullo stato effettivo del sistema. E' per questo che l'entropia è definita anche come la
+"misura del disordine" poiché il disordine è rappresentato dall'alto numero di microstati
+delle particelle di una sostanza. L'entropia quindi nelle sostanze ha la seguente gerarchia:
+solido $<$ liquido $<$ gas, ed il suo valore zero corrisponde alla situazione ideale secondo la quale
+si hanno zero microstati. 
+
+\section{Capacità termica}
+L'aumento di temperatura di una sostanza dipende sia dal calore ceduto che da una proprietà del 
+materiale chiamata \textbf{capacità termica} per cui:
+\begin{align}
+    \Delta T = \frac{q}{C}
+\end{align}
+Questa è una proprietà estensiva della materia per cui dipende dalla sostanza e dalla sua quantità;
+esiste anche un la \textbf{capacità termica molare} che è propria di una mole di sostanze. \\
+La capacità termica di una sostanza dipende anche dalla pressione: mentre nei solidi e liquidi
+non è apprezzabile l'espansione termica, i gas tendono ad utilizzare parte dell'energia fornitegli
+per espandersi e per questo la capacità termica a pressione costante è maggiore di quella a volume
+costante. Per un gas ideale si ha:
+\begin{gather*}
+    C_P = \frac{\Delta H}{\Delta T} = \frac{\Delta U + P \Delta V}{\Delta T} \\
+    C_V = \frac{\Delta U}{\Delta T}
+\end{gather*}
+\begin{align}
+    C_P = \frac{\Delta U}{\Delta T} + nR = C_V + nR
+\end{align}
+La \textbf{capacità termica molare a pressione costante} è quindi
+\begin{align}
+    C_P = C_V + R
+\end{align}
+Essendo per la teoria cinetica dei gas l'energia cinetica l'unica energia interna, allora un aumento di
+energia a volume costante porta ad aumento di energia cinetica:
+\begin{gather*}
+        \Delta E = \frac{3}{2\Delta T}R = \Delta U, \Rightarrow 
+\end{gather*}
+\begin{align}
+    C_V = \frac{3}{2}R
+\end{align}
+Per i gas biatomici vi è anche un'energia cinetica rotazionale degli atomi attorno al loro baricentro,
+il che porta a dare i seguenti valori:
+\begin{gather*}
+    C_V = \frac{5}{2}R \\
+    C_P = \frac{7}{2}R
+\end{gather*}
+Le molecole triatomiche invece hanno tre componenti rotazionali e dunque:
+\begin{gather*}
+    C_P = 4R
+\end{gather*}
+La \textbf{legge di Doulong e Petit} permette di calcolare la capacità termica molare di un solido ideale costituito
+da atomi disposti con regolarità in un reticolo cristallino data da $C_P = C_V = 3R$.
+
+\section{Transizioni di stato spiegate con il modello microscopico dei gas}
+\subsection{Entalpia, entropia, energia libera ed evaporazione di un liquido}
+Qualunque sostanza tende ad evolversi nel tempo e a cambiare il proprio stato; dal punto di vista 
+di minima entalpia, è favorita la condensazione ad uno stato solido in quanto l'energia
+cinetica delle particelle si abbassa.  \\
+Un gas in equilibrio con la sua fase liquida risente di una pressione costante a temperatura
+costante chiamata \textbf{tensione di vapore}: nel caso di un liquido in un barattolo, le particelle
+del liquido devono vincere la forza di reciproca attrazione per diventare gassose, il che richiede
+energia ed è quindi un processo \textbf{endoentalpico} anche se l'entropia favorisce questo 
+processo fino al raggiungimento della tensione di vapore. \\
+Il passaggio da liquido a gassoso causa un aumento di entalpia e anche un aumento di entropia; all'inizio
+del processo l'aumento del prodotto TS è massimo, poi tende a ridurre il suo incremento fino a che
+non si arriva alla fase di equilibrio $TS = \Delta H$. Il tutto avviene senza variazione di energia libera
+poiché nella situazione di equilibrio si ha che $\Delta G = \Delta H - T\Delta S = 0$. In un sistema 
+a temperatura costante si hanno alcune particelle che hanno un'energia cinetica maggiore a quella
+di legame e quindi tendono a staccarsi da liquido ed entrare in fase gassosa. Se non ci fosse
+un termostato il liquido si raffredderebbe, altrimenti continuerebbe a rimanere alla stessa temperatura
+e quindi la frazione di molecole tali che $E_{cin} > E_{inter}$ è costante. Si raggiunge dunque un equilibrio
+\textbf{dinamico} nel quale alcune molecole di gas tornano liquide le quali sono bilanciate dalle molecole
+liquide che tornano gassose. 
+
+\subsection{Il campo di esistenza di un liquido}
+La tensione di vapore non dipende dallo spazio a disposizione del gas, dalla superficie di separazione liquido-gas
+ma aumenta all'aumentare della temperatura non solo perché il gas aumenta la propria energia cinetica ma anche perché
+cresce la sua quantità per unità di volume. La dipendenza dalla tensione di vapore dalla temperatura è
+espressa dalla seguente legge di Clausius-Clapeyron :
+\begin{align}
+    \ln \frac{P_2}{P_1} = \frac{\Delta H_{vap}^{o} }{R}\left(\frac{1}{T_1}-\frac{1}{T_2}\right)
+\end{align}
+Questa equazione ci indica che la diminuzione della pressione al diminuire della temperatura è maggiore per
+quelle sostanze che hanno maggiore entalpia di vaporizzazione, ossia che hanno legami intermolecolari più forti. \\
+Se l'evaporazione del liquido avviene in un recipiente aperto lo spazio a disposizione della fase gassosa è infinito
+e la pressione parziale del gas non raggiunge mai il valore della tensione di vapore e quindi $T\Delta S$ sarà
+sempre maggiore e porterà all'evaporazione totale. Se l'evaporazione avviene velocemente la temperatura del liquido
+diminuisce rispetto a quella ambiente poiché è più veloce la sottrazione del calore dal liquido dovuta all'evaporazione. \\
+Se invece si mantiene il vuoto in un contenitore con un liquido dentro, allora si ha il processo di \textbf{ebollizione}
+durante il quale le molecole del liquido passano allo stato gassoso dentro il liquido. \\
+La temperatura alla quale la tensione di vapore  è una atmosfera è chiamata \textbf{temperatura normale di ebollizione} e
+rimane costante durante tutto il processo di ebollizione.
+
+\subsection{Transizione solido-gas}
+I criteri discussi per la trasformazione liquido-gas possono essere estesi anche alla trasformazione solido-gas. \\ 
+Dal momento che i solidi hanno energia potenziale minore in valore assoluto rispetto ai gas, il processo di trasformazione
+solido-gas è sfavorito dal punto di vista entalpico ma non dal punto di vista entropico poiché in un solido ci saranno
+sempre delle particelle che avranno un $E_{cin} > E_{inter}$ e quindi si definisce anche qui una \textbf{tensione di vapore del solido}
+che aumenta sempre con la temperatura ma è minore di quella dei liquidi a causa dei legami più forti. \\
+La temperatura alla quale la pressione del gas in equilibrio col solido è di una atmosfera si chiama \textbf{temperatura normale di sublimazione},
+il processo di sublimazione consiste nella rottura del reticolo cristallino e al passaggio allo stato gassoso. Solo
+alcune sostanze tuttavia sublimano, molte di esse passano invece allo stato liquido col processo di \textbf{fusione} ma
+tutte possono sublimare se la pressione esterna è minore della tensione di sublimazione. 
+
+\subsection{Transizione solido-liquido}
+La temperatura a cui avviene questa transizione è chiamata \textbf{temperatura di fusione} ed in queste condizioni
+la tensione  del solido è uguale a quella del liquido e l'aumento entalpico ed entropico sono piccoli poiché non si perde
+molta energia nei legami e non è così caotico come nel passaggio allo stato gassoso.
+
+\section{Entalpie di vaporizzazione, sublimazione e fusione e proprietà strutturali}
+Si definisce \textbf{entalpia molare standard di vaporizzazione} ($\Delta H_{vap}^{o} $) la variazione di entalpia
+necessaria per vaporizzare una mole di liquido, la quale dipende strettamente dalla forza di legame intermolecolare. \\
+Si definisce invece \textbf{entalpia molare standard di sublimazione} ($\Delta H_{subl}^{o} $) la variazione di entalpia necessaria
+per sublimare una mole di sostanza alla temperatura normale di sublimazione, che si può esprimere come l'energia
+di legame delle molecole di un solido poiché corrisponde al lavoro meccanico di espansione per mole di sostanza dallo
+stato solido a quello gassoso. \\
+L'\textbf{entropia molare standard di sublimazione} ($\Delta S_{subl}^{o} $) non è molto differente da sostanza a sostanza
+per cui si ricavano indicazioni sulle forze che agiscono allo stato solido. \\
+L'\textbf{entalpia molare standard di fusione} ($\Delta H_{fus}^{o}$) è definita in modo analogo alle entalpia
+di vaporizzazione e sublimazione ed è il calore che bisogna fornire per fondere una mole di sostanza. Dal momento
+che l'energia potenziale di un liquido non è trascurabile come quella di un liquido allora l'entalpia di fusione e la 
+temperatura di fusione sono indice di come variano le forze di coesione sono in sostanze con caratteristiche simili. \\
+Tuttavia anche in quelle sostanze in cui la temperatura di fusione è molto bassa rispetto a sostanze simili 
+(come nel caso del mercurio) le temperature di ebollizione sono comunque molto alte poiché le forze di coesione
+sono molto forti e che si mantengono pressoché inalterate allo stato liquido. 
+
+\section{Diagrammi di stato a un componente}
+I valori di temperatura e pressione per cui una sostanza è stabile a stato solido o liquido si chiama
+\textbf{diagramma a stato}. Sul diagramma di stato vi sono tre linee: la curva di equilibrio tra solido e liquido
+che è verticale(ad alte temperature inizia a diventare una curva), la curva di equilibrio solido-gassoso e la curva di equilibrio liquido-gassoso. Inoltre sono presenti due punti: 
+il \textbf{punto triplo} nel quale tutte e tre le fasi sono in equilibrio ad una certa temperatura ed ad una certa pressione e
+il punto a cui giunge la curva di equilibrio liquido-gas a partire dal punto triplo ossia il \textbf{punto critico}
+in cui la tensione di vapore è così grande che il gas assume la densità del liquido e le due fasi non sono più distinte. Sopra
+alla \emph{temperatura e pressione critici} si ha un \textbf{fluido supercritico}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{punto-triplo.png}
+    \caption{Diagramma a stato di una sostanza generica}
+    \label{Fig 10.1}
+\end{figure}
+
+\subsection{Diagramma si stato di \ce{H2O} e \ce{CO2}}
+
+
+\section{La transizione liquido-vapore in un sistema di due liquidi completamente miscibili}
+La tensione di vapore di una miscela omogenea ideale di due liquidi completamente miscibili è 
+la somma della tensione di vapore moltiplicato per la frazione molare x (\textbf{legge di Raoult}):
+\begin{align}
+    P = x_1 P_1^{o}  + x_2 P_2^{o} 
+\end{align} 
+Con la legge di Raoult e quella di Dalton si ottiene la frazione molare di un componente nella fase vapore:
+che è in equilibrio con con il liquido di composizione x:
+\begin{align}
+    g_1 = x_1 \frac{P_1^{o} }{P_{tot}}
+\end{align}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{diagramma-a-stato-due-liquidi.png}
+    \caption{Diagramma a stato di due liquidi completamente miscibili, la linea verde rappresenta la curva
+    del vapore, sopra la quale è completamente gassosa la soluzione e quella blu la curva del liquido sotto
+    la quale la soluzione è completamente liquida.}
+    \label{Fig 10.2}
+\end{figure}
+
+\subsection{Miscele azeotropiche}
+Una soluzione liquida a due componenti può deviare così tanto dal comportamento ideale che gli equilibri
+possono avere un minimo o un massimo, la soluzione che ha la massima temperatura è chiamata \textbf{miscela azeotropica}:
+essa è in equilibrio alla temperatura di ebollizione con un vapore della medesima composizione. \\
+Queste miscele oltre ad avere un punto di minimo e di massimo, permettono di separare liquidi completamente
+miscibili tra di loro. 
+
+\section{Le soluzioni ideali e le proprietà colligative}
+\subsection{Tensione di vapore delle soluzioni poco volatili: innalzamento ebullioscopico e abbassamento crioscopico}
+Fra i sistemi reali è utile esaminare il comportamento di soluzioni diluite ottenute da soluti solidi o comunque
+poco volatili rispetto al solvente ($P_1 << P_2$) per cui il prodotto con $P_1$ è trascurabile e l'equazione di
+Raoult diventa:
+\begin{align}
+    P = x_2P_2
+\end{align}
+la tensione di vapore è sicuramente minore della soluzione minore di quella del solvente puro e l'abbassamento
+della tensione è uguale alla frazione molare del soluto (poiché $x_2$ è minore di 1):
+\begin{align}
+    \frac{P_2 - P}{P_2} = x_1
+\end{align}
+L'effetto dell'aggiunta di un soluto non volatile è quella di spostare la curva di equilibrio solido-gas verso
+temperature più alte. (\textbf{innalzamento ebullioscopico}) poiché si abbassa la tensione di vapore mentre
+la curva solido-liquido si sposta verso temperature più basse (\textbf{abbassamento crioscopico}). Sono vere poiché
+un soluto non volatile ha interazioni più forti con il solvente rispetto ai legami intermolecolari(come nel caso dell'acqua). \\
+La relazione tra queste due e la concentrazione molale della soluzione è ricavabile dalla precedente ed è data:
+\begin{align}
+    \Delta T_{eb} &= iK_{eb}b \\
+    \Delta T_{cr} &= iK_{cr}b
+\end{align} 
+dove b è la concentrazione della soluzione in $mol kg^{-1}$ ed $i$ è il coefficiente \textbf{Van't Hoff} che
+indica il rapporto tra la concentrazione della sostanza considerata b della specie e la concentrazione di
+particelle della specie in soluzione. Le costanti $K_{eb}$ e $K_{cr}$ sono caratteristiche di ogni dato solvente
+e non variano al variare del soluto e si chiamano \textbf{costante ebullioscopica molale} e \textbf{costante crioscopica molale}. 
+
+\subsection{La pressione osmotica}
+Alcune membrane hanno dei pori che permettono l'attraversamento solo di sostanze molto piccole come l'acqua, sono chiamate
+allora  \textbf{membrane semipermeabili} ed il passaggio si chiama invece \textbf{osmosi}. Mettendo in contatto
+una soluzione ed un solvente che è in grado di passare questa membrana si osserva un innalzamento della soluzione
+rispetto al solvente considerato; il processo termina solo quando la pressione idrostatica si bilancia con la differenza di altezza
+dei liquidi. Questo processo avviene poiché è favorito dall'entropia poiché un sistema diluito è meno ordinato di uno più concentrato. \\
+La pressione osmotica $\pi$ è definita allora come la pressione da applicare sulla superficie della soluzione
+quando è in contatto con un solvente attraverso una membrana semipermeabile affinché non avvenga l'osmosi. 
+\begin{align}
+    \pi = icRT
+\end{align}
+L'unica costante sconosciuta è \emph{c}, la quale è la \textbf{concentrazione di quantità di sostanza}. 
+COme le altre proprietà colligative la pressione osmotica dipende solo dalla quantità di soluto e non dalla
+sua natura chimica. Due soluzioni con la stessa pressione osmotica si dicono \textbf{isotoniche}
+
+
+\chapter{Equilibrio chimico e termodinamica delle reazioni}
+\section{La termodinamica delle reazioni}
+\subsection{I parametri termodinamici delle trasformazioni chimiche}
+Quando un sistema è chiuso, allora esso non scambia materia con l'ambiente; considerate le seguenti reazioni
+\begin{gather*}
+    \ce{aA + bB -> cC + dD} \\
+    \ce{cC + dD -> aA + bB}
+\end{gather*}
+Entrambe le reazioni possono avvenire fino a quando l'entropia non minimizza l'energia del sistema. 
+Questa posizione, chiamata \textbf{equilibrio dinamico}, le reazioni evolvono per in modo tale da far 
+\textbf{diminuire l'energia libera del sistema}, ovvero a far sì che $\Delta G$ relativo sia minore di zero. 
+Ci aspetta invece che l'entropia raggiunga un picco e poi scenda nuovamente, poiché la miscela è più disordinata
+quando è composta al 50\% di prodotti e al 50\% di reagenti, mentre l'entalpia tende sempre a scendere. \\
+Dal momento che vale la relazione $G = H -TS$ allora anche G avrà un minimo, che è più a destra rispetto
+al minimo della funzione entropica (ossia quando l'entropia è massima) poiché il termine H continua a scendere. 
+Dove $\Delta G = 0$ il sistema è in equilibrio. 
+
+\subsection{Entalpia standard di una reazione}
+Il calore sviluppato o assorbito da un sistema durante un trasformazione di una mole di sostanza alla temperatura
+di 25° è pari a una variazione chiamata $\Delta H^{o}$ ossia \textbf{entalpia molare di reazione}. Quando invece
+si forma una mole di composto partendo dalle sostanze elementari, con tutti i reagenti e prodotti a condizioni standard,
+allora si chiama \textbf{entalpia molare standard di formazione} $\Delta H_{f}^{o}$, che concettualmente è uguale a zero
+poiché altrimenti varierebbe la concentrazione di sostanze, il suo valore standard anche in presenza di forma allotropiche
+è quello più stabile. Un valore negativo contribuisce alla stabilità dei composti rispetto alle sostanze 
+elementari. L'Entalpia di trasformazione è indipendente dal cammino percorso ed è quindi una funzione di stato che
+dipende solo dai parametri iniziali e finali (\textbf{legge di Hess}).
+
+\subsection{Entropia standard di reazione}
+Analogamente all'entropia, le condizioni standard ell'entropia assoluta sono convenzionalmente riferite ad 1 bar
+e 25°. A differenza dell'entalpia standard delle sostanze elementari, l'\textbf{entropia assoluta} è diversa da zero. Essa
+aumenta al diminuire della pressione e all'aumentare della temperatura. L'entropia assoluta è quindi definita
+come la differenza tra l'entropia dei prodotti meno quella dei reagenti:
+\begin{align}
+    \Delta S_{reazione}^{o} = \sum_{i = 1}^{n} c_i S_{i(prodotti)}^{o} - \sum_{i = 1}^{n} c_i S_{i(reagenti)}^{o}.   
+\end{align}
+Come da teoria, l'entropia misurata delle sostanze gassose è maggiore della corrispettiva liquida. INoltre
+l'entropia diminuisce aumentando la complessità della molecola e la forza dei legami.
+
+\subsection{L'energia libera standard di una reazione}
+Come nelle trasformazioni di fase, anche nelle trasformazioni liquide si ha variazione di \textbf{energia libera del sistema}
+che determina se i reagenti si trasformano nei prodotti e viceversa. Il \textbf{principio di minima energia} dipende e fa
+riferimento solo al sistema per cui $\Delta G < 0$ fino a che $\Delta G = 0$, analogamente l'energia
+libera è data da:
+\begin{align}
+    \Delta G_{(reazione)}^{o} = \sum_{i =  1}^{n} c_i \Delta G_{fi(prodotti)}^{o}   - \sum_{i =  1}^{n} c_i \Delta G_{fi(reagenti)}^{o}   
+\end{align}  
+dove $\Delta G_{f}^{o}$ è l'\textbf{energia libera di trasformazione} di ciascun composto, partendo dalla  definizione di $\Delta H_{f}^{o}$.  \\
+I Composti che hanno $\Delta G_{f}^{o} < 0$ sono stabili nel senso che non si dissociano spontaneamente nelle rispettive sostanze
+elementari. 
+
+\subsection{Energia libera di una reazione e temperatura}
+Quando una reazione avviene a temperatura diversa da quella standard e con pressione di ciascun reagente e prodotto diversa da un bar
+l'energia libera di reazione a condizione ambiente l'energia libera non è più standard ma le differenze di entropia ed entalpia
+non sono grandi e quindi si possono considerare standard entro un certo intervallo di temperature:
+\begin{align}
+    \Delta G^{o} (T) = \Delta H^{o} - T\Delta S^{o}    
+\end{align}
+
+\section{L'aspetto fenomenologico dell'equilibrio}
+\subsection{La costante di equilibrio come manifestazione dell'energia libera}
+Si può dimostrare che la dipendenza dall'energia libera di una qualunque sostanza gassosa è data dalla seguente:
+\begin{align}
+    G(P, T) = G^{o}(T) + RT\ln(P) 
+\end{align}
+Poiché $\Delta G = \Delta H - T\Delta S$ allora si può scrivere:
+\begin{align}
+    \Delta G(T, P) = \Delta G^{o}(T) + RT \ln(Q) 
+\end{align}
+dove Q è il \textbf{quoziente di reazione} ossia il rapporto del prodotto delle pressioni dei prodotti ed il 
+prodotto delle delle pressioni dei reagenti elevate al coefficiente stechiometrico alle condizioni standard:
+\begin{align}
+    Q = \frac{\prod_{i}^{prodotti} p_i^{c_i} }{\prod_{i}^{reagenti} p_i^{c_i}}
+\end{align}
+Il valore del quoziente di reazione all'equilibrio prende il nome di \textbf{costante di equilibrio} $K_p$:
+\begin{align}
+    \Delta G^{o}(T) = -RT \ln K_p
+\end{align}
+QUesta relazione ci permette di sapere quanto una reazione è spostata rispetto alla condizione di equilibrio
+ed il valore di $\Delta G$ necessario per raggiungerlo.
+
+\subsection{L'uso della costante di equilibrio ed i suoi formalismi}
+La costante di equilibrio della reazione è esprimibile anche mediante la concentrazione della quantità di sostanza
+utilizzando l'equazione di stato ideale: 
+\begin{align}
+    K_p (RT)^{-\Delta n} = K_c = \frac{\prod_{i}^{n}[Prodotti]^{c_i}_{eq}}{\prod_{i}^{n}[Reagenti]^{c_i}_{eq}} 
+\end{align}
+Il pedice eq sarà sottinteso in base al contesto della reazione. Il valore della costante di equilibrio dipende soprattutto
+dal simbolismo utilizzato per scriverla: il valore di $K_{eq}$ dipende solo dalla temperatura ma non dal resto. \\
+Un'altra grandezza utile è il \textbf{grado di dissociazione} di una sostanza: ossia il rapporto tra la quantità di sostanza
+che siè dissociata all'equilibrio e quella presente dall'inizio della reazione, ossia il la \textbf{frazione molare} 
+della sostanza che si dissocia:
+\begin{align}
+    \alpha = \frac{n_{A_{iniziale}} - n_{A_{eq}}}{n_{A_{iniziale}}} = \frac{c_{A_{iniziale}} - c_{A_{eq}}}{c_{A_{iniziale}}} = \frac{p_{A_{iniziale}} - p_{A_{eq}}}{p_{A_{iniziale}}}
+\end{align}
+
+\subsection{Gli effetti di perturbazione esterne sullo stato di equilibrio di una reazione: il principio di Le Chatelier-Braun}
+Se uno dei parametri che determinano le condizioni di equilibrio cambiano in una reazione, allora il 
+\textbf{principio di Le Chatelier-Braun} afferma che il sistema \textbf{si oppone alla modifica apportata} tendendo
+a minimizzarne gli effetti cercando un nuovo stato di equilibrio. 
+
+
+\chapter{Equilibri acido-base}
+\section{Equilibrio chimico in fase liquida}
+Per molte specie chimiche pure allo stato liquido si osserva un'equilibrio con altre specie chimiche
+liquide, e molto interessanti sono gli equilibri con gli atomi di idrogeno, i quali possono passare
+da una molecola all'altra secondo il processo di \textbf{autoprotolisi}, l'autoprotolisi più importante
+è quella dell'acqua e la sua costante di equilibrio si scrive come:
+\begin{gather*}
+    K_{eq} = \frac{[\ce{H3O^{+} }][\ce{OH^{-} }]}{[\ce{H2O^}]^{2} }
+\end{gather*}
+Il prodotto ionico dell'acqua è dato come il prodotto delle specie al numeratore:
+\begin{gather*}
+    K_w = [\ce{H3O^{+} }][\ce{OH^{-} }] = 1,0 \cdot 10^{-14} 
+\end{gather*}
+In una soluzione con l'acqua come solvente e aumenta la quantità di \ce{H3O^{+}} allora la soluzione
+assume un carattere acido, altrimenti se aumenta la quantità di \ce{OH^{-}} la soluzione assume un carattere basico.
+
+\section{Equilibri acido-base}
+\subsection{Equilibri secondo Lowry e Bronsted}
+Si definisce acido qualunque sostanza che sia capace di cedere protoni e base una sostanza che riceve protoni. \\ 
+Un'acido agisce come tale se e solo se c'è una base e viceversa ed il prodotto della loro reazione 
+è sempre un acido + una base. La stessa reazione di autoprotolisi dell'acqua è una reazione di Lowry
+poiché una molecola di acqua si comporta come acido e l'altra come base
+
+\subsection{Reazione con l'acqua degli acidi e basi di Lowry-Bronsted}
+L'equilibrio acido-base risponde alle leggi dell'equilibrio chimico le equazioni tipo acide e basiche sono:
+\begin{gather*}
+    \ce{HA + H2O <-> H3O^{+} + A^{-}  } \\
+    \ce{B + H2O <-> HB^{+} OH^{-} }
+\end{gather*}
+Si misura con la legge d'equilibrio la tendenza di una reazione ad essere acida con la seguente costante:
+\begin{align}
+    K_a = \frac{[\ce{H3O^{+} }][\ce{A^{-}} ]}{[\ce{HA}]}
+\end{align}
+e per la base:
+\begin{align}
+    K_b = \frac{[\ce{OH^{-} }][\ce{HB^{+}} ]}{[\ce{B}]}
+\end{align}
+Le costanti sono utilizzate per misurare la \textbf{forza} di un acido o di una base ossia la loro
+tendenza a cedere ioni \ce{H^{+}} all'acqua o da acquistarlo rispettivamente. 
+
+\subsection{Il pH e pOH}
+I simboli pH, pOH e pK indicano il logaritmo cambiato di segno di un numero uguale a quello che esprime 
+la concentrazione di $mol \ dm^{-3}$ di \ce{H^{+}}, \ce{OH^{-}} e K. \\
+Una soluzione neutra ha pH, pOH = 7(ossia $10^{-7}\ mol \ dm^{3}$ ), sono possibili sulla scala anche valori
+di pH $<$ 0 e $>$ 14 anche se le leggi dell'equilibrio non sono più valide per soluzioni molto concentrate.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{pH.png}
+    \caption{La scala del pH e del pOH delle soluzioni acquose}
+    \label{Fig 12.1}
+\end{figure}
+
+\subsection{Livellamento della forza degli acidi e delle basi in acqua}
+Tutti gli acidi con $K_a > 1$ danno origine alla stessa concentrazione di \ce{H3O^{+}} poiché
+in acqua queste risultano \textbf{livellate } e quindi \ce{H3O^{-}} è l'acido più forte in acqua. 
+Lo stesso vale per la base \ce{OH^{-}}. L'intervallo di pH di un solvente è chiamato dunque \textbf{
+finestra di discriminazione acido-base}.
+
+\subsection{Aspetti degli equilibri acido-base in acqua}
+Nel caso di acidi e basi forti, il contributo dell'autoprotolisi  si calcola conosciuta la concentrazione di
+dell'acido:
+\begin{align}
+    K_w = (c_{HA} + x)x
+\end{align}
+Dove x è la concentrazione di \ce{H3O^{+}} = \ce{OH^{-}}. Quando $c_{AH} = 1 \cdot  10^{-7}  $ allora il contributo
+dell'autoprotolisi non è più trascurabile e va considerato nella formula poiché gli acidi e basi
+forti reagiscono completamente con l'acqua. 
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \includegraphics[width=0.4\textwidth]{ph-pc.png}
+    \caption{pH di soluzioni acide(rosso) e soluzioni basiche(blu) in funzione del cologaritmo 
+    della concentrazione dell'acido o della base (pc)}
+    \label{Fig 12.2}
+\end{wrapfigure}
+Quando siamo invece in presenza di acidi e basi deboli allora  $pH > pc_{HA}$ e lo stesso vale
+per le basi. PEr questo si definisce il \textbf{grado di dissociazione} di un acido debole, ossia il
+rapporto tra la quantità che è dissociata (che ha reagito con l'acqua) ossia la frazione molare
+dell'acido o della base che all'equilibrio ha reagito con l'acqua:
+\begin{align}
+    \alpha = \frac{[\ce{H3O^{+}}]}{[acido]}
+\end{align}
+Un acido debole ha quindi come concentrazione:
+\begin{align}
+    K_a = \frac{x^{2} }{c_{HA} - z}
+\end{align}
+Dove x è la concentrazione di \ce{H3O^{+}}.
+
+\subsection{Reazione fra $K_a$ e $K_b$ di una coppia coniugata acido-base}
+Sciogliendo un acido forte in acqua ed aggiungendo la sua base coniugata, un acido è tanto forte
+quanto è forte la reazione della sua base coniugata con l'acqua.
+\begin{align}
+    K_a K_b = K_w 
+\end{align}
+
+\subsection{Reazioni acido-base}
+I valori di $K_a$ e $K_b$ indicano quanto è spostata la reazione e servono a trovare la costante di equilibrio di una qualsiasi reazione
+acido-base, se le loro costanti sono $> 1$ allora hanno reagito con l'acqua in modo quantitativo allora 
+si ha una costante di equilibrio molto grande $K_{eq} = K_w^{-1}$. Un acido reagisce effettivamente con qualunque
+base che sia meno debole(ossia che abbia $K_b$ più grande) della propria base coniugata. Tanto maggiore
+è il $K_b$ e più la reazione è spostata a destra ed in generale una reazione è spostata a destra se:
+\begin{align}
+    K_a K_b > K_w 
+\end{align}
+L'interazione tra un acido ed una base forte avvengono principalmente tra \ce{H3O^{+}} e \ce{OH^{-}} generati
+in quanto queste specie reagiscono fortemente con l'acqua; se invece sono acidi o basi deboli, allora interagiscono
+di più tra di loro poiché interagiscono meno con l'acqua (questo non influisce sul raggiungimento dell'equilibrio).
+
+\subsection{Acidi poliprotici e basi poliacide}
+Gli acidi che hanno la possibilità di cedere più di uno ione \ce{H^{+}} hanno tendenza decrescente a cedere all'acqua 
+i protoni successivi al primo e si chiamano \textbf{poliprotici} e danno luogo a tanti equilibri con l'acqua quanti protoni
+possono cedere (ognuno con un $K_a$ diverso tale che $K_{a_1} > ...  > K_{a_n}$), i quali esistono tutti simultaneamente 
+in medesima concentrazione nella medesima soluzione. 
+La costante \textbf{complessiva } di un acido poliprotico o di una base poliacida è data dal 
+prodotto delle costatanti a cui possono dare vita:
+\begin{align}
+    K_c = K_{a1} \cdot  ... \cdot K_{an}
+\end{align} 
+
+
+\section{Applicazioni degli equilibri acido-base}
+\subsection{Acidi e basi polifunzionali}
+Facendo reagire l'acido \ce{H2SO4} con l'acqua si ottengono due reazioni; per cui chiamato
+x la concentrazione di \ce{H3O^{+}} e \ce{HSO4^{-}}  proveniente dal primo equilibrio e con y la concentrazione proveniente dal secondo equilibrio,
+allora si possono ottenere le concentrazioni
+\begin{gather*}
+    \left\{\begin{array}{c}
+        K_{a_1} = \frac{[\ce{H3O^{+}}][\ce{HSO4^{-}}]}{[\ce{H2SO4}]} = \frac{(x + y)(x - y)}{c_{\ce{H2SO4}} - x} \\
+        K_{a_1} = \frac{[\ce{H3O^{+}}][\ce{SO4^{2-}}]}{[\ce{HSO4^{-}}]} = \frac{(x + y)y}{x- y}
+    \end{array}\right.
+\end{gather*}
+Se $K_{a_1} >> K_{b_1}$ allora si può utilizzare un altro metodo di calcolo per x ed y che dà un errore minore:
+la concentrazione di \ce{H3O^{+}} è trascurabile al secondo membro e si può usare questo metodo anche quando
+$K_{a_1}/K_{a_2}$ è dell'ordine di $10^{4}-10^{5} $. Lo stesso ragionamento e meccaniche si applicano anche per le basi. \\
+Per quanto riguarda invece il calcolo del pH invece, vanno considerati entrambi i contributi (o più) degli acidi polifunzionali
+e quindi:
+\begin{align}
+    pH \sim \frac{(pK_{a_1} + \dots + pK_{a_n}) }{n}
+\end{align}  
+
+\section{Le soluzioni tampone}
+Se si mettono in soluzione un acido ed una base coniugati in concentrazioni comparabili, per esempio
+mettendo in soluzione \ce{CH3CO2H} e \ce{NaCH3CO2} il sistema all'equilibrio deve soddisfare:
+\begin{gather*}
+    K_a = \frac{[\ce{H3O^{+}}][\ce{CH3CO2^{-}}]}{[\ce{CH3CO2H}]} = 1.8 \cdot 10^{-5} 
+\end{gather*}
+Poiché le concentrazioni simili e per la legge di Chatelier-Braun che tende a far regredire
+i prodotti degli acidi e delle basi, e poiché in acqua le reazioni sono spostate a sinistra, allora si scrive:
+\begin{gather*}
+    [\ce{H3O^{+} }] = K_a \frac{[\ce{CH3CO2H}]}{[\ce{CH3CO2^{-}}]}
+\end{gather*}
+e quindi si arriva alla formula:
+\begin{align}
+    pH = pK_A - \log\left(\frac{[\ce{CH3CO2H}]}{[\ce{CH3CO2^{-}}]}\right)
+\end{align}
+Questo tipo di soluzione è chiamata \textbf{soluzione tampone}: l'aggiunta di una piccola quantità
+di \ce{H3O^{-}} fa produrre una piccola quantità di acido coniugato alla base e viceversa una piccola aggiunta
+di \ce{OH^{-}} fa produrre una piccola quantità di base coniugata facendo variare il pH di poco. \\
+Essendo le concentrazioni all'equilibrio dell'acido e della base coniugati in un tampone non esattamente uguali alle concentrazioni
+stechiometriche, sciogliendo quantità uguali di acido il pH varia da 7 a pK dell'acido scelto e quindi
+\begin{align}
+    \ce{H3O^{+}} = K_a
+\end{align}
+A seconda che il $pK_a$ sia minore o maggiore di 7, allora il sistema dovrà fornire (tampone acido) o
+sottrarre (tampone basico) protoni all'acqua 
+
+
+\section{Curve di distribuzione delle specie}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \includegraphics[width=0.4\textwidth]{curve-specie-acidi.png}
+    \caption{Curva di distribuzione della coppia acido-base considerata}
+    \label{Fig 12.3}
+\end{wrapfigure}
+Considerando la distribuzione in soluzioni di specie costituenti una coppia coniugata quando il pH assume 
+certi valori in seguito all'aggiunta di acidi o basi forti, e preso come esempio la coppia del paragrafo scorso,
+si osserva che, con l'aggiunta di 1 mole per $dm^{3}$ di acido cloridrico, \ce{CH3CO2H} regredisce
+ulteriormente grazie all'acido forte  per cui la dalla costante acida in presenza di una mole di \ce{H3O^{-}}:
+\begin{gather*}
+    K_a = \frac{[\ce{CH3CO2^{-}}]\cdot 1.0}{1.0 \cdot  10^{-2}-[\ce{CH3CO2^{-}}]}
+\end{gather*}
+Si ricava che il grado di dissociazione dell'acido è $\alpha = 1.8 \cdot  10^{-5}$ a pH = 0. Aumentando il pH
+mano a mano incrementa la frazione di acido dissociato fino a raggiungere il massimo di x = 1 a pH 7.  
+
+
+\section{Acidi e basi di Lewis}
+\subsection{Definizione di acidi e basi di Lewis}
+Gli ossidi dei non metalli possiedono proprietà acide nonostante non corrispondano alla definizione di acido di Lowry,
+queste sostanze sono chiamate \textbf{acidi di Lewis}: sono delle specie che possono accettare in compartecipazione
+una coppia di elettroni da un'altra specie; sono basi invece le specie che in una reazione possono ceder
+una coppia di elettroni ad un'altra sostanza. L'ossidazione di un metallo è una reazione acido-base che
+per Bronsted-Lowry non lo è. 
+
+\subsection{Gli equilibri coinvolgenti ioni complessi}
+Quando si aggiunge un legante ad una soluzione che contiene uno ione metallico, si ha un equilibrio
+che dipende dalla costante di equilibrio che in questo caso è chiamata \textbf{costante di stabilità} del complesso
+e la costante relativa alla reazione inversa di dissociazione dello ione complesso è chiamata invece
+\textbf{costante di instabilità} (ossia l'inversa).
+
+\chapter{Sistemi a più componenti e equilibri eterogenei}
+\section{Equilibri eterogenei}
+\subsection{Equilibri eterogenei implicanti gas}
+Nelle reazioni \textbf{eterogenee} si ha una costante di equilibrio data dal rapporto tra i prodotti ed i reagenti. Tuttavia
+essendo che le sostanze solide non mutano la costante di equilibrio che coinvolge la reazione sarà sempre il rapporto
+tra i reagenti ed i prodotti ma senza le componenti solide. 
+
+
+\section{Dissoluzione di un soluto in solvente}
+\subsection{Il meccanismo della solubilizzazione dei composti ionici }
+Questo processo si basa sulle proprietà strutturali del composto ionico e del solvente: dissolvendo
+\ce{NaCl} in acqua, ogni atomo di Na ed ogni atomo di \ce{Cl} sono circondati da sei molecole d'acqua
+secondo il processo di \textbf{solvatazione} (\textbf{idratazione} in questo caso). Dal punto di vista
+termodinamico il processo è molto più complicato perché in adesso non ci si spiega come possa la solubilità
+aumentare esponenzialmente all'aumentare della temperatura.
+
+\subsection{Termodinamica della solubilizzazione di una sostanza}
+La dissoluzione di un composto ionico in un solvente è schematizzata con il \textbf{ciclo di Hess}:
+distruzione del reticolo cristallino (con passaggio allo stato gassoso degli ioni) e idratazione degli ioni gassosi. \\
+Il passaggio allo stato gassoso porta alla \textbf{dissociazione} ($\Delta H_{diss} = \Delta H_{ret}$)  mentre al secondo
+stadio l'entalpia di idratazione è negativa che è circa uguale all'energia potenziale fra gli ioni e le molecole d'acqua
+che non porta variazione di lavoro né di energia cinetica. \\
+L'\textbf{Entalpia di solubilizzazione} $\Delta H_{sol}$ è data da:
+\begin{align}
+    \Delta H_{sol} = \Delta H_{ret} + \Delta H_{idr}
+\end{align}
+Mentre $\Delta H_{ret}$ è costante durante tutto il processo, il l'altro termine diminuisce in valore
+assoluto diventando meno favorevole anche se non è mai abbastanza grande da non permettere la solubilizzazione e per
+questo qualsiasi processo di solubilizzazione è \textbf{endoentalpico o endotermico}: Agitando una soluzione,
+l'energia cinetica viene impiegata nella solubilizzazione portando ad un abbassamento della temperatura della soluzione. \\
+La capacità di disciogliere un soluto in un solvente è invece determinata dal contributo entropico: il quale è molto 
+grande nel processo di dissoluzione e gli ioni vanno in soluzione fino a che $T \Delta S > \Delta H$. Mano a mano 
+$\Delta S$ diminuisce sempre di più fino a che $\Delta H_{sol} - T \Delta S = 0 $: il sistema raggiunge l'equilibrio 
+e la soluzione è \textbf{satura}. \\
+La solubilità di un solido ionico in un solvente dipende quindi l'entalpia relativa alla distruzione
+dei legami, di solvatazione e di dissoluzione giocano un ruolo fondamentale nel passaggio dallo stato solido a quello gassoso. 
+Il termine $\Delta S$ aumenta all'aumentare della temperatura e quindi determina una solubilità maggiore.
+
+\subsection{Equilibri eterogenei in soluzione: il prodotto di solubilità}
+La costante di equilibrio prende il nome di \textbf{prodotto di solubilità} ed  è una funzione della sola temperatura 
+e la quantità di solido, come in ogni equilibrio eterogeneo non influisce sulla posizione di equilibrio ed il prodotto
+di solubilità è costante ad ogni temperatura (è il prodotto di degli ioni elevati ciascuno al coefficiente stechiometrico).
+
+\subsection{La dissoluzione di composti molecolari liquidi e solidi}
+Il meccanismo di dissoluzione dei composti molecolari è diverso da quelli ionici: l'interazione
+fra le molecole è di Van der Waals e quindi se è liquido-liquido l'entropia fà si che soa solubile illimitatamente
+così come nelle interazioni gas-gas ma solo se i loro valori di $\Delta H_{sol}$ sono piccoli. Se i liquidi 
+sono costituiti da molecole strutturalmente diverse, allora sono immiscibili. Questo perché il contributo
+favorevole ma negativo di $\Delta H$ dovuto alle interazioni soluto-solvente compensa solo in minima parte il contributo
+positivo ma sfavorevole di $\Delta H$ dovuto alla perdita soluto-soluto e solvente-solvente nella soluzione. \\
+Se il soluto è un solido molecolare la solubilità ha un certo limite.
+
+\subsection{Solubilità di solidi covalenti polimeri e metalli}
+I solidi covalenti polimeri hanno grande entalpia di reticolare permette ai solidi di essere immiscibili così come
+i metalli nei liquidi (sono miscibili solo nel mercurio nel processo di \emph{amalgama} il quale avviene anche tra solidi).
+
+\subsection{Solubilità di composti con legame a ponte idrogeno}
+Sostanze liquide in cui agiscono legami ad idrogeno sono fra loro miscibili spesso in tutte le proporzioni quando l'entropia
+di mescolamento supera la piccola entalpia. 
+
+\subsection{Solubilità dei gas}
+Un gas non ha forze di interazione apprezzabili, quindi il processo di solubilizzazione di un gas è generalmente favorito
+dall'entalpia di solvatazione e la solubilizzazione della maggior parte dei gas è in processo 
+\textbf{esoentalpico o esotermico}. L'entropia non favorisce la dissoluzione di un gas in un liquido poiché il gas
+passerebbe ad uno stato di disordine minore e inoltre potrebbe infilarsi nelle cavità del liquido dando ancora più 
+ordine alla soluzione. Secondo la \textbf{legge di Henry} la solubilità dei gas è direttamente proporzionale alla
+loro pressione parziale. Con l'aumentare della temperatura diminuisce la solubilità di un gas a causa dell'aumento dei
+microstati e quindi dell'aumento di entropia. 
+
+\subsection{Effetto della temperatura sulla solubilità}
+Per prevedere l'effetto dell'aumento della temperatura sulla solubilità occorre sapere se il processo di solubilizzazione
+all'equilibrio è endoentalpico o esoentalpico: a tale scopo si mette altro solvente e sciogliere altro soluto. 
+Se la temperatura si innalza allora è endoentalpico, altrimenti è esoentalpico. \\
+Se il processo di solubilizzazione all'equilibrio è esoentalpico come nei gas, allora alla diminuzione
+dell'energia cinetica provoca altra solubilizzazione dei gas, allora si genera calore che si oppone a questa dissoluzione. 
+
+\subsection{Ripartizione di un soluto fra solventi immiscibili}
+Quando una soluzione è aggiunta in un recipiente con un altro solvente immiscibile e viene agitata il soluto si ripartisce fra le due
+fasi liquide e la concentrazione sarà maggiore nel solvente in cui la sua solubilità è maggiore. Il rapporto tra le concentrazioni
+del soluto nelle due soluzione è uguale al rapporto fra le solubilità è chiamato \textbf{costante di ripartizione} del soluto
+fra due solventi. 
+
+\section{I diagrammi di stato a due componenti}
+
+\subsection{Il diagramma \ce{H2O}-\ce{NaCl}}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 13.1}
+    \caption{Diagramma di stato Acqua-sale}
+    \includegraphics[width=0.4\textwidth]{Acqua-sale.png}
+\end{wrapfigure}
+Il diagramma di equilibrio solido-solido alla pressione di un'atmosfera del sistema acqua sale è dato
+dalla figura \ref{Fig 13.1}.
+I punti della curva EB rappresentano le temperature di equilibrio tra la fase liquida ed il solido
+formato da \ce{NaCl} puro e quindi il tratto EB indica la dipendenza della solubilità ed il punto
+E è chiamato il \textbf{punto eutettico} e la temperatura e la composizione corrispondenti sono la
+\textbf{temperatura eutettica e composizione eutettica} e rappresenta il punto di equilibrio fra la soluzione,
+e le due fasi solide costituite da ghiaccio e cloruro di sodio. 
+
+\section{I sistemi dispersi}
+\subsection{Le dispersioni colloidali}
+Un \textbf{sistema omogeneo} è definito come un sistema all'interno del quale le proprietà chimiche e fisiche costanti 
+per ogni volume piccolo a piacere. La \textbf{sospensione } di una sostanza insolubile in un dato solvente costituisce 
+un \textbf{sistema eterogeneo}. Il passaggio da sospensione eterogenea a soluzione è idealmente 
+un processo continuo: è possibile avere sospensioni o aggregati microscopici. In questo caso si parla
+\textbf{dispersioni colloidali}. \\
+La fase disperdente può essere gassosa e liquida e la fase dispera solida, liquida o anche gassosa come i fumi o
+gli aerosol più comuni e sono elettricamente cariche respingendosi tra di loro. \\
+L'energia potenziale delle particelle che riescono ad aggregarsi ha energia minore se è di forma
+sferica. 
+
+\subsection{Sol e gel}
+Le dispersioni di particelle di sostanze solide in liquidi si chiamano sol. Se si sala un sol cioè se si 
+aggiungono ioni positivi e negativi di un composto ionico le particelle micelle si scarico e quindi avviene
+la \textbf{flocculazione} o precipitazione della fase dispersa. \\
+Le micelle di alcune sostanze specifiche formano una struttura tra di loro che occupa tutto il volume
+occupato prima dai sol e la fase disperdente è intrappolata al suo interno prendendo il nome di \textbf{gel}. 
+Raffreddando un sol si ottiene un materiale liofilizzato che è simile ad un gel ma molto più fragile . Le proprietà dei
+colloidi invece sono molto peculiari in quanto sono diverse dai solidi in sospensione poiché rimangono
+omogeneamente distribuiti nella soluzione e possono rifrangere la luce secondo l'effetto \textbf{Tyndal}.
+
+\subsection{Emulsioni e schiume}
+Nelle \textbf{emulsioni} un liquido è disperso in un'altro liquido. Generalmente queste emulsioni
+tendono a stratificarsi dopo molto tempo ma con l'aggiunta di una sostanza \textbf{tensioattiva}  perché hanno
+la proprietà di abbassare la tensione superficiale di un liquido. COn la diminuzione della tensione superficiale
+le sostanze tensioattive possono formare una \textbf{schiuma} sulla superficie del liquido
+
+\section{Le soluzioni solide}
+Esistono anche le soluzioni solide (spesso ottenute mediante raffreddamento di soluzioni liquide):
+nei metalli esse si chiamano \textbf{leghe}, le quale sono formate da molecole di metalli diversi all'apparenza
+compatte. Un'altro tipo di soluzione solida è un atomo o ione sostituisce un altro simile all'interno di un
+cristallo di un composto.  
+
+\chapter{Cinetica chimica}
+\section{Aspetti termodinamici e cinetici di una reazione}
+I parametri $\Delta G^{o}$ o $K_{eq}$ di una reazione permettono di decidere se una reazione avviene o non avviene spontaneamente
+e quali sono le condizioni sperimentalmente che la favoriscono. L'aspetto termodinamico di una reazione non è tuttavia la sola
+proprietà che è necessario conoscere: la \textbf{velocità} è determinata dal'\textbf{aspetto cinetico}. Tutto dipende
+dalla costante di equilibrio: se essa è molto grande allora una reazione può essere molto lenta, altrimenti molto veloce. 
+
+\section{La velocità di una reazione}
+\subsection{La misura della velocità di reazione}
+La velocità di reazione è espressa come:
+\begin{align}
+    v_R(t) = \frac{d[R]}{dt}
+\end{align}
+Tutti i reagenti all'interno di una reazione hanno la stessa velocità di reazione percui in una reazione 
+generica del tipo \ce{aA + bB <-> cC + dD} la sua velocità al tempo t sarà data da:
+\begin{gather*}
+    v_R = -\frac{1}{a} \frac{d[A]}{dt} = -\frac{1}{b} \frac{d[B]}{dt}= \frac{1}{c} \frac{d[C]}{dt}= \frac{1}{d} \frac{d[D]}{dt}
+\end{gather*}
+I reagenti hanno velocità negativa poiché diminuiscono mentre i prodotti positiva poiché vanno ad aumentare
+
+\section{Il meccanismo delle reazioni elementari}
+\subsection{Teoria delle collisioni ed energia di attivazione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 14.1}
+    \caption{Variazione dell'energia potenziale tra due molecole AB e C}
+    \includegraphics[width=0.4\textwidth]{energia-attivazione.png}
+\end{wrapfigure}
+Il modello microscopico che descrive l'andamento di una reazione è quello della \textbf{toeria delle collsisioni} che si basa
+sull'assunzzione che per reagire e dar luogo a dei prodotti dei reagenti collidano tra di loro. Questa però 
+è solo una condizione necesaria ma non sufficiente e la quantità di urti che si hanno si calcola mediante la
+teoria cinetica dei gas e solo una frazione è effettivamente utile per la generazione di prodotti (\textbf{urti efficaci})
+poiché possiedono l'energia minima per far avvenire la reazione chiamata \textbf{energia di attivazione}.
+Facendo avvicinare due molecole AB e C si ottiene il grafico in figura \ref{14.1}. Durante l'avvicinamento
+si arriva allo \textbf{stato di transizione} in cui si forma un debole legame tra B e C ed in cui il legame tra A e B
+si è indebolito  dando quindi luogo alla reazione:
+\begin{gather*}
+    \ce{AB + C <-> A + BC}
+\end{gather*}
+Solo le particelle che hanno $E_{cin} > E_{a+}$ possono dare luogo alla reazione, le altre non reagiscono a meno 
+che non si fornisca calore al sistema. \\
+Dalla teoria delle collisioni si ricava la velocità di reazione chiamata \textbf{legge cinetica}, la quale è $\propto$ 
+al numero degli urti tra le molecole, la quale è $\propto$ alla concentrazione delle particelle. 
+
+\subsection{Costante di velocità ed energia di attivazione}
+La costante di proporzionalità, $k_+$ è definita come \textbf{costante cinetica} o costante di velocità della reazione
+e tiene conto della frazione di molecole che possiedono quell'energia cinetica di attivazione della reazione, la quale
+aumenta all'aumentare della temperatura (a causa di una maggiore agitazione delle molecole).\\
+Reazioni che avvengono con solo uno stadio(monostadio) (ossia senza trasformazioni intermedie) prendono il nome di \emph{bimolecolari}
+e si dice anche che la loro \emph{molecolarità} sia di 2. La dipendenza della costante di velocità dall'energia di attivazione è data dalla:
+\begin{align}
+    k_+ = Ae^{-\frac{E_{a+}}{RT}} 
+\end{align}
+Dove A è il \textbf{fattore di frequenza} che dipende dalla frazione di urti favorevoli rispetto al totale. 
+
+\subsection{Velocità della reazione inversa}
+Presa come esempio una reazione monostadio generica con molecolarità 2:
+\begin{gather*}
+    \ce{A + B <-> C + D}
+\end{gather*}
+L'espressione della velocità per la reazione diretta è data dall'equazione differenziale di primo ordine:
+\begin{gather*}
+    -\frac{d[A]}{dt} = k_+ [A][B]
+\end{gather*}
+Se $K_{eq}$ è molto grande allora la velocità segue la stessa legge fino alla fine, altrimenti
+diventa importante anche la reazione inversa  per cui la velocità di produzione di A diventa:
+\begin{gather*}
+    \frac{d[A]}{dt} = -\frac{d[C]}{dt} = k_-[C][D]
+\end{gather*}
+dove $k_-$ è data da:
+\begin{align}
+    k_- = Ae^{-\frac{E_{a-}}{RT}} 
+\end{align}
+con A che  è il fattore di frequenza della reazione e in questo caso si avra che $E_{a-} > E_{a+}$ poiché
+ci sarà da superare una barriera energetica molto più forte  per ottenere i reagenti dai prodotti.
+L'espressione generale della velocità di reazione durante tutta la reazione è dunque:
+\begin{align}
+    -\frac{d[A]}{dt} = k_+[A][B] - k_-[C][D]
+\end{align}
+
+\subsection{Relazione tra costanti cinetiche e costante di equilibrio termodinamico}
+Se si sostituisce all'energia potenziale l'energia libera del sistema  il grafico risultante(analogo a quello dell'energia potenziale)
+ci illustra bene la relazione fra l'aspetto cinetico e termodinamico delle reazioni. Le costanti di velocità
+possono essere espresse in funzione dell'energia libera di attivazione si ottiene come?????
+
+\section{Meccanismi delle reazioni a due o più stadi: i processi elementari}
+Considerata nuovamente la reazione generica, se la reazione è molto spostata a destra si può trascurare il contributo
+della reazione inversa e che A non possa reagire con B ma che debba prima trasformarsi in I; allora si tratta di una
+reazione a due stadi in cui il primo è più lento perché ha un'attivazione maggiore del secondo e quindi la velocità di reazione
+dipende interamente dalla velocità di formazione di I. 
+
+\section{Molecolarità dei processi elementari ed ordine di reazione}
+\subsection{Ordine di reazione}
+Generalmente, data una reazione del tipo:
+\begin{gather*}
+    \ce{aA + bB <-> cC}
+\end{gather*}
+la legge cinetica può essere esperessa dall'equazione
+\begin{gather*}
+    -\frac{1}{a}\frac{d[A]}{dt} = k_+ [A]^{x}[B]^{y}  
+\end{gather*}
+queste costanti x ed y esprimono la \textbf{molecolarità dello stadio lento} e coincidono
+con i coefficienti stechiometrici dei reagenti che partecipano allo stadio lento:  esse rappresentano
+l'\textbf{ordine della reazione} rispetto al componente A e al componente B; la somma x + y rappresenta l'ordine 
+complessivo della reazione che può essere espresso da un numero intero o frazionario indipendente per ogni reazione.\\
+
+\subsection{Immaginare un meccanismo di reazione}
+Misurate sperimentalmente la velocità di reazione iniziale a diverse concentrazioni, 
+si può spiegare ogni reazione che avviene semplicemente supponendo che avvengano delle mini reazioni
+al suo interno per portare il prodotto finale. 
+
+\subsection{La costante di equilibrio della reazione nelle reazioni multistadio}
+La velocità delle reazioni è in realtà la risultante della velocità della reazione diretta meno quella inversa, 
+per cui il rapporto tra la velocità della reazione diretta e la reazione inversa è sempre costante durante tutta la reazione.
+Inoltre se la reazione si può scomporre in più reazioni si può scrivere:
+\begin{align}
+    \frac{k_{+_{1}}}{k_{+_{1}}}\cdot \dots \cdot \frac{k_{+_{n}}}{k_{+_{n}}} = K_{eq}
+\end{align}
+
+\section{Le leggi cinetiche integrate delle reazioni del primo e del secondo ordine}
+\subsection{Cinetiche del primo ordine}
+Per conoscere la dipendenza dal tempo delle concentrazioni delle specie che prendono parte ad una reazione occurre integrare l'equazione
+per cui si ottiene per una reazione generica integrata: 
+\begin{align}
+    -\frac{d[A]}{dt} = k_+[A] \Rightarrow  -\log \left(\frac{[A]_t}{[A]}\right) = k_+t
+\end{align}
+
+\subsection{Cinetiche del secondo ordine}
+Dalla reazione del secondo ordine:
+\begin{gather*}
+    \ce{A + B -> prodotti}
+\end{gather*}
+la legge cinetica ci da:
+\begin{gather*}
+    -\frac{d[A]}{dt} = k[A][B] 
+\end{gather*}
+L'integrazione nel caso in cui [A] = [B] perché si ha che:
+\begin{align}
+    \int_{[A]_0}^{[A]_t} \frac{d[A]}{[A^{2} ]} = -kt \quad \Rightarrow \quad \frac{1}{[A]_t}-\frac{1}{[A]_0} = kt 
+\end{align}
+Nel caso in cui $[A] \neq [B]$ allora si ha:
+\begin{align}
+    \frac{1}{[B]_0 -[A]_0} \log \left(\frac{[B][A]_0}{[A][B]_0}\right) = kt
+\end{align}
+
+
+\section{Controllo cinetico delle reazioni}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 14.2}
+    \includegraphics[width=0.4\textwidth]{Controllo-cinetico.png}
+\end{wrapfigure}
+Se due reagenti  danno due prodotti diversi mediante la stessa reazione la dipendenza da energia libera in funzione 
+della coordinata di reazione è diversa e perciò i prodotti hanno stabilità diversa. Se uno dei due prodotti richiede un
+energia di attivazione maggiore, allora la velocità di reazione può controllare quale dei prodotti si formerà: se
+il prodotto D può formarsi solo da A e B, per velocità basse si formerà sempre e solo C e una quantità trascurabile di D.
+
+\section{Reazioni in soluzione e reazioni eterogenee}
+\subsection{Il meccanismo delle reazioni in soluzione: l'effetto del solvente}
+Se si fa avvenire una reazione all'interno di un solvente, allora la velocità di reazione è determinata
+a partire dalla libertà di movimento dei reagenti all'interno del solvente per poter ottenere degli urti efficaci:
+in acqua la reazione più efficace e più veloce è proprio tra \ce{H3O^{+}} e \ce{OH^{-}}.
+
+\subsection{Le reazioni eterogenee}
+Analogamente alle reazioni omogenee, nelle reazioni eterogenee il meccanismo di reazione porta alla collisione
+delle molecole in fase gassosa o liquida con quelle del solido. In questo caso la velocità di reazione dipende
+sia dalla superficie del solido che dalla possibilità che i prodotti lascino la superficie del solido
+per poter fare altri urti efficaci, oltre che da fattori più complicati come il grado di suddivisione
+del solido e la diffusione dei reagenti e prodotti. 
+
+\section{Catalisi}
+\subsection{I catalizzatori}
+Generalmente per aumentare la velocità di reazione si può incrementare la temperatura anche se questo non sempre è
+applicabile per due motivi: in primis limiti tecnologici e termodinamici ed in secondo luogo alcune reazioni che
+sono esoentalpiche l'equilibrio si sposterebbe a sinistra. Il metodo generale per aumentare la velocità di reazione
+è mediante l'impiego di un \textbf{catalizzatore}, ossia una sostanza che aggiunta alla reazione permette di formare dei
+prodotti intermedi, velocizzando la reazione. La sostanza che fa il contrario si chiama invece \textbf{inibitore}.
+Se il catalizzatore si trova in fase coi reagenti e prodotti si parla di \emph{catalisi omogenea}, altrimenti \emph{catalisi eterogenea}.
+
+\subsection{Catalisi eterogenea}
+Nella catalisi eterogenea il catalizzatore si trova in fase solida mentre i reagenti e prodotti e reagenti in fase liquida 
+o gassosa. Durante la reazione si forma un composto intermedio fra i reagenti ed alcune parti specifiche chiamati \textbf{centri attivi}.
+In genere gli atomi sulla superficie del cristallo sono molto reattivi poiché hanno numero di coordinazione
+ridotto rispetto agli altri. Maggiore è la superficie del solido, maggiore è la velocità di reazione. \\
+Alla fine di ogni processo la superficie del catalizzatore è ripristinato e non figura quindi tra i prodotti.
+
+\subsection{Catalisi enzimatica}
+Negli esseri viventi i catalizzatori sono chiamati \textbf{enzimi}, senza gli enzimi la vita non potrebbe esistere
+poiché le reazioni necessarie per la vita sarebbero troppo lente. 
+
+\section{Reazioni fotochimiche}
+Si parla di reazioni fotochimiche quando intervengono radiazioni elettromagnetiche. Le radiazioni possono
+permettere la rottura di un legame dando vita a frammenti di molecole chiamati \textbf{radicali} in cui sono
+presenti elettroni spaiati, altamente reattivi. Quando una reazione forma dei prodotti che possono reagire coi
+reagenti e formare ancora più prodotti allora si dice che è una reazione a catena. 
+
+
+\chapter{Elettrochimica}
+\section{Celle Voltaiche}
+\subsection{Celle volatiche e le reazioni di ossidoriduzione}
+I sistemi elettrochimici trasformano energia chimica in energia elettrica sono chiamati \textbf{celle voltaiche o galvaniche}
+ed il processo inverso avviene nelle \textbf{celle elettrolitiche}. Le \textbf{reazioni di ossidoriduzione} sono alla base
+di ambedue i sistemi elettrochimici. Introducendo una lamina di zinco in una soluzione con ioni \ce{Cu^{2+}} la lamina si
+ricopre di rame metallico secondo la reazione:
+\begin{gather*}
+    \ce{Cu^{2+} + Zn -> Zn^{2+} + Cu} 
+\end{gather*}
+Questa reazione è spontanea e produce energia termica se sono nello stesso contenitore ma si possono collegare
+i due recipienti contenenti le due lamine. 
+
+\subsection{Il funzionamento delle celle volatiche}
+L'energia elettrica è il prodotto tra la carica per il potenziale:
+\begin{align}
+    C \times V = J
+\end{align}
+Congiungendo due contenitori contenuti una lamina di zinco ed una di rame ed immersi in una soluzione
+salina \ce{Na2SO4} che fa da ponte salino si ottiene la pila di Daniell. che sul filo conduttore
+delle due lamine legge una $\Delta V = 1,10 V$. Grazie al ponte salino le soluzioni rimangono neutre
+in modo da far avvenire solo il passaggio di elettroni che altrimenti non avverrebbe. \\
+Le due lamine sono \textbf{elettrodi}, il \textbf{catodo} è dove avviene la riduzione e l'\textbf{anodo} dove
+avviene l'ossidazione. L'anodo è sempre \textbf{l'elettrodo negativo} se vi avviene l'ossidazione(che libera elettroni)
+mentre il catodo è \textbf{l'elettrodo positivo} dove avviene la riduzione che sottrae elettroni.  \\
+La \textbf{forza elettromotrice} o \textbf{f.e.m.} è la differenza di potenziale tra i due elettrodi
+ossia la differenza tra il potere riducente e quello ossidante, calcolato a livello standard con l'elettrodo standard
+ad idrogeno. 
+
+\section{I potenziali di elettrodo}
+\subsection{I potenziali standard di riduzione}
+La cella formata da zinco e dall'elettrodo standard ad idrogeno è rappresentata come:
+\begin{gather*}
+    \ce{Zn|Zn^{2+}||H^{+}|H2(Pt)}
+\end{gather*}
+La differenza di potenziale di questa pila a 298K è di $0.76 V$ ed il suo valore misura la tendenza
+complessiva della reazione:
+\begin{gather*}
+    \ce{Zn  +  2H^{+}  -> Zn^{2+} + H2}
+\end{gather*}
+Il \textbf{potenziale standard di elettrodo} è quello relativo alla \textbf{semireazione di riduzione} di ossidazione
+o riduzione che avviene nei confronti dell'elettrodo standard ad idrogeno ed il potenziale può essere sia positivo
+che negativo. \\
+Il \textbf{potenziale standard di riduzione } si ottiene sottraendo la differenza di potenziale dell'anodo a quella del catodo.
+
+\subsection{Dipendenza dei potenziali d'elettrodo dalle concentrazioni}
+Come variano i potenziali di elettrodo in funzione dei parametri che definiscono il sistema? 
+Il potenziale d'elettrodo dipende dalle concentrazioni di tutte le specie che compaiono nella semireazione
+e si calcola secondo l'\textbf{equazione di Nernst}:
+\begin{align}
+    E = E^{o} - \frac{RT}{zF}\log \left( \frac{\prod [prodotti]}{\prod [reagenti]}\right).
+\end{align}
+dove z è il numero di elettroni, F la costante di Faraday (carica di una mole di elettroni).\\
+L'energia in gioco nelle reazioni di ossidoriduzione è determinata da diversi contributi difficilmente
+prevedibili per cui i potenziali standard non hanno andamento periodico 
+
+\section{Il potenziale standard delle celle voltaiche e l'equilibrio chimico }
+In una pila di Daniels, mano a mano che fluiscono gli elettroni l'agente ossidante acquisice sempre
+più elettroni e l'agente riducente ne rilascia sempre di più fino a che ad un certo punto la tensione
+inizia a diminuire fino a che non arriva a zero quando tutto l'agente ossidante è ridotto e quando
+l'agente riducente è completamente ossidato. Da questo ragionamento seguono le seguenti relazioni:
+\begin{align}
+    K_{eq} =& e^{\frac{zF\Delta E^{o} }{RT}} \\
+    K_{eq} =& e^{\frac{\Delta G ^{o} }{RT}} \\
+    \Delta G^{o} =& -zF\Delta E^{o}     
+\end{align} 
+
+\section{Le reazioni elettrochimiche che coinvolgono alcuni metalli}
+\subsection{L'attacco dei metalli}
+La reazione di attacco dei metalli è la seguente:
+\begin{gather*}
+    \ce{M -> M^{z+} + ze^{-} }
+\end{gather*}
+Qualunque ossidante con potenziale standard apprezzabilmente maggiore del potenziale della semireazione
+\begin{gather*}
+    \ce{M^{z+} +ze^{-} -> M }
+\end{gather*}
+è capace di ossidare il metallo. I metalli che hanno un potenziale $E^{o} > 0$ e non sono dunque
+attaccabili dall'idrogeno sono chiamati metalli nobili o seminobili (oro e platino sono i migliori esempi).  
+
+\subsection{Corrosione e protezione dei metalli}
+La corrosione dei metalli avviene per ossidazione superficiale da parte degli agenti atmosferici
+ed in particolare dell'ossigeno che ha potenziale $1.23V$. Tutti i metalli dovrebbero ossidarsi all'aria
+(tranne l'oro) ma ciò non avviene completamente: questo perché molti di questi formano uno strato di
+ossido e in questo modo si autoproteggono attraverso la \textbf{passivazione}. \\
+L'umidità dell'aria ed il contatto con un metallo più nobile favoriscono il processo di attacco: in acqua
+avvengono le stesse condizioni che avverrebbero in una cella galvanica: il metallo più nobile
+funziona da elettrodo su cui si riduce l'ossigeno ed il metallo meno nobile funziona da elettrodo solubile (anodo). \
+Si protegge infatti il ferro avvolgendolo con un materiale meno nobile rispetto al ferro come lo Zinco in modo
+che si ossidi quest'ultimo e non il ferro. Questa protezione prende il nome di \textbf{protezione catodica}.  
+
+\section{I potenziali standard ed alcuni equilibri particolari}
+\subsection{Il potenziale di elettrodo in condizioni lontane da quelle standard}
+Quando un elettrodo non si trova in condizione standard, allora il suo potenziale può variare sensibilmente
+rispetto a quello determinato standard: l'ambiente acido o basico possono introdurre variazioni del potenziale considerevoli. \\
+Si utilizza quindi un elettrodo a potenziale noto e costante ossia l'\textbf{elettrodo a calomelano}-
+
+\subsection{Reazioni di dismutazione}
+Molte specie chimiche possiedono più di due numeri di ossidazione, le reazioni in cui una specie di numero
+di ossidazione intermedio si trasforma in un numero di ossidazione maggiore o minore con reazioni di \textbf{dismutazione}.
+
+\section{Cella a concentrazione}
+L'equazione di Nernst fa prevedere che si possano avere delle reazioni agli elettrodi anche quando specie
+reagenti sono le stesse:
+\begin{gather*}
+    \ce{Cu -> Cu^{2+} + 2e^{-}  } \\
+    \ce{Cu^{2+} + 2e^{-} -> Cu}
+\end{gather*}
+E' una cella galvanica a bassa tensione che smette di erogare corrente elettrica nel momento in cui la quantità
+di \ce{Cu^{2+}} è la stessa nelle due semicelle.
+
+\section{I potenziali standard fanno prevedere i prodotti delle reazioni di ossidoriduzione}
+Come nelle celle galvaniche, anche nelle ossidoriduzioni avviene la riduzione della semireazione con
+$E^{o}$ maggiore e l'ossidazione nel senso opposto: nelle seguenti
+\begin{gather*}
+    \ce{MnO4^{-} +  8H^{+} + 5e^{-} -> Mn^{2+} + 4H2O} \\
+    \ce{Fe^{3+} + e^{-} -> Fe^{2+} } 
+\end{gather*} 
+La seconda reazione non può avvenire perché ha $E^{o}$ ha un potenziale minore e quindi
+deve avvenire per forza:
+\begin{gather*}
+    Fe^{2+} -> Fe^{3+} + e^{-} 
+\end{gather*} 
+Ed il potenziale di riduzione garantisce la sponteneità della reazione che è spostata a destra. 
+
+\section{Elettrolisi}
+\subsection{Le celle galvaniche e l'elettrolisi}
+Una cella eroga energia con differenza di potenziale decrescente fino ad esaurimento di una della specie. 
+Se ad una pila si applica una differenza di potenziale uguale a quella di erogazione allora non avverrà nulla 
+mentre se viene ne applicata una maggiore allora la reazione procede nel senso opposto e quindi fa avvenire
+la reazione di ossidoriduzione al contrario. La cella dove avviene questo è chiamata \textbf{cella elettrolitica}
+ed il fenomeno è chiamato \textbf{elettrolisi}. Il segno dei poli nelle celle galvaniche è l'effetto delle reazioni
+spontanee che avvengono.
+
+\section{Sovratensione}
+La differenza fra il potenziale d'elettrodo calcolato in base ai potenziali standard e quello
+necessario per far avvenire l'elettrolisi è chiamato \textbf{sovratensione}. La sovratensione
+aumenta all'aumentare della velocità con cui la reazione avviene.
+
+\section{La conduzione elettrica nelle soluzioni di elettroliti}
+La conduzione elettrica in una soluzione acquosa è prodotta dal movimento degli ioni positivi e neagitivi
+di un sola o di una ssotanza che in acqua si dissocia in ioni e qundin conducono corrente elettric. \\
+La \textbf{conduttività molare} $V_M$ è la conducibilità di un volume di soluzione che contiene 
+una mole di elettrolita. E' una caratteristica di ciascun elettrolità ad ogni temperatura e concentrazione.
+
+\chapter{Reazioni nucleari}
+\section{Il decadimento radioattivo}
+\subsection{I modi di decadimento naturale}
+La distribuzione normale dei nuclidi stabili costituisce una fascia che segue la bisettrice del grafico in cui si riporti Z sulle
+ascisse e N sulle ordinate per nuclidi leggeri . I nuclidi instabili iniziano dopo il numero Z del piombo
+o anche gli isotopi di elementi prima del piombo (deuterio e trizio)- In base al principio di minima energia
+si prevede che un nuclide instabile subisca qualche trasformazione che lo porti ad essere più stabile.
+Queste trasformazioni si chiamano \textbf{decadimenti radioattivi}, e sono provessi medianti i quali un nuclide
+si trasforma spontaneamente in un altro liberando energia sottoforma di radiazione elettromagnetica.
+\begin{enumerate}
+    \item \textbf{Emissione di particelle $\alpha$}: Le particelle $\alpha$ sono nuclei di Elio che vengono
+    emessi da nuclidi che hanno meno neutroni che servono per essere stabili in modo tale che che si conservi
+    la il numero di massa a destra e a sinistra e fa aumentare il rapporto $n/p^{+}$ in modo che aumenti la stabilità. 
+    \item \textbf{Emissione di particelle $\beta^{-}$}: Le particelle $\beta^{-}$ sono elettroni. Il nucleo non contiene 
+    elettroni ma li può emettere come se un neutrone facesse la seguente reazione:
+    \begin{gather*}
+        \ce{n -> p^{+} + \beta^{-} + \bar{\nu}_e }
+    \end{gather*}  
+    L'antineutrino è creato nel processo di decadimento per conservare il momento angolare e questa reazione
+    avviene anche per i neutroni liberi. Questa reazione fa diminuire il rapporto $n/p^{+}$ e quindi è comune
+    per i nuclidi per quei nuclidi che stanno sopra la fascia di stabilità.
+    \item \textbf{Emissione di particelle $\beta^{+}$}: Le particelle $\beta^{+}$ hanno la stessa massa dell'Elettrone
+    ma carica di segno opposto ossia sono l'antiparallela dell'elettrone e sono chiamati positroni. La seguente reazione
+    \begin{gather*}
+        \ce{p^{+} -> n + \beta^{+} + \nu_e  }
+    \end{gather*}  
+    Dal momento che il positrone è l'antiparallelo dell'elettrone allora quando si incontrano si 
+    annichiliscono rilasciando raggi $\gamma$ con direzione e polarizzazione opposta.
+    \item \textbf{Cattura elettronica}: Invece che genrare un positrone il nucleo può catturare un elettrone
+    di quelli che sono negli strati più interni per cui:
+    \begin{gather*}
+        \ce{p^{+} + \beta^{-} -> n + \nu_e}  
+    \end{gather*} 
+    e quindi il nucleo si traforma nel caso 3, ossia quando il numero atomico diminuisce mentre A rimane costante.
+\end{enumerate}
+
+\subsection{Il tempo di dimezzamento}
+Il decadimento radioattivo è estremamente casuale ma la probabilità è differente per tutti i nuclidi
+e questo porta al fatto che, in un campione macroscopico di materiale, il numero di decadimenti è proporzionale
+al numero di atomi nel campione:
+\begin{align}
+    -\frac{dN}{dt} = \lambda N
+\end{align}
+Si definisce \textbf{tempo di dimezzamento} è il tempo necessario affinché un certo numero di nuclidi
+sia ridotto alla metà. Tutti gli elementi da 1 a 83 hanno alemeno un isotopo stabile, lo stesso non vale
+per quelli maggiori di 83.
+
+\subsection{Elementi dal polonio all'uranio}
+Gli isotopi degli elementi dal polonio all'uranio (84 a 92) sono tutti radioattivi. La loro esistenza 
+non implica che debbano avere tempi di dimezzamento lunghi poiché potrebbero essere prodotti di
+altri decadimenti. TUtti gli elementi tra \ce{^{238}U} a \ce{^{206}Pb} sono tutti naturali. Tutti gli elementi
+hanno decadimento di tipo $\alpha$ oppure $\beta^{-}$.
+
+\subsection{Reazioni di fusione e fissione nucleare}
+LA fissione nucleare dovrebbe essere spontanea perché $E_1/A$ aumenta quando un nucleo 
+si divide in due più leggeri, invece essa non avviene perché c'è un altra barriera di potenziale 
+da superare prima che il nucleo si spezzi. Il modo più facile per far avvenire la fissione è con il
+bombardamento di neutroni lenti, ed atomi che possono dare prodotti dalla loro rottura in facilmente
+è \textbf{fissili}. In media ogni volta che si spezza un atomo di uranio si formano 2.5 neutroni
+pper reazione, la quale procede dunque a catena. Solo \ce{^{235}U} è fissile, ma è l'isotopo meno
+abbondante, per cui l'uranio naturale deve essere \textbf{arricchito} in modo tale da poter
+far avvenire le reazioni. Se si mette insieme troppa massa di materiale fissile e si raggiunge la
+\textbf{massa critica} la fissione ha una progressione esplosiva. \\
+Si controlla la reazione con materiali come il Cadmio che assorbono i neutroni e l'utilizzo dell'acqua 
+pesante per rallentare i neutroni liberi. \\
+La reazione di \textbf{fusione nucleare } invece avviene o in modo incontrollato superando la massa critica
+oppure in modo controllato facendo fondere due atomi di deuterio e trizio in modo da ottenere 
+elio più energia oppure per creare gli elementi transuranici.
+
+\section{Elementi transuranici}
+Non sono dipsonibili in natura.
+
+
+\end{document}

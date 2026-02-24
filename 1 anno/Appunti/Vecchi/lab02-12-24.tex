@@ -1,0 +1,209 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Laboratorio borra}
+\author{Tommaso Miliani}
+\date{02/12/24}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Regressione lineare (fit lineare)}
+\begin{align*}
+    y = a + bx
+\end{align*}
+Rappresenta il modello che lega due grandezza x, y
+\begin{align*}
+    &\sigma_x& &trascurabili \\
+    &\sigma_{yi} = \sigma_y& &posso \ anche \ non \ conoscerlo \\
+    &Ipotesi:& &Errori \ casuali \ dominanti.
+\end{align*}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \label{Fig 1.1}
+    \caption{Misure rispetto al modello lineare}
+    \begin{tikzpicture}
+        \draw[->] (0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->] (0, 0) -- (0, 4) node[at end, left] {$y$};
+        \draw[-, dashed] (0, 1) -- (4, 3);
+        \filldraw[black] (1, 1.2) circle (1pt);
+        \filldraw[black] (1.5, 2)circle (1pt);
+        \filldraw[black] (2, 1.8) circle (1pt);
+        \filldraw[black] (2.5, 2.4) circle (1pt);
+        \draw[-] (1, 0.1) -- (1, -0.1) node[at end, below] {$x_i$};
+        \draw[-] (-0.1, 1.2) -- (0.1, 1.2) node[at start, left] {$y_i$};
+        \draw[|-|, red] (1, 0.6) -- (1, 1.8) node[at start, left] {$\sigma_y$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+Le probabilità in funzione di tutte le variabili in gioco
+\begin{align*}
+    P(x_i, y_i, \dots, y_n) = P(x_i)\cdot P(y_i)\cdot \dots \cdot  P(y_n);
+\end{align*}
+P è quindi la massima verosimiglianza per cui la probabilità
+di $P(y_i, ..., y_n)$ deve essere massima. \\
+Nella Gaussiana si ha che il vero valore di Y è dato dal modello
+$Y = a + bx$ per cui sostituendo nella gaussiana si ottiene
+la probabilità:
+\begin{align*}
+    P(y_i, ..., y_n) \propto exp\left(-\frac{\sum_{i = 1}^{n}(y_i - a-bx_i)^{2}}{2\sigma_y^{2}}\right) 
+\end{align*}
+\begin{align*}
+    \chi^{2}& = \sum_{i = 1}^{n}\frac{(y_i - a - bx_i)^{2}}{\sigma_y^{2}} \ tale \ che \\
+    &\left\{  \begin{array}{c}
+        \frac{\partial \chi^{2} }{\partial a} = 0 \\
+        \frac{\partial \chi^{2} }{\partial b} = 0  
+    \end{array}\right. 
+\end{align*}
+1. Conosciuti i $\sigma_y$ che io conosco dai punti sperimentali
+che deviano rispetto alla retta sperimentale. Quello che vedo è che
+a questo punto sulla retta c'è una certa deviazione standard e quindi procedo a costruire una
+$\sigma_y$ a partire dai risultati ottenuti sul grafico dagli esperimenti.
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \label{Fig 1.2}
+    \caption{Modello linare non conforme con i dati trovati}
+    \begin{tikzpicture}
+        \draw[-] (0, 0) -- (0, 3);
+        \draw (0, 0) -- (3, 0);
+        \draw[black, dashed] (0, 0) -- (3, 3);
+        \filldraw (0.5, 1.5) circle (1pt);
+        \filldraw (1, 0.5) circle (1pt);
+        \filldraw (1.5, 2.6) circle (1pt);
+        \filldraw (2, 1.7) circle (1pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+\begin{align*}
+    \bar{\sigma_y^{2}}  = \sum_{i = 1}^{n} \frac{(y_i - a - bx_i)^{2}}{N-2} 
+\end{align*}
+E' una sorta di media di tutti i singoli $\sigma_{y_i}$. N-2 è presente
+e torna poiché i punti che stanno su una retta e voglio verificarlo
+ho bisogno di almeno due punti (da due punti passa una ed una sola retta).
+Quindi i primi due li uso per verificare che esiste effettivamente una
+legge lineare che mi vincola i miei punti sul grafico e quindi $N \geq 3$. \\
+Conosciuti i $\sigma_y$ il mio caso migliore è che $\bar{\sigma_y} = \sigma_y$ e
+che quindi i miei $\sigma_y$ siano confrontabili con lo scarto dal modello lineare. \\
+Altrimenti $\bar{\sigma_y} >> \sigma_y$ allora siamo nel seguente in figura (le
+barre rosse sono molto piccole ma le misure si discostano troppo dal modello).
+Se invece $\sigma_y << \sigma_y$ allora il mio $\sigma_y$ è sovrastimato. e
+le bande rosse sono molto grandi.
+Nell'ultimo caso se non conosco $\sigma_y$ allora posso dire che $\sigma_y = \bar{\sigma_y}$.
+Questo è il caso più comune. 
+Ora si trova l'incertezza di a e b
+\begin{align*}
+    a = a(x_i, y_i) \pm \sigma_a \\
+    b = b(x_i, y_i) \pm \sigma_b 
+\end{align*} 
+Gli $x_i$ non hanno errore mentre gli $y_i$ hanno un errore
+ben definito e quindi, attraverso il metodo delle derivate parziali, si ottiene che:
+\begin{align*}
+    \sigma_a = \sqrt{\sum_{i = 1}^{n}\left| \frac{\partial a}{\partial y_i} \right|^{2} \sigma_y^{2}  }  =
+    \sigma_y \sqrt{\frac{\sum_{i = 1}^{n} x_i^2}{N\sum_{i = 1}^{n}x_i^{2}-(\sum_{i = 1}^{n}x_i)^2 }} \\
+    \sigma_b = \sqrt{\sum_{i = 1}^{n}\left| \frac{\partial b}{\partial y_i} \right|^{2} \sigma_y^{2}} =
+    \sigma_y \sqrt{\frac{N}{N\sum_{i = 1}^{n}x_i^{2}-(\sum_{i = 1}^{n}x_i)^2 }}
+\end{align*}
+
+Il coefficiente di correlazione lineare è dato da:
+\begin{align*}
+    r = \frac{\sum_{i = 1}^{n}(x_i - \bar{x} )(y_i - \bar{y} )}
+    {\sqrt{\sum_{i = 1}^{n}(x_i - \bar{x})^2}\sum_{i = 1}^{n}(y_i - \bar{y})^2}
+\end{align*}
+Nel caso generale dunque $\bar{x}$ e $\bar{y}$ sono la media di
+tutte le misure e se queste stanno tutte sulla retta modello allora
+anche loro due stanno sulla retta modello e si calcolano come:
+\begin{gather*}
+    \bar{y} = a + b\bar{x} \\
+    \bar{y} = \sum_{i = 1}^{n} \frac{y_i}{N}  = \frac{1}{N} \sum_{i = 1}^{n} (a + bx_i)   
+\end{gather*}
+Da qui sostituendo ne deriva che:
+\begin{gather*}
+    \sum_{i = 1}^{n} (y_i - \bar{y}) = \sum_{i = 1}^{n} (a + bx_i - a - b\bar{x} ) \\
+    = b \sum_{I = 1}^{n} (x_i - \bar{x})
+\end{gather*}
+Date queste sostituzioni si ottiene che
+\begin{gather*}
+    r = \frac{b\sum_{i = 1}^{n}(x_i - \bar{x})^2 }{|b| \sum_{i = 1}^{n}(x_i - \bar{x})^2 } = \\
+    \frac{b}{|b|} = \pm 1
+\end{gather*}
+
+Adesso se ci sono almeno due punti che differiscono di molto (poterbbero non essere i soli)
+e controllo come contribuiscono ad r. (nel caso ideale $r = 1$ mentre nella realtà
+più è vicino ad 1 e meglio è il nostro modello).
+
+\section{Metodo grafico per fit lineari}
+\begin{center}
+    \begin{tabular}{c|c|c}
+    x & y & $\sigma_y$ \\
+    \hline
+    && \\
+    $x_i$ & $y_i$ & $\sigma_{y_i}$ \\
+    &&
+\end{tabular}
+\end{center}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 4}
+    \caption{Grafico per il fit}
+    \begin{tikzpicture}
+        \draw[->] (0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->] (0, 0) -- (0, 4) node[at end, left] {$y$};
+        \draw[-, dashed, black] (0, 0.3) -- (4, 4);
+        \draw[-, red] (0, 0.5) -- (4, 3.6);
+        \draw[-, blue] (0, 0.1) -- (4, 4.2);
+        \filldraw (1, 1) circle (1pt);
+        \filldraw (2, 2.2) circle (1pt);
+        \filldraw (3, 2.8) circle (1 pt);
+        \filldraw (4, 3.8) circle (1pt);
+        \draw[|-|] (1, 1.3) -- (1, 0.7);
+        \draw[|-|] (2, 2.5) --  (2, 1.9);
+        \draw[|-|] (3, 3.2) -- (3, 2.4);
+        \draw[|-|] (4, 4.2) -- (4, 3.4);
+        \filldraw[red] (1.5, 1) circle (1pt);
+        \draw[|-|, red] (1.5, 1.4) -- (1.5, 0.6) node[midway, right] {da scartare};
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+Cerco prima la retta con la pendenza minore(rossa) che sta dentro le barre
+d'errore e poi quella con pendenza maggiore (blu) rispetto a quello modello. 
+\begin{align*}
+    &a_{best}, b_{best}& \qquad &retta \ nera \ tratteggiata \\
+    &a_{min}, b_{max}&  \qquad &retta \ blu \\
+    &a_{max}, b_{min}&  \qquad &retta \ rossa
+\end{align*}
+A questo punto:
+\begin{align*}
+    \delta_a &= \ max \left\{ |a_{best} - a_{min}|, |a_{best} - a_{min}| \right\} \\
+    \delta_b &= \ max \left\{ |b_{best} - b_{min}|, |b_{best} - b_{min}| \right\}
+\end{align*}
+Si arriva dunque a definire $a$ come la distanza tra la retta modello e
+quella con la pendenza minore mentre $b = \frac{\Delta y}{\Delta x}$. Se
+un punto dista dalle rette possibili più della sua barra di errore allora va
+scartato (questo differisce dal criterio di Cheuvenet).
+
+
+\end{document}

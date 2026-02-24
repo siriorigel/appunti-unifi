@@ -1,0 +1,133 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di analisi}
+\author{Tommaso Miliani}
+\date{25-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Studio qualitativo delle differenziali}
+\begin{example}
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = 4y(1 - y) \\
+            y(0) = a 
+        \end{array}\right.
+    \end{gather*}
+    Si vede che esistono delle soluzioni a variabili costanti
+    in quanto mi delimitano regioni del piano nel quale esistono tutte
+    le altre soluzioni. In pratica, dato il teorema di unicità delle soluzioni, se
+    $ 0 < a < 1$ allora $y(x)$ è anch'essa compresa tra zero e uno
+    e lo stesso vale se è minore o maggiore di uno. Questo è un grande aiuto
+    perché posso dividere i casi di studio del problema.\\ 
+    $0 < a < 1$: allora anche $y(x)$ è limitata tra $0$ e $1$ ma
+    prolungabile in $\mathbb{R}$. \\
+    $a > 1 \ \Longrightarrow \ y(x) > 1$: è infinita e limitata e quinid il segno della derivata
+    è uguale al segno della funzione, allora la funzione in un intervallo
+    $I_0$ è decrescente e definito come $I_0 = (-\epsilon, \epsilon)$. Considero allora questo intervallo da $[0, \epsilon)$, allora 
+    la funzione è decrescente nell'intervallo e so che $y(x)$ appartiene
+    all'intervallo $(a, 1)$. \\
+    $a< 0 \ \Longrightarrow \ y(x) < 0$: allora il segno della derivata è uguale al
+    segno della funzione e dunque decresce  e quindi per ogni $x$ nell'intervallo $I_0^{-}$.                                 
+\end{example}
+
+    \begin{wrapfigure}{r}{0.4\textwidth}
+        \centering
+        \caption{}
+        \begin{tikzpicture}
+            \draw(-2, 0) -- (2, 0);
+            \draw(0, -2) -- (0, 2);
+        \end{tikzpicture}    
+    \end{wrapfigure}
+\begin{example}
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = x\left(1 + \frac{1}{y}\right) \\
+            y(0) =  a
+        \end{array}\right.
+    \end{gather*}
+    Se è $C^1$ allora è una funzione anche Lipstchizana e quindi è definita nell'intervallo
+    massimale $I_0$, ossia il più grande intervallo dove può essere definita la funzione.
+    \begin{gather*}
+        f(x, y) \in x\left(1 + \frac{1}{y}\right) \in C^{1} \  (\mathbb{R} \times \mathbb{R}) 
+    \end{gather*}
+    E' dunque Lipstchizana in $\mathbb{R}^{\star} = \mathbb{R} - \{0\}$  allora vale che
+    esiste una unica $\forall a \neq 0$ definita in un intervallo $I_0$.
+    La soluzione costante $y = -1$.
+    \begin{gather*}
+        a \in (0, 1) \ \Longrightarrow \ y(x) \in (-1, 0) \forall x \in I_0
+    \end{gather*}
+    Allora dato che esiste una soluzione limitata allora è prolungabile su $\mathbb{R}$. 
+    \begin{gather*}
+        a > 0 \ \Longrightarrow \ y(x) > 0 \forall x \in I_0 
+    \end{gather*}
+    Il segno della derivata è maggiore di zero per $x > 0$ e quindi la funzione è crescente per $x > 0$
+    allora $0 < \frac{1}{y} < \frac{1}{a}$.
+    Ossia $ f(x, y) < xk$, ossia per $x > 0$ la funzione è sub lineare.
+    Per il teorema dell'esistenza globale si ha che
+    $I_0 = (-\epsilon, + \infty )$ per $x < 0$ è analogo.
+    Considero $u(x) = y(-x)$ per dimostrare che sia pari e per risolvere il
+    problema di Cauchy considero pure la funzione $u'(x) = -y(-x)$. 
+    \begin{gather*}
+        x\left(1 + \frac{1}{u}\right) = x\left(1 + \frac{1}{y(-x)}\right) = -\left(-x\left(1 + \frac{1}{y(-x)}\right)\right)
+    \end{gather*}
+    Con la sostituzione $t = -x$ si ha la seguente
+    \begin{gather*}
+        -t\left(1 + \frac{1}{y(t)}\right) = -y'(t) = -y'(-x) = u'(x)
+    \end{gather*}
+    Allora si è dimostrato che se $a > 0$ allora si ha che $I_0 = \mathbb{R}$ 
+    \begin{gather*}
+        a < - 1 \ \Longrightarrow \ y(x) < -1 \forall x \in I_0 
+    \end{gather*}
+    Inoltre dato che il segno di $y'$ è o positivo o negativo si ha ch 
+    $y(x)$ è limitata E si prolunga su tutto $\mathbb{R}$. 
+\end{example}
+
+
+\end{document}

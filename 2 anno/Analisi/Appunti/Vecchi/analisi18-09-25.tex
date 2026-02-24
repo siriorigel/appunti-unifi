@@ -1,0 +1,366 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti analisi 2}
+\author{Tommaso Miliani}
+\date{18-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Equazioni omogenee}
+Queste equazioni possono essere riscritte attraverso una opportuna funzione per essere risolte:
+\begin{gather*}
+    y' = b\left(\frac{y}{x}\right)
+\end{gather*}
+Ossia posso trasformare la differenziale come funzione di $\frac{y}{x} = t$, quindi cambio varibile
+nel seguente modo:
+\begin{gather*}
+    z(x) = \frac{y(x)}{x} \ \Longrightarrow \ y(x) = xz(x) \ \Longrightarrow \ y'(x) = z + xz'
+\end{gather*}
+Adesso posso risolvere in funzione di $z$:
+\begin{gather*}
+    b(z) = z + xz' \ \Longrightarrow \ z' = \frac{b(z) - z}{x}
+\end{gather*}
+Coni passaggi all'indietro ottengo nuovamente $y(x) = xz(x)$.
+\begin{example}
+    \begin{gather*}
+        y' = \frac{x^{3} + y^{3}  }{xy^{2} }
+    \end{gather*}
+    Se io definisco $f(x, y)$ questo oggetto è facile
+    vedere che è omogenea. Posso ora mettere in evidenza la $x$ sopra
+    e dunque ottenere
+    \begin{gather*}
+        \frac{x^{3}(1 + \frac{y^{3} }{x^{3} }) }{x^{3}(\frac{y^{2} }{x^{2} } ) } = b\left(\frac{y}{x}\right) 
+    \end{gather*}
+    Ossia si ottiene una funzione in rapporto tra $y$ e $x$, allora posso dire che
+    \begin{gather*}
+        b(t) = \frac{1 + t^{3} }{t^{2} }
+    \end{gather*}
+    Allora, data la definizione di $z'$ si ottiene
+    \begin{gather*}
+        z' = \frac{\frac{1 + z^{3} }{z^{2} } - z}{x} \ \Longrightarrow \ z' = \frac{1}{z^{2} }\frac{1}{x}
+    \end{gather*}
+    Allora per separazione di variabili possiamo trovare la soluzione come
+    \begin{gather*}
+        \int z^{2} dz  = \int \frac{dx}{x}
+    \end{gather*}
+\end{example}
+
+\section{Esistenza locale ed esistenza globale}
+\begin{example}
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = -2xy^{2}  \\
+            y(0) = -1
+        \end{array}\right.
+    \end{gather*}
+    Essendo questo un problema di Cauchy, possiamo allora risolverlo
+    con i metodi che conosciamo; tuttavia si osserva anche che, essendo
+    $f(x, y)$ continua, allora anche la differenziale è continua e quindi
+    siamo nelle ipotesi del teorema di esistenza ed unicità. Esiste allora
+    una sola soluzione per questa equazione e si trova con
+    separazione di variabili
+    \begin{gather*}
+        \int \frac{dy}{y^{2} } = \int -2x \ dx \\
+        -\frac{1}{y} = -x^{2} + c \ \Longrightarrow \  c = 1 
+    \end{gather*}
+    La soluzione è la seguente, con $ x \in \mathbb{R} - \{-1, 1\}$: 
+    \begin{gather*}
+        y = \frac{1}{x^{2} - 1}
+    \end{gather*}
+\end{example}
+I teoremi di esistenza locale mi dicono che è possibile trovare 
+delle soluzioni negli intorni di $x_0$ in quanto sono interessato solo
+alle soluzioni vicine a questo intorno. Nei teoremi di esistenza globale invece
+io considero l'intero insieme di esistenza della funzione trovando delle soluzioni globali. 
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Teorema di esistenza globale}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$y$};
+        \draw(1, -1) -- (1, 3);
+        \draw(3, -1) -- (3, 3);
+        \filldraw(1, -1) rectangle (3, 3);
+        \draw(-0.1, 1) -- (0.1, 1) node[at start, left] {$y_0$};
+        \filldraw(1.6, 0) circle (1pt) node[anchor = north] {$x_0$};
+        \filldraw(1, 0) circle (1pt) node[anchor = north east] {$a$};
+        \filldraw(3, 0) circle(1pt) node[anchor = north west] {$b$};
+        \filldraw(1.6, 1) circle(1pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+\begin{theorem}[Teorema di esistenza globale]
+    Consideriamo il problema di Cauchy del primo ordine
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = f(x, y) \\
+            y(x_0) = y_0
+        \end{array}\right.
+    \end{gather*}
+    \begin{enumerate}
+        \item $f(x, y)$ e $\frac{\partial f}{\partial y}(x, y)$ sono continue e definite
+        $\forall x \in [a, b]$, $y_0 \in \mathbb{R}$;
+        \item Esistano due valori positivi $h, k \in \mathbb{R}$ per cui risulta:
+        \begin{gather*}
+            |f(x, y)| \leq h + k|y| \qquad \forall x \in [a, b], y \in \mathbb{R}
+        \end{gather*} 
+    \end{enumerate}
+    Allora la soluzione è unica e definita su tutto $[a, b]$.
+\end{theorem}
+\begin{proof}
+    Non fatta in classe (si farà? boooh)
+\end{proof}
+
+\section{Sistemi di equazioni differenziali}
+Un sistema di equazioni differenziali è un sistema i cui membri sono vettori
+di funzioni:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        y'_1 = f_1(x, y_1, \dots, y_n) \\
+        y'_2 = f_2(x, y_1, \dots, y_n) \\
+        \vdots \\
+        y'_n = f_n(x, y_1, \dots, y_n)
+    \end{array}\right.
+\end{gather*}
+La soluzione del sistema è allora un vettore di funzioni (chiamata anche \textbf{funzione vettoriale}):
+\begin{gather*}
+    \begin{pmatrix} y_1(x) \\
+    \vdots \\
+    y_n(x) \end{pmatrix} \  x \in I, \ I \subset \mathbb{R} : \\
+    \left\{\begin{array}{l}
+        y'_1 = f_1(x, y_1(x), \dots, y_n(x)) \\
+        \vdots  \\
+        y'_n = f_n(x, y_1(x), \dots, y_n(x)) 
+    \end{array}\right.
+\end{gather*}
+Allora posso chiamare il vettore
+\begin{gather*}
+    Y(x) = \begin{pmatrix} y_1(x) \\
+    \vdots \\
+    y_n(x) \end{pmatrix} \\
+\end{gather*}
+Tale che $Y'(x)$ contenga tutte le derivate, allora posso chiamare il
+vettore funzione come $F(x, Y) = Y'$, allora posso dire che i sistemi di equazioni
+differenziali sono tutti risolvibili allo stesso modo. Se si avesse invece delle condizioni
+per tutte le derivate fino alla $n - 1$ esima, allora saremmo in presenza di un
+sistema di equazioni differenziali di Cauchy. Questo vuol dire che la sua soluzione,
+tenuto conto delle considerazioni fatte fino ad ora
+\begin{gather*}
+    \left\{\begin{array}{l}
+        Y'(x) = F(x, Y) \\
+        Y(x_0) = y_0
+    \end{array}\right.
+\end{gather*}
+
+\begin{theorem}[Teorema 1]
+    Sia $D \subset \mathbb{R}^{n + 1}$ e sia $F : D \to \mathbb{R}^{n}$,una
+    funzione continua e sia $(x_0, y_0)$ un punto interno a $D$, allora 
+    il problema di Cauchy (sistema di equazioni differenziali) ha almeno una soluzione definita in un intorno  
+    di $x_0$.
+\end{theorem}
+
+\begin{theorem}[Teorema 2]
+    Nelle ipotesi del teorema precedete supponiamo che
+    \begin{gather*}
+        \frac{\partial f_i}{\partial y_j} \qquad i, j \in \{1, \dots, n\} 
+    \end{gather*}
+    Siano continue in $D$ , allora il problema di Cauchy con sistema di equazioni
+    differenziali ha una sola soluzione definita nell'intorno di $x_0$.
+\end{theorem}
+
+\begin{theorem}[Teorema 3]
+    Supponiamo che $f_i(x, y_1, \dots, y_n)$ sia definita per ogni $i = 1,\dots, n$,
+    $\forall x \in [a, b]$ e $\forall y_1, \dots, y_n \in \mathbb{R}$ si suppone anche che
+    $f_i$ e la derivata parziale rispetto ad ogni $f_i$ rispetto a $y_j$ siano continue
+    $\forall y \in [a, b], y_1, \dots, y_n \in \mathbb{R}$. Si suppone anche che $\exists h, k  >0$ tali per cui
+    risulti 
+    \begin{align}
+        ||F(x, Y)|| \leq h + k ||Y||
+    \end{align} 
+    Con $||Y||$ si indica la norma e ogni soluzione dell'equazione $Y' = F(x , Y)$ 
+    è definita su tutto l'intervallo $[a, b]$.
+\end{theorem}
+\begin{example}[Esempio fondamentale]
+    In un sistema di equazioni differenziali di ordine $n$, tale per cui
+    \begin{gather*}
+        \underset{\heartsuit}{y_1(x) \equiv y(x) \qquad y_2(x) \equiv y'(x)} \qquad y'' = 3xy + 7y' (\star) \\
+        \left\{\begin{array}{l}
+            y_1' = y_2 \\
+            y_2' = 3xy_1 + 7y_2 (\star \star)
+        \end{array}\right. 
+    \end{gather*}
+    Se $y$ risolve $\star$ allora $y_1, y_2$ definite da $\heartsuit$ risolve $\star \star$ viceversa
+    se $(y_1, y_2)$ risolvono $\star \star$ allora la funzione $y_1$ ha ordine $\star$.  
+\end{example}
+
+
+\section{Equazioni differenziali omogenee lineari del primo ordine}
+\begin{definition}[Equazioni differenziali omogenee lineari]
+    Si chiamano equazioni differenziali lineari equazioni del tipo
+    \begin{align}
+        y^{(n)}  + a(x)_{n - 1}y^{(n - 1)} + \dots + a(x)y = f(x)
+    \end{align}
+    Se $f(x) $ è zero, allora prendono il nome di \textbf{omogenee}, altrimenti
+    \textbf{complete}. Queste equazioni si chiamano lineari perché hanno la 
+    caratteristica che riprendono le funzioni lineari negli spazi vettoriali.
+\end{definition}
+\begin{gather*}
+    y' = a(x) y = f(x)   
+\end{gather*}
+Posso utilizzare la risoluzione vista prima per cui posso eseguire un cambio di variabile
+opportuno in modo tale da renderla omogenea
+\begin{gather*}
+    z' + a(x) z = 0
+\end{gather*}
+Se $z_1$ e $z_2$ sono soluzioni dell'omogenea, allora anche $\alpha z_1(x)+\beta z_2(x)$
+sono soluzioni.  Posso dimostrarlo nel seguente modo:
+\begin{gather*}
+    (\alpha z_1(x)+\beta z_2(x))' + a(x)(\alpha z_1(x)+\beta z_2(x)) = 0 \\
+    \alpha(z_1' + a(x)z_1) + \beta(z_2' + a(x) z_2) = 0
+\end{gather*}
+Dato che $z_1$ e $z_2$ sono soluzioni, allora è verificata.  \\
+Posso ora verificare che esistono soluzioni per l'equazione
+generica $z' + a(x)z = 0$. Sia $A(x)$ una primitiva finita senza le costanti 
+di $a(x)$ e quindi $A'(x) = a(x)$. Posso eseguire allora la seguente trasformazione: 
+\begin{gather*}
+    e^{A(x)}z' + a(x)e^{A(x)}z = 0 = (e^{A(x)}z)'     \\
+    e^{A(x)}z = c \qquad c \in \mathbb{R} \qquad z = ce^{-A(x)}  
+\end{gather*}
+Esiste un modo più veloce per poter trovare le soluzioni, questo è dato dalla seguente 
+formulazione
+\begin{gather*}
+    y'e^{A(x)} + a(x)e^{A(x)}y = f(x)e^{A(x)}    \\
+    (ye^{A(x)} )' = f(x) e^{A(x)} 
+\end{gather*}
+Se considero $F(x)$ come primitiva del prodotto a destra, allora
+si ottiene che 
+\begin{gather*}
+    ye^{A(x)} = F(x) + c
+\end{gather*}
+\begin{align}
+    y = ce^{-A(x)} + e^{-A(x)}F(x)   
+\end{align}
+Si può anche utilizzare un secondo metodo per risolvere le equazioni 
+e si chiama \textbf{metodo della variazione delle costanti}.
+Penso che $c$ ora sia una funzione e non più una costante, allora dato che
+devo considerare una soluzione generale, allora devo considerare $c$ come
+funzione. Posso ottenere la derivata
+\begin{gather*}
+    y' = C'e^{-A(x)} - Ce^{-A(x)}a  \\
+    y' + a(x)y = f \ \Longrightarrow \ C' = f(x) e^{A(x)} 
+\end{gather*}
+Se $C$ ha questa espressione, ossia la primitiva di $C'$, allora 
+$C = F(x) + d, d\in \mathbb{R}$, le soluzioni sono allora
+\begin{gather*}
+    y(x) = C(x)e^{-A(x)} \ \Longrightarrow \ y(x) = (F(x) + d)e^{-A(x)}  
+\end{gather*}
+
+\begin{example}[Prima formula]
+    \begin{gather*}
+        y' + \frac{y}{x}= -\sin x \qquad \left\{\begin{array}{l}
+            a(x) = \frac{1}{x} \\
+            f(x) = -\sin x\\
+            A(x) = \int a(x) \ \Longrightarrow \ \ln |x|
+        \end{array}\right. \\
+        F(x) = \int f(x) e^{A} \ dx = \int -\sin x e^{A(x)}\ dx = \int -\sin x e^{\ln|x|} \ dx   = \left\{\begin{array}{l}
+            x > 0 : \sin x - x\cos x \\
+            x < 0 : -\sin x + x\cos x 
+        \end{array}\right. 
+    \end{gather*}
+    Allora si ottiene dalla formula di risoluzione veloce:
+    \begin{gather*}
+        y(x) = \left\{\begin{array}{l}
+            Ce^{-\ln|x|} + e^{-\ln|x|} (\sin x - x\cos x) \qquad x > 0 \\
+            Ce^{-\ln|x|} + e^{-\ln|x|} (-\sin x + x\cos x) \qquad x < 0  
+        \end{array}\right.
+    \end{gather*}
+    Si ottengono allora due due soluzioni distinte a seconda di come si
+    svolge il valore assoluto.
+\end{example}
+
+\section{Spazi di funzioni}
+\begin{definition}[Spazi di funzioni]
+    Sia $I$ un intervallo su di $\mathbb{R}$ , allora definisco lo spazio delle
+    funzioni di da $I \to \mathbb{R}$ lo spazio vettoriale che
+    contiene le funzioni con le seguenti proprietà:
+    \begin{enumerate}
+        \item $\alpha f(x)  + \beta g(x) $ appartiene allo spazio;
+        \item $f(x)  \equiv 0$.
+    \end{enumerate}
+    All'interno di questo spazio vivono anche gli spazi:
+    \begin{itemize}
+        \item     $C^{0}(I)$, ossia l'insieme dello spazio delle funzioni continue su $I \to \mathbb{R}$;
+        \item $C^{1}(I)$ è l'insieme delle funzioni continue derivabili in ogni punto
+        la cui derivata è una funzione continua e $\forall x \in I$.
+        \item $\vdots$
+        \item $C^{(n)}$ è l'insieme delle derivate $n$ esime continue.    
+    \end{itemize}
+\end{definition}
+Si possono ora risolvere le equazioni differenziali omogenee lineari
+di ordine $n$-esimo considerando la generica funzione
+\begin{gather*}
+    y = C^{(n)}(I) 
+\end{gather*}
+Posso definire l'operatore $E(y) : C^{(n)}(I) \to C^{(0)}(I)  $ come 
+l'operatore che trasforma le derivate $n$-esime continue in primitive 
+e posso esprimerla (se le soluzioni sono $y_1$ e $y_2$)
+\begin{gather*}
+    E(\alpha y_1 + \beta y_2) = \alpha E(y_1) + \beta E(y_2)
+\end{gather*}
+\begin{theorem}
+    \begin{enumerate}
+        \item L'insieme $V_0$ delle soluzioni delle equazioni differenziali omogenee lineari è uno spazio
+        vettoriale di dimensione $n$;
+        \item L'insieme delle soluzioni delle equazioni differenziali lineari è 
+        l'insieme $\{y(x) + y_f(x) : y \in V_0\}$ con $y_f$ soluzione delle equazioni differenziali lineari.
+    \end{enumerate}
+\end{theorem}
+
+
+
+
+\end{document}

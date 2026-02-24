@@ -1,0 +1,299 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{FIsica}
+\author{Tommaso Miliani}
+\date{07-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Le forze centrali a simmetria sferica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIgn}
+    \caption{}
+    \begin{tikzpicture}
+        \filldraw(0, 0) circle (1pt) node[anchor = east] {$C$};
+        \filldraw(1, 1) circle (1pt) node[anchor = west] {$P$};
+        \draw[dashed, thin] (0, 0) -- (1, 1) node[midway, below] {$r$};
+        \draw[->] (1, 1) -- (0.8, 0.8) node[midway, above] {$\hat{u}_r$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Le forze centrali sono delle forze sempre dirette verso un punto
+come la gravità nella gravitazione universale, o la forza elettrostatica
+nell'elettromagnetismo; inoltre sono a simmetria sferica poiché il loro modulo 
+è in funzione solamente del raggio vettore e nient'altro. Questo tipo di forze sono conservative?
+il lavoro di questo tipo di forze non è altro che
+\begin{gather*}
+    \delta L = \vec{F} \cdot \vec{dr}    
+\end{gather*}
+E quindi il vettore
+\begin{gather*}
+    \vec{r}= r\hat{u}_r  
+\end{gather*}
+Per cui:
+\begin{gather*}
+    \vec{dr} = dr\hat{u}_r + r\vec{du}_r   
+\end{gather*}
+DAto che il prodotto scalare tra lo stesso vettore è uguale
+ad 1 ma la somma dei contributi $d\vec{u}m\cdot \vec{u} + \vec{u}d\vec{u}  = 0$
+allora \begin{gather*}
+    \vec{du} \perp \hat{u}  
+\end{gather*}    
+Allora il lavoro diventa:
+\begin{gather*}
+    \delta L = f(\hat{u}_r ) \cdot  (d\vec{u}\vec{u} + \vec{u}d\vec{u})
+\end{gather*}
+PEr cui preso l'integrale per un lavoro continuo e finito, allora si ottiene:
+\begin{gather*}
+    L_{AB} = \int_{A}^{B}f(r) dr = G(r_B) - G(r_A) 
+\end{gather*}
+Posto allora 
+\begin{gather*}
+    V(r) = -G(r)
+\end{gather*}
+Posso risalire alla definizione di energia potenziale e quindi questo tipo di forze
+sono conservative.
+
+\subsection{Forze a simmetria sferica non centrali}
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \caption{Forza non centrale a simmetria sferica}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (2, 0);
+        \draw(0, 0) -- (0, 2);
+        \draw[dashed, thin](0, 0) -- (1.41, 1.41) node[midway, below] {$r$};
+        \draw (0.5, 0) arc (0:45:0.5) node[midway, right] {$\theta$};
+        \draw[->] (1.41, 1.41) -- (1, 1.82) node[midway, above] {$\vec{F}$};
+        \draw[->] (1.41, 1.41) -- (1.82, 1.82) node[at end, right] {$\hat{u}_r$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+PRendendo una circuitazione allora l'integrale di linea:
+\begin{gather*}
+    \oint \vec{F}\vec{dr} = f(r) 2\pi R   
+\end{gather*}
+Essendo questo integrale non uguale a zero, allora la forza non è conservativa.
+
+\subsection{Forze centrali non a simmetria sferica}
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \caption{Forza centrale non a simmetria sferica}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (2, 0) node[at end, below] {$x$};
+        \draw(0, 0) -- (0, 2) node[at end, left] {$y$};
+        \draw[->] (0, 0) -- (1, 0) node[at start, left] {$C$} node[midway, below] {$R$} node[at end, below] {$A$};
+        \draw[->] (0, 1) -- (0, 0) node[at start, left] {$B$};
+        \draw[dashed] (0, 0) -- (0.7, 0.7);
+        \draw[->](0.7, 0.7) -- (1, 1) node[at end, right] {$\vec{F}$};
+        \draw[->] (1, 0) arc (0: 90: 1); 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Queste forze sono centrali ma non hanno una simmetria sferica per cui il loro modulo cambia
+se cambia la loro posizione sulla sfera allora in questo caso, 
+la forza è:
+\begin{gather*}
+    \vec{F} = f(r)\cos\theta\hat{u}_r  
+\end{gather*}
+Allora l'integrale di linea:
+\begin{gather*}
+    \oint \vec{F}\vec{dr} = \int_{C}^{A} \vec{F}\vec{dr} + \int_{A}^{B} \vec{F}\vec{dr} + \int_{B}^{C}\vec{F}\vec{dr}           
+\end{gather*}
+Quindi l'integrale di linea, risolvendo tutti gli integrali spezzati diventa:
+\begin{gather*}
+    \oint \vec{F}\vec{dr} = \int_{r = 0}^{r_A = R} f(r)dr + 0 + 0   
+\end{gather*}
+Così come nel disegno, la forza non è simmetria rispetto ad una sfera poiché 
+non dipende solo ed esclusivamente dal modulo del raggio vettore
+che congiunge la forza al centro della sfera ideale ma anche dall'orientazione
+del vettore forza. 
+
+
+\section{Il caso della molla tridimensionale}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \label{Fig}
+    \caption{ads}
+    \begin{tikzpicture}
+        \draw[decoration={aspect=0.3, segment length=2mm, amplitude=1.3mm,coil},decorate,opacity=0.9] (0, 0) -- (2, 1);
+        \filldraw(0, 0) circle (1pt) node[anchor = east] {$C$};
+        \filldraw(2, 1) circle (1pt) node[anchor = south] {$m$};
+        \draw[->](2, 1) -- (2.5, 1.25) node[at end, above] {$\vec{F}_d$};
+        \draw[|-|](0, 0.5) -- (1, 1) node[midway, above] {$l_0$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se io attacco la molla in un certo punto allora quando tiro la molla
+si ha una forza di richiamo verso il centro della molla e quindi questa
+forza è proprio centrale a simmetria sferica e avrà quindi una certa 
+energia potenziale e sarà anche conservativa .
+\begin{gather*}
+    \vec{F}_d = -K(r - l_0)\hat{u}_r \\
+    V = \frac{1}{2}K(r - l_0)^{2}   
+\end{gather*}
+Allora l'energia meccanica diventa nel caso di un certo angolo rispetto da uno degli
+assi nel piano di giacenza della molla:
+\begin{gather*}
+    E = \frac{1}{2}mv^{2} + \frac{1}{2}kr^{2} \\
+    \vec{r} = r\hat{u}_r \\
+    \vec{v} = \dot{r}\hat{u}_r + r\dot{\theta } \hat{u}_{\theta}        \\
+    v^{2} = \dot{r}^{2} + r^{2}\dot{\theta}^{2}      
+\end{gather*}
+La sola energia meccanica non mi basta per risolvere il problema
+poiché ho due gradi di libertà e dunque un equazione sola non mi basta per
+poter risolvere il problema.
+
+\section{Piattaforma ruotante con $\vec{\omega} = 0$  }
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La piattaforma ruotante}
+    \begin{tikzpicture}
+        \node[ellipse,
+        draw,
+	    minimum width = 4cm, 
+	    minimum height = 2cm] (e) at (0,0) {};
+        \draw[dashed, very thin, ->](0, -1.5) -- (0, 1.5) node[at end, above] {$z$};
+        \draw[->](0.5, 1.3) -- (0.5, 1.6) node[midway, right] {$\vec{\omega}$};
+        \draw[|-|](0, 0) -- (1, 0) node[midway, below] {$\rho$};
+        \filldraw(1, 0) circle(1pt) node[anchor = west] {$m$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Poniamo l'osservatore in un SDR non inerziale proprio sopra la Piattaforma
+osservando un punto P anch'esso sulla piattaforma. Sul punto p
+agiscono una forza di trascinamento mentre la forza di gravità
+è bilanciata dalla normale del piano. 
+\begin{gather*}
+    \vec{F}_t = -m\vec{\omega}\times(\vec{\omega} \times (\rho\hat{u}_P  + z\hat{k})  )  = +m\omega^{2}\rho\hat{u}_P  
+\end{gather*}
+Vale solo il contributo di $rho$ poiché l'oggetto non si muove lungo la verticale.
+Nel caso di un piccolo spostamento $\vec{dr}$ allora si ottiene:
+\begin{gather*}
+    \vec{dr} = d\rho \hat{u}_P + \rho d\hat{u}_P + dz\hat{k}      
+\end{gather*} 
+
+Allora si ottiene proprio il lavoro come:
+\begin{gather*}
+    \delta L = \vec{F}_t \vec{dr} = (m\omega^{2}\rho\hat{u}_P  )\cdot (d\rho\hat{u}_P + \rho \vec{dr} + dz\hat{k}   )  = m\omega^{2}\rho d\rho  
+\end{gather*}
+L'energia centrifuga 
+\begin{gather*}
+    V = -\frac{1}{2}m\omega^{2}\rho^{2}  
+\end{gather*}
+La forza di coriolis
+\begin{gather*}
+    \vec{F}_{co} -2\vec{\omega}\times \vec{v}   
+\end{gather*}
+La forza di Coriolis non fa lavoro poiché è sempre ortogonale
+allo spostamento infatti:
+\begin{gather*}
+    \delta L = \vec{F}\cdot \vec{dr} = (-2m\vec{\omega} \times \vec{v}  ) \cdot  \vec{v} \cdot dt = 0   
+\end{gather*}
+FA sempre lavoro zero e quindi non altera il bilancio energetico
+mentre se si muove allora si cambiano le condizioni e quindi potrebbero
+non valere più le condizioni di vincolo liscio. \\
+Nel SDR non inerziale in assenza di attriti e altre forze, si conserva
+l'energia meccanica:
+\begin{gather*}
+    E = \frac{1}{2}mv^{2} - \frac{1}{2}m\omega^{2}\rho^{2}   
+\end{gather*} 
+Per un osservatore esterno alla piattaforma ruotante l'energia meccanica
+non si conserva. Infatti un'osservatore esterno vede che l'energia cinetica
+cambia e non vede altre forze conservative(la centrifuga non c'è) ma l'energia
+meccanica non si conserva poiché c'è $\omega$ costante data dal motore
+della piattaforma ruotante che compie lavoro per tenere un certo regime. 
+Nel caso della pallina che è su questa piattaforma:
+\begin{gather*}
+    t = 0, \rho = \rho_0, \dot{\rho} = 0, E = -\frac{1}{2}m\omega^{2}\rho_0^{2}   \\
+    t = t_f, \rho = R, \dot{\rho} = ?, E = \frac{1}{2}m\dot{\rho}^{2}- \frac{1}{2}m\omega^{2}R^{2}      
+\end{gather*} 
+Dato che l'energia si conserva allora posso uguagliarle e ottenere:
+\begin{gather*}
+    \dot{\rho} = \pm \omega\sqrt{R^{2} - \rho_0^{2}}  
+\end{gather*}
+Ha senso? Si perché R è il bordo della giostra e quindi quella radice
+è ben definita e quindi è vero sia per la conservazione dell'energia
+ed in tutti i casi del movimento da $\rho_0 $ a $R$ e viceversa. 
+Derivando l'espressione dell'energia posso ottenere il caso $F = ma$ nel caso
+della potenziale della centrifuga:
+\begin{gather*}
+    \dot{\rho}(m\ddot{\rho} - m\omega^{2}\rho) = 0 
+\end{gather*}
+
+\subsection{Il sistema dell'antimolla}
+Nel caso di una molla che è fissata al centro di una piattaforma
+ruotante con una massa, se vince il contributo della rotazione 
+allora si ha una antimolla poiché la massa attaccata alla molla tende ad uscire
+dalla piattaforma ruotante vincendo la costante della molla; altrimenti
+si ha un moto armonico semplice se $k >> \omega$.
+\begin{gather*}
+    E = \frac{1}{2}m\dot{\rho^{2} } - \frac{1}{2}m\omega\rho^{2} + \frac{1}{2}k \rho^{2}   
+\end{gather*}
+
+\section{Studio dell'equilibrio del sistema}
+Nello studio di un sistema con vincoli ideali e forze conservative, allora
+lo studio della posizione di equilibrio è relativamente facile.
+In un qualsiasi SdR, tenendo conto delle forze apparenti e riconducendoci
+dunque al caso ideale, allora un corpo rimane fermo (equilibrio più semplice) quando
+la risultante è zero . Se le forze sono conservative allora se la risultante è nulla
+vuol dire che in un solo grado di libertà
+\begin{gather*}
+    \vec{F} = -\vec{\nabla} V = 0  
+\end{gather*}
+vuol dire che:
+\begin{gather*}
+    \frac{dV}{dx} = 0
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Pendolo}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (2, 0);
+        \draw(1, 0) -- (1, -2) node[midway, left] {$L$};
+        \filldraw(1, -2) circle (1pt)node[anchor = east] {$m$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso impostare il sistema di riferimento di un pendolo dove voglio 
+in funzione dell'unico grado di libertà, ossia dell'angolo $\theta$ e quindi
+posso identificare col SdR centrato nella massa 
+\begin{gather*}
+    V = mgz
+\end{gather*}
+Le energie potenziali $V1$ e $V2$ differiscono di una costante e quindi vanno
+bene entrambe e le loro derivate sono proprio:
+\begin{gather*}
+    V_1 = (L - L\cos\theta)mg \\
+    V_2 = -mgL \cos\theta
+\end{gather*}
+Derivando:
+\begin{gather*}
+    \frac{dV}{d\theta}-mgL(-\sin\theta) = mgL \sin\theta
+\end{gather*}
+Allora quando $\theta = 0$ la derivata è zero.
+
+
+\end{document}

@@ -1,0 +1,260 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica}
+\author{Tommaso Miliani}
+\date{03-04-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Estensione della macchina di Fletcher con la carrucola reale}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Macchina di Fletcher reale}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0);
+        \draw(3, 0) -- (3, -2);
+        \draw(0, 0) rectangle (1, 1) node[midway] {$M_1$};
+        \draw(1, 0.5) -- (3.3, 0.5);
+        \draw(3.25, 0.25) circle (0.25);
+        \draw(3.5, 0.3) -- (3.5, -1);
+        \draw(3, -1) rectangle (4, -2) node[midway] {$M_2$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nella macchina di Fletcher con la carrucola reale (posto che non ci siano
+attriti) allora ho tre corpi con massa  collegati con una fune inestensibile e priva
+di massa ed il sistema ha 1 grado di libertà per ogni oggetto ma non sono
+indipendenti: la rotazione della carrucola ed il movimento delle masse dipendono l'uno
+dall'altro. SI suppone inoltre che la carrucola non oscilli. \\
+PReso allora un sistema di riferimento nell'origine della prima massa, posso allora
+applicare il primo principio per cui per il primo oggetto:
+\begin{gather*}
+    \vec{T} = T\hat{i} \\
+    m_1 \ddot{x}_1 = T  
+\end{gather*}
+Mentre per il secondo oggetto (dato che la carrucola non è ideale
+la tensione non è la stessa e dunque la tensione che risente il secondo oggetto
+è diversa rispetto a quella della massa 1):
+\begin{gather*}
+    \vec{T}' = T'\hat{j} \\
+    m_2\vec{g} = -m_2g\hat{j} \\
+    m_2\ddot{y}_2 = T'-m_2g   
+\end{gather*}
+Scegliendo ora un polo di riduzione per la carrucola, su di essa agiscono
+le seguenti forze (la fune sollecita la carrucola e dunque se è inestensibile):
+le due tensioni.
+
+LA schematizzazione delle masse e della carrucola è data da:
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (2, 0);
+        \draw(0.5, 0) rectangle (1.5, 1);
+        \draw[->](1.5, 0.5) -- (2.5, 0.5) node[at end, above] {$\vec{T}$};
+        \draw[->](1, 0) -- (1, -1) node[at end, below] {$m\vec{g}$};
+        \draw[->](1, 1) -- (1, 2) node[at end, right] {$\vec{N}$};
+        \draw(8, 0) circle (1);
+        \draw[->](8, 1) -- (7, 1) node[at end, above] {$\vec{T}$};
+        \draw[->](9, 0) -- (9, -1) node[at end, right] {$-\vec{T}'$};
+        \filldraw (8, 0) circle (1pt) node[anchor = north] {$C$};
+        \filldraw (8, 1) circle (1pt) node[anchor = south] {$A$};
+        \filldraw (9, 0) circle (1pt) node[anchor = west] {$B$};
+        \draw[->](8, 0) -- (8, -0.5) node[at end, right] {$M\vec{g}$};
+        \draw[dashed] (7, 0) -- (8, 0) node[midway, above] {$R$};
+    \end{tikzpicture}    
+\end{gather*}
+Applicando ora la seconda cardinale alla carrucola e conosciute le distanze tra
+i punti di contatto della corda ed il centro:
+\begin{gather*}
+    (A - C) = R\hat{j} \\
+    (B - C) = R\hat{i}  
+\end{gather*}
+E allora
+\begin{gather*}
+    ((A - C) \times \vec{T} + (B - C) \times (-\vec{T}' )) \cdot  \vec{R} ? I_C \dot{\omega} 
+\end{gather*}
+Allora dato che $\vec{\omega} = \omega\hat{k}$:
+\begin{align}
+    TR - T'R = I_C \dot{\omega}
+\end{align}   
+Non ci resta che determinare allora chi è la derivata di $\omega$:
+\begin{gather*}
+    \omega = \dot{\phi} , \dot{\omega} = \ddot{\phi}
+\end{gather*}
+ALlora
+\begin{gather*}
+    R\dot{\phi} = -\dot{x}_1
+\end{gather*}
+Non ci resta ora che sostituire nelle relazioni:
+\begin{gather*}
+    m_1 \ddot{x}_1 = T \\
+    -m_2 \ddot{x_1} = T' - m_2 g \\
+    TR - T'R = -I_c \frac{\ddot{x}_1}{R}
+\end{gather*}
+Inoltre, sapendo che il momento di inerzia di un disco è 
+$\frac{1}{2}MR^{2} $,
+sostituendo tutto nella terza relazione si ottiene:
+\begin{gather*}
+    (m_1 + m_2 + \frac{M}{2})\ddot{x}_1 = m_2g
+\end{gather*}
+Si ricavano ora le tensioni:
+\begin{align}
+    T &= \frac{m_1m_2g}{m_1 + m_2 + \frac{M}{2}} \\
+    T' &= \frac{m_1m_2 + \frac{m_2M}{2}}{m_1 + m_2 + \frac{M}{2}}
+\end{align}
+\section{La macchina di atwood reale attaccata al soffitto}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{MAcchina di atwood reale}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2);
+        \filldraw(0, 0) circle (1pt) node[anchor = north] {$C$};
+        \filldraw(-2, 0) circle (1pt) node[anchor = east] {$A$};
+        \filldraw(2, 0) circle (1pt) node[anchor = west] {$B$};
+        \draw[dashed](-2, 0) -- (0, 0) node[midway, below] {$R$};
+        \draw[->](0, 0) -- (0, 1) node[at end, left] {$y$};
+        \draw[->](0, 0) -- (1, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, -1) node[at end, right] {$M\vec{g}$};
+        \draw[->](0, 0) -- (0.7, 1.3) node[at end, right] {$\vec{N}$};
+        \draw(-2, 0) -- (-2, -2.5);
+        \draw(-1.75, -2.5) rectangle (-2.25, -3) node[midway] {$m_1$};
+        \draw(-2, 0) -- (-2, -1) node[midway, left] {$-\vec{T}_1$};
+        \draw(-2, -2.5) -- (-2, -1.5) node[midway, left] {$\vec{T}_1$};
+        \draw(-2, -3) -- (-2, -4) node[at end, right] {$m_1\vec{g}$};
+        \draw(2, 0) -- (2, -3);
+        \draw(1.75, -3) rectangle (2.25, -3.5) node[midway] {$m_2$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per la prima massa posso applicare la prima cardinale e dunque scrivere
+(considerata la carrucola imperfetta, il filo inestensibile e le tensioni diverse):
+\begin{gather*}
+    m_1 \ddot{y}_1 = T_1 - m_1 g \\
+    m_2 \ddot{y}_2 = T_2 - m_2 g
+\end{gather*}
+Dalla prima cardinale so solo le condizioni di equilibrio ma se voglio
+sapere il movimento della carrucola e trovare le tensioni non mi basta.
+La prima massa mi fa girare la carrucola nel verso giusto (lungo l'angolo $\phi$ in senso antiorario)
+e quindi il contributo al momento delle forze e al momento di inerzia è positivo
+mentre l'altra forza la fa girare in senso opposto.
+\begin{gather*}
+    T_1 R - T_2 R = I_C \ddot{\phi} \\
+    R\ddot{\phi} = -\ddot{y}_2
+\end{gather*}
+SI sostituisce come prima per la macchina di Atwood e si risolve il sistema.
+\begin{align}
+    T_1 &= m_1 g\frac{2m_2 + \frac{M}{2}}{m_1 + m_2 + \frac{M}{2}}\\
+    T_2 & = m_2g\frac{2m_1 + \frac{M}{2}}{m_1 + m_2 + \frac{M}{2}}
+\end{align}
+
+
+\section{Il pendolo composto}
+Per piccole oscillazioni è un moto armonico nel pendolo semplice
+con periodo
+\begin{gather*}
+    T = 2\pi \sqrt{\frac{L}{g}} 
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il pendolo composto}
+    \begin{tikzpicture}
+        \filldraw(0, 0) circle (1pt) node[anchor = west] {$O$};
+        \filldraw(1, -2) circle (1pt) node[anchor = south] {$C$};
+        \draw(0, 0) -- (1, -2) node[midway, right] {$h$};
+        \draw[->](1, -2) -- (1, -3) node[at end, left] {$M\vec{g}$};
+        \draw[dashed](0, 1) -- (0, -3);
+        \draw[->](0, -1) arc (-90: -60: 1) node[midway, below] {$\phi$}; 
+        \draw[dashed](0, -2.2) arc (-90: 0:2.5);
+        \draw[dashed](1, -2) -- (1.5, -3); 
+        \draw[->](1, -3) arc(-90:-60:1) node[midway, below] {$\phi$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il pendolo composto (o fisico) è un oggetto fisico ed esteso di forma qualsiasi
+ed il suo centro di massa non può coincidere col perno di rotazione
+poiché altrimenti non sarebbe un pendolo. ANche qui come nelle carrucole prima,
+la forza vincolare non so dove è diretta e la metto un po' a caso. \\
+Adesso dato che ho solo un grado di libertà (che ho parametrizzato con $\phi$),
+posso allora utilizzare solo un'equazione per risolvere il problema però io non
+conosco né in modulo né in direzione la forza vincolare. Posso allora
+prendere allora il perno come polo di riduzione. 
+Allora posso esprimere il momento di inerzia come
+\begin{gather*}
+    -Mgh\sin\phi = I_0 \ddot{\phi} \\
+    I_0 = I_C + Mh^{2} 
+\end{gather*}
+Per cui l'equazione del moto:
+\begin{align}
+    \ddot{phi} + \frac{Mgh}{I_0}\sin\phi = 0 
+\end{align}
+Per piccole oscillazioni diventa un moto armonico con periodo calcolabile.
+come
+\begin{align}
+    T = 2\pi \sqrt{\frac{I_0}{Mgh}} 
+\end{align}
+Possiamo esprimere la normale come
+\begin{gather*}
+    \vec{N} + N_t \hat{t} + N_n \hat{n}   
+\end{gather*}
+Dove $\hat{t}$ è il versore della tangente mentre $\hat{n}$ è il versore
+normale rispetto alla congiungente. Possiamo allora esprimere la prima
+cardinale per le due:
+\begin{gather*}
+    N_t - Mg\sin\phi = Mh\ddot{\phi} \\
+    N_n- Mg\cos\phi = Mh\dot{\phi}^{2} 
+\end{gather*}  
+Posso ottenere allora la derivata secondo di $\phi$ e quindi posso determianremi
+la componente tangenziale e ottenere:
+\begin{gather*}
+    \ddot{\phi} = -\frac{Mgh}{I_0}\sin\phi
+\end{gather*}
+Per la componente tangenziale:
+\begin{align}
+    N_t = Mg \sin\phi - Mh\frac{Mgh}{I_0}\sin\phi = Mg\sin\phi\left(1 - \frac{Mh^{2} }{I_0}\right)
+\end{align}
+Nel caso del pendolo semplice la tangenziale è zero. Moltiplicando per entrambe le parti
+di $\ddot{\phi}$ per integrare e rimuovere $dt$ si ottiene per le condizioni
+iniziali in $t = 0$, $\phi = 0$ e $\dot{\phi} = \Omega$:
+\begin{gather*}
+    \dot{\phi}^{2} = \Omega_0^{2} - \frac{2Mgh}{I_0}(1 - \cos\phi)  
+\end{gather*} 
+sostituendo nell'espressione per la normale:
+\begin{align}
+    N_n = Mg\cos\phi + Mh\left(\Omega_0^{2} - \frac{2Mgh}{I_0}(1 - \cos\phi)\right)
+\end{align}
+Nel caso in cui l'angolo iniziale fosse noto per esempio $\phi = \phi_0$:
+\begin{align}
+    N_n = Mg\cos\phi + Mh\frac{2Mgh}{I_0}(\cos\phi - \cos\phi_0) = Mg\cos\phi \left(1 + \frac{2Mh^{2} }{I_0}\right) - \frac{2M^{2}h^{2}g}{I_0}\cos\phi_0
+\end{align}
+
+\end{document}

@@ -1,0 +1,204 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica}
+\author{Tommaso Miliani}
+\date{2/12/24}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Corpo rigido}
+All'interno di un sistema di punti che ha un vincolo di rigidità la distanza
+tra i punti che lo costituiscono è costante nel tempo. \\
+Qualsiasi punto del corpo rigido ha una velocità che è uguale a quella di
+un altro punto del corpo rigido. 
+\begin{align*}
+    \vec{v}_r = \vec{v}_o + \vec{\omega} \times (P-O) \\
+      \vec{v}_{p1} + \vec{v}_p2 = \vec{\omega}\times(P_i - P_l)    
+\end{align*}
+Quando $\vec{V}_p = \vec{V}_o$ allora il moto è rettilineo uniforme
+ed il corpo trasla senza ruotare.
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 1.1 }
+    \caption{Corpo rigido}
+    \begin{tikzpicture}
+        \draw[-] (0, 0) rectangle (2, 3);
+        \draw[-, dashed] (0.5, -1) -- (0.5, 4) node[at start, left] {$//\vec{\omega}$}; 
+        \filldraw[black] (0.5, 1) circle (1pt) node[right] {$O$};
+        \filldraw[black] (1.5, 2) circle (1pt) node[right] {$a_1$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+Nel caso in cui ci sia un O fissato, $\omega \ne 0$
+allora diventa:
+\begin{align*}
+    \vec{V}_p = \vec{\omega} \times (P-O)   
+\end{align*}
+Considerato un asse parallelo non passante per $\omega$ e parallelo
+ad omega e passante per O; tutti i punti che si trovano sull'asse
+hanno $\vec{V}_p = 0$ e quindi non saranno soggetti ad alcuna rotazione.
+\begin{gather*}
+    d\phi = \frac{d\phi}{\rho} = \frac{|\vec{a}_1|dt}{d_1} \\
+    \frac{d\phi}{dt} = \phi = \frac{|\vec{V}_{a1}|}{d_1} = \frac{|\vec{\omega}|d_1}{d_1} \\
+    con \ |\vec{v}_{a1}| = |\vec{\omega}| \cdot d_1  
+\end{gather*}
+
+Quando $\vec{\omega}$ è costante in una direzione allora è di rotazione
+Mentre quando $\vec{\omega}$ non è costante in una direzione è di rotazione accelerata (?) \\
+Se invece $\vec{V}_O \ne 0 \ \wedge \ \vec{\omega} \ne 0$ allora si parla
+di moto rototralsatorio
+\begin{align*}
+    \vec{V}_p =  \vec{V}_O + \vec{\omega} \times (P-O)   
+\end{align*}  
+Questo punto O che ho scelto potrà avere sempre una componente
+della velocità parallela ed una ortogonale ad $\vec{\omega}$. Questo
+si esprime come segue
+\begin{gather*}
+    \vec{V}_O = \vec{V}_{O//} + \vec{V}_{O\perp} \\
+    \vec{V}_{O//} // \vec{\omega} \\
+    \vec{V}_{\perp} \perp \vec{\omega}  \\
+    \vec{V}_p = \vec{V}_{O //} + \vec{V}_{O\perp} + \vec{\omega} \times (P-O) \\        
+\end{gather*} 
+Preso dunque un qualsiasi punto A, si sostituisce e sviluppa nella
+seguente maniera:
+\begin{gather*}
+    \vec{V}_p = \vec{V}_{O//} + \vec{\omega}\times (P-A) \\
+    \vec{V}_p = \vec{V}_{O//} + \vec{\omega} \times ((P-O)+(O-A)) \\
+    \vec{V}_p = \vec{V}_{O//}  + \vec{\omega} \times (P-O) + \vec{\omega} \times (O-A)          
+\end{gather*}
+Devo quindi trovare questo punto A tale che: $\vec{V}_{O\perp} = \vec{\omega} \times (O-A)$   
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 1.2}
+    \caption{Vettori}
+    \begin{tikzpicture}
+        \draw[-> ] (0, 0) -- (-2, -1) node[at end, below] {$\vec{V}_O$};
+        \draw[->] (0, 0) -- (-2.2, -0.8) node[at end, left] {$\vec{V}_{O\perp}$};
+        \draw[->] (0, 0) -- (0, 2) node[at end, right] {$\vec{\omega}$};
+        \draw[-, dashed] (1, -1) -- (1, 2);
+        \filldraw[black, thick] (1, 0) circle (1pt) node[right] {$A$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+A questo punto dall figura si evince che:
+\begin{align*}
+    \vec{V}_a = \vec{V}_{O//} + \vec{\omega} \times (A-A) = \vec{V}_{O//}    
+    \vec{V}_p = \vec{V}_a + \vec{\omega} \times (P-A)   
+\end{align*}
+Ricavando un moto che vale sempre nella rototralsazione generale
+
+\section{Moto di rotolamento puro}
+E' il moto di rotazione di una ruota su di una strada, oppure un copo rigido
+su un altro corpo rigido che fa una rototralsazione ma il corpo rimane a contatto
+senza ulteriori definizioni si parla di moto di rotolamento generico o rotolamento
+puro o senza strisciamento.
+Quando si ha solo moto di rotazione senza velcocità traslazionale
+allora la ruota rimane a contatto col pavimento e si ha rotolamento
+puro.
+\begin{gather*}
+    \vec{V}_q = \vec{V}_M = 0 \\
+    \vec{Q} \ costante \ alla \ ruota \\
+    M \ costante \ alla \ strada     
+\end{gather*}
+A questo punto i vettori sono
+\begin{gather*}
+    \vec{V}_p = \vec{V}_c +  \vec{\omega} \times (P-C) \\
+    \vec{V}_c = \dot{x}_c \hat{i} \\
+    \vec{\omega} = \omega \hat{j} = \dot{\phi}\hat{j} \\
+    \vec{V}_p = \dot{x}_c \hat{i} +    \dot{\phi}\hat{j} \times (P-C) 
+\end{gather*}
+Per le traslazioni un corpo rigido ha due gradi di libertà mentre
+per ruotare ha un grado di libertà e quindi in totale nel piano ha ben
+3 gradi di libertà. Essendo però C vincolata allora trasla e ruota
+e quindi i gradi di libertà si riducono a due. Abbiamo però anche il
+vincolo che la ruota gira dalla stessa parte. Quindi:
+\begin{center}
+    \centering
+    \label{Fig 2.1}
+    \begin{tikzpicture}
+        \draw[-] (0, 0) circle (2.5);
+        \draw[->] (-3.5,-2.5) -- (3.5, -2.5) node[at end, below] {$x$};
+        \filldraw[black] (0, 0) circle (1pt) node[above] {$C$};
+        \filldraw[black] (0, -2.5) circle (1pt) node[above] {$Q$};
+        \filldraw[black] (0, -2.5) circle (1pt) node[below] {$M$};
+        \filldraw[black] (2.5, 0) circle (1pt) node[right] {$P_1$};
+        \filldraw[black] (0, 2.5) circle (1pt) node[above] {$P_2$};
+        \filldraw[black] (-2.5, 0) circle (1pt) node[left] {$P_3$};
+        \draw[->] (0, 2.5) -- (2, 2.5) node[midway, above] {$\vec{\omega} + \dot{x}$};
+        \draw[->] (0, 0) -- (1, 0) node[midway, above] {$ \dot{x}$};
+        \draw[->] (0, -2.5) -- (1, -2.5) node[midway, above] {$\dot{x}$};
+        \draw[->] (0, -2.5) -- (-1, -2.5) node[midway, above] {$\vec{\omega}$};
+        \draw[->] (-2.5, 0) -- (-2.5, 1) node[midway, left] {$\vec{\omega}$};
+        \draw[->] (-2.5, 0) -- (-1.5, 0) node[midway, below] {$\dot{x}$};
+        \draw[->] (-2.5, 0) -- (-1.5, 1) node[at end, above] {$\dot{x} + \vec{\omega}$};
+    \end{tikzpicture}  
+\end{center}
+\begin{gather*}
+    \vec{V}_Q = \dot{x}_c\hat{i}  + \dot{\phi}\hat{j} \times (Q-C) \\
+    (Q-C) = -R\hat{k} \\
+    \vec{V}_Q =  \dot{x}_c \hat{i} + \dot{\phi} \hat{j} \times (-R\hat{k} ) \\
+    \vec{V}_Q  \dot{x}_c \hat{i} + (-R\dot{\phi} \hat{i} ) = 0\\
+    \dot{x}_c -R\dot{\phi} = 0 \\
+    \dot{x}_c = R\dot{\phi}       
+\end{gather*}
+Quindi esiste solo un grado di libertà.
+La parte a contatto della ruota col terreno è immobile ed ha un asse
+che cambia nel tempo ma rimane sempre parallelo a sé stesso ed ad omega.
+Il punto al vertice esegue un moto chiamato \emph{cicloide} ossia si ha che
+le coordinate di $P_2$ nel sistema di rif. scelto si ha che le sue
+coordinate variano secondo:
+\begin{gather*}
+    \left\{ \begin{array}{c}
+        x_p = x_i + \mu R \sin \phi \\
+        z_p = z_c + \mu R \cos \phi 
+    \end{array} \right. \\
+    Ossia \\
+    \left\{ \begin{array}{c}
+        x_p = R \phi + \mu R \sin \phi \\
+        z_p = R + \mu R \cos \phi 
+    \end{array} \right. 
+\end{gather*}
+
+\section{Forza e definizione operativa}
+Si introduce un dinamometro: una molla collegata
+ad un estremo fissato ed una scala graduata a fianco che
+misura la deformazione della molla dovuta dall'azione di una forza. \\
+Per dare una definizione operativa devo dire quando due
+grandezze sono uguali e come si sommano. $F_1$ e $F_2$ sono uguali
+se producono la stessa deformazione della molla (che sia allungamento
+o accorciamento). Dal momento che la forza ha una direzione (quella della
+molla) e un verso ossia quello che determina l'accorciamento o
+l'allungamento. Se io ho due forze, per far sì che queste siano vettori
+io dico che la loro somma è un'altra forza che produce una deformazione
+sulla molla pari alla somma delle loro deformazioni.
+
+
+
+\end{document} 

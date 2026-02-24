@@ -1,0 +1,267 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti ottica}
+\author{Tommaso Miliani}
+\date{19-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Onde elettromagnetiche}
+\subsection{I metalli }
+All'interno dei metalli gli elettroni si muovono liberamente e, mentre
+oscillano sotto un certo campo elettrico esterno, essi iniziano ad oscillare
+e generano un campo elettrico in \textbf{controfase} al campo elettrico incidente
+annullando il campo elettrico in arrivo e incontrando
+resistenza nel loro movimento; l'effetto è la liberazione di energia sottoforma di calore nel metallo. L'effetto complessivo
+è che certe lunghezze d'onda sono assorbite mentre altre sono
+riflesse. 
+
+\subsection{Incidenza di onde piane ad un certo angolo}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \caption{Relazione tra fronti d'onda e angolo di incidenza}
+    \begin{tikzpicture}
+        \draw(2, 4) -- (2, -2.5);
+        \filldraw(0.5, 4) circle (0pt) node[anchor = north] {Aria $n = 1$};
+        \filldraw(3.5, 4) circle (0pt) node[anchor = north] {Vetro $n = 1.5$};
+        \draw[dashed](-1, 0) -- (5, 0);
+        \draw(-1, 2.5) -- (2, 0);
+        \draw(1, 0) arc (180:140:1)  node[at start, below] {$\theta_i$};
+        \draw(2, 0) -- (5, -1);
+        \draw(4, 0) arc (0:-18:2) node[midway, right] {$\theta_f$};
+        \draw(1.5, -0.75) -- (2, 0);
+        \draw(2, 0) -- (2.75, 3);
+        \draw(0.5, 0)-- (2, 2);
+        \draw(2, 2) -- (2.5, 4);
+        \draw(-1, 0) -- (2, 4);
+        \draw[<->](2.75, 3) -- (2.3, 3.15) node[midway, above] {$\lambda'$};
+        \draw[<->](0.75, 2.25) -- (1.7, 1.6) node[midway, above] {$\lambda$};
+        \draw[cyan](2, 0) -- (2, 2) node[midway, left] {$D$};
+        \draw(2, 2) arc (90:60:1) node[midway, above] {$\theta_f$};
+        \draw(1.7, 1.6) arc(245:270:0.6) node[midway, below] {$\theta_i$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Preso un sistema di riferimento piano, da una parte abbiamo l'aria (con indice di rifrazione
+molto simile al vuoto) e dall'altra del vetro (o qualsiasi
+altro materiale con $n_2 \neq n_1$). Possiamo allora vedere cosa succede ai fronti d'onda che attraversano
+l'interfaccia tra i due materiali con un angolo di incidenza diverso da zero. Si può vedere che l'onda nel dielettrico è un'onda
+piana anch'essa in quanto lavoriamo sempre nella stessa ipotesi di onda piana. So inoltre che
+i fronti d'onda nel dielettrico sono gli stessi che al di fuori del dielettrico ma con
+lunghezza d'onda minore. Per far sì che i fronti d'onda coincidono, fisicamente succede che l'onda si inclina
+rispetto all'angolo di incidenza $\theta_i$ di un certo angolo $\theta_f$ chiamato
+di \textbf{rifrazione}.  L'ipotenusa identificata con $D$ al centro del disegno è
+in relazione alle lunghezze d'onda e agli angoli di incidenza e di rifrazione secondo la seguente formulazione 
+\begin{gather*}
+    D \sin \theta_i = \lambda \\
+    D \sin \theta_f = \lambda'
+\end{gather*}
+Se combiniamo le due equazioni si ottiene l'utile relazione (considerando che
+l'indice di rifrazione dell'aria è $n_1$ e quello del vetro è $n_2$)
+\begin{gather*}
+    \frac{\lambda}{n_2} \frac{1}{\sin\theta_f} = \frac{\lambda}{n_1} \frac{1}{\sin\theta_i} \ \Longrightarrow \ \frac{n_1}{n_2} = \frac{\sin\theta_f}{\sin\theta_i}
+\end{gather*}
+Ossia la \textbf{Legge di Snell}:
+\begin{align}
+    n_2 \sin\theta_f = n_1 \sin\theta_i
+\end{align}
+Le onde che sono riflesse, vengono riflesse con un angolo di riflessione $\theta_r = \theta_i$
+in quanto si riflettono all'interno dello stesso dielettrico e dunque per la legge di Snell 
+si riflettono con lo stesso angolo con cui incidono. 
+
+\subsection{Riflessione totale interna e prisma}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Riflessione totale interna}
+    \begin{tikzpicture}
+        \draw[dashed](-2, 0) -- (2, 0);
+        \draw(0, -2) -- (0, 2);
+        \draw(-2, 0.5) -- (0, 0);
+        \draw(0, 0) -- (2, -1.5);
+        \draw(-1, 0.25) arc (160:180:0.75) node[midway, left] {$\theta_i$};
+        \draw(-2, 2.5) -- (0, 0);
+        \draw(-0.5, 0.62) arc(120:180:0.7) node[midway, above] {$\theta_c$};
+        \draw(0, 0) -- (-1,-1.25);
+        \draw[dashed](-1 , -1.25) -- (-2, -2.5);
+        \filldraw(-1, 2) circle (0pt) node[anchor = center] {$n_2=$ vetro};
+        \filldraw(1, 2) circle(0pt) node[anchor = center] {$n_1=$ aria};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Supponendo di avere sempre la stessa interfaccia, ma stavolta
+le onde arrivano da dentro il dielettrico con indice di rifrazione maggiore,
+quindi quando arrivano all'interfaccia si rifrangono con un angolo
+molto grande. Il raggio di luce dunque, sopra un certo angolo, tenderà a rifrangersi
+con un angolo sempre più grande: in questo caso si arriva a dire che non si rifrangerà nessun raggio
+di luce all'esterno del dielettrico; si parla allora di \textbf{riflessione totale interna}.
+Questo si ha quando $\theta_i > \theta_c$ ossia l'angolo critico oltre al quale
+non si rifrangerà più alcun raggio di luce. L'angolo critico si ricava dalla legge di Snell:
+\begin{gather*}
+    n_2 \sin\theta_i = n_1 \sin\theta_f \\
+        n_2 \sin\theta_c = n_1 \sin \frac{\pi}{2}
+\end{gather*}
+Allora l'angolo critico sarà
+\begin{align}
+    \sin\theta_c = \frac{n_1}{n_2}
+\end{align}
+Dove $n_2 > n_1$.  Nel caso del prisma, quando entra il laser dalla parte perpendicolare al
+fascio di luce, la luce subisce un accorciamento della sua lunghezza d'onda mentre quando dall'interno
+colpisce le pareti inclinate del prisma (a $45$ gradi e quindi maggiore dell'angolo critico),
+e quindi riflette solo all'interno rimbalzando fino a che non esce dalla parte nuovamente perpendicolare
+al fascio iniziale. Ruotando il prisma posso ottenere una parziale rifrazione della luce in modo da inclinare il fascio 
+uscente.
+
+\subsection{Uscita da un mezzo dielettrico}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Deviazione della luce}
+    \begin{tikzpicture}
+        \draw(2, 2) -- (2, -2);
+        \draw(3, 2) -- (3, -2);
+        \filldraw(2.5, 2) node[anchor = center] {vetro};
+        \draw(1, 1) -- (2, 0);
+        \draw(2, 0) -- (3, -0.5);
+        \draw(3, -0.5) -- (4, -1.5);
+        \draw[dashed, very thin](1, 1) -- (4, -2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Quando un fascio di luce entra in un mezzo e poi ne esce,
+questo esce con lo stesso angolo in entrata ma con un discostamento
+rispetto alla direzione iniziale di entrata nel mezzo. Questo è dato dal fatto
+che la legge di Snell mi modifica l'angolo in entrata e dunque l'angolo in uscita si ottiene
+applicando nuovamente la legge al contrario. \\
+All'interno di un prisma è possibile invece far cambiare la direzione della luce completamente
+in quanto si utilizza la rifrazione per creare raggi con angoli diversi
+a seconda della lunghezza d'onda in entrata: il fascio di luce bianca che entra dentro
+un prisma è scomposto in tanti fasci luminosi di lunghezza d'onda diversa
+tutti distinti ed osservabili.
+
+
+\section{Le lenti}
+\subsection{Introduzione alle lenti sferiche}
+\begin{wrapfigure}{r}{0.6\textwidth}
+    \centering
+    \caption{Le lenti}
+    \begin{tikzpicture}
+        \draw(0, 2) arc (90:270: 2);
+        \draw[dashed](-5, 0) -- (2, 0);
+        \filldraw(-5, 0) circle (1pt) node[anchor = east] {$P$};
+        \draw[green](-5, 0) -- (-1, 1.73);
+        \filldraw(-1, 1.73) circle (1pt) node[anchor = south] {$C$};
+        \filldraw(0, 0) circle (1pt) node[anchor = north] {$O$};
+        \filldraw(2, 0) circle (1pt) node[anchor = west] {$Q$};
+        \draw(-1, 1.73) -- (2, 0);
+        \draw(1.5, 0) arc(180:150:0.5) node[at start, below] {$\alpha$};
+        \draw[cyan](-1, 1.73) -- (-1, 0) node[near end, left] {$h$};
+        \draw[green](-4, 0.45) arc(25:0:1.1) node[midway, right] {$\theta$};
+        \draw[<->, green](-5, -0.5) -- (-1.1, -0.5) node[midway, below] {$p$};
+        \draw[<->, cyan](-0.9, -0.5) -- (2, -0.5) node[midway, below] {$q$};
+        \draw[dashed](0, 0) -- (-1.4, 2.4);
+        \draw(-1.25, 2.2) arc(110:195:0.6) node[midway, left] {$\theta_i$};
+        \draw[cyan](-0.2, 0.32) arc(120:180:0.35) node[midway, left] {$\phi$};
+        \draw(-0.27, 1.25) arc(-25:-60:0.7) node[midway, right] {$\theta_r$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Supponendo di avere una sfera di vetro curvilinea e all'esterno aria; voglio vedere che succede se le
+onde piane della luce lo colpiscono con un certo angolo rispetto alla direzione del raggio della sfera.
+Chiamo $\theta$ l'angolo di inclinazione rispetto alla congiungente
+sorgente-centro della circonferenza della lente e $p$ la lunghezza dalla sorgente alla congiungente
+della verticale dal punto di contatto all'orizzontale.
+Si può supporre che se l'angolo $\theta << 1$, allora
+posso approssimare la lunghezza $p$ come la distanza da $P$
+alla superficie di contatto della lente (ipotesi \textbf{parassiale}). Chiamo allora $\theta_i$ l'angolo
+di incidenza sulla lente e $\theta_r$ l'angolo di rifrazione dovuto alla lente rispetto alla
+congiungente punto di contatto $C$ al centro $O$ della circonferenza. Ottengo
+degli altri angoli: $\phi$, ossia l'angolo tra l'orizzontale e la congiungente $OC$ e 
+$\alpha$, ossia l'angolo che forma la congiungente $PQ$ rispetto all'orizzontale.\\
+Posso chiamare $q$ come $PQ - p$ e $Q$ il punto di contatto tra il fascio
+e l'orizzontale e l'angolo $\alpha$ di incidenza del fascio rifranto sull'orizzontale. 
+Si ottiene allora la seguente relazione vicino al punto di contatto $C$:
+\begin{gather*}
+    \theta_i + \left(\frac{\pi}{2} - \theta\right) + \left(\frac{\pi}{2} - \phi\right) = \pi \ \Longrightarrow \ \theta_i = \theta +\phi \qquad (1)
+\end{gather*}
+Inoltre si ottiene un'altra relazione
+\begin{gather*}
+    \left(\frac{\pi}{2} - \phi\right) + \theta_r = \frac{\pi}{2} - \alpha \ \Longrightarrow \ \alpha = \phi - \theta_r  \quad (2)
+\end{gather*}
+Inoltre si ha che
+\begin{gather*}
+    h = q\tan\alpha = p\tan\theta = R\sin\phi
+\end{gather*}
+Data l'ipotesi parassiale le relazioni per $h$ sono tutte uguali l'una dall'altra
+e posso togliere le varie tangenti e seni in quanto per $\theta << 1$ si ha che $\sin\theta, \tan\theta \approx \theta$:
+\begin{gather*}
+    h = q\alpha = p\theta = R\phi \qquad (3, 4, 5)
+\end{gather*}
+Rifacendosi alla legge di Snell e ricordando l'ipotesi parassiale, si ottiene che
+\begin{gather*}
+    n_{aria}\sin\theta_i = n_{vetro}\sin\theta_r \ \Longrightarrow \ n_{aria} \theta_i = n_{vetro} \theta_r
+\end{gather*}
+Posso far sparire glia angoli utilizzando le varie relazioni:
+posso utilizzare intanto la $(1)$, poi la $(2)$ e ottenere:
+\begin{gather*}
+    n_{aria}(\theta + \phi) = n_{vetro}(\phi - \alpha)
+\end{gather*}
+Posso allora utilizzare le relazioni dell'altezza per eliminare definitivamente
+gli angoli:
+\begin{gather*}
+    n_{aria} \left(\frac{h}{p} + \frac{h}{R}\right) = n_{vetro} \left(\frac{h}{R} - \frac{h}{q}\right)
+\end{gather*}
+Adesso posso semplificare $h$ dappertutto:
+\begin{align}
+    n_{aria}\left(\frac{1}{p} + \frac{1}{R}\right) = n_{vetro} \left(\frac{1}{R} - \frac{1}{q}\right)
+\end{align}
+Con questa equazione io vedo che tutti i raggi che emetto dalla mia sorgente
+$P$ giungono tutti nel medesimo punto $Q$ con angoli sufficientemente
+piccoli (ossia nel limite parassiale). Se si ripetesse il conto con un'altra
+interfaccia sferica vetrosa di raggio $R_2 < R$, allora scoprirò che il
+punto di convergenza di tutti i raggi numerosi è dato da
+\begin{gather*}
+    \frac{1}{p} + \frac{1}{q} = \left(\frac{1}{R} - \frac{1}{R_2}\right) \frac{n _{vetro} - n_{aria}}{n_{aria}} + \frac{n_{vetro}d}{p(p - d)}
+\end{gather*} 
+
+
+
+\end{document}

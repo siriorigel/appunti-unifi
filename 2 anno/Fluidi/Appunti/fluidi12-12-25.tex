@@ -1,0 +1,310 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fluidodinamica (Landi)}
+\author{Tommaso Miliani}
+\date{12-12-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Onde di gravità}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Onde di gravità a seguito di una perturbazione}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (3, 0) node[at end, below] {$x$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$z$};
+        \node at(1, 1) {aria};
+        \node at(1, -1) {acqua};
+        \draw(0, 0) .. controls (1, 1) and (2, -1) .. (3, 0);
+        \draw[->](-1, 2) -- (-1, 1.2) node[at end, left] {$\vv{g}$ };
+        \draw(0.4, -0.1) rectangle (0.6, 0.1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Sono delle onde che si presentano quando un campo esterno 
+agisce su di un fluido (si tratterà solo il caso di fluido
+incomprimibile). SUpponendo di avere una superficie di
+separazione tra due fluidi diversi che hanno densità molto diverse tra loro,
+e si suppone di creare una perturbazione sulla superficie:
+si crea una colonna di liquido supplementare rispetto alla quota
+di riferimento che crea una pressione supplementare sul piano
+$x = 0$, che si alza e che vuole tornare verso il basso. Si deve dunque
+calcolare la forza che del fluido che vuole tornare giù e 
+determinare la relazione che mi permette di trasmettere 
+l'oscillazione. Per trattarlo si discute un elemento fluido
+posizionato ad una qualunque quota e si discute il suo spostamteno
+tramite lo spostamento Lagrangiano. Il vettore spostamento sarà
+\begin{gather*}
+    \vv{\xi} (x, z, t) = \xi_x \hat{x} + \xi_z \hat{z}  
+\end{gather*}
+Si può dunque descrivere il moto attraverso una funzione trigonometrica
+(coseno) con una ampiezza $\xi_0$ in funzione della quota:
+\begin{gather*}
+    \xi_z = \xi_0 h(z) \cos(kx - \omega t)
+\end{gather*}
+Ovviamente si vuole che $h(0) = 1$. Studiando la cinematica
+dell'oggetto, si vuole che
+\begin{gather*}
+    \vv{\nabla} \cdot \vv{u} = 0 \qquad \vv{u} = \frac{\partial \vv{\xi} }{\partial t}    
+\end{gather*}
+Si può dunque calcolare $u_z$ e $u_x$:
+\begin{gather*}
+    u_z = \xi_0 \omega h(z) \sin(kx - \omega t) \\
+    \frac{\partial u_x}{\partial x} = - \frac{\partial u_z}{\partial z} = - \xi_0 \omega h'(z)\sin(kx - \omega t)  
+\end{gather*}
+Dunque $u_x$:
+\begin{gather*}
+    u_x =  \frac{\xi_0}{k} \omega h'(z)\cos(kx - \omega t)
+\end{gather*}
+Se si integra rispetto al tempos si ottiene invece $\xi_x$:
+\begin{gather*}
+    \xi_x = \frac{\xi_0}{k} h'(z) \sin(kx - \omega t)
+\end{gather*}
+Allora si ha
+\begin{gather*}
+    \left\{\begin{array}{l}
+            \xi_z = \xi_0 h(z) \cos(kx - \omega t)\\
+    \xi_x = -\frac{\xi_0}{k} h(z) \sin(kx - \omega t)\\
+    u_z = \xi_0 \omega h'(z) \sin(kx - \omega t) \\
+    u_x =  \frac{\xi_0}{k} \omega h'(z)\cos(kx - \omega t)
+    \end{array}\right.
+\end{gather*}
+$\xi_x$ e $\xi_z$ mi danno l'equazione di un ellisse: dunque si è studiato
+la cinematica di un fluido perturbato in due dimensioni. Possiamo ora utilizzare
+lo spostamento Lagrangiano per studiare la dinamica dell'oggetto.
+\begin{gather*}
+    \rho_0 \frac{\partial ^{2} \vv{\xi} }{\partial t^{2}} = -\vv{\nabla}p + \rho_0 \vv{g}   
+\end{gather*}
+Adesso, la pressione è esprimibile come la pressione di equilibrio 
+più una fluttuazione $\delta p$, come per la trattazione delle onde
+sonore. La condizione di equilibrio, evidentemente, diventa
+\begin{gather*}
+    \vv{\nabla}p_0 = \rho_0 g 
+\end{gather*}
+Posso ora scrivere 
+\begin{gather*}
+    \rho_0 \frac{\partial ^{2} \vv{\xi} }{\partial t^{2}} = -  \vv{\nabla} \delta p   - \vv{\nabla}p_0 - \rho_0 \vv{g}  \ \Longrightarrow \ \rho_0 \frac{\partial ^{2} \vv{\xi} }{\partial t^{2}} = - \vv{\nabla} \delta p  
+\end{gather*}
+Dunque si riassumono le condizioni viste fino ad ora:
+\begin{gather*}
+\left\{\begin{array}{l}
+        \frac{\partial u_x}{\partial t} = - \frac{1}{\rho_0} \frac{\partial \delta p}{\partial x} = \frac{\xi_0}{k} h'(z) \omega^{2}\sin(kx - \omega t) \\
+    \frac{\partial u_z}{\partial t} = - \frac{1}{\rho_0} \frac{\partial \delta p}{\partial z} = -\xi_0 \omega^{2} h(z) \cos(kx - \omega t)
+\end{array}\right.
+\end{gather*}
+Posso eliminare $\delta p$ derivando la prima per $z$ e la seconda per $x$, in quanto 
+le derivate miste devono essere uguali:
+\begin{gather*}
+    \frac{\partial }{\partial z}\left(\xi_0 \frac{h'(z)}{k} \omega^{2} \sin(kx - \omega t)\right) = - \frac{\partial }{\partial x}\left(\xi_0 \omega^{2} h(z) \cos(kx - \omega t)\right)  \\
+    \xi_0 \frac{h''(z)}{k}  \omega^{2}\sin(kx - \omega t) = + k\xi_0 \omega^{2} h(z) \sin(kx - \omega t)
+\end{gather*}
+Semplificando ora si ottiene la differenziale che descrive l'ampiezza della perturbazione
+in funzione della profondità $z$
+\begin{gather*}
+    h''(z) = k^{2}h(z)
+\end{gather*}
+Le soluzioni sono dunque le combinazioni lineari della seguente:
+\begin{gather*}
+    h(z) = h_+e^{kz} + h_-e^{-kz}
+\end{gather*}
+Le due costanti $h_+$ e $h_-$ sono determinate dalle condizioni al bordo,
+ossia le seguenti:
+\begin{itemize}
+    \item $h(0) = 1$;
+    \item Il fondo sia ad una profondità fissa $h(z_\text{fondo}) = 0$.
+\end{itemize}
+Dunque si possono trovare le costanti:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        h(0) = h_+ + h_- = 1  \\
+        h_+e^{-kz_\text{fondo}} + h_-e^{kz_\text{fondo}} = 0
+    \end{array}\right.
+\end{gather*}
+La soluzione è dunque
+\begin{gather*}
+    h(z) = \frac{e^{k(z + z_\text{fondo})} - e^{-k(z + z_\text{fondo})}}{e^{kz_\text{fondo}} - e^{-kz_\text{fondo}}}
+\end{gather*}
+Si può ora calcolare la spinta della colonna di fluido perturbato alla quota $z = 0$. Posso 
+prendere lungo $x$ 
+\begin{gather*}
+    \rho_0 \frac{\partial u_x}{\partial t}_{z = 0} = - \frac{\partial \delta p}{\partial x}_{z = 0}  
+\end{gather*}
+Dove $\delta p = \rho_0 h\xi_z$ è la pressione della colonna di fluido incomprimibile che si è aggiunta 
+in seguito alla perturbazione rispetto all'interfaccia $z = 0$, dunque
+si può scrivere l'espressione di prima come 
+\begin{gather*}
+    \rho_ 0 h'(z) \frac{\xi_0}{k}\omega^{2} \sin(kx - \omega t) = - \rho_0 g k\xi_0 h(z) \sin(kx - \omega t ) \ \Longrightarrow \ \omega^{2} = g\frac{k^{2} h(z)}{h'(z)}_{z = 0}
+\end{gather*}
+
+\section{Casi particolari}
+\subsection{Limite delle acque profonde}
+Nel limite delle acque profonde $L \to +\infty$, dunque 
+\begin{gather*}
+    h(z) = e^{kz} \ \Longrightarrow \ h'(z) = ke^{kz}
+\end{gather*}
+Che tende a zero quando $z \to -L$. Si può ottenere una relazione per la dispersione delle
+onde di gravità quando le acque sono molto profonde (ossia che $kL$ molto maggiore di $1$, ossia
+nel limite in cui la lunghezza d'onda è molto più piccola della profondità del fluido):
+\begin{gather*}
+    \omega^{2} = kg
+\end{gather*}
+Dato che $h'(z) = h(z)k$, allora vuol dire che $\xi_x = \xi_z$, dunque
+l'elemento fluido percorre delle circonferenze con raggio via via
+più piccolo quando si va in profondità invece che delle ellisse. La velocità
+di fase (ossia la velocità di propagazione dell'onda a quella determinata lunghezza
+d'onda) è dunque
+\begin{align}
+    v_\phi = \frac{\omega}{k} = \sqrt{\frac{g}{k}} 
+\end{align}
+Le onde lunghe, in profondità, vanno più veloci rispetto alle onde corte. 
+
+
+\subsection{Limite delle acque basse}
+Nel limite delle acque basse $L \to 0$, dunque 
+\begin{gather*}
+    \frac{h'(z)}{h(z)}_{z = 0} = \frac{k}{\tanh(kL)}
+\end{gather*}
+Dunque 
+\begin{gather*}
+    \omega^{2} = kg\tanh(kL)
+\end{gather*}
+Dato che $kL << 1$, si può sviluppare con Taylor al primo ordine
+per ottenere il \textbf{limite della acque basse} (non dispersiva perché
+la velocità di fase non dipende dalla lunghezza d'onda):
+\begin{gather*}
+    \omega^{2} = k^{2}gL
+\end{gather*}
+La velocità di fase è dunque
+\begin{gather*}
+    v_\phi = \sqrt{gL} 
+\end{gather*}
+Il motivo per il quale le onde sembrano arrivare frontali rispetto alla riva
+è che il fronte d'onda, anche se inclinato rispetto alla riva, inizia a ruotare poiché
+la parte del fronte più vicino alla riva va più lento della parte più lontana e dunque
+il fronte sembra ruotare in modo tale che arriva sempre frontale. 
+
+\section{Flussi di fluidi comprimibili in sezioni convergenti e divergenti}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 1.5) .. controls (1, 0.5) and (2, 0.5) .. (3, 1.5);
+        \draw(0, -1.5) .. controls (1, -0.5)  and (2, -0.5).. (3, -1.5);
+        \draw[->](-1, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[very thick](0.65, 1) -- (0.65, -1) node[at start, above] {$A(x)$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si considerano condizioni stazionarie e si suppone avere una conduttura 
+con una strozzatura, con le equazioni di Leonardo (e immaginando che tutto
+dipenda da $x$ e che la velocità del fluido in arrivo alla strozzatura è $u_x$):
+\begin{gather*}
+    \vv{\nabla}(\rho \vv{u} ) = 0 \ \Longrightarrow \ \frac{d}{dx}(\rho u_x A_x ) = 0 
+\end{gather*}
+Ossia, presa una sezione $A_x$ della strozzatura e calcolandone il flusso, questo 
+deve essere uguale al flusso della sezione $A_x + dx$ in quanto il flusso di una sezione
+chiusa deve essere costante. Questo vuol dire che la derivata deve essere
+zero in quanto non c'è cambiamento nel flusso di fluido. 
+Posso sviluppare la derivata logaritmica in modo tale che
+\begin{gather*}
+    \frac{1}{\rho} \frac{d \rho }{dx } + \frac{1}{u} \frac{du}{dx} + \frac{1}{A} \frac{dA}{dx} = 0 
+\end{gather*}
+Posso esprimere 
+\begin{gather*}
+    \frac{\partial \vv{u} }{\partial t} + (\vv{u} \cdot \vv{\nabla} ) \vv{u} = - \frac{1}{\rho}\vv{\nabla} p   
+\end{gather*}
+Posso trascurare gli effetti della gravità (per esempio per un razzo
+nello spazio) e anche la priam derivata in quanto siamo in condizioni stazionarie:
+\begin{gather*}
+    u\frac{du}{dx} = - \frac{1}{\rho}\frac{dp}{dx}
+\end{gather*}
+Posso impostare adesso l'ipotesi barotropica, dunque posso relazionare 
+la pressione in funzione della densità:
+\begin{gather*}
+    p = p(\rho) \qquad \frac{dp}{dx} = \frac{dp}{d\rho} \frac{d\rho}{dx}
+\end{gather*}
+Adesso, utilizzando la velocità di propagazione delle onde di compressione,
+si può ottenere una nuova espressione per l'equazione di continuità:
+\begin{gather*}
+    u \frac{du}{dx} = - \frac{1}{\rho} \frac{dp}{dx} = - C_s^{2} \frac{1}{\rho}\frac{dp}{dx}
+\end{gather*}
+Dunque
+\begin{gather*}
+    -\frac{1}{\rho}\frac{d\rho}{dx} = \frac{1}{u}\frac{du}{dx} - \frac{1}{A}\frac{dA}{dx} \ \Longrightarrow \ u\frac{du}{dx}= - C_s^{2}\left(\frac{1}{u}\frac{du}{dx}\right) + \frac{C_s^{2}}{A}\frac{dA}{dx}
+\end{gather*}
+Posso dunque riscrivere il tutto come
+\begin{gather*}
+    \left(\frac{u^{2}}{C_s^{2}} - 1\right) \frac{1}{u}\frac{du}{dx} = \frac{1}{A} \frac{dA}{dx}
+\end{gather*}
+Il rapporto tra la velocità è la velocità del suono prende il nome di 
+\textbf{numero di Mach} $M$:
+\begin{gather*}
+    (M^{2} - 1)\frac{1}{u}\frac{du}{dx} = \frac{1}{A} \frac{dA}{dx}
+\end{gather*}
+Si riprende ora l'equazione di continuità, 
+\begin{gather*}
+    \frac{dp}{dx} = - \rho u^{2} \frac{1}{u}\frac{du}{dx} = - \frac{\rho u^{2}}{M^{2} - 1} \frac{1}{A} \frac{dA}{dx}
+\end{gather*}
+Posso cambiare di segno e ottenere la seguente relazione
+\begin{gather*}
+    (1 - M^{2}) \frac{dp}{dx} = \rho u^{2} \frac{1}{A} \frac{dA}{dx}
+\end{gather*}
+L'andamento della velocità dipende dunque dal profilo della conduttura: supponendo di
+avere un gas caldo con velocità molto piccola rispetto alla velocità del suono, 
+il flusso subsonico comincia ad accelerare in una conduttura convergente in quanto 
+se diminuisce l'area, aumenta la velocità.  Se $\frac{dA}{dx} = 0$, non accelera,
+dunque il fluido ha la velocità del suono localmente e a destra della strozzatura 
+il fluido può o continuare ad accelerare in maniera indefinita a velocità supersonica
+e diminuire la propria pressione, oppure può rallentare e aumentare la propria pressione
+rispetto all'ambiente esterno. 
+Questo oggetto prende il nome di \textbf{strozzatura di De-Laval}. 
+
+
+\end{document}

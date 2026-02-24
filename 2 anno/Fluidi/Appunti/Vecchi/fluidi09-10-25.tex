@@ -1,0 +1,245 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di Fluidi}
+\author{Tommaso Miliani}
+\date{09-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Validità di Van Der Walls}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (4, 0);
+        \draw(0, 0) -- (0, 4);
+        \draw(0.5, 3.5) .. controls (0.6, 0.6) .. (0.75, 0.5);
+        \draw(0.75, 0.5) .. controls (1.5, 1.8) and (2, 1.8) .. (3.5, 0.9);
+        \filldraw[cyan, opacity = 0.3] (0.58, 1.25) .. controls (0.6, 0.6) .. (0.75, 0.5) .. controls (1, 1) .. (1.33, 1.25);
+        \filldraw[cyan, opacity = 0.3] (1.33, 1.25) .. controls (1.5, 1.5) and (2, 1.68) .. (2.8, 1.25) -- (1.33, 1.25);
+        \filldraw(0.4, 1) circle (0pt) node[anchor = center] {$A_1$};
+        \filldraw(2, 1.8) circle (0pt) node[anchor = center] {$A_2$};
+        \draw(0, 1.25) -- (4, 1.25); 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Possiamo riscrivere l'equazione di Van Der Walls come
+\begin{gather*}
+    V^{3}p - V^{2}(RT + bp) + aV -ab = 0  
+\end{gather*}
+Dobbiamo ora modificare questa equazione ancora per poter prevedere
+la curva isoterma sotto la temperatura critica. Un modo per farlo è quello
+di osservare gli esperimenti e scegliere il livello di pressione in modo tale
+che per un certo valore di pressione le due aree $A_1$ e $A_2$ siano uguali.
+Supponendo di metterci nel caso di temperatura inferiore alla temperatura critica
+in modo tale che l'isoterma possa intersecare almeno una retta orizzontale
+tre volte. MaxWell dice che si deve scegliere il livello di pressione in modo
+tale che le due aree devono essere uguali. Allora i risultati che si ottengono
+dalle relazioni con la temperatura critica sono congruenti con gli  esperimenti
+che sono circa equivalenti ad uno (sempre minori di uno).
+
+Si definiscono delle grandezze adimensionali 
+\begin{gather*}
+    \tilde{T} = \frac{T}{T_c} \qquad \tilde{V} = \frac{V}{V_c} \qquad \tilde{p} = \frac{p}{p_c}
+\end{gather*}
+Possiamo allora far scomparire i parametri $a, b$ dall'equazione secondo
+la seguente:
+\begin{gather*}
+    \left(\tilde{p} + \frac{3}{\tilde{V}^{2} }\right)\left(3\tilde{V} - 1\right) = 8\tilde{T}
+\end{gather*}
+In questo modo con queste particolari unità si ottengono le stesse
+isoterme per tutti i gas. Facendo infatti scomparire i termini $a, b$, questo vuol
+dire che tutti i fluidi si comportano allo stesso modo ma semplicemente 
+con scale diverse. Questa equazione prende il nome di \textbf{equazione di universalità}. 
+Questa cosa non è per niente ovvia in quanto ad una prima analisi si potrebbe dire che 
+i fluidi si comportino tutti in modo diverso; con questa equazione si è riassunto
+il comportamento di tutti i fluidi all'interno di una unica equazione. Gli esperimenti
+non confermano questa predizione approssimata: infatti se scalassi le curve sperimentali
+con le temperature critiche non è vero che diventano le stesse isoterme; tuttavia
+più mi avvicino al punto critico e più questa è precisa: al punto critico è esatta. 
+Successivamente nel novecento si è arrivati ad una equazione più precisa che
+è ci ha permesso di ottenere descrizioni molto più accurate per le 
+isoterme. Ken o Wilson nel 1982 è riuscito a costruire una teoria che ha permesso
+di ottenere le descrizioni per le isoterme dei gas in modo accurato. 
+
+\section{Diagramma di fase}
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \centering
+    \caption{Diagramma di fase}
+    \begin{tikzpicture}[scale = 0.9]
+        \draw[->](0, 0) -- (6, 0) node[at end, below] {$T$};
+        \draw[->](0, 0) -- (0, 4.25) node[at end, left] {$p$};
+        \draw(0, 0) .. controls (1, 0.75) and (1.5, 1.1) .. (2, 2);
+        \draw(2, 2) .. controls (2.5, 2) and (3.25, 2.2) .. (4, 3);
+        \draw(2, 2) .. controls (2.3, 2.6) and (2.4, 3) .. (2.5, 3.5);
+        \filldraw(1, 3) node[anchor = center] {solido};
+        \filldraw(3, 1) node[anchor = north] {gas};
+        \filldraw(3, 3) node[anchor = center] {liquido};
+        \filldraw(2, 2) circle (1pt) node[anchor = east] {$P_3$};
+        \filldraw (4, 3) circle (1pt) node[anchor = south east] {$P_c$};
+        \draw[dashed](4, 0) -- (4, 4) node[at start, below] {$T_c$};
+        \draw[dashed](2, 0) -- (2, 2) node[at start, below] {$T_3$};
+        \draw[dashed](2.5, 3.5)  -- (2.6, 4); 
+        \node[align = center] (c) at (5.5, 3.5) {fluido \\ supercritico};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Conviene utilizzare grafici temperatura-pressione. Per una
+qualsiasi sostanza pura, ci sono tre regioni separate da delle curve:
+queste curve delineano i passaggi di stato. Come si osserva dal grafico,
+è possibile ottenere dei passaggi di stato in modo tale da
+passare direttamente da solido a gassoso o viceversa senza passare
+dal liquido. Al centro del grafico c'è il \textbf{punto triplo}
+dove le tre fasi sono in equilibrio; sulle curve che separano i vari stati
+si ha l'equilibrio degli stati adiacenti alle curve stesse. 
+C'è anche un altro punto notevole sul grafico, ossia il \textbf{punto critico}
+dove la curva del cambiamento di stato "finisce". Infatti prima del
+punto critico io posso passare da uno stato all'altro semplicemente
+modificando i parametri di temperatura e di pressione. Se io volessi prendere
+i medesimi punti di inizio e arrivo ma volessi passare alla destra
+del punto critico, io posso avere passaggio di stato senza nessun tipo di singolarità
+diventando gradualmente da gas a liquido. La presenza del punto critico mi permette di
+non ottenere passaggi bruschi (ossia le proprietà del fluido "saltano" in modo non continuo)
+da una fase all'altra: quella regione oltre il punto critico
+prende il nome di \textbf{regione sovracritica}, nella quale,
+liquido e gas sono indistinguibili e hanno lo stesso comportamento. I fluidi
+che sono in quella regione prendono il nome
+di \textbf{fluido supercritico}. 
+Si è detto che per la descrizione completa di un gas c'è bisogno di tre variabili: 
+quelle che sono curve, nel grafico a tre dimensioni diventano superfici.
+
+\section*{Trasformazioni termodinamiche}
+\section{Come avvengono le trasformazioni}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$p$};
+        \filldraw(1, 2.5) circle (1pt) node[anchor = south] {$I$};
+        \filldraw(3, 1) circle (1pt) node[anchor = north] {F};
+        \draw[->](1, 2.5) .. controls(1.8, 2.4) and (2.4, 2) .. (3, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Non sempre si è in grado di determinare cosa accade tra un passaggio
+di stato all'altro anche se si è in grado di determinare le fasi 
+di arrivo e partenza. Dato un sistema termodinamico con uno stato
+iniziale e finale, nel mezzo non so cosa accade al sistema poiché
+le variabili termodinamiche sono ben definite solamente allo
+stato di equilibrio. Se si immagina di fare questo cambiamento di stato
+in maniera estremamente lento, posso allora definire in maniera discreta tanti
+microstati di equilibrio uno dopo l'altro come una successione di punti sul grafico
+che determinano gli stati. Questo tipo di Trasformazioni termodinamiche prendono
+il nome di \textbf{trasformazioni statiche}: ossia delle trasformazioni 
+di durata infinita. Dato che non dispongo di tempo infinito, posso definire un certo
+margine e dunque queste trasformazioni prendono il nome di \textbf{trasformazione quasi statiche}.
+Quando l'istante iniziale e finale coincidono, questo tipo di Trasformazioni quasi
+statiche prendono il nome di \textbf{ciclo} o \textbf{trasformazione ciclica}.
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Trasformazioni isocore, isobare e isoterme}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0)node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 4)node[at end, left] {$p$};
+        \filldraw (1, 1.5) circle (1pt) node[anchor = east] {I};
+        \filldraw (3, 1.5) circle (1pt) node[anchor = south] {$F_1$};
+        \filldraw (3, 0.5) circle (1pt) node[anchor = west] {$F_2$};
+        \draw[dashed] (1, 1.5) .. controls (1.5, 1) and (2, 0.8) .. (3, 0.5);
+        \draw[thick](1, 1.5) -- (3, 1.5) -- (3, 0.5);        
+    \end{tikzpicture}    
+\end{wrapfigure}
+Ci sono anche dei casi particolari delle trasformazioni quasi statiche:
+\begin{itemize}
+    \item \textbf{Isobare}: sono delle trasformazioni quasi statiche
+    a pressione costante;
+    \item \textbf{Isocore}: trasformazioni quasi statiche a volume costante;
+    \item \textbf{Isoterme}: trasformazioni quasi statiche a temperatura costante;
+    in questo caso io non conosco l'equazione della curva isoterma ma posso
+    determinare che se avviene alla stessa temperatura so che sta su di una curva.
+\end{itemize}
+Se la trasformazione non è quasi statica io non potrei rappresentarla
+come è nel grafico poiché altrimenti non conoscerei i valori della pressione e
+del volume durante la trasformazione. Un caso particolare di 
+trasformazione termodinamica è la \textbf{trasformazione adiabatica}: questa particolare
+trasformazione è una sottoclasse delle trasformazioni isoterme.
+
+\subsection{Espansione libera adiabatica di un gas}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Espansione libera adiabatica}
+    \begin{tikzpicture}
+        \draw[thick](0, 0) rectangle (2, 1);
+        \draw[thick](1, 0) -- (1, 1);
+        \filldraw[color = cyan, opacity = 0.3] (0, 0) rectangle (1, 1);
+        \draw[thick](3, 0) rectangle (5, 1);
+        \filldraw[color = cyan, opacity = 0.3] (3, 0) rectangle (5, 1);
+    \end{tikzpicture}
+\end{wrapfigure}
+La situazione è quella di un recipiente a pareti adiabatiche: fuori dal sistema
+c'è l'ambiente. L'espansione libera adiabatica di un gas è l'espansione di un
+gas in una camera adiabatica divisa in due parti: se il gas sta in una
+parte della parete (all'equilibrio) e si rimuove  (rapidamente) la parete che
+separa le due parti della camera adiabatica, allora il gas
+non ha più un muro che lo separa dall'altra parte della camera e 
+dunque tenderà ad espandersi.
+\begin{gather*}
+    V_F > V_I 
+\end{gather*}
+Questo tipo di trasformazione non è quasi statica poiché
+avviene molto rapidamente. Quale è la relazione tra la temperatura iniziale
+e finale? In questo esperimento si osserva che la temperatura finale è \emph{poco} minore
+di quella finale. Per qualunque gas ideale la temperatura è leggermente minore. Posso 
+allora diminuire il gas all'interno della camera adiabatica: in questo modo
+la temperatura è minore di quella iniziale ma maggiore rispetto all'esperimento di
+prima. Allora si ottiene che per un gas molto rarefatto:
+\begin{gather*}
+    \lim_{p \to 0} \text{ gas } \ \Longrightarrow \ T_F \to T_I 
+\end{gather*}
+
+
+\end{document}

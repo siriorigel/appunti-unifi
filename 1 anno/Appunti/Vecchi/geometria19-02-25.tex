@@ -1,0 +1,286 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{GEometria}
+\author{Tommaso Miliani}
+\date{19-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Il Determinante}
+Prima di definire il determinate, occorre introdurre alcune definizioni e proprietà:
+\begin{definition}
+    Una funzione $D$ qualunque tale che $D: M(n \times n, R) \to K$ si dice
+    multilineare sulle righe se è lineare come funzione di ciascuna riga
+\end{definition}
+La parola multilineare vuol dire che la matrice deve essere lineare su tutte le righe,
+si dice anche, se una matrice è $n \times n$, che è lineare $n$ volte. La matrice
+A la riga $A_j = A_j'$ e per la riga $A_i = \lambda A_i' = \mu A^{"}_i$. La nostra matrice $A$ è costruita
+in modo tale che tutte sono uguali al di fuori della riga $i$ però nella riga iesima essa è combinazione
+lineare delle righe delle altre due matrici (come scrtitto sopra) QUindi si ottiene:
+\begin{gather*}
+    D(A) = \lambda D(A') + \mu D(A").
+\end{gather*}
+Esempio: la funzione D delle matrici $2 \times 2$ definita nella seguente maniera: 
+\begin{gather*}
+    \left[ \begin{tabular}{c c}
+        $a_{1, 1}$ $a_{1, 2}$ \\
+        $a_{2, 1}$ $a_{2, 2}$
+    \end{tabular} \right] = a_{1,1} a_{2, 2} - a_{1, 2} a_{2, 1}
+\end{gather*}
+è multilineare. Le matrici definite come segue:
+\begin{gather*}
+    a_{1, 1} a_{2, 1} + a_{2, 2} a_{1,2} = D_1 \\
+    a_{1, 1} a_{1, 2} + a_{2, 1} a_{2, 2} = D_2
+\end{gather*}
+La prima matrice è lineare nella prima riga e quindi è anche multilineare.
+La seconda matrice non è lineare perché nella combinazione lineare se moltiplico la priam
+riga per $\lambda$ allora si ottiene $\lambda^{2}$ che rende la combinazione non più lineare
+quindi non è lineare e nemmeno multilineare. \\
+Questa è la prima proprietà del determinante. 
+\begin{definition}
+    Una matrice definita da una funzione $D: M(n \times n, R) \to K$ si dice
+    alternante sulle righe se ha 2 righe uguali allora $D(A) = 0$. 
+\end{definition}
+\begin{gather*}
+    D(A) = a_{1, 1} a_{2, 2} - a_{2, 1} a_{1, 2} = 0
+\end{gather*}
+E' alternante sulle righe tranne che sulla riga $i$, anche se definisco
+la funzione come: 
+\begin{gather*}
+    a_{1, 1} a_{1, 2} - a_{2, 1} a_{2, 2} = D_3
+\end{gather*}
+E' alternante, quando le due righe sono uguali allora si annulla. 
+Esercizio: tutte le funzioni $D: M(2 \times 2) \to K$ che sono multilineare sulle
+righe e alternanti sono un multiplo di $D = c (a_{1, 1} a_{2, 2} - a_{2, 1} a_{1, 2}) = 0, c \in K$
+la costante più facile è $c = 0$ che soddifa le proprietà ma non è interessante.
+Esercizio: se una matrice ha una riga nulla allora $D(A) = 0$ e per la proprietà delle
+funzioni lineari, applicando la multilinearità alla riga nulla, si ottiene
+proprio $0 \to 0$ il che soddisfa l'alternanza. 
+\begin{definition}
+    Sia $D(Q_{K}) \to K$ (VEDERE $Q_K$ sul libo) si dice multilineare sulle righe
+    rispettivamente alternante se $\forall n > 0 \in N$ vale che se $D$ è ristretto
+    alle matrici $n \times n$ è multilineare sulle righe rispettivamente alternativamente. 
+\end{definition}
+Unendo tutte le matrici $n \times n$ e chiamo la multilinearità per un n fissato allora sono anche
+alternanti sulle righe e viceversa. 
+
+\begin{lemma}
+    Sia $D : M(n \times n, R) \to K$ multilineare sulle righe e se D è alternante
+    sulle righe e $\hat{A}$ si ottiene A scambiando due righe allora $D(A) = - D(\hat{A})$. Vale anche
+    il viceversa supponendo sul campo che $1 + 1 \neq 0$ che spesso è falso in alcuni campi ma è vero
+    nei campi dei razionali, reali e complessi. 
+\end{lemma}
+\begin{proof}
+    Considero la matrice $\hat{A}$ con le righe scambiate e considero una nuova matrice
+    che alla riga $i$ vale la somma delle due e alla riga $j$ la stessa cosa. Questo vuol dire
+    che la nuova matrice ha due righe che sono esattamente uguali, quindi :
+    \begin{gather*}
+         0 = D(A') = \text{le combinazioni delle righe (sono 4)}
+    \end{gather*}
+    Ossia:
+    \begin{gather*}
+        D(A) + D(\hat{A} ) = 0 \\
+        D(A) = -D(\hat{A})
+    \end{gather*}
+\end{proof}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 1.1}
+    \caption{La relazione tra le matrici $A$ e $\hat{A}$}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (2, 2);
+        \draw(3, 0) rectangle (5, 2); 
+        \draw[pattern=north west lines](0, 0.5) rectangle (2, 0.75);
+        \draw[pattern=north west lines](0, 1.25) rectangle (2, 1.5);
+        \draw[pattern=north west lines](3, 0.5) rectangle (5, 0.75);
+        \draw[pattern=north west lines](3, 1.25) rectangle (5, 1.5);
+        \draw[->, thick] (2, 1.35) -- (3, 0.6);
+        \draw[->, thick] (2, 0.6) -- (3, 1.35);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Focalizzandosi sulla righe $i, j$ della matrice A, allora la matrice $\hat{A}$ è ottenuta scambiando
+le righe $i, j$ (l'operazione è proprio lo scambio combinatorio). Una qualunque permutazione
+delle righe si ottiene componendo molte delle righe e naturalmente per ogni permutazione
+si ottiene una matrice $\hat{A}$ diversa.  Cambiando il verso delle righe vuol dire
+cambiare il verso del parallelogramma generato dalla matrice.
+
+\begin{lemma}
+    Sia $D: M(n \times n, K) \to K$ multilineare sulle righe e alternante
+    Se $A'$ si ottiene da $A$ con una operazione elementare di tipo 3 di Gauss sulle
+    righe allora $D(A') = D(A)$. In altre parole questa funzione è invariante
+    per operazioni elementari di tipo 3. 
+\end{lemma}
+\begin{proof}
+    La riga $i$ di$A'$ è la stessa di $A$ ed è invariata e la riga $j$ di $A'$ 
+    è sommata a $\lambda$ volte la riga $i$ di $A$. 
+    \begin{gather*}
+        D(A') = D(A) + \lambda D(A^{'mod} )
+    \end{gather*}
+    Il termine più a destra è proprio quella somma di righe per scalare.
+    IN particolare se $A'$ si ottiene da $A$ allora si ha che moltiplicando $\lambda$ la riga
+    i-esima si ottiene che$D(A') = \lambda D(A)$
+\end{proof}
+
+\begin{definition}
+    La $D: Q_K \to K$ si dice normalizzata se, quando è calcolata
+    su di una matrice identità è uguale ad 1:
+    \begin{align}
+        D(I_n) = 1, \qquad \forall n > 0 \in N
+    \end{align}
+\end{definition}
+
+\begin{lemma}
+    Sia $D : M(n \times n, K) \to K$ multilineare sulle righe
+    i normalizzate, allora: 
+    \begin{align}
+        D \left[ \begin{tabular}{c c c}
+            $d_1$ \dots \dots \\
+            \dots \dots \dots \\
+            \dots \dots $d_n$
+        \end{tabular}\right] = d_1 \cdot  d_2 \cdot \dots d_n 
+    \end{align}
+\end{lemma}
+\begin{proof}
+    Si può portare fuori $d_1$ per la linearità, posso fare lo stesso
+    con la seconda riga ed ottengo sempre:
+    \begin{gather*}
+        d_1 d_2\left[ \begin{tabular}{c c c}
+            1 \dots \dots \\
+            \dots 1 \dots \\
+            \dots \dots $d_n$
+        \end{tabular}\right]
+    \end{gather*}
+    REiternado per $n$ volte si ottiene che la matrice diventa
+    la matrice identità di dimensione $n$, per cui il processo
+    di nomralizzazione è completo ed è dimsotrato.
+\end{proof}
+
+\begin{theorem}[Unicità del determinante]
+    Esiste al massimo una funzione $D : M(n \times n, K) \to K$ che sia
+    multilineare sulle righe, alternante sulle righe e  normalizzata. 
+\end{theorem}
+\begin{proof}
+    VOglio dimostrare che se $D_1$ e $D_2$ soddisfano tutte le proprietà allora $D_1 = D_2$.
+    L'idea è usare gauss e ricondursi ad una forma diagonale: \\
+    Presa $A \in M(n \times n, K)$ devo provare che $D_1 = D_2$ e tutte e due soddisfano
+    le proprietà. Si riduce a scalini $A$ con operazioni elementari di tipo $I, III$ con scambi e
+    somma di multipli. SIa $A'$ questa nuova matrice a scalini ottenuta con $k$ scambi e ogni volta che faccio
+    uno scambio $D_1$ e $D_2 $ cambiano di segno $k$ e ciò che è vero è che:
+    \begin{gather*}
+        D_1(A) = (-1)^{k}D_1(A') \\
+        D_2(A) = (-1)^{k}D_2(A') 
+    \end{gather*}
+    Una matrice a scalini quadrata è di due tipi: è triangolare superiore con
+    elementi diagonali $\neq 0$ oppure con l'ultima riga nulla (La dimostraszione si divide in due). 
+    Se $A'$ ha l'ultima riga nulla allora:
+    \begin{gather*}
+        0 = D_1(A') = D_2(A') \\
+        0 = D_1(A) = D_2(A)
+    \end{gather*}
+    Altrimenti devo applicare Gauss all'indietro con operazioni di terzo
+    tipo ottenendo una forma diagonalizzata e quindi:
+    \begin{gather*}
+        D_1(A') = D_1(A) \\
+        D_2(A') = D_2(A)
+    \end{gather*}
+\end{proof}
+
+\begin{theorem}
+    $\exists !$ funzione $: D : Q_K \to K$ con le stesse proprietà
+    del determinante
+\end{theorem}
+\begin{proof}
+    Ci si riconduce ad una complessità sempre minore per il determinante, 
+    per le matrici $n \times n$ ci si riconduce alle matrici $n - 1 \times n - 1$
+    ed il caso di partenza è proprio la matrice $1 \times 1$, che è lineare e
+    multilineare, normalizzata e l'laternanza non ha senso.  \\
+    Scelta una riga qualunque il determinante non cambia ed è sempre quello:
+    scegliendo la riga $i$ e posso fare lo sviluppo del determinante su questa riga:
+    \begin{gather*}
+        a_{i, 1} \dots a_{i, n}
+    \end{gather*}
+    Posso creare una matrice con segni alternati a modo di scacchiare, lo sviluppo
+    di LAPLACE consiste nel prendere il coefficiente di ogni riga in modo da togliere 
+    la riga e la colonna corrispondente di quel determinato $a_{i, j}$. Si prende
+    il coefficiente col segno e si moltiplica con il determinante $n - 1 \times n-1$ corrispondente:
+    Il Determinante di $A$ è:
+    \begin{gather*}
+        \det(A) = \sum_{j = 1}^{n} (-1)^{i + j}a_{i, j}\det A_{i, j}  
+    \end{gather*}
+    Funziona qualunque sia la riga $i$. poiché permette di calcolare ricorsivamente
+    il determinate di ogni matrice continuando ad applicare all'indietro per matrici sempre
+    più semplici (LA DIM NON E' DA FARE)
+\end{proof}
+Esempio:
+CAlcolare il determinate di una matrice 2 per 2:
+\begin{gather*}
+    \left[ \begin{tabular}{c c}
+        $a_{1, 1}$ $a_{1,2} $ \\
+        $a_{2, 1}$ $a_{2,2}$
+    \end{tabular}\right] \quad quindi \quad \left[\begin{tabular}{c c}
+        + - \\
+        - + 
+    \end{tabular}\right]
+\end{gather*}
+Con lo sviluppo di LAPLACE si ottiene il determinante di una matrice $1 \times 1$
+per cui la matrice è normalizzata, lineare e multilineare e quindi esiste un unico
+determinante calcolabile che è esattamente l'unico elemento della matrice.
+
+\begin{theorem}
+    SI può applicare laplace anche alle colonne e non solo
+    alle righe (la dimostrazione è simili a quella per le righe)
+\end{theorem}
+
+\begin{theorem}
+    \begin{align}
+        \det(A) = det(^{t}A)
+    \end{align}
+\end{theorem}
+
+
+Calcolare:
+\begin{gather*}
+    \left[ \begin{tabular}{c c c}
+        2 0 -1 \\
+        2025 7 $\pi$ \\
+        3 0 $\sqrt{2}$ 
+    \end{tabular}\right]
+\end{gather*}
+Conviene usare LAPLACE sulla seconda colonna ottenendo:
+\begin{gather*}
+    7\left| \begin{tabular}{c c}
+        2 -1 \\
+        3 $\sqrt{2}$ 
+    \end{tabular} \right| = 7(2\sqrt{2} + 3) 
+\end{gather*}
+
+
+\end{document}

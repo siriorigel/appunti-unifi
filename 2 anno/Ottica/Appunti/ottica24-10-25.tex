@@ -1,0 +1,297 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Esperienza ottica geometrica}
+\author{Tommaso Miliani}
+\date{24-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section*{Continuo Esperienza ottica geometrica}
+\section{La soluzione di Gauss}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Schematizzazione della soluzione di Gauss}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (6, 0);
+        \filldraw(1, 0) circle (1pt) node[anchor = north east] {$S$};
+        \draw[<->](2, -1.25) -- (2, 1.25);
+        \draw(1, 0) -- (2, 1) -- (5, 0);
+        \draw(1, 0) -- (2, -1) -- (5, 0);
+        \draw[dashed](1, -2) -- (1, 1.75);
+        \draw[|-|](1.1, -2) -- (1.9, -2) node[midway, below] {$p_1$};
+        \draw[|-|](2.1, -2) -- (4.9, -2) node[midway, below] {$q_1$};
+        \filldraw(5, 0) circle (1pt) node[anchor =north west] {$I$};
+        \draw[dashed](5, 1.75) -- (5, -2);
+        \draw[|-|](1.1, 1.75) -- (4.9, 1.75) node[midway, above] {$s$};
+        \draw[|-|](2.1, 1.25) -- (3.9, 1.25) node[midway, above] {$l$};
+        \draw[red](1, 0) -- (4, 1) -- (5, 0);
+        \draw[red](1, 0) -- (4, -1) -- (5, 0);
+        \draw[red, <->](4, -1.25) -- (4, 1.25);
+        \draw[|-|](1.1, -1.8) -- (3.9, -1.8) node[midway, above] {$p_2$};
+        \draw[|-|](4.1, -1.8) -- (4.9, -1.8) node[midway, above] {$q_2$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il problema principale con la configurazione in laboratorio è che il centro di formazione dell'immagine virtuale ha un certo offset rispetto allo zero del
+nonio: l'allineamento centro della lente - lettura del nonio introduce
+dunque un errore $\epsilon$ per cui bisogna trovare un modo alternativo
+per poter misurare $p$ e $q$.  Gauss ha proposto una soluzione a questa
+problematica: se esistesse una configurazione per $p$ e $q$ per cui la legge
+delle lenti sottili è soddisfatta, allora esiste anche una configurazione 
+simmetrica per cui:
+\begin{gather*}
+    \frac{1}{p_1} + \frac{1}{q_1} = \frac{1}{f} \\
+    \frac{1}{p_2} + \frac{1}{q_2} = \frac{1}{f} \\
+    \ \Longrightarrow \ p_1 = q_2 \ \wedge \ q_1 = p_2
+\end{gather*}
+Ossia si invertono le distanze rispetto alla lente convergente considerata. Posso 
+dunque pensare che se si disponesse la lente ad una certa distanza $p_2 \neq p_1$,
+si otterrebbe una situazione in cui la stessa sorgente $S$ possa 
+far formare la stessa immagine in $I$. Posso 
+ora introdurre delle lunghezze (diverse da $p$ e $q$, ma comunque loro funzione) che 
+io conosco a priori e che sono definite come
+\begin{enumerate}
+    \item $s = p_1 + q_1 = p_2 + q_2$: ossia la distanza tra la sorgente e l'immagine;
+    \item $l = p_2 - p_1 = q_1 - p_1$: ossia la distanza tra le due lenti nelle due
+    differenti configurazioni.  
+\end{enumerate} 
+Con queste definizioni e con la legge delle lenti sottili si ottiene un sistema
+per cui, conosciuto $s$ e $l$, posso ottenere $p_1$ e $q_1$:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        s = p_1 + q_1 \\
+        l = q_1 - p_1 \\
+        \frac{1}{f} = \frac{1}{p_1} + \frac{1}{q_1}
+    \end{array}\right.
+\end{gather*}
+Dunque, risolvendo, si esprimono $p_1$ e $q_1$:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        q_1 = \frac{s + l}{2} \\
+        p_1 = \frac{s - l}{2} \\
+    \end{array}\right.
+\end{gather*}
+Adesso possiamo sostituire queste nella legge delle lenti sottili:
+\begin{gather*}
+    \frac{1}{f} = \frac{2}{s - l} + \frac{2}{s + l} = \frac{4s}{s^{2} - l^{2}  }\ \Longrightarrow \ f = \frac{s^{2} - l^{2}  }{4s}
+\end{gather*}
+Ossia l'espressione della focale della lente in funzione di soli $s$ ed $l$. 
+
+\section{Applicazione della soluzione di Gauss all'esperienza geometrica}
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (6, 0);
+        \draw(1, -0.2) -- (1, 0.2) node[at start, below] {$I_1^{V}$};
+        \draw(2, -0.2) -- (2, 0.2) node[at start, below] {$I_1^{N}$};
+        \draw(4, -0.2) -- (4, 0.2) node[at start, below] {$I_2^{V}$};
+        \draw(5, -0.2) -- (5, 0.2) node[at start, below] {$I_2^{N}$};
+        \draw[|-|](1, 0.5) -- (2, 0.5) node[midway, above] {$\epsilon$};
+        \draw[|-|](4, 0.5) -- (5, 0.5) node[midway, above] {$\epsilon$};
+    \end{tikzpicture}
+\end{gather*}
+Per poter trovare $s$ e $l$ per porci nelle condizioni della soluzione di Gauss,
+ii possono ora indicare le posizioni:
+\begin{itemize}
+    \item $I_1^{N}$ la posizione misurata con il nonio dell'oculare
+    quando la sorgente virtuale coincide con il crocefilo dell'oculare: ossia quando
+    per il nostro occhio è a fuoco. Ci possiamo immaginare che a causa della differente posizione
+    tra il nonio ed il crocefilo ci sia un certo $\epsilon$ di 
+    differenza tra le due posizioni.
+    \item $I_1^{V}$ diventa la
+    posizione vera della sorgente virtuale rispetto alla scala graduata della guida.  
+\end{itemize}
+Dato che c'è questo offset rispetto alla formazione dell'immagine virtuale, 
+da qualche parte dietro la lente ci sarà un $I_2^{V}$ dove c'è la formazione
+dell'immagine vera. Quando l'immagine è a fuoco allora vuol dire che l'immagine vera si
+sta generando sul crocefilo.  $I_2^{V}$ è dunque l'immagine reale, ossia la posizione
+dell'immagine vera rispetto alla scala graduata, ovviamente in corrispondenza della
+$I_2^{V}$ ci sarà la lettura del nonio che è chiamata come $I_2^{N}$, ossia la posizione
+misurata dal nonio dell'oculare quando l'immagine è a fuoco.
+Dunque posso dire che
+\begin{gather*}
+    s = I_2^{V} - I_1^{V}  
+\end{gather*}
+E, per l'offset di $\epsilon$:
+\begin{gather*}
+    I_1^{N} = I_1^{V} + \epsilon \\
+    I_2^{N} = I_2^{V} + \epsilon    
+\end{gather*}
+Per ricavare le misure vere bisogna fare in modo da ottenere
+una espressione per $\epsilon$ attraverso la distanza $s$:
+\begin{gather*}
+    s = (I_2^{N} - \epsilon) -  (I_1^{N} - \epsilon )
+\end{gather*}
+Ho dunque legato la distanza tra due posizioni che non conosco,
+ma che sono traslate della medesima quantità; dunque, posso determinare
+la distanza come
+\begin{gather*}
+    s = I_2^{N} - I_1^{N}  
+\end{gather*}
+Ossia semplicemente la distanza tra le due posizioni trovate dall'oculare. 
+Bisogna ora trovare la distanza $l$ e determinare se effettivamente esiste
+sempre questa distanza per la quale si ottiene la situazione
+simmetrica nella soluzione di Gauss. Dato un certo $s$, c'è una condizione
+matematica per la quale ci sono solamente certi valori di $s$ per cui
+si osserva la formazione dell'immagine. Fissata la focale $f$ e dato $s$,
+posso ora ricavare la distanza $l$ in funzione delle altre due:
+\begin{gather*}
+    l^{2} = s^{2} -4sf 
+\end{gather*}
+In questo modo posso ottenere che se $s^{2} - 4sf \geq 0$, allora $l^{2}$ ha una
+soluzione. Posso allora risolvere la disequazione (considerando che $s$ è positivo in quanto
+è una distanza):
+\begin{gather*}
+    s(s - 4f) \geq 0 \ \Longrightarrow \ s \geq 4f
+\end{gather*}
+Dunque la formazione di questa situazione simmetrica è 
+possibile solamente per questa condizione. Dire che $s = 4f$, 
+equivale a porci nel caso limite in una configurazione $2f-2f$. 
+Si pone il nonio e la lente misurando la prima posizione e poi la seconda in modo tale che
+la sorgente virtuale e l'oculare siano fissati e si deve spostare le lenti
+per far sì che si veda sempre a fuoco l'immagine
+
+
+\subsection{Le lenti dell'esperienza}
+Si possono determinare le posizioni vere e misurate
+dal nonio delle lenti con un altro offset diverso
+\begin{itemize}
+    \item $L_1^{V}$: posizione vera della prima lente
+    \item $L_1^{N}$: posizione dello zero del nonio della prima lente 
+    \item $L_2^{V}$: posizione vera della seconda lente
+    \item $L_2^{N}$: posizione dello zero del nonio della seconda lente
+\end{itemize}
+Posso allora chiamare $\epsilon'$ l'incertezza tra le due misure
+e dunque posso ottenere la relazione
+\begin{gather*}
+    L_2^{V} = L_2^{N} + \epsilon' \\
+    L_1^{V} = L_2^{N} + \epsilon'    
+\end{gather*}
+Dunque posso ottenere la distanza tra le due lenti $l$ con 
+la stessa procedura che si è utilizzato per determinare $s$:
+\begin{gather*}
+    l = L_2^{V} - L_1^{V} = L_1^{N} - L_1^{N}    
+\end{gather*}
+
+
+\section{Presa delle misure}
+Ci sono due metodi di misura:
+\paragraph{Primo metodo}
+Scegliere la posizione per cui un osservatore vede a fuoco 
+l'immagine e leggere il nonio (per cui ci sarà l'errore di sens del nonio);
+si sposta dunque l'oculare e ripeto questa misura un certo numero di volte
+(almeno 5 misure) di $I_1$. Adesso posso ottenere media e 
+scarto massimo per la posizione 
+\begin{gather*}
+    I_1 = \overline{I_1} \pm \Delta I_1  
+\end{gather*}
+A questo punto posso posizionare l'oculare ad una posizione fissata rispetto 
+alla guida (la sua incertezza è solo la sens del nonio). Si sceglie 
+quindi $I_2$ in modo tale che $s \geq 4f$ e si ottiene la posizione 
+\begin{gather*}
+    I_2 = I_2 \pm \Delta I_2
+\end{gather*}
+Dove la posizione è misurata una sola volta e l'incertezza è proprio
+la sensibilità del nonio. 
+Adesso si misura $L_1$ ossia la posizione per la quale si vede a fuoco l'immagine in $I_2$
+$5/6/7$ volte in modo che si ottenga
+\begin{gather*}
+    L_1 = \overline{L_1} \pm \Delta L_1 
+\end{gather*}
+E la stessa cosa faccio per la posizione della seconda lente
+\begin{gather*}
+    L_2 = \overline{L_2} \pm \Delta L_2 
+\end{gather*}
+Si determina ora $s$ come
+\begin{gather*}
+    \overline{s} = \overline{I_2} - \overline{I_1} \qquad \Delta s = \Delta I_1 + \Delta I_2 \\
+    \ \Longrightarrow \ s = \overline{s} + \Delta s   
+\end{gather*}
+E lo stesso si fa per $l$:
+\begin{gather*}
+    \overline{l} = \overline{L_2} - \overline{L_1} \qquad \Delta l = \Delta L_1 + \Delta L_2  \\
+    \ \Longrightarrow \ l = \overline{l} + \Delta l 
+\end{gather*}
+Adesso posso riprendere la formulazione che mi permette di trovare $f$:
+\begin{gather*}
+    f = \frac{s^{2} - l^{2}  }{4s}
+\end{gather*}
+Dunque per determinare $\overline{f}$ posso determinare
+i valori $\overline{l}$ e $\overline{s}$ e sostituirli mentre
+per l'incertezza si fa la propagazione degli errori:
+\begin{gather*}
+    \Delta f = \left|\frac{\partial f}{\partial s}\right| \Delta s + \left| \frac{\partial f}{\partial l}  \right|\Delta l  
+\end{gather*} 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Queste misure della focale sono consistenti tra di loro}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {sperimentatore};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$f$};
+        \draw(0, 2) -- (4, 2);
+        \draw[|-|](0.8, 1.65) -- (0.8, 2.2);
+        \draw[|-|](1.6, 1.78) -- (1.6, 2.4);
+        \draw[|-|](2.4, 1.5) -- (2.4, 2.1);
+        \draw[|-|](3.2, 1.9) -- (3.2, 2.6);
+    \end{tikzpicture}    
+\end{wrapfigure}
+E dunque si ottiene
+\begin{gather*}
+    \Delta f = \left| \frac{1}{4} + \frac{l^{2} }{4s^{2} } \right| \Delta s + \left| \frac{l}{2s} \right|\Delta l 
+\end{gather*}
+Bisogna anche assicurarsi che si riesca sempre a vedere l'immagine anche spostando
+indietro l'oculare perché in questo modo si è più suscettibili al cattivo allineamento
+dei componenti ottici: si verifica che l'asse ottico sia ben allineato prima
+di procedere con la determinazione delle altre misure di $f_i$.
+Ogni sperimentatore può ottenere il valore di $f$ e della sua incertezza; si verifica dunque
+che tutte le misure di $f$ siano consistenti tra di loro entro le rispettive 
+barre di errore.
+Posso prendere la media pesata e confrontarla con le singole 
+incertezze (dovrebbe essere minore).
+
+\end{document}

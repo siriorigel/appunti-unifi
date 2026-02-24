@@ -1,0 +1,272 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti Analisi}
+\author{Tommaso Miliani}
+\date{30-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Spazi Metrici}
+Sul Marcellini Sbordone è buona, mentre sul Pagani Salsa è trattato brevemente. \\
+Considerato un insieme $X$, se su questo insieme è definita una
+applicazione $d : X X \to d$ si dice che è metrica di $X$ se
+\begin{gather*}
+    \forall x, y \in X \qquad d(x, y) \geq 0 \Longleftrightarrow x = y \\
+    \forall x, y \in X \qquad d(x, y) = d(y, x) \\
+    \forall x, y, z \in X \qquad d(x, y) \leq d(x, z) + d(z, y)
+\end{gather*}
+Uno spazio metrico è una coppia di valori che mi definiscono una
+distanza all'interno di un insieme. NOn è necessario che ci sia una struttura algebrica
+definita per poter valere questa definizione (ossia non deve necessariamente esserci
+una operazione di somma o prodotto per scalari definita).
+\begin{example}
+    Su $\mathbb{R}$ si può considerare la distanza euclidea:
+    \begin{gather*}
+        d(x, y) = |x - y| 
+    \end{gather*} 
+    Un altro esempio
+    \begin{gather*}
+        d(x, y) = \left\{\begin{array}{l}
+            0 \qquad x = y \\
+            1 \qquad x \neq y
+        \end{array}\right.
+    \end{gather*} 
+\end{example}
+Se l'insieme considerato è uno spazio vettoriale allora è possibile definire una operazione di norma:
+\begin{gather*}
+    \forall v \in V ||v|| \geq \Longleftrightarrow v = 0 \\
+    ||\lambda v || = |\lambda| ||v||, \forall \lambda \in \mathbb{R}, \forall v \in V \\
+    \forall u, v \in V \qquad ||u + v|| \leq ||u|| + ||v|| 
+\end{gather*}
+\begin{definition}
+    Si definisce $(V, ||\cdot ||)$ come spazio normato. 
+\end{definition}
+\begin{example}
+    Prendendo come spazio vettoriale $\mathbb{R}^{N}$,
+    posso considerare la norma euclidea:
+    \begin{gather*}
+        ||v|| = \sqrt{\sum v_i^{2} } 
+    \end{gather*} 
+\end{example}
+\begin{lemma}
+    UNo spazio normato induce una metrica su $V$. 
+    \begin{gather*}
+        d(u, v) = ||u - v|| \qquad \forall u, v \in V
+    \end{gather*}
+\end{lemma}
+\begin{definition}
+    $(\mathbb{X}, \alpha)$, $(\mathbb{X}, \beta)$ sono due spazi metrici diversi 
+    con metrica equivalente: se $\exists k_1, k_2 \in \mathbb{R}$ tale che
+    \begin{gather*}
+        k_1d_{\beta}(x, y) \leq d_{\alpha}(x, y) \leq k_2 d_{\beta}(x, y)
+    \end{gather*}
+\end{definition}
+\begin{definition}
+    Uno spazio vettoriale può ammettere più metriche: la norma  per$\alpha$
+    e la norma per $\beta$ sono norme equivalenti se esistono
+    $c_1, c_2 \in \mathbb{R}$ tali che sono spazi normati 
+    \begin{gather*}
+        v \in V \qquad c_1||v||_{\beta} \leq ||v||_{\alpha} \leq c_2 ||v||_{\beta}
+    \end{gather*}
+\end{definition}
+\begin{example}
+    Le norme sullo spazio $\mathbb{R}^{N} $  con $x \in \mathbb{R}^{N}$ posso definire la norma $p$ esima, ossia una
+    estensione della norma euclidea prendendo le potenze $p$ esime
+    della norma euclidea e facendone la radice $p$ esima:
+    \begin{gather*}
+        ||x ||_{p} = \sqrt{\sum |x_i|^{p} } 
+    \end{gather*}
+    Con i diversi casi
+    \begin{gather*}
+        ||x||_1 = \sum |x_1|
+    \end{gather*}
+\end{example}
+\begin{definition}[Palle]
+    Da rivedere, copiare disegno. 
+    \begin{gather*}
+        B_p = \left\{x \in V  : ||x||_p \leq 1\right\}
+    \end{gather*}
+    Nel caso della norma euclidea la palla unitaria è
+    la sfera centrata nell'origine. Nel disegno, quando $ 0 < p \leq 1$
+    le sfere disegnate stanno dentro al cerchio mentre
+    quelle per cui $p > 1$ stanno fuori dal cerchio e il quadrato è
+    il caso limite di $p \to \infty $. 
+\end{definition}
+\begin{theorem}
+    Tutte le norme su $\mathbb{R}^{N}$ sono equivalenti. (ossia 
+    se la norma è fatta su di uno spazio finito).
+\end{theorem}
+
+\section{Gli spazi metrici infiniti}
+\begin{example}
+    Dato l'insieme $X = C^{K}([a, b])$.
+\end{example}
+\begin{gather*}
+    X = C^{K}([a, b]) \qquad ||f|| _{C^{0} } = ||f||_{\infty} = \max |f(x) | \qquad f \in C^{0}([a, b]) : f[a, b] \to \mathbb{R} 
+\end{gather*}
+In questo caso la definizione che si ottiene da Weirestrass è una buona definizione e dunque la norma che induce
+\begin{gather*}
+    d_{C^{0} }(f, g) = d_{\infty }(f, g) = ||f - g||_{\infty } \\
+    d_{L^{1} }(f, g) = \int_{a}^{b} |f - g|\ dx 
+\end{gather*}
+Sono due metriche non equivalenti sullo stesso spazio. La distanza $L_1$ è la norma dell'integrale
+del valore assoluto. Sono entrambe indotte da una norma ma non sono equivalenti. Si possono
+infatti trovare delle successioni che mi permettano di dire che non sono equivalenti.
+Manca un teorema.
+
+\section{Spazio delle funzioni da $\mathbb{R}^{2}$ a $\mathbb{R}$ }
+Un intorno di un punto su di uno spazio è diverso dall'intorno di un punto di $\mathbb{R}$
+se io considerassi lo spazio di funzioni allora sarebbe ancora più complicato. Dobbiamo allora
+fare alcuni cenni sulla topologia partendo da uno spazio metrico
+generico $(X, d)$ e andiamo a definire cosa è uno intorno generico di un punto
+in uno spazio metrico generico. 
+\begin{definition}
+    Per $x_0 \in \mathbb{X}, R > 0$ un intorno aperto di centro $x_0$ di raggio $R$  è
+    \begin{gather*}
+        B_{R} = \left\{x \in X : d(x_0, x) < R\right\} = U(x_0, R)
+    \end{gather*}
+    Si definisce invece un intorno chiuso come 
+    \begin{gather*}
+        B_{R} = \left\{x \in X : d(x_0, x) \leq R\right\}
+    \end{gather*}
+\end{definition}
+\begin{definition}
+    $\mathbb{A} \leq \mathbb{X}$ è definito come insieme aperto se
+    $\forall a \in \mathbb{A}$ esiste un $R$ tale per cui
+    \begin{gather*}
+        U(x_0, R) \leq A
+    \end{gather*}
+\end{definition} 
+\begin{definition}
+    $\mathbb{D} \leq \mathbb{X}$ è un insieme chiuso se $X \backslash D$ è aperto.
+\end{definition}
+\begin{theorem}
+    SI hanno i seguenti casi a seguito della definizione:
+    \begin{itemize}
+        \item L'unione di insieme aperti(anche numerabili) è aperta;
+        \item L'intersezione finita di insiemi aperti (anc che numerabili) è aperta;
+        \item L'unione finita di insiemi chiusi (anche numerabili) è chiusa;
+        \item L'intersezione di insiemi chiusi (anche numerabili) è chiusi
+    \end{itemize}
+\end{theorem}
+\begin{definition}
+    $x_0 \in \mathbb{X}$ è un punto interno se $\exists R$ tale che
+    \begin{gather*}
+        U (x_0, R) \leq \mathbb{X} 
+    \end{gather*}
+\end{definition}
+\begin{theorem}[Teorema di Heine-Borel ]
+    Se $\mathbb{K} \subset \mathbb{R}^{N}$ è un insieme compatto 
+    allora è anche chiuso e limitato. 
+\end{theorem}
+
+\section{Le successioni su spazi metrici generali}
+\begin{definition}
+    Consideriamo una successione $\{x_k\} \leq \mathbb{X}$  è una stringa di numeri
+    che è definita all'interno di uno spazio metrico. La successione
+    converge ad un valore $x$ se il punto limite appartiene a $\mathbb{X}$ e se
+    \begin{gather*}
+        \lim_{k \to \infty } d(x_k, x) = 0 
+    \end{gather*}
+    E' una distanza che ha valore in $\mathbb{R}$ e questo
+    limite lo so fare.
+\end{definition}
+\begin{lemma}
+    Se $\exists$ il limite allora è unico.
+\end{lemma}
+\begin{lemma}
+    $d_{\alpha}, d_{\beta}$ sono metriche equivalenti su $\mathbb{X}$ 
+    \begin{gather*}
+        \{x_k\} \leq \mathbb{X}
+    \end{gather*}
+    Allora $x_k$ converge in $x$ rispetto alla metrica $d_{\alpha}$ così come
+    alla metrica $d_{\beta}$. Questo perché per il teorema visto sulle metriche,
+    posso mettere a panino le metriche di beta e alfa per cui se quella fuori va
+    a zero allora anche quella nel panino va a zero (così come nel teorema dei
+    carabinieri). Per questo su $\mathbb{R}^{N}$ si considera solo la metrica euclidea.  
+\end{lemma}
+
+\begin{definition}
+    Sia $\{x_k\} \leq \mathbb{X}$ una successione di Cauchy in $(\mathbb{X}, d)$ 
+    se $\forall \epsilon > 0$ allora esisterà un $N$ tale per cui
+    \begin{gather*}
+        d(x_k, x_m) < \epsilon \qquad \forall k, m > N
+    \end{gather*}
+\end{definition}
+\begin{observation}
+    Sia $x_k$ una successione di Cauchy, allora $x_k$ converge
+    sullo spazio metrico $(\mathbb{X}, d)$ su cui è definita. Non
+    è vero che se $x_k$ converge allora sia necessariamente di Cauchy.
+\end{observation}
+\begin{example}
+    Preso l'insieme $\mathbb{X} = C^{1}([a, b]) $ con la distanza $d$ la distanza
+    massima 
+    \begin{gather*}
+        x_k = \sqrt{x^{2} + \frac{1}{k} } x \in [0, 1]
+    \end{gather*} 
+    Preso questo spazio di funzioni definito in questo modo, dobbiamo
+    allora provare che la successione è di Cauchy. Fissato un $\epsilon$ cerco
+    un $R$ per determinare una distanza massima:
+    \begin{gather*}
+        d(x_k, x_m) = \max  |x_k - x_m| 
+    \end{gather*}
+    Ossia
+    \begin{gather*}
+        \max \left| \sqrt{x^{2} + \frac{1}{k} } - \sqrt{x^{2} + \frac{1}{m} }  \right| 
+    \end{gather*}
+    Allora posso dire che se prendessi $k$ e $m$ grandi
+    allora, fissato $\epsilon$ si ha la soluzione:
+    \begin{gather*}
+        \frac{x^{2}+ \frac{1}{k} - x^{2} - \frac{1}{m}  }{\sqrt{x^{2} + \frac{1}{k} } + \sqrt{x^{2} + \frac{1}{m} }  } = \frac{1}{\sqrt{k} } - \frac{1}{\sqrt{m} } < \epsilon
+    \end{gather*}
+\end{example}
+
+
+
+\end{document}

@@ -1,0 +1,227 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            centering,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti Analisi 2}
+\author{Tommaso Miliani}
+\date{16-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Introduzione al corso}
+Il corso di analisi 2 si concentra sullo studio di equazioni differenziali, 
+calcolo differenziale per funzioni vettoriali (ossia funzioni che
+da un vettore restituiscono un vettore), equazioni a più variabili e
+infine successioni e serie di funzioni. \\
+L'esame di analisi 2 è composto da uno scritto e da un orale:
+lo scritto si passa con un voto minimo di 16 e durante l'anno ci saranno
+due prove parziali che sarà a Novembre (13) e l'altro parziale i primi giorni
+di Gennaio. 
+\begin{itemize}
+    \item Si può usare un libro di testo ed un foglio A4 (UNO SOLO) nel quale
+    c'è tutto quello che si riesce a scriverci.
+    \item Si può riprovare un parziale che si è fatto male 
+    \item Si può partecipare ai parziali anche se non si è fatto analisi 1
+    \item Il libro di testo consigliato è il "Fuscolo, Marcellini Sbordone Lezioni di analisi matematica 2"
+    oppure il "Bramanti Pagani Salsa analisi matematica 2" che purtroppo per alcuni argomenti non è completo.
+    \item Nessuna dispensa quindi per esercizi svolti rifarsi ai libri di testo "Esercitazioni di analisi due". 
+\end{itemize}
+
+
+\section{Equazioni differenziali}
+\begin{definition}[Equazioni differenziali]
+    Un'equazione differenziale è una equazione in cui l'incognita è una funzione 
+    di una qualche variabile. L'incognita è dunque $y = f(x)$. Si dice che una equazione differenziale
+    è ordinaria se dipende solo da una variabile; nel caso di equazioni differenziali
+    che dipendono da più variabili prendono il nome di equazioni differenziali a
+    \textbf{derivate parziali}.
+\end{definition}
+
+\begin{example}[Esempi di equazioni differenziali]
+    \begin{gather*}
+        y'' - y = 0 \qquad y' = 3e^{y}  \qquad y' = 4x + 8
+    \end{gather*}
+    La soluzione della prima è $y = \sin x$ in quanto $y'' = -\sin x$ 
+    e dunque $\forall x \in \mathbb{R} \ 0 = 0$. 
+\end{example}
+
+\begin{definition}[Ordine]
+    Si definisce \textbf{ordine} il numero della derivata massima che
+    compare all'interno delle equazioni differenziali. 
+\end{definition}
+
+\begin{definition}[Forma normale]
+    Una equazione si dice in forma \textbf{normale} se la derivata più grande è
+    isolata rispetto alle altre
+    \begin{align}
+        y^{(n)} = f(x, y, y', \dots, y^{(n - 1)} )
+    \end{align}
+\end{definition}
+\begin{example}
+    \begin{gather*}
+        (y')^{2} + x^{3} = 0   \ \Longrightarrow \ y ' = \pm \sqrt{x^{3} } 
+    \end{gather*}
+    Non riesco a ricavare una equazione del primo ordine del tipo $F(x, y, y')$. 
+    Quando riesco ad isolare da una parte la derivata più grande si riesce a semplificare
+    la risoluzione delle equazioni differenziali.
+\end{example}
+
+\subsection{Equazioni differenziali del primo ordine}
+La forma generale delle equazioni di primo ordine è del tipo
+\begin{align}
+    y' = f(x, y)
+\end{align}
+Una soluzione per questa forma generale di equazioni differenziale è una
+funzione $y$ della variabile $x$ definita per $x \in \mathbb{A}$ (un qualche insieme)
+e tale che per ogni $x \in \mathbb{A}$ risulti che $(x, y(x))$ appartenente al dominio di
+$f(x, y)$ e inoltre la derivata di questa funzione calcolata in $x$ è uguale a $y'(x) = f(x, y(x))$.
+\begin{example}[Esempio più semplice]
+    \begin{gather*}
+        y' = g(x) 
+    \end{gather*}
+    Dove $g(x) $ è una funzione continua appartenente ad un qualche insieme $\mathbb{A}$ 
+    e quindi un'equazione di questo tipo equivale a trovare la primitiva di $g$. 
+    Allora posso dire che $G(x) + c$ è soluzione dell'equazione differenziale, ossia la
+    primitiva di $g(x)$. 
+\end{example}
+\begin{example}[Esempio di prima con soluzione diversa]
+    Nell'equazione differenziale
+    \begin{gather*}
+        y'' - y = 0
+    \end{gather*}
+    Anche il coseno è soluzione in quanto si otterrebbe $y = \cos x$. Si ottiene
+    allora che la seguente è anch'essa soluzione dell'equazione +
+    \begin{gather*}
+        C_1 \sin x + C_2 \cos x = 0
+    \end{gather*}
+    Generalmente l'equazione di $n$ ordine ha $n$ costanti $C_1, \dots, C_n$ che moltiplicano. 
+\end{example}
+\begin{example}
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = x^{2} \\
+            y(1) = 2 
+        \end{array}\right.
+    \end{gather*}
+    Si ha che la primitiva di $y'$ è proprio $y = \frac{x^{3} }{3} + C$, data la seconda condizione
+    nel sistema allora si ottiene che
+    \begin{gather*}
+        \frac{1}{3}  + C = 2 \ \Longrightarrow \ C = \frac{5}{3}
+    \end{gather*}
+\end{example}
+\subsection{Il problema di Cauchy}
+Se in una equazione differenziale del primo ordine avessi una situazione del tipo
+\begin{gather*}
+    \left\{\begin{array}{l}
+        y' = f(x, y) \\
+        y(x_0) = y_0
+    \end{array}\right.
+\end{gather*}
+Ossia se ho delle condizioni sulle derivate fino alla $n-1$ esima, allora
+questa tipologia di esercizi prenderà il nome di \textbf{problema di Cauchy}:
+nel caso di una equazione del secondo ordine le condizioni non sono qualsiasi ma 
+seguono il seguente schema:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        y'' = f(x, y, y') \\
+        y(x_0) = y_0 \\
+        y'(x_0) = y_1
+    \end{array}\right.
+\end{gather*}
+Esistono alcuni teoremi che permettono di definire l'insieme delle soluzioni date
+le condizioni del secondo membro di ciascuno dei due sistemi. Iniziamo dai
+teoremi di esistenza delle soluzioni per il problema di Cauchy del primo ordine
+in forma normale 
+\begin{gather*}
+    \left\{\begin{array}{l}
+        y' = f(x, y) \\
+        y(x_0) = y_0
+    \end{array}\right.
+\end{gather*}
+SI definiscono alcune ipotesi prima di procedere:
+\begin{definition}[Punto interno ad un insieme]
+    \begin{gather*}
+        Se \ \mathbb{A} \subset \mathbb{R}^{2}, (x_0, y_0) \in \mathbb{A} 
+    \end{gather*}
+    Si dice che $(x_0, y_0)$ è interno all'insieme $\mathbb{A}$, se
+    esiste un cerchio di raggio positivo tale per cui il centro sia $(x_0, y_0)$ e sia contenuto
+    dentro all'insieme $\mathbb{A}$. Nel caso in cui $\mathbb{A} \subset \mathbb{R}^{3}$ allora diciamo che un punto
+    $(x_0, y_0, z_0)$ è interno all'insieme $\mathbb{A}$ se esiste una sfera di raggio positivo tale per cui
+    $(x_0, y_0, z_0)$ sia il centro e sia contenuto all'interno dell'insieme.
+\end{definition}
+\begin{theorem}[Teorema di Peano]
+    Se la funzione $f(x, y)$ è una funzione definita e continua  in un qualche insieme
+    $\mathbb{A}$ e $(x_0, y_0) \in \mathbb{A}$, allora il problema di Cauchy ammette almeno una soluzione 
+    definita in un intorno di $x_0$.  
+\end{theorem}
+Da questo possiamo fare due considerazioni:
+\begin{enumerate}
+    \item La continuità di $f(x, y)$ è necessaria per l'esistenza di una soluzione:
+    \item La sola ipotesi di continuità non è garantisce che esista una sola soluzione
+\end{enumerate}
+\begin{example}[differenziale risolta col problema dii Cauchy]
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = y^{2/3}  \\
+            y(0) = 0
+        \end{array}\right.
+    \end{gather*}
+    Allora dato che $f(x, y) = y^{2/3}$ è definita continua sull'intervallo $\mathbb{R} \times \mathbb{R}$ e quindi
+    una funzione costante  $f(x) = 0$ ha valore zero in zero e derivata prima uguale a zero. Anche $y(x) = \frac{x^{3} }{27}$ è soluzione
+    in quanto la derivata di questa funzione $y' = \frac{x^{2} }{9}$ ed è uguale a zero se calcolata in zero.  Questo problema di Cauchy
+    ha allora due soluzioni distinte anche se in realtà ha soluzioni infinite:
+    \begin{gather*}
+        y(x) = \left\{\begin{array}{l}
+            0 \ se \ x \in (-\infty , 0) \\
+            \frac{(x - a)^{3} }{27} \ se \ x \in (a, +\infty)
+        \end{array}\right.
+    \end{gather*}
+    Il teorema di Cauchy allora mi garantisce che esitano almeno una soluzione ma 
+    non mi da la certezza che sia solo una (potrebbero essere infatti infinite).
+\end{example}
+
+
+\end{document}

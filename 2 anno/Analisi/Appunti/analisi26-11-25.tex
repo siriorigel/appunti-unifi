@@ -1,0 +1,286 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Analisi (Bianchi)}
+\author{Tommaso Miliani}
+\date{26-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Cambiamento di variabile negli integrali tripli}
+Così come negli integrali doppi, è possibile effettuare cambiamenti di variabile 
+negli integrali tripli ed è perfettamente analoga nel caso del piano. per cui
+si possono esprimere le variabili associate agli assi cartesiani
+come
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (2, 0) node[at end, below] {$y$};
+        \draw[->](0, 0) -- (0, 2) node[at end, left] {$z$};
+        \draw[->](0, 0) -- (-1, -1) node[at end, left] {$x$};
+        \draw[->](4, 0) -- (6, 0) node[at end, below] {$v$};
+        \draw[->](4, 0) -- (4, 2) node[at end, left] {$w$};
+        \draw[->](4, 0) -- (3, -1) node[at end, left] {$u$};
+        \filldraw(1, 1) circle (1pt) node[anchor = south] {$P$};
+        \filldraw(5, 1) circle (1pt) node[anchor = south] {$P'$};
+    \end{tikzpicture} \\
+    x = a(u, v, w) \qquad y = b(u, v, w) \qquad z = c(u, v, w)
+\end{gather*}
+Si suppone ora che le tre funzioni siano $C^{(1)}$ e che ci sia un 
+dominio $D$ a cui corrisponda un dominio $D'$ associato agli assi $u, v, w$, 
+ossia che esista la seguente mappa $D' \to D$ biettiva e che
+la matrice Jacobiana della trasformazione abbia $\det \neq 0, \forall$ punto di $D'$. 
+Se $f$ è contenuta in $D$, allora 
+\begin{align}
+    \int_{D}^{} f(x, y, z) \ dx dy dz = \int_{D'}^{}f(a(u, v, w), b(u, v, w), c(u, v, w)) \left| \det J_T \right| \ dx dy dz  
+\end{align}
+Ossia è la stessa cosa del piano ma adattata ad una variabile in più. Quello che diventa più complicato sono 
+gli esempi di cambi di variabile. 
+
+\subsection{Coordinate cilindriche}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->] (0, 0) -- (4, 0);
+        \draw[->](0, 0) -- (0, 4);
+        \draw[->](0, 0) -- (-1, -2);
+        \filldraw(0, 3) circle (1pt) node[anchor = east] {$z$};
+        \draw[thick](0, 3) -- (2, 1) node[midway, above] {$\rho$};
+        \filldraw(2, 1) circle (1pt) node[anchor = west] {$P$};
+        \draw[thick](0, 0) -- (2, -2);
+        \filldraw(2, -2) circle (1pt) node[anchor = west] {$P'$};
+        \draw(-0.3, -0.6) arc (-120:-70:0.75) node[midway, below] {$\theta$};
+        \draw(2, - 2) -- (2, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Qualsiasi punto $P$ è proiettato sul piano $xy$ e, presa la retta
+sul piano che lo unisce all'origine, posso disegnare un cilindro che ha come
+raggio alla base il segmento identificato. La legge che vincola
+dunque le coordinate cartesiane a quelle cilindriche è la seguente:
+\begin{align}
+    p = (x, y, z) \leftrightarrow (\rho, \theta, z)
+\end{align}
+Dunque i punti sono identificati come 
+\begin{align}
+    \left\{\begin{array}{l}
+        x = \rho \cos\theta \\
+        y = \rho \sin \theta \\
+        z = z
+    \end{array}\right. \qquad \left| \det J \right| = \rho 
+\end{align}
+
+\begin{example}
+    Si vuole calcolare il seguente integrale definito nel dominio
+    $D$:
+    \begin{gather*}
+        \int_{D}^{} (x^{2} + y^{2}) \ dx dy dz 
+    \end{gather*}
+    Dove $D$ è definito come l'insieme delimitato da $z = 0$, $z = 1$, 
+    e dalle superfici cilindriche 
+    \begin{gather*}
+        x^{2} + y^{2} = 1 \qquad x^{2}+y^{2} = 4 
+    \end{gather*}
+    E dai piani $x = 0$ e $x = y$.
+    SI possono dunque ricavare le condizioni per il dominio $D'$:
+    \begin{itemize}
+        \item $1 \leq \rho^{2} \leq 4$
+        \item $0 \leq x \leq y$
+    \end{itemize}
+    Allora 
+    \begin{gather*}
+        D' = \{(\rho, \theta, z) : z \in [0, 1], \rho \in [1, 2], \theta \in [\frac{\pi}{4}, \frac{\pi}{2}]\}
+    \end{gather*}
+    Si può dunque esprimere l'integrale come 
+    \begin{gather*}
+        \int_{D'}^{} \left((\rho\cos\theta)^{2} (\rho\sin\theta)^{2}\right) d\rho d\theta dz
+    \end{gather*}
+    Si risolve allora come
+    \begin{gather*}
+        \int_{D'}^{} \rho^{3} \ d\rho d\theta  dz = \int_{1}^{2} d\rho \int_{\frac{\pi}{4}}^{\frac{\pi}{2}} d\theta \int_{0}^{1} \rho^{3} \ dz   = \frac{15}{16}\pi
+    \end{gather*}
+    Nel mondo $(\rho, \theta, z)$ l'insieme $D'$ è un parallelepipedo.
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[->](0, 0) -- (2, 0) node[at end, below] {$\theta$};
+            \draw[->](0, 0) -- (0, 2) node[at end, left] {$z$};
+            \draw[->](0, 0) -- (-1, -1) node[at end, below] {$\rho$};
+            \draw(-0.3, -0.3) -- (2, -0.3);
+            \draw(-0.6, -0.6) -- (2, -0.6);
+            \draw(0.75, 0) -- (-0.25, -1);
+            \draw(1.5, 0) -- (0.5, -1);
+            \draw[cyan, thick](0.45, -0.3) -- (0.45, 0.9);
+            \draw[cyan, thick](1.2, -0.3) -- (1.2, 0.9);
+            \draw[cyan, thick](0.15, -0.6) -- (0.15, 0.6);
+            \draw[cyan, thick](0.9, -0.6) -- (0.9, 0.6);
+            \draw[thick, cyan](0.9, 0.6) -- (0.15, 0.6) -- (0.45, 0.9) -- (1.2, 0.9) -- (0.9, 0.6);
+            \draw[thick, cyan](0.45, -0.3) -- (1.2, -0.3) -- (0.9, -0.6) -- (0.15, -0.6) -- (0.45, -0.3);
+        \end{tikzpicture}
+    \end{gather*} 
+\end{example}
+
+\begin{example}
+    SIa $D$ l'insieme dei punti sopra il paraboloide $z = x^{2} + y^{2}$ dentro 
+    la sfera di centro $(0, 0, 0)$ e di raggio $r = \sqrt{6}$. In termini di uguaglianza
+    \begin{gather*}
+        D = \{(z, y, z) : z \geq x^{2} + y^{2}, x^{2} + y^{2}+ z^{2} \leq 6\}
+    \end{gather*} 
+    Si deve calcolare il volume di $D$, l'utilizzo delle coordinate cilindriche
+    è molto pratico per la risoluzione di questo esempio:
+    \begin{gather*}
+        D = \int_{D}^{} 1 \ dx dy dz 
+    \end{gather*}
+    Dunque il mio  insieme è dato da
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[->](0, 0) -- (2, 0) node[at end, below] {$x$};
+            \draw[->](0, 0) -- (0, 2) node[at end, left] {$z$};
+            \draw(0, 1.5) .. controls (0.75, 1.3) and (1.3, 0.75) .. (1.5, 0);
+            \draw[domain = 0:1.5] plot (\x, {\x * \x}); 
+            \filldraw[cyan](0, 1.5) .. controls (0.75, 1.3) and (1.3, 0.75) .. (0.9, 0.95) .. controls (0.8, 0.6) and (0.5, 0.3) .. (0, 0);
+        \end{tikzpicture}
+    \end{gather*}
+    Ossia l'integrale diventa
+    \begin{gather*}
+        D' = \{(\rho, \theta, z) : z \geq \rho^{2} \quad \rho^{2} + z^{2} \leq 6\}
+    \end{gather*}
+\end{example}
+
+\clearpage
+\section{Coordinate sferiche}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0, 0) -- (4, 0, 0) node[at end, below] {$y$};
+        \draw[->](0, 0, 0) -- (0, 4, 0) node[at end, left] {$z$};
+        \draw[->](0, 0, 0) -- (0, 0, 3) node[at end, left] {$x$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+SI può allora definire una sfera di raggio $\rho$, in modo tale da ottenere
+le coordinate di un qualsiasi punto $P$ come
+\begin{gather*}
+    P \to (\rho, \phi, \theta) \qquad \left\{\begin{array}{l}
+        \rho \geq 0 \\
+        \phi \in [0, \pi] \\
+        \theta \in [0, 2\pi]
+    \end{array}\right.
+\end{gather*}
+Dunque le coordinate si esprimono come
+\begin{align}
+    \left\{\begin{array}{l}
+        x = \rho \sin\phi\cos\theta \\
+        y = \rho\sin\phi \sin\theta \\
+        z = \rho\cos\theta 
+    \end{array}\right.
+\end{align}
+Il determinante della matrice Jacobiana è dunque
+\begin{gather*}
+    \left| \det J \right| = \rho^{2}\sin\phi 
+\end{gather*}
+Se si fissano $\phi$ e $\rho$, si disegnano nello spazio della circonferenze
+ad una data quota $z$. Se si fissa solo $\phi$ si disegna un cono. 
+$\theta$ individua un piano sul quale giace sia $P$ che la proiezione di $P'$ 
+sul piano $xy$:
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$y$};
+        \filldraw(2, 2) circle (1pt) node[anchor = south] {$P$};
+    \end{tikzpicture}
+\end{gather*}
+
+\begin{example}[Un esempio importante]
+    Sia $H$ la semisfera $\{x^{2} + y^{2} + z^{2} \leq R^{2} \quad z \geq 0\}$. Supponiamo che
+    la densità di massa $d (x, y, z) = (2R - \rho)$. Voglio calcolare la massa
+    della semisfera. 
+    \begin{gather*}
+        \int_{H}^{}d(x, y, z) \ dx dy dz
+    \end{gather*}
+    Si ottiene in coordinate sferiche
+    \begin{gather*}
+        H' = \{\rho \leq R, \cos\phi \geq 0\} = \{\rho \in [0, R] , \phi \in [0, \frac{\pi}{2}], \theta\in [0, 2\pi]\}
+    \end{gather*}
+    Dunque la massa si ottiene come
+    \begin{gather*}
+        \int_{H}^{} (2R  - \rho) \ dx dy dz = \int_{H'}^{} (2R - \rho) \rho^{2}\sin\phi \ d\rho d\theta d\phi = \\
+        \int_{0}^{2\pi} d\theta \int_{0}^{R} d\rho \int_{0}^{\frac{\pi}{2}} d\phi (2R - \rho)\rho^{2}\sin\phi  = \frac{5}{12}R^{4}2\pi 
+    \end{gather*}
+\end{example}
+
+La massa totale di un corpo che occupa la regione di volume $\Omega$ e che
+ha densità di massa $ d(x, y, z)$ è l'integrale su di $\Omega$:
+\begin{gather*}
+    \int_{\Omega}^{} d(x, y, z) \ dx dy dz  
+\end{gather*}
+Il baricentro ha tre coordinate:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        x = \frac{\int_{\Omega}^{} xd(x, y, z)}{M} \ dx dy dz \\
+        y = \frac{\int_{\Omega}^{} yd(x, y, z)}{M} \ dx dy dz \\
+        z = \frac{\int_{\Omega}^{} zd(x, y, z)}{M} \ dx dy dz
+    \end{array}\right.
+\end{gather*}
+Il momento di inerzia si trova come
+\begin{gather*}
+    \int_{\Omega}^{} \delta^{2} (x, y, z) d(x, y, z) \ dx dy dz
+\end{gather*}
+Dove $\delta^{2}$ è la distanza di $(x, y, z)$ dall'asse rispetto 
+al quale si calcola il momento di inerzia.
+
+\begin{example}
+    Rispetto all'asse $z$, il momento di inerzia di un corpo con 
+    una certa distribuzione di densità di massa è data da:
+    \begin{gather*}
+        \int_{\Omega}^{} (x^{2} + y^{2})d(x, y, z) \ dx dy dz
+    \end{gather*}
+\end{example}
+
+\end{document}

@@ -1,0 +1,250 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica}
+\author{Tommaso Miliani}
+\date{25-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{La molla ideale}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 1.1}
+    \caption{La molla ideale}
+    \begin{tikzpicture}    \draw (0, 0) -- (0.5, 0);
+        \draw (0.5, 0) -- (0.5, -1);
+        \draw[decoration={aspect=0.3, segment length=2.2mm, amplitude=2mm,coil},decorate,opacity=0.9] (0.5, -0.5) -- (2.5,-0.5);
+        \draw (2.5, -1) rectangle (3.25, -0.25) node[midway] {$M$};
+        \draw (0.5, -1) -- (4, -1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+La relazione fondamentale del moto armonico della molla è:
+\begin{gather*}
+    m\ddot{x} = - kx
+\end{gather*}
+Che diventa
+\begin{gather*}
+    m\ddot{x}\dot{x} = -kx\dot{x}  
+\end{gather*}
+Integrando parte per parte si ottiene quello che più avanti chiameremo lavoro:
+\begin{gather*}
+    \frac{1}{2}m\dot{x}^{2} + \frac{1}{2}kx^{2}   
+\end{gather*}
+Ossia il moto armonico:
+\begin{align}
+    \ddot{x} + \omega^{2}x = 0 
+\end{align}
+con $\omega^{2} = \frac{k}{m}$: 
+
+\section{Il filo con massa}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 1.2}
+    \caption{FIlo con massa}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0);
+        \draw(3, 0) -- (3,-3);
+        \draw(1, 0) -- (1, 0.5);
+        \draw(1, 0.5) -- (3.5, 0.5);
+        \draw(3.5, 0.5) -- (3.5, -1.5);
+        \draw(3.5, -1.5) -- (3, -1.5);
+        \draw[->](3.25, -1.5) -- (3.25, -2.5) node[at end, right] {$\lambda x \vec{g}$};
+        \draw[->](3.25, -0.5) -- (3.25, -1) node[at end, below] {$x$};
+        \draw[->](3.25, -0.5) -- (3.75, -0.5) node[at end, right] {$y$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Assumendo che il filo abbia una densità costante, fissato un sistema di riferimento
+allora noi sappiamo che i due pezzi di filo hanno una certa dimensione.
+La massa del filo su cui agisce la forza peso sarà densità per lunghezza, ossia:
+\begin{gather*}
+    x \lambda, \lambda = \frac{M}{L}
+\end{gather*}
+Per cui la forza peso sul filo che ciondola è:
+\begin{gather*}
+    x\lambda\vec{g} 
+\end{gather*}
+E quindi si ottiene che:
+\begin{gather*}
+    M\ddot{x} = \lambda x g 
+\end{gather*}
+Si ottiene allora l'espressione dell'accelerazione del filo come:
+\begin{gather*}
+    \ddot{x} = - \frac{g}{L}x = 0
+\end{gather*}
+Chiamato allora $\beta^{2} = \frac{g}{L}$, si ottiene una equazione simile
+a quella della molla anche se non si può applicare seno e coseno come risoluzione dell'
+equazione
+\begin{gather*}
+    \ddot{x}-\beta^{2} x = 0 \\
+    x = Ae^{\beta t} + Be^{-\beta t} \\
+    \dot{x} = Ae^{\beta t} \beta - Be^{-\beta t} \beta \\
+    \ddot{x} = Ae^{\beta t}\beta^{2} + Be^{-\beta t} \beta^{2} = \beta^{2} x           
+\end{gather*} 
+Il solo segno meno ha cambiato completamente l'equazione. Ora ricavo $A$ e $B$ dalle condizioni
+iniziali:
+\begin{gather*}
+    \left\{ \begin{array}{c}
+        x = x_0 \\
+        \dot{x} = 0 
+    \end{array}\right.
+\end{gather*}
+Allora si ha che:
+\begin{gather*}
+    x(0) = x_0 = A + B \\
+    \dot{x}(0) = 0 = \beta(A - B)
+\end{gather*}
+Quindi le nostre soluzioni sono proprio il coseno e seno iperbolici:
+\begin{gather*}
+    x = x_0 \frac{e^{\beta t} + e^{-\beta t}}{2} = x_0 \cosh\beta t
+\end{gather*}
+Se $\beta t << 1$ allora per $ t = 0$ e $ x = x_0$ allora si ottiene
+sviluppando con Taylor i membri del coseno iperbolico:
+\begin{gather*}
+    e^{\beta t} = 1 + \beta t + \frac{1}{2}\beta^{2}t^{2} \\
+    e^{-\beta t} = 1 - \beta t + \frac{1}{2}\beta^{2}t^{2}
+\end{gather*}
+\begin{gather*}
+    x = x_0 \left(1 + \frac{1}{2}\beta^{2}t^{2}\right)
+\end{gather*}
+In $t = 0$ allora il moto è uniformemente accelerato, se invece 
+$t >> 0$, diventa un moto esponenziale, ossia le leggi che vincolano il moto
+fanno crescere la velocità esponenzialmente. Questo vuol dire che il corpo continua ad aumentare la sua velocità?
+No poiché una volta che il filo è finito allora continuerà a cadere come
+tutti i corpi e quindi:
+\begin{gather*}
+    x = \frac{x_0}{2}e^{\beta t} 
+\end{gather*}
+
+\subsection{Focus su equazioni differenziali lineari omogenee con coefficienti costanti}
+Un'equazione del genere è:
+\begin{align}
+    a_1\ddot{x} + a_2 \dot{x} + a_3 x = 0  
+\end{align}
+Un'equazione tipo:
+\begin{gather*}
+    x = Ae^{\alpha t} 
+\end{gather*}
+se si sostituisce nella differenziale si ottiene
+\begin{gather*}
+    Ae^{\alpha t} (a_1\alpha^{2} + a_2\alpha + a_3) = 0
+\end{gather*}
+La soluzione è data dalla risoluzione dell'equazione di secondo grado,
+il che ci porta a dare la soluzione della differenziale di prima che contiene però due soluzioni:
+una parte reale data dal coseno ed una parte immaginaria data dal seno:
+\begin{gather*}
+    \cos\omega t = \frac{e^{\omega t} + e^{-\omega t} }{2} \\
+    \sin\omega t = \frac{e^{\omega t} + e^{-\omega t} }{2i}
+\end{gather*}
+Se il determinante dell'equazione di secondo grado si annulla allora si ottiene
+la soluzione.
+\begin{gather*}
+    x = (A + Bt)e^{\beta t} 
+\end{gather*}
+
+\section{Cosa succede nei SDR non inerziali(Parte difficile)}
+Accade spesso che la scelta di un SDR non inerziale sia fisicamente
+più chiara e semplice e vale quindi la pena di discuterlo. Bisogna cambiare
+però il modo in cui si utilizzano le leggi della dinamica.
+Con le leggi della trasformazione si era già visto la trasformazione
+dell'accelerazione e della velocità dei SDR non inerziali, definite quindi
+l'accelerazione di trascinamento e di Coriolis per cui si esprime ( si chiama SDR mobile il SDR non inerziale):
+\begin{gather*}
+    \vec{a} = \vec{a}' + \vec{a}_t + \vec{a}_{co}    
+\end{gather*}
+Il sistema di riferimento S osserva quindi che le leggi della dinamica
+sono valide e quindi ogni forza è associata ad una interazione a distanza o
+di contatto per cui ottiene $\vec{F}_{tot} = m\vec{a}$. Il sistema di riferimento
+$S'$ non riesce invece a determinare l'accelerazione. In $S'$ dunque si prende
+la massa e l'accelerazione che è misurata dall'osservatore di $S'$ossia
+$\vec{a}'$. Il sistema $S$ invece sa che:
+\begin{gather*}
+    m\vec{a}' =m(\vec{a} - \vec{a}_t - \vec{a}_{co}   )  
+\end{gather*} 
+L'osservatore $S'$ osserva che non gli torna l'accelerazione e dunque
+ipotizza che ci siano delle accelerazioni (e quindi delle forze) immaginarie
+che non riesce per qualche motivo a vedere ma che agiscono e modificano
+il moto. 
+La forza di trascinamento e la forza di Coriolis:
+\begin{gather*}
+    \vec{F}_t = -m\vec{a}_t, \qquad \vec{F}_{co} = -m \vec{a}_{co}    
+\end{gather*}
+L'osservatore di $S'$ riprendendo la definizione operativa di forza col
+dinamometro osserva che quelle forze apparenti si comportano come
+delle forze vera ma non sono forze che sono dovute ad interazione e non
+rispettano dunque il terzo principio. La forza di trascinamento in particolare
+dipende proprio dal sistema di riferimento e sostanzialmente questa
+formula diventa il nuovo secondo principio della dinamica:
+\begin{align}
+    \boxed{m\vec{a}' = \vec{F} + \vec{F}_t + \vec{F}_{co} }   
+\end{align}
+Dati i riferimenti di $S$ e $S'$ allora considerate le componenti dell'accelerazioni
+e la distanza dal punto P che vogliamo misurare si ottengono le espressioni
+per le forze di trascinamento e di Coriolis:
+\begin{gather*}
+    \vec{F}_t = -m\vec{a}_t = -m \vec{a}_{O} -m\dot{\vec{\omega} } \times (P - O') -m\vec{\omega} \times(\vec{\omega} \times (P - O) ) \\
+    \vec{F}_{co} = - m\vec{a}_{co} = -2m\vec{\omega} \times \vec{v}'  
+\end{gather*}
+
+\subsection{Il caso del pendolo sul treno}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 34}
+    \caption{Pendolo nel treno}
+    \begin{tikzpicture}
+        \filldraw(0, 0) circle (1pt);
+        \draw(0, 0) -- (1, 2);
+        \draw[->, very thick](0, 0)  -- (0.5, 1) node[at end, left] {$\vec{T}$};
+        \draw(0, 0) -- (-0.5 , -1);
+        \draw[->, very thick](0, 0) -- (-1, 0) node[at end, above] {$-m\vec{a}_t$};
+        \draw[->, very thick](0, 0) -- (0, -1) node[at end, right] {$m\vec{g}$};
+        \draw[dashed](1, 2) -- (1, -1);
+        \draw(1, 1) arc (270: 245: 1) node[midway, below] {$\alpha$};
+    \end{tikzpicture}    
+\end{wrapfigure} 
+Con $\vec{\omega} = 0$ e $\vec{a}_{O} const$, l'osservatore su di un treno osserva che il dinamometro che utilizza per 
+misurare l'accelerazione osserva che la forza di trascinamento è opposta rispetto
+all'accelerazione di trascinamento (ossia l'accelerazione del treno).
+Se al posto del dinamometro metto un pendolo, nel caso in cui il treno 
+abbia la stessa $\vec{a}_t$ e lascio oscillare il pendolo. Qui ci sono
+diverse forze in gioco, una di queste è quella di trascinamento che fa inclinare il pendolo
+all'indietro.
+Impostando il problema dal punto di vista trigonometrico si ottiene:
+\begin{gather*}
+    \sin\alpha = \frac{\left| \vec{a}_t  \right| }{\sqrt{g^{2} + a_t^{2} } }
+\end{gather*}
+Sono in grado di definire il periodo di questo pendolo con accelerazione costante?
+Utilizzo $\vec{g}'$ dato dalla composizione della forza peso e dall'accelerazione
+di trascinamento, il cui modulo sarà:
+\begin{align}
+    \left| \vec{g}'  \right| = \sqrt{g^{2} + a_t^{2}}  
+\end{align}
+
+
+\end{document}

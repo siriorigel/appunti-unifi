@@ -1,0 +1,208 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica}
+\author{Tommaso Miliani}
+\date{11-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{La fi(si)ca che ci piace}
+Nel caso di due masse, il cenetro di massa si trova tra le due masse. 
+Nel caso in cui una delle due masse sia molto maggiore dell'altra allora
+il centro di massa sarà spostato più verso la massa maggiore. Ma se ci fossero molte più masse?
+Allora nel caso di più masse si ha che il centro di massa risiede 
+sull'asse di simmetria delle masse. Si chiama allora asse di simmetria
+un asse sul quale ogni massa è tale per cui c'è sempre un'altra massa a distanza uguale. \\
+Un sistema si dice omogeneo se la sua densità è costante, altrimenti non è omogeneo:
+nel caso del vettore del centro di massa allora essendo:
+\begin{gather*}
+    \vec{r}_C = \frac{\int_{V}\vec{r} \rho dV  }{\int_{V}\rho dV} \\
+    \vec{r}_C = \frac{\int_{V}\vec{r} dV  }{\int_{V} dV} 
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg}
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0) node[at start, below] {$A$} node[at end, below] {$B$};
+        \draw(0, 0) -- (1, 2);
+        \draw(1, 2) -- (3, 0);
+        \draw(0.05, 0.1) -- (2.95, 0.1);
+        \draw(1, 2) -- (1.5, 0);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso di simmetrie o strutture note come nel caso di una figura piana di cui
+conosco gli assi di simmetria come un quadrato, il centro degli assi di simmetria
+del quadrato è proprio il centro del quadrato. Nel caso di figure meno semplici come
+già il triangolo la posizione del centro di massa non è intuitivo
+poiché il centro del triangolo non è così evidente. Scegliendo uno dei lati
+possiamo prenderne una fetta parallela al lato scelto posso indicare
+il centro di questo pezzetto e ripetere il procedimento fino a tracciare la mediana
+rispetto all'angolo opposto, faccio lo stesso per tutti gli altri lati
+e quindi, essendo che tutte e tre le mediane si incontrano esattamente a due terzi
+della lunghezza delle mediane, allora quello è il entro di massa del traingolo. 
+
+\subsection{Le figure solide}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{}
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (5, 0) node[at end, below] {$x$};
+        \draw(0, 0) -- (3, 1.5);
+        \draw(0, 0) -- (3, -1.5);
+        \node[ellipse,
+        draw,
+	    minimum width = 1cm, 
+	    minimum height = 3cm] (e) at (3,0) {};
+        \draw[dashed](3, -1.5) -- (3, 1.5);
+        \node[ellipse,
+        draw,
+	    minimum width = 0.7cm, 
+	    minimum height = 1.45cm] (e) at (1.5,0) {};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso di una figura solida come un cono, lo scopo è cercare di ridurre
+gli integrali bi-tridimensionali in integrali unidimensionali con certe approssimazioni
+e con certi procedimenti. Possiamo fare come nel caso del traingolo 
+delle piccole fette attraverso i piani. ALlora l'integrale da risolvere
+sarà (posto che ovviamente sia omogeneo):
+\begin{gather*}
+    x_c = \frac{\int_{V} xdV}{\int_{V} dV} 
+\end{gather*}
+Allora il volume da colcolare, data una sezione $dx$ del cono
+\begin{gather*}
+    dV = 2\pi rdx
+\end{gather*}
+E allora essendo che conosco la distanza dalla cima ($h$)
+posso ricavare quel raggio come:
+\begin{gather*}
+    r = \frac{R}{h}x \\
+    dV = \pi \frac{R^{2} }{h^{2} }x^{2}dx 
+\end{gather*} 
+SOno passato da un integrale tridimensionale fino ad un integrale
+unidimensionale:
+\begin{gather*}
+    \vec{r}_c = \frac{\int x\left(\pi \frac{R^{2} }{h^{2} }x^{2}\right)}{\int \left( \pi \frac{R^{2} }{h^{2} }x^{2} \right) } dx
+\end{gather*}
+Allora risolvendo:
+\begin{gather*}
+    x_c = \frac{\left. \frac{x^{4} }{4} \right|^{h}_{0}  }{\left. \frac{x^{3} }{3} \right|^{h}_{0}  } = \frac{3}{4}h
+\end{gather*}
+
+\section{Quantità di moto}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{}
+    \caption{}
+    \begin{tikzpicture}
+        
+    \end{tikzpicture}    
+\end{wrapfigure}
+La quantità di moto è data da:
+\begin{gather*}
+    \vec{q} = m\vec{v}  
+\end{gather*}
+la quantità di moto del centro di massa è proprio la somma dei contributi
+di tutte le quantità di moto e quindi 
+\begin{gather*}
+    \vec{Q} = \sum_{i = 1}^{n} m_i \vec{v}_i   
+\end{gather*}
+Se volessi ottener la velocità del centro di massa allora
+dovrei derivare rispetto al tempo la posizione del centro di massa:
+\begin{gather*}
+    \vec{v}_c = \dot{r}_c = \frac{\sum_{i = 1}^{n} m_i \vec{v}_i }{M}  
+\end{gather*}
+Se si deriva invece la quantità di moto del sistema si ottiene la detrivata
+dei singoli punti materiali oppure la somma delle masse per l'accelerazione
+dei singoli punit:
+\begin{gather*}
+    \dot{\vec{Q} } = \sum_{i = 1}^{n}\dot{\vec{q}_i } \sum_{i = 1}^{n}m_i \vec{a}_i     
+\end{gather*}
+si ottiene proprio la risultante della forza che agisce sul corpo:
+\begin{gather*}
+    \dot{\vec{Q} } = \sum_{i = 1}^{n}\vec{F}_i    
+\end{gather*}
+quindi dobbiamo metterla in una forma più semplice per poterla utilizzare: 
+si distinguono allora forze interne e forze esterne: si chiamano forze interne
+tutte le forze dovute all'interazione tra i corpi del sistema stesso
+mentre quelle esterne sono quelle che provengono all'esterno e sia le forze apparenti.
+\begin{gather*}
+    \dot{\vec{Q} } = \sum_{i = 1}^{n}\vec{F}_i   = \sum_{i = 1}^{n}\vec{F}_i^{(INT)}  + \sum_{i = 1}^{n}\vec{F}_i^{(EXT)} 
+\end{gather*}
+Per le forze interne devo considerare anche il terzo principio per ogni punto, quindi 
+per ogni forza applicata ad un punto ce ne è una uguale e contraria:
+\begin{gather*}
+    \boxed{\sum_{i = 1}^{n}\vec{F}_i^{(INT)}  =  \sum_{i = 1}^{n}\sum_{j = 1, j \neq i}^{n}\vec{F}_{i, j} = 0 }   
+\end{gather*}
+Si ottiene allora la prima equazione cardinale della dinamica:
+\begin{gather*}
+    \dot{\vec{Q} } = \sum_{i = 1}^{n}\vec{F}^{(EXT)}_i = \vec{F}^{(EXT)} 
+\end{gather*}
+che permette di descrivere i sistemi più complessi con descrizioni molto più semplici. Allora
+si arriva anche alla seconda equazione del centro di massa:
+\begin{gather*}
+    \boxed{\vec{F} = M\vec{a}_c} 
+\end{gather*}
+
+\subsection{Il sistema isolato}
+La prima equazione cardinale della dinamica mi dice che la forza esterna è 
+zero e che la quantità di moto è conservata poiché
+\begin{gather*}
+    \dot{\vec{Q}} = 0, \qquad \vec{Q} = \text{costante}  
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{}
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (1, 1) node[midway] {$m_1$};
+        \draw(3, 0) rectangle (4, 1) node[midway] {$m_2$};
+        \draw[decoration={aspect=0.3, segment length=1.5mm, amplitude=1.3mm,coil},decorate,opacity=0.9] (1, 0.5) -- (3,0.5);
+        \draw[->](-1, 0) -- (-0.5, 0) node[at end, below] {$x$};
+        \draw[->](-1, 0 ) -- (-1, 0.5) node[at end, left] {$y$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Questo sistema non riesco ad esprimerlo mediante f = ma e nemmono attraverso
+la conservazione dell'energia poiché ho due gradi di libertà. Essendo 
+che la forza elastica adesso è una forza interna (e quelle esterne sono la
+forza peso e la normale) e lungo l'orizzontale si conserva la quantità
+di moto e la conservazione dell'energia che mi danno i due gradi di libertà.
+\begin{gather*}
+    E  = \frac{1}{2}m_1v_1^{2} + \frac{1}{2}m_2v_2^{2} + \frac{1}{2}k(x_2 - x_1 - l_0)^{2}  
+\end{gather*}
+Allora la quantità di moto:
+\begin{gather*}
+    Q_x = m_1v_1 + m_2v_2
+\end{gather*}
+Una vota che ho le condizioni iniziali posso risolvere il sistema. 
+
+\end{document}

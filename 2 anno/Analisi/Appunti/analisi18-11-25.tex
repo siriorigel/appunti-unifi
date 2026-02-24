@@ -1,0 +1,279 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Analisi (Bianchi)}
+\author{Tommaso Miliani}
+\date{18-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Integrali per funzioni a più variabili}
+Quando si parla di integrali a più variabili si tratta di andare
+a dare un significato al concetto di "area di un insieme piano" o
+di misura di un insieme $n$ dimensionale. Bisogna allora 
+definire il concetto di area e di volume per gli insiemi perché 
+quando si lavora con insiemi che sono "strani". Pensando ad un quadrato in cui
+si prende $x = 1$ e $y = 1$ e tali che si prendono solamente i lati razionali,
+il concetto di area non è ben definito. Se si considera una funzione solamente 
+definita su di un rettangolo $[a, b] \times [c, d]$.
+\begin{gather*}
+    \begin{tikzpicture}[scale = 1.5]
+        \draw[->](0, 0) -- (2, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, 2) node[at end, left] {$y$};
+        \draw(0.5, -0.2) -- (0.5, 1.5) node[at start, below] {$a$};
+        \draw(1.5, -0.2) -- (1.5, 1.5) node[at start, below] {$b$};
+        \draw(-0.2, 0.5) -- (1.5, 0.5) node[at start, left] {$c$};
+        \draw(-0.2, 1.5) -- (1.5, 1.5) node[at start, left] {$d$};
+        \draw[->](4, 0) -- (6, 0) node[at end, below] {$x$};
+        \draw[->](4, 0) -- (4, 2) node[at end, left] {$y$};
+        \draw(4.75, 0.75) rectangle (5.5, 1.5);
+        \filldraw(5.25, 1.25) circle (1pt) node[anchor = north] {$P_{h, k}$};
+        \node at (5.25, 1.7) {$I_{h, k}$};
+        \draw(4.75, 0.1) -- (4.75, -0.1) node[at end, below] {$x_{h - 1}$};
+        \draw(3.9, 0.75) -- (4.1, 0.75) node[at start, below] {$x_{k - 1}$};
+        \draw(5.5, 0.1) -- (5.5, -0.1) node[at end, below] {$x_h$};
+        \draw(3.9, 1.5) -- (4.1, 1.5) node[at start, left] {$y_k$};
+    \end{tikzpicture}
+\end{gather*}
+Preso $n \in \mathbb{N}$ e dividendo l'intervallo $[a, b]$ in $n$ parti uguali,
+faccio lo stesso per $[c, d]$, in modo tale che posso definire degli
+intervalli $x_{h - 1}$ e $x_h$ sull'asse $x$ e $y_{k - 1}$ e $y_k$ in modo 
+tale da ottenere il quadrato fatto di lati $x_{h} - x_{h - 1}$ e $y_k - y_{k - 1}$. 
+Si indica allora l'area con il valore assoluto (indica la \textbf{misura}), per l'area
+del quadrato considerato è proprio
+\begin{gather*}
+    I_{h, k} = \left| I_{h, k} \right| = \frac{b - a}{n} \cdot \frac{d - c}{n} 
+\end{gather*}
+Poiché ogni distanza  $x_{h} - x_{h - 1}$ e $y_k - y_{k - 1}$ è l'$n$-esima parte
+del segmento $ab$ e del segmento $cd$ rispettivamente. Posso allora definire le somme di 
+Cauchy-Riemann 
+\begin{gather*}
+    s_n = \sum_{h, k = 1}^{n} f(p_{h, k})\left| I_{h, k} \right|  
+\end{gather*}
+
+\begin{definition}
+    Si dice che la funzione $f : [a, b] \times [c, d]$, limitata, 
+    è integrabile sul rettangolo $R = [a, b] \times [c, d]$ se esiste
+    finito 
+    \begin{align}
+        \lim_{n \to \infty } s_n 
+    \end{align} 
+    E se tale limite non dipende da come si sono scelti i punti $P_{h, k}$ nei rispettivi
+    rettangoli ad ogni passo della costruzione.
+\end{definition}
+
+\begin{example}[Funzione non integrabile]
+    Presa $f : [0, 1] \times [0, 1] \to   R$ definita come
+    \begin{gather*}
+        f(x, y) = \left\{\begin{array}{l}
+            1 \quad x \in \mathbb{Q} \\
+            0 \quad x \not \in  \mathbb{Q}
+        \end{array}\right.
+    \end{gather*}
+    Questa funzione non è integrabile in quanto se si dividesse l'intervallo
+    $[0, 1]$ in $n$ parti uguali e si scegliessero i punti come fatto prima, 
+    si potrebbero scegliere tutti in modo tale che la coordinata $x$ sia razionale
+    per tutti gli intervalli (poiché l'insieme $\mathbb{Q}$ è denso). La funzione 
+    vale dunque $1$ per tutti i punti, dunque le somme di Reimann vengono:
+    \begin{gather*}
+        s_n = \sum 1 \left| I_{h, k} \right| = 1 
+    \end{gather*}
+    Ottengo allora l'area del rettangolo finita. Se scegliessi invece
+    tutti i numeri irrazionali, allora la funzione somme di Reimann vale esattamente
+    zero. Questo porta dunque ad una ambiguità: il limite esiste ma non 
+    è definito in quanto dipende dalla scelta dei punti e allora la funzione non
+    è integrabile. 
+\end{example}
+
+\begin{theorem}[Criterio di integrabilità di funzioni]
+    Se $f :[a, b] \times [c, d]$ è continua, allora è integrabile.
+\end{theorem}
+\begin{proof}
+    Senza dimostrazione. 
+\end{proof}
+
+\subsection{Integrazione di funzioni a due variabili}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$y$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$z$};
+        \draw[->](0, 0) -- (-1, -2) node[at end, below] {$x$};
+        \draw(0.5, 0) -- (-0.25, -1.5);
+        \filldraw(0.5, 0) circle (1pt) node[anchor = south] {$c$};
+        \draw(2.5, 0) -- (1.75, -1.5);
+        \filldraw(2.5, 0) circle (1pt) node[anchor = south] {$d$};
+        \draw(-0.15, -0.3) -- (2.35, -0.3);
+        \filldraw(-0.15, -0.3) circle (1pt) node[anchor = east] {$a$};
+        \draw(-0.75, -1.5) -- (1.75, -1.5);
+        \filldraw(-0.75, -1.5) circle (1pt) node[anchor = east] {$b$};
+        \draw(0.35, -0.3) -- (0.35, 2);
+        \draw(2.35, -0.35) -- (2.35, 1.25);
+        \draw(-0.25, -1.5) -- (-0.25, 0.5);
+        \draw(1.75, -1.5) -- (1.75, 0.1);
+        \draw(0.35, 2) -- (-0.25, 0.5);
+        \draw(2.35, 1.25) -- (1.75, 0.1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso considerare l'integrazione di funzioni a due variabili
+come il volume del sottografico della superficie descritta dalla
+funzione $f(x, y)$. Il processo di integrazione è un processo iterativo
+che si svolge in due tempi: in un primo momento fisso la coordinata $y$
+e svolgo l'integrale in funzione di $x$ ottenendo l'area del sottografico
+quando è fissata $y$. L'integrale risulta dunque essere
+\begin{align}
+    \int_{[a, b] \times [c, d]}^{} f(x, y) \ dx dy = \int_{c}^{d} \left(\int_{a}^{b} f(x, y) \ dx\right) \ dy 
+\end{align}
+
+\begin{example}
+    \begin{gather*}
+        \int_{[0, 1] \times [0, 2]}^{} xe^{xy} \ dx dy = \int_{0}^{1}\left(\int_{0}^{2}xe^{xy} \ dy \right) \ dx 
+    \end{gather*}
+    Posso allora risolvere gli integrali secondo i seguenti passaggi:
+    \begin{gather*}
+        \int_{0}^{1}(e^{2x} - 1) \ dx =  \frac{e^{2}}{2} - 1
+    \end{gather*}
+
+\end{example}
+
+\begin{theorem}
+    SIa $f: [a, b] \times [c, d] \to \mathbb{R}$ è continua, allora 
+    \begin{align}
+        \int_{[a, b] \times [c, d]}^{} f(x, y) \ dx dy = \int_{c}^{d}\left(\int_{a}^{b} f(x, y) \ dx \right) \ dy = \int_{a}^{b}\left(\int_{c}^{d} f(x, y) \ dy \right) \ dx   
+    \end{align}
+\end{theorem}
+
+\begin{lemma}
+    La funzione
+    \begin{align}
+        \phi(x) = \int_{c}^{d}f(x, y) \ dy  
+    \end{align}
+    è continua in $[a, b]$. Analogamente 
+    \begin{align}
+        \psi(y) = \int_{a}^{b} f(x, y) \ dx  
+    \end{align}
+    è continua in $[c, d]$. 
+\end{lemma}
+\begin{proof}
+    $\phi(x)$ è definita per $x \in [a, b]$, dividendolo
+    in $n$ parti uguali, per cui ciascuna parte è $x_{h - 1}$ 
+    fino a $x_h$. Allora l'integrale 
+    \begin{gather*}
+        \int_{a}^{b} \phi(x) \ dx = \sum_{h = 1}^{n}\int_{x_{h - 1}}^{x_h} \phi(x) \ dx
+    \end{gather*}
+    Con il teorema della media integrale, $\forall h$ esiste un qualche
+    punto $x_h^{*}$ nell'intervallo $[x_{h - 1}, x_h]$ per cui
+    \begin{gather*}
+        \int_{a}^{b} \phi(x) \ dx = \sum_{h = 1}^{n}\int_{x_{h - 1}}^{x_h} \phi(x) \ dx = \sum_{h = 1}^{n}\phi(x_h^{*}) \cdot (x_h - x_{h - 1}) 
+    \end{gather*}
+    Dato che sono tutti uguali gli ultimi termini, posso portarli fuori e
+    dire che 
+    \begin{gather*}
+        \sum_{h = 1}^{n}\phi(x_h^{*}) \cdot (x_h - x_{h - 1})  = \left(\frac{b - a}{n}\right) \sum_{h = 1}^{n} \phi(x_h^{*})
+    \end{gather*}
+    Dunque posso scriverlo esplicitamente ottenendo:
+    \begin{gather*}
+        \left(\frac{b - a}{n}\right)\sum_{h = 1}^{n} \int_{c}^{d} f(x_h^{*}, y) \ dy = \left(\frac{b - a}{n}\right)\sum_{h = 1}^{n} \sum_{k = 1}^{n} \int_{y_{k - 1}}^{y_k} f(x_h^{*}, y) \ dy 
+    \end{gather*}
+    Ossia ho fatto lo stesso procedimento anche per la funzione $\psi(y)$, adesso posso
+    esplicitare anche quell'integrale ed esprimerlo attraverso il teorema
+    della media integrale:
+    \begin{gather*}
+        \left(\frac{b - a}{n}\right)\sum_{h = 1}^{n} \sum_{k = 1}^{n} f(x_h^{*}, y_k^{*})(y_k - y_{k - 1}) \ \Longrightarrow \ \left(\frac{d - c}{n}\right)\left(\frac{b - a}{n}\right)\sum_{h = 1}^{n} \sum_{k = 1}^{n} f(x_h^{*}, y_k^{*})
+    \end{gather*}
+    Ottenendo allora
+    \begin{gather*}
+        \sum_{h, k = 1}^{n} f(x_h^{*}, y_k^{*})\left| I_{h, k} \right|  
+    \end{gather*}
+\end{proof}
+
+\begin{definition}
+    Sia $f : \Omega \to \mathbb{R}$ con $\Omega \subseteq  \mathbb{R}^{2}$ limitata
+    e sia $R = [a, b] \times [c, d]$ un rettangolo contenente $\Omega$ 
+    e sia $\tilde{f} : R \to \mathbb{R}$ definita come
+    \begin{align}
+        \tilde{f}(x, y) = \left\{\begin{array}{l}
+            f(x, y) \quad (x, y) \in \Omega  \\
+            0 \quad (x, y) \in R - \{\Omega\}
+        \end{array}\right.
+    \end{align}
+    Se $\tilde{f}$ è integrabile su di $R$, allora $f$ è integrabile su $\Omega$
+    e il suo integrale è tale che
+    \begin{align}
+        \int_{\Omega}^{} f(x, y) \ dx dy = \int_{R}^{} \tilde{f} (x, y) \ dx dy
+    \end{align}
+\end{definition}
+
+\begin{definition}[Insiemi semplici]
+    Un insieme $E \subset \mathbb{R}^{2}$ si dice $y$ semplice se è del tipo
+    \begin{align}
+        E = \{(x, y) : x \in [a, b], g_1(x) \leq y \leq g_2(x)\}
+    \end{align}
+    Con $g_1 < g_2$ e $g_1, g_2 : [a, b] \to \mathbb{R}$ continue. Questi insiemi
+    sono degli insiemi compresi tra due funzioni generiche i cui estremi non sono
+    fissi ma variano in base alla $x$. 
+    Analogamente si definisce un insieme $x$ semplici se valgono le precedenti ma gli estremi
+    variano in funzione delle $y$. 
+\end{definition}
+
+\begin{definition}[Insiemi regolari]
+    Si definiscono gli insiemi regolari come degli insiemi che sono 
+    unioni finite di insiemi semplici. 
+\end{definition}
+\begin{example}
+    La corona circolare non è né $x$ semplice né $y$ semplice ma 
+    può essere decomposta in parti $x$ semplici ed $y$ semplici.
+    Unendole si ottiene un insieme regolare che è proprio la corona circolare. 
+\end{example}
+
+
+\end{document}

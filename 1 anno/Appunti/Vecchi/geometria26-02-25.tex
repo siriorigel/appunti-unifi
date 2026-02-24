@@ -1,0 +1,357 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Geometria}
+\author{Tommaso Miliani}
+\date{26-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Esercizi}
+\subsection{Esercizio 5}
+Con parametri $x, y$ determinare il valore del rango della matrice:
+\begin{gather*}
+    A = \left( \begin{tabular}{c c c c c c}
+        x & x & x & x & x & x \\
+        x & y & x & x & y & x \\
+        x & x & x & x & x & x \\
+        x & x & x & x & x & x \\
+        0 & x & x & x & x & 0 \\
+        0 & 0 & x & x & 0 & 0
+    \end{tabular} \right)
+\end{gather*}
+Nel caso in cui $x, y = 0$ allora il rango è zero; può il rango però essere 6? No, perché ci sono 3 righe uguali,
+ossia la riga 1, 3, 4. Tutte le sottomatrici $5 \times 5$ sono tutte con almeno due
+righe uguali e quindi si annullano con l'eliminazione di Gauss, dunque
+il rango non potrà essere 5 poiché ci sono queste righe uguali. Possiamo quindi
+dire con confidenza che $rk \leq 4$ . \\
+Analizziamo ora le colonne, sono uguali le colonne 3 e 4, e le colonne 1, 6, e anche
+le colonne 2, 5; così possiamo affermare che il rango delle colonne è sicuramente
+$rk \leq 3$ se $x \neq  0$, se invece $x = 0$ allora rimane  solo $y$ e quindi
+il rango può essere $ = 1$ se $y \neq 0$, altrimenti $0$.
+I possibili ranghi riassunti sono dunque:
+\begin{enumerate}
+    \item 3: se $x \neq 0$;
+    \item 1: Se $x = 0$ e $y \neq  0$;
+    \item 0: Se $y = 0$.
+\end{enumerate}
+
+\subsection{Esercizio 6}
+Scelgo A in modo tale che $\leq 2$ $\Leftrightarrow$  $\exists$ matrici del tipo $2 \times 2$
+come somma di matrici di rango 1. Si vede innanzitutto che $rk(A + B) \leq rk(A) + rk(B)$ e quindi
+nelle colonne somma, essendo il rango lo spazio generato dalle colonne, queste sono somma
+e quindi lo spazio generato è contenuto nello span delle colonne di A o nelle colonne di B. Allora
+lo spazio generato da queste due è proprio $col(A) + col(B)$ per
+Grassman allora si ottiene:
+\begin{gather*}
+    \dim(col(A + B)) \leq \dim(col(A)) + \dim(col(B))
+\end{gather*}
+Allora il rango di A è minore di tutti quei ranghi somma. Il verso opposto ($\Leftarrow$) 
+si dimostra nel seguente modo: 
+$A$ si ottiene da una matrice che ha solo n righe e quindi
+tutte le matrici hanno rango uno e ognuna di queste ha la n esima
+riga occupata da dei valori. Se
+\begin{gather*}
+    A' = A'_1 + \dots A'_s\\
+    rk(A'_s) = 1
+\end{gather*}
+Torno indietro ripetendo le operazioni elementari di Gauss al contrario
+e troverò A e siccome il rango non cambia, allora ho ancora una matrice di rango
+1. 
+Se $A'$ si ottiene con operazioni semplici allora si ha che.
+\begin{gather*}
+    A' = GA
+\end{gather*}
+E quindi deve essere invertibile e si può tornare indietro
+con:
+\begin{gather*}
+    A = G^{-1} A'
+\end{gather*}
+Soluzione: per scambiare tra di loro le righe $i, j$ basta moltiplicare
+a sinistra per la matrice:
+\begin{gather*}
+    \left( \begin{tabular}{c c c c c}
+        1 & 0 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 1 & 0 \\
+        0 & 0 & 1 & 0 & 0 \\
+        0 & 1 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 0 &  1
+    \end{tabular} \right)
+\end{gather*}
+Ossia si pone al posto $i, j$ un 1 e al posto $j, i$ un 1 e per definizione
+quando si moltiplica si ottiene nuovamente il medesimo risultato, così facendo
+questa matrice se si scambiano le righe si ritrova nuovamente una
+matrice invertibile. Viceversa se alla riga $j$-esima sommo la riga $\lambda i$, allora
+posso moltiplicare sempre a sinistra pere la seguente:
+\begin{gather*}
+    \left( \begin{tabular}{c c c c c}
+        1 & 0 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 & 0 \\
+        0 & 0 & 1 & 0 & 0 \\
+        0 & $\lambda$ & 0 & 1 & 0 \\
+        0 & 0 & 0 & 0 &  1
+    \end{tabular} \right)
+\end{gather*}
+Alla riga $j$-esima sommo, e ottengo al posto $i$ un lambda e tutto il resto
+rimane o zero oppure $1$ sulla diagonale. E' invertibile e rimane alla fine
+$G$ che il prodotto di matrici invertibili ed è anch'essa invertibile. Si ottiene
+la soluzione moderna dell'esercizio 6: Partendo da $A$ con le conclusioni
+fatte fino ad ora, trovo $G$ invertibile tale che $A' = GA$ è a scalini
+con $s$ scalini, allora riducendo $A'$ come $s$ matrici di rango 1,
+allora ho tutti addendi di rango 1. Tornando indietro con la 
+linearità posso moltiplicare a sinistra per quella matrice $G^{-1}$ e trovo che
+\begin{gather*}
+    A = G^{-1} (A'_1 + \dots A'_s)
+\end{gather*}
+E il rango non cambia. 
+
+\section{Matrici ortogonali e determinante}
+\begin{theorem}
+    Il determinante di una matrice ortogonale 
+    \begin{align}
+        \det(A) = \pm 1
+    \end{align}
+    Rovescia l'orientazione se è $-1$ o mantiene l'orientazione
+\end{theorem}
+\begin{proof}
+    L'inversa di A è la trasposta e quindi per ipotesi
+\begin{gather*}
+    A \cdot \  ^{t}A = I_n  \\
+    \det(A \cdot \ ^{t}A) = 1
+\end{gather*}
+Allora il $\det(A) \cdot  \det(^{t}A ) = \det(A)^{2} $. 
+\end{proof}
+
+\section{Determinante con le permutazioni}
+\begin{definition}[Permutazioni]
+    Sono funzioni biunivoche; una permutazione di una funzione $\sigma$ di un
+    insieme di $n$ elementi in sé stessa è biunivoca. Quindi l'insieme 
+    delle permutazioni forma un gruppo con $n!$ elementi dove l'operazione
+    è la composizione e l'elemento neutro è la funzione identità. 
+    \begin{gather*}
+        \begin{pmatrix} 1 \\
+        3\\
+        2\\
+        \end{pmatrix} \Rightarrow 
+        \begin{array}{c}
+            \sigma(1) = 1 \\
+            \sigma(2) = 3 \\
+            \sigma(3) = 2
+        \end{array} 
+    \end{gather*}
+    Questa permutazione scambia 2 e 3.
+    \begin{enumerate}
+        \item Ogni permutazione è composizione di scambi (permutazioni più semplici);
+        \item La parità del numero di scambi è ben definita per ogni permutazione;
+        \item $\sigma_n$ è un gruppo simmetrico con $n!$ elementi che contiene
+        il gruppo $a_n$ chiamato gruppo alterno formato solo dalle permutazioni
+        pari, ossia ogni permutazione è ottenuta con un numero pari di scambi
+        l'identità (0 scambi) è nel gruppo alterno. 
+    \end{enumerate}
+    Ogni permutazione ha un segno ( definito come $\epsilon(\sigma)$) che può essere $\pm 1$: se è positivo
+    si ottiene con numero pari di scambi, altrimenti se è $-1$ si ottiene con numero dispari di scambi.
+\end{definition}
+
+\begin{theorem}[Formula del detrminante mediante le permutazioni]
+    Se $A \in M(n \times n, K)$ allora il determinante di $A$ è
+    \begin{align}
+        \sum_{\sigma \in S_n}  \epsilon(\sigma) a_{1,\sigma(n)} \cdot  \dots \cdot  a_{n,\sigma(n)}
+    \end{align} 
+    Dove la colonna scelta dipende dal segno del $\sigma$.
+    Ossia per una matrice $3 \times 3$ per le colonne col segno $+$ del $\sigma$:
+    \begin{gather*}
+        a_{1, 1} \cdot a_{2, 2} \cdot  a_{3, 3} + a_{1, 3} \cdot a_{2, 2} \cdot  a_{3, 1} + a_{1, 2} \cdot a_{2, 3} \cdot  a_{3, 1}
+    \end{gather*} 
+    Per le colonne invece col segno meno del $\sigma$:
+    \begin{gather*}
+        -a_{1, 1} \cdot a_{2, 2} \cdot  a_{3, 3} - a_{1, 3} \cdot a_{2, 2} \cdot  a_{3, 1} - a_{1, 2} \cdot a_{2, 3} \cdot  a_{3, 1}
+    \end{gather*}
+    Dove il secondo numero al pedice è il valore $\sigma$.
+\end{theorem}
+\begin{proof}
+    Ancora niente dimostrazione (L'ha detto l'Ottaviani)
+\end{proof}
+Il determinante nel 1800 era definito con questa formula e 
+presentava diversi vantaggi:
+\begin{enumerate}
+    \item E' esplicita e se $a_{i, j} \in Z$ mostra che il determinate $\in Z$;
+    \item Il determinate è un polinomio di grado $n$.
+    \item Bella!
+\end{enumerate}
+Svantaggi:
+\begin{enumerate}
+    \item E' intrattabile dal punto di vista computazionale poiché $n!$ è enorme;
+    \item Teoricamente alcuni risultati sono difficili 
+\end{enumerate}
+Il problema $P = NP$ è un problema nel quale ci si chiede se si
+possa calcolare la permutazioni di A con un numero di operazioni
+polinomiali in $n$ dove le permutazioni
+\begin{gather*}
+    Perm(A) = \sum_{\sigma \in S_n}  a_{1\sigma(n)} \cdot  \dots \cdot  a_{n\sigma(n)}
+\end{gather*}
+
+\begin{lemma}[Applicazioni alle matrici inverse]
+    Sia $A \in M(n \times n,K)$ troviamo allora $B : AB = I_n$ (inversa destra)
+    ma anche $BA = I_n$ e quindi inverte anche a sinistra e quindi
+    \begin{align}
+        B = A^{-1} 
+    \end{align}
+\end{lemma}
+\begin{proof}
+    Considero $f_A : K^{n} \to K^{n}$ allora:
+    \begin{gather*}
+        1_K = f_B = f_A \circ f_B \Rightarrow f_A \text{suriettiva}
+    \end{gather*}  
+    poiché
+    \begin{gather*}
+        f_A\left( f_B(x) \right) = 1_K = x ,  \qquad \forall x \in K^{n} 
+    \end{gather*}
+    e allora $f_A$ è suriettiva se e solo se il rango è massimo (è biunivoca)
+    $\Leftrightarrow rk(A) = n \Leftrightarrow \det(A) \neq  0$.
+    Quindi devo ottenere:
+    \begin{gather*}
+        BA = I_n, \quad f_B \circ f_A(y) = y \forall y \in K^{n} 
+    \end{gather*}
+    Dato che $f_B$ è suriettiva, allora $\exists x \in K^{n} : y = f_B(x)$ e quindi: 
+    \begin{gather*}
+        f_Bf_A(y) = f_B(f_A(f_B(x))) = f_B(I(x)) = f_B(x) = y.
+    \end{gather*}
+\end{proof}
+
+\section{Formula per l'inversa}
+\begin{theorem}
+    Se $A$ è invertibile, allora, tolta la riga j e la colonna i:
+    \begin{align}
+        \boxed{A_{i, j} = \frac{(-1)^{i + j}  \det(A_{\hat{j}, \hat{i}})}{\det(A)}} 
+    \end{align}
+    Dove $\hat{j}, \hat{ i}$ vuol dire con una riga ed una colonna esclusa.  
+\end{theorem}
+\begin{proof}
+    Niente dimostrazione (L'Otta ha detto di saltarla)
+\end{proof}
+Conseguenze:
+\begin{lemma}
+    Se $a_{i, j} \in Z, \det(A) = \pm 1$ allora $A^{-1}$ ha coefficienti
+    reali in $Z$. 
+\end{lemma}
+
+Esempio di un calcolo di inversa:
+\begin{gather*}
+    A = \left( \begin{tabular}{c c c}
+        1 & 0 & 2 \\
+        0 & 2 & 1 \\
+        -1 & 0 & 0
+    \end{tabular} \right) 
+\end{gather*}
+Esempi di coefficienti: il determinate di A conviene calcolarlo
+sulla terza riga, quindi viene $\det(A) = 4$, togliendo la priam riga e la
+prima colonna viene:
+\begin{gather*}
+    A = \left( \begin{tabular}{c c}
+        2 & 1 \\
+        0 & 0
+    \end{tabular} \right)
+\end{gather*}
+Pluggando nella formula viene $0$ mentre l'altra matrice nella
+formula è:
+\begin{gather*}
+    A = \left( \begin{tabular}{c c}
+        0 & 2 \\
+        2 & 1
+    \end{tabular} \right)
+\end{gather*}
+che nella formula è -1. Un metodo più efficace è quello di Gauss
+per cui può essere parallelizzato per calcolare l'inversa perché
+la prima colonna dell'inversa è data dalle soluzioni del sistema lineare che
+prende la matrice e gli mette come colonna dei termini noti 
+la prima colonna dell'identità poiché per ogni colonna devo trovare
+le colonne dell'identità, quindi per la prima colonna si ottiene la seguente
+e successivamente si sostituisce le altre colonne dell'identità
+trovando le colonne dell'inversa. 
+\begin{gather*}
+    A = \left( \begin{tabular}{c c c | c}
+        1 & 0 & 2  & 1\\
+        0 & 2 & 1 & 0\\
+        -1 & 0 & 0 & 0
+    \end{tabular} \right)
+\end{gather*}
+Parametrizzando si può ottenere tutte le colonne in un colpo solo 
+mettendo accanto nel sistema la matrice identità:
+\begin{gather*}
+    A = \left( \begin{tabular}{c c c | c c c}
+        1 & 0 & 2  & 1 & 0 & 0\\
+        0 & 2 & 1 & 0 & 1 & 0\\
+        -1 & 0 & 0 & 0 & 0 & 1
+    \end{tabular} \right)
+\end{gather*}
+Con le eliminazioni di Gauss si può ottenere la matrice svolta sul libro (I'm lazy)
+
+La matrice che ho trovato a destra della barra verticale è proprio l'inversa
+poiché l'identità è traslata sulla sinistra e a destra si ottiene l'inversa
+(si può anche fare la cosa inversa, ossia mettere a destra come termini noti
+le colonne di A e ottenere l'inversa sulla sinistra).
+
+\subsection{Esercizio 13}
+La matrice di Vandermonde è definita come una matrice tale che 
+ad ogni riga aumenta la potenza della variabile x per $n$ colonne ed $n$ righe:
+\begin{gather*}
+    V = \left( \begin{tabular}{c c c }
+        1 & $\dots$ & 1 \\
+        $x_1$ & $\dots$ & $x_n$ \\
+        $x_1^{n - 1}$ & $\dots$ & $x_n^{n - 1}$  
+    \end{tabular} \right)
+\end{gather*}
+Tale che 
+\begin{gather*}
+    V_{i, j} = x_{j}^{i - 1} 
+\end{gather*}
+Dobbiamo allora provare che:
+\begin{gather*}
+    \det(V) = \prod_{i < j} (x_j - x_i) \neq 0 \in \{x_1, \dots, x_n\}
+\end{gather*}
+Si può trovare la soluzione per il caso $n = 2$ e per induzione applicarlo a tutti gli $n$:
+\begin{gather*}
+    \left( \begin{tabular}{c c}
+        1 & 1 \\
+        $x_1$ & $x_2$
+    \end{tabular} \right) = x_2 - x_1
+\end{gather*}
+Per $n = 3$ si ottiene la riduzione a scalini e quindi si ottiene una sottomatrice
+due per due e quindi il determinate:
+\begin{gather*}
+    (x_2 - x_1)(x_3 - x_1)(x_2 - x_3)
+\end{gather*}
+Procedendo allora per induzione si ottiene che il determinante della matrice
+di Vandermonde si ottiene (procedendo sempre all'indietro):
+\begin{gather*}
+    \prod_{i = 2}^{n}(x_i - x_1) \cdot  \prod_{2 \leq p < q}(x_q - x_p)
+\end{gather*}
+Che è la tesi
+
+\end{document}

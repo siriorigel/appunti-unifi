@@ -1,0 +1,268 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\usepackage{svg}
+\usepackage{float}
+%\definecolor{page}{rgb}{0.129,0.157,0.212}
+%\pagecolor{page}
+%\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Esperienza Ottica Geometrica}
+\author{Gruppo 19 \\ Fabbri Marco, Miliani Tommaso, Mongatti Giulio, Tinacci Lorenzo}
+\date{3 Dicembre 2025}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Scopo dell'esperienza e ipotesi}
+Lo scopo dell’esperienza è la verifica della legge delle lenti sottili 
+\begin{align}
+    \frac{1}{f} = \frac{1}{p} + \frac{1}{q}
+\end{align}
+dove
+\begin{itemize}
+    \item $f$: lunghezza focale della lente;
+    \item $p$: distanza della sorgente dalla lente;
+    \item $q$: distanza dell'immagine dalla lente.
+\end{itemize}
+Inoltre si vuole verificare la misura della lunghezza focale incognita di una lente convergente biconvessa.
+Per la misura e la verifica sperimentale, vengono poste le seguenti ipotesi di lavoro:
+\begin{itemize}
+    \item spessore delle lenti trascurabile (molto minore di $p$ e $q$);
+    \item asse ottico parallelo al piano di lavoro.
+\end{itemize}
+
+\section{Schema generale di misura}
+Per la verifica delle leggi delle lenti sottili, ognuno dei quattro sperimentatori che compongono il gruppo di lavoro effettua la misura
+della focale della lente per una coppia di valori $p$ e $q$ distinti. Se le quattro misure risultano consistenti
+entro l’incertezza, allora la legge risulta verificata. Da una media pesata dei quattro valori, è infine
+possibile ricavare una misura più precisa della focale della lente. 
+L'esperienza richiede sapere la posizione della sorgente luminosa, tuttavia, poiché non si ha un metodo
+convenzionale per capire dove si origina tale sorgente all'interno del supporto che la contiene, si opta,
+al fine di semplificare la misura, di usare una lente di focale nota per poter creare una sorgente virtuale
+ponendola nella configurazione $2f- 2f$. Nell'esperienza si è usata una lente avente focale $f$ di circa 50 mm, 
+quindi, per porla nella configurazione $2f -2f$, l'abbiamo posizionata a circa 10 cm dalla sorgente reale così
+da poter creare un immagine virtuale a circa la stessa distanza.  Alla posizione della sorgente virtuale 
+si assegna il nome di $I_1$.
+Gli sperimentatori utilizzano il metodo di Gauss, che consiste nel ricondurre la misura della focale ignota
+alle due grandezze misurabili in laboratorio, ossia la distanza $s$ tra la sorgente virtuale e
+l’immagine della sorgente formata dalla lente, e la distanza $l$ tra le due posizioni della lente che
+permettono all’immagine della sorgente di formarsi nello stesso punto.  In questo modo la focale
+può essere ottenuta mediante la seguente relazione matematica:
+\begin{align}
+    f = \frac{s^{2} - l^{2}}{4s}
+\end{align}
+
+\clearpage
+\section{Apparato sperimentale}
+\begin{gather*}
+     \begin{tikzpicture}[scale=1.2]
+        \draw(0, 0) -- (7.5,0);
+        \draw[dashed](0 ,1.25) -- (6.5, 1.25) node[at start, above] {\tiny asse ottico};
+        \draw[dashed](6.5, 1.25) -- (7.1, 1.25);
+        \draw(0.5, 0) -- (0.5, 1.5);
+        \draw[thick](0.5, 1) -- (0.5, 1.5); 
+        \draw[|-|](0.5, 1.7) -- (1.5, 1.7) node[midway, above] {$d$};
+        \draw(1.2, 0) rectangle (1.8, 0.4);
+        \draw(1.4, 0.4) rectangle (1.6, 1);
+        \draw(1.5, 1.25) ellipse (0.1 and 0.25);
+        \draw(0.5 , 1.25) -- (1.5, 1.5) -- (2.5, 1.25) -- (4.25, 0.9) -- (6, 1.25);
+        \draw(0.5, 1.25) -- (1.5, 1) -- (2.5, 1.25) -- (4.25, 1.6) -- (6, 1.25);
+        \filldraw(2.5, 1.25) circle (1pt) node[anchor = north, align = center] { \tiny sorgente};
+        \node at (2.5, 0.9) {\tiny virtuale};
+        \draw(3.95, 0) rectangle (4.55, 0.4);
+        \draw(4.15, 0.4) rectangle (4.35, 0.9);
+        \draw(4.25, 1.25) ellipse (0.15 and 0.35);
+        \draw[|-|](2.5, 1.7) -- (4.2, 1.7) node[midway, above] {$p$};
+        \draw[|-|](4.3, 1.7) -- (6, 1.7) node[midway, above] {$q$};
+        \draw(7.1, 1) rectangle (7.9, 1.5);
+        \draw(7.4, 1) rectangle (7.6, 0);
+        \node at (7.5, 1.75) {\tiny laser};
+    \end{tikzpicture}  
+\end{gather*}
+L'apparato sperimentale presenta una sorgente luminosa, una lente con focale incognita, una lente di servizio con focale nota e oculare per la misura
+della posizione di sorgente ed immagine. Il tutto è posizionato su di una guida rettilinea munita di scala graduata
+con sensibilità di un millimetro. Grazie ad un nonio posto sui vari componenti ottici, è possibile determinare la loro
+posizione con una precisione di 0.1 mm. Qui di seguito elenchiamo le misure effettuate dopo opportuno
+centraggio di tutti i componenti ottici rispetto allo stesso asse, parallelo alla guida, detto asse ottico.
+\begin{itemize}
+    \item $I_1$: posizione della sorgente virtuale misurata mediante oculare.
+    \item $I_2$: posizione dell’immagine misurata mediante oculare.
+    \item $L_1$ e $L_2$: le due posizioni della lente di focale incognita che fanno convergere i raggi luminosi 
+    emessi da $I_1$ alla posizione $I_2$, dove è posto l'oculare, scelta da ogni sperimentatore. 
+    \item $s$: differenza tra $I_2$ e $I_1$.
+    \item $l$: differenza tra $L_2$ e $L_1$.
+\end{itemize}
+Di seguito si riporta uno schema più generale dell'apparato ottico con 
+la raffigurazione delle misure effettuate:
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\textwidth]{apparato-ottica.png}
+    \end{figure}
+
+\clearpage
+\section{Misurazioni}
+Per la determinazione delle varie posizioni $I_1$, $L_1$, $L_2$, ogni sperimentatore, tranne il primo,
+che ne ha prese solo 5, ha eseguito 7 misure di ognuna
+di queste grandezze per poi determinarne media e scarto massimo.
+Inoltre, per ogni sperimentatore, si è fissata una posizione di $I_2$ (a cui si associa 
+come errore quello di sensibilità del nonio di 0.01 cm).  Prima di effettuare le misure,
+ogni sperimentatore, guardando nell'oculare con il fuoco dell'occhio all'infinito, ha regolato
+l'oculare in modo tale da mettere a fuoco il crocefilo in esso contenuto. Per tutta la durata delle
+misurazioni ciascun sperimentatore deve fare attenzione a non modificare la messa a fuoco
+dell'oculare toccandolo inavvertitamente.
+Nelle tabelle seguenti riportiamo le misure effettuate dai quattro sperimentatori per le grandezze menzionate:
+\begin{gather*}
+    \text{Mongatti} \qquad \qquad \qquad \qquad \qquad \qquad \quad \text{Fabbri}\\
+    \begin{tabular}{ c  c  c }
+        \hline
+        $I_1$ (cm) & $L_1$ (cm) & $L_2$ (cm)\\
+        \hline
+        24.96 & 42.83 & 89.96 \\
+        24.98 & 42.86 & 90.08\\
+        25.14 & 42.85 & 90.09\\
+        25.13 & 42.88 & 90.03\\
+        24.94 & 42.97 & 89.99 \\
+        \hline
+    \end{tabular} \qquad \begin{tabular}{ c  c  c }
+        \hline
+        $I_1$ (cm) & $L_1$ (cm) & $L_2$ (cm)\\
+        \hline
+        24.83 & 44.68& 72.84 \\
+        24.89& 44.93 & 72.89 \\
+        24.89& 44.67& 72.83\\
+        24.96& 45.12& 72.85 \\
+        24.96& 44.70& 72.85 \\
+        24.88& 44.99& 72.92 \\
+        24.87& 44.95& 72.91 \\
+        \hline
+    \end{tabular} \\
+    \text{Miliani} \qquad \qquad \qquad \qquad \qquad \qquad \text{Tinacci}\\
+    \begin{tabular}{c  c  c}
+        \hline
+        $I_1$ (cm) & $L_1$ (cm) & $L_2$ (cm)\\
+        \hline
+        24.87	& 43.69	& 78.85 \\
+        24.78	&43.88	&78.83 \\
+        24.81	&43.96	&78.70 \\
+        24.91	&43.89	&78.75 \\
+        24.93	&43.96	&78.79 \\
+        24.92	&43.84	&78.82 \\
+        25.01	&43.92	&78.77 \\
+        \hline
+    \end{tabular}  \qquad \begin{tabular}{c c  c}
+        \hline
+        $I_1$ (cm) & $L_1$ (cm) & $L_2$ (cm)\\
+        \hline
+        24.66&	43.33	&83.53 \\
+        24.68&	43.34	&83.52 \\
+        24.66&	43.39	&83.54 \\
+        24.64&	43.36	&83.49 \\
+        24.69&	43.41	&83.53 \\
+        24.70 &  43.37	&83.49 \\
+        24.71&	43.32	&83.53 \\
+        \hline
+    \end{tabular}
+\end{gather*}
+Da questi valori si sono ricavati media ed errore associato, tramite propagazione
+degli errori, per le misure indirette $s$ ed $l$. Si riassumono, inoltre, tutte le misure
+per ciascun sperimentatore:
+\begin{gather*}
+    \overline{s} = \overline{I_2} - \overline{I_1}\qquad\quad \Delta s = \Delta I_2 + \Delta I_1  \\
+    \overline{l} = \overline{L_2} - \overline{L_1}\qquad\quad \Delta l = \Delta L_2 + \Delta L_1   
+\end{gather*}
+\begin{gather*}
+    \begin{tabular}{c  c  c  c  c  c  c }
+        \hline
+        Sp. & $I_2$ (cm) & $\overline{s}  \pm \Delta s$ (cm) & $\overline{l} \pm \Delta l$ (cm) & $\overline{I_1}  \pm \Delta I_1$ (cm) & $\overline{L_1}  \pm \Delta L_1$ (cm)& $\overline{L_2}  \pm \Delta L_2$ (cm)\\
+        \hline 
+        Mongatti & $110.00$ & $84.97 \pm 0.13$ & $47.15 \pm 0.16$ & $25.03 \pm 0.12$ & $42.88 \pm 0.09$ & $90.03 \pm 0.07$ \\
+        Fabbri  & $95.00$ & $70.10 \pm 0.08$ & $28.00 \pm 0.35$ & $24.90 \pm 0.07$ & $44.86 \pm 0.30$ & $72.87 \pm 0.05$ \\
+        Miliani & $100.00$ & $75.11 \pm 0.13$ & $34.91 \pm 0.28$ & $24.89 \pm 0.12$ & $43.88 \pm 0.19 $ & $78.79 \pm 0.09$ \\
+        Tinacci & $104.00$ & $79.32 \pm 0.05$ & $40.16 \pm 0.08$ & $24.68 \pm 0.04$	& $43.36 \pm 0.05$ & $83.52 \pm 0.03$ \\
+        \hline
+    \end{tabular}
+\end{gather*}
+Dall'equazione di Gauss, inoltre, si è trovato l'incertezza sulla focale per ogni sperimentatore utilizzando
+la propagazione dell'errore con le derivate parziali:
+\begin{align}
+    \Delta f = \left| \frac{1}{4} + \frac{l^{2}}{4s^{2}} \right|\Delta s + \left| \frac{l}{2s} \right|\Delta l  .
+\end{align}
+In questo modo si sono ottenute le seguenti stime per la lunghezza focale 
+della lente incognita per ogni sperimentatore con relativo errore:
+\begin{gather*}
+    \begin{tabular}{c  c  c  c  c}
+        \hline
+        & Mongatti & Fabbri & Miliani & Tinacci \\
+        \hline
+        $f \pm \Delta f $ (cm)& $14.70 \pm 0.09$ & $14.73 \pm 0.09$ &$14.72 \pm 0.10$ &$14.75 \pm 0.04$ \\
+        \hline
+    \end{tabular}
+\end{gather*}
+
+\clearpage
+\section{Commento qualitativo}
+Si riportano graficamente le misure della focale incognita per
+ogni sperimentatore per verificarne la consistenza:
+    \begin{figure}[H]
+        \centering
+        \includesvg[width=0.75\textwidth]{compatibilita-focali.svg}
+    \end{figure}
+Dal grafico si osserva che le misure della focale per la lente incognita risultano consistenti tra di loro.
+Si può tuttavia notare che una delle misure presenta un errore sensibilmente minore rispetto alle altre, 
+cosa che supponiamo esser dovuta ad un utilizzo meno prudente dell'oculare da parte 
+degli altri sperimentatori. Meno cura nel maneggiare l'oculare durante le misurazioni
+potrebbe aver accidentalmente modificato la messa a fuoco dello strumento, portando ad
+una fluttuazione dei valori misurati che potrebbe essere stata fonte di un maggiore errore sulla focale. Appurata la compatibilità delle misure,
+si è ricavata la nostra misura per la focale della lente incognita tramite media pesata, con relativo errore:
+\begin{gather*}
+    f = (14.72 \pm 0.03) \cdot  \text{cm}
+\end{gather*}
+Si ritenga dunque sperimentalmente verificata la legge delle lenti sottili. 
+La nostra misura per la focale della lente incognita dista $\sim2.2 \sigma_f$ dal valore dato dal costruttore di $15.00$ cm, il quale
+non risulta dunque essere un valore accurato. 
+
+\end{document}

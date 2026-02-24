@@ -1,0 +1,150 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Lab}
+\author{Tommaso Miliani}
+\date{20-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Isotropi}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 1.1}
+    \caption{Forza applicata ad un oggetto in orizzontale}
+    \begin{tikzpicture}
+        \draw (0, 0) -- (0, 3);
+        \draw (0, 1) -- (2, 1);
+        \draw (0, 2) -- (2, 2);
+        \draw(2, 1) -- (2, 2);
+        \draw(1.8, 1) -- (1.8, 2) node[at end, above] {$\Delta L$};
+        \draw[->](2, 1.5) -- (3, 1.5) node[at end, below] {$\vec{F}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Con l'equazione di Young si ottiene le seguenti formule:
+\begin{align}
+    \sigma = \frac{\left|\vec{F}\right|}{S} = E\frac{\left| \Delta L \right| }{L}
+\end{align}
+
+Adesso con il coefficiente di Poisson ($\gamma$), complessivamente il corpo si espande o si contrae
+quando allungo il lato in quel modo e i lati trasversi si stringono?
+A livello fisico succede questo:
+\begin{align}
+    \frac{\Delta W}{W} = -\gamma \frac{\Delta L}{L} = \frac{\Delta h}{h}
+\end{align}
+Il rapporto tra allungamento del lato parallelo al cui si applica la forza
+è proporzionale all'accorciamento o allungamento del lato perpendicolare all'applicazione
+della forza di un fattore $\gamma$. Il volume dell'oggetto considerato è infatti:
+\begin{gather*}
+    V = whL
+\end{gather*} 
+Per cui si ottiene che il rapporto $\frac{\Delta V}{V}$ sarà:
+\begin{align}
+    \frac{\Delta V}{V} = \frac{\Delta L}{L} (1 - 2\gamma)
+\end{align}
+Nei corpi \textbf{isotropi} generalmente $\gamma > \frac{1}{2}$ questo vuol
+dire che non aumenta il volume della sbarretta, se fosse minore, il suo volume
+aumenterebbe. Il modulo di comprimibilità, ossia il fattore di comprimibilità
+di un materiale (utile per i gas), è dato da:
+\begin{align}
+    \gamma = \frac{E}{3(1 - 2\gamma)}
+\end{align}
+Quindi il $\sigma$ è:
+\begin{align}
+    \sigma = -K \frac{\Delta V}{V}
+\end{align}
+
+\section{Il modulo di scorrimento}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 2.1}
+    \caption{Oggetto vincolato su una base}
+    \begin{tikzpicture}
+        \draw (0, 0) -- (0, 3);
+        \draw (0, 0.5) -- (1, 0.5);
+        \draw (0, 2.5) -- (1, 2.5);
+        \draw(1, 0.5) -- (1, 2.5);
+        \draw[dashed](0, 2.5) -- (1, 2.25);
+        \draw[dashed](0, 0.5) -- (1, 0.25);
+        \draw(0.8, 2.5) arc (0:-15:0.8) node[midway, right] {$\alpha$};
+        \draw[->](1, 0.5) -- (1, -0.5) node[at end, below] {$\vec{F}$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Vincoliamo un oggetto ad una base rigida ma l'altra base parallela la
+vogliamo non vincolata. In questo caso la base che è sottoposta alla forza parallela rispetto
+alla base esterna fa scivolare una base rispetto all'altra. Questo
+è immaginabile come una sorta di scorrimento di tanti strati del materiale uno
+rispetto all'altro che dà luogo alla variazione della forma dell'oggetto. 
+Matematicamente si può esprimere lo sforzo specifico come:
+\begin{align}
+    \sigma = \frac{F}{S} = G \frac{\left| \Delta x \right| }{L}
+\end{align}
+Inoltre si ha che:
+\begin{gather*}
+    G \frac{\left| \Delta x \right| }{L} = G\tan\alpha
+\end{gather*}
+E si potrebbe approssimare $\tan\alpha \approx \alpha$.
+Il modulo di Young è dato invece da:
+\begin{align}
+    E = 2(1 + \gamma)G
+\end{align}
+Da cui si può ottenere una delle tre date le altre due.
+
+\section{Flessione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 2.2}
+    \caption{La flessione}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (0, 4);
+        \draw (0, 2) -- (3, 2);
+        \draw(0, 3) -- (3, 3);
+        \draw(3,3) -- (3, 2);
+        \draw[->](3, 3) -- (3.5, 3) node[at end, right] {$\vec{F}$};
+        \draw[dashed](0, 3) .. controls (1.5, 3) .. (2.75, 2.25);
+        \draw[dashed](0, 2) .. controls (1.5, 2) .. (2.25, 1.25);
+        \draw[dashed](2.75, 2.25) -- (2.25, 1.25);
+        \draw[dashed](0, 2.5) -- (1.75, 2.5);
+        \draw(2.5, 1.75) -- (1.25, 2.5);
+        \draw(1.75, 2.5) arc (0:-30: 0.5) node[midway, right] {$\phi$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Le fibre superiori del materiale si allungano e quelle inferiori si accorciano
+per permettere la flessione dell'oggetto. L'angolo $\phi$ ci permettere di determinare quanta
+flessione ha l'oggetto rispetto alla posizione orizzontale iniziale: si ottiene:
+\begin{align}
+    \phi = \frac{1}{E} \frac{4}{\pi} \frac{L}{r^{4} } M_f
+\end{align}
+Dove $r$ è il raggio di flessione dell'oggetto  rispetto all'arco della flessione e
+$M_f$ è il modulo del momento flettente applicato per cui si ottiene:
+\begin{align}
+    \frac{\sigma}{E} \approx \frac{\Delta L}{L}
+\end{align}
+
+\end{document}

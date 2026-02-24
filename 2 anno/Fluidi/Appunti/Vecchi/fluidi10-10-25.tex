@@ -1,0 +1,365 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{appunti fluidi}
+\author{Tommaso Miliani}
+\date{10-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Espansione libera adiabatica di un gas quasi statica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il pistone}
+    \begin{tikzpicture}
+        \draw[very thick](0, 0) rectangle (2, 2);
+        \filldraw[cyan, opacity = 0.3] (0, 0) rectangle (2, 2);
+        \draw[very thick] (2, 2) -- (3.5, 2 );
+        \draw[very thick](2, 0) -- (3.5, 0);
+        \draw[->, thick] (3, 1) -- (2, 1) node[midway, above] {$\vv{F}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per far si che l'espansione libera adiabatica sia quasi statica, io
+non posso rimuovere la barriera immediatamente ma devo applicare una forza
+sulla parete che sia in grado di equilibrarla esattamente: se la diminuissi
+istante per istante, allora il gas si espanderebbe lentamente. In questo
+modo riesco ad ottenere una espansione libera adiabatica di un gas in 
+maniera quasi statica. Si potrebbe ottenere la \textbf{compressione} adiabatica
+del sistema in maniera quasi statica se invece facessi crescere istante per istante
+la forza necessaria. Il contenitore in figura prende il nome di \textbf{pistone adiabatico}. 
+Si ottengono allora le seguenti situazioni:
+\begin{itemize}
+    \item $\Delta V > 0 \ \Longrightarrow \ \Delta T < 0$;
+    \item $\Delta V < 0 \ \Longrightarrow \ \Delta T > 0$; 
+    \item $\Delta V \neq 0 \ \Longrightarrow \ \Delta T \neq 0$. 
+\end{itemize}
+Non esistono solamente trasformazioni adiabatiche. 
+
+\section{Trasformazioni non adiabatiche}
+\subsection{Il termostato}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}[scale=0.85]
+        \draw(-2, -1) rectangle (0, 3) node[midway] {$T$};
+        \draw(0, 0) rectangle (2, 2);
+        \filldraw[cyan, opacity = 0.3] (0, 0) rectangle (2, 2);
+        \draw[very thick] (0, 2) -- (3.5, 2);
+        \draw[very thick](0, 0) -- (3.5, 0);
+        \draw[very thick](2, 0) -- (2, 2);
+        \draw[->, thick] (3, 1) -- (2, 1) node[midway, above] {$\vv{F}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per studiare trasformazioni non adiabatiche si introduce il concetto di
+\textbf{termostato}: ossia un sistema termodinamico tale che la sua
+temperatura possa sempre rimanere costante qualsiasi cosa gli venga fatta. Ovviamente
+il termostato perfetto non esiste anche se è possibile definire termostati rispetto
+ad altri sistemi se e solo se la sua temperatura del termostato varia molto meno rispetto al sistema
+a cui è paragonato. Si può creare un termostato con un sistema di massa molto 
+grande rispetto all'altro sistema con il quale lo stiamo facendo interagire.
+Se $M$ è la massa del termostato e $m$ è la massa del sistema si deve avere
+\begin{align}
+    M >> m
+\end{align}
+La parete con cui il pistone è a contatto con il termostato è una parete diatermica:
+per costruzione allora $\Delta T = 0$, ossia la compressione o espansione
+quasi statica avviene sempre a temperatura costante. Se io attaccassi un sistema
+ad un termostato anche se la trasformazione non avviene in maniera quasi statica,
+la temperatura iniziale e quella finale coincideranno poiché,
+data la natura del termostato, la temperatura rimane la stessa (anche se
+durante la trasformazione può cambiare). Queste tipologie di trasformazioni prendono
+il nome di \textbf{isoterme}. 
+
+Se volessi fare delle trasformazioni a volume costante con aumento di temperatura 
+in maniera quasi statica, potrei introdurre una successione di termostati con temperatura
+sempre crescente in modo tale da raggiungere l'equilibrio istante per istante. Se non facessi tutti  i passaggi
+intermedi, allora non sarebbe una trasformazione quasi statica e dunque non potrei dire che
+la pressione cresce in maniera proporzionale rispetto alla temperatura.
+
+\subsection{Il lavoro della forze di pressione di un fluido}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il lavoro delle forze di pressione}
+    \begin{tikzpicture}
+        \draw[very thick](0, 0) rectangle (2, 2);
+        \draw[very thick](2, 2) -- (4, 2);
+        \draw[very thick](2, 0) -- (4, 0);
+        \draw[<->](2, -0.2) -- (2.4, -0.2) node[midway, below] {$dl$};
+        \filldraw[cyan, opacity = 0.3] (0, 0) rectangle(2, 2);
+        \draw[dashed](2.4, 0) -- (2.4, 2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+L'unica forza che può imprimere un fluido che è compresso o che si espande è
+la forza che deriva dalla pressione del gas. Posso quantificare il lavoro 
+(in maniera meccanica) della pressione su di un gas considerando un pistone
+con all'interno un fluido. Dato che è un pistone, allora il gas è in grado di essere
+compresso oppure è in grado di espandersi a seconda della forza che vi 
+è sulla parete mobile del pistone. Se si considerasse il caso in cui il gas si espande di un certo 
+$dl$, allora, dato $\vv{dl} = dl \hat{i}$:
+\begin{gather*}
+    V \to V + dV
+\end{gather*}  
+Le forze di pressione agiscono sulla parete e dunque compiono un lavoro
+infinitesimo che è dato da:
+\begin{gather*}
+    \delta L = \vv{F} \cdot  \vv{dr}  
+\end{gather*}
+Possiamo esprimere allora la forza dovuta dalla pressione come
+\begin{gather*}
+    \vv{F} = pA \hat{i}  
+\end{gather*}
+Dove $A$ è la superficie di contatto della parete mobile del pistone 
+lungo il versore $\hat{i}$. Si ottiene allora l'espressione del lavoro infinitesimo
+come :
+\begin{gather*}
+    \delta L = pA \hat{i} \cdot  dl \hat{i} \ \Longrightarrow \ pAdl 
+\end{gather*} 
+Ricordando allora che $Adl$ è esattamente il volume infinitesimo di cui si è espanso il corpo:
+\begin{align}
+    \delta L = pdV
+\end{align}
+Il lavoro è positivo se il fluido si espande ed è negativo se 
+invece è compresso. Questa espressione del lavoro vale per qualunque
+trasformazione infinitesima di un fluido quando varia di un certo  $dV$
+ben definito. 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'espansione libera di un fluido}
+    \begin{tikzpicture}
+        \draw(0, 0) ellipse (2 and 1) node[midway] {$V$};
+        \draw[dashed](0, 0) ellipse (2.2 and 1.1);
+        \draw[->](2.5, -1.2) -- (1.8, -0.8) node[at start, right] {$V + dV$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Dato un fluido racchiuso in una forma arbitraria, posso applicargli una
+trasformazione in maniera tale che il fluido possa variare il suo volume.
+Il nuovo volume occupato dall'oggetto è allora $V + dV$ Se io
+considerassi una parte del fluido, potrei approssimare la curva arbitraria
+come se ci fossero tanti pistoncini che si stanno espandendo dalla curva
+normale a quella tratteggiata. La sezione del pistone non importa; posso
+allora pensare che ognuno di questi pistoncini si espandano con $dl_1, dl_2\dots$
+tutti diversi tra di loro. Posso allora considerare un solo pistoncino per il quale
+il lavoro compiuto dalla pressione dal gas per l'espansione infinitesima:
+\begin{gather*}
+    \delta L_i = p  \ dA_i \ dl_i
+\end{gather*}
+Allora il lavoro totale dei pistoncini diventerà la sommatoria
+dei lavori infinitesimi
+\begin{gather*}
+    \delta L = \sum p \ dA_i \ dl_i 
+\end{gather*}
+Dato che $p$ è costante per tutta la superficie del fluido, e che
+$dV_i = dA_i \ dl_i$, si ha il lavoro totale come:
+\begin{gather*}
+    \delta L = p\sum dV_i
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il lavoro lungo una curva generica}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$p$};
+        \draw(0.5, 1) .. controls (1, 1.4) and (1.5, 1.4) .. (2.5, 1);
+        \filldraw(0.5, 1) circle (1pt) node[anchor = south] {I};
+        \filldraw(2.5, 1) circle (1pt) node[anchor = south] {F};
+        \draw[dashed](0.5, 0) -- (0.5, 1);
+        \draw[dashed](2.5, 0) -- (2.5, 1);
+        \filldraw[cyan, opacity = 0.3] (2.5, 1) -- (2.5, 0) -- (0.5, 0) -- (0.5, 1) .. controls (1, 1.4) and (1.5, 1.4) .. (2.5, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se il volume del fluido variasse di una quantità finita di volume, allora
+non saprei dire il lavoro della forza di pressione, in quanto la trasformazione non
+sarebbe quasi statica. Se fosse quasi statica, per ogni stato di equilibrio,
+dovrei avere fissata la pressione del fluido. Dunque il lavoro della pressione in una 
+trasformazione quasi statica è dato da:
+\begin{align}
+    L = \int_{V_i}^{V_f}p \ d V
+\end{align}  
+dove $p$ è esattamente una funzione del volume  $p(V)$ (che non so). Non
+posso però considerare $\delta L$ come $dL$, ossia non posso dire che
+il lavoro infinitesimo sia il differenziale esatto in quanto
+le funzioni $p(V)$ possono essere infinite e dunque il lavoro non è
+una funzione di stato. Durante le espansioni libere, il lavoro delle forze di
+pressione è nullo in quanto la parete è rimossa istantaneamente e sull'ambiente 
+esterno non si è spostato nulla. 
+
+
+\subsection{Trasformazioni quasi statiche a pressione costante}
+Dato che la pressione è costante, allora è valida la relazione 
+del lavoro (anche perché è quasi statica) e dunque il lavoro 
+è proprio l'integrale
+\begin{align}
+    L = p\int_{V_i}^{V_f}
+\end{align}
+
+\subsection{Trasformazioni quasi statiche isoterme}
+Dato che è isoterma, allora $T$ è costante: non so per un sistema
+qualunque quanto può fare il lavoro delle forze di pressione, anche
+se il sistema è quasi statico. Tuttavia, nel caso in cui la funzione di stato
+allora posso ricavarmi una relazione per poter esprimere l'equazione della curva
+isoterma: allora in quel caso posso determinare il lavoro delle forze di pressione.
+Dato che, per un gas perfetto, $pV = nRT$, allora
+\begin{align}
+    L = \int_{V_i}^{V_f} \frac{nRT}{V} \ dV \ \Longrightarrow \ L = nRT \cdot  \ln\frac{V_f}{V_i}
+\end{align}
+
+\subsection{Lavoro del sistema e dell'ambiente}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il lavoro del gas su di un corpo di massa $m$}
+    \begin{tikzpicture}
+        \draw[very thick](0, 0) --  (2, 0) -- (2, 4);
+        \draw[very thick](0, 0) -- (0, 4);
+        \draw[very thick](0, 2) -- (2, 2);
+        \draw(0.5, 2) rectangle (1.5, 3) node[midway] {$m$};
+        \filldraw[cyan, opacity = 0.3](0, 0) rectangle (2, 2);
+        \draw[|-|](-0.2, 2) -- (-0.2, 3.2) node[midway, left] {$h$};
+        \draw[dashed](0, 3.2) -- (2, 3.2);
+        \draw[dashed](0.5, 3.2) rectangle (1.5, 4.2) node[midway] {$m$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso dare alcune definizioni tecniche:
+\begin{itemize}
+    \item $\delta L > 0$: il sistema compie del lavoro sull'ambiente esterno
+    \item $\delta L < 0$: l'ambiente esterno compie del lavoro sul sistema.
+\end{itemize}
+Il lavoro è il modo meccanico per far sì che ambiente e 
+sistema si scambino energia: questo vuol dire che è possibile anche
+immagazzinare energia sottoforma di energia potenziale.  Nell'esempio semplice
+di un peso su di un pistone, posso dire che l'energia potenziale dell'ambiente
+è variata secondo
+\begin{gather*}
+    \Delta U(A) = mgh
+\end{gather*}
+Posso esprimere il lavoro che ha compiuto la pressione
+come
+\begin{gather*}
+    L(S) = p\Delta V \ \Longrightarrow \ L = \frac{mg}{B} hB \ \Longrightarrow \ L(S) = mgh
+\end{gather*}
+Dove $B$ è la superficie del pistone, $F$ è la forza che scaturisce la pressione
+del gas e $h$ la variazione di quota dovuta alla pressione del gas.
+
+
+\section{Lavoro del sistema durante una trasformazione adiabatica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[very thick](0, 0) rectangle (5, 2);
+        \draw[very thick](1, 0) -- (1, 2);
+        \draw[very thick](2, 0) -- (2, 2);
+        \filldraw[cyan, opacity = 0.3](0, 0) rectangle (1, 2);
+        \draw(2, 1) -- (5.5, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per arrivare a definire il lavoro del sistema in una trasformazione adiabatica
+si può partire da considerare una situazione semplice in cui il sistema è
+in espansione. Dato che non esiste un unico modo per poter passare da uno
+stato iniziale I ad uno stato finale F, allora posso utilizzare una
+scatola, con pareti adiabatiche, che mi permetta di ottenere 3 trasformazioni
+per riempire tutta la scatola. Considerando un gas perfetto e molto rarefatto
+all'interno della scatola, questa presenta una prima parete, così come la seconda, presentano delle aperture che
+possono essere controllate dall'esterno senza interferire sullo stato del sistema.
+La seconda parete, è controllata dall'esterno tramite un'asta, in modo tale che possa muoversi
+dalla sua posizione iniziale fino a tutta la lunghezza della scatola. 
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La schematizzazione delle trasformazioni}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$p$};
+        \draw[dashed](1, 0) -- (1, 3.5) node[at start, below] {$V_0$};
+        \draw[dashed](2, 0) -- (2, 3) node[at start, below] {$V_1$};
+        \draw[dashed](3, 0) -- (3, 1.5) node[at start, below] {$V_2$};
+        \draw[dashed](4, 0) -- (4, 1.3) node[at start, below] {$V_3$};
+        \filldraw(1, 3.5) circle (1pt);
+        \filldraw(2, 3) circle (1pt);
+        \filldraw(3, 1.5) circle (1pt);
+        \filldraw(4, 1.3) circle (1pt);
+        \draw[thick, ->](1, 3.5) .. controls (1.3, 3.2) and (1.7, 3) .. (2, 3) node[at end, right] {$T_0 = T_1$};
+        \draw[dashed](1, 2.5) .. controls (2, 1.7) and (3, 1.45) .. (4, 1.3) node[at end, right] {$T_2 = T_3$};
+        \draw[thick, ->](2, 3)  -- (3, 1.5);
+        \draw[thick, ->](3, 1.5) .. controls (3.4, 1.4) and (3.7, 1.35) .. (4, 1.3);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso riassumere tutte le trasformazioni nel grafico volume-pressione,
+di seguito sono elencate in ordine le trasformazioni: 
+\begin{itemize}
+    \item \textbf{I trasformazione}: la prima trasformazione è una espansione libera
+    adiabatica (la cui trasformazione sta sull'isoterma che comprende le due temperature
+    inziali e finiali):
+    \begin{gather*}
+        V_1 > V_0 \quad T_0 = T_1 \ \Longrightarrow \ L_{0, 1} = 0
+    \end{gather*}
+    \item \textbf{II trasformazione}: La seconda trasformazione consiste nell'espansione del 
+    volume del gas in maniera quasi statica, controllando il movimento della seconda parete. 
+    Questa trasformazione, essendo quasi statica, è una curva sul piano che non si sa disegnare,
+    anche se si sa che questa curva deve essere tale che la temperatura dello stato in cui si atterra,
+    deve essere una temperatura diversa da quella che si aveva all'inizio.
+    \begin{gather*}
+        V_2 > V_1 \quad T_2 < T_1 \ \Longrightarrow \ L_{1, 2} = \int_{V_1}^{V_2}p \ dV
+    \end{gather*}
+    \item \textbf{III trasformazione}: A questo punto, apro la seconda parete, così inzia unn'altra
+    espansione libera del gas, per cui
+    \begin{gather*}
+        V_3 > V_2 \quad T_3 = T_2 \ \Longrightarrow \ L_{2, 3} = 0
+    \end{gather*}
+\end{itemize}
+Dato che questa è solamente una trasformazione di tutte le infinite trasformazioni possibili, 
+è possibile ricavare sempre altre tre trasformazioni per cui si va dallo stesso stato iniziale allo stesso stato finale.
+Qualunque sia l'insieme delle trasformazioni applicate al sistema,
+il lavoro complessivo sarà sempre dato dal solo contributo
+dell'espansione del volume del gas in maniera quasi statica dovuto al
+controllo del movimento della seconda parete. 
+
+
+\end{document}

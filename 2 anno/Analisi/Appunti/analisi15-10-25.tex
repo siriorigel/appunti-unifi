@@ -1,0 +1,315 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di analisi}
+\author{Tommaso Miliani}
+\date{15-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section*{L'Ottimizzazione: ricerca dei valori massimi e minimi delle funzioni}
+\section{Ricerca dei valori massimi e minimi liberi}
+Data una funzione $f(x, y)$ e voglio cercare il massimo di questa
+funzione quando $(x, y) \in \mathbb{A}$. Se $\mathbb{A}$ è un insieme aperto,
+(e dunque ogni punto di $\mathbb{A}$ è interno ad esso), allora si parla
+di ricerca di \textbf{massimi liberi}. Se invece $\mathbb{A}$ non fosse aperto (ossia
+$\mathbb{A}$ fosse una curva o una superficie), allora si parla di
+\textbf{massimi vincolati}.
+
+\begin{example}
+    Siano $P_1, P_2, P_3$ punti del piano $xy$, si vuole trovare il punto
+    del piano che rende minima la somma delle distanze dai tre punti.
+    La funzione $f(x, y)$ è la distanza di $(x,y)$ da $P_1$ sommata
+    alle distanze degli altri due punti. In questo caso $\mathbb{A} \equiv \mathbb{R}^{2}$:
+    \begin{gather*}
+        f(x, y) = ||(x, y) - P_1|| +||(x, y) - P_2|| + ||(x, y) - P_3||
+    \end{gather*}
+\end{example}
+
+Un problema di ottimizzazione molto comune è quello dei problemi
+geometrici:
+\begin{example}
+    Tra tutti i parallelepipedi di superficie 1, determinare il parallelepipedo
+    con volume massimo. Posso definire la superficie che caratterizza 
+    l'area come
+    \begin{gather*}
+        S(x, y, z)  =2xy + 2xz + 2yz = 1
+    \end{gather*}
+    L'intersezione tra la superficie e il primo ottante di $\mathbb{R}^{3}$. 
+\end{example}
+
+
+\begin{definition}[Massimo assoluto]
+    Data una funzione $f$ definita in $\mathbb{A}$ con valori in $\mathbb{R}$,
+    dato un punto $(x_0, y_0) \in \mathbb{A}$, dico che $x_0$ e $y_0$ è un
+    punto di \textbf{massimo assoluto} per $f$ in $\mathbb{A}$ e che $f(x_0, y_0)$ è il massimo assoluto
+    se 
+    \begin{align}
+        f(x_0, y_0) \geq f(x, y) \qquad \forall (x, y) \in \mathbb{A}
+    \end{align}
+\end{definition}
+
+\begin{definition}[Massimo relativo]
+    Data una funzione $f$ definita in $\mathbb{A}$ con valori in $\mathbb{R}$,
+    dato un punto $(x_0, y_0) \in \mathbb{A}$, dico che $x_0$ e $y_0$ è un
+    punto di \textbf{massimo relativo}, o \textbf{locale},  per $f$ in $\mathbb{A}$ e che $f(x_0, y_0)$ è il massimo relativo
+    se $\exists$ un intorno $U$ di $(x_0, y_0)$ tale che
+    \begin{align}
+        f(x_0, y_0) \geq f(x, y) \qquad \forall (x, y) \in U
+    \end{align}
+\end{definition}
+Le definizioni per il minimo sono del tutto analoghe
+\begin{definition}[Minimo assoluto]
+    Data una funzione $f$ definita in $\mathbb{A}$ con valori in $\mathbb{R}$,
+    dato un punto $(x_0, y_0) \in \mathbb{A}$, dico che $x_0$ e $y_0$ è un
+    punto di \textbf{minimo assoluto} per $f$ in $\mathbb{A}$ e che $f(x_0, y_0)$ è il minimo assoluto
+    se 
+    \begin{align}
+        f(x_0, y_0) \leq f(x, y) \qquad \forall (x, y) \in \mathbb{A}
+    \end{align}
+\end{definition}
+
+\begin{definition}[Minimo relativo]
+    Data una funzione $f$ definita in $\mathbb{A}$ con valori in $\mathbb{R}$,
+    dato un punto $(x_0, y_0) \in \mathbb{A}$, dico che $x_0$ e $y_0$ è un
+    punto di \textbf{minimo relativo}, o \textbf{locale},  per $f$ in $\mathbb{A}$ e che $f(x_0, y_0)$ è il minimo relativo
+    se $\exists$ un intorno $U$ di $(x_0, y_0)$ tale che
+    \begin{align}
+        f(x_0, y_0) \leq f(x, y) \qquad \forall (x, y) \in U
+    \end{align}
+\end{definition}
+Sorgono due problematiche per i punti di massimo e minimo:
+\begin{itemize}
+    \item Esiste il punto di massimo o minimo?
+    \item Come posso trovare questi punti?
+\end{itemize}
+Posso dimostrare l'esistenza dei punti di massimo e minimo secondo l'analogo
+del teorema di Weierstrass per le funzioni a due variabili
+\begin{theorem}[Teorema di Weierstrass]
+    Se $\mathbb{A}$ è chiuso e limitato e se $f$ è continua in $\mathbb{A}$,
+    allora $\exists$ sia il massimo assoluto e anche il minimo assoluto. 
+\end{theorem}
+
+Si elaborano adesso delle condizioni analitiche necessarie o sufficienti
+per capire se un punto è di minimo o di massimo.  La prima condizione e
+l'analoga del teorema di Fermat per le funzioni a due variabili
+\begin{theorem}[Teorema di Fermat]
+    Se $(x_0, y_0)$ è un punto di massimo relativo e se $(x_0, y_0) \in \mathbb{A}$
+    e se $f$ è derivabile in $(x_0, y_0)$, allora 
+    \begin{align}
+        Df(x_0, y_0) = 0
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Considerato $\phi_1(x) = f(x, y_0)$, ossia la funzione che
+    determina l'aumento sulle $x$. Dato che $\phi_1$ è derivabile, $x_0$ è un punto
+    di massimo relativo per la funzione di una variabile $\phi_1(x)$. $\phi_1$ è
+    derivabile in $x_0$ e $x_0$ è interno al dominio di $\phi_1$, valgono 
+    allora tutte le condizioni per l'applicazione del teorema di Fermat per
+    le funzioni ad una variabile, dunque, applicandolo:
+    \begin{gather*}
+        \ \Longrightarrow \ \phi_1'(x_0) = 0 \qquad \phi_1'(x_0) = \frac{\partial f}{\partial x}(x_0, y_0) 
+    \end{gather*} 
+    Analogamente dimostro che 
+    \begin{gather*}
+        \frac{\partial f}{\partial y}(x_0, y_0) = 0 
+    \end{gather*}
+\end{proof}
+
+\begin{definition}[Punto critico]
+    Un punto $(x_0, y_0)$ in cui $Df(x_0, y_0)$ si annulla, si chiama
+\textbf{punto stazionario} o \textbf{punto critico}.
+\end{definition}
+
+\begin{example}[Esempio di punto critico]
+    Data una funzione
+    \begin{gather*}
+        f(x, y) = x^{2} + y^{2}  
+    \end{gather*}
+    Il punto $(0, 0)$ è critico ed è un punto di minimo relativo.
+\end{example}
+
+\begin{example}[Un punto critico non sempre è un massimo o un minimo]
+    Data la funzione
+    \begin{gather*}
+        f(x, y) = x^{2} - y^{2}  
+    \end{gather*}
+    Il punto $(0, 0)$ è critico ma non è né di massimo relativo né di minimo
+    relativo. Questo è un prototipo di punto non di minimo e neanche di massimo. 
+    Infatti, se restringessi lo studio solamente alla funzione
+    \begin{gather*}
+        f(x, 0) = x^{2} 
+    \end{gather*}
+    Sarebbe un punto di minimo, ma se fissassi invece la $x$:
+    \begin{gather*}
+        f(0,  y) = -y^{2} 
+    \end{gather*}
+    Avrei un punto di massimo locale. Questo punto prende il nome 
+    di \textbf{punto di Sella} poiché è un punto critico che si comporta in modo ambivalente:
+    la sua matrice Hessiana è dunque negativa. 
+\end{example}
+
+\begin{observation}[Punti non critici]
+    Un punto di minimo locale o massimo può anche essere non critico
+    nel caso in cui per la generica funzione $f(x, y)$ non esiste
+    il gradiente in quel punto specifico.
+\end{observation}
+
+\begin{example}
+    La funzione norma
+    \begin{gather*}
+        f(x, y) = ||(x, y)||
+    \end{gather*}
+    Il punto $(0, 0)$ è un punto di minimo assoluto, ma
+    il gradiente non esiste in quel punto e dunque non è un
+    punto critico. (E' essenzialmente lo stesso concetto nelle
+    funzioni ad una sola variabile).
+\end{example}
+
+\begin{observation}
+    Supponiamo che $f$ sia $C^{2}$  in un intorno del
+punto critico $(x_0, y_0)$. Lo sviluppo di Taylor mi permette di
+dire che
+\begin{gather*}
+    f(x, y) = f(x_0, y_0)+ 0 + \frac{1}{2}\left<D^{2}f(x, y)(x - x_0, y- y_0), (x - x_0, y - y_0)\right> + o\left(||(x - x_0, y - y_0)||\right)^{2} 
+\end{gather*}
+Vado allora a studiare la matrice Hessiana, per il teorema di Schwartz, se
+$f$ è $C^{2}$ questa è simmetrica. Devo allora studiare il segno del prodotto scalare.
+Se $A$ è una matrice $n \times n$ simmetrica e $h \in \mathbb{R}^{n} $, si
+considera la forma quadratica
+\begin{gather*}
+    q(h) = \left<Ah, h  \right> 
+\end{gather*} 
+\begin{itemize}
+    \item Definita positiva: se $q(h) > 0 \ \forall h \neq 0$ allora ho un punto di minimo;
+    \item Semidefinita positiva: se $q(h) \geq 0  \ \forall h$;
+    \item Definita negativa: se $q(h) < 0 \ \forall h \neq 0$ allora ho un punto di massimo;
+    \item Semidefinita negativa: se $q(h) \leq 0  \ \forall h$;
+    \item Indefinita: se $\exists h_1, h_2 \neq  0$ tale che
+    \begin{gather*}
+        q(h_1) > 0 \qquad q(h_2) < 0
+    \end{gather*}
+    E dunque ho un punto di Sella.
+\end{itemize}
+La funzione nel minimo quindi presenta l'errore (sottoforma di o piccolo),
+che non è trascurabile nel caso in cui la matrice $A$ sia semidefinita: dunque devo
+ricorrere al teorema seguente per questo caso specifico.
+\end{observation}
+
+\begin{theorem}[Condizione necessaria per l'esistenza di un punto di minimo (analoga per un massimo)]
+    Se $f : \mathbb{A} \to \mathbb{R}$ è $C^{2}$ in un intorno di $(x_0, y_0)$
+    e questo punto $(x_0, y_0)$ è un punto di minimo relativo, ed è
+    interno ad $\mathbb{A}$. allora la forma quadratica 
+    associata alla matrice
+    \begin{align}
+        h \to \left< D^{2}f(x_0, y_0)h, h  \right> 
+    \end{align}  
+    è semidefinita positiva
+\end{theorem}
+\begin{proof}
+    Sia $h \in \mathbb{R}^{2}$ con $h \neq 0$, si considera la funzione
+    \begin{gather*}
+        \phi(t) =  f(x_0 + th_1, y_0 + th_2) \qquad h = \begin{pmatrix}
+            h_1 \\
+            h_2
+        \end{pmatrix}
+    \end{gather*}
+    Se $t = 0 \Longleftrightarrow (x_0, y_0)$, scelgo $h \neq 0$ solo
+    perché voglio che il vettore identifichi una direzione. 
+    \begin{gather*}
+        \phi'(0) = 0 \qquad \phi''(0) \geq 0
+    \end{gather*} 
+    Perché ho imposto che per $t = 0$, la funzione presenti un minimo. Adesso,
+    se facessi la deriavata della funzione $\phi(t)$:
+    \begin{gather*}
+        (\phi(t))' = \left(f(x_0 + th_1, x_0 + th_2)\right)' = \\
+        \frac{\partial f}{\partial x}(x_0 + th_1, x_0 + th_2)h_1   + \frac{\partial f}{\partial y}(x_0 + th_1, x_0 + th_2)h_2 
+    \end{gather*}
+    Posso allora fare la derivata seconda della funzione
+    \begin{gather*}
+        (\phi(t))'' = \left(\frac{\partial f}{\partial x}(x_0 + th_1, y_0 + th_2)h_1 + \frac{\partial f}{\partial y}(x_0 + th_1, y_0 + th_2)h_2\right)'  
+    \end{gather*}
+    Ossia
+    \begin{gather*}
+        \left(\frac{\partial f}{\partial x}(x_0 + th_1, x_0 + th_2) \right)'h_1 + \left(\frac{\partial f}{\partial y}(x_0 + th_1, x_0 + th_2) \right)'h_2 = \\
+        \frac{\partial^{2} f }{\partial x^{2} } (x_0 + th_1, x_0 + th_2)h_1^{2} + \frac{\partial^{2}  f}{\partial y\partial x }(x_0 + th_1, x_0 + th_2)h_1h_2 + \\
+        \frac{\partial^{2}  f}{\partial y\partial x } (x_0 + th_1, x_0 + th_2)h_1 h_2 + \frac{\partial^{2}  f}{\partial y^{2} }(x_0 + th_1, x_0 + th_2)h_2^{2} 
+    \end{gather*}
+    Se la calcolassi ora per $t = 0$, si ha che 
+    \begin{gather*}
+        \left< D^{2}f(x_0, y_0)h, h  \right> 
+    \end{gather*}
+\end{proof}
+
+\begin{theorem}[Condizione sufficiente]
+    Sia $f : \mathbb{A} \to \mathbb{R}$ e sia $(x_0, y_0) \in \mathbb{A}$
+    e sia $f$ $C^{2}$ in un intorno di quel punto. 
+    Supponiamo che $(x_0, y_0)$ sia un punto critico della funzione. Allora
+    \begin{enumerate}
+        \item Se $D^{2}f(x_0, y_0)$ è definita positiva $\ \Longrightarrow \ (x_0, y_0)$ è 
+        un punto di minimo relativo.
+        \item Se $D^{2}f(x_0, y_0)$ è definita negativa $\ \Longrightarrow \ (x_0, y_0)$ è
+        un punto di massimo relativo.
+        \item Se $D^{2}f(x_0, y_0)$ è indefinita $\ \Longrightarrow \ (x_0, y_0)$ non è né
+        un punto di massimo né di minimo relativo, ma è un punto di sella.   
+    \end{enumerate} 
+\end{theorem}
+\begin{proof}
+    Si dimostrano le tre:
+    \begin{enumerate}
+        \item
+
+        \item
+        
+        \item La dimostrazione segue dal principio di condizione necessaria
+        di esistenza del punto di minimo relativo.
+    \end{enumerate}
+\end{proof}
+
+
+\end{document}

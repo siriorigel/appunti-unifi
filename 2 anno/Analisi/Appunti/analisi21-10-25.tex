@@ -1,0 +1,281 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti Analisi}
+\author{Tommaso Miliani}
+\date{21-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Dimostrazione teorema volta scorsa}
+\begin{theorem}
+    Se $(x_0, y_0)$ è un punto di massimo relativo o assoluto per
+    $f$ nell'insieme $\mathbb{D}$, allora 
+    \begin{itemize}
+    \item $(x_0, y_0)$ è interno a $\mathbb{D}$
+    e $f$ non è derivabile ;
+    \item $(x_0, y_0)$ è interno a $\mathbb{D}$ e $f$ è
+     derivabile e $\nabla f(x_0, y_0) = 0$. 
+    \item $(x_0 y_0) \in \partial \mathbb{D}$ (ossia è un punto di frontiera). 
+    \end{itemize}
+\end{theorem}
+
+Da questo teorema deriva il seguente corollario:
+\begin{corollary}[Strategia per trovare punti di massimo]
+La strategia per trovare dei massimi assoluti di una funzione continua in un insieme
+compatto:
+\begin{enumerate}
+    \item Trovare punti interni critici
+    \item Trovare punti interni in cui $f$ non è derivabile
+    \item Trovare i punti di massimo di $f$ ristretta alla frontiera
+    \item Confrontare tutti i punti trovati ed i valori di $f$ in tali punti.
+\end{enumerate}
+\end{corollary}
+
+\begin{example}
+    Riprendendo lo studio delle seguenti funzioni  
+    \begin{gather*}
+        f(x, y) = 2xy  \qquad \text{cerchio } x^{2} + y^{2} \leq 4  
+    \end{gather*}
+    \begin{itemize}
+        \item Non esistono punti critici 
+        \item L'unico punto in cui il gradiente è nullo è $(0, 0)$.
+        \item Studio su $\partial D$ , ossia $\{x^{2} + y^{2} \leq 4  \}$;
+    \end{itemize}
+    $f$ è iniettiva sulla frontiera solamente se e solo se
+    si esprimono i 4 punti del cerchio in cui si interseca la funzione $f(x, y) $:
+    I punti possono essere espressi come:
+    \begin{gather*}
+        2\cos t \sin t \ \Longrightarrow \ g(t) = 2 \cdot  2\cos t \cdot  \sin t
+    \end{gather*}
+    Per cui i punti di massimo della funzione sono esattamente:
+    \begin{gather*}
+        g'(t) = 0 \ \Longrightarrow \ t = \frac{\pi}{4}, \frac{3\pi}{4}, \frac{5\pi}{4}, \frac{7\pi}{4}
+    \end{gather*}
+    Per cui per il primo ed il terzo vale $4$ e per il secondo ed il quarto vale $-4$. Per
+    \begin{gather*}
+        g(0 ) = 0 \qquad g(2x) = 0
+    \end{gather*}
+\end{example}
+
+
+\begin{example}
+    Voglio trovare in punti di intersezione tra la funzione 
+    \begin{gather*}
+        f(x, y) = x^{2}y e^{-(x + y)} \qquad D = \{x \geq 0, y \geq 0 \qquad x + y \leq 4\}  \\
+         \begin{tikzpicture}[scale = 0.55]
+            \draw[->](0, 0) -- (5, 0);
+            \draw[->](0, 0) -- (0, 5);
+            \filldraw[opacity = 0.3, color = cyan](0, 0) -- (4, 0) -- (0, 4);
+            \node at (1, 1) {$\mathbb{D}$};
+            \node at (0, 2) {I};
+            \node at (2, 0) {II};
+            \node at (2, 2) {III};
+        \end{tikzpicture}
+    \end{gather*}
+    \begin{itemize}
+        \item I punti interni in cui $f$ non è derivabile non esistono;
+        \item I punti interni in cui $\nabla f = 0$ sono 
+        \begin{gather*}
+            \{y = 0, x \in [0, 1]\} \cup \{(2, 1)\} \\
+            \ \Longrightarrow \ f = 0 \cup f = \frac{4}{e^{3} }
+        \end{gather*}
+    \end{itemize}
+    Adesso voglio studiare i punti sulle tre frontiere del dominio della funzione:
+    \begin{enumerate}
+        \item In questa frontiera 
+        \begin{gather*}
+            f(0, y) \qquad f \in [0, 4] 
+        \end{gather*}
+        Per cui la funzione ristretta a questa frontiera
+        \begin{gather*}
+            f_{|_{I}} \equiv 0
+        \end{gather*}
+        \item 
+        \begin{gather*}
+            f(x, 0) \qquad x \in [0, 4]
+        \end{gather*}
+        Per cui la funzione ristretta
+        \begin{gather*}
+            f_{|_{II}} \equiv 0
+        \end{gather*}
+        \item  In questa frontiera invece considero
+        \begin{gather*}
+            f(x, 4 - x) \qquad x \in [0, 4]    
+        \end{gather*}
+        Dove, posto $g(x)  = f(x, 4 - x)$, posso avere che
+        \begin{gather*}
+            g(x)  = x^{2}(4 - x)e^{-4} \ \Longrightarrow \ g' = 0 \Longleftrightarrow \left\{\begin{array}{l}
+                x = 0 \\
+                x = \frac{8}{3}
+            \end{array}\right.  
+        \end{gather*}
+        Per cui il punto di massimo è  esattamente $(\frac{8}{3}, \frac{256}{27})$.
+    \end{enumerate}
+\end{example}
+
+La ricerca di un massimo vincolato, ossia cercando un massimo o di un minimo 
+di una funzione: ossia si cerca un massimo di una funzione $f(x, y)$ su di una
+funzione vincolo $g(x, y)$  (che è possibile a volte ridurre ad una funzione
+ad una variabile) . Tra tutti i punti che soddisfano $g(x, y) = 0$ si trovano quelli
+che rendono massima la funzione $f(x, y)$.
+
+
+\section{Metodo dei moltiplicatori di Lagrange}
+\begin{theorem}[Moltiplicatori di Lagrange]
+    Sia $G = \{(x, y) : g(x, y) = 0\}$ un vinicolo e sia $(x_0, y_0)$ un
+    punto di massimo locale per $f$ ristretta al vincolo $G$. Supponiamo che
+    sia $f$ che $g$ siano funzioni $C^{1}$ in un intorno di $(x_0, y_0)$
+    e che il $\nabla f(x_0, y_0) \neq 0$. Allora esiste $\lambda_0 \in \mathbb{R}$ 
+    tale che il punto $(x_0, y_0, \lambda_0)$ è un punto critico della funzione
+    \begin{gather*}
+        \mathfrak{L} (x, y, \lambda) := f(x, y) + \lambda g(x, y)
+    \end{gather*}
+    Si introduce quindi una nuova funzione con una variabile di più in modo
+    da cercare i punti candidati ad essere punti di minimo o di massimo vengono
+    cercati nei punti critici per questa funzione. Essere punti critici per
+    questa funzione significa che 
+    \begin{gather*}
+        \frac{\partial \mathfrak{L}}{\partial x} = 0 \qquad \qquad \frac{\partial f}{\partial x} (x_0, y_0)  = -\lambda_0 \frac{\partial g}{\partial x}(x_0, y_0) \\
+        \frac{\partial \mathfrak{L}}{\partial y} = 0 \qquad \qquad \frac{\partial f}{\partial x} (x_0, y_0)  = -\lambda_0 \frac{\partial g}{\partial y}(x_0, y_0) \\
+        \frac{\partial \mathfrak{L}}{\partial \lambda} = 0 \qquad \qquad g(x, y) = 0 
+    \end{gather*}
+    Se un punto $x_0, y_0$ è un punto di massimo vincolato, allora il gradiente di $g$ è ortogonale
+    alle linea di livello e che il gradiente di $f$ deve essere ortogonale alle linee di livello:
+    \begin{align}
+        \nabla f(x_0, y_0) = - \lambda \nabla g(x_0, y_0)
+    \end{align}  
+    Il $\nabla g(\overline{x}, \overline{y}  )$ è perpendicolare alla linea
+    di livello della funzione $g(x, y)$ che contiene il punto $\overline{x}, \overline{y}$.  
+\end{theorem}
+
+\begin{definition}[Definizione di punto di massimo locale vincolato]
+    Sia $G = \{(x, y) : g(x, y) = 0\}$ e sia $(x_0, y_0) \in G$. Si dice che
+    $(x_0, y_0)$ è un punto di massimo locale vincolato per $f$ sul vincolo $G$ 
+    se esiste un intorno $U$ di $(x_0, y_0)$ tale che 
+    \begin{align}
+        f(x, y) \leq f(x_0, y_0) \quad \forall (x, y) \in U \cap  G
+    \end{align} 
+\end{definition}
+
+
+\begin{example}[Punto di minimo vincolato]
+    Determinare il punto della curva  $x^{2}y - 16 = 0$
+    la cui distanza dal punto $(0, 0)$ è minima: cerco una circonferenza
+    $x^{2} + y^{2}$ tangente al vincolo della funzione.  
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw(-3, 0) -- (3, 0);
+            \draw(0, -1) -- (0, 3);
+            \draw(-3, 0.2) ..  controls (-1.5, 0.5) and (-0.5, 1.5) .. (-0.2, 3);
+            \draw(3, 0.2) ..  controls (1.5, 0.5) and (0.5, 1.5) .. (0.2, 3);
+            \filldraw(1.3, 1) circle (1pt); 
+            \draw[->](1.3, 1) -- (1.8, 1.6) node[at end, right] {$\nabla g(x_0, y_0)$};
+            \draw[->](1.3, 1) -- (0.8, 0.4) node[at end, right] {$\nabla f(x_0, y_0)$};
+        \end{tikzpicture}
+    \end{gather*}
+    I possibili candidati che possono essere punti di massimo e di minimo
+    si può costruire una funzione a partire da $f $ e dal vincolo secondo
+    il teorema dei moltiplicatori dei Lagrange e con la definizione di massimo
+    locale vincolato. 
+    \begin{gather*}
+        \mathfrak{L} (x, y, \lambda) = x^{2} + y^{2} + \lambda (x^{2}y - 16 )  
+    \end{gather*}
+    Ossia, secondo il metodo di Lagrange:
+    \begin{gather*}
+        \frac{\partial \mathfrak{L}}{\partial x} = 0 \qquad 2x + 2\lambda x y = 0 \\
+        \frac{\partial \mathfrak{L}}{\partial y} = 0 \qquad 2y + \lambda x^{2} = 0 \\
+        \frac{\partial \mathfrak{L}}{\partial \lambda} = 0 \qquad x^{2}y - 16 = 0     
+    \end{gather*}
+    Da queste condizioni si ricavano le seguenti condizioni:
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            \lambda = -\frac{1}{y} \\
+            2y = \frac{1}{y}x^{2} \\
+            x^{2}y = 16  
+        \end{array}\right. \ \Longrightarrow \ \left\{\begin{array}{l}
+            \lambda = -\frac{1}{y} \\
+            x = \pm \sqrt{2} y \\
+            y = 2
+        \end{array}\right. \ \Longrightarrow \ \left\{\begin{array}{l}
+            \lambda = -\frac{1}{2} \\
+            x = \pm 2\sqrt{2} \\
+            y = 2 
+        \end{array}\right.
+    \end{gather*}
+    Se c'è un punto di minimo vincolato allora deve stare su questi due punti: $(2\sqrt{2}, 2 )$ e $(-2\sqrt{2}, 2 )$,
+    dunque si ottiene che
+    \begin{gather*}
+        \min_{G} f = \min_{G \cap C} f
+    \end{gather*}
+\end{example}
+
+\begin{observation}
+    La tecnica si applica anche in dimensioni maggiori di $2$.
+\end{observation}
+
+\begin{example}
+    Per esempio trovare
+    il minimo oppure il massimo di una funzione $f(x, y, z)$ sul
+    vincolo $G = \{(x, y, z) : g(x, y, z) = 0\}$. Per esempio trovare il massimo
+    o il minimo per 
+    \begin{gather*}
+        f(x, y, z) = xy^{2}z^{2} \qquad G = \{x^{2} + y^{2} + z^{2} = 1   \}  
+    \end{gather*}
+    In questi casi il metodo di moltiplicatori di Lagrange è l'unico applicabile. 
+    \begin{gather*}
+        G = \{x^{2} + y^{2} + z^{2} = 1, x + y + z = \frac{1}{2}    \}
+    \end{gather*}
+    Con il metodo dei moltiplicatori posso chiamare la prima $g(x, y, z)$ e la
+    seconda $h(x, y, z)$, allora la Lagrangiana è
+    \begin{gather*}
+        \mathfrak{L} (x, y, z, \lambda, \mu) = \lambda g(x, y, z) + \mu h (x, y, z)
+    \end{gather*}
+\end{example}
+
+\end{document}

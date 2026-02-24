@@ -1,0 +1,350 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di fluidi}
+\author{Tommaso Miliani}
+\date{23-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Fluidodinamica}
+\subsection{Il concetto di fluido ideale}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il fluido diviso in due}
+    \begin{tikzpicture}
+        \draw(0, 0) .. controls (1, -0.5) and (2.5, 0.5) .. (3, -0.5);
+        \draw(3, -0.5) .. controls (2.9, -1) and (2, -0.75) .. (1, -1);
+        \draw(1, -1) .. controls (-1, -1.4) and (-0.5, 0.5) .. (0, 0);
+        \draw[dashed](1, -0.2) .. controls (0.8, -0.55) .. (0.75, -1);
+        \draw[dashed](1.3, -0.2) .. controls (1.3, -0.55) .. (1, -1);
+        \draw[->, red](1.1, -0.5) -- (1.75, -0.5) node[at end, right] {$\hat{n}$  };
+        \draw[->, cyan](1.1, -0.5) -- (1.75, 0) node[at end, above] {$\vv{F}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+La Fluidodinamica si occupa di definire come si comporta un fluido.
+Un fluido è un corpo continuo formato da tanti puntini (molecole o atomi)
+con massa e dimensione finita. Supponendo di dividere il fluido in due parti
+$A$ e $B$ separate da una sezione, la cui superficie indichiamo con $\Sigma$. Devo avere  una qualche forza
+che esercita la sezione $A$ sulla sezione $B$ sulla superficie di contatto $\Sigma$.
+\begin{gather*}
+    \vv{F_{AB}} = F_{\parallel}\hat{n} + \vv{F_{\perp}}    
+\end{gather*}
+Con il versore $\hat{n}$ perpendicolare alla superficie $\Sigma$ considerata e
+il vettore $\vv{F_{\perp}}$ perpendicolare al versore $\hat{n}$; si definisce allora fluido se 
+\begin{gather*}
+    |F_{\perp}| \llless |F_{\parallel}| \qquad F_{\parallel} > 0
+\end{gather*}
+Posso considerare ora la forza che imprime $B$ su di $A$. Dato che conosco la forza
+che imprime $A$ su $B$, allora posso dire che
+\begin{gather*}
+    \vv{F_{BA}} = -\vv{F_{AB}}  
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(-1, 1.5)  -- (-1, 0)-- (3, 0) -- (3, 1.5);
+        \draw(0.5, 0) rectangle (1.5, 1);
+        \draw[->](0.5, 0.5) -- (-0.5, 0.5);
+        \draw[->](1.5, 0.5) -- (2.5, 0.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+La definizione di $F$ parallelo è una definizione che vale sempre anche
+per l'altro senso in quanto il prodotto scalare con il versore uscente è sempre lo stesso.
+E' proprio una cosa fisica: si suppone di prendere un contenitore e di porvi un fluido: questo
+fluido spingerà da entrambe le direzioni esercitando una forza uscente rispetto alla
+normale (ossia la sua pressione) . Esiste anche una proprietà per la quale
+il fluido non si scompone in pezzi ma rimane sempre unito che è la
+\textbf{tensione}. Un fluido può scorrere su di una superficie proprio
+perché la sua forza perpendicolare è molto piccola; tuttavia il fluido ideale scorre
+senza attrito: il fluido reale invece presenta attrito viscoso di taglio. Nella trattazione
+dei fluidi in fluidodinamica utilizziamo solamente l'ipotesi
+di fluido ideale che scorre senza attrito.  
+
+\subsection{Definizione del campo scalare della pressione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (1, -0.7) node[at end, below] {$\hat{x}$ }; 
+        \draw[->](0, 0) -- (-1, -0.7) node[at end, below] {$\hat{y}$ };
+        \draw[->](0, 0) -- (0, 1) node[at end, left] {$\hat{z}$ };
+        \draw[->](0, 0) -- (3, 1.5) node[midway, below] {$\vv{r}$ };
+        \draw(2.85, 1.35) rectangle (3.15, 1.65) node[anchor = north west] {$\Delta\Sigma$};
+        \draw(1.7, 1.2) .. controls (2.8, 2.15) and (3.2, 1.9) .. (3.4 , 1.8);
+        \draw(3.4, 1.8) .. controls (4, 1.6) and (3.8, 1.1) .. (3.2, 1);
+        \draw(3.2, 1) .. controls (2, 0) and (1.4, 1) .. (1.7, 1.2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Riprendendo il volume arbitrario (o una porzione di fluido ideale) 
+posso considerare un sistema di riferimento con terna
+destrorsa di versori e, preso un punto sulla superficie
+del volume di fluido,posso identificarlo con un raggio
+vettore $\vv{r}$  il punto sulla superficie del fluido, sulla sezione della superficie
+$\Delta \Sigma$ io identifico la spinta verso l'esterno rispetto alla massa del volume
+\begin{gather*}
+    \Delta \vv{R} =  \overline{P} \Delta \Sigma \hat{n}  
+\end{gather*}
+Dove $\overline{P}$ è una quantità positiva definita come
+\begin{gather*}
+    \overline{P} = \frac{\Delta R}{\Delta \Sigma} 
+\end{gather*} 
+Ossia la pressione esercitata dal fluido verso l'esterno. Posso allora definire la pressione come
+\begin{align}
+    P(x, y, z) = \lim_{\Delta \Sigma \to 0} \frac{\Delta R}{\Delta \Sigma}  \quad \frac{[F]}{[L]^{2} } = \frac{[E]}{[L]^{3} }
+\end{align}
+Siamo allora passati da una quantità finita ad una quantità puntiforme: questa funzione è 
+quindi univocamente definita in un punto dello spazio sulla superficie del fluido stesso. 
+Questo è quello che si definisce un \textbf{campo scalare}. Un campo scalare è una funzione 
+che associa uno scalare a ogni punto dello spazio. 
+E' utile definire la pressione come energia per unità di volume (molto utile per lavorare
+con l'energia in termodinamica).  
+
+\subsection{Definizione del campo scalare della densità}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+                \draw[->](0, 0) -- (1, -0.7) node[at end, below] {$\hat{x}$ }; 
+        \draw[->](0, 0) -- (-1, -0.7) node[at end, below] {$\hat{y}$ };
+        \draw[->](0, 0) -- (0, 1) node[at end, left] {$\hat{z}$ };
+        \draw[->](0, 0) -- (3, 1.5) node[midway, below] {$\vv{r}$ };
+        \draw(2.85, 1.35) rectangle (3.15, 1.65) node[anchor = north west] {$\Delta V$};
+        \draw(1.7, 1.2) .. controls (2.8, 2.15) and (3.2, 1.9) .. (3.4 , 1.8);
+        \draw(3.4, 1.8) .. controls (4, 1.6) and (3.8, 1.1) .. (3.2, 1);
+        \draw(3.2, 1) .. controls (2, 0) and (1.4, 1) .. (1.7, 1.2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Considerato il solito sistema di riferimento stavolta, invece di intercettare un punto
+sulla superficie, prendo un punto interno al volume del fluido: invece di prendere
+un elemento di superficie, prenderò un elemento di volume per cui posso misurare una
+certa massa: posso allora scrivere la densità media di quel cubetto di fluido come
+\begin{gather*}
+    \overline{\rho} = \frac{\Delta m}{\Delta V} 
+\end{gather*}
+Ossia la densità media. Posso trasformarla in una quantità che è definita per ogni
+punto del fluido e quindi ottenere il campo scalare della densità come
+\begin{gather*}
+    \rho(x, y, z) = \lim_{\Delta V \to 0} \frac{\Delta m}{\Delta V} 
+\end{gather*}
+Si definiscono allora, data la densità, due classi di fluidi: i liquidi, che sono incomprimibili,
+ed i gas che sono invece dei fluidi comprimibili.  Infatti nei liquidi se prendiamo una sezione
+molto piccola di fluido la densità non varia ma è sempre costante per tutto il liquido (fluido
+incomprimibile) mentre per un gas la densità può cambiare a seconda della sezione di volume
+considerata(fluido comprimibile).
+
+\subsection{Comprimibilità}
+Si può stimare la comprimibilità del fluido spingendolo con una certa pressione:
+\begin{gather*}
+    \frac{\Delta P}{\epsilon} = - \frac{\Delta V}{V_0}
+\end{gather*}
+Ossia ci si aspetta una compressione del volume a seguito dell'applicazione di una
+certa pressione $P$ in modo uniforme su tutta la superficie del fluido. Chiamato allora $\epsilon$ il fattore
+di comprimibilità, questo definisce la comprimibilità del fluido considerato:  più è grande e più il fluido è incomprimibile. 
+A condizioni standard la comprimibilità dell'aria è circa $10^{5} \ Pa$ mentre l'acqua è più
+incomprimibile dell'aria con un $\epsilon = 10^{9} \ Pa$.
+
+\subsection{La resistenza all'espansione di un fluido}
+Se volessi trovare l'equilibrio delle forze del fluido potrei considerare un
+sistema di riferimento ed una piccola porzione di superficie del fluido. Questa porzione del
+fluido agisce in modo tale da imprimere una forza infinitesima
+\begin{gather*}
+    d\vv{F_{\Sigma}} = -p\hat{n}d\sigma  
+\end{gather*}
+per resistere alla forza che vorrebbe fare espandere il fluido, mentre $d\sigma$ è un elemento di 
+superficie infinitesimo. Un fluido
+cercherà allora di mantenere i legami tra le sue molecole ad una pressione esterna.
+La risultante delle forze di superficie sarà allora la somma di tutti i contributi delle
+forze sulla superfici. Calcolando allora la reazione che imprime la parte
+interna del liquido sulla superficie totale 
+\begin{gather*}
+    \vv{R_{\Sigma}}  = -\oint_{\Sigma(V)} p\hat{n} \ d\sigma 
+\end{gather*}
+Per ogni punto posso allora associare una quantità vettoriale e dunque definisco
+un campo vettoriale derivante dalle forze esterne che agiscono sul fluido:
+\begin{gather*}
+    d\vv{F_V} = \vv{f}(x, y, z)dV  
+\end{gather*}
+quindi
+\begin{gather*}
+    \vv{R_V} = \int_{V} \rho \vv{g}\ dV  
+\end{gather*}
+dove $\vv{g}$ è una accelerazione generica. 
+Dato che ora voglio l'equilibrio di un volume finito di fluido, ora impongo:
+\begin{gather*}
+    -\oint_{\Sigma(V)} p\hat{n} \ d\sigma + \int_{V} \rho \vv{g}\ dV   = 0 
+\end{gather*} 
+Ossia l'equazione di \textbf{equilibrio idrostatico}. Si può risolvere in un caso particolare in cui le forze di volume sono
+trascurabili rispetto a quelle di superficie (dipende da diversi fattori); generalmente se si riduce 
+il volume del fluido considerato che le forze di volume diminuiscono 10  volte più velocemente
+delle forze di superficie, Ci poniamo allora nelle condizioni per cui
+\begin{gather*}
+    \vv{R_{\Sigma}} = 0 \qquad \oint_{\Sigma(V)} p\hat{n} \ d\sigma = 0    
+\end{gather*}
+La seconda condizione vale se e solo se la pressione sulla superficie del fluido è costante;
+dato che la superficie è arbitraria, allora la pressione è costante in tutto il fluido
+poiché potrei considerare una superficie che tocca il bordo del fluido e sia parzialmente contenuta 
+nel fluido stesso, allora anche questa porzione avrà pressione costante. Questa affermazione è
+dimostrabile nel seguente modo:
+\begin{gather*}
+    \oint_{\Sigma(V)} p\hat{n} \ d\sigma = 0  \ \Longrightarrow \ p = const \ \Longrightarrow \ p\oint \hat{n} \ d\sigma = 0 
+\end{gather*}
+Il secondo integrale è una proprietà geometrica e dunque è per forza zero: se prendessi infatti il generico vettore
+$\hat{n}$ di un certo $\delta r$, allora ottengo il volume del cilindro che avrà altezza il prodotto scalare
+dei due vettori normale e $\delta \vv{r}$ e questa traslazione non cambia il volume ma si forma un cilindro che 
+indica il volume dovuto alla traslazione di ogni punto del fluido:
+\begin{gather*}
+    dV = d\sigma \delta \vv{r} \cdot  \hat{n} \ \Longrightarrow \ \Delta V = \int_{\Sigma(V)} \delta \vv{r} \cdot  \hat{n}  \ d\sigma = \delta r_0 \oint_{\Sigma}\hat{n} \ d\sigma = 0 
+\end{gather*} 
+Se scelgo arbitrariamente il vettore $\vv{r}$ come $\vv{r_0}$ allora si ottiene che quell'integrale deve fare zero in quanto tutti i 
+contributi all'area devono annullarsi.  (Il volume del
+cilindro rappresenta l'area dello spostamento di un certo punto). Si vede anche
+che a pressione costante il momento delle forze agenti sul fluido è uguale a zero:
+\begin{gather*}
+    \oint _{\Sigma} \vv{r} \times (p\hat{n} ) \ d\sigma = 0  
+\end{gather*}  
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La rotazione del fluido non cambia la risultante delle forze}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (1, -0.7) node[at end, below] {$\hat{x}$ }; 
+        \draw[->](0, 0) -- (-1, -0.7) node[at end, below] {$\hat{y}$ };
+        \draw[->](0, 0) -- (0, 1) node[at end, left] {$\hat{z}$ };
+        \draw[->](0, 0) -- (1.95, 0.7) node[midway, below] {$\vv{r}$ };
+        \draw[->](1.95, 0.7) -- (1.95, 1.3)node[at end, right] {$\vv{\delta r}$ };
+        \draw[cyan](0, 0) -- (1.95, 1.3);
+        \draw[cyan](0.95, 0.35) arc (25:42:0.8) node[at end, above] {$\delta\alpha$};
+        \draw(1.7, 1.2) .. controls (2.8, 2.15) and (3.2, 1.9) .. (3.4 , 1.8);
+        \draw(3.4, 1.8) .. controls (4, 1.6) and (3.8, 1.1) .. (3.2, 1);
+        \draw(3.2, 1) .. controls (2, 0) and (1.4, 1) .. (1.7, 1.2);
+        \filldraw(0, 0) circle (1pt) node[anchor = north] {$\Omega$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+La conservazione della quantità di moto rappresenta l'invarianza delle leggi della
+fisica nel movimento. La conservazione del momento angolare rappresenta che le leggi della
+fisica sono invarianti rispetto alla rotazione. La conservazione dell'energia invece
+implica che le leggi della fisica sono invarianti rispetto ai cambiamenti di tempo. 
+Scegliendo come polo $\Omega$ l'origine del sistema di riferimento allora posso ruotare il fluido
+di un certo angolo $\delta \alpha$ ottenendo allora un certo nuovo vettore
+$\vv{r'} = \vv{r} + \delta \vv{r}$, ossia il nuovo vettore è dato dal vettore
+\begin{gather*}
+    \delta r = \delta\alpha \hat{\Omega} \times \vv{r} 
+\end{gather*}   
+Con $\hat{\Omega}$ si indica il versore dell'asse di rotazione.
+\begin{gather*}
+    \delta V = d\sigma \delta \alpha (\hat{\Omega} \times \vv{r}  ) \hat{n} \\
+    \Delta V = \int_{\Sigma(V)} d\sigma \delta\alpha(\hat{\Omega} \times \vv{r}  ) \hat{n} \ \Longrightarrow \  \Delta V = \oint_{\Sigma} \delta\alpha\hat{\Omega} \cdot (\vv{r} \times \hat{n}  ) \ d\sigma   
+\end{gather*}
+Allora si ottiene con le proprietà del prodotto triplo e col fatto che in una rotazione, così come
+in una traslazione, il volume non cambia, allora si ottiene la seguente
+\begin{gather*}
+    \Delta V = \delta a \hat{\Omega} \int(\vv{r} \times \hat{n}  ) \ d\sigma = 0
+\end{gather*}
+Si è appena dimostrato il \textbf{principio di Pascal}, il cui enunciato dice che: un sistema
+isolato si dice all'equilibrio in cui le forze di volume
+sono trascurabili e la pressione è costante.
+
+\subsection{Torchio idraulico}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0) -- (3, 1) -- (2, 1) -- (2, 0.5) -- (0.5, 0.5) -- (0.5, 1) -- (0, 1) -- (0, 0);
+        \draw[->](-0.2, 1) -- (-0.2, 0.5) node[at end, left] {$\vv{F_1}$};
+        \draw[->](2.5,  1) -- (2.5, 2) node[at end, right] {$\vv{F_2}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso utilizzare i fluidi e la loro pressione per poter applicare più forza:
+infatti la spinta che sente la macchina sulla destra sarà data dalla relazione di pressione
+costante 
+\begin{gather*}
+    p = \frac{F_1}{\Sigma_1} = \frac{F_2}{\Sigma_2} \\
+    F_2 = \frac{\Sigma_2}{\Sigma_1} F_1
+\end{gather*}
+Con il principio di Pascal si possono risolvere i problemi a pressione costante e 
+nell'ipotesi in cui i volumi di fluidi coinvolti siano sufficientemente piccoli.
+
+\subsection{Trovare l'equilibrio con le equazioni differenziali}
+Avrò i contributi delle forze che agiscono sull'asse $z$ 
+sono sia quelle di superficie che quelle di volume. 
+\begin{align*}
+    x &:  -(p(x + \Delta x, y, z)\Delta y \Delta z - p(x, y, z) \Delta y \Delta z) = 0 \\
+    y &:  -(p(x , y + \Delta y, z)\Delta y \Delta z - p(x, y, z) \Delta y \Delta z) = 0 \\
+    z &: \rho g\Delta x \Delta y \Delta z - (p(x, y z + \Delta z)\Delta x \Delta y - p(x, y, z) \Delta x \Delta y) = 0
+\end{align*}
+Si ottiene allora le seguenti relazioni:
+\begin{align*}
+    x &: \frac{-(p(x + \Delta x, y, z) - p(x, y, z))}{\Delta z} = 0 \\
+    y &: \frac{-(p(x, y + \Delta y, z) - (p(x, y, z)))}{\Delta y} = 0 \\
+    z &: \rho g - \frac{(p(x, y, z + \Delta z)\Delta x \Delta y - p(x, y, z))}{\Delta z} = 0
+\end{align*}
+Posso allora eseguire la derivata parziale rispetto alle singole coordinate
+\begin{gather*}
+    \left\{\begin{array}{l}
+        -\frac{\partial p}{\partial x} = 0 \\
+        -\frac{\partial p}{\partial y} = 0 \\
+        \rho z - \frac{\partial p}{\partial z} = 0  
+    \end{array}\right.
+\end{gather*}
+Le altri componenti non hanno le componenti $\rho g$ perché stiamo
+considerando solamente l'asse $z$. In assenza di forze di volume, allora
+la derivate rispetto sia ad $x$ che $y$ sono uguali a zero e dunque da qualunque parte io
+la prenda $p$ non cambia. anche perché se io mi sposto di una certa quantità
+infinitesima 
+\begin{gather*}
+    d\vv{r} = dx\hat{x} + dy\hat{y} + dz\hat{z}    
+\end{gather*}
+Anche se mi spostassi di un certo angolo qualunque la pressione sarebbe comunque
+costante. 
+
+\end{document}

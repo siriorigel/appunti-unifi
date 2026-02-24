@@ -1,0 +1,278 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{FIsica lenti}
+\author{Tommaso Miliani}
+\date{06-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Energia meccanica}
+Un dominio si dice semplicemente connesso se, presa una curva chiusa
+la posso deformare fino a farla diventare un punto. Considerato un toroide, 
+se prendo una curva all'interno del dominio, non posso farla collassare in un punto. Se abbiamo un sistema
+su cui agiscono solo forze conservative, (anche forze non conservative che non
+fanno lavoro), allora il teorema delle forze vive mi dice che:
+\begin{gather*}
+    \delta L = - dV = dK
+\end{gather*}
+E quindi isolando poso dire che
+\begin{gather*}
+    dK = - dV
+\end{gather*}
+E allora
+\begin{gather*}
+    dK + dV = 0
+\end{gather*}
+Se ho quindi solo forze conservative allora la somma dell'energia potenziale e cinetica
+non variano: ossia quella somma è costante. La somma di due contributi energetici che danno una costante
+è chiamata \textbf{energia meccanica}. 
+\begin{align}
+    E = K + V 
+\end{align}
+Che è uno dei concetti più importanti nella meccanica classica e nella fisica moderna
+e diventa un concetto fondamentale della fisica in generale. Lo stesso vale se ho due forze conservative
+considerando la somma delle forze conservative.
+\begin{align}
+    dE = 0
+\end{align}
+Se invece ho una forza non conservativa, l'energia meccanica non si
+conserva: se si avesse una forza non conservativa allora $\delta L = -dV$ non vale più.
+INfatti, considerati i contributi energetici delle forze conservative e non si ottiene
+\begin{gather*}
+    \delta L_{tot} = \delta L_{cons} + \delta L_{ncons}\\
+    dK = -\sum dV_i + \delta L_{ncons} 
+\end{gather*}
+Quindi se lo porto dall'altra parte ottengo;
+\begin{gather*}
+    d(K + \sum dV_i ) = \delta L_{ncons}
+\end{gather*}
+Chiamato allora
+\begin{gather*}
+    E = K + \sum dV_i
+\end{gather*}
+L'energia meccanica non sarà più uguale ad una costante 
+ma uguale al lavoro che compiono le forze
+non conservative:
+\begin{gather*}
+    dE = \delta L_{ncons}
+\end{gather*}
+Se il lavoro dell'attrito è negativo allora tende a diminuire.
+
+\section{Le forze conservative in particolare}
+\subsection{la forza peso}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{fig}
+    \caption{Forza peso}
+    \begin{tikzpicture}
+        \filldraw(0, 0) circle (1pt) node[anchor = south] {$m$};
+        \draw[->](0, 0) -- (0, -1) node[at end, right] {$m\vec{g}$ };
+        \draw[->](-1, -3) -- (0, -3) node[at end, below] {$x$};
+        \draw[->](-1, -3) -- (-1, -2) node[at end, left] {$y$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se la forza peso è costante allora il suo gradiente è zero 
+poiché non c'è alcuna variazione ed il suo rotore è quindi anche zero.
+Provando a fare un lavoro infinitesimo o finito provo a trovare
+l'energia potenziale e provando a fare il gradiente devo trovare la
+forza di partenza:
+\begin{gather*}
+    m\vec{g} = mg\hat{j} \\
+    d\vec{r} = dy \hat{j} \\
+    \delta L = (m\vec{g})\cdot d\vec{r}  
+\end{gather*}
+Allora:
+\begin{gather*}
+    \delta L = -mg\hat{j}\cdot dy \hat{j} 
+\end{gather*}
+Il lavoro finito allora:
+\begin{gather*}
+    \int_{A}^{B} \delta L = -mg(y_B -y_A) = V(A) - V(B)
+\end{gather*}
+E' del tutto ragionevole che per un punto generico P 
+che l'energia potenziale sia:
+\begin{gather*}
+    V(P) = mgy_P
+\end{gather*}
+Dato che è definita a meno di una costante, il lavoro
+è dato dalla differenza delle potenziali e potevo scegliere
+come riferimento dell'asse y un punto qualunque e non sarebbe cambiato
+nulla rispetto al risultato. Se aggiungo la stessa quantità sia a $V(A)$ che a
+$V(B)$ allora questa costante che aggiungo si cancella in quanto per
+definizione l'energia potenziale è definita a meno di una costante.
+\begin{gather*}
+    grad V = \frac{\partial V}{\partial x}\hat{i} +  \frac{\partial V}{\partial y}\hat{j} +\frac{\partial V}{\partial z}\hat{k}
+\end{gather*}
+Ottenendo proprio
+\begin{gather*}
+    grad V = mg \hat{j} 
+\end{gather*}
+Dato che io per definizione di gradiente:
+\begin{gather*}
+    \vec{F} = -grad V \Rightarrow -mg\hat{j}  
+\end{gather*}
+La direzione dell'asse y è un'altra scelta arbitraria che ho fatto a priori
+nell'esperimento così come l'orientazione degli assi. Ma non cambia niente in quanto
+fin tanto che seguo le leggi della mano destra posso comunque scegliere
+qualsiasi sistema di riferimento in qualsiasi verso lo voglia orientare.
+Nel caso di un corpo in caduta, se pongo come riferimento l'asse
+z rivolto verso l'alto, allora l'energia meccanica la posso esprimere come:
+\begin{gather*}
+    E = \frac{1}{2}mv^{2} + mgz 
+\end{gather*}
+A: $t = 0$ ottengo:
+\begin{gather*}
+    z = h .v = 0, E = mgh 
+\end{gather*}
+Al tempo finale $t = t_F$:
+
+\begin{gather*}
+     z= 0, v = v_f, E = \frac{1}{2}mv_f^{2}  
+\end{gather*}
+Allora
+\begin{gather*}
+    v_F = \sqrt{2gh} 
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{grfg}
+    \caption{dssd}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0);
+        \draw(0, 0) -- (0, 3);
+        \draw[<->](1, 0) -- (1, 2) node[midway, left] {$h$};
+        \filldraw(1.5, 2) circle(1pt) node[anchor = west] {$m$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+In un moto verticale se avessi usato $F = ma$ allora si ottiene:
+\begin{gather*}
+     E = \frac{1}{2}m \dot{z}^{2} + mgt \\
+     \frac{dE}{dt} = 0 \\
+     \dot{z}(m\ddot{z} + mg) = 0   
+\end{gather*}
+Per cui le soluzioni solo:
+\begin{gather*}
+    \dot{z} = 0 \\
+    m\ddot{z} = -mg 
+\end{gather*}
+CHe vale solo se i vincoli sono onesti ed ideali e se non si muovono.
+IN generale questa è molto comoda se ho pochi vincoli, altrimenti
+con la conservazione dell'energia posso considerare sempre un grado di
+libertà solo.
+
+\subsection{Forza elastica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 4.1}
+    \caption{La molla ideale}
+    \begin{tikzpicture}
+        \draw (0, 0) -- (0.5, 0);
+        \draw (0.5, 0) -- (0.5, -1);
+        \draw[decoration={aspect=0.3, segment length=1.5mm, amplitude=1.3mm,coil},decorate,opacity=0.9] (0.5, -0.5) -- (2,-0.5);
+        \draw (0.5, -1) -- (2.5, -1);
+        \draw (2, -1) rectangle (3, 0) node[midway] {$M$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Dalla legge della forza elastica:
+\begin{gather*}
+    \vec{F}_d = -kx\dot{i}  
+\end{gather*}
+La forza elastica è conservativa e posso vederlo o facendo
+il rotore oppure attraverso un lavoro infinitesimo:
+\begin{gather*}
+    \delta L = \vec{F}_d \cdot \vec{dr} = -kx\hat{i}\cdot dx\hat{i}     
+\end{gather*}
+E allora il lavoro:
+\begin{gather*}
+    L_{AB} = \int_{A}^{B} -kxdx = -\frac{1}{2}kx_b^{2} + \frac{1}{2} kx_A^{2} = V(A) - V(B)  
+\end{gather*}
+QUesta è proprio la definizione di energia potenziale, allora posso prendere
+\begin{gather*}
+    V(P) = \frac{1}{2}kx^{2} 
+\end{gather*}
+Posso allora determinare il gradiente e quindi
+si ottiene proprio
+\begin{gather*}
+    grad V = kx\hat{i} 
+\end{gather*}
+QUindi essendo:
+\begin{gather*}
+    \vec{F} = -gradV  = -kx\hat{i} 
+\end{gather*}
+Allora abbiamo dimostrato che la forza elastica è proprio una forza conservativa. 
+Dato che è definita a meno di una costante, allora posso cambiare l'origine
+dell'asse x e cambierebbe solo la forma dell'energia potenziale ma pur sempre
+compatibile con quella che abbiamo qui.
+Se io tirassi la molla nell'istante $T = 0$allora l'energia è conservata
+e quindi in ogni istante posso ricavarne la velocità:
+\begin{gather*}
+    t = 0, x = x_0, v = 0 , E = \frac{1}{2}kx_0^{2} \\
+    t = t_f, x = 0, v = v_f, E = \frac{1}{2}mv_f^{2}  
+\end{gather*}
+E quindi la velocità:
+\begin{gather*}
+    v_F = \sqrt{\frac{k}{m}}x_0 
+\end{gather*}
+COn la relazione $ma = F$ allroa:
+\begin{gather*}
+    E = \frac{1}{2}m\dot{x}^{2} + \frac{1}{2}kx^{2} \\
+    \frac{dE}{dt} = 0 \\
+    \dot{x}(m\ddot{x} + kx) = 0   
+\end{gather*}
+Dato che $\dot{x}$ non è sempre zero, allora pongo solo:
+\begin{gather*}
+    m\ddot{x} = -kx
+\end{gather*} 
+
+\subsection{Molla attaccata al soffitto}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \label{refesdf}
+    \caption{fes}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (2, 0);
+        \draw[decoration={aspect=0.3, segment length=1.5mm, amplitude=1.3mm,coil},decorate,opacity=0.9] (1, 0) -- (1, -2);
+        \draw[->](0, -1) -- (0.5, -1) node[at end, below] {$y$};
+        \draw[->](0, -1) -- (0, -1.5) node[at end, left] {$x$};
+        \draw(0.75, -2) rectangle (1.25, -2.5) node[midway] {$M$};
+        \draw[->](1, -2.5)  -- (1, -3) node[at end, right] {$m\vec{g}$};
+        \draw[->] (1, -2) -- (1, -1.5) node[at end, right] {$\vec{F}_e$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+ALlora con le equazioni dell'energia meccanica:
+\begin{gather*}
+    E = \frac{1}{2}mv^{2} + \frac{1}{2}kx^{2} - mgx\\
+    v = \dot{x} \\
+    \frac{dE}{dt} = 0 \\
+    \dot{x}(m\ddot{x} + kx - mg) = 0    
+\end{gather*}
+
+
+\end{document}

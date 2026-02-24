@@ -1,0 +1,446 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{FisicA}
+\author{Tommaso Miliani}
+\date{08-04-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{IL moto di rotolamento con le equazioni cardinali}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il moto di rotolamento}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (4, 0);
+        \draw(0, 0) -- (0, 2);
+        \draw(0, 2) -- (4, 0);
+        \draw[->](0, 2) -- (1, 1.5) node[at end, below] {$x$};
+        \draw[->](0, 2) -- (0.5, 3) node[at end, left] {$z$};
+        \draw(2, 1.5) circle (0.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Scelto un sistema di riferimento in modo tale che l'asse x sia parallela al piano inclinato,
+allora posso scomporre la forza peso nelle due componenti e quindi posso
+dire
+\begin{gather*}
+    \vec{N} + \vec{F}_a + m\vec{g} = m\vec{a}_C    
+\end{gather*}
+Scomponendo posso dire
+\begin{gather*}
+    x) \quad mg\sin\alpha - F_a = ma \\
+    z) \quad N - mg\cos\alpha = 0
+\end{gather*}
+Posso utilizzare la seconda cardinale nella forma semplice (considerando
+allora la proiezione lungo la velocità angolare dei momenti). La velocità angolare
+dunque essendo lungo y non cambia e mi trovo allora nelle condizioni
+nelle quali posso utilizzare la forma assiale della seconda cardinale lungo
+l'asse $y$. Scelgo il polo di riduzione in modo da utilizzare le formule
+semplici e quindi deve essere o fisso o coincida con il centro di massa. C'è anche
+la possibilità di scegliere un polo la cui velocità è parallela a quella del
+centro di massa. Scelto come polo di riduzione $\Omega = C$, allora
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2);
+        \filldraw(0, 0) node[anchor = south] {$C$};
+        \draw[dashed](-1.41, -1.41) -- (1.41, 1.41);
+        \draw[->](0, 0) -- (0, -1) node[at end, right] {$m\vec{g}$}; 
+        \draw[->](-1.41, -1.41) -- (-0.8, -0.8) node[at end, right] {$\vec{N}$};
+        \draw[->](-1.41, -1.41) -- (-2, -0.82) node[at end, below] {$\vec{F}_a$};
+        \draw[->](1, 0) arc (0:-45:1) node[midway, right] {$\dot{\phi}$};
+    \end{tikzpicture}
+\end{gather*}
+Nelle condizioni di rotolamento puro c'è una relazione semplice tra $\ddot{x}$ e $\ddot{\phi}$
+e l'unica cosa da stare attenti è il segno, dato che $\dot{\phi}$ aumenta e pure la sua
+derivata, allora anche $\ddot{x}$ aumenta nello stesso senso.
+\begin{gather*}
+    F_a R = I_C \ddot{\phi} \\
+    \dot{\phi} = \frac{\ddot{x}}{R}
+\end{gather*}
+Allora riscrivendo le forze lungo gli assi posso dire
+\begin{gather*}
+    \left\{\begin{array}{l}
+        mg\sin\alpha - F_a = m\ddot{x} \\
+        F_a = \frac{I_c}{R^{2}}\ddot{x}
+    \end{array}\right.
+\end{gather*}
+Il centro di massa ha un accelerazione più piccola di quella che ha se
+scivolasse senza attrito e quindi la sua accelerazione
+\begin{gather*}
+    \ddot{x} = \frac{g\sin\alpha}{1 + \frac{I_C}{mR^{2} }}
+\end{gather*}
+Il momento di inerzia per il disco omogeneo
+\begin{gather*}
+    I_C = \frac{1}{2}mR^{2} \Rightarrow  \ddot{x} = \frac{2}{3} g\sin\alpha
+\end{gather*}
+Per la sfera omogenea
+\begin{gather*}
+    I_c = \frac{2}{5}mR^{2} \Rightarrow  \ddot{x} = \frac{5}{7}g\sin\alpha 
+\end{gather*}
+Per il cerchione (auto)
+\begin{gather*}
+    I_C = mR^{2} \Rightarrow \frac{1}{2}g\sin\alpha 
+\end{gather*}
+Sostituendo allora la forza di attrito diventa:
+\begin{gather*}
+    F_a = \frac{1}{3}mg\sin\alpha
+\end{gather*}
+Il caso limite dell'attrito è dunque
+\begin{gather*}
+    F_a \leq \mu_s N 
+\end{gather*}
+E allora questo vuol dire che
+\begin{gather*}
+    \tan\alpha \leq 3\mu_s
+\end{gather*}
+
+\section{Carrucole mobili}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Carrucola mobile}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (1, 0);
+        \draw(0.5, 0) -- (0.5, -2);
+        \draw(1.5, -2) circle(1);
+        \draw[->](2.5, -2) -- (2.5, -1) node[at end, right] {$\vec{F}$};
+        \draw(2.5, -1) -- (2.5, -0.5);
+        \draw(0.5, -2) -- (0.5, -1) node[at end, left] {$\vec{T}$};
+        \draw(1.5, -2) -- (1.5, -2.5) node[at end, right] {$m\vec{g}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nella carrucola mobile, questa compie effettivamente un moto
+di rotolamento puro in quanto con l'attrito essa inizia a rotolare rispetto al filo
+\begin{gather*}
+    \vec{T} + \vec{F} + M\vec{g} = M\vec{a}_C \\
+    T + F - Mg = M\ddot{z}    
+\end{gather*}
+Preso come centro di riduzione il centro di massa, allora posso decidere
+come prendere l'angolo (in senso orario) e quindi 
+\begin{gather*}
+    (T - F)R = I_C \ddot{\phi} \\
+    \ddot{\phi} = -\frac{\ddot{z}}{R}
+\end{gather*}
+E allora diventa
+\begin{gather*}
+    2F - Mg = \left(M + \frac{I_C}{R^{2} }\right)\ddot{z}
+\end{gather*}
+La condizione di equilibrio è proprio quella
+\begin{gather*}
+    F = \frac{1}{2}Mg 
+\end{gather*}
+Dinamicamente data $F$
+\begin{gather*}
+    T = F - \frac{I_c}{R^{2} }\frac{2F - Mg}{M + \frac{I_c}{R^{2} }}
+\end{gather*}
+
+\section{Corpo rigido ruotante }
+Dato che ruota con velocità $\omega$ allora posso scegliere un
+polo ossia il centro di massa 
+\begin{gather*}
+    \vec{L}_C = \sum_{i = 1}^{n}  (P_i - C) \times (m_i\vec{v_i} ) = \sum_{i = 1}^{n}  (P_i - C) \times m_i(\vec{v}_i + \vec{\omega} \times (P_i - C)  )
+\end{gather*}
+Dato che la velocità del centro di massa è zero, allora posso dire che $V_I$ è tutta zero
+e quindi, con le proprietà del prodotto vettoriale posso semplificare così
+\begin{gather*}
+    \vec{L}_C = \sum_{i = 1}^{n}m_i(P_i - C)(P_i - C)\vec{\omega} - \sum_{i = 1}^{n}m_i(P_i - C)\vec{\omega}(P_i - C)     
+\end{gather*}
+Dato che ora $P_i - C$ è il sistema di riferimento per ogni punto
+del corpo rigido, posso allora dire che
+\begin{gather*}
+    (P_i - C) = x_i \hat{i} + y_i \hat{j} + z_i \hat{k}, \qquad \vec{\omega} = \omega_x \hat{i} + \omega_y \hat{j} + \omega_z \hat{k}       
+\end{gather*}
+Quindi il momento angolare diventa semplificando e risolvendo
+\begin{gather*}
+    \vec{L}_C = \sum_{i = 1}^{n}m_i\left\{\begin{array}{l}
+        (y_i^{2}\omega_x + z_i^{2}\omega_x - x_iy_i\omega_y - x_iz_i\omega_z)\hat{i} \\
+        (x_i^{2}\omega_y + z_i^{2}\omega_y - x_iy_i\omega_x - y_iz_i\omega_z)\hat{j} \\
+        (x_i^{2}\omega_z + y_i^{2}\omega_z - x_iz_i\omega_x - y_iz_i\omega_y)\hat{k}   
+    \end{array}\right.  
+\end{gather*}
+POsso allora esprimere il momento angolare in forma matriciale
+\begin{align}
+    \begin{pmatrix}
+        L_x \\
+        L_y \\
+        L_z
+    \end{pmatrix} = \begin{pmatrix}
+        \sum_{i}^{}m_i(y_i^{2} + z_i^{2}) & -\sum_{i}^{} m_i x_iy_i & -\sum_{i}^{} m_ix_i z_i \\
+        -\sum_{i}^{}m_ix_iy_i & \sum_{i}^{} m_i(x_i^{2} + z_i^{2} ) & -\sum_{i}^{} m_iy_iz_i \\
+        -\sum_{i  }^{}m_ix_iz_I & -\sum_{i }^{}m_iy_iz_i & \sum_{i }^{}   m_i(x_i^{2} + y_i^{2} )
+    \end{pmatrix}\cdot \begin{pmatrix}
+        \omega_x \\
+        \omega_y \\
+        \omega_z
+    \end{pmatrix}
+\end{align}
+Posso esprimere questa matrice come un \textbf{tensore di inerzia} ossia
+come
+\begin{gather*}
+    \begin{pmatrix}
+        L_x \\
+        L_y \\
+        L_z
+    \end{pmatrix} = \begin{pmatrix}
+        I_{xx} & I_{xy} & I_{xz} \\
+        I_{xy} & I_{yy} & I_{yz} \\
+        I_{xz} & I_{yz} & I_{zz} 
+    \end{pmatrix} \cdot \begin{pmatrix}
+        \omega_x \\
+        \omega_y \\
+        \omega_z
+    \end{pmatrix}
+\end{gather*}
+Se la matrice è diagonalizzabile allora posso trovare degli autovalori
+per cui posso rendere la matrice diagonale attraverso gli \textbf{assi di principali
+di inerzia} ossia gli assi $x', y', z'$:
+\begin{gather*}
+    \begin{pmatrix}
+        L_x \\
+        L_y \\
+        L_z
+    \end{pmatrix} = \begin{pmatrix}
+        I_{x'x'} & 0 & 0 \\
+        0 & I_{y'y'} & 0 \\
+        0 & 0 & I_{z'z'} 
+    \end{pmatrix} \cdot \begin{pmatrix}
+        \omega_{x'} \\
+        \omega_{y'} \\
+        \omega_{z'}
+    \end{pmatrix}
+\end{gather*}
+Se  $\vec{\omega}$ è parallelo ad un asse principale di inerzia allora
+posso trovare che si annullano le altre due componenti e quindi il momento
+sarà presente solo rispetto a quell'asse. 
+
+\section{Momento del corpo rigido rispetto ad un asse }
+Dato un asse fisso ed un sistema di coordinate cilindriche
+posso dire che la distanza di un qualsiasi punto dal centro
+del corpo rigido è data da:
+\begin{gather*}
+    (P_i - O) = z_C\hat{k} + \vec{\rho}_i  
+\end{gather*}
+Dato che il sistema di riferimento è solidale con il corpo rigido in
+rotazione, posso dire che sono valide le seguenti:
+\begin{gather*}
+    \rho_i = \rho_i \hat{u}_{\rho} \\
+    \left| \rho_i \right| = CONST  \\
+    \vec{v} = \vec{\omega} (P - O) \\
+    \vec{v}_O = 0   
+\end{gather*}
+Posso esprimere il momento angolare come
+\begin{gather*}
+    \vec{L}_0 = \sum_{i = 1}^{n} (P_i - O) \times m_i \vec{v}_i   
+\end{gather*}
+Allora posso dire, con tutte le sostituzioni
+\begin{gather*}
+    \sum_{ = }^{} (z_o \hat{k} + \vec{\rho}_i ) \times m_i(\omega \hat{k} \times (z_i \hat{k} + \vec{\rho}_i ) )  
+\end{gather*}
+E quindi, svolgendo i prodotti vettoriali, e dato che è una terna destrorsa
+locale (che cambia dunque da punto a punto), posso sapere già che
+\begin{gather*}
+    \vec{u}_{\rho}, \vec{u}_{T_i}, \hat{k} \\
+    \hat{k} \times \hat{u}_{\rho} = \hat{u}_{T_i}      
+\end{gather*}
+
+Posso allora esprimere il momento angolare come
+\begin{gather*}
+    L_O = \sum_{ = }^{} m_i \rho_i^{2}\vec{\omega} - \omega \sum_{  = }^{}   m_i z_i \vec{\rho}_i
+\end{gather*}
+Il primo termine è il momento angolare parallelo alla velocità angolare
+mentre il secondo è il momento angolare ortogonale alla velocità angolare.
+Chi sono questi due contributi? Il primo è proprio il momento di inerzia
+dell'i-esimo punto rispetto all'asse di rotazione considerato.
+Se il mio asse di rotazione è parallelo ad un asse di simmetria,
+allora  il secondo termine potrà essere eliminato
+
+\begin{gather*}
+    \vec{L}_O = \vec{L}_{\parallel} + \vec{L}_{\perp}   
+\end{gather*}
+E quindi loro sono proprio:
+\begin{gather*}
+    \vec{L}_{\parallel} = I_{O}\vec{\omega} \\
+    \vec{L}_{\perp} = - \omega \sum_{ = }^{} m_iz_i \vec{\rho}_i 
+\end{gather*}
+
+Derivando l'espressione del momento angolare
+posso vedere che si ottiene
+\begin{gather*}
+    \dot{\vec{L} }_0 = \sum m_i \rho_i^{2}\dot{\vec{\omega} } - \dot{\omega} \sum_{ = }^{}   m_i z_i \vec{\rho}_i - \omega \sum_{ = }^{}  m_i z_i \dot{\vec{\rho} }_i
+\end{gather*}
+Dato che $\rho_i$ ha modulo costante e ho una velocità angolare,
+allora la sua derivata è proprio (dalle formule di Poisson) 
+\begin{gather*}
+    \dot{\vec{\rho}}_i = \vec{\omega} \times \vec{\rho}_i  
+\end{gather*}
+Quindi si ottiene
+\begin{gather*}
+    \dot{\vec{L} }_O = I_{O}\dot{\vec{\omega} } - \frac{\dot{\omega}}{\omega}\omega \sum_{ = }^{} m_i z_i \vec{\rho}_i - \omega \sum_{ = }^{}  m_i z_i \vec{\omega} \times \vec{\rho}_i   
+\end{gather*}
+E allora si ottiene proprio
+\begin{gather*}
+    \dot{\vec{L} }_O = I_O \dot{\vec{\omega} } + \frac{\dot{\omega}}{\omega} \vec{L}_{\perp} + \vec{\omega} \times \vec{L}_{\perp}   
+\end{gather*}
+Il primo termine è parallelo rispetto al $\dot{\vec{L}}_O$ e quindi al
+versore $\hat{k}$,  il secondo termine è ortogonale a $k$ mentre il terzo è un prodotto vettoriale e quindi è 
+ortogonale a tutti e due i termini del prodotto vettoriale. SI può ora
+riscrivere la seconda cardinale come
+\begin{align}
+    \vec{M}_O^{(ext)} = \dot{\vec{L} }_{\parallel} + \frac{\dot{\omega}}{\omega}\vec{L}_{\perp} + \vec{\omega} \times \vec{L}_{\perp}     
+\end{align}
+La seconda cardinale allora è espressa per il corpo rigido che ruota rispetto
+ad un asse fisso; si vede allora che nella direzione di $\omega$ allora rimane solo il primo termine
+come
+\begin{gather*}
+    \vec{M}^{ext}_{O} \hat{k} = I_O \dot{\omega}   
+\end{gather*}
+Se io metto in rotazione un oggetto, allora essendo che deve per forza
+ruotare lungo l'asse considerato, esso continua a girare e quindi 
+il momento angolare sta cambiando e quindi il terzo termine sta cambiando 
+e non  trascurabile, da dove viene allora? E' una forza vincolare
+che viene scaturita dalla rotazione impressa alle condizioni iniziali .
+
+\subsection{Cosa succede al livello del lavoro}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2);
+        \filldraw (1, 1) circle (1pt) node[anchor = south] {$P_2$};
+        \filldraw(-1.5, -0.5) circle (1pt) node[anchor = south] {$P_1$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+L'unica condizione che chiedo è che il corpo sia rigido, e mi chiedo
+quale sia il lavoro compiuto infinitesimamente, allora il lavoro per ogni punto
+\begin{gather*}
+    \delta L_1 + \delta L_2 = \vec{F}_{1, 2} \cdot  d\vec{r}_1 + \vec{F}_{2, 1} \cdot d \vec{r}_2     
+\end{gather*}
+Dato che il corpo è rigido allora la distanza tra i due punti è
+costante e quindi
+\begin{gather*}
+    (d\vec{r}_1 - d\vec{r}_2  )\cdot (\vec{r}_1 - \vec{r}_2  ) = 0
+\end{gather*}
+Dato che la forza è parallela alla distanza tra il primo ed il secondo punto
+allora posso dire che il lavoro e zero e dunque il lavoro delle forze di
+rigidità è nullo. (Il che ha senso dato che il corpo è rigido).
+Il lavoro totale infinitesimo sulle forze interne del corpo 
+rigido è dato dalla somma di ciascun effetto reciproco:
+\begin{gather*}
+    \delta L = \sum_{ = }^{} \delta L_i = \sum_{ = }^{} \vec{F}_i 
+\end{gather*}
+Preso un punto a caso $A$ nel corpo rigido la velocità di un dato punto rispetto
+a quel punto sarà
+\begin{gather*}
+    \vec{v}_i = \vec{v}_A + \vec{\omega} \times (P_i - A)   
+\end{gather*}
+\begin{gather*}
+    \delta L = \sum_{ = }^{} \vec{F}_i (\vec{v}_A + \vec{\omega} \times (P_i - A)  )dt 
+\end{gather*}
+Posso allora dire che
+\begin{gather*}
+    \delta L = \vec{F}^{ext}\cdot  d\vec{r}_A + \omega dt\sum_{ = }^{} (P_i - A) \times \vec{F}_i 
+\end{gather*}
+Il primo termine non è altro che la risultante delle forze esterne mentre il secondo termine 
+è proprio il risultato dei momenti delle singole forze esterne moltiplicate per $\vec{\omega}$ e 
+quindi dato che
+\begin{gather*}
+    \vec{\omega} = \dot{\phi} \hat{u}_{\phi} \\
+    \dot{\phi} dt = d\phi  
+\end{gather*} 
+Allora posso dire che il lavoro infinitesimo è
+\begin{gather*}
+    \delta L = \vec{F}^{ext}\cdot d\vec{r}_A + \vec{M}^{ext} _A \cdot  \hat{u}_{\phi}d\phi     
+\end{gather*}
+Il lavoro allora dipende dalle risultanti delle forze esterne e dallo spostamento
+infinitesimo angolare e quindi se ho solo un moto di rotazione posso scegliere $A$ sull'asse
+ed il lavoro è solo dato dal momento assiale delle forze esterne per l'angolo.
+Se io considerassi le tre componenti del momento angolari allora conterà solo
+il momento assiale lungo la velocità angolare. Allora se ruota in modo caotico il vincolo
+che gli applico può essere liscio e può non compiere allora alcun lavoro.  \\
+Dato che posso esprimere l'energia cinetica come
+\begin{gather*}
+    K = \frac{1}{2}Mv_C^{2} + \sum_{i = 1}^{n}m_i v_i^{2'}   
+\end{gather*}
+E allora dato che per il teorema di Konig
+\begin{gather*}
+    \vec{v}_i' = \vec{\omega} \times (P_i - C)  
+\end{gather*}
+Allora la componente rotazionale dell'energia cinetica del corpo rigido è
+data (considerata $d_i$ come la distanza di ogni punto dall'asse di rotazione)
+\begin{gather*}
+    \frac{1}{2}\sum_{i = 1}^{n} m_i d_i \omega^{2}  
+\end{gather*}
+Allora l'energia cinetica del corpo rigido diventa proprio la somma tra
+l'energia cinetica della velocità del centro di massa più la componente rotazionale
+data da
+\begin{align}
+    K = \frac{1}{2}Mv_c^{2} + \frac{1}{2} I_C \omega^{2}  
+\end{align}
+
+\subsection{L'energia cinetica del pendolo fisico}
+\begin{gather*}
+    E = \frac{1}{2}I_O \omega ^{2} - Mgh\cos\phi 
+\end{gather*}
+Dato che la velocità angolare è la derivata dell'angolo, posso
+esprimere la derivata dell'energia
+\begin{gather*}
+    \dot{E}  =0 = I_O \dot{\phi} \ddot{\phi} + Mgh\sin\phi\dot{\phi}
+\end{gather*} 
+Il periodo del pendolo è allora dato da
+\begin{gather*}
+    T = 2\pi \sqrt{\frac{I_O}{Mgh}} 
+\end{gather*}
+
+\subsection{Per il moto di rotolamento}
+L'energia per il moto di rotolamento
+\begin{gather*}
+    E = \frac{1}{2}Mv_{C}^{2} + \frac{1}{2}I_C \omega^{2} - Mgx\sin\alpha = E(t = 0)  
+\end{gather*}
+La velocità è esprimibile come la derivata della posizione e dunque
+dato che $\omega = \frac{\dot{x}}{R}$:
+\begin{gather*}
+    E = \frac{1}{2}(MR^{2} + I_C )\dot{\phi}^{2} - MgR\dot{\phi} \sin\alpha
+\end{gather*}
+Derivando rispetto a $\dot{\phi}$ e ponendo uguale a zero
+allora
+\begin{gather*}
+    (MR^{2} + I_C)\ddot{\phi}-  MgR\sin\alpha
+\end{gather*}
+
+Allora posso esprimere l'accelerazione come
+\begin{gather*}
+    \ddot{x} = \frac{MgR\sin\alpha}{(MR^{2} + I_C)\frac{1}{R}} = \frac{g\sin\alpha}{\ + \frac{I_C}{MR^{2} }}
+\end{gather*}
+
+\end{document}

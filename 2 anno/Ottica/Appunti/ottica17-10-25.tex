@@ -1,0 +1,283 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{APpunti di OTtica}
+\author{Tommaso Miliani}
+\date{17-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Riassuntino volta scorsa}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Grafico interferenza dell'altra volta}
+    \begin{tikzpicture}[domain=0:6, scale=0.7, samples = 50]
+        \draw[->](0, 0) -- (6, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$I_0$};
+        \draw[|-|](0, -0.2) -- (3.14, -0.2) node[midway, below] {$\delta x$};
+        \filldraw (0,  2) circle (0pt) node[anchor = east] {$4I_0$};
+        \draw plot (\x,{cos(2* \x r) + 1});
+    \end{tikzpicture}    
+\end{wrapfigure}
+Dato che l'onda stazionaria ha una lunghezza d'onda
+\begin{gather*}
+    \delta x = \frac{\lambda}{2\sin\left(\frac{\theta}{2}\right)}
+\end{gather*}
+A sinistra dell'interfaccia le interferenze dell'onda in ingresso
+e quella in uscita generano un onda complessiva che è ferma nello spazio
+ma oscilla nel tempo che prende proprio il nome di onda stazionaria. Questa onda
+ha sempre dei punti in cui il campo elettrico è totalmente nullo e 
+dunque l'intensità media viene diversa da zero. \\
+
+\section{Interferometro di Machelson}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'interferometro di Machelson}
+    \begin{tikzpicture}
+        \draw[->](0, 0.2) -- (2.25, 0.2);
+        \draw[->](2.25, 0.2) -- (2.25, 2);
+        \draw[->](2.5, 2) -- (2.5, 0.75);
+        \draw[->](2.5, 0.75) -- (1, 0.75);
+        \draw[->](2.5, 0.75) -- (2.7, 0.35) -- (2.7, -2);
+        \draw[->](2.25, 0.2) -- (2.55, 0) -- (4.5, 0);
+        \draw[->](4.5, -0.25) -- (2.42, -0.25);
+        \draw[->](2.42, -0.25) -- (2.42, -2);
+        \draw[->](2.42, -0.25) -- (2.15, -0.1) -- (0, -0.1);
+        \draw(1.75, -1) -- (2, -1.2) -- (3, 1) -- (2.75, 1.2);
+        \draw[very thick](2.75, 1.2) -- (1.75, -1);
+        \draw[pattern = north west lines, pattern color = white](1.75, 2) rectangle (3, 2.5);
+        \draw[pattern = north west lines, pattern color = white](4.5, 0.75) rectangle (5, -1);
+        \filldraw (2.1, -2) rectangle (3, -2.25);
+    \end{tikzpicture}
+\end{wrapfigure}
+L'\textbf{interferometro di Machelson} è l'interferometro che si utilizza
+durante l'esperienza dell'interferenza. Una prima onda piana è inviata su di un
+componente ottico, ossia il \textbf{separatore di fascio}, che è un componente che
+ha un substrato di materiale dielettrico su una delle sue superfici:
+il materiale dielettrico ha la caratteristica per cui la luce ha il
+$50\%$ di probabilità di essere riflessa o trasmessa.  \\
+Il fascio riflesso compie un cammino $L_1$ prima di incontrare uno specchio e
+venire riflesso e torna nuovamente sul separatore. Il fascio che inizialmente era
+stato trasmesso procede per un cammino $L_2$ fino ad un nuovo specchio e poi torna indietro.
+Questo interferometro mi permette di ottenere da un solo fascio di luce 
+ben 4 fasci di luce distinti. \\
+Sotto all'interferometro è posto un rilevatore per determinare
+l'interferenza tra le due onde che giungono al rilevatore stesso.
+Dato che il campo elettrico va come il quadrato mediato nel tempo, ogni volta che il
+fascio attraversa l'interferometro  (da sinistra verso destra) il suo campo elettrico
+diventa $E_r = -\frac{E_0}{\sqrt{2} }$ per il fascio riflesso (che accumula un ritardo di fase di $\pi$)
+mentre per la parte trasmessa $E_t = \frac{E_0}{\sqrt{2} }$ che non accumula ritardo di fase. Ogni interferometro
+è tarato per trasmettere o riflettere una certa percentuale del campo elettrico in entrata. 
+Se invece propagassi il fascio di luce da destra verso sinistra si ha che sia la
+parte riflessa, che quella trasmessa, hanno il campo elettrico 
+\begin{gather*}
+    E_r = E_t = \frac{E_0}{\sqrt{2} }
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Fascio riflesso}
+    \begin{tikzpicture}
+        \draw[->](0, 0.2) -- (2.25, 0.2);
+        \draw[->](2.25, 0.2) -- (2.25, 2);
+        \draw[->](2.5, 2) -- (2.5, 0.75);
+        \draw[->](2.5, 0.75) -- (1, 0.75);
+        \draw[->](2.5, 0.75) -- (2.7, 0.35) -- (2.7, -1);
+        \draw(1.75, -1) -- (2, -1.2) -- (3, 1) -- (2.75, 1.2);
+        \draw[very thick](2.75, 1.2) -- (1.75, -1);
+        \draw[pattern = north west lines, pattern color = white](1.75, 2) rectangle (3, 2.5);
+        \draw[|-|](2, 1.8) -- (2, 0.4) node[midway, left] {$L_1$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+La definizione di destra o sinistra dipende da dove è messo il materiale dielettrico 
+prima del substrato di vetro. Questa tipologia di interferometro è utilizzato all'interno
+dei rilevatori di onde gravitazionali; è anche uno degli strumenti più sensibili
+mai costruiti dall'uomo.  A partire dal campo elettrico posso determinare
+il primo contributo che va verso il rivelatore
+\begin{gather*}
+    E_0\cos(\vv{k}\cdot \vv{x} - \omega t  )
+\end{gather*}
+L'onda inizialmente riflessa avrà come espressione del campo elettrico
+\begin{gather*}
+    -\frac{E_0}{\sqrt{2} }
+\end{gather*}
+Dato che alla fine si formano quattro fasci, il fascio che inizialmente è stato riflesso e
+poi trasmesso avrà come modulo del campo elettrico
+\begin{gather*}
+    \frac{E_0}{\sqrt{2}\sqrt{2}  }\cos(\vv{k} \cdot \vv{r} - \omega t + \pi + 2kL_1 + \pi  )
+\end{gather*}
+Il primo $\pi$ è dovuto al ritardo di fase dovuto alla riflessione
+dell'interferometro, mentre il termine $2kL_1$ è il termine di ritardo di fase dovuto alla
+riflessione sullo specchio sopra all'interfaccia, ossia la distanza che percorre
+la luce prima di tornare all'interfaccia. Il termine $\pi$ è dovuto invece al ritardo
+di fase dovuto alla riflessione sullo specchio a distanza $L_1$. 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Fascio trasmesso}
+    \begin{tikzpicture}
+        \draw[->](0, 0.2) -- (2.25, 0.2);
+        \draw[->](2.25, 0.2) -- (2.55, 0) -- (4.5, 0);
+        \draw[->](4.5, -0.25) -- (2.42, -0.25);
+        \draw[->](2.42, -0.25) -- (2.42, -1);
+        \draw[->](2.42, -0.25) -- (2.15, -0.1) -- (0, -0.1);
+        \draw(1.75, -1) -- (2, -1.2) -- (3, 1) -- (2.75, 1.2);
+        \draw[very thick](2.75, 1.2) -- (1.75, -1);
+        \draw[pattern = north west lines, pattern color = white](4.5, 0.75) rectangle (5, -1);
+        \draw[|-|] (2.6, -0.4) -- (4.3, -0.4) node[midway, below] {$L_2$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+L'altro contributo è quello del fascio che prima è trasmesso e poi è
+riflesso allo specchio a distanza $L_2$ e poi è riflesso sull'interfaccia.
+Posso quindi dire che il campo elettrico di quel fascio di luce
+che giunge sul rilevatore è 
+\begin{gather*}
+    \frac{E_0}{\sqrt{2} \sqrt{2} }\cos(\vv{k} \cdot  \vv{r} - \omega t  + \pi + 2kL_2)
+\end{gather*}
+Qui abbiamo il termine $\pi$ che è il ritardo di fase dovuto alla riflessione sullo
+specchio a distanza $L_2$ e anche il contributo $2kL_2$ dovuto alla
+distanza dall'interfaccia dello specchio. Per questo fascio di luce non c'è il termine
+$\pi$ in quanto il fascio in riflessione non accumula ritardo di fase.
+A questo punto devo fare la somma dei campi elettrici complessivi in modo
+tale da poter ottenere il campo elettrico risultante al rilevatore:
+\begin{gather*}
+    \frac{E_0}{2}\left(\cos(\vv{k}\cdot  \vv{r} - \omega t + 2kL_2  + \pi) + \cos(\vv{k} \cdot  \vv{r} - \omega t + 2kL_1  )\right)
+\end{gather*}
+Adesso posso applicare le formule di Prostaferesi per ottenere il campo elettrico totale
+come
+\begin{gather*}
+    E_{TOT} = \frac{E_0}{2} \cdot  \left(2\cos\left(\vv{k} \cdot  \vv{r} - \omega t + k(L_1 + L_2) + \frac{\pi}{2}  \right) \cdot  \cos\left(k(L_2 - L_1) + \frac{\pi}{2}\right)\right)
+\end{gather*}
+Adesso posso ottenere il quadrato del campo elettrico e mediato nel tempo 
+mi dà l'intensità del fascio luminoso medio:
+\begin{gather*}
+    \left< I_{TOT} \right> = c\epsilon_0 \left< \left|\vv{E_{TOT}}\right|^{2}   \right> = I_0\cos^{2}\left(k(L_2 - L_1) + \frac{\pi}{2}\right) = I_0\sin^{2}(k(L_2 - L_1))    
+\end{gather*}
+Si può ottenere ora una nuova espressione per l'intensità esplicitando $k$:
+\begin{gather*}
+    I_{TOT} = I_0\sin^{2}\left(\pi \frac{L_2 - L_1}{\frac{\lambda}{2}}\right) 
+\end{gather*}
+Basta che cambi la differenza tra i cammini ottici di $\frac{\lambda}{2}$ che il seno ha fatto una 
+oscillazione completa. Basta dunque cambiare la distanza degli specchi di una lunghezza d'onda
+per poter accorgersi della variazione dell'intensità del campo elettrico.
+
+\subsection{Lo specchio con la camera a vuoto}
+Supponendo di avere una impostazione simile, se lo specchio su cui deve riflettersi la luce
+è nel vuoto ed è lasciato cadere, la luce che torna indietro dai due specchi interferirà
+sul rilevatore. Si può esprimere lo spostamento dello specchio come
+\begin{gather*}
+    \Delta L(t) = L_1 - L_2 = -\frac{1}{2}gt^{2} + \cos t  
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il grafico dei valori di $t$}
+    \begin{tikzpicture}[domain=0:3.5]
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$t$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$\frac{gt^{2} }{\lambda}$};
+        \draw plot (\x, {(\x * \x) / 4});
+    \end{tikzpicture}    
+\end{wrapfigure}
+Allora l'intensità dovrà anch'essa dipendere dal tempo,
+ottenendo la seguente espressione:
+\begin{gather*}
+    I(t) = I_0 \sin^{2}\left(\pi\frac{\Delta L(t)}{\frac{\lambda}{2}}\right) = \sin^{2}\left(\pi\frac{gt^{2} }{\lambda}\right)  
+\end{gather*}
+Immaginando di avere uno oscilloscopio al rilevatore, io mi aspetto che l'intensità possa
+sempre variare tra zero ed uno e man mano mi aspetto che
+il periodo di oscillazione avvenga sempre più velocemente.
+Questo vuol dire che il termine dentro al seno è tale per cui
+\begin{gather*}
+    \frac{gt_1^{2} }{\lambda} = 1 \qquad \frac{gt_2^{2} }{\lambda} = 2, \qquad \dots
+\end{gather*}
+Se volessi riportare tutti i $t_i$ nei quali l'intensità del campo elettrico è zero, otterrei
+un andamento congruente con quello di una parabola che dipende esattamente da $g$.
+
+\section{La realizzazione di uno spettrografo}
+\subsection{Due lunghezze d'onda}
+Supponendo di mandare dentro all'interferometro di Machelson due fasci di
+luce con due lunghezze d'onda differenti, ci si aspetterebbe una lettura diversa
+al rilevatore. Quello che accade però è che il campo elettrico non subisce
+alcuna modifica in quanto i due fasci con lunghezze d'onda diverse
+non interferiscono tra di loro: infatti i loro campi elettrici totali sono 
+esattamente:
+\begin{gather*}
+    E_{TOT_1} = \frac{E_{01}}{2} \cdot  \left(2\cos\left(\vv{k_1} \cdot  \vv{r} - \omega t + k_1(L_1 + L_2) + \frac{\pi}{2}  \right) \cdot  \cos\left(k_1(L_2 - L_1) + \frac{\pi}{2}\right)\right) \\
+    E_{TOT_2}= \frac{E_{02}}{2} \cdot  \left(2\cos\left(\vv{k_2} \cdot  \vv{r} - \omega t + k_2(L_1 + L_2) + \frac{\pi}{2}  \right) \cdot  \cos\left(k_2(L_2 - L_1) + \frac{\pi}{2}\right)\right)
+\end{gather*}
+Adesso mi interessa solamente della dipendenza temporale del campo elettrico. Dato che
+alcuni dei termini sono fissati, allora posso utilizzare una certa approssimazione
+per evidenziare questa dipendenza temporale ottenendo,
+rispettivamente, per ii due campi totali:
+\begin{gather*}
+    A_1\cos(\omega_1 t + \phi_1) \\
+    A_2\cos(\omega_2 t + \phi_2)
+\end{gather*}
+Ottengo allora il seguente campo sul rilevatore:
+\begin{gather*}
+      E_{TOT} = A_1\cos(\omega_1 + \phi_1) + A_2 \cos(\omega_2  + \phi_2)
+\end{gather*}
+Il modulo del campo elettrico totale è dunque:
+\begin{gather*}
+    \left| \vv{E_{TOT}}  \right|^{2} = A_1^{2}\cos^{2}(\omega_1 t + \phi_1) + A_2^{2}\cos^{2}(\omega_2 t + \phi_2) + 2A_1A_2 \cos(\omega_1 t + \phi_1) \cos(\omega_2 t + \phi_2)      
+\end{gather*}
+Il terzo termine è esattamente l'interferenza tra le due lunghezze d'onda nel tempo. 
+Posso ora dimostrare che quel terzo termine mediato nel tempo è nullo: infatti posso, da prodotto,
+trasformalo in una somma di coseni attraverso la formula di Prostaferesi:
+\begin{gather*}
+     \cos(\omega_1 t + \phi_1) \cos(\omega_2 t + \phi_2)= \frac{1}{2}\left(\cos\left(\frac{\omega_1 + \omega_2}{2}  t + \frac{\phi_1 + \phi_2}{2}\right) + \cos\left(\frac{\omega_1 - \omega_2}{2}t + \frac{\phi_1 -\phi_2}{2}\right)\right)
+\end{gather*}
+Mediando ora temporalmente questa espressione, si osserva che è zero.
+Adesso l'intensità totale del campo mediata nel tempo sarà
+\begin{gather*}
+    I_{TOT}(t) = I_1 \sin^{2}\left(\pi\frac{\Delta L (t)}{\frac{\lambda_1}{2}}\right) + I_2\sin^{2}\left(\pi \frac{\Delta L(t)}{\frac{\lambda_2}{2}}\right)  
+\end{gather*}
+
+
+
+
+\end{document}

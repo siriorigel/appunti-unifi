@@ -1,0 +1,2681 @@
+\documentclass[a4paper, oneside]{book}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Esperienze di Lab. I}
+\author{Tommaso Miliani}
+\date{2024/2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Esperienza bilancia}
+\section{Scopo dell'esperienza}
+In questa esperienza si misureranno la \textbf{densità media assoluta} di 
+più corpi ricordando che la densità assoluta è
+\begin{gather*}
+    \delta = \frac{m}{V} \ \frac{kg}{m^{3} }
+\end{gather*}
+Si indica inoltre con $\delta_r$ ed è il rapporto tra la \textbf{densità media assoluta} e
+la densità dell'acqua alla temperatura di $T = 3.98\text{°}C$:
+\begin{align}
+    \delta_r = \frac{\delta}{\delta_A(277.13K)}
+\end{align}
+Dove la densità dell'acqua a quella temperatura è
+\begin{gather*}
+    \delta_A(277.13 K) = 0.999973 \frac{g}{cm^{3} } 
+\end{gather*}
+Dato che il volume di un oggetto è direttamente collegato alla sua temperatura, per il
+fenomeno della \textbf{dilatazione termica} avremmo anche una certa dipendenza da parte
+di $\delta$ rispetto alla temperatura: l'andamento tipico del volume rispetto alla
+temperatura è data da:
+\begin{gather*}
+    \frac{\Delta V}{V_0} \approx \beta(\Delta T)
+\end{gather*}
+
+\section{Gli strumenti}
+\subsection{La bilancia di precisione}
+E' una piccola bilancia che sfrutta il funzionamento di una molla per misurare
+la reazione vincolare sottoposta all'oggetto da pesare e per questo deve essere posta su una
+superficie orizzontale per avere una lettura precisa. \\
+La bilancia presenta diverse funzioni: 
+\begin{enumerate}
+    \item $ON/OFF$: il tasto che permette di spegnere o accendere lo strumento
+    le cui prestazioni sono migliori solo se lo strumento è già acceso da qualche
+    ora in modo tale da poter stabilizzare la molla e quindi la lettura.
+    \item $TARE$: il tasto che permette di azzerare il peso percepito e va premuto
+    prima di ogni misura in modo da misurare solo la forza aggiuntiva al
+    peso "normale" sulla bilancia;
+    \item $MODE/CAL$: Serve per la calibrazione della bilancia ponendo sopra la
+    bilancia un oggetto con la massa di $1kg$ (ossia della portata massima della bilancia)
+    in modo ta ottenere il valore corretto di $g$ e quindi poter iniziare
+    ad eseguire letture dopo aver premuto il taso $SET$. 
+\end{enumerate}
+
+Caratteristiche della bilancia di laboratorio:
+\begin{enumerate}
+    \item Prontezza: $3s$;
+    \item Portata: $1kg$;
+    \item Errore di sensibilità: $0.01 g$ (ossia l'errore di riproducibilità);
+    \item Errore di linearità: $0.03g$, ossia il valore misurato potrebbe discostarsi di massimo questo valore rispetto al reale (misurato con uno strumento più preciso). 
+\end{enumerate}
+Queste caratteristiche (specificate dal costruttore) rimangono vere solo sotto
+certe condizioni specifiche di temperatura e di inclinazione etc..  \\
+E' possibile per la bilancia poter determinare l'\textbf{errore di linearità} attraverso
+una serie di misure con oggetti di massa crescente. Una volta misurato il peso
+di $20$ masse pre-pesate con strumenti più precisi e con massa
+crescente si è in grado di determinare il valore dell'errore di linearità
+che sarà  dato dallo scarto massimo del peso misurato dalla bilancia rispetto
+al peso misurato da una bilancia più precisa. Una volta misurato lo confrontiamo
+con quello del costruttore e scegliamo quello più alto.  \\
+Si può inoltre valutare l'\textbf{errore di riproducibilità}, ossia l'errore che si
+ha misurando più volte($6$) la massa di uno oggetto. 
+
+\section{La misura della densità relativa e picnometro}
+In laboratorio si hanno vari oggetti assimilabili a solidi geometrici per cui si calcolano
+la massa in maniera diretta (bilancia) ed il volume in maniera indiretta (calibro e palmer). 
+Dando per scontato che i solidi misurati siano \textbf{regolari}, ossia che la loro densità non
+cambi durante le misure né che la densità non sia uniforme. L'errore sulla massa di un certo
+oggetto sarà data allora da
+\begin{align}
+    \Delta m = \Delta_{SM} + \Delta_{Lin}
+\end{align}
+Ossia la somma tra lo scarto massimo o di riproducibilità (si prende quello più alto) e errore di linearità.
+Il picnometro è un'ampolla con un tappo smerigliato che si adatta
+perfettamente al collo della bottiglia con un tappo che un foro capillare.
+All'interno è possibile immettere un liquido (acqua distillata) sul tappo è possibile
+regolare precisamente il volume di acqua attraverso un segno sul foro capillare. \\
+Questo strumento ci permette di calcolare la densità relativa di un oggetto in maniera
+indiretta attraverso la differenza di volume occupato dal solido secondo due procedure 
+distinte.
+
+\subsection{Procedura 1}
+Si eseguono tre misure di massa:
+\begin{enumerate}
+    \item La prima con solo l'oggetto da misurare che chiamiamo $m_1$;
+    \item La seconda sia con l'oggetto che con il picnometro riempito di 
+    acqua fino al livello prefissato che chiamiamo $m_2$;
+    \item La terza con il picnometro con all'interno l'oggetto e di nuovo riempito
+    di acqua che chiamiamo $m_3$. 
+\end{enumerate}
+Si può ricavare la densità relativa tramite la relazione funzionale
+\begin{align}
+    \delta_{r_m} = \frac{m_1}{m_2 - m_3}
+\end{align} 
+che possiamo riscrivere (considerando $m_2 = m_x + m_p$ e $m_3 = m_x + m_p - m_A$) come
+\begin{gather*}
+    \delta_{r_m} = \frac{m_x }{m_A} = \frac{\delta}{\delta_A}
+\end{gather*}
+L'incertezza associata la possiamo ottenere con la tecnica della derivata logaritmica
+\begin{gather*}
+    d \frac{\delta_{r_m}}{\delta_{r_m}} = d \ln \delta_{r_m} = d \ln m_1 - d\ln(m_2 - m_3) = 
+\end{gather*}
+\begin{align}
+    \frac{\Delta \delta_{r_m} }{\delta r_m} = \left|\frac{1}{m_1}\right| \Delta m_1 + \left|\frac{1}{m_2 - m_3}\right|\Delta m_2 + \left|\frac{1}{m_2 - m_3}\right| \Delta m_3 
+\end{align}
+
+\subsection{Procedura 2}
+La seconda procedura è molto simile alla prima e consiste nel modificare la prima misura
+misurando solamente la massa del picnometro($m_a$) con acqua distillata mentre $m_2$ e $m_3$ rimangono
+inalterate. Si osserva che (chiamate $m_2 = m_b$ e $m_3 = m_c$):
+\begin{align}
+    \delta_{r_m} = \frac{m_b - m_a}{m_b - m_c}
+\end{align}
+Con l'incertezza relativa si ha che
+\begin{gather*}
+    \frac{\Delta \delta_{r_m}}{\delta_{r_m}} = \frac{\Delta m_a}{m_b - m_a} + \left|\frac{1}{m_b - m_a} - \frac{1}{m_b - m_c}\right| \Delta m_b + \frac{\Delta_c}{m_b - m_a}
+\end{gather*}
+
+\subsection{Scegliere la procedura corretta}
+In linea teorica, dato che sono validi entrambi i modelli, potremmo scegliere
+di calcolare i valori per entrambe le procedure e scegliere quella più precisa, ma
+conviene invece ragionare a priori sulle incertezze relative (ricordando che $m_p = m_a$).\\
+Supponendo che gli errori siano confrontabili (dato che abbiamo scelto gli stessi strumenti)
+e supponendo che l'errore sulle masse sia uguale posso calcolare le incertezze relative come
+\begin{gather*}
+    \varepsilon_1 = \Delta m \left(\frac{1}{m_1} + \frac{2}{m_2 - m_3}\right) = \Delta m \left(\frac{1}{m_x} + \frac{2}{m_A}\right)\\
+    \varepsilon_2 = \Delta m \left(\frac{1}{m_x} + \left|\frac{1}{m_x} - \frac{1}{m_A}\right| + \frac{1}{m_A}\right)
+\end{gather*}
+Possiamo allora semplificare di più queste espressioni sommando e semplificando $m_a$ con le relazioni
+di massa che si conoscono dal metodo uno ottenendo
+per la prima procedura un errore del tipo (con $\frac{m_x}{m_a} = \delta_{r_m}$ ):
+\begin{gather*}
+    \varepsilon_1 = \frac{\Delta m}{m_A} \left(\frac{m_A + 2m_x}{m_x}\right) \\
+    \varepsilon_1 = \frac{\Delta m}{m_A} \cdot  \frac{1 + 2\delta_{r_m}}{\delta_{r_m}} 
+\end{gather*}
+Mentre per la seconda procedura, svolgendo, si ottiene la seguente formulazione:
+\begin{gather*}
+    \varepsilon_2 = \Delta m \left(\frac{m_A + m_x}{m_xm_A} + \left|\frac{m_A - m_x}{m_x m_A}\right|\right)  =\\
+    \frac{\Delta m}{m_A} \left(\frac{m_A + m_x}{m_x} + \left|\frac{m_A - m_x}{m_x}\right|\right)  =\\
+    \frac{\Delta m}{m_A} \left(\frac{1 + \delta_{r_m}}{\delta_{r_m}} + \left| \frac{1 - \delta_{r_m}}{\delta_{r_m}} \right| \right) \\
+    \varepsilon_2 = \frac{\Delta m}{m_A} \cdot  \left(\frac{1 + \delta_{r_m}}{\delta_{r_m}} + \frac{\left| 1 - \delta_{r_m} \right| }{\delta_{r_m}}\right)
+\end{gather*}
+Adesso vediamo i vari casi $\varepsilon_2$:
+\begin{gather*}
+    \text{Se } \delta_{r_m} < 1 \begin{array}{l}
+        \varepsilon_1 = \frac{\Delta m}{m_A} \cdot  \frac{1 + 2 \delta_{r_m}}{\delta_{r_m}} \\
+        \varepsilon_2 = \frac{\Delta m}{m_A} \cdot  \frac{2}{\delta_{r_m}}
+    \end{array}
+\end{gather*}
+Si ottiene allora che in questo caso $\varepsilon_1 < \varepsilon_2$ quando $\delta_{r_m} < 0.5$.
+Se invece si avesse che $\delta_{r_m} > 1$ allora $\varepsilon_1 < \varepsilon_2$ MAI. In generale
+la procedura 2 è più precisa quando $\delta_{r_m} > 0.5$. 
+
+
+\section{Correzioni dovute alla temperatura e alla forza di Archimede}
+Dato che risulta complesso lavorare alla temperatura precisa di $3.98^{\circ} C$ allora 
+avremmo che $\delta_{r_m} \neq \delta_r$. Si può allora correggere
+questo valore con un fattore correttivo per la temperatura 
+\begin{gather*}
+    \delta_r = \frac{\delta}{\delta_A(3.98^{\circ} C)} \cdot \frac{\delta_A(T)}{\delta_A(T)} = \delta_{r_m}f(T), \quad f(T) = \frac{\delta_A(T)}{\delta_A(3.98^{\circ} C)}
+\end{gather*}
+I valori della densità dell'acqua sono dati in un grafico e quindi per
+trovare il valore vero della densità alle temperature a cui si opera in
+laboratorio è necessario interpolare il grafico. \\
+Adesso analizziamo l'altro fattore correttivo: ossia la correzione sulla forza di Archimede:
+tutti i corpi immersi in un liquido tendono a risentire di una forza verso l'alto chiamata
+forza di Archimede  che è uguale alla differenza tra il peso teorico di un oggetto e la reazione
+vincolare esercitata sull'oggetto. Se un corpo è misurato all'aria:
+\begin{gather*}
+    P - S = m_x g - m_a g \\
+    P - S = m_x g - \delta V_x g\\
+    m = \frac{P- S}{g} = m_x - \delta_a V_x = m_x - \delta_a \frac{m_x}{\delta_x}=  m_x \left(1 - \frac{\delta_a}{\delta_x}\right) \\
+    m_x = \frac{m}{1 - \frac{\delta_a}{\delta_x}} \approx m\left(1 + \frac{\delta_a}{\delta_x}\right)
+\end{gather*}
+Anche qui per trovare la densità dell'aria mi rifaccio ai grafici di densità ottenendo che
+\begin{align}
+    \delta \approx \delta_m \left(1 + \frac{\delta_a}{\delta_x}\right) = \delta_m f_{arc}
+\end{align}
+All'interno del picnometro invece come cambia? \\
+Prendendo le tre misure $m_1, m_2, m_3$ in ognuna si avrà la forza di Archimede dell'aria e
+dunque, chiamato $\sigma_x$ la spinta di Archimede sul corpo ($\sigma_x = \delta_a V_x$) e
+$m_p$ la massa del picnometro pieno solo di acqua con la sua spinta di Archimede relativa $\sigma_b$:
+\begin{gather*}
+    m_1 = m_x - \sigma_x \\
+    m_2 = (m_x - \sigma_x) + (m_p - \sigma_b) \\
+    m_3 = (m_x + m_p - m_a) - \sigma_b
+\end{gather*}
+Dove $\sigma_x$ è definito come la spinta di Archimede e quindi
+$\sigma_x = \delta_a V_x$ e così per le altre masse. Si possono allora
+riscrivere le masse in funzione della densità e dunque ricavare la $\delta$. 
+\begin{gather*}
+    m_1 = m_x \left(1 - \frac{\delta_a}{\delta_x}\right) \ \Rightarrow  \ m_x = \frac{m_1}{1 - \frac{\delta_a}{\delta_x}}\\
+    m_2 - m_3 = -\sigma_x + m_a = m_a\left(1 - \frac{\delta_a}{\delta_A}\right) \Rightarrow m_a = \frac{m_2 - m_3}{1 - \frac{\delta_a}{\delta_A}}
+\end{gather*}
+Allora si ottiene la densità relativa come
+\begin{gather*}
+    \delta_r = \frac{m_x}{m_a} = \frac{m_1}{1 - \frac{\delta_a}{\delta_x}} \frac{1 - \frac{\delta_a}{\delta_A}}{m_2 - m_3} = \delta_{r_m} \frac{1 - \frac{\delta_a}{\delta_A}}{1 - \frac{\delta_a}{\delta_x}} \\
+    \approx \delta_{r_m} \left(1 - \frac{\delta_a}{\delta_A}\right) \left(1 + \frac{\delta_a}{\delta_x}\right) = \delta_{r_m} \left(1 - \frac{\delta_a}{\delta_A} + \frac{\delta_a}{\delta_x}\right)
+\end{gather*}
+Allora il contributo della spinta di Archimede diventa:
+\begin{align}
+        f_{arch} = 1 - \frac{\delta_a}{\delta_A} + \frac{\delta_a}{\delta_x}
+\end{align}
+
+\section{Il tabulato di dati}
+\begin{itemize}
+    \item Verificare la taratura della bilancia con almeno $20$ masse diverse;
+    \item L'errore di linearità della bilancia sarà la massima deviazione;
+    \item L'errore di riproducibilità lo calcoliamo eseguendo $6$ misure misurandone
+    lo scarto massimo;
+    \item L'errore totale sarà la somma dei due;
+    \item Disegnare l'oggetto di cui si vuole ricavare la densità;
+    \item Misurare la massa dell'oggetto $5$ volte e determinare valore medio e scarto massimo;
+    \item Lo stesso ragionamento si fa per le misure di lunghezza;
+    \item Misurare l'effetto della spinta di Archimede;
+    \item Ricavare la densità assoluta dell'oggetto dopo aver trovato
+    la densità relativa e confrontarle per vedere che siano compatibili 
+    e scegliere la più appropriata. 
+\end{itemize}
+
+\section{Misura della densità relativa di un liquido}
+Per la stima della densità di un liquido attraverso l'utilizzo del
+picnometro dobbiamo eseguire una procedura simile a quella adottata
+per l'oggetto solido che abbiamo misurato prima:
+\begin{enumerate}
+    \item Misurare $m_1$ ossia il picnometro vuoto;
+    \item Misurare $m_2$ ossia il picnometro con acqua distillata;
+    \item Misurare $m_3$ ossia il picnometro riempito con il liquido di cui vogliamo
+    trovare la densità relativa.
+\end{enumerate}
+A questo punto ci basta trovare 
+\begin{gather*}
+    \delta_{r_m} = \frac{m_3 - m_1}{m_2 - m_1} = \frac{m_x}{m_A} = \frac{\delta}{\delta_A}
+\end{gather*}
+Se volessimo tenere conto anche della temperatura e della spinta di Archimede allora
+basterà correggere questa densità relativa con i rispettivi fattori correttivi.
+\begin{align}
+    \delta_r = \delta_{r_m} f(T)f_{arch}
+\end{align}
+E allora possiamo esprimere (ricordando che $m_b$ è la massa del picnometro pieno e
+$m_a$ la massa dell'aria spostata )
+\begin{gather*}
+    \left\{\begin{array}{l}
+        m_1 = m_p - m_a - \sigma_p \\
+        m_2 = m_p - \sigma_p \\
+        m_3 = m_p - m_a + m_x - \sigma_x
+    \end{array}\right.
+\end{gather*} 
+Ossia gli stessi ragionamenti applicati per l'oggetto da misurare.
+
+
+\chapter{Esperienza volano}
+\section{Parte pratica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \begin{tikzpicture}
+        \draw (0, 0) circle (1);
+        \draw (0, 0) circle (0.3);
+        \draw[<->] (0, 1.3) arc (90:180:1.3);
+        \draw (-0.2, 0.23) -- (2,2); 
+        \draw[dashed, red] (0.2, -0.25) -- (1.85, 1.9);
+        \draw (2.05, 1.68) circle (0.3);
+        \draw (2.35, 1.68) -- (2.35, 0);
+        \draw (2.15, -0.4) rectangle (2.55, 0) node[midway] {$M$};
+        \draw[->] (2.35, -0.4) -- (2.35, -1) node[at end, below] {$\vec{a}$};
+        \draw[->] (3, 2) -- (3, -3) node[at end, right] {$y$};
+        \draw[->] (2.8, -0.2) -- (4.5, -0.2) node[at end, below] {$x$} node[at end, above] {$t_0, y_0$};
+        \draw (2.8, -0.8) -- (3.2, -0.8) node[at end, right] {$t_1, y_1$};
+        \draw (2.8, -2.5) -- (3.2, -2.5) node[at end, right] {$t_2, y_2$};
+    \end{tikzpicture}
+\end{wrapfigure}
+Nell'esperienza del volano si calcola l'accelerazione di gravità di una piccola
+massa collegata ad un volano, ossia una ruota metallica vincolata
+ad un asse orizzontale. Mentre il peso scende il filo si avvolge
+sul volano e vogliamo allora misurare l'accelerazione di caduta
+$\vec{a}$. Il corpo subisce le due forze $T$ e $P$ per trovare 
+il vettore e quindi
+\begin{gather*}
+    \vec{P} + \vec{T} = m\vec{a}   
+\end{gather*}  
+Prendiamo come ipotesi che $a$ sia costante dato che il momento 
+delle forze di attrito è costante. Possiamo ricavare l'accelerazione
+con una relazione con il moto rettilineo uniformemente accelerato. \\
+Lasciando andare da fermo il corpo e sfruttando le fotocellule si può trovare 
+il tempo di caduta e, chiamato $y = 0$ la posizione di un corpo
+da fermo $y_1$ e $y_2$ la posizione della seconda e terza fotocellula 
+e quindi sfruttando le leggi della cinematica 
+\begin{gather*}
+    y = y_0 + v_0 t + \frac{1}{2} a t^{2} \\
+    \left\{\begin{array}{l}
+        y_1 = y_0 + v_0 t_1 + \frac{1}{2} a t_1^{2} \\
+        y_2 = y_0 + v_0 t_2 + \frac{1}{2} at_2^{2}  
+    \end{array}\right. 
+\end{gather*}
+Moltiplicando per entrambi i membri $t_2$ per quella sopra e
+$t_1$ per quella sotto, si ottiene la seguente:
+\begin{gather*}
+    y_2 t_1  - y_1 t_2 = \frac{1}{2}a(t_1 t_2^{2} - t_1^{2} t_2)
+\end{gather*}
+
+E quindi l'accelerazione sarà
+\begin{align}
+    a = 2 \frac{y_2 t_1 - y_1 t_2}{t_1 t_2 (t_2 - t_1)}
+\end{align}
+Possiamo misurare allora le distanze dal metro legato alle
+aste portanti dell'apparato: dobbiamo quindi misurare le distanze
+$y_1$ e $y_2$ ossia le distanze tra la prima e la seconda fotocellula e
+la distanza tra la seconda e la terza fotocellula ed inseriamoli 
+calcolatore dell'apparato per trovare $T_1$, $t_2$ e l'accelerazione
+senza preoccuparsi dell'incertezza sul tempo in quanto le fotocellule sono
+precise a microsecondo.
+
+
+\section{Analisi statistica dei dati}
+Con l'analisi dei dati ora possiamo trovare la distribuzione 
+dei valori in modo tale da poter determinare se i dati rispettano una distribuzione
+gaussiana oppure no. Abbiamo a disposizione $12$ bin per
+definire gli intervalli per l'istogramma, per scegliere il numero
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \begin{tikzpicture}
+        \draw[|-|] (0, 0) -- (0.5, 0) node[at start, below] {$a_{min}$};
+        \draw[-|] (0.5, 0) -- (1, 0);
+        \draw[-|] (1, 0) -- (1.5, 0);
+        \draw[-|] (1.5, 0) -- (2, 0);
+        \draw[-|] (2, 0) -- (2.5, 0);
+        \draw[-|] (2.5, 0) -- (3, 0) node[at end, below] {$a_{max}$};
+        \draw[<->] (1.55,-0.3) -- (1.95, -0.3) node[midway, below] {$\Delta_{bin}$};
+    \end{tikzpicture}
+\end{wrapfigure}
+di bin necessari si osservano i valori dell'accelerazione massima e minima in modo 
+tale da scegliere un numero ottimale di intervalli ben definiti.
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (6, 0) node[at end, below] {$a (m/s)$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$f_k$};
+        \draw[<->] (1.55, -0.3) -- (2.45, -0.3) node[midway, below] {$\Delta_{bin}$};
+        \draw (0.5, 0) rectangle (1.5, 1.5);
+        \draw[|-|, red] (1, 1.2) -- (1, 1.8);
+        \filldraw[red] (1, 1.5) circle (2pt);
+        \draw (1.5, 0) rectangle (2.5, 2.5);
+        \draw[|-|, red] (2, 2) -- (2, 3);
+        \filldraw[red] (2, 2.5) circle (2pt);
+        \draw (2.5, 0) rectangle (3.5, 3.5);
+        \draw[|-|, red] (3, 3.2) -- (3, 3.8);
+        \filldraw[red] (3, 3.5) circle (2pt);
+        \draw (3.5, 0) rectangle (4.5, 2.8);
+        \draw[|-|, red] (4, 2.5) -- (4, 3.1);
+        \filldraw[red] (4, 2.8) circle (2pt);
+        \draw (4.5, 0) rectangle (5.5, 2);
+        \draw[|-|, red] (5, 1.5) -- (5, 2.5);
+        \filldraw[red] (5, 2) circle (2pt);
+    \end{tikzpicture}
+\end{wrapfigure}
+In questo modo è possibile costruire l'istogramma delle frequenze
+per ogni intervallo e quindi mi aspetto che dietro a 
+quell'istogramma c'è una distribuzione gaussiana che possiamo
+descrivere con la migliore stima con valore medio e
+deviazione standard. \\
+Per verificare tale approssimazione individuiamo i punti medi dei bin e 
+li calcoliamo con la seguente
+\begin{gather*}
+    P(a) = \frac{1}{\sqrt{2\pi}\sigma} \exp \left(-\frac{(a - \overline{a} )^{2} }{2\sigma^{2} }\right)
+\end{gather*}
+e chiamiamo questo valore $f_{Gauss}$ e valutiamo se 
+sono sufficientemente confrontabili; allora se i conti tornano possiamo
+allora concludere che non vi sono stati effetti sistematici altrimenti 
+dobbiamo prendere in considerazione il fatto che potrebbero
+essere sopraggiunti effetti sistematici. \\
+Possiamo associare, ad ogni bin, una certa incertezza:
+se $N_k$ è il numero di conteggi nel bin possiamo ricavare 
+un incertezza del tipo $N_k = N_k \pm \sqrt{N_k}$. Questa
+incertezza può essere propagata in $F_k$ e $f_k$ e la consideriamo in $\sigma_{f_k}$
+ad ogni canale dell'istogramma possiamo aggiungere un intervallo per
+verificare che l'istogramma approssimi la gaussiana.
+Possiamo prendere un foglio millimetrato e disegnare l'istogramma
+della densità i frequenza e per le proporzioni prendere rapporti semplici.
+
+
+
+\chapter{Elasticità}
+\section{Introduzione all'elasticità}
+Limitandosi allo studio dell'elasticità relativa
+ai corpi solidi, in questi corpi è importante il punto di applicazione
+della forza ed il concetto di centro di massa. \\
+È importante in questo sistema considerare anche il \textbf{momento della forza}
+definito come
+\begin{align}
+    \vec{M}_O = \vec{r} \times \vec{F}   
+\end{align}
+Sappiamo che in un sistema rigido agiscono, se il corpo è in quiete,
+delle forze che producono risultati nulli e nel momento che 
+immetto una forza esterna nel sistema  si creerà 
+uno spostamento di gran parte del corpo e si formerà una nuova
+situazione di equilibrio con un cambiamento delle forze esterne. 
+Se la sollecitazione applicata cessa può succedere che
+il sistema ritorni alla configurazione di equilibrio precedente o
+il sistema non ritorna allo stato iniziale. \\
+L'esperienza dell'elasticità ha lo scopo di determinare se un oggetto
+si è comportato come un corpo rigido durante tutta la durata dell'esperienza
+mediante misurazioni indirette delle posizioni relative tra il corpo rigido e 
+gli altri oggetti. Esistono anche i corpi non rigidi, che sono più complicati
+e che vanno analizzati caso per caso: un sistema di punti materiali con un corpo
+esteso che ha una certa forma, allora se partiamo da una situazione di equilibrio 
+e la sua accelerazione è nulla la sommatoria delle forze sulla masse mi dà l'accelerazione.
+Se un punto applica una forza esterna quello che avviene è che il corpo
+si deforma e cambiano quindi le distanze tra gli oggetti e su di lui sono
+applicate delle forze esterne oltre che a quelle interne .
+\begin{gather*}
+    \vec{a} = \frac{\sum \vec{F}_{int} + \vec{F}_{ext} }{m_i} 
+\end{gather*}
+In generale quando si ha un corpo esteso sottoposto a deformazioni e quando siamo 
+in una situazione di equilibrio allora si bilanciano le forze esterne ed interne e 
+se si smette di applicare delle forze esterne allora le forze interne agiranno
+sul sistema deformandolo. Se il corpo torna però alle condizioni iniziali dopo
+questo agire di forze, allora il corpo è elastico, altrimenti plastico.\\
+Quando si applicano delle forze su di un corpo, esso può deformarsi in vari modi 
+che andiamo ad analizzare.
+
+
+\section{Trazioni e compressioni}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 1.1}
+    \caption{Parallelepipedo}
+    \begin{tikzpicture}
+        \draw (0, 0) -- (1, 0);
+        \draw (0, 0) -- (0, 2) node[at start, left] {$\Delta L$} node[midway, left] {$L$};
+        \draw(1, 0) -- (1.5, 0.25);
+        \draw(1.5, 0.25) -- (1.5, 2.25);
+        \draw(0, 2) -- (1, 2);
+        \draw (1, 2) -- (1.5, 2.25);
+        \draw(0, 2) -- (0.5, 2.25) ;
+        \draw(0.5, 2.25) -- (1.5, 2.25);
+        \draw (1, 2) -- (1, 0);
+        \draw[dashed] (0, 0.5) -- (1, 0.5);
+        \draw[dashed] (1, 0.5) -- (1.5, 0.75);
+        \draw[->] (0.75, 0) -- (0.75, -1) node[at end, right] {$\vec{F}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso in cui il parallelepipedo con lati $w, h, l$ poggi su di un piano indeformabile 
+allora si comprimerà e quindi si modificherà di un certo $\Delta L$ e 
+aumenterà la sua sezione, se sottoposto a trazione invece si allungherà causando
+una riduzione la sua sezione. Applicando un sistema di forze equivalenti ad una forza
+$\perp$ alla base libera, chiamato allora $V = whl$ il volume dell'oggetto e $S = wh$ la sua sezione, la deformazione
+che si ha è proprio $\Delta L$. \\
+Sappiamo che, dato che i punti all'equilibrio hanno $\vec{a} = 0$, allora la risultante delle
+forze deve essere nulla. Quindi ognuno subisce una forza $\vec{F}$ stessa e quindi per
+ogni $\vec{F}$ si oppone una forza $-\vec{F}$. Nella realtà un corpo soggetto a trazione
+si comprime lungo il lato perpendicolare alla forza e si allunga lungo il lato parallelo. \\
+Ogni materiale è dotato di una caratteristica chiamata \textbf{sforzo specifico(normale)}
+che si calcola nella seguente maniera:
+\begin{align}
+    \sigma = \frac{|\vec{F} |}{S}
+\end{align}
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 2.1}
+    \caption{Il grafico $\sigma $ deformazione relativa}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (4, 0) node[at end, below] {$\frac{\Delta L}{L}$};
+        \draw(0, 0) -- (0, 4) node[at end, left] {$\sigma$};
+        \draw(0, 0) -- (0.8, 2);
+        \draw[dashed](0, 1.4) -- (0.6, 1.4) node[at start, left] {$\sigma_p$};
+        \draw[dashed](0.6, 0) -- (0.6, 1.4);
+        \begin{scope}[rotate around={20:(2.2,3)}]
+            \foreach \x in {0,...,3}{
+              \draw  (0.5+\x*0.15772870662460567,2.5) -- ++(0.15772870662460567,0.1) -- ++ (0, -0.1);
+            }
+        \end{scope}
+        \draw[dashed](0, 2) -- (0.85, 2) node[at start, left] {$\sigma_e$};
+        \draw[dashed](0, 2.25) -- (1.3, 2.25) node[at start, left] {$\sigma_s$};
+        \draw (1.34, 2.15) .. controls  (1.9, 2.5) ..(2.5, 2.5);
+        \draw[dashed] (0, 2.5) -- (2.5, 2.5) node[at start, left] {$\sigma_r$};
+        \draw[dashed] (2.5, 2.5) .. controls (3, 2.5) .. (3.5, 2.3);
+        \filldraw (0, -0.1) circle (0pt) node[anchor = north] {elasticità};
+        \filldraw (3, -0.1) circle (0pt) node[anchor = north] {plasticità};
+    \end{tikzpicture}    
+\end{wrapfigure}Si esprime in $Pa$, $\frac{N}{m^{2} }$ anche se non è una misura di pressione.
+Variando lo sforzo specifico si potrebbero causare
+delle deformazioni differenti e finché questo sforzo si mantiene sotto un certo
+limite chiamato \textbf{sforzo elastico} allora la deformazione è elastica e 
+si indica come $\sigma_{e}$.
+Dal grafico, dopo la fase di elasticità, ad una piccola variazione dello sforzo
+corrisponde una grande variazione del rapporto $\Delta L /L$, in genere valido per
+molti dei materiali.
+Tutti i materiali hanno una loro costante elastica per cui le deformazioni sono
+proporzionali alla forza impiegata.  (Adottabile se e solo se il valore di $\sigma$ sta
+dentro la curva) la forza sarà quindi:
+\begin{align}
+    F = E S \frac{\Delta L}{L}
+\end{align}
+$[E] = [kg_p /mm^{2}]$ ossia il \textbf{modulo di Young}, il quale dipende dalla geometria dell'oggetto 
+mentre $S$ è la sezione del parallelepipedo considerato.
+Questa equazione deriva dal fatto che più la mia sezione è grande e più forza ci devo mettere
+mentre pù e lungo e meno forza ci devo mettere per ottenere deformazioni. Ogni materiale ha certi livelli di stress come nel grafico.
+\begin{itemize}
+    \item Il valore $\sigma_p$ rappresenta il limite di validità dell'equazione precedente ed
+    è anche chiamato \textbf{limite di proporzionalità};
+    \item Fino al valore $\sigma_e$ il materiale si comporta elasticamente ma la 3.2
+    non è più sufficiente per poter descrivere accuratamente il comportamento del materiale;
+    \item Il valore $\sigma_s$ si chiama \textbf{limite di snervamento}, oltre questo limite
+    a minime sollecitazioni corrispondono grandi allungamenti in quanto il materiale ha perso
+    la capacità di resistere alle piccole sollecitazioni;
+    \item Il valore $\sigma_r$ rappresenta invece il \textbf{limite di rottura} dopo il quale
+    il materiale si spezza.
+\end{itemize}
+Con l'equazione di Young si ottiene le seguenti formule:
+\begin{align}
+    \sigma = \frac{\left|\vec{F}\right|}{S} = E\frac{\left| \Delta L \right| }{L}
+\end{align}
+Si possono descrivere le proprietà dei corpi di cambiare le loro
+dimensioni trasverse con il coefficiente di Poisson ($\gamma$). 
+Si nota sperimentalmente che dopo una trazione/compressione
+a livello fisico succede questo:
+\begin{align}
+    \frac{\Delta W}{W} = -\gamma \frac{\Delta L}{L} = \frac{\Delta h}{h}
+\end{align}
+Il rapporto tra allungamento del lato parallelo al cui si applica la forza
+è proporzionale all'accorciamento o allungamento del lato perpendicolare all'applicazione
+della forza di un fattore $\gamma$. Il volume dell'oggetto considerato è infatti:
+\begin{gather*}
+    V = whL
+\end{gather*} 
+Per cui si ottiene che il rapporto $\frac{\Delta V}{V}$ sarà:
+\begin{align}
+    \frac{\Delta V}{V} = \frac{\Delta L}{L} (1 - 2\gamma)
+\end{align}
+A seconda del valore di $\gamma$ si hanno diverse situazioni fisiche: $\gamma > \frac{1}{2}$ avremo allora un aumento di volume 
+a seguito di un allungamento, mentre se è minore, allora si ha una diminuzione del volume dopo
+un allungamento; si nota allora che $\gamma > 0.5$ è empiricamente
+impossibile per un corpo isotropo. Se prendessimo infatti una spugna e la riempissimo d'acqua,
+esso sarà soggetta a delle forze di Archimede e quindi il corpo non potrà che
+diminuire di volume alla minima sollecitazione e quindi su ogni
+asse si avrebbe un certo effetto descrivibile come
+\begin{gather*}
+    \left(\frac{\Delta a}{a}\right)_x = \left(\frac{\Delta b}{b}\right)_y = \left(\frac{\Delta c}{c}\right)_z = - \frac{\sigma}{E}
+\end{gather*}
+Dato allora che sugli assi lungo il quale la forza risulta trasversa si utilizza il
+coefficiente di Poisson, allora si avrà che
+l'effetto complessivo delle deformazioni su ogni asse sarà il contributo
+della forze di Archimede
+\begin{gather*}
+    \frac{\Delta a}{a} = -\frac{\sigma}{E} + \gamma\frac{\sigma}{E} + \gamma\frac{\sigma}{E}
+\end{gather*} 
+Si ottiene allora che la deformazione rispetto al volume sarà data da
+\begin{align}
+    \frac{\Delta V}{V} = \frac{\Delta a}{a} + \frac{\Delta b}{b} + \frac{\Delta c}{c} = -3(1  - 2\gamma)\frac{\sigma}{E}
+\end{align}
+Se fosse, data questa definizione di deformazione del volume, che il coefficiente $\gamma > \frac{1}{2}$ allora si avrebbe
+che la spugna bagnata si espanderebbe quando sottoposta ad una trazione, ma questo non è
+possibile in quanto è un corpo isotropo. \\ 
+L'effetto delle forze su di un corpo sottoposto ad una compressione
+oppure un estensione risulta essere proprio la somma dei tre contributi rispetto 
+ad ogni asse
+\begin{align}
+    \sigma = \frac{E}{3(1 - 2\gamma)}\frac{\Delta V}{V} = -K \frac{\Delta V}{V}
+\end{align}
+Possiamo allora definire la costante $K$ come il \textbf{modulo di comprimibilità}
+e quindi nella pratica queste considerazioni valgono se e solo se il
+corpo è \textbf{isotropo}, in quanto in questi corpi la disposizione
+degli elementi nella struttura non dipende da una particolare direzione.
+
+\section{Il modulo di scorrimento, anche chiamata sollecitazione da taglio}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \caption{Oggetto vincolato su una base}
+    \begin{tikzpicture}
+        \draw (0, 0) -- (0, 3);
+        \draw (0, 0.5) -- (1, 0.5);
+        \draw (0, 2.5) -- (1, 2.5);
+        \draw(1, 0.5) -- (1, 2.5);
+        \draw[dashed](0, 2.5) -- (1, 2.25);
+        \draw[dashed](0, 0.5) -- (1, 0.25);
+        \draw(0.8, 2.5) arc (0:-15:0.8) node[midway, right] {$\alpha$};
+        \draw[->](1, 0.5) -- (1, -0.5) node[at end, below] {$\vec{F}$}; 
+    \end{tikzpicture}     
+\end{wrapfigure}
+Vincoliamo un oggetto ad una base rigida ma l'altra base parallela la
+vogliamo non vincolata. In questo caso la base che è sottoposta alla forza parallela rispetto
+alla base esterna fa scivolare una base rispetto all'altra. Questo
+è immaginabile come una sorta di scorrimento di tanti strati del materiale uno
+rispetto all'altro che dà luogo alla variazione della forma dell'oggetto. 
+Matematicamente si può esprimere lo sforzo specifico come:
+\begin{align}
+    \sigma = \frac{F}{S} = G \frac{\left| \Delta x \right| }{L}
+\end{align}
+dove $G$ rappresenta il \textbf{modulo di scorrimento}, inoltre si ha che:
+\begin{gather*}
+    G \frac{\left| \Delta x \right| }{L} = G\tan\alpha
+\end{gather*}
+E si potrebbe approssimare $\tan\alpha \approx \alpha$ per angoli molto piccoli, dunque si ottiene che
+Il modulo di Young è dato da
+\begin{align}
+    E = 2(1 + \gamma)G
+\end{align}
+Da cui si può ottenere una delle tre date le altre due ed è dimostrabile:
+prendiamo un blocco cubico di materiale omogeneo e studiamo cosa succede a questo cubo
+se intervengono delle forze di trazione e di compressione:
+avremmo accorciamento / allungamento delle forze che lo porterà a mutare la sua forma ed immaginiamo poi un cilindro
+diretto lungo la diagonale e dimostriamo che il cilindro subirà una deformazione di taglio che potremmo
+relazionare a $G$ ed $E$.
+Possiamo dire che, per le considerazioni geometriche e dato che le forze
+sono tutte uguali in modulo che:
+\begin{gather*}
+    \left(\frac{\Delta BC}{BC}\right)_y = \frac{\sigma}{E} \qquad     \left(\frac{\Delta AB}{AB}\right)_x = -\frac{\sigma}{E}\\
+    \left(\frac{\Delta BC}{BC}\right)_x = -\gamma \left(\frac{\Delta AB}{AB}\right)_x = \gamma \frac{\sigma}{E} \\
+    \Rightarrow \frac{\Delta BC}{BC} = \frac{\sigma}{E} + \gamma \frac{\sigma}{E} = (1 + \gamma) \frac{\sigma}{E} = \frac{\Delta L}{L} = \frac{\Delta AB}{AB}
+\end{gather*}
+Studiamo ora la deformazione del cilindro, il quale avrà un angolo di scorrimento
+di $\alpha = \frac{\sigma}{G}$ e mettiamolo in relazione con quella del cubo : sappiamo 
+che $\theta = 2\phi$, ossia l'angolo tra le diagonali del cubo è il doppio dell'angolo tra 
+il minimo angolo tra una diagonale ed uno spigolo del cubo: \\
+\begin{gather*}
+    \theta = \frac{\pi}{2} - \alpha \\
+    (L + \Delta L) \tan\phi = L - \delta L 
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.35\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw[->](-1, -2) -- (0, -2) node[midway, above] {$\vec{F_3}$};
+        \draw[->](1, 0) -- (1, 1) node[midway, right] {$\vec{F}_2$};
+        \draw[->](3, -2) -- (2, -2) node[midway, above] {$\vec{F}_4$};
+        \draw[->](1,  -4) -- (1,  -5) node[midway, right] {$\vec{F}_1$};
+        \filldraw (0, 0) circle (0pt) node[anchor = south] {$D$};
+        \filldraw (2, 0) circle (0pt) node[anchor = south] {$C$};
+        \filldraw (0, -4) circle (0pt) node[anchor = north] {$A$};
+        \filldraw (2, -4) circle (0pt) node[anchor = north] {$B$};
+        \draw(0, 0) rectangle(2, -4);
+        \draw(0, 0) -- (2, -4);
+        \draw(0, -4) -- (2, 0);
+        \draw(0.5, -1) arc (120:60:1) node[midway, above] {$\theta$};
+        \draw(1.5, -3) arc (120:90:1) node[midway, above] {$\phi$};
+    \end{tikzpicture} 
+\end{wrapfigure}
+E allora sostituendo si ottiene che
+\begin{gather*}
+    \tan \frac{\frac{\pi}{2} - \alpha}{2} = \frac{L - \Delta L}{L + \Delta L} = \frac{1 - \frac{\Delta L}{L}}{1 + \frac{\Delta L}{L}} = \\
+    \tan\left(\frac{\pi}{4} - \frac{\alpha}{2}\right) = \frac{1 - \tan \frac{\alpha}{2}}{1 + \tan\frac{\alpha}{2}} \Rightarrow \tan\frac{\alpha}{2} = \frac{\Delta L}{L}
+\end{gather*}
+Possiamo allora approssimare con Taylor la tangente e dunque ottenere che 
+\begin{gather*}
+    \frac{\sigma}{2G} \approx \frac{\alpha}{2 } = \frac{\Delta L}{L} = (1 + \gamma) \frac{\sigma}{E}
+\end{gather*}
+E allora si ottiene la tesi eguagliando quella a destra con quella a sinistra.
+Inoltre si nota anche il corollario, ossia che
+\begin{gather*}
+     0 < \gamma < \frac{1}{2} \\
+    \ \Longrightarrow \ E \approx 2G \sim 3G
+\end{gather*}
+Ossia $E$ è contenuto nell'intervallo tra $2G$ e $3G$. Qualsiasi valore
+al di fuori di questo intervallo è impossibile per quanto dimostrato prima con le
+sollecitazioni da torsione e trazione.
+
+\section{Flessione}
+\begin{wrapfigure}{R}{0.4\textwidth}
+    \centering
+    \label{Fig 2.2}
+    \caption{La flessione}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (0, 4);
+        \draw (0, 2) -- (3, 2);
+        \draw(0, 3) -- (3, 3);
+        \draw(3,3) -- (3, 2);
+        \draw[->](3, 2) -- (3, 2) node[at end, right] {$\vec{F}$};
+        \draw[|-|] (0, 3.5) -- (3, 3.5) node[midway, above] {$L$};
+        \draw[dashed](0, 3) .. controls (1.5, 3) .. (2.75, 2.25);
+        \draw[dashed](0, 2) .. controls (1.5, 2) .. (2.25, 1.25);
+        \draw[dashed](2.75, 2.25) -- (2.25, 1.25);
+        \draw[dashed](0, 2.5) -- (1.75, 2.5);
+        \draw(2.5, 1.75) -- (1.25, 2.5);
+        \draw(1.75, 2.5) arc (0:-30: 0.5) node[midway, right] {$\phi$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Considerando un cilindro di materiale omogeneo ed isotropo con una base
+vincolata ad una superficie rigida. Se applico un sistema di forze tali
+da rendere risultante nulla ma da creare un momento diverso da $0$ si osserverà che il cilindro si flette. \\
+La forma che assume l'asse longitudinale tende ad assumere la deformazione
+di un arco di circonferenza e si allungheranno le fibre sopra l'asse longitudinale
+e si comprimeranno quelle sotto. Le fibre che compongono l'asse latitudinale invece rimangono
+invariate. 
+Posso allora definire \textbf{l'angolo di flessione} $\phi$ e la tangente $\perp$ alla base che interseca l'asse
+ortogonale dal cilindro con un angolo che è sempre $\phi$. \\
+\begin{align}
+    \phi = \frac{1}{E} \frac{4}{\pi} \frac{L}{r^{4} }m
+\end{align}
+Per dimostrare la validità di questa formula possiamo considerare 
+una fetta sottile del cilindro prima della deformazione: dopo la deformazione non sarà
+più un cilindro ma un trapezio. \\
+Prendo allora un asse $y$ $\perp$ all'asse delle fibre e parallelo al vincolo:
+l'angolo ottenuto dal prolungamento delle due superfici inclinare lo
+chiamo $\alpha$ e possiamo allora esprimere in maniera quantitativa
+\begin{gather*}
+    \alpha \approx \frac{l}{R}
+\end{gather*}
+Dove $R$ è il raggio della circonferenza centrata nell'origine $\alpha$ che identifica 
+la posizione delle fibre neutre. Possiamo anche notare che
+\begin{gather*}
+    \alpha \approx \frac{l + \Delta l}{R + y}
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[cyan, very thick](0, 0) -- (1.5, 0);
+        \draw[cyan, very thick](0, 0) -- (0.5, -2);
+        \draw[cyan, very thick](0.5, -2) -- (1, -2);
+        \draw[cyan, very thick](1, -2) -- (1.5, 0);
+        \draw[thin, ->](0.75, -4) -- (0.75, 1) node[at end, right] {$y$};
+        \draw[thin] (0.5, -2) -- (0.75, -3);
+        \draw[thin] (1, -2) -- (0.75, -3);
+        \draw(0.2, 0) rectangle (1.3, -2);
+        \draw[|-|] (2, -1) -- (2, -3) node[at end, right] {$R$};
+        \draw[|-|] (2.5, -1) -- (2.5, -2) node[midway, right] {$r$};
+        \draw[dashed , thin] (0.2, -1) -- (2.5, -1);
+        \draw[|-|] (0, 0.25)  -- (1.5, 0.25) node[midway, above] {$l$}; 
+        \draw[->] (-1.5, -1) -- (3.5, -1) node[at end, above] {$x$};
+        \draw[very thin, dashed] (-1, 0) rectangle (3, -2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Dove $y$ è un quota qualsiasi sopra le fibre neutre che può essere positiva o negativa.
+Posso allora semplificare la relazione:
+\begin{gather*}
+    \frac{l}{R} = \frac{l + \Delta l}{R + y} \Rightarrow \frac{\Delta l}{l} = \frac{y}{R}
+\end{gather*}
+Allora, tramite il \textbf{modulo di Young} posso esprimere questa mettendola 
+in relazione con lo sforzo delle deformazioni. Considero la faccia
+del cilindro ed isolo una piccola striscia $ds$ sopra la sezione delle fibre neutre
+le deformazioni allora saranno causate dalle forze infinitesime $d\vec{F}$ e posso
+quindi scrivere:
+\begin{gather*}
+    \frac{dF}{ds} = E \frac{\Delta l}{l} \Rightarrow \frac{dF}{ds} \approx E \frac{y}{R}
+\end{gather*} 
+Individuiamo allora il braccio della forza e quindi possiamo esprimere il
+momento infinitesimo come
+\begin{gather*}
+    d\vec{m} = \vec{r} \times d\vec{F} \ \Rightarrow \  dm = rdF\sin\theta = rd\vec{F} \approx y dF 
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (1.5, 0);
+        \draw(0, 0) -- (0.5, -2);
+        \draw(0.5, -2) -- (1, -2);
+        \draw(1, -2) -- (1.5, 0);
+        \draw[cyan, very thick, ->] (1.3, -0.8) -- (2, -1) node[at end, above] {$d\vec{F}$};
+        \draw[cyan, very thick, ->] (1.25, -1) -- (1.3, -0.8) node[midway, left] {$\vec{r}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+E allora possiamo, sostituendo, ottenere il momento infinitesimo come
+\begin{gather*}
+    dm = E \frac{y^{2} }{R} ds 
+\end{gather*}
+Ma questa è solo una parte del momento dovuta alla deformazione sulla piccola
+striscia $ds$ considerata, dobbiamo allora considerare anche tutti i momenti infinitesimi
+\begin{gather*}
+    m = \int \ dm = \int \frac{Ey^{2} }{R} \ ds = \frac{E}{R}\int y^{2} \ ds = \frac{EI}{R} 
+\end{gather*}
+Ossia il \textbf{momento areolare di inerzia} (riferito ad una superficie) ed è una grandezza
+dipendente dalla forma e non dal materiale di un oggetto:
+\begin{align}
+    I = \int_S y^{2} \ ds 
+\end{align} Si ottiene allora l'equazione
+di \textbf{Eulero-Bernoulli}:
+\begin{align}
+    m = \frac{EI}{R}
+\end{align}
+In questo caso è stata ricavata per il cilindro ma potremmo ricavarla per qualsiasi forma; tornando
+indietro osservo che $\alpha = \phi$ e quindi posso esprimerlo come
+\begin{gather*}
+    \phi = \frac{L}{R} \ \Rightarrow \ \phi = \frac{Lm}{E} \frac{4}{\pi} \frac{1}{r^{4} }\qed
+\end{gather*}
+Per calcolare i momenti areolari di inerzia occorre scegliere opportunamente
+la sostituzione da fare per $ds$, nel caso del parallelepipedo si sa che la piccola
+superficie $ds$ è data da $dxdy$:
+\begin{gather*}
+    I = \int_S y^{2} ds = \int_{-\frac{a}{2}}^{\frac{a}{2}}\ dx \ \int_{-\frac{b}{2}}^{\frac{b}{2}}y^{2} \ dy = \frac{1}{12} ab^{3}      
+\end{gather*}
+mentre nel caso del cilindro si ottiene che
+la sezione infinitesima è data da $ds = 2dy |x(y)|$ e quindi sapendo che
+$x^{2} = r^{2} - y^{2}$ si ottiene: $ds = 2 \sqrt{r^{2} - y^{2} }dy$. 
+\begin{gather*}
+    I = 2\int_{-r}^{r} y^{2} \sqrt{r^{2} - y^{2}  }dy = \dots = \frac{1}{4}\pi r^{4}    
+\end{gather*}
+
+\section{Misura del modulo di Young e apprato pratico}
+Non sempre il raggio di curvatura esiste, talvolta devo considerare raggi di curvatura
+locali avendo $R = R(x)$. Presa quindi una curva generica posso definire
+una \textbf{circonferenza osculatrice} che avrà raggio di curvatura $R(x)$ 
+dipendente dalla coordinata $x$ e quindi dall'analisi sappiamo che
+\begin{gather*}
+    \frac{1}{R(x)} = \frac{\left| \frac{d^{2} y}{dx^{2} } \right| }{\left(1 + \left(\frac{dy}{dx}\right)^{2} \right)^{\frac{7}{2}} } 
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (5, 0) node[at end, below] {$x$};
+        \draw[->](0, -3) -- (0, 2) node [at end, right] {$y$};
+        \draw(2, -0.25) arc (-60:-90: 4);
+        \draw(2, 0.25) arc (-60:-90: 4);
+        \draw(2, -0.25) -- (2, 0.25);
+        \draw[cyan, ->](2, 0.25) -- (2, 1.25) node[at end, right] {$\vec{N}$};
+        \draw[|-|] (0, -1) -- (2, -1) node[midway, below] {$\frac{L}{2}$};
+        \draw[->, cyan] (0, -0.75) -- (0, -1.75) node[at end, right] {$\vec{P}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Durante le misure si vuole studiare la curva che assume la superficie delle
+fibre mentre è sottoposta a sforzo per calcolare il modulo di Young e dunque prendiamo una sbarretta a
+base rettangolare. Essa è appoggiata a $2$ supporti e quindi avrà due reazioni vincolari
+e la pressione sarà dovuta alle forze schematizzate come $N = \frac{P}{2}$ e studieremo solo metà del corpo per 
+semplicità e quindi prendendo un sistema di assi in modo tale il cui centro sia proprio al centro
+della sbarretta, si può scegliere un vettore $\vec{r}$ tale che parta da un punto
+variabile sull'asse delle $x$ ed il modulo del momento associato alla forza sarà
+\begin{gather*}
+    m(x) = rN\sin\theta = rN = \frac{P}{2}(\frac{L}{2} - x)
+\end{gather*} 
+E sappiamo, dalla flessione, che il momento si può anche esprimere in relazione al modulo
+di Young come
+\begin{gather*}
+    m(x) \approx \frac{EI}{R(x)} \approx EI \cdot  \frac{d^{2} y}{dx^{2}  }
+\end{gather*}
+E quindi si ottiene l'equazione differenziale 
+\begin{gather*}
+    \frac{d^{2} y}{dx^{2} } = \frac{P}{2EI}\left(\frac{L}{2} - x\right)
+\end{gather*}
+Prima di poter risolvere integrando è necessario mettere delle condizioni, ossia noi vogliamo che
+quando non c'è sforzo, la nostra curvatura sia zero e che quindi si abbia il minimo 
+della curvatura stessa per definizione. Allora posso integrare come segue:
+\begin{gather*}
+    \int_{0}^{x} \frac{d^{2} y}{dx^{2} } \ dx = \int_{0 }^{x} \frac{P}{2EI}\left(\frac{L}{2} - x \right) \ dx \Rightarrow \frac{dy}{dx} = \frac{P}{2EI} \left(\frac{L}{2}x - \frac{x^{2} }{2}\right)
+\end{gather*}
+Integrando nuovamente allora si ottiene 
+\begin{gather*}
+    \int_{0}^{x} \frac{dy}{dx} = \int_{0}^{x} \frac{P}{2EI} \left(\frac{L}{2}x - \frac{x^{2} }{2}\right) \ dx \ \Rightarrow \ y(x) = \frac{P}{2EI} \left(\frac{L}{4}x^{2} - \frac{x^{3} }{6} \right)
+\end{gather*}
+Ossia una curva che è la combinazione tra una parabola ed una cubica. Posso ricavarmi il valore
+a $L/2$:
+\begin{gather*}
+    y(\frac{L}{2}) = \frac{L^{3} }{4Eab^{3} }P
+\end{gather*}
+Poiché ho sostituito il momento areolare di inerzia della sbarretta che già conoscevo. 
+La flessione allora si può calcolare come l'abbassamento della sbarretta ossia
+\begin{align}
+    f = \frac{L^{3} }{4Eab^{3} }P \approx cP
+\end{align}
+
+
+\section{Parte pratica e stime a priori}
+\subsection{Apparato sperimentale}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 4.2}
+    \caption{Il modello della deformazione della sbarretta}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (0.5, 0);
+        \draw(0, 0) -- (0.25, 0.5);
+        \draw(0.25, 0.5) -- (0.5, 0);
+        \draw(3, 0) -- (3.5, 0);
+        \draw(3, 0) -- (3.25, 0.5);
+        \draw(3.25, 0.5) -- (3.5, 0);
+        \draw(0.25, 0.5) -- (1.75, 3);
+        \draw(1.75, 3) -- (3.25, 0.5);
+        \draw[dashed](1.75, 3) -- (1.75, 0.6);
+        \draw[|-|, very thick ](1.75, 0.6) -- (1.75, 0.1) node[at start, left] {$f$};
+        \draw(0.25, 0.5) arc (240:300:3);
+        \draw(0.3, 0.6) arc (240:300:2.9);
+        \draw[|-|](0.2, 0.7) -- (0.1, 0.5) node[midway, left] {$y$};
+        \draw[|-|](0.25, -0.5) -- (3.25,-0.5) node[midway, below] {$L$};
+        \draw (1.2, 2) arc (240:270:1) node[midway, below] {$\alpha$}; 
+    \end{tikzpicture}    
+    \smallskip\par
+    \begin{tikzpicture}
+        
+    \end{tikzpicture}
+\end{wrapfigure}
+L'apparato sperimentale in laboratorio è costituito da dei supporti che possiedono dei coltelli
+per poter appoggiare la sbarretta sopra in moto da ottimizzare la perpendicolarità delle
+reazioni vincolari e dove $L$ è la distanza tra questi due coltelli e non la
+lunghezza della sbarretta. Possiamo aggiungere dei pesi su questa sbarretta appoggiandoli sul
+cavaliere, ossia una sorta di supporto attaccato al centro della sbarretta. Con ogni
+pesetto possiamo allora misurare di quanto vale $f$ attraverso il truschino. \\
+Il truschino è uno strumento formato da una scala legata ad una base pesante con piedini
+regolabili e con una livella a bolla per garantire la verticalità. La scala del 
+nonio cinquantesimale garantisce una precisione sulle misure di $0.02mm$ e presenta un 
+laser che può essere regolato in intensità per poter centrare il fascio di luce 
+al centro della croce del cavaliere.
+Per le misure di peso si utilizza la bilancia elettronica e per velocizzare l'esperienza si 
+leggono i grammi come grammi peso.  \\
+Possiamo allora eseguire le misure di variazione di quota con più pesi ottenendo
+una tabella altezza-peso e tenendo conto dell'altezza massima $h_0$ la cui incertezza è 
+calcolata sullo scarto massimo di $10$ misure. 
+Possiamo allora trovare la relazione che lega la flessione
+al peso come
+\begin{gather*}
+    f_i = h_0 - h_i \approx cP_i
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 4.3}
+    \caption{Grafico del fit lineare delle misure}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0) node[at end, below] {$P$};
+        \draw(0, 0) -- (0, 3) node[at end, left] {$h$};
+        \draw[|-|](0.5, 2.75) -- (0.5, 2.5);
+        \draw[|-|](1, 2.25) -- (1, 2);
+        \draw[|-|](1.5, 1.75) -- (1.5, 1.5);
+        \draw[|-|](2, 1.25) -- (2, 1);
+        \draw[|-|](2.5, 0.75) -- (2.5, 0.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Successivamente si riportano i valori su di un grafico inserendo le opportune e uguali
+incertezze. In maniera grafica si può ricavare il coefficiente
+$c$ e da $c$ si ottiene con le formule inverse il modulo di Young.
+Si può ottenere $c$ in modo grafico oppure col metodo dei minimi quadrati e scegliendo 
+poi il valore migliore. Tuttavia, perché queste considerazioni possano 
+essere valide, bisogna accertarsi di trovarsi nella regione elastica del materiale
+verificando quindi che la sbarretta ritorni alla sua posizione originale. Per
+determinare quindi il peso massimo dobbiamo eseguire una stima iniziale del peso 
+massimo utilizzabile e verificare poi che, quando ho tolto tutte le masse dal 
+cavaliere, l'altezza $h_0$ sia compatibile con quella inizialmente considerata. Se non lo è
+si va incontro a due possibilità:
+\begin{itemize}
+    \item La stima a priori del peso era troppo alta e ho deformato la sbarretta;
+    \item In qualche modo si è modificato l'apparato sperimentale durante le 
+    misure e questo ha portato ad una falsa lettura dell'altezza iniziale al termine dell'esperienza. 
+\end{itemize}
+
+\subsection{Stima a priori del peso massimo utilizzabile}
+Prendendo la sbarretta sui coltelli, possiamo approssimare la sua
+curvatura ad un arco di circonferenza e dunque ottenere l'individuazione
+dei diversi raggi delle fibre e sappiamo che l'angolo dell'arco di circonferenza
+individuato dalla sbarretta piegata è
+\begin{gather*}
+    \frac{L}{R} = \phi = \frac{L + \Delta L}{R + y} \ \Rightarrow \ \frac{\Delta L}{L} = \frac{y}{R}
+\end{gather*}
+E quindi si ha che con il caso più estremo, ossia quello delle fibre della
+parte sotto della sbarretta, e quindi per come si è schematizzato il problema possiamo 
+sfruttare il teorema di pitagora ottenendo che
+\begin{gather*}
+    R^{2} \approx (R - f)^{2} + \left(\frac{L}{2}\right)^{2}   
+\end{gather*}
+E dunque se $f^{2} << RL$ posso trascurare questo termine e ottenere che
+il raggio di curvatura è dato proprio da
+\begin{gather*}
+    \frac{1}{R} \approx \frac{8f}{L^{2} }
+\end{gather*}
+E allora 
+\begin{gather*}
+    \frac{\Delta L}{L} = \frac{b}{2}\cdot \frac{8f}{L^{2} }, \qquad y = \frac{b}{2}
+\end{gather*}
+Posso allora ottenere la relazione che lega la variazione di lunghezza di una fibra
+allo sforzo ed al modulo di Young:
+\begin{gather*}
+    \frac{\Delta L}{L} = \frac{\sigma }{E } \ \Rightarrow  \ \sigma_P = \frac{4bfE}{L^{2} }
+\end{gather*}
+E quindi si ottiene che il peso massimo della sbarretta con una certa distanza tra i coltelli
+ed un certo spessore ed una certa lunghezza è data da
+\begin{gather*}
+    P < \frac{ab^{2} }{L}\sigma_P
+\end{gather*}
+Si utilizza il coefficiente di proporzionalità invece che quello elastico
+per evitare di fare misure con pesi troppo vicini al limite di elasticità.
+
+
+\subsection{Stime delle grandezze in gioco nell'esperienza}
+Si può, inoltre, stimare a priori altri valori come $c$ dalla formula
+\begin{gather*}
+    h = h_0 - cP \ \Rightarrow \ c = \frac{h_0 - h}{P}
+\end{gather*}
+E quindi ottenere l'errore relativo a priori come
+\begin{gather*}
+    \frac{\Delta c}{c} = \frac{2\Delta h_0}{h - h_0} + \frac{\Delta P}{P}
+\end{gather*}
+Così come per il modulo di Young:
+\begin{gather*}
+    \frac{\Delta E }{E} = 3 \frac{\Delta L}{L} + \frac{\Delta a}{a} + 3 \frac{\Delta b}{b} + \frac{\Delta c}{c}
+\end{gather*}
+
+\chapter{Pendolo di torsione}
+\section{Sollecitazione di torsione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Sollecitazione di torsione}
+    \begin{tikzpicture}
+        \draw (0, 0) circle (1);
+        \draw[->](0, 1) -- (1,1) node[at end, right] {$\vec{F}$};
+        \draw[->](0, - 1) -- (-1, -1) node[at end, left] {$-\vec{F}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Consideriamo un cilindro e sottoponiamolo ad una serie di forze che rendono 
+una sua base vincolata e l'altra sottoposta ad una serie di forze 
+che rendano la risultante nulla ed un momento torcente diverso da zero.
+Immaginando di sezionare infinite volte il cilindro possiamo immaginare 
+elementi differenziali di superficie che ruotano l'uno rispetto all'altro. Dalla prima
+e l'ultima superficie si individua l'angolo di rotazione $\theta$ 
+e, chiamando $L$ la lunghezza del cilindro e $R$ il suo raggio, prendo un guscio
+cilindrico interno al cilindro originale con la stessa lunghezza e con $r$ il suo raggio. \\
+Posso allora prendere un blocchetto di questo guscio che avrà spessore
+$\delta r$ e altezza $\delta l$ e a seguito della deformazione (di tipo taglio) il rettangolino
+varierà la sua forma, così che è possibile individuare il suo angolo di deformazione $\alpha$ come
+\begin{gather*}
+    \theta = \frac{l}{r} \qquad \alpha \approx \frac{l}{L} \ \Longrightarrow \ \alpha \approx \frac{\theta r}{L}
+\end{gather*}
+Nella sollecitazione di taglio avremo due $\delta \vec{F}$ applicate alle due
+facce che portano ad uno sforzo di
+\begin{gather*}
+    \sigma = \frac{\delta F}{\delta r \delta l}
+\end{gather*} 
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \caption{Il blocchetto cilindrico considerato}
+    \begin{tikzpicture}[scale=2]
+        \draw(0, 0) -- (1, 0);
+        \draw(0, 0) -- (0, 1);
+        \draw(1, 0) -- (1, 1);
+        \draw(0, 1) -- (1, 1);
+        \draw(0, 1) -- (0.25, 1.25);
+        \draw(0.25, 1.25) -- (1.25, 1.25);
+        \draw(1, 1) -- (1.25, 1.25);
+        \draw(1.25, 1.25) -- (1.25, 0.25);
+        \draw(1, 0) -- (1.25, 0.25);
+        \draw[|-|](-0.25, 0) -- (-0.25, 1) node[midway, left] {$\delta l$};
+        \draw[|-|](1.25, 0) -- (1.5, 0.25) node[midway, below] {$\delta r$};
+        \draw[cyan](0, 0) -- (1.25, 0.63);
+        \draw[cyan](0, 0) -- (0, 1);
+        \draw[cyan](0, 1) -- (1.25, 1.63);
+        \draw[cyan](1, 0.5) -- (1, 1.5);
+        \draw[cyan](1.25, 1.63) -- (1.25, 0.63);
+        \draw[cyan, ->](1.3, 1) -- (1.3, 1.63) node[midway, right] {$\delta \vec{P}$ };
+        \draw[cyan, ->](-0.1, 0.63) -- (-0.1, 0) node[midway, left] {$\delta \vec{P}$ };
+        \draw[cyan](0.5, 0.25) arc (30:0:0.5) node[midway, right] {$\alpha$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+Possiamo ora considerare quantitativamente il momento rispetto al contributo infinitesimo
+delle forze applicate al blocchetto come:
+\begin{gather*}
+    \delta m_{\delta l \delta r} = \delta F r \sin \frac{\pi}{2} = \delta Fr = \sigma r \delta r \delta l
+\end{gather*}
+Sommiamo a tutti i contributi $\delta l = 2\pi r^{2} $ (che è una approssimazione):
+\begin{gather*}
+    \delta m_{ \delta r} = \sigma \delta r 2\pi r^{2} 
+\end{gather*}
+Per trovare allora il momento complessivo per passare da un singolo guscio all'intera
+superficie integrando, dato $\sigma$ che dipende da $r$ infatti possiamo dire che
+per deformazioni abbastanza piccole
+\begin{gather*}
+    \sigma \approx G\alpha = G \frac{\theta r}{L} \ \Rightarrow \ \delta m_{\delta r} = 2\pi \frac{G\theta}{L}r^{3} \delta r 
+\end{gather*}
+Possiamo ora integrare rispetto al raggio infinitesimo:
+\begin{gather*}
+    m = \frac{2G\theta\pi }{L} \int r^{3} \delta r 
+\end{gather*}
+Si ottiene allora che
+\begin{align}
+    \theta = \frac{1}{G}\frac{2}{\pi} \frac{L}{r^{4} }m
+\end{align}
+Per deformazioni sufficientemente piccole l'angolo di torsione
+risulta direttamente proporzionale al momento applicato.
+
+\section{Misura empirica della torsione}
+La misura sperimentale verrà svolta attraverso il pendolo di torsione:
+Esso consiste in un filo appeso e legato ad un oggetto solidale
+chiamato \textbf{equipaggio mobile} a cui posso applicare un certo momento che torce
+il filo di un certo angolo $\theta$. \\
+L'istante prima del rilascio il sistema è in equilibrio poiché il momento e le
+forze elastiche sono bilanciate e quindi, sapendo che il momento sull'asse
+è dato dal momento precedente, possiamo esprimere il momento risultante come 
+\begin{gather*}
+    m_z = - G \frac{\pi}{2} \frac{R^{4} }{L} \theta = -c_t \theta
+\end{gather*}
+Con le equazioni cardinali della dinamica si ha 
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \frac{d\vec{P} }{dt} =  \vec{F} \\
+        \frac{d\vec{L} }{dt} = \vec{m} - \vec{v} \times \vec{P}    
+    \end{array}\right.
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2.8);
+        \filldraw(0, 0) circle (1pt) node[anchor =east] {$C$};
+        \draw(0, 0) -- (3, 0);
+        \draw(0, 0) -- (3, 3);
+        \draw(1, 1) arc (45:0:1.48) node[midway, right] {$\theta$};
+        \draw[cyan, ->](2, 2) -- (1, 1) node[at end, above] {$\vec{F}_N$};
+        \draw[cyan, ->](2, 2) -- (0.6, 3.4) node[at end, above] {$\vec{v} $};
+        \draw[cyan, ->](2, 2) -- (1, 3) node[at end, above] {$\vec{F}_T$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso utilizzare la seconda equazione e verificare che possiamo 
+prendere un polo facile per eliminare il secondo termine.
+Prendo un punto materiale su una circonferenza di centro $C$ e orientato
+con un angolo $\theta$ rispetto ad un asse fisso. Esso avrà la velocità
+$\vec{v}$ data da una forza $\vec{F} = \vec{F}_T + \vec{F}_N  $. \\
+Calcoliamo il momento 
+\begin{gather*}
+    \vec{m} = \vec{r} \times \vec{F} = \vec{r} \times \vec{F}_T + \vec{r} \times \vec{F}_N \\
+    \vec{m} = m_z \hat{k} \\
+    m_z = m = rF_{\perp} \sin \frac{\pi}{2} = rm a_T         
+\end{gather*}
+Dato che imponiamo il moto circolare 
+\begin{gather*}
+    S = \theta r\  \Rightarrow \ \frac{ds}{dt} = \dot{\theta}r + \theta r \\
+    a_T = \frac{d^{2} s}{dt^{2} } = \ddot{\theta}r + \theta \dot{r} = \ddot{\theta}r  \ \Rightarrow \ m_z = m r^{2} \ddot{\theta} 
+\end{gather*}
+Possiamo allora provare a considerare la quantità di moto
+\begin{gather*}
+    \vec{L} = \vec{r} \times m \vec{v}    \\
+    L = L_z = rm v \sin \frac{\pi}{2} = mrv = mr^{2} \dot{\theta} \\
+    \vec{L} = mr^{2}\dot{\theta} \hat{k}    
+\end{gather*}
+Notiamo che 
+\begin{gather*}
+    \frac{d \vec{L} }{dt} = mr^{2} \ddot{\theta}\hat{k} = \vec{m}    \qedhere
+\end{gather*}
+Sapendo che il momento di inerzia è  
+\begin{gather*}
+    I = \sum m_i r_i^{2} 
+\end{gather*}
+E quindi posso scrivere che
+\begin{gather*}
+    \left\{\begin{array}{l}
+        L_z = I \dot{\theta} \\
+        m_z = I \ddot{\theta}
+    \end{array}\right.
+\end{gather*}
+Studiamo allora il moto dell'equipaggio mobile 
+che è dato dalla derivata rispetto alla quantità di moto:
+\begin{gather*}
+    \frac{dL_z}{dt} = m_z = -c_t \theta \\
+    L_z = I_{em} \dot{\theta} \\
+    I_{em} \ddot{\theta} = -c_t \theta \ \Rightarrow \ 
+\end{gather*}
+\begin{align}
+    I_{em} \ddot{\theta} + c_t \theta = 0
+\end{align}
+Sull'equipaggio mobile sotto al soffitto sono presenti dei morsetti 
+che dobbiamo escludere quando si prende la misura della lunghezza e la risoluzione dell'equazione è
+\begin{gather*}
+    \theta(t) = A \cos(\omega t - \gamma)
+\end{gather*}
+E' quindi una funzione periodica e possiamo studiare la derivata sapendo 
+che $\omega = \frac{2\pi}{T}$ prende il nome di pulsazione:
+\begin{gather*}
+    \dot{\theta}(t) = -A \omega \sin(\omega t - \gamma) \\
+    \ddot{\theta}(t) = -A \omega^{2} \cos(\omega t - \gamma) = -\omega^{2}\theta(t)  
+\end{gather*}
+Se sostituisco le due soluzioni nell'equazione differenziale si ottiene che
+\begin{gather*}
+    \omega = \sqrt{\frac{c_t}{I_{em}}} \ \Rightarrow \ T = 2\pi \sqrt{\frac{I_{em}}{c_t}} 
+\end{gather*}
+Misurando il periodo di oscillazione del pendolo di torsione 
+le caratteristiche geometriche dell'oggetto si ottiene il modulo di scorrimento
+E quindi :
+\begin{gather*}
+    \theta(t) = \theta_0 \cos(\omega t)
+\end{gather*}
+Per studiare il moto occorre però ottenere una misura del momento di inerzia
+rispetto all'asse del filo.
+
+
+\section{Misura della costante di torsione}
+Possiamo ora misurare la costante di torsione ricavandola dal periodo e dal momento torcente, considerando anche
+il fatto che il momento di inerzia è additivo. 
+Possiamo infatti considerare $I_{tot}$ come somma di due momenti di inerzia diversi riferiti a più
+parti separate del sistema e se modifichiamo il pendolo di torsione aggiungendo 
+un pezzo, il nuovo momento di inerzia sarà allora la somma dei due momenti di inerzia
+e quindi si può sfruttare i periodi ed ottenere
+\begin{gather*}
+    \left\{\begin{array}{l}
+        T_1 = 2\pi \sqrt{\frac{I_{em}}{c_t}} \\
+        T_2 = 2\pi \sqrt{\frac{I_{em} + I_{an}}{c_t}}  
+    \end{array}\right.
+\end{gather*}
+Il \textbf{momento di inerzia} dei materiali è facilmente ricavabile date le loro
+geometrie elementari e dunque si può trovare $\vec{m}$ per trovare $c_t$. 
+Allora svolgendo il sistema otteniamo: 
+\begin{gather*}
+    \frac{T_2^{2} }{T_1^{2} } = \frac{I_{em} + I_{an}}{I_{em}} = 1 + \frac{I_{an}}{I_{em}}
+\end{gather*} 
+Facendo allora il rapporto tra le equazioni e dunque
+\begin{gather*}
+    I_{em} = I_{an} \frac{T_1^{2} }{T_2^{2} - T_1^{2} }
+\end{gather*}
+E quindi posso sostituire nell'equazione di $c_t$:
+\begin{align}
+    c_t = 4\pi^{2}\frac{I_{em}}{T_1^{2} } = 4\pi^{2} \frac{I_{an}}{T_2^{2} - T_1^{2} }  
+\end{align}
+Possiamo allora ricavare la costante $G$
+\begin{align}
+    G = \frac{2}{\pi} \frac{L}{R^{4} }4\pi^{2} \frac{I_{an}}{T_2^{2} - T_1^{2} } = 8\pi\frac{L}{R^{4} }\frac{I_{an}}{T_2^{2} - T_1^{2} } 
+\end{align}
+
+
+\subsection{Calcolo del momento di inerzia del cilindro pieno e cavo}
+Prendiamo un cilindro pieno di raggio $R$ e altezza $h$, allora data la relazione
+\begin{gather*}
+    I = \sum m_ir_i^{2} 
+\end{gather*}
+è possibile passare dal caso discreto al caso continuo uscendo dall'integrale
+e ricordando la densità, possiamo studiare localmente gli elementi
+infinitesimi e quindi posso dire che il volume infinitesimo del
+cilindro è proprio
+\begin{gather*}
+    I = \int_M r^{2} \ dm = \int_{V} r^{2} \delta \ dV = \delta \int r^{2} \ dV   
+\end{gather*}
+Immaginando allora di prendere un guscio cilindrico infinitesimo
+possiamo dunque calcolare il suo volume e sarà di
+\begin{gather*}
+    d V = 2h\pi r dr  \ \Rightarrow \ \delta \int_V r^{2} \ dV = 2\delta \int_{0}^{R} r^{2} h \pi r \ dr = \frac{1}{2}mr^{2}  
+\end{gather*}
+Calcoliamo ora il momento di inerzia di un cilindro cavo:
+\begin{gather*}
+    V = h\pi (R_e^{2} - R_i^{2}  ) \\
+    I = \delta \int_{V} r^{2} \ dr = \delta \int_{R_i}^{R_e} r^{2} h 2 \pi r \ dr  
+\end{gather*}
+E quindi
+\begin{align}
+    \frac{1}{2}m (R_e^{2} + R_i^{2} )
+\end{align}
+
+
+\section{Parte pratica}
+\subsection{Presa della misure}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il pendolo di torsione}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0) ;
+        \draw(1.5, 0) -- (1.5, -2);
+        \draw(0, -2) rectangle (3, -2.5);
+        \draw(1.5, -2) circle(0.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+La presa delle misure nell'esperienza della torsione avviene nella seguente maniera:
+\begin{itemize}
+    \item misureremo non i raggi ma i diametri dell'anello con strumenti simili a quelli
+    delle esperienze precedenti (calibro);
+    \item Nella presa delle misure dobbiamo misurare la
+    lunghezza del filo $L$ a cui è attaccato l'equipaggio mobile: il filo va staccato dai morsetti che 
+    lo tengono saldo all'apparato sperimentale e teso leggermente per poter simulare l'effetto della forza
+    peso e in modo da poterne misurare l'effettiva lunghezza;
+    \item Si misurano le masse utilizzando nuovamente la bilancia di precisione;
+    \item Si misura  lo spessore del filo con cui stiamo
+    lavorando tramite una compasso di palmer millesimale;
+    \item Si svolgono le misure di tempo di oscillazione del pendolo di torsione attraverso un cronometro,
+    stando attenti alla posizione rispetto al goniometro posto sotto al pendolo.
+\end{itemize}
+Ruotando ora l'estremo libero del filo, esso oscillerà di un certo angolo
+$\theta$ rispetto al goniometro posto sotto ed il filo reagirà con un sistema di forze equivalente
+ad un momento di forze diretto lungo l'asse verticale e di modulo dato dalla seguente 
+\begin{align}
+    \theta \leq \frac{L}{r}\alpha_{max} = \frac{L}{r}\frac{\sigma_G}{G}
+\end{align}
+dove $L$ e $r$ sono la lunghezza ed il raggio del filo considerato e $G$ la costante
+di scorrimento del materiale di cui è costituito
+il filo e $\sigma_G$ il valore limite dello sforzo specifico tangenziale. Dato che si tratta di una stima
+\begin{gather*}
+    \frac{\sigma_G}{G} \approx \frac{\sigma_E}{E}
+\end{gather*}
+Se lasciamo il pendolo libero partendo da questa posizione iniziale il pendolo si muoverò sotto
+l'effetto della sola presenza della forza di reazione elastica del filo.
+Il moto dell'equipaggio sarà allora descritto dall'equazione differenziale
+\begin{align}
+    I_{em} \ddot{\theta} = M_e = -c_t \theta
+\end{align}
+Dove 
+\begin{align}
+    c_t = \frac{\pi}{2}G\frac{r^{4} }{L}
+\end{align}
+La soluzione dell'equazione oraria allora è
+\begin{gather*}
+    \theta(t) = A \cdot  \cos(\omega t + \beta)
+\end{gather*}
+Dove $A$ e $\beta$ dipendono dalle condizioni iniziali e 
+$\omega = \sqrt{c_t / I_{em}}$. Se si impone che $\theta(0) = \theta$ e
+la derivata è nulla allora si ha che $A = \theta$ e $\beta = 0$. 
+\begin{gather*}
+    T = 2\pi \sqrt{\frac{I_{em}}{c_t}} 
+\end{gather*} 
+La misura del periodo di oscillazione ci permette la misura indiretta della costante 
+di torsione del filo $c_t$ e quindi della costante di scorrimento del materiale
+di cui è costituito il filo. Possiamo ridurre l'errore sul periodo 
+misurando più oscillazioni in una sola misurazione e dividendo per il numero di oscillazioni
+(ovviamente, dato che ogni oscillazione tenderà a ridurre la sua ampiezza, devo
+scegliere un numero di oscillazioni in modo tale che il moto non sia troppo smorzato dalle
+forze di attrito):
+\begin{gather*}
+    t = nT \ \Longrightarrow \ \frac{\Delta t}{t} = \frac{\Delta T}{T}
+\end{gather*}
+Allora posso dire che la migliore stima per il periodo sia:
+\begin{align}
+    T = \frac{t}{n} \pm \frac{\Delta t}{n}
+\end{align}
+Dove l'errore su  $t$ è proprio l'errore di sensibilità del cronometro (generalmente un $n = 5$ è sufficiente per
+ottenere misure precise di periodo). Se non operassimo in questa maniera, l'errore sull'oscillazione
+diventerebbe l'errore umano di circa $0.3 s$.
+
+
+\subsection{Propagazione degli errori}
+Ci danno l'informazione su come modificare eventuali procedure di misura:
+\begin{gather*}
+    G = 8\pi \frac{L}{R^{4} } \frac{I_{an}}{T_2^{2} - T_1^{2}  }
+\end{gather*}
+\begin{align}
+    \frac{\Delta G}{G} = \frac{\Delta L}{L} + 4\frac{\Delta D}{D} + \frac{\Delta I_{an}}{I_{an}} + 2\frac{T_2\Delta T_2 - T_1 \Delta T_1}{T_2^{2}  - T_1^{2} }
+\end{align}
+\begin{gather*}
+    I_{an} = \frac{1}{2} m(R_e^{2} + R_i^{2} )
+\end{gather*}
+\begin{align}
+    \frac{\Delta I_{an}}{I_{an}} = \frac{\Delta m}{m} + 2\frac{R_e\Delta R_e + R_i \Delta R_i}{R_e^{2} + R_i^{2} }
+\end{align}
+
+
+\subsection{Riflessione sulla schematizzazione e ipotesi di validità}
+Oltre all'effetto dello smorzamento c'è quello della relativa approssimazione
+\begin{gather*}
+    \sigma  \approx G \alpha
+\end{gather*}
+Per essere sicuri di non uscire dalla regione di elasticità possiamo stimare l'angolo
+massimo $\theta$ e quindi se consideriamo la relazione
+\begin{gather*}
+    \alpha L = \theta R
+\end{gather*}
+Se imponessi allora $\sigma < \sigma_G$ allora ottengo che l'angolo
+massimo  è dato da
+\begin{gather*}
+    \sigma < \sigma_G \ \Rightarrow \ \theta < \frac{\sigma_G}{G} \frac{L}{R} = \theta_{max}
+\end{gather*}
+Una volta in laboratorio dovremmo stimare questo $\theta_{max}$ con il pendolo
+che avremo a disposizione e quindi $\theta_{max} >> 90°$ è conveniente scegliere
+$\theta = 90°$ dato che semplifica notevolmente la misura. Un'altra ipotesi
+che abbiamo fatto è quella che prevede la somma dei momenti di inerzia e dunque dato che
+l'anello non è solidale e dato che esso non sarà piazzato esattamente al centro che stiamo
+imponendo un'altra approssimazione. \\
+Stiamo supponendo che questa non perfetta simmetria non da errori troppo elevati e 
+quindi si utilizza il teorema di Huygens-Steiner  che ci permette di calcolare
+il momento di inerzia rispetto a un asse diverso da quello che conosco già,
+il momento di inerzia è dunque
+\begin{gather*}
+    I = I_{cdm} + md^{2} 
+\end{gather*}
+e per corpi geometrici corrisponde al centro geometrico del corpo il $CDM$. Questo teorema
+ci permette di stimare l'errore derivante dalla non coassialità dell'anello. \\
+Tutte queste considerazioni valgono se e solo se si mantengono determinate ipotesi di validità:
+\begin{enumerate}
+    \item Dato che stiamo trascurando le forze di smorzamento, dobbiamo
+    utilizzare il cronometro attivandolo quando passa dalla posizione di equilibrio e non quando
+    torna alla posizione di partenza (in quanto non ci tornerà mai).
+    \item Il moto ha una velocità angolare variabile e l'incertezza con cui si misura il passaggio
+    varia poiché varia la velocità angolare. DAto che nei punti centrali è massima, allora, sapendo che
+    $\Delta t = \frac{\Delta \theta}{\dot{\theta}}$, avremmo allora $\Delta t$ minimo.
+\end{enumerate}
+
+
+\subsection{Stima dell'errore di posizionamento} 
+Sapendo che 
+\begin{gather*}
+    I_{an} = I_{an} + md^{2} = m\left(\frac{1}{2}(R_e^{2} + R_i^{2}  ) + d^{2} \right) 
+\end{gather*}
+\begin{gather*}
+    Md^{2} << \Delta I_{an} \ \Rightarrow  \ d^{2} << \frac{\Delta I_{an}}{M} \approx d^{2} << 1.4 mm  
+\end{gather*}
+Solo se riusciamo a fare coincidere l'asse dell'anello con quello del filo con una
+precisione maggiore di $1.4 mm$ possiamo non tenere conto di questa componente 
+nell'errore dei calcoli (durante l'esperienza possiamo non tenere conto di questa componente 
+a prescindere, anche se è bene verificare la precisione con cui questa componente
+si può ignorare nel nostro apparato).
+
+\section{Smorzamento}
+Nell'esperienza esso risulta opzionale anche se a livello di schematizzazione
+fisica risulterebbe corretto il suo studio per determinare la bontà delle approssimazioni
+(a livello pratico non si studia la dimostrazione passo per passo, basta sapere che il pendolo dopo
+un certo numero di oscillazioni tende a ridurre l'angolo di oscillazione e dunque tende a 
+fermarsi dopo un certo tempo, l'importante è sapere le formule per i conti nell'esperienza). \\
+Siamo partiti infatti dalla legge
+\begin{gather*}
+    \frac{dL_z}{dt} = M_z^{ext} \qquad \qquad I_{em} \ddot{\theta} = -c_t \theta 
+\end{gather*}
+Abbiamo quindi dedotto che si tratta di moto armonico e anche se nella realtà 
+è presente anche un momento dovuto agli attriti dell'aria che frena il moto. 
+Supponiamo che nell'attrito viscoso $F = \alpha v$ definisco il fattore di attrito 
+con l'aria come $-b \dot{\theta}$. 
+\begin{gather*}
+    I_{em} \ddot{\theta} + b \dot{\theta} + c_t \theta = 0
+\end{gather*}
+Risolvendo otteniamo 
+\begin{gather*}
+    \theta(t) = A'\exp\left(-\frac{b}{2I_{em}}t\right)\cos(\omega' t - \gamma')
+\end{gather*}
+Verifichiamo che non sia realmente soluzione:
+\begin{gather*}
+    \dot{\theta}(t) = -\frac{bA'}{2I_{em}}\exp\left(-\frac{b}{2I_{em}}t\right)\cos(\omega' t - \gamma') - \omega'A'\exp\left(-\frac{b}{2I_{em}}t\right)\sin(\omega't - \gamma') \\
+    \ddot{\theta}(t) = \left(\frac{b}{2I_{em}}\right)^{2} \theta(t) + \frac{b}{2I_{em}}\omega'A'\exp\left(-\frac{b}{2I_{em}}t\right) \sin(\omega' t - \gamma') - \omega^{2'}\theta(t) 
+\end{gather*}
+Sostituendo nell'equazione si ottiene
+\begin{gather*}
+    \frac{b^{2} }{4I_{em}}\theta(t) - I_{em} \omega^{'2} \theta(t) - \frac{b^{2} }{2I_{em}}\theta(t) + c_t\theta(t) = 0 
+\end{gather*}
+Possiamo procedere e semplificare con $\theta(t)$ e quindi
+\begin{gather*}
+    -\frac{b^{2} }{4I_{em}} - I_{em}\omega^{'2} + c_t = 0 \\
+    \omega^{'2} = \frac{c_t}{I_{em}} - \left(\frac{b}{2I_{em}}\right)^{2}   
+\end{gather*}
+La seconda è minore della pulsazione senza attriti $\omega^{2}$ e quindi si può dire che
+\begin{align}
+    \omega' = \omega \sqrt{1 - \left(\frac{b}{2I_{em}\omega}\right)^{2} }  
+\end{align} 
+E allora il periodo sarà
+\begin{align}
+    T' = T\frac{1}{\sqrt{1 - \left(\frac{b}{2I_{em}\omega}\right)^{2} } } >T
+\end{align}
+
+Posso allora prendere come condizioni iniziali 
+\begin{gather*}
+     \theta(0) = \theta_0 \\
+     \dot{\theta}(0)  = 0
+\end{gather*}
+Ottenendo i seguenti valori per le costanti:
+\begin{gather*}
+    A' = \frac{\theta_0}{\cos\gamma} \\
+    \tan\gamma' = \frac{b}{2I_{em}\omega'}
+\end{gather*}
+Posso anche riscrivere l'equazione con le sostituzioni:
+\begin{gather*}
+    \theta(t) = \theta_0 \exp\left(-\frac{b}{2I_{em}t}\right)\left(\cos(\omega't) + \frac{b}{2I_{em}\omega'}\sin(\omega' t)\right)
+\end{gather*}
+Bisogna porre attenzione nell'approssimare tali grafici a dei moti armonici
+e verifichiamo l'errore commesso sull'approssimazione dove $T \sim T'$:
+\begin{gather*}
+    \theta(nT') = \theta_0\exp\left(-\frac{b}{2I_{em}nT'}\right)\left(\cos\left(\frac{2\pi}{T'}nT'\right) + \frac{b}{2I_{em}}\sin\left(\frac{2\pi}{T'}nT'\right)\right) = \theta_0\exp\left(-\frac{b}{2I_{em}}nT'\right)
+\end{gather*}
+Possiamo considerare il grafico di tale funzione, linearizzandola con la tecnica
+del logaritmo e quindi 
+\begin{gather*}
+    \ln(\theta(nT')) = \ln\theta_0 - \frac{b}{2I_{em}}T'n
+\end{gather*}
+In questo grafico ci aspettiamo una dipendenza lineare e quindi possiamo con il metodo dei
+minimi quadrati pesati oppure col metodo grafico. Come valutazione dell'errore
+possiamo utilizzare l'errore di sensibilità del goniometro con cui si misura
+l'angolo del pendolo di torsione. Con il grafico è possibile risalire al periodo
+$T'$ con il quale posso ricavare il fattore correttivo e ha senso applicarlo solo se 
+produce variazioni comparabili con l'incertezza di misura. Per verificare
+ciò è possibile utilizzare l'equazione e approssimare con Taylor
+\begin{gather*}
+    T' = \frac{T}{\sqrt{1 - \frac{b}{2I_{em}\omega'}} } \approx T\left(1 + \frac{1}{2}\left(\frac{b}{2I_{em}\omega'}\right)^{2} \right) = T + \delta.
+\end{gather*} 
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il grafico per lo smorzamento}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$n$}; 
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$\ln(\theta(nT))$};
+        \filldraw(0, 1.75) circle (1pt) node[anchor = east] {$\ln\theta_0$};
+        \draw[|-|] (0.25, 1.5) -- (0.25, 1.75);
+        \draw[|-|] (0.75, 1.35) -- (0.75, 1.60);
+        \draw[|-|] (1.25, 1.20) -- (1.25, 1.45);
+        \draw[|-|] (1.75, 1.05) -- (1.75, 1.30);
+        \draw[|-|] (2.15, 0.90) -- (2.15, 1.15);
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+Posso allora ragionare sul rapporto tra la componente $\delta$ ed il periodo
+$T'$ smorzato e confrontarlo con l'errore relativo ed ottenere le seguenti
+considerazioni:
+\begin{gather*}
+    \frac{\delta}{T'} << \frac{\Delta T'}{T'} \ \Rightarrow \ T' \approx T \\
+    \frac{\delta}{T'} \approx \frac{\Delta T'}{T'} \ \Rightarrow \ T'  = T + \delta
+\end{gather*}
+Per fare le misurazioni sullo smorzamento del periodo di oscillazione 
+utilizzando dei traguardi angolari (ossia valutando dopo quante oscillazioni
+il pendolo raggiunge una certa ampiezza angolare). Dato che però abbiamo calcolato
+il fattore correttivo per $I_{em}$ e non per il complesso $I_{em} + I_{an}$. Dato che
+richiederebbe molti conti e tempo stimare il fattore correttivo per lui, possiamo utilizzare
+una approssimazione più blanda calcolando prima $T'$ e poi $b$
+ed semplicemente sostituendo $I_{em}$ con $I_{em} + I_{an}$. 
+
+\chapter{Esperienza pendolo}
+\section{Obbiettivi esperienza}
+L'esperienza del pendolo consiste nel misurare indirettamente
+il modulo dell'accelerazione locale attraverso:
+\begin{enumerate}
+    \item Pendolo che si muove sul piano verticale.
+\end{enumerate}
+Il valore di $g$ infatti dipende da diverse condizioni:
+\begin{enumerate}
+    \item Latitudine $\phi$: all'aumentare della latitudine si ha un aumento di $g$
+    \item La quota $h$ rispetto al livello medio del mare;
+    \item La disomogeneità locale della distribuzione di massa
+\end{enumerate}
+Il pendolo è allora il sistema fisico il cui studio è stato cruciale
+per lo sviluppo della scienza.
+
+\section{Il pendolo: quando è approssimabile ad un pendolo semplice}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il pendolo}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (0.5);
+        \draw[cyan](0, 4) -- (0, -0.5);
+        \filldraw(0, 0) circle (1pt) node[anchor = east] {$C$};
+        \filldraw[red](0, 4) circle (1pt) node[anchor = east] {$O$};
+        \draw(-1, 3.5) -- (2, 3.5);
+        \draw(-1, 3.5) -- (-1.5, 5);
+        \draw(-1.5, 5) -- (1.5, 5);
+        \draw(1.5, 5) -- (2, 3.5);
+        \draw[|-|](0.5, 4) -- (0.5, 0.5) node[midway, left] {$l_f$};
+        \draw[|-|](0.75, 4) -- (0.75, -0.5) node[midway, right] {$l$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+\subsection{Approssimazione ad un moto semplice}
+Il pendolo in laboratorio consiste in una sferetta di piombo (che possiamo
+approssimare a liscia e uniforme cosicché si possa evitare di considerare
+la resistenza dell'aria) fissata con un filo (che presupponiamo inestensibile)
+al punto $O$ detto di sospensione. Un punto materiale di massa $m$ vincolato con un vincolo ideale a muoversi
+sotto l'azione della forza peso, su di un arco di circonferenza di raggio 
+prefissato $l$ giacente in un piano verticale. Trascurando
+allora attriti ed effetti vari, il pendolo semplice è in condizioni
+di moto ideale. \\
+La schematizzazione del pendolo semplice vale se e solo se valgono le
+seguenti condizioni:
+\begin{enumerate}
+    \item Il corpo appeso al filo è approssimato ad un punto
+    materiale di massa $m$ ossia \textbf{massa puntiforme} se e solo se $R << l$;
+    \item La fune è ideale, ossia la $m_f = 0$ ($m_f << m$) ed è
+    inestensibile, ossia $l$ costante in modo tale che le tensioni
+    da un capo e dall'altro della fune siano uguali e che la fune non
+    sia in nessun modo elastica. 
+    \item Trascurando eventuali forze di attrito ed i loro effetti.
+    \item Inoltre devo dire che l'incertezza sulla lunghezza deve essere 
+    molto maggiore della variazione di lunghezza del filo durante il moto $\delta l << \Delta l$.
+\end{enumerate}
+Nel momento in cui valgono tutte queste ipotesi, allora possiamo parlare di moto di
+pendolo semplice ideale. Questo è il caso che andremo a studiare durante l'esperienza di laboratorio.
+
+\subsection{Il moto del pendolo semplice}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il moto del pendolo semplice ed ideale}
+    \begin{tikzpicture}
+        \filldraw(0, 0) circle (1pt) node[anchor = east] {$O$};
+        \draw[->](0, 0) -- (1.5, 0) node[at end, above] {$x$};
+        \draw[->](0, 0) -- (0, 0.5) node[at end, left] {$y$};
+        \filldraw(0, -2.9) circle (1pt) node[anchor = north] {$C$};
+        \draw[dashed](0, 0) -- (0, -2.85);
+        \draw[dashed](-1.5, -2.5) arc (240:300:3);
+        \draw(0, 0) -- (1.5, -2.5) node[midway, above] {$l$};
+        \filldraw(1.5, -2.5) circle (1pt) node[anchor = east] {$P$}; 
+        \draw[red, ->](1.5, -2.5) -- (1, -1.68) node[at end, right] {$\vec{T}$};
+        \draw[->] (1.5, -2.5) -- (1.5, -3.5) node[at end, left] {$m\vec{g}$};
+        \draw[->] (1.5, -2.5) -- (2, -2.2) node[at end, below] {$\vec{u}_{\phi}$};
+        \draw[->] (0, -1) arc (270:300:1) node[midway, below] {$\phi$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il moto del pendolo semplice ed ideale ora, deve godere
+di un ulteriore proprietà: la velocità iniziale deve necessariamente
+essere nulla (in particolar modo la componente
+perpendicolare al piano $xy$). 
+Dato che il moto avviene sul piano verticale, basterà descriverlo con solo 
+una coordinata, ossia $\phi$ per cui, per un instante generico
+$\phi = \phi(t)$. 
+Applicando il secondo principio della dinamica, istante per istante
+possiamo scomporre le forze lungo i due versori e quindi ottenere:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \vec{a} = a_{\phi}\hat{u}_{\phi} + a_n \hat{u}_n  \\ 
+        \vec{T}  = T\hat{u}_n \\
+        m\vec{g} = -mg\cos\phi \hat{u}_n - mg\sin\phi\hat{u}_{\phi}    
+    \end{array}\right.
+\end{gather*}
+Lungo le due direzioni normale e tangenziale allora:
+\begin{gather*}
+    T - mg\cos\phi  = ma_n \\
+    -mg\sin\phi = ma_{\phi}
+\end{gather*}
+Dato che l'accelerazione si esprime come:
+\begin{gather*}
+    a_{\phi} = \frac{d\vec{v}_{\phi} }{dt} = \frac{d}{dt}\frac{ds}{dt} = \frac{d}{dt}l\frac{d\phi}{dt}
+\end{gather*}
+Allora, dato $\Delta s = l \Delta \phi$:
+\begin{align}
+    a_{\phi} = l\ddot{\phi}
+\end{align}
+Dove $\ddot{\phi}$ è l'accelerazione angolare e quindi
+l'equazione del moto lungo la traiettoria tangenziale diventa:
+\begin{align}
+    \ddot{\phi} + \frac{g}{l}\sin\phi = 0
+\end{align}
+Ossia l'equazione del pendolo semplice con moto ideale che si
+risolve in due modi. Il primo metodo è quello dell'analisi
+del caso limite nel quale l'equazione semplifica diventando risolvibile
+analiticamente con il limite delle piccole oscillazioni. \\
+Il secondo metodo è invece quello dell'equazione nella sua forma
+generale.
+
+\section{Risolvere l'equazione di moto}
+\subsection{Il limite delle piccole oscillazioni}
+L'equazione di moto generale che abbiamo appena ricavato diventa
+analiticamente risolvibile in una condizione limite puramente matematica. Il
+caso limite delle piccole oscillazioni è la situazione nella quale
+si ha un'oscillazione di $\phi_0$ sufficientemente piccola
+da poter rendere valido lo sviluppo di $\sin\phi$, ossia
+solo nel caso in cui $\phi << 1$ e allora l'equazione differenziale
+diventa
+\begin{gather*}
+    \ddot{\phi} + \frac{g}{l}\phi = 0 \ \Longrightarrow \  \ddot{\phi}\alpha + \phi = 0, \alpha = \frac{l}{g}
+\end{gather*}
+In questo limite allora l'equazione di moto ha la generica soluzione:
+\begin{align}
+    \phi(t) = \alpha\cos(\omega_0t+\beta), \qquad\omega_0 = \frac{2\pi}{T_0}
+\end{align}
+Derivando rispetto al tempo allora si ottiene
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \dot{\phi} = -\omega_0 \alpha \sin(\omega_0 t + \beta) \\
+        \ddot{\phi} = -\omega_0^{2}\alpha \cos(\omega_0 t+ \beta) = -\omega _0^{2}\phi (t) 
+    \end{array}\right.
+\end{gather*}
+Sostituendo nella differenziale allora si ottengono 
+\begin{gather*}
+    \omega_0 = \sqrt{\frac{g}{l}} = \frac{2\pi}{T_0}
+\end{gather*}
+Posso escludere il secondo risultato della differenziale in quanto
+questo ci descrive un caso molto banale, ossia il caso in cui il
+pendolo sia fermo e quindi non è interessante ai fini dell'esperienza. 
+Posso ottenere allora il periodo come:
+\begin{align}
+    T_0 = 2\pi \sqrt{\frac{l}{g}}
+\end{align}
+Date le condizioni iniziali per cui $v(t = 0s) = 0$, allora
+$\phi(t = 0s) = \phi_0$, posso ricavare le costanti $\alpha$ e $\beta$:
+\begin{gather*}
+    \phi(0) = \alpha\cos\beta = \phi_0 \\
+    \dot{\phi}(0) = -\omega_0 \alpha \sin\beta = 0
+\end{gather*}
+E quindi la soluzione diventa
+\begin{gather*}
+    \phi(t) = \phi_0 \cos(\omega_0 t)
+\end{gather*}
+In questo caso limite allora, posso ricavare
+il valore di $g$ tramite la relazione del periodo scritta sopra
+\begin{align}
+    g = 4\pi^{2} \frac{l}{T_0^{2} }
+\end{align}
+
+\subsection{Il caso generale: le oscillazioni di ampiezza generica}
+Seguiamo adesso il secondo percorso per l'analisi del moto
+del pendolo ma non nel limite delle piccole oscillazioni; data l'equazione di moto
+\begin{align}
+    \ddot{\phi} + \frac{g}{l}\sin\phi = 0
+\end{align}
+Moltiplicando per $2\dot{\phi}$ si ottiene la relazione
+\begin{gather*}
+    2\dot{\phi}\ddot{\phi} = (-\sin\phi\cdot\dot{\phi})\cdot  2\frac{g}{l}
+\end{gather*}
+E quindi integrando da entrambe le parti si ottiene 
+\begin{gather*}
+    \dot{\phi}^{2} - \frac{2g}{l}\cos\phi = CONST 
+\end{gather*}
+Imponendo le condizioni iniziali allora si ottiene che la costante
+è 
+\begin{gather*}
+    -2\frac{g}{l}\cos\phi_0 = CONST
+\end{gather*}
+Possiamo ottenere la costante di integrazione attraverso $\dot{\phi} = 0$ e
+$\phi = \phi_0$ al tempo $t = 0$ e quindi la costante è $-2\frac{g}{l}\cos\phi_0$: 
+\begin{align}
+    \dot{\phi}^{2} = \frac{2g}{l}(\cos\phi - \cos\phi_0) 
+\end{align}
+Se $\dot{\phi}^{2} \geq 0$:
+\begin{gather*}
+    \cos\phi \geq \cos\phi_0 \ \Longrightarrow \  -\phi_0 \leq \phi \leq \phi_0
+\end{gather*}
+Utilizzando anche le informazioni sull'accelerazione angolare
+dalle eq. di moto, allora si ottiene $\ddot{\phi} = -\frac{g}{l}\sin\phi$
+possiamo mostrare che il moto è oscillatorio e periodico anche nel caso generale
+di ampiezza generica. \\
+L'oscillazione allora si divide in 4 fasi:
+\begin{enumerate}
+    \item $\phi \in [0, \phi_0], \dot{\phi} < 0$;
+    \item $\phi \in [-\phi_0, 0], \dot{\phi} < 0$;
+    \item $\phi \in [-\phi_0, 0], \dot{\phi} > 0$;
+    \item $\phi \in [0, \phi_0], \dot{\phi} > 0$;
+\end{enumerate}
+\begin{enumerate}
+    \item $\ddot{\phi} < 0$: la derivata diminuisce in segno e arriva al valore negativo in $\phi = 0$;
+    \item $\ddot{\phi} > 0$: la derivata cresce fino a $\dot{\phi} = 0$ e quindi la derivata seconda diventa positiva;
+    \item $\ddot{\phi} > 0$: la derivata cresce fino a $\dot{\phi}_{MAX}$ in $\phi = 0$ ed il pendolo torna indietro;
+    \item $\ddot{\phi} < 0$: la velocità angolare scende per tornare ad annullarsi in $\phi = \phi_0$.  
+\end{enumerate}
+Ogni fase ha quindi un periodo di $T/4$.
+Dato che non si è in grado di trovare una soluzione analitica per l'equazione 
+differenziale del moto per oscillazioni generiche, bisogna per forza
+integrare entrambi i membri. Nell'ultimo quarto dell'oscillazione in particolare la radice del secondo
+membro diventa positiva e dunque posso dire che
+\begin{gather*}
+    \frac{d\phi}{dt} = \sqrt{\frac{2g}{l}(\cos\phi - \cos\phi_0) }
+\end{gather*}
+Si ottiene inoltre, per separazione di variabili:
+\begin{gather*}
+    d\phi = dt\sqrt{\frac{2g}{l}(\cos\phi - \cos\phi_0) } \\
+    \frac{d\phi}{\sqrt{2(\cos\phi - \cos\phi_0)} } = dt\sqrt{\frac{g}{l}}
+\end{gather*}
+Integrando allora fra $\frac{3T}{4}$ e $T$ si ottiene la seguente uguaglianza:
+\begin{align}
+    \left(\frac{g}{l}\right)^{\frac{1}{2}} \int_{3\frac{T}{4}}^{T}\ dt = \int_{0}^{\phi_0}\frac{d\phi}{(2(\cos\phi - \cos\phi_0))^{\frac{1}{2}} } 
+\end{align}
+Il secondo integrale è complicato in quanto bisogna eseguire la sostituzione $\sin\frac{\phi}{2} = \sin\frac{\phi_0}{2}\sin\theta$ 
+e quindi ottenere $K(\sin^{2} \frac{\phi_0}{2})$. L'uguaglianza di partenza è allora
+\begin{align}
+    T = 4\sqrt{\frac{l}{g}}K(\sin^{2} \frac{\phi_0}{2})
+\end{align}
+Possiamo allora rappresentare $\sin^{2}\frac{\phi_0}{2}$ con una serie di potenze convergenti e scrivendo
+esplicitamente i primi termini della serie come
+\begin{gather*}
+    F(\phi_0) = 1 + \frac{1}{4}\sin^{2}\frac{\phi_0}{2} + \frac{9}{64}\sin^{4}\frac{\phi_0}{2} + o(\sin^{4}\frac{\phi_0}{2} )  
+\end{gather*}
+Allora il periodo per le oscillazioni di ampiezza generica
+\begin{align}
+    T = T_0 F(\phi_0)
+\end{align}
+Quindi per il pendolo semplice in moto ideale ed oscillazioni di ampiezza generica,
+il periodo dipende dalla ampiezza angolare $\phi_0$ dell'oscillazione: questa dipendenza
+moltiplica il periodo nel limite delle piccole oscillazioni $T_0$ e quindi 
+il periodo risulta essere
+\begin{gather*}
+    T(l, g, \phi_0) = T_0(l, g) \cdot  F(\phi_0)
+\end{gather*}
+La funzione $F(\phi_0)$ può essere valutata con la precisione che vogliamo e
+che è opportuna a seconda del caso: data l'ampiezza angolare $\phi_0$ dell'oscillazione
+possiamo rappresentazione il periodo $T$ e la dipendenza da $\phi_0$. Nella configurazione
+del laboratorio, gli angoli per i quali possiamo fare misure precise per il periodo
+è dato dalla seguente tabella
+\begin{gather*}
+    \begin{tabular}{c | c | c | c}
+    $\phi_0$ & $\phi_0$ & $\frac{1}{4}\sin^{2}\frac{\phi_0}{2}$ & $\frac{9}{64}\sin^{4}\frac{\phi_0}{2} $ \\
+    $\approx 10°$ &  $\approx 0.175$ &  $\approx 1.9 \cdot  10^{-3} $ &  $\approx 8 \cdot  10^{-6} $ \\
+    $\approx 20°$ &  $\approx 0.349$ &  $\approx 7.5 \cdot  10^{-3} $ &  $\approx 1.3 \cdot  10^{-4} $ \\
+    $\approx 25°$ &  $\approx 0.436$ &  $\approx 1.17 \cdot  10^{-2} $ &  $\approx 3.1 \cdot  10^{-4} $ 
+\end{tabular}
+\end{gather*}
+La rappresentazione più semplice ma pur sempre la più significativa, dato che il primo termine
+è quello più grande, è quello del periodo come
+\begin{align}
+    T = T_0(1 + \frac{1}{4}\sin^{2}\frac{\phi_0}{2})
+\end{align}
+Nel limite delle piccole oscillazioni, che in laboratorio corrisponde 
+agli angoli $10 \sim 25$° poiché è limitato dalle dimensioni 
+della zona di lavoro del laboratorio.
+
+\section{Errore di schematizzazione relativo}
+Possiamo allora trovare l'errore di schematizzazione relativo come attraverso
+il seguente ragionamento e confrontarlo poi con l'errore sperimentale per determinare
+quale formula del periodo utilizzare per i conti.
+\begin{gather*}
+    \left(\frac{\delta T}{T}\right)_{schem} = \frac{\left| T(l, g, \phi_0) - T_0(l, g)\right| }{T(l, g, \phi_0)} \\
+    \frac{\delta T}{T} = \frac{T_0(1 + \frac{1}{4}\sin^{2}\frac{\phi_0}{2} ) - T_0}{T_0(1 + \frac{1}{4}\sin^{2} \frac{\phi_0}{2})} 
+\end{gather*}
+Sostituendo e ricordando che $(1 + x)^{-1} \approx 1 - x$ (e quindi semplificando il termine che si ottiene e considerando solo
+quello più grande) si può ottenere la seguente approssimazione della schematizzazione dell'errore
+sulla schematizzazione
+\begin{align}
+    \left(\frac{\delta T}{T}\right)_{schem} \approx \frac{1}{4}\sin^{2}\frac{\phi_0}{2} 
+\end{align}
+In ambito sperimentale dobbiamo considerare un errore molto maggiore dell'errore
+ottenuto attraverso metodi di approssimazione e modellizazione chiamato $\frac{\Delta T}{T}$. Si distinguono allora due casi \\
+1.) Se $\frac{\delta T }{T} << \frac{\Delta T}{T}$ allora si ottiene che
+\begin{gather*}
+    \frac{T - T_0}{T} << \frac{\Delta T}{T} \Rightarrow \frac{1}{4}\sin^{2}\frac{\phi_0}{2} << \frac{\Delta T}{T} 
+\end{gather*} 
+la differenza dovuta alla differente schematizzazione che posso scegliere per integrare è trascurabile
+perché non rilevabile rispetto alle misure che compiamo. Se la differenza allora è non significativa
+posso utilizzare il limite delle piccole oscillazioni. 
+Cerchiamo così una definizione del limite delle piccole oscillazioni da un punto di vista puramente fisico-sperimentale: la situazione
+in cui la precisione della misura del periodo del moto non è sufficiente ad evidenziare la dipendenza
+di $T$ da $\phi_0$. \\
+2.) $\frac{\delta T}{T} \geq \frac{\Delta T}{T}$ allora l'errore di schematizzazione che si commetterebbe considerando il periodo
+misurato come interpretabile nel limite delle piccole oscillazioni sarebbe
+superiore o dell'ordine dell'incertezza sperimentale. Nella configurazione
+sperimentale in laboratorio generalmente si ha $\frac{\Delta T}{T} \approx 10^{-3} $.
+Riprendendo la tabella sopra, per $\phi_0 \approx 25$° l'errore è già maggiore
+dell'errore sperimentale, e allora il limite delle piccole oscillazioni sarebbe inadeguato in
+quanto condurrebbe a risultati lontani dagli errori sperimentali. Dobbiamo allora utilizzare 
+la seguente schematizzazione del periodo come
+\begin{gather*}
+    T = T_0(1 + \frac{1}{4}\sin^{2}\frac{\phi_0}{2} )
+\end{gather*}
+Possiamo quindi, con la schematizzazione attuale, ignorare tutti i termini dopo il primo 
+per angoli inferiori a $25$° e quindi condurre la nostra esperienza con angoli
+piccoli in modo da semplificare i conti seppur ottenendo una precisione soddisfacente (pur
+rimanendo fuori dal limite delle piccole oscillazioni). 
+
+\section{Apparato sperimentale in laboratorio}
+\subsection{Strumenti}
+Durante l'esperienza del pendolo si utilizzano i seguenti strumenti:
+\begin{enumerate}
+    \item Righello millimetrico a doppia scala con due errori di sens di $0.5mm$ e $1mm$;
+    \item un calibro ventesimale con errore di sens di $0.05mm$;
+    \item un cronometro manuale con errore di sens di $0.01s$;
+    \item una scala centimetrica sul bancone con un errore di $0.5cm$;
+\end{enumerate}
+
+\subsection{Le misure da trovare}
+Avendo già la distanza tra il punto di sospensione ed un punto $F$ dove c'è un nastro nero 
+che è di circa $H_0 \pm 0.02 m$, devo trovare:
+\begin{enumerate}
+    \item la lunghezza $l$, ossia la lunghezza del filo tra il centro della pallina ed il punto di sospensione;
+    \item l'angolo $\phi_0$ (dato in relazione alla scala centimetrica posta sul bancone);
+    \item il periodo in funzione dell'angolo;
+    \item la distanza tra il nastro ed il punto di contatto con la sfera;
+    \item Il raggio della sfera (misura indiretta poiché si determina il diametro). 
+\end{enumerate}
+
+\subsection{Come eseguire le misure}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La situazione del pendolo in lab.}
+    \begin{tikzpicture}
+        \filldraw(0, 0) circle (1pt) node[anchor = east] {$O$};
+        \draw[dashed](0, 0) -- (0, -4);
+        \draw(0, 0) -- (2, -3.4);
+        \draw(0, -1) arc (270:300:1) node[midway, below] {$\phi_0$};
+        \filldraw(0, -4) circle (1pt) node[anchor = east] {$C$};
+        \filldraw(2, -3.4) circle (1pt);
+        \filldraw(0, -3.4) circle (1pt) node[anchor = east] {$H$};
+        \draw(0, -4) circle(0.25);
+        \draw[dashed] (0, -3.4) -- (1.75, -3.4) node[midway, above] {$x_0$} node[at end, above] {$P$};
+        \filldraw (1.75, -3.4) circle (1pt);
+        \draw[dashed] (0, -4) .. controls (1, -3.8) .. (2, -3.4);
+        \draw(2, -3.4) circle (0.25);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Misurare l'ampiezza angolare dell'oscillazione $\phi_0$: spostando il pendolo dalla sua posizione
+di equilibrio a quella scelta per il rilascio, corrispondente a $\phi = \phi_0$, il centro di
+massa della sferetta si troverà ad una distanza dalla verticale pari a $\overline{HP} = x_0$,
+allora posso dire che $\sin\phi_0 = \frac{\overline{HP} }{\overline{OC} } = \frac{x_0}{l}$ e allora
+si ha
+\begin{align}
+    \phi_0 = \arcsin\left(\frac{x_0}{l}\right)
+\end{align}
+Per trovare $x_0$ si utilizza un cilindretto forato, montato su di una base, che
+ci permette di poter leggere la distanza della superficie della sferetta a contatto
+con il cilindro; chiamata allora $x_0'$ questa lettura, posso determinare la distanza
+del centro della sferetta rispetto al filo in posizione di riposo: $x_0 = x_0' - R$. E allora, dato che è una
+misura diretta, avrà un certo errore $\Delta x_0 = \Delta x_0' + \Delta R$. \\
+Trovare l'incertezza sulla'ampiezza angolare con il metodo delle derivate logaritmiche:
+\begin{gather*}
+    \sin\phi_0 = \frac{x_0}{l} \ \Longrightarrow \ d\ln(\sin\phi_0) = d\ln(\frac{x_0}{l})
+\end{gather*}
+Che diventa allora 
+\begin{align}
+    \frac{\Delta \phi_0}{\phi_0} = \frac{x_0}{\sqrt{l^{2} - x_0^{2} } } \left(\frac{\Delta x_0}{x_0} + \frac{\Delta l}{l}\right)
+\end{align}
+Gli altri errori da trovare
+\begin{enumerate}
+    \item $\Delta  x_0' = 5 mm$, ossia l'errore della scala posta sul bancone;
+    \item $\Delta R$ potrebbe essere più problematico dovuto alla non
+    perfetta sfericità della pallina. dato che questo errore è comunque trascurabile rispetto a $x_0'$, posso ignorarlo nei conti futuri;
+    \item $\Delta x_0 = \Delta x_0' + \Delta R$ e quindi posso evitare di usare $\Delta R$.
+    \item $\Delta l$ è misurata prima. 
+\end{enumerate}
+
+
+\section{Misure di tempo, loro ottimizzazioni ed accorgimenti per migliorarne la precisione}
+Durante l'esperienza si misura il periodo per diversi
+valori dell'ampiezza angolare, i quali sono scelti in modo tale da essere sufficientemente diversi tra di loro,
+attraverso l'utilizzo di un cronometro ad azionamento manuale con errore
+di sensibilità di soli $0.01 s$ anche se ci si aspettano degli errori superiori
+dovuti ai tempi di reazione umani.
+Per migliorare la precisione delle misure si può utilizzare i seguenti accorgimenti:
+\begin{enumerate}
+    \item Fare attenzione a rilasciare la sferetta in modo corretto (senza imprimere velocità iniziali e facendo
+    in modo che non vi sia alcuna oscillazione perpendicolare al piano del moto);
+    \item mantenere il filo teso senza tirarlo;
+    \item evitare di ruotare la sferetta e di imprimerle una velocità iniziale;
+    \item una sola persona deve lasciare la sferetta (RIP Giulio);
+    \item scelta del riferimento per l'azionamento del cronometro ricordando l'errore umano sia sull'attivazione che sull'incertezza della posizione della massa.
+\end{enumerate}
+L'intervallo di tempo da misurare direttamente è la durata di $n$ oscillazioni:
+\begin{gather*}
+    \tau = \tau(n) = nT
+\end{gather*}
+E ricavare allora $T$ indirettamente dalla misura di $\tau$ 
+diretta e si ottiene allora il periodo medio come
+\begin{align}
+    T = \frac{\tau(n)}{n} \pm \frac{\Delta \tau(n)}{n}
+\end{align}
+Per misurare i periodi delle oscillazioni, bisogna disporsi in modo tale che
+si riduca l'effetto di parallasse e di far partire il cronometro nel momento in cui si ha la terza
+fase dell'oscillazione: ossia quando il pendolo passa nuovamente da $\phi_0$.
+A questo punto con questo metodo di misurare più oscillazioni in una singola volta
+posso limitare l'errore sulla misura del periodo in quanto posso dividerlo
+per il numero di oscillazioni compiute durante una prova.
+
+
+\subsection{Limitazioni sul numero di oscillazioni $n$ e sull'angolo $\phi_0$}
+Perché non si possono fare tante $n$ misurazioni? Questo perché 
+risultano progressivamente smorzate dalla resistenza dell'aria e
+quindi bisogna scegliere un valore di $n$ adatto per poter
+avere misure precise oltre che corrette. Inoltre, devo assicurarmi di
+scegliere un angolo $\phi_0$ sufficientemente grande affinché il pendolo abbia
+abbastanza energia per non poter essere facilmente smorzato dalle varie forze di attrito
+per alcune oscillazioni. Tuttavia, angoli troppo grandi introdurrebbero molti errori
+(oltre al fatto che si uscirebbe dal limite delle piccole oscillazioni). Devo allora scegliere un intervallo di distanze dal punto di
+riposo del pendolo di circa $30-95cm$, che corrispondono indicativamente all'intervallo di angoli $10 \sim 25$°. 
+
+\subsection{Misure di tempo: procedure, analisi ed anisocronismo}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Grafico anisocronismo}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$\frac{1}{4}\sin^{2}\frac{\phi_0}{2}$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$T(\phi_0)$};
+        \filldraw(0, 0) circle (1pt) node[anchor = east] {$O$}; 
+        \draw[|-|](0.5, 0.5) -- (0.5, 1);
+        \filldraw(0.5, 0.75) circle (1pt);
+        \draw[|-|](1.2, 0.7) -- (1.2, 1.3);
+        \filldraw(1.2, 1) circle (1pt);
+        \draw[|-|](2.0, 1.0) -- (2.0, 2.0);
+        \filldraw(2.0, 1.5) circle (1pt);
+        \draw[|-|](2.5, 1.2) -- (2.5, 1.9);
+        \filldraw(2.5, 1.55) circle (1pt);
+        \draw[|-|](3.5, 1.5) -- (3.5, 2.4);
+        \filldraw(3.5, 1.95) circle (1pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per ogni $\phi_0$ da $\tau \pm \Delta \tau_i$ posso ricavare il periodo
+come misura indiretta e allora, dato che è una misura indiretta, la sua
+incertezza non è limitata all'errore sistematico dello strumento ma può essere anche più piccolo:
+posso allora ignorare l'errore di sensibilità del cronometro e l'errore di reazione
+umana se ho utilizzato tutti gli accorgimenti e ho eseguito delle buone misure per il periodo
+complessivo di $n$ oscillazioni. \\
+Facendo il grafico che sulle ascisse ha $\frac{1}{4}\sin^{2}\frac{\phi_0}{2}$ e sulle
+ordinate il valore di $T(\phi_{0_i})$ si può verificare che più l'angolo è grande e più il periodo 
+è grande e che questo incremento abbia un andamento lineare in modo tale da avere anisocronismo.
+Questo controllo tuttavia non può essere effettuato tra angoli troppi vicini in quanto non
+si osserverebbe alcuna distinzione significativa. Nel caso in cui 
+non ci fosse questa crescita lineare non si avrebbe anisocronismo. 
+
+\section{Misura di $g$}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Consistenza misure di $T_0$}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$i$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$T_0$};
+        \draw[|-|](0.5, 0.5) -- (0.5, 1);
+        \draw[|-|](1.2, 0.7) -- (1.2, 1.2);
+        \draw[|-|](2.0, 0.6) -- (2.0, 1.0);
+        \draw[|-|](2.5, 0.7) -- (2.5, 1.2);
+        \draw[|-|](3.5, 0.8) -- (3.5, 1.4);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il valore $T_0$, ossia il periodo nel limite delle piccole oscillazioni è fatto da
+una caratteristica del pendolo di lunghezza misurata nello specifico luogo
+in cui si opera. Data allora la relazione che lega $T(\phi_0)$ a $ T_0$, da ciascuno dei valori 
+$T(\phi_{0i}) = T_i \pm \Delta T_i$ possiamo allora ricavare una stima di $T_0$.
+Nel limite delle piccole oscillazioni posso dire che
+\begin{gather*}
+    g = \frac{4\pi^{2}l}{T_0^{2} }
+\end{gather*}
+Altrimenti nel caso generale posso dire
+\begin{align}
+    T_{0i} = \frac{T_i}{1 + \frac{1}{4}\sin^{2}\frac{\phi_{0i}}{2}}
+\end{align}
+Così come le incertezze $\Delta T_i$, anche i vari $\Delta T_{0i}$ dovrebbero avere
+incertezze di ordini di grandezze comparabili. Per fare la verifica di consistenza delle varie stime
+$T_0$ ottenute nella nostra misura riportiamo sulle ordinate i valori di $T_0$ con le rispettive
+barre di errore in funzione di una qualunque quantità che indichi da quale $T_{0_i} \pm \Delta T_{0_i}$ ogni
+valore di $T_0$ sia stato ricavato. Se esiste una regione di sovrapposizione delle barre di errore
+di tutti i valori $T_{0_i} \pm \Delta T_{0_i}$ allora questi sono tutti consistenti, 
+allora la misura di $g$ diventa
+\begin{align}
+    g = \frac{4\pi^{2}l}{T_0^{2} }
+\end{align}
+La cui incertezza, col metodo delle logaritmiche diventa (posto che le misure 
+siano indipendenti tra loro (e non lo sono)):
+\begin{align}
+    \frac{\Delta g}{g} = \frac{\Delta l}{l} + 2\frac{\Delta T_0}{T_0}
+\end{align}
+Anche se questa è possibile utilizzarla come buona approssimazione dell'errore relativo su $g$, 
+altrimenti dovremmo derivare anche rispetto alla lunghezza del pendolo in quanto $T(\phi_0)$ dipende
+anche dalla lunghezza. Per il calcolo di $g$ utilizzerò la misura di tempo con il minore
+$\frac{\Delta T_0}{T_0}$ per ridurre al minimo l'errore.
+
+\subsection{L'incertezza sulle misure del tempo}
+Dato che
+\begin{gather*}
+    T = T_0\left(1 + \frac{1}{4}\sin^{2}\frac{\phi_0}{2}\right)
+\end{gather*}
+abbiamo allora da trovare $T_0$ e quindi trovare la sua incertezza relativa usando le derivate logaritmiche:
+\begin{gather*}
+    \frac{dT_0}{T_0} = d\ln T - d\ln\left(1 + \frac{1}{4}\sin^{2}\frac{\phi_0}{2}\right)
+\end{gather*}
+e quindi, con passaggi semplici e dato che $\phi_0 > 0$:
+\begin{align}
+    \frac{\Delta T_0}{T_0} = \frac{\Delta T}{T} + \frac{1}{8} \frac{\sin\phi_0}{1 + \frac{1}{4}\sin^{2}\frac{\phi_0}{2}} \cdot  \Delta \phi_0
+\end{align}
+Possiamo allora dare anche una stima a priori dell'incertezza: infatti, dato che il termine 
+dipendente dal seno nel calcolo di $T$ è dell'ordine di $10^{-2}$ (o anche minore a seconda degli angoli),
+se volessimo dare una sola valutazione dell'ordine di grandezza del periodo, allora potrei dire
+che $T = T_0 = 2\pi\sqrt{\frac{l}{g}}$, usando il valore approssimativo di $9.8 m/s^{2}$ per $g$. 
+Possiamo anche valutare l'ordine di grandezza che moltiplica $\Delta \phi_0$ a priori
+ossia di circa $10^{-4}$ e dunque l'errore relativo su $T$ è molto più influente
+di questo termine. Sarebbe quindi ragionevole non aspettarsi valori di
+$\Delta T_0$ troppo distanti dal valore di $\Delta T$. 
+
+\subsection{Incertezza di $g$}
+Possiamo allora passare alla derivazione di $g$ attraverso la relazione  $g = 4\pi^{2}\frac{l}{T_0^{2} }$ 
+e ottenere la sua incertezza relativa con il metodo delle logaritmiche:
+\begin{align}
+    \frac{\Delta g}{g} = \frac{\Delta l}{l} + \frac{2\Delta T_0}{T_0}
+\end{align}
+Ma in realtà tale relazione non è formalmente corretta in quanto dobbiamo
+ricordare che $T_0 = T_0(T, \phi_0)$. La precedente relazione dunque è
+giusta se e solo se supponiamo $l$ e $\phi_0$ come indipendenti (il che non è vero). 
+Possiamo tuttavia vedere come questa differenza è in realtà irrilevante ai fini della
+nostra esperienza in laboratorio: infatti riprendendo un passo dello sviluppo
+della logaritmica:
+\begin{gather*}
+    \frac{d g}{g} = \frac{dl}{l} - 2\frac{dT_0}{T_0}, \qquad \frac{d T_0}{T_0} = \frac{dT}{T} - \frac{1}{8}\frac{\sin\phi}{1 + \frac{1}{4}+ \sin^{2}\frac{\phi_0}{2}}d\phi_0
+\end{gather*}
+E quindi ricordando che 
+\begin{gather*}
+    \sin\phi_0 = \frac{x_0}{l}, \qquad  \Delta \phi_0 = \tan\phi_0 \left(\frac{\Delta x_0}{x_0} + \frac{\Delta l}{l}\right)
+\end{gather*}
+Allora si ottiene che
+\begin{gather*}
+    d\phi_0 = \tan\phi_0 \frac{dx_0}{x_0} - \tan\phi_0 \frac{dl}{l}
+\end{gather*}
+Sostituendo allora in $\frac{d T_0}{T_0}$ si ottiene che l'errore relativo su $g$ è
+\begin{gather*}
+    \frac{\Delta g}{g} = \frac{\Delta l}{l}\left| 1 - \frac{1}{4} \frac{\sin\phi_0 \tan\phi_0}{1+  \frac{1}{4} \sin^{2}\frac{\phi_0}{2} } \right| + 2\frac{\Delta T}{T} + \frac{\sin\phi_0\tan \phi_0}{1 + \frac{1}{4}\sin^{2}\frac{\phi_0}{2} } \frac{\Delta x_0}{x_0} 
+\end{gather*}
+Possiamo ora ragionare sulla differenza tra le due rappresentazioni.
+\begin{enumerate}
+    \item $\Delta l$: dato che è dell'ordine di un decimo di millimetro $(0.25mm)$ allora posso trascurare il suo
+    fattore moltiplicativo.
+    \item $\Delta T_0$ l'unica differenza è un termine a prodotto $\tan\phi_0 \frac{\Delta x_0}{x_0}$ che è trascurabile
+    in quanto $\Delta \phi_0 = \tan\phi_0 \frac{\Delta x_0}{x_0} + \tan\phi_0 \frac{\Delta l}{l}$ e dato che il primo termine è
+    maggiore del secondo in quest'ultima relazione, posso dire che il termine che si somma dopo l'errore
+    relativo su $T$ è essenzialmente non distinguibile da $\frac{\Delta T_0}{T_0}$. 
+\end{enumerate}
+Date queste considerazioni, possiamo allora continuare ad utilizzare la relazione più semplice trovata prima
+in quanto l'influenza sulla misura dell'errore è minima in questa esperienza.
+
+\section{Oltre al moto ideale, le condizioni di validità}
+Nel pendolo semplice in moto ideale, si ha una descrizione appropriata
+degli aspetti fondamentali del fenomeno del moto del pendolo, tuttavia queste
+considerazioni sono possibili se e solo se il pendolo ha delle "caratteristiche
+che lo rendono ideale". Generalmente con la configurazione fisica del 
+laboratorio tali effetti sono trascurabili se e solo se non sono 
+rilevabili quantitativamente con la nostra misura. Si trattano per
+poter capire entro quali limiti l'effetto è trascurabile e quindi 
+riprendendo le ipotesi di validità: 
+\begin{enumerate}
+    \item Pendolo di massa $m$ assimilabile a puntiforme e con dimensioni e distribuzioni di massa trascurabili;
+    \item Filo con massa nulla;
+    \item Filo inestensibile;
+    \item Moto ideale: nessun effetto dissipativo dovuto all'attrito nell'aria.
+\end{enumerate}
+A partire da queste, possiamo ricavare tre situazioni fisiche "reali" che possiamo 
+isolare una ad una:
+\begin{itemize}
+    \item Caso A: Non valgono le ipotesi $1$ e $2$;
+    \item Caso B: Non vale l'ipotesi 3 (non nel programma);
+    \item Caso C: Non vale l'ipotesi 4.
+\end{itemize}
+
+\section{Caso A: Il pendolo fisico}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il pendolo approssimabile ad un corpo rigido}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (0.5, -4);
+        \draw(0.25, -4.5) circle (0.5);
+        \filldraw(0.25, 0) circle (1pt) node[anchor = south] {$O$};
+        \filldraw(0.25, -2) circle (1pt) node[anchor = south] {$B$};
+        \filldraw(0.25, -4) circle (1pt) node[anchor = south] {$P$};
+        \filldraw(0.25, -4.5) circle (1pt) node[anchor = south] {$C$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Innanzitutto consideriamo che il raggio della sfera non sia trascurabile
+così come la massa del filo: ovviamente sempre secondo 
+le approssimazioni che il raggio della sfera sia molto minore
+del filo e che la massa del filo sia molto minore della massa
+della sfera. Per poter trattare questo caso assumiamo che il filo
+sia approssimabile ad una sbarretta rigida sottile ed omogenea, il che
+è valido in quanto il filo è teso e si hanno le ipotesi
+di inestensibilità. Se questa sbarretta sottile e cilindrica è ideale,
+allora il pendolo costituirà un corpo rigido.
+\begin{gather*}
+    OP = L_f \qquad OB = BP = \frac{L_f}{2} \qquad OC = l = L_f + R
+\end{gather*}
+Sotto l'azione delle forze il sistema inizierà un moto oscillatorio
+se lo lasciamo andare con un certo angolo $\phi$ rispetto alla
+verticale e quindi l'angolo durante l'oscillazione sarà dato dalla seguente:
+\begin{gather*}
+    \phi = \phi(t)
+\end{gather*}
+Senza nessun attrito il vincolo in $O$ è considerato ideale
+e le sole forze che hanno effetto sul moto del sistema sono le forze peso
+che possiamo considerare applicate in $B$ e $C$. Essenzialmente il pendolo
+si mette a fare un moto di rotazione oscillatorio attorno ad un asse fisso e quindi 
+possiamo descriverlo con la seconda cardinale della dinamica si ottiene che in una sua forma sferica
+per i corpi rigidi in rotazione attorno ad un asse fisso.
+\begin{gather*}
+    I_0 \dot{\omega} = M_{O, z}
+\end{gather*}
+$\dot{\omega}$ è l'accelerazione angolare, ossia $\ddot{\phi}$, mentre
+$M$ è il momento assiale totale delle forze esterne rispetto al Polo $O$.
+In questa equazione si ha il momento di inerzia del corpo rigido
+rispetto all'asse fisso di rotazione passante per $O$, che è una grandezza
+scalare estensiva che esprime le caratteristiche di inerzia di un corpo rispetto 
+alla rotazione; è sempre riferito ad un asse e dipende sempre 
+dalla distribuzione di massa del corpo rispetto al'asse 
+a cui è riferito. Per un sistema di $N$ punti materiali il momento di inerzia
+rispetto ad un dato asse $A$ è dato da
+\begin{gather*}
+    I_A = \sum m_i r_{A_i}^{2} 
+\end{gather*}
+Mentre per un corpo con distribuzione continua di massa si ha
+\begin{gather*}
+    I_A = \int r_A^{2} \ dm 
+\end{gather*}
+Ora per il Teorema di Huygens-Steiner si ha una relazione tra i momenti di inerzia
+relativi ad assi paralleli: in questo caso il teorema ci dice che è possibile sommare
+i contributi per ottenere il momento di inerzia definitivo e sommare il prodotto della
+massa totale per il quadrato della distanza tra i due assi. 
+\begin{align}
+    I_A = I_{CdM \parallel A} + md^{2} 
+\end{align}
+Il nostro pendolo fisico rispetto ad un asse di rotazione fisso passante per $O$
+avrà un momento di inerzia come
+\begin{gather*}
+    I_0 = I_{sfera, O} + I_{filo, O} 
+\end{gather*}
+Con
+\begin{gather*}
+    I_{sfera, O} = I_{sfera, C} + ml^{2} \\
+    I_{filo, O} = I_{filo, C} + m_f\left(\frac{L_f}{2}\right)^{2}  
+\end{gather*}
+dobbiamo allora valutare i momenti di inerzia dei due componenti del nostro corpo
+rigido e quindi il sistema (filo-sbarretta) rispetto agli assi passanti per i rispettivi
+centri di massa e paralleli agli assi di rotazione. 
+
+\subsection{Il momento di inerzia di una sfera rispetto ad un asse passante per il centro di massa}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il momento di una sfera: schematizzazione}
+    \begin{tikzpicture}[scale=2]
+        \draw[thick] (0,0) circle(1); % Cerchio esterno
+
+% Asse z
+\draw[->, thick] (0,-1.2) -- (0,1.2) node[above] {\(z\)};
+
+% Etichette z = -R, z = 0, z = +R
+\node at (0,-1.05) {\(z = -R\)};
+\node at (0,0) [left] {\(C\), \(z=0\)};
+\node at (0,1.05) {\(z = +R\)};
+
+% Raggio R
+\draw[dashed] (0,0) -- (0.866,0.5); % Raggio inclinato, coordinate (cos(30), sin(30))
+\node at (0.5,0.3) {\(R\)};
+
+% Piano orizzontale (sezione sferica)
+\draw[dashed] (-0.8,0.6) arc (180:360:0.8 and 0.15); % Parte inferiore visibile
+\draw[dashed] (0.8,0.6) arc (0:180:0.8 and 0.15);   % Parte superiore tratteggiata
+
+% Etichetta z = r
+\node at (0,0.65) [right] {\(z = r\)};
+
+% raggio orizzontale
+\draw[dashed] (0,0.6) -- (0.8,0.6);
+\node at (0.4,0.65) {\(r\)};
+
+% punto P
+\filldraw[red] (0,0.6) circle(0.02);
+\node[red] at (-0.05,0.6) {\(P\)};
+
+% punto sulla circonferenza sezione
+\filldraw[red] (0.8,0.6) circle(0.02);
+
+% Griglia o linee tratteggiate nel piano sezione (opzionale)
+\foreach \x in {-0.6,-0.3,0,0.3,0.6}
+    \draw[gray!60, dashed] (\x,0.6) -- (\x+0.1,0.6);
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+Nel caso di una sfera omogenea, si ha massa $m$ e raggio $R$  e quindi il momento di
+inerzia rispetto ad un asse $A$ diventa 
+\begin{gather*}
+    I_A = \int r_A^{2} \ dm = \rho \int r_A^{2} \ dV  
+\end{gather*}
+dove $r_A$ è la distanza dell'elemento di volume infinitesimo rispetto all'asse A.
+Per calcolare allora il momento di inerzia facciamo a fette la sfera con fette normali all'asse
+$z$ e dunque con spessore infinitesimo e raggio $r = (R^{2} - z^{2}  )^{1/2}$. 
+Dove $z$ è la distanza tra $C$ e $P$. Ogni fetta è quindi un disco di raggio
+$r$ definito prima e spessore infinitesimo $dz$ e quindi il momento di inerzia
+totale della sfera è 
+\begin{gather*}
+    I_{sfera, C} = \int d I_{disco} \dots
+\end{gather*}
+Possiamo allora considerare il generico disco e con $-R \leq z \leq R$ ottengo tutti i 
+dischi infinitesimi che compongono la sfera: allora per calcolare il momento di inerzia 
+del singolo disco, devo potere esprimere una relazione tra il volume e la massa del singolo dischetto:
+ossia posso individuare gli elementi di volume $dV$ con punti alla solita distanza
+$x$ dal centro del disco così che poss valutare tutti i contributi infinitesimi al
+disco considerato e, dato $dV = 2\pi x \ dx dz$ ottengo:
+\begin{gather*}
+    dI_{disco} = \rho \int_{0}^{r}x^{2} \ dV = \rho \int_0^{r}  x^{2}2\pi x \ dx dz = \\
+    2\pi \rho \ dz \int_0^{r} x^{3} \ dx = 2\pi \rho \ dz \frac{r^{4} }{4} 
+\end{gather*}
+Ossia
+\begin{align}
+    I_{disco} \frac{\pi}{2}\rho r^{4}(z) \ dz 
+\end{align}
+
+Posso allora integrare tutti i dischi ed ottenere:
+\begin{gather*}
+    I_{Sfera, C} = \int d I_{disco}(z) = \frac{\pi}{2}\rho\int_{-R}^{R}(R^{2}  - z^{2} )^{2}\ dz   
+\end{gather*}
+Ottenendo infine
+\begin{align}
+    I_{sfera, C} = \frac{2}{5}mR^{2} 
+\end{align}
+
+\subsection{Momento di inerzia di una sbarretta rigida sottile e omogenea rispetto ad un asse 
+passante per il centro di massa e parallelo a quello di rotazione}
+Preso in considerazione il disegno del pendolo fisico fatto prima,
+allora sappiamo che
+\begin{gather*}
+    OB = BP = \frac{L_f}{2} \Rightarrow OP = L_f
+\end{gather*}
+Allora il momento di inerzia del filo (o meglio della sbarretta rigida in questa
+schematizzazione), dove $S$ è l'area della sezione:
+\begin{gather*}
+    I_{filo, B\parallel} = \rho_f \int y^{2} \ dV = \rho_f S \int_{ - \frac{L_f}{2}}^{\frac{L_f}{2}} y^{2} \ dy 
+\end{gather*}
+Ottenendo, sapendo che $\rho_f S L_f = m_f$ 
+\begin{align}
+    I_{filo, B\parallel} = m_f \frac{L_f^{2} }{12}
+\end{align} 
+
+\subsection{Il moto ideale del pendolo fisico}
+NOTA: questa sezione non è importante saperla "a memoria" in quanto
+gran parte di queste cose sono solo passaggi e non servono ai fini dell'orale.
+Data l'equazione di moto 
+\begin{gather*}
+    I_0 \ddot{\phi} = M_{O, z}
+\end{gather*}
+Il momento di inerzia totale rispetto alla rotazione diventa: con
+il teorema di Huygens-Steiner
+\begin{gather*}
+    I_0 = m\left(l^{2} + \frac{2}{5}R^{2} \right) + m_f \frac{L_f^{3} }{3}
+\end{gather*}
+Come si può vedere il momento di inerzia dipende strettamente 
+dai parametri fisici del sistema e quindi possiamo valutare il momento assiale. \\
+Il momento assiale ha come vincolo ideale $O$ e si presuppone che permetta
+un moto ideale e trascurando quindi ogni forza di attrito esistente 
+le sole forze esterne contribuiscono al momento assiale rispetto al
+polo $O$ sono le forze peso e quindi per il calcolo del momento delle forze peso possiamo considerare 
+$m\vec{g}$ applicata in $C$ e $m_f\vec{g}$ applicata in $B$ e quindi
+dato che $\vec{g} = -g\cos\phi \hat{e}_n - g\sin\phi \hat{e}_{\phi}$ il momento diventa
+\begin{gather*}
+    \vec{M}_0 = \overline{OC} \times m\vec{g} + \overline{OB} \times m_f \vec{g} = \\
+       (-l\hat{e}_n ) \times (-mg\cos\phi \hat{e}_n - mg \sin\phi \hat{e}_{\phi}  ) + \left(-\frac{L_f}{2} \hat{e}_n \right) \times (-m_f g \cos\phi \hat{e}_n - m_f g \sin \phi \hat{e}_{\phi}  )
+\end{gather*}
+Allora si ottiene che il vettore momento delle forze peso rispetto al polo $O$
+diventa proprio
+\begin{align}
+    \vec{M}_0 = -\left(ml + m_f \frac{L_f}{2}\right)g\sin\phi \hat{e}_z 
+\end{align}
+
+Ora per ottenere il momento assiale lungo l'asse di rotazione
+fisso $z$ proiettiamo il momento risultante di quelle forze e 
+moltiplicandolo per $\hat{e}_z$ e quindi tornando all'equazione di moto
+
+\begin{align}
+    \ddot{\phi} + \left(g\frac{\left(ml + m_f \frac{L_f}{2}\right)}{I_0}\right)\sin\phi = 0
+\end{align}
+Rispetto al pendolo semplice che è invece
+\begin{gather*}
+    \ddot{\phi} + \frac{g}{l}\sin\phi = 0
+\end{gather*}
+
+Possiamo definire una variabile definita dai parametri del
+sistema $(m, m_f, R, l, L_f)$ e ottenere quindi
+\begin{gather*}
+    L_e = \frac{I_0}{ml + m_f\frac{L_f}{2}}
+\end{gather*}
+Possiamo allora riassumere le relazioni per il pendolo semplice e fisico come segue:
+\begin{align*}
+    &FISICO& \qquad \qquad &SEMPLICE&\\
+    &\ddot{\phi} + \left(\frac{g}{L_e}\right)\sin\phi = 0& \qquad &\ddot{\phi} + \left(\frac{g}{l}\right)\sin\phi = 0& \\
+    &T_{0_f} = 2\pi \sqrt{\frac{L_e}{g}}& \qquad &T_{0_s} = 2\pi \sqrt{\frac{l}{g}}& \\
+    &T_f = 2\pi \sqrt{\frac{L_e}{g}} F(\phi_0)& \qquad &T_s = 2\pi \sqrt{\frac{l}{g}} F(\phi_0) &
+\end{align*}
+Dove ovviamente 
+\begin{gather*}
+    L_e = \frac{m\left(l^{2} + \frac{2}{5}R^{2}  \right) + \frac{m_fL_f^{2} }{3}}{ml + m_f\frac{L_f}{2}}
+\end{gather*}
+Se poniamo il fattore correttivo come
+\begin{gather*}
+    F_c = \frac{L_e}{l} = \frac{1 + \frac{2}{5}\frac{R^{2} }{l^{2} } + \frac{1}{3}\frac{m_f}{m}}{1 + \frac{1}{2}\frac{m_f}{m}}
+\end{gather*}
+E quindi tornando ai periodi nelle due schematizzazioni si ha che
+diventano rispettivamente
+\begin{gather*}
+    T_{f} = T_s \sqrt{F_c} \\
+    T_{0_f} = T_{0_s} \sqrt{F_c}  
+\end{gather*}
+Il termine $\sqrt{F_c}$ tiene conto della differenza tra i periodi
+delle due schematizzazioni sempre tenendo conto delle nostre condizioni,
+ossia $R << l$ e $m_f << m$ e quindi
+\begin{gather*}
+    \sqrt{F_c} = \left(1 + \left(\frac{2}{5}\frac{R^{2} }{l^{2} } + \frac{1}{3}\frac{m_f}{m}\right)\right)^{\frac{1}{2}} \cdot  \left(1 + \frac{1}{2}\frac{m_f}{m}\right)^{-\frac{1}{2}} = (1 + x)^{\frac{1}{2}}\cdot (1 + x')^{-\frac{1}{2}}     
+\end{gather*} 
+Posto che i termini sommati ad $1$ siano molto più piccoli di $1$, allora
+posso utilizzare gli sviluppi di Taylor:
+\begin{gather*}
+    \sqrt{F_c} \approx 1 + \frac{x}{2}- \frac{x'}{2} \\
+    \sqrt{F_c} \approx 1 + \frac{1}{5}\frac{R^{2} }{l^{2} } - \frac{1}{12}\frac{m_f}{m} 
+\end{gather*}
+Con le condizioni $R << l$ e $m_f << m$
+\begin{align}
+    \sqrt{F_c} \approx 1 + \frac{1}{5}\frac{R^{2} }{l^{2} } - \frac{1}{12}\frac{m_f}{m} = \frac{T_f}{T_s} = \frac{T_{0_f}}{T_{0_s}}
+\end{align}
+Adesso è possibile valutare se gli effetti del pendolo fisico possono o meno
+incidere sulla descrizione della nostra esperienza
+
+\subsection{Confronto delle due schematizzazioni}
+Il nostro scopo è quello di valutare la differenza tra le due schematizzazioni
+per identificare possibili differenze nel calcolo del periodo
+del pendolo. Possiamo innanzitutto cercare l'errore di schematizzazione
+relativo con la differenza relativa tra i periodi:
+\begin{gather*}
+    \left(\frac{\delta T}{T}\right)_{f, schem.} = \frac{|T_f -T_s|}{T_s} = \frac{|T_S \cdot (1 + \frac{1}{5}\frac{R^{2} }{l^{2} } - \frac{1}{12}\frac{m_f}{m}) - T_s|}{T_s} = \left|\frac{1}{5}\frac{R^{2} }{l^{2} } - \frac{1}{12}\frac{m_f}{m}\right|
+\end{gather*}
+Anche in questo caso per comprendere se la differenza sui 
+periodi prevista è rilevabile e significativa bisognerà confrontare
+con l'incertezza sperimentale relativa delle misure
+\begin{gather*}
+    \left(\frac{\delta T}{T}\right)_{f, schem} << \left(\frac{\Delta T}{T}\right)_{sper}
+\end{gather*}
+In questo caso si ha che la schematizzazione di pendolo semplice 
+era effettivamente adeguata e quindi le differenze rispetto all'incertezza erano
+trascurabili e non significative né sensibili. Altrimenti occorreva
+adottare la schematizzazione di pendolo fisico. 
+Per la nostra esperienza in laboratorio si ha che
+\begin{gather*}
+    \left(\frac{\Delta T}{T}\right)_{sper} \approx 10^{-3} 
+\end{gather*}
+Generalmente in laboratorio conviene applicare la schematizzazione di
+pendolo semplice in moto ideale. 
+
+\subsection{Quanto influisce l'errore di schematizzazione sulla misura di $g$?}
+Supponendo che $m_f$ non sia trascurabile, in tal caso bisognerebbe uguagliare il periodo
+$T$ misurato a $T_f$ e quindi il  $g$ vero sarà
+\begin{gather*}
+    g_{vero} = \frac{4\pi^{2}l }{T_{0_f}^{2} } \left(1 - \frac{1}{12}\frac{m_f}{m}\right)^{2} 
+\end{gather*}
+In questo caso dunque, si avrebbe (dato lo sviluppo $(1 - x)^{2} \approx 1 - 2x$ ) che
+\begin{gather*}
+    g_{vero} \approx \frac{4\pi^{2}l }{T_{0_f}^{2} } \left(1 - \frac{1}{6}\frac{m_f}{m}\right)
+\end{gather*}
+Se in queste condizioni dovessi allora adottare la schematizzazione di 
+pendolo semplice ideale, allora lo stesso $T_0$ misurato dovrebbe essere uguagliato a 
+$T_0$ e allora si otterrebbe
+\begin{gather*}
+    g_s = \frac{4\pi^{2} l}{(T_0)^{2}_{misurata}}
+\end{gather*}
+E si ottiene che $g_{vero} < g_s$. Se avessi una incertezza tale da poter mettere
+a confronto le differenze allora dovrei mettere a confronto:
+\begin{gather*}
+    \frac{|g_f - g_s|}{g_s} \approx  \frac{1}{6}\frac{m_f}{m}
+\end{gather*}
+Che per la schematizzazione di pendolo semplice è sufficiente considerare $g_s$.
+
+\section{Il caso C: il pendolo ideale ma in presenza di attrito}
+Realisticamente si osserva che nel moto del pendolo in laboratorio
+ha una progressiva diminuzione dell'ampiezza angolare dell'oscillazione 
+col crescere del numero di oscillazioni compiute dal rilascio del pendolo
+smorzando l'oscillazione. Posso allora determinare l'angolo
+di oscillazione in funzione del numero totale di oscillazioni. \\
+Dall'analisi sperimentale si è in grado di quantificare gli attriti
+presenti nel moto reale e quindi determinare se l'adozione della schematizzazione
+di moto ideale sia effettivamente adeguata e corretta.  \\
+Inoltre dobbiamo determinare se $T_0$ che abbiamo misurato indirettamente sia effettivamente
+corretto e quindi determinare se la descrizione degli attriti di piccola entità che 
+agiscono sul pendolo il periodo ne rimanga influenzato significativamente
+dalla presenza e dall'azione di forze di attrito. 
+\begin{gather*}
+    \left(\frac{\delta T}{T_0}\right) = \frac{|T_0' - T_0|}{T_0}
+\end{gather*}
+Con $T_0'$ indico il periodo limite nel caso reale e quindi l'effetto
+sul periodo nel limite delle piccole oscillazioni è tale che l'incertezza
+della schematizzazione sia molto minore di quella sperimentale:
+Se $T_0' \approx T_0$ il periodo non differisce molto da $T_0$ e quindi mi trovo nel caso
+ideale in modo significativo per la nostra configurazione sperimentale e l'effetto
+della presenza di attriti sul periodo di piccole oscillazioni è trascurabile per il nostro sistema pur
+essendo osservabile sull'ampiezza delle piccole oscillazioni. Inoltre, la nostra stima del
+periodo $T_0$ è corretta rispetto alle incertezze di misura  e quindi 
+$g$ è ugualmente corretta. 
+
+\subsection {Come descrivere le forze di attrito}
+Esistono diverse possibili forze di attrito: la resistenza della viscosità dell'aria e gli
+attriti del sistema al punto di sospensione del pendolo. Sia la rilevanza che la descrizione delle forze dipendono da
+come è stato realizzato il pendolo ed è in generale molto complessa.
+Possiamo rappresentare la viscosità dell'aria secondo una 
+semplificazione che dipende da:
+\begin{itemize}
+    \item Caratteristiche del fluido;
+    \item Dimensioni e caratteristiche geometriche
+    \item Velocità del corpo nel fluido.
+\end{itemize}
+
+Sempre secondo una semplificazione notevole, si possono
+identificare due regimi limite per il fenomeno distinti da un valore caratteristico
+della velocità indicato con $v_l$:
+\begin{itemize}
+    \item $v >> v_l$: l'attrito si esplica in modo vorticoso tramite la formazione di
+    vortici nella scia del corpo in moto e un questo caso la descrizione è molto complessa;
+    \item $v < v_l$: si ha un regime laminare ossia l'attrito  è dato da lamine di fluido che
+    scorrono sopra al corpo.
+\end{itemize}
+
+Ai fini della semplicità della schematizzazione scegliamo di scrivere
+la forza di attrito come
+\begin{gather*}
+    \vec{F}_a = -b \vec{v}  
+\end{gather*}
+
+\subsection{Equazione di moto per il pendolo semplice in moto reale}
+Torniamo all'equazione che esprime il moto del pendolo ideale aggiungendo
+òle forze agenti su $C$ dell'attrito e quindi si avrà che
+\begin{gather*}
+    \vec{F}_a + \vec{T} + m\vec{g} = m\vec{a}    \\
+    ml \ddot{\phi} + bl \dot{\phi} + mg\sin\phi = 0 \\
+    \ddot{\phi} + \frac{b}{m}\dot{\phi} + \frac{g}{l}\sin\phi = 0
+\end{gather*}
+In questa forma generale anche questa equazione non
+è risolubile analiticamente in modo semplice ma anche in questo
+caso esiste un limite in cui l'equazione di moto si linearizza e 
+ha una risoluzione analitica semplice data la 
+terza condizione
+
+\subsection{Limite delle piccole oscillazioni}
+In modo del tutto analogo al caso del pendolo semplicemente
+in moto ideale possiamo anche per il presente caso di moto non
+ideale definire il limite delle piccole oscillazioni come il caso in cui
+le oscillazioni sono di ampiezza $\phi_0$ sufficientemente piccola da consentire 
+di poter approssimare con Taylor $\sin\phi \approx \phi$ e quindi 
+l'equazione diventa
+\begin{gather*}
+    \ddot{\phi} + \frac{b}{m}\dot{\phi} + \frac{g}{l}\phi = 0
+\end{gather*}
+Ponendo allora $\omega_0^{2} = \frac{g}{l}$ l'equazione di moto è 
+diventato una equazione differenziale del secondo ordine lineare
+omogenea e a coefficienti costanti e quindi
+risolubile analiticamente. \\
+Con una integrazione numerica dell'equazione nella sua forma generale
+si può allora dimostrare che fintantoché gli effetti degli
+attriti sono di piccola entità, e quindi la relazione
+$\phi_0 = \phi_0(n)$ rientra nel limite delle piccole oscillazioni,
+vale per descrivere l'andamento di $\phi_0$ con $n$ 
+anche nel caso di oscillazioni di ampiezza generica e potremmo quindi
+descrivere il fenomeno dello smorzamento basandoci su una legge
+che è la stessa che ricaveremo dallo studio del caso limite 
+delle piccole oscillazioni.
+
+\section{Il limite delle piccole oscillazioni per il pendolo semplice in moto reale}
+Data l'equazione di moto
+\begin{gather*}
+    \ddot{\phi} + \frac{b}{m}\dot{\phi} + \omega_0^{2}\phi = 0, \qquad \omega_0^{2} = \frac{g}{l}  
+\end{gather*}
+A noi ci interessa risolverla in modo tale che si osservi che
+l'angolo $\phi$ decresca continuamente. Matematicamente
+si traduce nella condizione 
+\begin{gather*}
+    \frac{b}{2m} < \omega_0
+\end{gather*}
+Se questa è soddisfatta allora la soluzione generale è data dalla seguente
+\begin{gather*}
+    \phi(t) = Ce^{-\frac{b}{2m}t} \cdot  \cos(\omega_0't - \gamma) 
+\end{gather*}
+Dove
+\begin{itemize}
+    \item $\omega_0'$ è la frequenza angolare dell'oscillazione smorzata:
+    determinata sostituendo nell'equazione di moto l'equazione sopra;
+    \item C, $\gamma$ costanti da determinare dalle condizioni iniziali
+\end{itemize}
+Per poter calcolare queste occorre conoscere $\ddot{\phi}$ e $\dot{\phi}$:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \ddot{\phi} + \frac{b}{m}\dot{\phi} + \omega_0^{2} \phi = 0 \\
+        \phi(t) = C\exp\left(-\frac{b}{2m}t\right) \cdot  \cos(\omega_0't - \gamma) 
+    \end{array}
+    \right.
+\end{gather*}
+Allora derivo due volte la seconda equazione ottenendo un espressione di $\ddot{\phi}$:
+\begin{gather*}
+    \dot{\phi} = C\exp\left(-\frac{b}{2m}t\right)\left(-\frac{b}{2m}\cos(\omega_0't - \gamma) - \omega_0'\sin(\omega_0't - \gamma)\right)\\
+    \ddot{\phi} = C\exp\left(-\frac{b}{2m}t\right)\left(\left(-\frac{b}{2m}-\omega_0^{'2}\right) \cos(\omega_0't - \gamma) + \omega_0'\sin(\omega_0' t - \gamma)\right)
+\end{gather*}
+Sostituendo nell'equazione di moto si ottiene
+l'espressione per lo smorzamento di $\phi$. 
+
+
+\section{Procedure operative in laboratorio per lo smorzamento}
+Come si effettuano le misure in laboratorio correttamente:
+\begin{enumerate}
+    \item Scegliamo l'ampiezza angolare $\phi^{in}$ come valore
+    intermedio tra quelli misurati di massimo e minimo per la validità
+    delle considerazioni fisiche e quindi una distanza $x_0$ dalla verticale
+    associata;
+    \item Rilasciamo il pendolo col centro di massa a distanza $x_0^{in}$ dalla 
+    verticale locale e quindi $(x_0')^{in} = x_0^{in} + R$ e si conta
+    al rilascio delle sferetta le oscillazioni complete e ogni
+    $5$ oscillazioni si valuta la posizione $x_0(n)$ raggiunta dal centro di massa
+    e si definisce allora $\delta x_0'(n)$ la diminuzione della distanza 
+    dal bordo esterno della sferetta e possiamo misurare ed ottenere indirettamente
+    la distanza $x_0'(n)$ raggiunta dalla massima elongazione n-esima come
+    $x_0'(n) = x_0'(n = 0) - \delta x_0'(n)$. La misura allora di $\delta x_0'(n)$ può essere ripetuta più volte rilasciando
+    altrettante volte il pendolo e seguendo la sua evoluzione in modo da poter
+    valutare $\delta x_0'(n)$ con una stima migliore così come determinare
+    il suo errore $\Delta (\delta x_0'(n))$ e confrontarlo con $0.5 cm$, ossia il valore
+    considerabile come la minima variazione ragionevolmente apprezzabile e quindi 
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            \text{scarto max } > 0.5 cm \Rightarrow \Delta(\delta x_0'(n)) = \text{ scarto max rispetto alla media} \\
+            \text{scarto max } < 0.5 cm \Rightarrow \Delta(\delta x_0'(n)) = 0.5cm
+        \end{array}\right.
+    \end{gather*}
+    Avendo allora ottenuto $\delta x_0'(n) \pm \Delta (\delta x_0'(n))$ possiamo
+    valutare ora $x_0'(n) \pm \Delta x_0'(n)$  come
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            x_0'(n) = x_0'(n = 0) - \delta x_0'(n) \\
+            \Delta x_0'(n) = \Delta (x_0'(n = 0)) + \Delta (\delta x_0'(n)) = 0.5cm + \Delta (\delta x_0 '(n))
+        \end{array}\right.
+    \end{gather*}
+    Per la relazione che intercorre tra $x_0'$ e $x_0$ i $\delta x_0'(n)$ misurati rappresentando direttamente
+    anche di quanto al chiudersi della n-esima oscillazione è diminuita la massima
+    elongazione dal centro ossia di quanto è diminuita $x_0$ 
+    e dunque è $\delta x_0'(n) = \delta x_0(n)$ e quindi
+    \begin{gather*}
+        x_0(n) = x_0'(n) - R = (x_0'(n = 0) - \delta x_0'(n)) - R  = x_0(n = 0) - \delta x_0'(n)
+    \end{gather*}
+    E quindi l'incertezza associata è
+    \begin{gather*}
+        \Delta x_0(n) = \Delta x_0(n = 0) + \Delta (\delta x_0'(n)) = 0.5 cm + \Delta (\delta x_0'(n))
+    \end{gather*}
+    \item $x_0(n) \pm \Delta x_0(n)$ ricaviamo i valori $\phi_0 \pm \Delta \phi_0(n)$ e 
+    si riporta in grafico i valori in funzione dell'n corrispondente e ci si aspetta che
+    i punti del grafico mostrino un andamento ben descrivibile da una relazione lineare
+    $\phi_0(n) = A + Bn$ e dove $A = \phi^{in}$ e $B$ negativo. Si può concludere
+    che nel limite delle piccole oscillazioni basandoci sulla descrizione del moto 
+    come ideale data la presenza delle forze di attrito, il cui contributo 
+    energetico è piccolo rispetto all'energia totale del moto. Nella
+    nostra specifica configurazione sperimentale la differenza sul periodo
+    in questo limite delle piccole oscillazioni risulta assolutamente non rilevabile 
+    rispetto alle incertezze di misura sul periodo $T_0$.
+\end{enumerate}
+
+\subsection{Analisi dello smorzamento}
+Se siamo sicuri che $\frac{b}{2m\omega_0} <<1$ allora posso dare un'occhiata migliore
+alla nostra $\phi_0(n) = \phi_0^{in} \exp\left(-\frac{bT_0' n}{2m}\right)$. Infatti se siamo sicuri 
+di questo, allora si avrà lo stesso ragionamento per $\frac{b}{2m\omega_0'}$ poiché
+\begin{gather*}
+    \frac{b}{2m\omega_0'} = \frac{b}{2m\omega_0}\left(1 - \left(\frac{b}{2m\omega_0}\right)^{2} \right)^{\frac{1}{2}} 
+\end{gather*}
+Si può allora risolvere con lo sviluppo di Taylor ed ottenere che
+sono circa uguali. Se questo è vero allora si ha che, sostituendo:
+\begin{gather*}
+   \frac{b}{2m\omega_0'} = \frac{bT_0'}{2m2\pi} << 1 \\
+   \frac{bT_0'}{2m} << 2\pi \ \Longrightarrow \ \frac{bT_0'}{2m} << 1
+\end{gather*}
+Supponendo che la nostra situazione sperimentale ci consenta questo allora
+di definire la funzione rispetto a $\phi(n)$ come
+\begin{gather*}
+    \phi(n) \approx \phi_0^{in} - \frac{\phi_0^{in}bT_0' }{2m}n 
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il grafico dello smorzamento}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$n$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$\phi_0(n)$};
+        \draw(0.75, 0.2) -- (0.75, -0.2) node[at end, below] {$5$};
+        \draw(1.5, 0.2) -- (1.5, -0.2) node[at end, below] {$10$};
+        \draw(2.25, 0.2) -- (2.25, -0.2) node[at end, below] {$15$};
+        \draw(3, 0.2) -- (3, -0.2) node[at end, below] {$20$};
+        \draw(3.75, 0.2) -- (3.75, -0.2) node[at end, below] {$25$};
+        \draw[|-|](0, 3) -- (0, 3.75);
+        \draw[|-|](0.75, 2.75) -- (0.75, 3.5);
+        \draw[|-|](1.5,  2.5) -- (1.5, 3.25);
+        \draw[|-|](2.25, 2.25) -- (2.25, 3);
+        \draw[|-|](3, 2) -- (3, 2.75);
+        \draw[|-|](3.75, 1.75) -- (3.75, 2.5);
+        \filldraw(0, 0) circle (0pt) node[anchor = north] {$0$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso allora determinare $\frac{b}{2m\omega_0}$ attraverso il metodo grafico:
+posso infatti calcolare ogni $5$ misure (ossia per $n \in \{5, \dots, 25\}$) il grafico
+con con l'ampiezza $\phi_0(n)$ sulle ordinate ed il numero di oscillazioni sulle ascisse. 
+Se vedo che i punti indentificano in modo chiaro un andamento lineare, allora posso 
+capire che il mio termine $\frac{bT_0'}{2m}n << 1$. E allora il nostro risultato è verificato.
+Inoltre posso anche verificare che $T_0' \approx T_0$ e che quindi la differenza
+tra i due periodi non è qualitativamente misurabile nel nostro apparato sperimentale. 
+Possiamo allora costruirci l'errore di schematizzazione relativo per avere una quantità
+che ci permetta di confrontare le due schematizzazioni in maniera quantitativa.
+\begin{gather*}
+    \frac{\delta T_0}{T_0} = \frac{1}{2}\left(\frac{b}{2m\omega_0}\right)^{2} 
+\end{gather*}
+Se riusciamo allora a ricavare una stima di questo valore potremmo confrontarlo con il 
+nostro errore sperimentale. Dato che a noi interessa però l'ordine di grandezza,
+sul grafico si traccia solo la retta best e avremmo quindi $\phi_0(n) = A + Bn$. Dove 
+allora $B = -\phi_0^{in} \frac{bT}{2m}$ e $A = \phi_0^{in}$.
+\begin{gather*}
+    \frac{bT}{2m} = \frac{|B|}{\phi_0^{in} }
+\end{gather*}
+Che come ordine di grandezza è approssimativo a $\frac{bT_0}{2m}$ e dunque 
+possiamo dire che
+\begin{gather*}
+    \frac{b}{2m\omega_0} \approx \frac{1}{2\pi}\frac{|B|}{\phi_0^{in} }
+\end{gather*}
+Allora la nostra incertezza sperimentale è proprio uguale all'incertezza su $T$. Ci si aspetta allora
+una relazione del tipo:
+\begin{gather*}
+    \frac{\delta T_0}{T_0} << \frac{\Delta T}{T}
+\end{gather*}
+
+
+\end{document}

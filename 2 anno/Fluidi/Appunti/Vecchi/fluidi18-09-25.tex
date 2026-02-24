@@ -1,0 +1,226 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti fluidi}
+\author{Tommaso Miliani}
+\date{18-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Prototipo di funzioni che descrivono il potenziale di interazione}
+\subsection{Funzioni di Leonard - Jones}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La funzione di potenziale}
+    \begin{tikzpicture}
+        \draw[->] (-1, 0) -- (4, 0) node[at end, below] {$\frac{r}{r_0}$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$\frac{V}{\epsilon}$};
+        \draw(0.75, 3) ..controls (1, -2.5) and (1.35, -0.25) .. (2, -0.05);
+        \draw(2, -0.05) -- (3.5, -0.05);
+        \draw[dashed](3.5, -0.05) -- (4, -0.05);
+        \filldraw(1, 0) circle (1pt) node[] {$\sigma$};
+        \draw(1.2, 0) -- (1.2, -0.65) node[at end, below] {$r_0$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il potenziale di interazione è dato dalla seguente relazione
+\begin{align}
+    V(r) = \epsilon \left(\left(\frac{r_0}{r}\right)^{12} - 2\left(\frac{r_0}{r}\right)^{6} \right)
+\end{align}
+Il modello funziona molto
+bene per i gas nobili in quanto sono atomi neutri che non interagiscono con nessun'altro atomo.
+Anche per lo studio di casi più complessi il modello da seguire è essenzialmente questo entro certe approssimazioni;
+spesso si riscrive in modo leggermente diversa questa formulazione, ossia nella seguente
+forma 
+\begin{align}
+    V(r) = 4\epsilon \left(\left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^{6} \right)
+\end{align}
+Dove si ha che $r_0 = 2^{1/6} \cdot  \sigma \approx 1.12 \sigma$.
+Sigma è il valore oltre al quale il potenziale diventa negativo, ossia il punto in cui
+si azzera l'energia potenziale; il valore di $\epsilon$ per i gas nobili è dato da
+\begin{gather*}
+    \epsilon = 10^{-3} \sim 10^{-2} eV   
+\end{gather*}
+mentre il range di $\sigma$ (sempre per i gas nobili) è 
+\begin{gather*}
+    \sigma = 0.2 \sim 0.4 \ nm
+\end{gather*}
+L'interazione alla sesta è data dai termini di Van Der Walls che dipendono
+dalle interazioni tra le nubi elettroniche; è possibile ricavare che il contributo attrattivo sia
+di potenza $6$ mentre il contributo repulsivo è di potenza $12$ in quanto 
+è computazionalmente comoda. Questo modello puramente meccanico ci permette di descrivere le interazioni
+atomiche a livello approssimativo poiché non si può usare le leggi della meccanica classica.
+
+\section{Studio del minimo dell'energia totale}
+\subsection{Configurazione a minore energia}
+Nello studio di sistemi conservativi si possono imparare un sacco di cose
+dallo studio della funzione dell'energia potenziale senza andare a derivare;
+per esempio in uno oscillatore armonico nel punto più
+basso dell'energia potenziale il sistema sta fermo, se però si dà un po' di energia
+al sistema, allora il sistema avrà una regione all'interno della quale si può muovere.
+Dall'espressione dell'energia totale 
+\begin{gather*}
+    E = \frac{1}{2}m\sum_{i = 1}^{n}|\vec{v}_i|^{2} + U(\vec{r}_1, \dots, \vec{r}_n  )     
+\end{gather*}
+si può trovare il minimo dell'energia. Il livello minimo più intuitivo si ha quando tutte le particelle sono ferme,
+tuttavia esisterà anche un altro punto di minimo che è più complicato da ricavare.
+Riesprimendo il potenziale come
+\begin{gather*}
+    U = \frac{1}{2}\sum_{i = 1}^{n}\sum_{j = 1}^{n}V(|\vec{r}_i - \vec{r}_j|  )_{i \neq j}  
+\end{gather*}
+Trascurando l'effetto della differenza tra due e tre dimensioni e, al posto di utilizzare metodi analitici, cerchiamo di trovare il minimo attraverso
+metodi fisici e matematici. Lo scopo è allora capire come si dispongono gli atomi nello spazio
+per poter determinare il minimo dell'interazione tra di essi. \\
+Possiamo innanzitutto ricondurci ad un caso molto semplice con soli due atomi $N = 2$.
+L'energia potenziale è allora minima quando $r = r_0$, che si ottiene centrando il
+sistema di riferimento nella particella 1 e ponendo la seconda a distanza $r_0$.\\
+Se avessi ora tre particelle, avrei tre contributi energetici per il potenziale dato da
+\begin{gather*}
+    U = V(r_{1, 2}) + V(r_{1, 3}) + V(r_{2, 3})
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La configurazione a minore energia: il reticolo regolare}
+    \begin{tikzpicture}
+        \filldraw(0, 1) circle (0pt);
+        \filldraw(0, 0) circle (2pt);
+        \filldraw(1, 0) circle (2pt);
+        \filldraw(-1, 0) circle (2pt);
+        \filldraw(0.5, 0.75) circle (2pt);
+        \filldraw(-0.5, 0.75) circle (2pt);
+        \filldraw(0.5, -0.75) circle (2pt);
+        \filldraw(-0.5, -0.75) circle (2pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se la distanza tra tutte le particelle è esattamente $r_0$, allora il mio sistema
+avrà energia potenziale minima. Da $N > 4$ le cose cambiano radicalmente
+in quanto, essendo vincolati ad un piano, non c'è nessun modo per far sì
+che le distanze tra tutte le particelle sia uguale. Devo disporre quindi tutte le particelle in modo
+tale che stiano secondo uno schema simmetrico e regolare in quanto le particelle da una parte della configurazione
+esercitano una certa forza mentre quelle che stanno dall'altra esercitano una forza
+uguale e contraria per cui il contributo netto sulle singole
+particelle è zero. Con questa disposizione regolare allora avremmo che la funzione presenta sicuramente un punto
+stazionario anche se, secondo l'analisi, si avranno altri punti stazionari. Dobbiamo fare in modo che questa configurazione regolare si 
+contribuisca con la minore energia possibile e quindi posso ripetere il pattern del triangolo
+equilatero per poter ottenere la minore energia potenziale. \\
+Si può dimostrare che il reticolo regolare è la configurazione con minore energia potenziale
+purché il numero di particelle considerate sia molto grande rispetto ad $1$ anche se il minimo
+vero è diverso poiché stiamo ignorando il contributo potenziale con
+la parete. Possiamo ottenere tutte le posizioni delle particelle in un reticolo
+come se fosse un sottospazio vettoriale con generatori 
+\begin{gather*}
+    \vec{a} = r_0 \hat{i} \\
+    \vec{b} = \frac{r_0}{2}\left(-\hat{i} + \sqrt{3}\hat{j}   \right)\\
+    \ \Longrightarrow \ \vec{r}_{n, m} = n\vec{a} + m\vec{b} \quad  n, m \in \mathbb{Z}      
+\end{gather*}
+Si può allora ottenere che per determinare il minimo per ogni particella si considerano le particelle
+all'interno dell'esagono più vicino poiché abbiamo dimostrato che, in valore assoluto, hanno contributo maggiore
+e dunque si ottiene che il minimo è proprio:
+\begin{align}
+    E_{mn} \approx \frac{1}{2}\sum_{i = 1}^{N} \sum_{j \neq i}^{6}V(r_0) = -3N\epsilon  
+\end{align}
+Il \textbf{cristallo} è la disposizione di minima energia possibile in quanto
+la fisica quantistica fa prediligere le formazioni cristalline come
+configurazione di energia minore possibile.
+
+\subsection{Validità del modello entro un certo $\Delta E$ rispetto al minimo}
+Dobbiamo ora cercare di convincerci che questo modello non 
+funzioni solo per un modello con poche particelle ma anche per configurazioni abbastanza simili:
+\begin{gather*}
+    E = E_{min} + \Delta E
+\end{gather*}
+Posso applicare allora un po' di energia cinetica al nostro
+modello attraverso il calore per poter ottenere un innalzamento dell'energia totale
+(utilizzando l'approssimazione per la quale l'energia che applichiamo al sistema
+è uniformemente condivisa tra tutti gli atomi). 
+Possiamo prendere l'$i$-esimo atomo con energia pari a
+\begin{gather*}
+    \frac{1}{2}m|\vec{v}_i|^{2} \approx \frac{\Delta E}{N} \qquad \Delta E << E_{min} \qquad  \frac{1}{2}m|\vec{v}_i|^{2} << \epsilon    
+\end{gather*}
+Se sviluppassi con Taylor al secondo ordine la funzione di potenziale rispetto a $r$
+si ottiene che
+\begin{gather*}
+    V(r_{i, j}) \approx -\epsilon + \frac{1}{2}V''(r_0)(r_j - r_0)^{2}  \qquad V''(r_0) = 72\frac{\epsilon}{r_0^{2} }
+\end{gather*}
+Tutte le coppie di atomi si comportano allora come oscillatori armonici e quindi si può approssimare
+il modello come un network di oscillatori armonici trascurando le molle più lontane
+e considerando solo quelle dei 6 atomi più vicini. Macroscopicamente si comporta come un solido in quanto per poterlo deformare
+bisogna applicare forze molto grandi. Se si continua a far crescere l'energia, ad un certo
+punto dobbiamo aggiungere termini successivi allo sviluppo di Taylor, il quale diventa più grande,
+e il modello necessita dell'introduzione dei termini successivi. Da questo
+si ha che più un sistema è caldo (e quindi più calore forniamo ad un sistema) 
+e più questo si dilata. 
+
+\subsection{Gli effetti di $\Delta E$ molto grandi}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La buca di potenziale}
+    \begin{tikzpicture}
+        \draw[->] (-1, 0) -- (4, 0) node[at end, below] {$\frac{r}{r_0}$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$\frac{V}{\epsilon}$};
+        \draw(0.75, 3) ..controls (1, -2.5) and (1.35, -0.25) .. (2, -0.05);
+        \draw(2, -0.05) -- (3.5, -0.05);
+        \draw[dashed](3.5, -0.05) -- (4, -0.05);
+        \draw[<->](1.3, 0) -- (1.3, -0.65);
+        \draw[dashed](-0.5, 1) -- (3, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}Aumentando sempre di più $\Delta E$ il modello avrà un asintoto verticale e
+quindi se applico una energia maggiore della differenza tra il minimo e zero
+allora gli atomi non saranno più legati tra di loro e quindi il sistema inizierà
+a comportarsi come un gas e ogni particella inizierà a muoversi
+indipendentemente dalle altre.
+Come si vede dal grafico, se aumenta l'energia, i valori possibili di energia
+per $r_0$ tende ad essere uno solo, ossia nella parte del grafico dove l'energia
+potenziale è repulsiva. \\
+Il sistema si comporterà come un solido cristallino se e solo se l'energia delle
+particelle è minore di $\epsilon$ e non supera la buca di potenziale; se superassi allora questa
+buca di potenziale si comporterà come un gas. Ovviamente esiste anche la situazione di mezzo
+per cui il corpo si comporta come un liquido.
+A livello macroscopico la differenza tra un liquido ed un solido
+non è la comprimibilità ma lo scorrimento delle molecole l'una sulle altre.
+
+
+
+\end{document}

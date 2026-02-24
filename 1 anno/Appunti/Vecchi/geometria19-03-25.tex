@@ -1,0 +1,164 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{geometric}
+\author{Tommaso Miliani}
+\date{19-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Autovettori}
+\begin{theorem}
+    SIa $V$ uno spazio vettoriale su di un campo $K$, di
+    dimensione finita $n$ e sia $f : V \to V$ lineari. Sia $\lambda \in K$.
+    Affermo allora che $\lambda$ è radice del polinomio caratteristico se
+    e solo se $\lambda$ è autovalore di $f$. 
+\end{theorem}
+\begin{proof}
+    $\lambda$ è autovalore di f se e solo se 
+    \begin{gather*}
+        \exists v \in V - \{0\} : f(v) = \lambda v.
+    \end{gather*}
+    ossia equivale a dire che
+    \begin{gather*}
+        \exists v \in V - \{0\} : f(v) - \lambda I_V(v) = 0 
+    \end{gather*}
+    E quindi questo equivale a dire che sono linearmente indipendenti e quindi 
+    equivale a dire che il rango meno $\lambda$ volte l'identità è minore di $n$.
+    \begin{gather*}
+        rk M_{B, B}(f - \lambda I_V) < n
+    \end{gather*}
+    Ossia è come dire
+    \begin{gather*}
+        \det(M_{B, B}(f) \lambda I_V) = 0
+    \end{gather*}
+    e quindi si ottiene la tesi:
+    \begin{gather*}
+        P_f(\lambda) = 0
+    \end{gather*}
+\end{proof}
+
+\begin{lemma}
+    Sia $A \in M(n \times n, K)$ dove $K$ è un campo e $n \in N - \{0\}$ 
+    allora:
+    \begin{enumerate}
+        \item Il termine di grado zero di $P_A$ è $\det(A)$;
+        \item $P_A$ ha grado $n$ e scrivendo i termini di tutti i gradi si ha:
+        \begin{align}
+            P_A(t) = (-1)^{n} t^{n} + (-1)^{n - 1}tr(A)t^{n - 1} \dots + \det(A)    
+        \end{align}
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Per la prima per calcolare il termine di grado zero basta porre
+    $x = 0$ e quindi il termine di grado zero è proprio il determinante poiché
+    \begin{gather*}
+        P_A(0) = \det(A - 0I_n) = \det(A) \\
+        (P_A(t) = \det(A - tI_n))
+    \end{gather*}
+    Per la seconda si procede per induzione su n:
+    \begin{gather*}
+        n = 1, \qquad A = (a), \qquad  P_A(t) = \det((a) - tI_n)
+    \end{gather*}
+    Allora si ottiene, per la matrice $A, n \times n$:
+    \begin{gather*}
+        P_A(t) = \det(A - tI_n) = \det(\dots)
+    \end{gather*}
+    Sviluppando per la prima colonna e moltiplicando per 
+    la matrice complementare si ottiene il determinante.
+\end{proof}
+
+\begin{lemma}
+    Sia $A \in M(n \times n, K)$ se
+    \begin{gather*}
+        P_A(t) = (\lambda_1 - t)\dots
+    \end{gather*}
+    allora
+    \begin{align}
+        \det(A) &= \lambda_1 \cdot  \dots \cdot  \lambda_n \\
+        tr(A) &= \lambda_1 + \dots + \lambda_ n
+    \end{align}
+\end{lemma}
+\begin{proof}
+    Per la proposizione appena vista il polinomio caratteristico di A
+    è proprio:
+    \begin{gather*}
+        P_A(t) = (-1)^{n}t^{n} + (-1)^{n - 1}tr(A)t^{n - 1} \dots    
+    \end{gather*}
+    Ma per ipotesi io so che:
+    \begin{gather*}
+        P_A(t) = (\lambda_1 - t)\dots = (-t)^{n} 
+    \end{gather*}
+    E allora è dimostrata. 
+\end{proof}
+
+\begin{definition}
+    Sia $V$ uno spazio vettoriale su di un campo $K$, allora
+    se $f$ è l'applicazione lineare su quello spazio e $\lambda$ un
+    suo autovalore allora definisco \textbf{autospazio di $f$ relativo a $\lambda$ }
+    il seguente sottospazio vettoriale di dV:
+    \begin{align}
+        \ker(f - \lambda I_V)
+    \end{align}
+    che coincide con 
+    \begin{gather*}
+        \{v \in V : v \text{ autovettore di f con autovalore } \lambda\} \cup \{0_V\}
+    \end{gather*}
+\end{definition}
+I due insiemi sono uguali perché
+\begin{gather*}
+    v \in Ker(f - \lambda I_V) \Leftrightarrow (f - \lambda I_V)(v) = 0 \Leftrightarrow f(v) - \lambda I_V(v) = 0 \Leftrightarrow f(v) = \lambda v 
+\end{gather*}
+
+\begin{definition}
+    Si definisce \textbf{molteplicità geometrica di $\lambda$} come la dimensione
+    dell'autospazio e si indica come $m_g(\lambda)$. Per cui $\lambda$ è autovalore
+    per $f$ se e solo se $m_g(\lambda) \geq 1$. 
+\end{definition}
+
+\begin{definition}
+    Supponiamo adesso che la definizione di $V$ sia finita, allora 
+    posso definire \textbf{molteplicità algebrica di $\lambda$} il massimo
+    $s \in N$ rale che:
+    \begin{align}
+        (t - \lambda)^{s}  
+    \end{align}
+    divide $p_f$ e si denota come $m_a(\lambda)$.Per cui $\lambda$ è autovalore
+    per $f$ se e solo se $m_a(\lambda) \geq 1$. 
+\end{definition}
+
+
+\end{document}

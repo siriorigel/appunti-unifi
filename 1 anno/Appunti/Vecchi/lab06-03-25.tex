@@ -1,0 +1,74 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Lab}
+\author{Tommaso Miliani}
+\date{06-04-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Massa con anello (cock ring)}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 38eyq}
+    \caption{culo}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (2, 0);
+        \draw(1, 0) -- (1, -1) ;
+        \draw(0.75, -1.25) rectangle (1.25, -1);
+        \draw(0.5, -1.75) rectangle (1.5, -1.25);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se mettiamo un cock ring sopra una massa con raggio r, allora
+\begin{align}
+    G = C_t \frac{2}{\pi}\frac{L}{r^{4} }
+\end{align}
+\begin{align}
+    C_t = I_{AN}\frac{4\pi^{2} }{T_2^{2} -T_1^{2} }
+\end{align}
+\begin{align}
+    I_{AN} = \frac{1}{2} m_{AN} (R^{2}_i + R^{2}_{l}  )
+\end{align}
+Poiché:
+\begin{gather*}
+    \left\{\begin{array}{c}
+        T_1 = 2\pi\sqrt{\frac{I_{lm}}{C_t}}\\
+        T_2 = 2\pi \sqrt{\frac{I_{lm} + I_{AN}}{C_t}}  
+    \end{array}\right.
+\end{gather*}
+La propagazione dell'errore allora:
+\begin{gather*}
+    \frac{\Delta G}{G} = \frac{\Delta L}{L} + 4\frac{\Delta d}{d} + \frac{\Delta I_{AN}}{I_{AN}} + \frac{2T_2\Delta T_2 + 2T_1\Delta T_1}{T_2^{2} -T_1^{2}}
+\end{gather*}
+Allora si ha che:
+\begin{gather*}
+    \frac{\Delta_{AN}}{I_{AN}} = \frac{\Delta m_{AN}}{m_{AN}} - \frac{2R_i\Delta R + 2R_t \Delta R_c}{R_i^{2}+R_l^{2}}
+\end{gather*}
+
+\end{document}

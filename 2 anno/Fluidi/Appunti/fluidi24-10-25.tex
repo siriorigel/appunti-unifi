@@ -1,0 +1,289 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Termodinamica}
+\author{Tommaso Miliani}
+\date{24-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Come si traduce l'equazione di diffusione nel caso realistico}
+In questo caso la funzione flusso di calore si traduce semplicemente utilizzando 
+la funzione sul vettore posizione: 
+\begin{align}
+    q(\vv{r}, t) = -k \nabla T \cdot  \vv{n} 
+\end{align}
+Localmente la superficie che si è considerata ha una direzione normale esterna
+determinata dal vettore $\vv{n}$. E' quindi la legge di Fourier in tre dimensioni.
+Il campo di temperatura si modifica nella seguente maniera:
+\begin{gather*}
+    \frac{\partial T}{\partial t} = D_T \nabla^{2} T  
+\end{gather*} 
+Questo è un esempio di fenomeno irreversibile: in generale si deve introdurre
+una distinzione tra trasformazioni reversibili ed irreversibili.
+
+\section{Trasformazioni reversibili}
+Per definire una trasformazione reversibile non è sufficiente
+dire che un processo può essere invertito: si deve anche poter riportare
+indietro anche l'ambiente circostante. In altre parole una trasformazione
+reversibile deve cancellare ogni traccia di quello che è successo sull'ambiente
+per poter essere definita tale (oltre che tornare allo stato iniziale). Se si fosse
+compiuto un certo $L$ oppure si fosse scambiata una certa quantità di calore
+$Q$ con l'ambiente, una trasformazione reversibile deve poter
+compiere un lavoro $-L$ e scambiare $-Q$ calore con l'ambiente in modo 
+tale che non ci sia nessun modo per poter determinare che c'è stata una trasformazione.
+Anche se questo non è possibile, entro certe approssimazioni è possibile avvicinarsi 
+arbitrariamente all'ideale della trasformazione reversibile. Le trasformazioni 
+che non soddisfano queste caratteristiche prendono il nome di \textbf{irreversibili}.
+
+\subsection{Esempi di trasformazioni irreversibili}
+Il raggiungimento dell'equilibrio termico tra due sistemi termodinamici è un esempio di 
+trasformazione spontanea e irreversibile che annulla il gradiente del campo 
+di temperatura; questa è irreversibile perché non esiste un modo per poter
+riportare entrambi i sistemi alla loro temperatura iniziale utilizzando la stessa
+trasformazione termodinamica poiché uno dei due sistemi non deciderà mai di assorbire 
+calore dall'altro per poter tornare alle proprie temperature iniziali ma devo utilizzare
+trasformazioni diverse. \\
+Un'altra trasformazione irreversibile è l'espansione adiabatica: questo tipo di 
+trasformazione, per poter riportare il sistema alle condizioni iniziali, devo comprimere il
+gas (e dunque compiere lavoro) e utilizzare un termostato e dunque 
+l'espansione adiabatica è una trasformazione irreversibile. 
+La caratteristica che accomuna queste due trasformazioni è la 
+non quasi staticità delle due trasformazioni. Tuttavia non è chiaro che
+se una trasformazione sia quasi statica allora debba anche essere reversibile:
+è una condizione necessaria ma non sufficiente. Tuttavia non è chiaro anche qui
+se tutte le trasformazioni irreversibili non siano quasi statiche.
+
+\subsection{E' possibile trovare una trasformazione quasi statica reversibile?}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Trasformazione quasi statica irreversibile}
+    \begin{tikzpicture}[scale = 0.8]
+        \filldraw[cyan, opacity = 0.3] (0, 0) rectangle (2, 2);
+        \draw[very thick](0, 0) rectangle(4, 2);
+        \filldraw(2, 0) rectangle (2.2, 2);        
+        \draw(2, 1) -- (5, 1);
+        \draw(4.25, 0) rectangle (5.75, 0.75);
+        \draw[pattern = north west lines, pattern color = white](4.5, 0.75) rectangle (5.5, 1);
+        \draw[pattern = north west lines, pattern color = white](4.25, 0.6) rectangle(5.75, 0.75);
+        \node at(5, 0.3) {$T$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per fare una trasformazione quasi statica reversibile: potrei pensare di far
+avvenire una espansione di un gas adiabatica e quasi statica: per farlo posso
+mettere un pistone che viene spinto dal gas istante per istante. Quello che 
+accade è che il gas fa lavoro sull'ambiente esterno e può essere immagazzinato 
+sottoforma di energia potenziale per esempio con una molla attaccata al pistone. 
+In questo modo questa trasformazione è reversibile poiché non si è lasciata alcuna
+traccia nell'ambiente e nel sistema.  
+Si può ottenere un risultato analogo (ma non reversibile) utilizzando non più 
+un apparato che possa immagazzinare energia potenziale ma facendo
+agire degli attriti all'asta che collega il pistone in modo tale che sia l'attrito che mi permetta
+di ottenere la trasformazione quasi statica. All'andata è dunque stato fatto del lavoro meccanico
+sull'ambiente e le forze dissipative hanno trasformato l'energia 
+meccanica del gas in energia interna dell'ambiente sottoforma di calore. In questa situazione
+la quasi staticità non basta poiché al termine del processo è vero che il gas torna
+nelle condizioni iniziali, ma è stato compiuto lo stesso lavoro sia 
+all'andata che al ritorno dalle forze di attrito: dunque si è dissipata
+una quantità di energia pari a
+\begin{gather*}
+    2L = Q_{d}
+\end{gather*}
+Se prendessi in prestito dal termostato una certa quantità di calore e,
+tramite processi termodinamici, la trasformassi in lavoro, potrei ottenere 
+lo stesso lavoro inverso $-L$. Tuttavia, anche se il primo principio
+della termodinamica non lo vieta, non è possibile realisticamente ottenere
+questo processo. Questo principio che vieta questa cosa, prende il nome di 
+\textbf{secondo principio della termodinamica}.
+
+
+\section{Secondo principio della termodinamica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Situazione impossibile per questo enunciato}
+    \begin{tikzpicture}[scale = 1.2]
+        \draw(0, 0) rectangle (2, 1);
+        \node at (1, 0.5) {T};
+        \draw[->, very thick](1, 0) -- (1, -0.5) node[midway, right] {$Q$};
+        \draw(0.5, - 1) -- (1, -0.5) -- (1.5, -1) -- (0.5, -1);
+        \draw[->, very thick](1.25, -0.75) -- (2, -0.75) node[at end, right] {$L > 0$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Anche se si chiama secondo principio, storicamente è stato trovato prima 
+del primo come spiegazione delle trasformazioni irreversibili. Inizialmente 
+formulato da Kelvin, è stato successivamente riformulato da Planck
+e dunque prende il nome di enunciato KP:
+\begin{remark}[Enunciato KP]
+    Non è possibile realizzare una trasformazione termodinamica il cui unico 
+    risultato sia la completa trasformazione di una certa quantità di calore $Q$
+    in lavoro meccanico $L > 0$ quando questa quantità di calore è assorbita
+    da un solo termostato. 
+\end{remark}
+Questo enunciato è troppo generico anche se garantisce che la trasformazione di calore 
+in lavoro non è l'unica trasformazione possibile. 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il lavoro del gas su di un corpo di massa $m$}
+    \begin{tikzpicture}[scale = 0.85]
+        \draw[very thick](0, 0) --  (2, 0) -- (2, 4);
+        \draw[very thick](0, 0) -- (0, 4);
+        \draw[very thick](0, 2) -- (2, 2);
+        \draw(0.5, 2) rectangle (1.5, 3) node[midway] {$m$};
+        \filldraw[cyan, opacity = 0.3](0, 0) rectangle (2, 2);
+        \draw[|-|](-0.2, 2) -- (-0.2, 3.2) node[midway, left] {$h$};
+        \draw[dashed](0, 3.2) -- (2, 3.2);
+        \draw[dashed](0.5, 3.2) rectangle (1.5, 4.2) node[midway] {$m$};
+        \draw (-1, -1) rectangle (3, 0) node[midway] {$T$};
+        \node at (3, 2) {$L = Q$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si può considerare l'esperimento di Fermi per cui un gas perfetto
+sopra un termostato alza una massa posta sopra di esso e dunque 
+il lavoro fatto deve essere pari alla quantità di calore che gli passa il 
+termostato per il primo principio.  Questo esperimento funziona perfettamente 
+e posso trasformare tutto il calore in lavoro ma il punto è che 
+nel farlo il dispositivo deve cambiare il suo stato. Si arriva alla
+formulazione del secondo principio secondo Clausius
+\begin{remark}[Enunciato C]
+    Non è possibile avere una trasformazione termodinamica il cui unico risultato 
+    sia il passaggio di calore da un termostato $T_B$ ad un termostato
+    $T_A$ se $T_A > T_B$. 
+\end{remark}
+Senza la parola unico, il frigorifero sarebbe un sistema ideale, 
+tuttavia se non gli fornisco energia, il frigorifero non funziona. 
+Questi due enunciati non riescono a dirci se una trasformazione sia reversibile o no:
+facendo un po' di strada il primo principio ci permette di dire se 
+una trasformazione è reversibile o meno. 
+
+\subsection{Gli enunciati si coimplicano}
+Si può dimostrare che i due enunciati si possono implicare a vicenda
+in quanto entrambi dicono che non è possibile fare determinate cose. 
+Possiamo dimostrare che la negazione di Kelvin Planck implica la negazione 
+dell'enunciato di Clausius: essendo che enunciano delle impossibilità ,
+possiamo negare gli enunciati e ragionare con un controesempio. 
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw(0, -1) rectangle (1, 1) node[midway] {$T$};
+        \draw[->, very thick](1, 0) -- (2, 0) node[midway, above] {$Q$}; 
+        \draw(1.75, -0.25) -- (2.25, 0.25) -- (2.75, -0.25) -- (1.75, -0.25);
+        \draw[very thick, ->](2.5, 0) -- (3.5, 0) node[midway, above] {$L$};
+        \draw(3.5, -0.5) rectangle (4.5, 0.5) node[midway] {$E_{pot}$};
+        \draw[->, very thick](4.5, 0) -- (5.5, 0) node[midway, above] {$L$};
+        \draw(5.5, -0.5) rectangle (6.5, 0.5) node[midway] {$F_{att}$};
+        \draw[->, very thick](6.5, 0) -- (7.5, 0) node[midway, above] {$Q$};
+        \draw(7.5, -1) rectangle (8.5, 1) node[midway] {$T'$};
+    \end{tikzpicture} 
+\end{gather*}
+Negando KP possiamo prendere una certa quantità di calore $Q$ da un termostato a 
+temperatura $T$ e utilizzarla per produrre una
+certa quantità di lavoro. Questo lavoro lo posso immagazzinare sottoforma di energia potenziale
+e dunque posso utilizzarla quando voglio su di un sistema dove c'è un attrito in 
+modo tale che il calore dissipato da questa forza di attrito passi sottoforma
+di calore in un termostato con temperatura $T'$. Potrei allora 
+decidere (dato che niente me lo vieta), la temperatura del secondo termostato
+in modo tale che $T' > T$. In questo modo ho creato un insieme di processi 
+termodinamici tali per cui sono riuscito a trasferire calore da un corpo più freddo ad uno 
+più caldo. Per poter dimostrare l'altro verso devo introdurre le macchine termiche. 
+
+\subsection{Macchine termiche}
+Si definisce \textbf{Macchina termica} un dispositivo in grado di trasformare del calore
+in lavoro attraverso delle trasformazioni termodinamiche quando scambia calore con un termostato.
+Una macchina termica che rice lavoro dall'ambiente e usa questo lavoro prende il nome di \textbf{macchina frigorifera}.
+Alcune macchine termiche sono \textbf{cicliche} sono delle macchine che compiono del lavoro e, terminato il processo 
+di trasformazione di calore in lavoro, tornano  sempre nello stesso stato iniziale. Se
+le trasformazioni che avvengono sono tutte reversibili, allora la macchina termica prende il nome di
+\textbf{macchina termica reversibile}. Dato che una macchina termica prende 
+del calore e lo converte in lavoro e prende il calore da un solo termostato, allora ha la seguente rappresentazione
+\begin{gather*}
+    \begin{tikzpicture}[scale = 0.85]
+        \draw(0, 0) rectangle (2, 1) node[midway] {$T_1$};
+        \draw[very thick, <->](1, 0) -- (1, -1) node[midway, right] {$Q_1$};
+        \draw(1 , -2) circle (1);
+        \node at (1, -2) {$M$};
+        \draw[->, very thick](2, -2) -- (3, -2) node[midway, above] {$L > 0$};
+        \draw(0, -5) rectangle(2, -4) node[midway] {$T_2$};
+        \draw[->](-1, -4) -- (-1, 0) node[at end, left] {$T$};
+        \draw[very thick, <->](1, -4) -- (1, -3) node[midway, right] {$Q_2$};
+    \end{tikzpicture}
+\end{gather*}
+Una conseguenza del secondo principio è che una macchina termica deve necessariamente interagire
+con due termostati diversi in quanto altrimenti riuscirebbe a convertire tutto il calore 
+in ingresso in lavoro (e farebbe SOLO quello). In linea di principio se la macchina termica scambiasse
+tutto il calore che arriva da $T_1$ e lo da a $T_2$ allora non compirà nessun lavoro. 
+Dato che la quantità complessiva di calore scambiato dal sistema è 
+esattamente $Q = Q_1 + Q_2$, e il lavoro di questa macchina termica è 
+positivo, allora ho allora quattro possibili combinazioni
+\begin{itemize}
+    \item $Q_1 < 0, Q_2 < 0$: impossibile in quanto non potrebbe fare lavoro poiché la macchina
+    starebbe fornendo calore ad entrambi i termostati.
+    \item $Q_1 > 0, Q_2 > 0$: in questa configurazione la macchina sta ricevendo calore da entrambi
+    i dispositivi. Dalla teoria io so che tra questi due termostati passa del calore se sono messi in contatto: se 
+    potessi mettere quindi un conduttore tra i due termostati, allora mentre la macchina lavora
+    il termostato $T_1$ cede del calore al termostato $T_2$. In questo modo 
+    potrei far sì che durante un ciclo la quantità di calore che passa è $|Q_2|$. Questo mi porta a dire che
+    il termostato $T_2$ riceve del calore $Q_2$ e cede del calore $Q_2$; questa situazione è equivalente alla situazione 
+    in cui il termostato $T_1$ cede un calore pari a $Q_1 + Q_2$ come se il termostato $T_2$ non ci fosse. Allora questa
+    macchina violerebbe il secondo principio della termodinamica.
+    \item $Q_1 < 0, Q_2 > 0$: questa situazione ha due casi intermedi. \begin{itemize}
+        \item $|Q_1| > |Q_2|$: ossia la situazione in cui assorbe calore da $T_2$ e lo cede 
+        a $T_1$. Dato che cede più calore di quanto ne assorbe, se ponessi un collegamento 
+        tra i due termostati e riuscissero a scambiare, tramite questo collegamento una quantità
+        $Q_1$, allora è lo stesso ragionamento per il quale $T_1$ non esisterebbe ed è dunque 
+        equivalente alla situazione nella quale $T_2$ è da solo e dunque viola di nuovo il 
+        secondo principio della termodinamica.
+    \end{itemize}
+    \item $Q_1 > 0, Q_2 < 0$: questa è l'unica configurazione possibile in quanto è possibile cedere del
+    calore al termostato più freddo prendendolo dal termostato più caldo.
+\end{itemize}
+
+
+
+
+\end{document}

@@ -1,0 +1,119 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di astronomia}
+\author{Tommaso Miliani}
+\date{22-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{I telescopi}
+L'astrofisico utilizza il telescopio per poter osservare la radiazione
+luminosa proveniente dagli oggetti celesti. Ci sono diverse tipologie di
+telescopi (rifrattori e riflettori) che vengono utilizzati 
+ognuno nel loro campo di applicazione.  Galileo Galilei fu il primo ad
+utilizzare e realizzare telescopi per l'osservazione della sfera celeste. 
+
+\subsection{I parametri fondamentali dei telescopi}
+\begin{itemize}
+    \item \textbf{Apertura} ($D$): ossia il diametro dell'obbiettivo (anche chiamato 
+    specchio primario nei riflettori), che determina la raccolta di luce proporzionale a $D^{2}$.
+    \item \textbf{Lunghezza focale} ($f$): la distanza tra l'obbiettivo ed il piano focale
+    e definisce insieme all'oculare l'ingrandimento del telescopio.
+    \item \textbf{Rapporto focale} ($F = \frac{f}{D}$): determina la velocità di raccogliere i fotoni,
+    ossia se ha un $f$ number (ossia il reciproco di $F = \frac{f}{D}$) molto alto allora 
+    è un telescopio che raccoglie meno luce ma con ingrandimenti maggiori. Se invece si ha un $F$ number
+    basso allora avrà campi più ampi e tempi di esposizione più brevi ma con meno ingrandimenti. 
+    \item \textbf{Tempo di esposizione}: Non è propriamente una caratteristica
+    dei telescopi; il tempo di esposizione è il tempo per cui si mantiene aperto l'obbiettivo
+    sulla sorgente in modo da poter raccogliere quanta più luce possibile
+    per avere immagini più luminose.
+    \item \textbf{Oculare}: E' una lente che sta dopo il punto focale della lente primaria
+    e ha la focale sull'occhio dell'osservatore. Oculari diversi hanno ingrandimenti diversi. 
+    \item \textbf{Campo di vista} (FOV): e' inversamente proporzionale alla lunghezza focale a
+    parità di oculare.
+    \item \textbf{Ingrandimento} (M): è dato dal rapporto tra $f$ e $f_{oculare}$; dove
+    l'$f$ dell'oculare non è una grandezza propria del telescopio ma dell'oculare che si sceglie. 
+    E' logico quindi pensare che più è "lungo" l'oculare e più ingrandimenti ottengo.
+    \item \textbf{Scala spaziale}: Quando si osserva il cielo si osserva una proiezione di una porzione
+    del cielo sul piano dell'immagine. Questa grandezza mi lega le dimensioni degli angoli reali a quella
+    del piano dell'immagine. 
+    \begin{gather*}
+        \tan \theta = \frac{D}{f} \ \Longrightarrow \ \theta \approx \frac{D}{f}
+    \end{gather*} 
+    Si può convertire questa a arcosecondi  (ossia secondi di arco ossia $''$) definiti come
+    $1 \ rad = 180 \cdot  3600 \ arcsec$. Posso quindi esprimere l'angolo in radiante e quindi il plate scale come
+    \begin{gather*}
+        \theta \approx \frac{D}{f} \cdot  180 \cdot  3600 \ \Longrightarrow \ \theta = \frac{180\cdot 3600}{F}
+    \end{gather*}
+    \item \textbf{Potere risolutivo}: E' l'angolo che mi dice ad una data lunghezza d'onda
+    e ad una data apertura quanta è la dimensione angolare di una sorgente puntiforme: più è grande l'angolo
+    di risoluzione e più risulta grande una sorgente puntiforme nell'immagine. Con la seguente si
+    riesce a determinare il limite di Rayleigh, ossia il limite oltre al quale due sorgenti puntiformi 
+    sono indistinguibili l'una dall'altra:
+    \begin{gather*}
+        \theta_r \approx 1.22 \frac{\lambda}{D}\text{°} \ \vee \ \theta_r \approx 2.5 \cdot  10^{5} \frac{\lambda}{D} '' 
+    \end{gather*}.
+\end{itemize}
+
+\subsection{Aberrazioni}
+Esistono vari tipi di aberrazioni (ossia dei difetti dei un sistema ottico) che causa la deviazione
+dei raggi luminosi impedendo la formazione di una immagine perfetta e puntiforme di un oggetto puntiforme,
+sfocatura o distorsione dell'immagine finale. Le aberrazioni sono una conseguenza intrinseca della natura ondukatoria
+e del comportamento della luce. 
+
+
+\section{I vari tipi di telescopi}
+\subsection{Il telescopio Galileiano}
+Il telescopio Galileiano è un telescopio semplice che combina degli 
+obbiettivi convergenti ed un oculare divergente ed un percorso ottico
+corto ed una immagine dritta. Si vede che non è utilizzabile in quanto il problema delle lenti
+è che sono estremamente fragili e dato che il vetro è un fluido estremamente viscoso
+allora è molto difficile anche produrre lenti con lunghezze focali molto piccole e diametri grandi.
+
+
+
+\end{document}

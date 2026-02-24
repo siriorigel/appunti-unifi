@@ -1,0 +1,401 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fluidodinamica}
+\author{Tommaso Miliani}
+\date{02-12-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Flusso di massa}
+La proprietà della conservazione della massa si può applicare
+ad un volume finito , allora la massa totale di questo volume è
+dato dall'integrale
+\begin{gather*}
+    M = \int_{V}^{} \rho \ dV
+\end{gather*}
+L'unico modo per variare la massa è che questa entra o esca
+dal volume, allora posso dire che la variazione della massa è
+esattamente il flusso di massa:
+\begin{gather*}
+    \dot{M} = -\int_{\Sigma (V)}^{} \rho \vv{u} \cdot \hat{n} \ d\sigma   
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$z$};
+        \draw[->](0, 0) -- (0, 2) node[at end, left] {$y$};
+        \draw[->](0, 0) -- (-1, -1) node[at end, below] {$x$};
+        \draw(-0.5, -0.5) -- (0.5, -0.5) -- (1, 0) -- (1, 1) -- (0.5, 0.5) -- (-0.5, 0.5) -- (-0.5, -0.5);
+        \draw(0.5, -0.5) -- (0.5, 0.5);
+        \draw(-0.5, 0.5) -- (0, 1) -- (1, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Ossia tramite il vettore normale alla superficie, si può anche riscrivere
+questa equazione in forma differenziale ragionando su di una piccola porzione
+di volume (a piacere), dunque si può prendere un volumetto 
+qualsiasi all'interno del fluido e se ne misura la variazione di massa. Dato
+che il volumetto infinitesimo è definito come $dV = dx dy dz$, mentre
+la massa è data da $m = \rho\ dx dy dz $.  Dunque il flusso di massa sarà dato 
+da
+\begin{gather*}
+    \dot{M} = \frac{\partial \rho}{\partial t} \ dx dy dz  
+\end{gather*}
+Iniziando con la componente $x$, posso definire il flusso per le singole
+componenti, dunque il flusso totale per le $x$ è 
+\begin{gather*}
+    \phi_x = \left((\rho u_x) \cdot (x + dx, y, z) - (\rho u_x)\cdot (x, y, z)\right) dy dz 
+\end{gather*}
+Per le altre due componenti è
+\begin{gather*}
+    \phi_y = \left((\rho u_y) \cdot (x, y + dy, z) - (\rho u_y) \cdot (x, y, z)\right) dx dz \\
+    \phi_z = \left((\rho u_z) \cdot (x, y, z + dz) - (\rho u_z) \cdot (x, y, z)\right) dx dy
+\end{gather*}
+Adesso posso considerare il flusso totale per il piccolo volumetto:
+\begin{gather*}
+    \frac{\partial f}{\partial t} dx dy dz = -  \left((\rho u_x) \cdot (x + dx, y, z) - (\rho u_x)\cdot (x, y, z)\right) dy dz + \\
+     - \left((\rho u_y) \cdot (x, y + dy, z) - (\rho u_y) \cdot (x, y, z)\right) dx dz - \left((\rho u_z) \cdot (x, y, z + dz) - (\rho u_z) \cdot (x, y, z)\right) dx dy
+\end{gather*}
+semplificando si ottiene la derivata parziale di $\frac{\partial \rho u_x}{\partial dx}$ e lo
+stesso per le altre due componenti, allora si può riscrivere l'intero flusso di massa
+come
+\begin{gather*}
+    \frac{\partial \rho}{\partial t}  = - \frac{\partial }{\partial x} \rho u_x - \frac{\partial }{\partial y}\rho u_y - \frac{\partial }{\partial z} \rho u_z   
+\end{gather*} 
+Ossia questo è l'operatore divergenza:
+\begin{gather*}
+    \frac{\partial \rho}{\partial t} + \vv{\nabla} \cdot (\rho \vv{u} ) = 0  
+\end{gather*}
+Ottenendo :
+\begin{align}
+    \left\{\begin{array}{l}
+                \rho \left(\frac{\partial \vv{u} }{\partial t} + (\vv{u} \cdot  \vv{\nabla}) \vv{u}  \right) = -\vv{\nabla} p + \rho \vv{g}  \\
+        \frac{\partial \rho}{\partial t} + \vv{\nabla} \cdot (\rho \vv{u} ) = 0  
+    \end{array}\right.
+\end{align}
+Dunque si è messo a sistema anche il flusso di massa: 
+
+\section{Risolvere il problema della quinta incognita}
+Si potrebbe pensare al principio di energia, si dovrebbe pensare
+a due energie diverse (l'energia cinetica) e l'energia interna del fluido,
+se non si sa però come il piccolo elemento termodinamico alla posizione $x, y, z$ comunica
+con quelli circostanti, non si può determinare la conservazione dell'energia
+e non si sa che tipo di trasformazione compie l'elemento di volume. 
+Si deve dunque scrivere le proprietà termodinamiche del sistema,
+ossia la legge (barotropica), dunque si definisce la seguente funzione
+\begin{gather*}
+    p= p(\rho)
+\end{gather*}
+Ossia una legge barotropica, supponendo un fluido ideale (gas) e, dato che
+in una trasformazione adiabatica si conserva 
+\begin{gather*}
+    pV^{\gamma} = \text{const}
+\end{gather*}
+Questo ragionamento si può fare anche per l'elemento infinitesimo
+e si può supporre che l'elemento fluido non scambi calore con gli 
+elementi circostanti, si può dunque dire che, dato che ha una massas 
+infinitesima,
+\begin{gather*}
+    p\frac{dm}{\rho}^{\gamma } = \text{const}
+\end{gather*}
+E dunque
+\begin{gather*}
+    p\left(\frac{dm}{\rho}\right)^{\gamma} = p_0 \left(\frac{dm}{\rho_0}\right)^{\gamma}
+\end{gather*}
+E dunque si ottiene una relazione per la pressione 
+\begin{gather*}
+    p = p_0\left(\frac{\rho}{\rho_0}\right)^{\gamma}
+\end{gather*}
+Di fatto questa legge politropica corrisponde all'ipotesi che si compie se la
+trasformazione dell'elemento fluido si evolve adiabaticamente se
+$\gamma$ è il rapporto dei calori specifici.  Il caso isotermo è 
+semplicemente $\gamma = 1$: se non si hanno perdite di calori si ha
+che
+\begin{gather*}
+    T \frac{dS}{dt} = 0
+\end{gather*} 
+Si ha dunque il sistema completo per un fluido comprimibile. Per un fluido incomprimibile
+invece la situazione è ancora più semplice: l'elemento fluido conserva la sua densità, dunque
+\begin{gather*}
+    \frac{d \rho}{d t} = \frac{\partial \rho}{\partial t} \sum_{k = 1}^{3} u_k \frac{\partial \rho}{\partial x_ k} = 0   
+\end{gather*}
+Ma questo non vuol dire che la sua densità sia costante: infatti questo 
+sarebbe un caso particolare della conservazione della densità: infatti nel caso 
+di olio e acqua, l'elemento di fluido ha sempre la stessa densità anche se la densità 
+non è mai costante poiché olio e acqua non si mischiano. L'ipotesi 
+di fluido incomprimibile mi permette allora di dire che,
+sfruttando l'ipotesi di continuità,
+\begin{gather*}
+    \frac{\partial \rho}{\partial t} + \sum_{k = 1}^{3} \frac{\partial }{\partial x_k} (\rho u_k) = \frac{\partial \rho}{\partial t}  + \sum_{k = 1}^{3} \left( u_k \frac{\partial \rho}{\partial x_k} + \rho \frac{\partial u_k}{\partial x_k}\right)  
+\end{gather*}
+Adesso si può riscrivere come
+\begin{gather*}
+    \frac{d\rho}{dt} + \rho \sum_{k = 1}^{3} \frac{\partial u_k}{\partial x_k}  = \frac{d\rho}{dt} + \rho \vv{\nabla} \cdot \vv{u}  
+\end{gather*}
+Ossia la stessa equazione nel sistema di prima. Adesso,questa coincide con la divergenza di
+$\vv{u}$ uguale a zero, dunque per il fluido incomprimibile
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \frac{d\rho}{dt} = \frac{\partial \rho}{\partial t} + \sum_{k = 1}^{3} u_k\frac{\partial \rho}{\partial x_k} = 0 \\
+        \vv{\nabla}\cdot \vv{u} = 0     
+    \end{array}\right.
+\end{gather*} 
+
+\section{Condizioni stazionarie}
+In condizioni stazionarie si possono fare diverse considerazioni, 
+prima di tutto posso dire che
+\begin{gather*}
+    \vv{\nabla}(\rho \cdot \vv{u} ) = 0 
+\end{gather*}
+Prendendo dunque un volume finito e facendone l'integrale della divergenza,
+posso ottenere
+\begin{gather*}
+    \int_{V}^{} \vv{\nabla} (\rho \cdot \vv{u} ) \ dV  = 0 = \int_{\Sigma(V)}^{} \rho \vv{u} \cdot \hat{n} \ d\sigma     
+\end{gather*}
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Tubo di flusso}
+    \begin{tikzpicture}
+        \draw[->](0, 0) .. controls (1, 0.25) and (2, -0.5) .. (3, -0.5);
+        \draw[->](0, -1) -- (3, -1);
+        \draw[->](0, -2) .. controls (1, -2.25) and (2, -1.5) .. (3, -1.5);
+        \draw(0, -1) ellipse (0.25 and 1);
+        \draw(3, -1) ellipse (0.2 and 0.5);
+        \filldraw(0, -2) circle(1pt) node[anchor = north] {$C$};
+        \filldraw(3, -1.5) circle(1pt) node[anchor = north] {$C'$};
+        \node at (2, 0) {$\vv{u}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso trasformarlo in un integrale di volume tramite l'integrale
+di Gauss (oppure scomporlo come si era fatto prima in un volumetto).
+In condizioni stazionarie si possono dunque definire le linee di flusso ed i 
+tubi di flusso e dunque posso applicare l'integrale al tubo di flusso stesso 
+secondo le due superfici $C$ e $C'$:
+\begin{gather*}
+    \int_{\Sigma_C}^{} \rho \vv{u} \cdot \hat{n} \ d\sigma + \int_{\Sigma_{C'}}^{}  \rho \vv{u} \cdot \hat{n} \ d\sigma + \int_{\Sigma_A}^{} \rho \vv{u} \cdot \hat{n}\ d\sigma = 0     
+\end{gather*}
+Deve valere zero in quanto siamo in un tubo chiuso, dove $A$ è la superficie del tubo tra
+le due $C$ e $C'$. Dato che siamo in un tubo di flusso, la normale è sempre
+perpendicolare alla velocità per quanto riguarda il termine che è descritto
+dalla superficie $A$, mentre per quanto riguarda le due componenti 
+sulle superfici $C$ e $C'$ è parallelo e dunque il prodotto scalare è uno.
+\begin{gather*}
+    \int_{\Sigma_C}^{} \rho \vv{u} \ d\sigma = \int_{\Sigma_{C'}}^{}  \rho \vv{u} \ d\sigma 
+\end{gather*}
+Se le linee di flusso sono entranti nel tubo, la componente $\hat{n}$ la considero
+entrante, mentre la seconda la considero uscente, dunque si è invertito la normale e allora  
+si è spiegato perché non c'è il meno nel secondo integrale.
+Si definisce allora
+\begin{align}
+    Q_M =     \int_{\Sigma_C}^{} \rho \vv{u} \ d\sigma = \int_{\Sigma_{C'}}^{}  \rho \vv{u} \ d\sigma 
+\end{align}
+Come la \textbf{portata di massa} $[kg \cdot  s^{-1}]$ che è positiva in questo caso se il fluido va verso destra. La portata
+inoltre si conserva, infatti, se dovesse entrare una certa quantità di massas, allora deve necessaraimente 
+anche uscire dalla sezione $C'$. Chiaramente $\rho$ deve essere una costante per
+i fluidi incomprimibili. In generale per qualunque fluido si conserva la portata di massa
+lungo un tubo di flusso ma, per i fluidi incomprimibili, si conserva anche la \textbf{portata
+di volume} $[m^{3} \cdot s^{-1}]$, in quanto la densità è costante.  Queste considerazioni prendono il 
+nome di \textbf{principio di Leonardo}.
+
+
+\begin{wrapfigure}{r}{0.2\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$\vv{u}$ };
+        \draw(0.25, 1) -- (0.75, -1) node[at start, left] {$\Sigma$};
+        \draw[->](0.5, 0) -- (1.5, 0.3) node[at end, right] {$\hat{n}$ };
+        \draw(1, 0.15) arc (10:0:1) node[at end, below] {$\theta$};
+        \draw[cyan](0.5, 1) -- (0.5, -1) node[at end, left] {$\Sigma$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Questa definizione macroscopica ha anche una controparte microscopica
+per un tubo di flusso sottile, in questo caso si ha che
+\begin{gather*}
+    \rho  \vv{u} \sigma_1 \hat{n} = \rho \vv{u} \sigma_2 \hat{n}  
+\end{gather*}
+Se si avesse una superficie con un certo angolo rispetto alla velocità, 
+basterà fare il prodotto scalare con l'angolo $\theta$ tra il versore
+normale e il vettore velocità. Dunque non varia il flusso se varia 
+l'inclinazione della superficie rispetto al vettore velocità.
+
+\section{Teorema di Bernoulli}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Teorema di Bernoulli applicato al tubo di flusso sottile}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0);
+        \draw[->](0, 0) -- (0, 3.5);
+        \draw(0, 3) .. controls (0.5, 3) and (0.75, 2.5) .. (1, 1.5).. controls (1.25, 0.8) and (1.75, 0.8) .. (2, 0.8);
+        \node at (2, 1.1) {$\vv{dl_2}$ };
+        \node at(0.4, 3.25) {$\vv{dl_1}$ };
+        \draw[dashed](0, 0.8) -- (2, 0.8) node[at start, left] {$h_2$};
+        \node at (-0.3, 3) {$h_1$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Supponendo si avere un tubo di flusso sottile su cui agisce la forza di gravità, le cui
+estremità considerate sono a delle altezze $h_1 > h_2$ e con una profondità
+della sezione considerata rispettivamente di $\vv{dl_1} \neq \vv{fl_2} $.  
+si sa che su di esso agiscono delle forze di pressione che lo fanno muovere all'interno di
+questo tubo sottile che compiono un lavoro che si può esprimere come
+\begin{gather*}
+    L_p = p\sigma_1 dl_1 - p\sigma_2 dl_2
+\end{gather*}
+Il lavoro fatto dalla gravità invece è dato da
+\begin{gather*}
+    L_g = \rho_1 g h_1 \sigma_1 dl_1 - \rho_2  g h_2 \sigma_2 dl_2
+\end{gather*}
+
+\subsection{Il fluido incomprimibile}
+Per un fluido incomprimibile si ha solamente l'energia cinetica da considerare
+come energia interna. Dunque l'energia cinetica all'inizio è diminuita in quanto
+perdo massa (esce dalla superficie) mentre alla fine del tubo l'energia cinetica è
+positiva in quanto entra massa nella superficie e dunque si può esprimere
+\begin{gather*}
+    \Delta K = \frac{1}{2}\rho_2 u_2^{2}\sigma_2 dl_2 - \frac{1}{2}\rho_1 u_1^{2} \sigma_1 dl_1 
+\end{gather*}
+Se non sussistono altri contributi energetici, si deve necessariamente 
+avere conservazione dell'energia totale, dunque
+\begin{gather*}
+    (p_1 + \rho_1 g h_1 + \frac{1}{2}\rho_1 u_1^{2}) \sigma dl_1 = (p_2 + \rho_2 g h_2 + \frac{1}{2}\rho_2 u_2^{2}) \sigma_2 dl_2
+\end{gather*}
+Se il fluido è incomprimibile, allora si ha che 
+\begin{gather*}
+    \sigma_1 dl_1 = \sigma_2 dl_2 = m
+\end{gather*}
+Dato che si suppone anche che si consideri un solo tipo di liquido, allora
+si deve avere che $\rho_1 = \rho_2$, inoltre deve valere che
+\begin{gather*}
+    \frac{p_1}{\rho} + g h_1 + \frac{u_1^{2}}{2} = \frac{p_2}{\rho} + gh_2 + \frac{u_2^{2}}{2}
+\end{gather*}
+E dunque per un fluido incomprimibile ideale vale la seguente legge
+\begin{align}
+    p + \rho g h + \frac{1}{2}\rho u^{2} = \text{const}
+\end{align}
+Con le seguenti forme equivalenti
+\begin{align}
+    \frac{p}{\rho} + gh + \frac{1}{2}u^{2} = \text{const} = \frac{p}{\rho g} + h + \frac{u^{2}}{2g}
+\end{align}
+
+\subsection{Fluido comprimibile}
+Se il fluido è comprimibile invece, devo anche considerare che tipologia
+di fluido è, dunque devo considerare l'energia interna del fluido
+\begin{gather*}
+    \Delta U = U_2 \sigma_2 dl_2 - U_1 S_1 dl_1
+\end{gather*}
+Dove $U_1$ e $U_2$ sono le energie interne per unità di volume.
+Posso dunque rifare il conto visto per il fluido incomprimibile,
+ossia posso porre l'energia totale come conservata, e allora si ottiene che
+\begin{gather*}
+    \Delta K + \Delta U = L_p + L_g
+\end{gather*}
+Ossia la generalizzazione del teorema delle forze vive per un
+fluido comprimibile, poiché, dato che il fluido è comprimibile,
+esso è soggetto a variazioni di temperatura (ossia variazioni delle'energia
+interna). Allora si ottiene
+\begin{gather*}
+    (p_1 + \rho_1 g h_1 + \frac{1}{2}\rho_1 u_1^{2} + U_1)  \sigma_1 dl_1 =  \sigma_2 dl_2(p_2 + \rho_2 gh_2 + \frac{1}{2}\rho_2 u_2^{2} + U_2) 
+\end{gather*}
+Raccogliendo $\rho_1$ e $\rho_2$ da entrambe le parti, si ha che
+le quantità
+\begin{gather*}
+    \rho_1 dV_1 = \rho_2 dV_2
+\end{gather*}
+Sono uguali per l'equazione di continuità, e allora si giunge alla seguente
+legge per i gas comprimibili
+\begin{align}
+    \frac{p + U}{\rho} + gh + \frac{1}{2}u^{2} 
+\end{align}
+La quantità
+\begin{gather*}
+    \frac{p + U}{\rho}
+\end{gather*}
+E' l'entalpia specifica per unità di massa. $p$ è l'entalpia 
+per unità di volume e $U$ è l'entalpia.
+
+\section{Applicazioni pratiche del principio di Bernoulli}
+\subsection{Effetto venturi}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Effetto venturi}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (1, 0);
+        \draw(0, -2) -- (1, -2);
+        \draw(1, 0) .. controls (2.5, -0.5) .. (4, -0.6);
+        \draw(1, -2) .. controls (2.5, -1.5) .. (4, -1.4);
+        \draw(0, 0)  -- (0, -2) node[midway, left] {$\Sigma_1$};
+        \draw(4, -0.6) -- (4, -1.4) node[midway, right] {$\Sigma_2$};\
+    \end{tikzpicture}    
+\end{wrapfigure}
+Preso un fluido incomprimibile e in condizioni stazionarie
+in una conduttura che ha due superfici $\Sigma_1 \neq \Sigma_2$. 
+Applicando il principio di Leonardo, si ha la seguente
+\begin{gather*}
+    u_1 \Sigma_1 = u_2 \Sigma_2 \ \Longrightarrow \ u_2 = \frac{\Sigma_1}{\Sigma_2}u_1
+\end{gather*}
+A questo punto si ha che(poiché non c'è variazione di quota tra le due superfici
+di entrata e di uscita): 
+\begin{gather*}
+    \frac{u_1^{2}}{2} + \frac{p_1}{\rho_1} = \frac{u_2^{2}}{2} + \frac{p_2}{\rho_2}
+\end{gather*}
+Posso determinare $u_1$
+\begin{gather*}
+    \frac{p_1 - p_2}{\rho} = \left(\frac{\Sigma_1}{\Sigma_2}^{2} - 1\right)\frac{u_1^{2}}{2}
+\end{gather*}
+Se $\Sigma_1 > \Sigma_2$, la pressione è più alta dove la velocità 
+è più bassa. Questa cosa è contro intuitiva ma è dimostrato da questo esempio
+e prende il nome di \textbf{Effetto venturi}. 
+
+
+\end{document}

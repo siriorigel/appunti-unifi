@@ -1,0 +1,255 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di fluidi}
+\author{Tommaso Miliani}
+\date{07-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Digressione sui sistemi fluidi}
+\subsection{L'equazione di stato per i gas perfetti}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Trasformazioni nei gas ideali}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (5, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 3.5) node[at end, left] {$p$};
+        \draw[dashed] (1, 0) -- node[at start, below] {$V_0$} (1, 1) -- (0, 1)  node[at end, left] {$p_0$};
+        \filldraw(1, 1) circle (1pt);
+        \filldraw(2, 3) circle (1pt);
+        \draw[dashed](2, 0) -- node[at start, below] {$V_1$} (2, 3) -- (0, 3)  node[at end, left] {$p_1$};
+        \draw[dashed, ->](4.5, 1) .. controls  (3.5, 1.2) and (2.75, 1.5) .. (2, 3) node[at start, right] {$T_1$};
+        \filldraw(4.5, 1);
+        \draw[->](1, 1) -- (4.5, 1);
+        \draw[dashed](4.5, 0) -- (4.5, 1) node[at start, below] {$V_2$};
+        \draw[dashed](1, 1) .. controls (1.3, 0.45) and (1.7, 0.25) .. (2, 0.25);
+        \draw[dashed](0.5, 2) .. controls (0.65, 1.35) and (0.95, 1) .. (1, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+In ogni sistema termodinamico all'equilibrio vale una
+equazione di stato $f(p, V, T) = 0$. In alcuni casi
+si è in grado di ricavare l'equazione di stato attraverso
+la determinazione di un modello di stato attraverso la fisica
+statistica e dagli esprimenti. L'esempio più semplice è quello del
+gas perfetto: dagli esperimenti che ci portano a scrivere le quattro
+leggi empiriche del gas si può ricavare una equazione di stato. 
+Si può, data una mole di gas perfetto, mettersi nelle condizioni
+standard: 
+\begin{itemize}
+    \item $T_0 = 273.15 \ K$: ossia la temperatura di fusione del ghiaccio;
+    \item $p_0 = 1 \ atm$: Ossia la pressione dell'atmosfera al livello del mare;
+\end{itemize}
+Gli esperimenti ci dicono, a queste condizioni, che il gas occupa un volume 
+ben preciso:
+\begin{gather*}
+    V = V_0  = 2.2414 \cdot  10^{-2} \ m^{3} = 22.4 \ l
+\end{gather*}   
+Possiamo allora utilizzare un diagramma per rappresentare l'equilibrio
+dei gas: questo stato è associato ad una certa curva di temperatura secondo
+la legge di Boyle. Posso allora applicare delle trasformazioni che mi permettano di raggiungere il 
+volume $V_2$ alla pressione $p_0$ e lo posso esprimere in funzione
+del volume precedente e della temperatura:
+\begin{gather*}
+    V_2 = V_0 \frac{T_1}{T_0 }
+\end{gather*}
+Se volessi farlo passare dallo stato $(p_1, V_1, T_1)$ allo stato $(p_0, V_2, T_1)$, allora dovrei fare in modo che il  sistema  mantenga
+costante la temperatura ma possa variare la sua pressione in modo tale 
+da avere il volume che io cerco. La temperatura di questi due stati di equilibrio
+è la stessa ma ho cambiato sia il volume che la temperatura proprio
+secondo la legge di Mariotte, deve risultare:
+\begin{gather*}
+    p_1 V_1 = p_0 V_2
+\end{gather*}
+Allora si ha, sostituendo l'espressione del volume 2:
+\begin{gather*}
+    p_1 V_1 = \frac{p_0 V_0}{T_0}T_1
+\end{gather*}
+Posso esprimere allora la costante che moltiplica la temperatura
+come 
+\begin{align}
+    R = \frac{p_0V_0}{T_0} = 8.3145 \ \frac{J}{K}
+\end{align}
+Ossia l'unità di energia per grado Kelvin che prende il nome di 
+\textbf{costante dei gas} che risulta vera per solo una mole di gas. Tuttavia, 
+la legge di Avogadro mi dice che $pV$ è proporzionale al numero
+di moli del gas, si ottiene quindi l'equazione di stato
+per i gas perfetti:
+\begin{align}
+    pV = nRT
+\end{align}
+Queste considerazioni sono fatte a livello macroscopico: già il concetto
+di moli non richiede una spiegazione a livello microscopico in quanto è un
+concetto indipendente  e non necessita di una trattazione a livello microscopico.
+
+\subsection{Il limite di utilizzo dell'equazione di stato dei gas}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 3.5) node[at end, left] {$p$};
+        \draw(0.5, 3.5) .. controls (1, 2) and (3, 1.5) .. (3.5, 1.5);
+        \draw(0.4, 3.5) .. controls (0.5, 1.75) .. (1, 1.75);
+        \draw(1, 1.75) .. controls (2, 1.85) and (2.8, 0.5) .. (3.5, 0.5); 
+        \filldraw(1, 1.75) circle (1pt) node[anchor = south] {$P_C$};
+        \draw(0.3, 3.5) -- (0.5, 1) --  (2.25, 1) -- (3.5, 0.35);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se si volesse analizzare il caso di un gas non perfetto ma molto semplice,
+è ragionevole trattare l'equazione di stato dei gas in maniera tale che
+assomigli ad uno sviluppo di Taylor e che i termini più grandi si diventino molto
+piccoli quando il volume cresce molto:
+\begin{gather*}
+    pV = nRT\left(1 + \frac{B_1}{V} + \frac{B_2}{V^{2} } + \dots\right)
+\end{gather*}
+Si osserva che per gas anche non rarefatti, i coefficienti sono funzione
+sia della temperatura che della composizione chimica del gas stesso. 
+Si possono determinare sperimentalmente in modo tale che questa 
+curva teorica mi produca, nel modo migliore possibile, i miei dati sperimentali.
+Si fa dunque una ipotesi ragionevole per questa funzione anche se questa ipotesi
+è valida solamente se la temperatura è sufficientemente grande. 
+Dire che esistono temperature grandi e temperature piccole vuol dire 
+che il sistema ha una scala di temperatura rispetto alla quale
+ha senso parlare di temperatura grande. Tuttavia ad un certo punto
+lo \textbf{sviluppo del viniale}, non funzionerà più: per trovare questo limite
+possiamo eseguire una serie di esperimenti per alcuni gas abbassando sempre
+di più la temperatura.  Ad un certo punto, se si continua ad aggiungere termini 
+e a far decrescere la temperatura, si 
+raggiunge un \textbf{isoterma critica} nella quale si ha un flesso e sotto la
+quale la curva isoterma non è più una curva ma presenterà due punti angolosi tra i quali
+è costante e dunque non è più descrivibile analiticamente. Ogni
+gas ha una sua temperatura critica $T_c$ sotto alla quale lo sviluppo
+del viniale non è più corretto. 
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La temperatura ad una pressione critica}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$T$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$V$};
+        \draw(0.2, 0.2) .. controls (0.6, 0.3) .. (1, 0.5);
+        \draw[dashed] (1, 0) -- (1, 3) node[at start, below] {$T_{\overline{p} }$};
+        \draw(1, 2) .. controls (2, 2.2) and (2.7, 2.2) .. (3.5, 3);
+    \end{tikzpicture}    
+\end{wrapfigure}
+La parte costante tra i due punti angolosi
+rappresenta esattamente un cambio di stato: il sistema sta passando da gassoso a
+liquido: più si prosegue verso sinistra nel grafico volume-pressione e più il liquido necessita 
+di una pressione sempre più grande per piccole variazioni di volume.
+Non si è sicuri che in una relazione tra tre variabili esse siano tutte e
+tre indipendenti l'una dall'altra; ci possono essere delle situazioni in cui
+esiste la funzione di stato ma presenta delle singolarità. 
+\begin{gather*}
+    V = V(p, T)
+\end{gather*}
+Questa funzione è continua e derivabile se si è a pressione maggiore di quella
+critica, altrimenti non è regolare ma devo prendere la funzione con una
+certa pressione assegnata $\overline{p}$:
+\begin{gather*}
+    V = V_{\overline{p} }(T) = V(\overline{p}, T )
+\end{gather*} 
+Quando la temperatura supera la temperatura
+fissata a pressione $T_{\overline{p}}$  allora il sistema avrà grandi incrementi
+di volume per piccoli incrementi di temperatura in quanto, sopra la temperatura 
+che dipende dalla pressione fissata, il sistema inizierà un cambiamento di
+stato da liquido a gassoso. 
+
+\subsection{L'equazione di Van Der Walls per la descrizione dei gas}
+Dato che la legge dei gas perfetti non vale per tutti i gas, si introduce una
+equazione che possa funzionare anche lontano dal limite della curva critica
+chiamata \textbf{equazione di Van Der Walls}:
+\begin{align}
+    \left(p + \frac{q}{V^{2} }\right)(V- b) = RT
+\end{align}
+Questa equazione prevede l'esistenza di un punto critico (ossia il flesso)
+e fu derivata da Van Der Walls e riesce
+a descrivere accuratamente le isoterme dei gas. Possiamo dimostrare che questa
+equazione può prevedere l'esistenza di un punto critico: ossia deve esistere una situazione
+per la quale la derivata seconda rispetto al volume deve essere zero.
+\begin{gather*}
+    p = \frac{RT}{V - b} - \frac{a}{V^{2} } \\
+    \frac{\partial p}{\partial V} = -\frac{RT}{(V - b)^{2} } + \frac{2a}{V^{3} }\\
+    \frac{\partial^{2} p}{\partial V^{2} } = \frac{2RT}{(V - b)^{2} } - \frac{6a}{V^{4} }
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{le curve isoterme rispetto alla curva di temperatura critica}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$V$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$p$};
+        \draw(0.5, 3.5) .. controls (1, 2) and (3, 1.5) .. (3.5, 1.5) node[at end, above] {$T > T_c$};
+        \draw(0.4, 3.5) .. controls (0.5, 1.75) .. (1, 1.75);
+        \draw(1, 1.75) .. controls (2, 1.85) and (2.8, 0.6) .. (3.5, 0.6) node[at end, right] {$T = T_c$}; 
+        \draw(0.3, 3.5) .. controls (0.4, 0.5) .. (0.5, 0.5);
+        \draw(0.5, 0.5) .. controls (0.8, 1.2) and (1, 1.2) .. (1.5, 0.9);
+        \draw(1.5, 0.9) .. controls (2.2, 0.5) .. (3.5, 0.3) node[at end, right] {$T < T_c$};
+    \end{tikzpicture} 
+\end{wrapfigure}
+Dato che devono entrambe essere zero:
+\begin{gather*}
+    \frac{2a}{V^{3}}  = \frac{RT}{(V - b)^{2} } \\
+    \frac{6a}{V^{4}} = -\frac{2RT}{(V - b)^{2} } 
+\end{gather*}
+Si ottiene allora le espressioni per le tre grandezze critiche:
+\begin{align*}
+    RT_c &= \frac{8a}{27b} \\
+    V_c &= 3b \\
+    p_c &= \frac{a}{27b^{2} } 
+\end{align*}
+Se l'equazione di Van Der Walls è valida, allora deve valere che 
+\begin{gather*}
+    \frac{8}{3}\frac{p_cV_c}{RT_c} = 1
+\end{gather*}
+Che si può testare sperimentalmente.  La terza curva è una curva impossile che tuttavia
+rispetta questa equazione: se quella situazione avvenisse, allora il sistema esploderebbe.
+Si deve allora introdurre la correzione di MaxWell.
+
+\end{document}

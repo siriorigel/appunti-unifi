@@ -1,0 +1,235 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica}
+\author{Tommaso Miliani}
+\date{13-05-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{La forza di gravità di un guscio sferico}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (3);
+        \draw(0, 0) circle (2.9);
+        \filldraw (5, 0) circle (1pt) node[anchor = south] {$m$};
+        \draw[->](0, 0) -- (6, 0) node[at end, below] {$x$};
+        \draw(0, 0) -- (1.7, 2.45) node[midway, above] {$r$};
+        \draw[dashed](1.7, 2.45) -- (5, 0) node[midway, above] {$\rho$};
+        \draw(1, 0) arc (0:55:1) node[midway, right] {$\theta$};
+        \filldraw(0, 0) circle(1pt) node[anchor = east] {$C$};
+        \draw[|-|](-3, -0.75) -- (5, -0.75) node[midway, below] {$r_B$};
+        \draw[|-|](3, -0.25) -- (5, -0.25) node[midway, below] {$r_A$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per trovare la forza di gravità agente su di un punto esterno
+od interno rispetto ad un guscio sferico di spessore infinitesimo si ottiene
+considerando la densità superficiale $\sigma$:
+\begin{gather*}
+    \sigma = \frac{M}{4\pi r^{2} }
+\end{gather*} 
+Data solo la legge di gravitazione universale dobbiamo allora
+ridurre il problema e cercare di ridurre il problema ad una situazione in cui
+è facile integrare e quindi scelgo un punto sulla superficie che per definizione avrà
+distanza $r$ dal centro e quindi data l'energia potenziale del punto $m$, 
+\begin{gather*}
+    V = -\frac{Gm_1m_2}{r_{1, 2}}
+\end{gather*}
+Tutti i punti che hanno la stessa distanza dal punto $P$ contribuiranno allo stesso modo all'energia potenziale:
+quindi danno un contributo all'energia potenziale pari a:
+\begin{gather*}
+    dV = -\frac{Gm \ dM}{\rho}, \qquad dM = \sigma \ dS, \qquad dS = 2\pi r \sin\theta \cdot  r d\theta
+\end{gather*}
+Posso approssimare lo spessore come un cilindretto e quindi posso calcolare 
+la superficie. Introducendo l'angolo $\theta$ posso allora definire il differenziale
+della massa come
+\begin{gather*}
+    d M = 2\sigma r^{2} \sin\theta \ d\theta \Rightarrow d M = \frac{M}{2} \cdot  \sin\theta \ d\theta
+\end{gather*}
+In pratica il $d\theta$ è esattamente lo spostamento infinitesimo del punto sulla superficie e quindi
+ottengo il volume del cilindretto con altezza $r \ d\theta$. Posso allora dire che
+l'energia potenziale di ogni punto sulla stessa circonferenza sarà:
+\begin{gather*}
+    d V = - G m \frac{M}{2} \frac{\sin\theta \ d\theta}{\rho}, \rho^{2} = r^{2} + x^{2} - 2rx\cos\theta   
+\end{gather*}
+Dato che $x$ è fissato, allora se differenziamo l'espressione di $\rho$ viene che 
+\begin{gather*}
+    2\rho \ d\rho = 2 r x \sin\theta \ d\theta 
+\end{gather*}
+Si ottiene allora che 
+\begin{gather*}
+    \frac{d\rho}{rx} = \frac{\sin\theta \ d\theta}{\rho}
+\end{gather*}
+Se ora facessi l'integrale dell'energia potenziale posso allora ottenere che:
+\begin{gather*}
+    V = -\frac{G m M}{2rx} \int d\rho = -\frac{G m M}{2rx} (r_B - r_A)
+\end{gather*}
+Si possono distinguere i due casi in cui il punto materiale è esterno rispetto alla superficie ma anche
+quando $P'$ è interno: si danno allora due casi: un caso in cui $P$ sia esterno 
+alla superficie:
+\begin{gather*}
+    \text{Esterno}: \left\{\begin{array}{l}
+        r_A = x - r \\
+        r_B = x + r
+    \end{array}\right. \\
+    \text{Interno}: \left\{\begin{array}{l}
+        r_A = r - x \\
+        r_B = x + r
+    \end{array}\right.
+\end{gather*}
+Per un punto esterno alla superficie allora si può dire che
+\begin{gather*}
+    V = -\frac{G m M}{2rx} 2r = -\frac{G m M}{x}
+\end{gather*}
+E questa è esattamente l'energia potenziale che risente un oggetto di 
+massa $m$ da un oggetto di massa $M$ che si trova esattamente sul punto $C$. Se quindi
+è esterno alla superficie allora questa superficie posso considerarla come se fosse
+concentrata nel suo centro.  Per un punto interno:
+\begin{gather*}
+    V = -\frac{G m M}{2rx} 2x = -\frac{G m M}{r}
+\end{gather*}
+In questo caso è posta alla distanza $r$, ossia come se il punto fosse sulla superficie
+e non al suo interno. La forza gravitazionale che risente dunque al suo interno
+è nulla.
+\section{La gravità di una sfera piena}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2);
+        \draw(1, 1.68) -- (1, -1.68);
+        \draw(1.2, 1.55) -- (1.2, -1.55);
+        \draw(1.1, 1.65) circle (1pt) node[anchor = west] {$m$};
+        \draw(1.1, 1) circle (1pt);
+        \draw[->](1.1, 1) -- (1.6, 1) node[at end, above] {$\vec{N} $};
+        \draw[->](0, 0) -- (0.5, 0.45) node[at end, below] {$\hat{u}_r$};
+        \draw[dashed] (0, 0) -- (1.1, 1);
+        \draw[->](1.1, 1) -- (0.6, 0.55) node[midway , above] {$\vec{F_g}$};
+        \draw[dashed](0, 0) circle(1.45);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Divido allora in tante bucce ma ora tutte le bucce si comportano 
+in modo diverso tra di loro: quelle vicine alla massas non contribuiscono 
+mentre quelle più interne contribuiscono alla forza gravitazionale. La forza è dovuta
+solo alla massa che si trova allora all'interno.  \\
+All'interno non agisce tutta la sfera ma solo la parte della massa interna:
+\begin{gather*}
+    \vec{F}_g = - \frac{G m M_i}{r^{2} } \hat{u}_r, \qquad M_i = \frac{4}{3}\pi r^{3} \rho 
+\end{gather*}
+E quindi il rapporto tra la massa interna e quella della Terra è
+\begin{gather*}
+    \frac{M_i}{M} = \frac{r^{3} }{R^{3} }
+\end{gather*}
+Posso allora dire che che essendo un punto materiale in una guida:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \vec{F}_g = - \frac{G m M_T}{R^{3} } (x \hat{i} + y \hat{j}  ) \\
+        \vec{N} = N \hat{i}  
+    \end{array}\right. \\
+    \left\{\begin{array}{l}
+        x) N - \frac{G m M_T}{R^{3} }x = 0 \\
+        y) - \frac{G m M_T}{R^{3} }y = m\ddot{y}
+    \end{array}\right.
+\end{gather*}
+Allora l'equazione che abbiamo per il corpo è proprio un moto armonico:
+\begin{gather*}
+    \ddot{y} + \frac{g}{R}y = 0
+\end{gather*}
+Questo si chiama pozzo di Gauss e si vede che la massa esterna non conta.
+
+\section{Il moto dei razzi}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (2, 1);
+        \draw[->](0, 0.5) -- (-1, 0.5) node[at end, above] {$\vec{u}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Con gli strumenti sviluppati fino ad ora si è in grado di descrivere il moto di un razzo:
+In un dato istante di tempo il razzo espelle una certa quantità di massa
+che genera una spinta. 
+\begin{gather*}
+    Q(t) = m(t) \cdot \vec{v}(t)  \\
+    \vec{Q} (t + dt) = M(t + dt) \vec{v}(t + dt) + dm (\vec{u} + \vec{v}(t + dt) )  
+\end{gather*}
+Dove $\vec{u}$ è il vettore della velocità di espulsione del gas rispetto al razzo. Esplicitandola
+di nuovo posso allora dire che rispetto al missile. 
+\begin{gather*}
+    \Delta \vec{Q} = \vec{Q}(t + dt) - \vec{Q}(t) = \vec{F}^{ext} \ dt    
+\end{gather*} 
+E quindi risolvendo si ottiene dato che $dM = -dm$:
+\begin{gather*}
+    \vec{F}^{ext}  \ dt = M d\vec{v} + dm \vec{u}   
+\end{gather*}
+Dividendo ora tutto per $dt$:
+\begin{gather*}
+    M\frac{d\vec{v} }{d t} = \vec{u}\frac{dM}{dt} + \vec{F}^{ext}   
+\end{gather*}
+Nel caso in cui il missile sia nello spazio e quindi che le forze esterne siano
+nulle la nostra espressione ci dice che
+\begin{gather*}
+    M dv = u dM \Rightarrow \int_{t_i}^{t_f} dv = u \int_{t_i}^{t_f}\frac{dM}{M}
+\end{gather*}
+Allora
+\begin{gather*}
+    v(t_f) = v(t_i) - u\ln\frac{M(t_i)}{M(t_f)} \\
+    v_f = v_i + |u| \ln \left(\frac{M_{mis} + M_{carb}(t_i)}{M_{mis} + M_{carb}(t_f)}\right)
+\end{gather*}
+
+Nel secondo caso si ha la partenza da Terra verso l'alto:
+\begin{gather*}
+    \vec{F}^{ext} = M\vec{g}   
+\end{gather*}
+Possiamo usare sempre gli stessi principi:
+\begin{gather*}
+    M \ dv = u \ dM - Mg \ dt \\
+    dv = u \frac{dM}{M} - g \ dt \\
+    \int_{t_i}^{t_f} dv = v(t_f) = \int_{t_i}^{t_f} \left(u \frac{dM}{M} - g \ dt \right)
+\end{gather*}
+Allora si ottiene che
+\begin{gather*}
+    v(t_f) = |u| \ln \frac{M_i}{M_f} - g(t_f - t_i)
+\end{gather*}
+Più carburante brucio e meno importante diventa l'ultimo termine in modo
+tale da poter approssimare alla forma vista nel primo caso. Per avere più spinta ci conviene
+avere più velocità di espulsione possibile.
+
+
+
+\end{document}

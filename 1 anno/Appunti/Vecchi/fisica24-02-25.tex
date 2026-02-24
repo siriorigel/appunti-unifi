@@ -1,0 +1,198 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\usepackage{color}
+\pagecolor{black}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti FIsica Cuccoli}
+\author{Tommaso Miliani}
+\date{24-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Esercizio}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 1.1}
+    \caption{Giostra con oggetto sopra}
+    \begin{tikzpicture}
+        \node[ellipse,
+        draw,
+	    minimum width = 4cm, 
+	    minimum height = 2.2cm] (e) at (0,0) {};
+        \filldraw (0, 0)circle  (1pt) node[anchor = east]{$O$};
+        \filldraw(1.25, -0.25) circle (2pt) node[anchor = south] {$P$};
+        \draw(0, 0)[->] -- (4, 0) node[at end, below] {$y \ (\hat{j})$};
+        \draw(0, 0)[->] -- (0, 4) node[at end, left] {$z \ (\hat{k})$};
+        \draw(0, 0)[->] -- (-1, -2) node[at end, below] {$x \ (\hat{i})$};
+        \draw(1.25, -0.25)[->] -- (2, -0.45) node[at end, right] {$\vec{F}_{cf}$};
+        \draw(1.25, -0.25)[->] -- (1.75, 0.25) node[at end, right] {$\hat{u}_t$};
+        \draw[->](1.25, -0.25) -- (0.75, -0.75) node[at end, below] {$\vec{v}'$}; 
+        \draw[->](1.25, -0.25) -- (1.25, 0.75) node[at end, right] {$\vec{N}$};
+        \draw[->](1.25, -0.25) -- (1.25, -1.25) node[at end, right] {$m\vec{g}$};
+        \draw[->, very thick](1.25, -0.25) -- (0.5, -0.123) node[at end, below] {$\vec{F}_{co}$};
+        \draw[dashed, thin] (0, 0) -- (1.25, -0.25) node[midway, above] {$\rho$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Data una giostra con un oggetto sopra ( senza attrito), per un osservatore
+inerziale (esterno) la forza risultante  sarà:
+\begin{gather*}
+    \vec{N} + m \vec{g} = m \vec{a}   
+\end{gather*}
+Per l'osservatore S fermo sul terreno l'accelerazione è dunque nulla
+poiché ci sono solo forze verticali che si bilanciano perfettamente. All'istante $t = 0$ si ha per lui:
+\begin{gather*}
+    \left| \vec{OP} \right| = |\vec{d}| = \rho \\
+    \vec{v} (t = 0) = 0  
+\end{gather*} 
+Come ragiona l'osservatore S' la cui origine O' coincide con quella di O?
+L'osservatore è sulla giostra e quindi sugli oggetti agiscono anche altre forze che l'osservatore
+S definirebbe immaginarie. La prima di queste è la forza centrifuga:
+\begin{align}
+    \vec{F}_{cf} = m \omega^{2} \rho \hat{u}_t  
+\end{align}
+Noi sappiamo che la velocità rispetto al SDR di $S$ si esprime come
+(dato che all'istante $t = 0$ $\vec{v} = 0$):
+\begin{align}
+    \vec{v} =  \vec{v}' + \vec{v}_t + \vec{\omega} \times \vec{r}    
+\end{align}
+La componente $\vec{v}'$, che è propria del SDR di $S'$ sarà quindi data (per definizione): 
+\begin{gather*}
+    \vec{v}' = \vec{v} -   \vec{\omega} \times \vec{r}  = \vec{\omega} \times \vec{r}
+\end{gather*}
+A questo punto si esplicita :
+\begin{gather*}
+    \vec{v}'(t = 0) = -\omega \vec{d} \hat{u}_p  
+\end{gather*}
+Dato che nel sistema di riferimento S' si osserva la forza di Coriolis; all'istante $t= 0$
+esplicitando $\vec{v}'$ e ricordando che:
+\begin{gather*}
+    \vec{N} + m\vec{g} + \vec{F}_{cf} + \vec{F}_{co}' = m\vec{a}     
+\end{gather*} 
+Esplicitando $\vec{F}_{co}$ questa diventa (svolti tutti i passaggi):
+\begin{gather*}
+    -2m\left( (\vec{\omega} \times \vec{r}  )\vec{\omega} - \omega'\vec{r}'  \right)
+\end{gather*} 
+Esplicitando generalmente attraverso i versori e le coordinate sull'asse $z$ si ottiene
+la seguente relazione, che, una volta svolti tutti i passaggi, diventa:
+\begin{align}
+    \vec{F}_{co} = -2m\vec{\omega} \times (\vec{\omega} \times r\hat{u}_p)  = -2m \omega^{2} \rho \hat{u}_p  
+\end{align}
+La somma della forza centrifuga e di Coriolis ci permette di ottenere
+\begin{align}
+    \vec{F}_{co} + \vec{F}_{cf} = -m\omega^{2}\vec{d}\hat{u}_p     
+\end{align}
+Proiettando sul piano si ottiene che questa somma è uguale proprio a $m \vec{a}_{\parallel}'$ . Si continua
+ad usare le notazioni vettoriali poiché nel piano i vettori hanno ancora due componenti
+e non posso dunque utilizzare la notazione scalare. Questa equazione nuova mi dice che
+\begin{align}
+    -\omega^{2}\vec{d}\hat{u}_p = \vec{a}_{\parallel}'
+\end{align}
+Nell'istante $t = 0$ il mio corpo ha una sola accelerazione, ossia quella centripeta. Allora
+vuol dire che non c'è accelerazione tangenziale e quindi la velocità di rotazione è costante, essendo
+un moto circolare quell'accelerazione centripeta esiste facendo valere la relazione sopra
+nell'istante $t= 0$, ma questa vale anche per tutti gli altri istanti poiché si tratta di un moto C.U. 
+
+\section{Un sistema di riferimento inerziale quasi perfetto: le stelle fisse}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 2.1}
+    \caption{}
+    \begin{tikzpicture}
+        \draw (0, 0) circle (2);
+        \draw[dashed, thin] (0, 3) -- (0, -3);
+        \draw[->] (-0.5 ,3) arc (200:340:0.5) node[at end, right] {$\vec{\omega}_T$};
+        \draw[dashed, thin](-2, 0) arc(240: 300: 4);
+        \draw[dashed, thin](2, 0) arc(60: 120: 4);
+        \filldraw (0, 0) circle (1pt) node[anchor = south] {$O$};
+        \filldraw(1.41, 1.41) circle (1pt) node[anchor = south] {$P$};
+        \draw[->] (1.41, 1.41) -- (0.5, 0.5) node [midway, left] {$\vec{F}_G$};
+        \draw[->] (1.41, 1.41) -- (0.7, 0.5) node [at end, below] {$m\vec{g}$};
+        \draw[->] (1.41, 1.41) -- (2, 1.41) node[at end, right] {$\vec{F}_{cf}$};
+        \draw[->] (1.5, 0) arc (0:45:1.5) node[midway, right] {$\theta$};
+        \draw(0, 1.41) -- (1.41, 1.41) node[midway, above] {$\rho$};
+        \draw[dashed, thin] (0, 0) -- (1.41, 1.41);
+        \draw[dashed, thin] (0, 0) -- (2, 0) node[midway, below] {$R_T$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se facessimo degli esperimenti sulla Terra dovremmo riuscire a mettere in luce le
+forze apparenti di un SDR non inerziale. La Terra ruota intorno al proprio asse
+rispetto alle stelle fisse da Ovest verso Est e quindi mentre ruota su sé stessa con velocità
+angolare $\left| \vec{\omega}_T  \right| = \frac{2\pi}{86'164}$ essa dovrebbe ritrovare il Sole nel medesimo punto
+ad ogni rivoluzione anche se questo non accade. Questo perché il giorno solare medio è più lungo del giorno sidereo, rispetto
+alle stelle fisse, infatti, la Terra ha compiuto un giro in più. Che conseguenza ha il fatto che
+la Terra non è un SDR inerziale?\\
+Questo vuol dire che ci sono delle forze apparenti in tutti gli esperimenti e quindi
+rispetto alla Terra nei moti su larga scala intervengono queste forze apparenti. 
+All'equatore per l'osservatore inerziale, un oggetto vicino alla Terra è soggetto
+alla forza di gravità dovuta all'interazione con la Terra (che si assume sferica),
+mentre per l'osservatore sulla Terra mi aspetto che ci sia una forza centrifuga. Usando un filo a piombo, 
+la sua verticale non passerà per il centro della Terra ma sarà leggermente inclinata rispetto
+alla forza peso ideale a causa della forza centrifuga. 
+Voglio calcolare allora il vero peso degli oggetti e misuro oltre che
+la direzione del pendolo anche la forza peso. Associo $\hat{u}_{\rho}$ il versore $\perp \hat{k}$
+che giace nello stesso piano del versore  $\hat{u}_r$ (il versore parallelo all'asse $\vec{OP}$ )
+e che è il versore della centrifuga. Allora:
+\begin{align}
+    \hat{u}_r = \left( \cos\theta\vec{u}_{\rho} + \sin\theta\hat{k} \right) 
+\end{align}
+La forza peso allora si esprimerà come:
+\begin{align}
+    m\vec{g} = \vec{F}_{G} + \vec{F}_{cf} = -mg_0 \hat{u}_r + m\omega^{2}_T  + \rho \hat{u}_{\rho} 
+\end{align}
+Dove $g_0$ è $g$ senza la correzione della forza centrifuga, sostituendo allora quanto ottenuto prima si ottiene.
+\begin{align}
+    m\vec{g} = m \left( \cos\theta\left( -g_o + \omega^{2}_T R_T\right) \hat{u}_{\rho} + g_0 \sin\theta \hat{k} \right)
+\end{align}
+Volendo ora calcolarne il modulo, si ottiene la seguente:
+\begin{align}
+    \left| g \right| = \sqrt{\cos^{2}\theta\left(g_0^{2}  + \omega^{4}_T R_T^{2} - 2g_0 \omega^{2}_T R_T\right) + g_0^{2}\sin^{2}\theta }
+\end{align}
+Che sostituendo, raccogliendo e semplificando si ottiene:
+\begin{align}
+    \left| g \right| = \sqrt{g_0^{2} \left( 1 - \frac{2\omega^{2}_T R_T}{g_0}\cos^{2}\theta + \left( \frac{\omega^{2}_T R_T }{g_0} \right)^{2} \cos^{2}\theta  \right) }  
+\end{align}
+Usando lo sviluppo di Taylor allora si può semplificare i coseni (in particolare il primo)
+poiché hanno un contributo molto piccolo e quindi:
+\begin{align}
+    \left| g \right| \approx g_0 \left(1 - \frac{\omega^{2}_T R_T}{g_0}\cos^{2}\theta\right) 
+\end{align}
+L'accelerazione al polo è $g_{polo} = 9.823 m/s^{2} $ e quella all'equatore $g_{eq} = 9.789 m/s^{2} $ poiché
+la Terra è un ellissoide di rotazione e la forza di Coriolis ha fatto schiacciare la Terra in modo tale che
+all'equatore il raggio terrestre sia più grande che ai poli.
+Preso un triangolo i cui lati sono la forza centripeta, uno la forza di gravità
+vera e una quella ideale, applicando la trigonometria si ottiene l'espressione dell'angolo
+tra le due forze ($\delta$):
+\begin{gather*}
+    \frac{F_{cf} }{\sin\delta} = \frac{\sin g}{\sin\theta} \\
+    \sin\delta \approx  \frac{\omega^{2}_T R_T }{g_0} \cos\theta\sin\theta
+\end{gather*} 
+
+\end{document}

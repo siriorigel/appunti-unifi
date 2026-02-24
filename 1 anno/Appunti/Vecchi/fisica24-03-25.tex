@@ -1,0 +1,262 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{FIsica}
+\author{Tommaso Miliani}
+\date{24-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Il corpo rigido}
+E' un oggetto esteso in cui ciascun punto rispetto a qualsiasi sistema
+di coordinate è tale per il quale la distanza tra i punti stessi
+rimane costane. Il corpo rigido è quindi per definizione:
+\begin{gather*}
+    |\vec{r}_i - \vec{r}_j| = const  
+\end{gather*}
+\subsection{La statica del corpo rigido}
+Il corpo rigido rimane in equilibrio quando non cambia
+la quantità di moto del sistema e quindi:
+\begin{gather*}
+    \vec{F}^{(EXT)} = 0 \\
+    \vec{M}^{(EXT)} = 0    
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{parallelepipedo}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0);
+        \draw(0.5, 0) -- (2, 2);
+        \draw(2, 2) -- (3, 2);
+        \draw(3, 2) -- (1.5, 0);
+        \draw[->](0, 0) -- (0.5, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, 0.5) node[at end, left] {$y$};
+        \draw[->](1, 0) -- (1, 0.5) node[at end, above] {$\vec{N}$};
+        \draw[->](1.75, 1) -- (1.75, 0.5) node[at end, right] {$M\vec{g}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Immaginando di avere un piano di appoggio e un parallelepipedo storto:
+questo oggetto è in equilibrio oppure no? Devo vedere con le cardinali
+se esiste un momento torcente per il quale il corpo cade.
+Se le dimensioni del corpo sono piccole rispetto alle dimensioni della Terra
+allora posso dire con buona approssimazione che l'accelerazione locale
+di gravità è costante e parallela per tutti i corpi. Posso allora
+considerare la forza peso come concentrata nel centro di massa (baricentro)
+e quindi applicata la prima cardinale:
+\begin{align*}
+    M\vec{g} + \vec{N} &= 0 \\
+    -Mg + N &= 0 \\
+    N &= Mg  
+\end{align*}
+Posso allora applicare la seconda cardinale e quindi preso un polo
+opportuno, posso allora dire che:
+\begin{gather*}
+    M_{z}^{(EST)} = Nx - Mgx' 
+\end{gather*}
+E allora per eguagliarla i bracci devono essere uguali: $x = x'$.
+La risultante deve essere sempre applicata sulla base di appoggio. Perché
+la differenza dei bracci tra la forza peso e quella normale si annullino,
+il centro di massa deve trovarsi lungo la verticale passante per la base di appoggio,
+altrimenti per la seconda cardinale non c'è stabilità.
+
+\subsection{La carrucola fissa}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Carrucola fissa}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (1);
+        \draw(-1, -2) -- (-1, 0);
+        \draw(1, -2) -- (1, 0);
+        \draw[->](1, -2) -- (1, -2.5) node[at end, left] {$\vec{F}_2$};
+        \draw[->](-1, -2) -- (-1, -2.5) node[at end, left] {$\vec{F}_1$};
+        \draw[->](0, 0) -- (0, -0.5) node[at end, right] {$M\vec{g}$};
+        \draw[->](0, 0) -- (0, 0.5) node[at end, right] {$\vec{N}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+NEl caso ideale la carrucola segue la fune, ma nel caso 
+reale il movimento della fune non sempre è seguito da quello
+della carrucola a meno che non ci sia un attrito molto forte.
+Perché siano in equilibrio (trascurando la massa della fune)
+le due forze si dovrebbero uguagliare:
+\begin{gather*}
+    \vec{N} + M\vec{g} + \vec{F}_1 + \vec{F}_2 = 0   
+\end{gather*}
+Lungo x allora si ha:
+\begin{gather*}
+    Nx - F_1 \cos\alpha + F_2 \cos\beta = 0 \\
+    N_y + Mg - F_1 \sin\alpha - F_2 \sin\beta = 0
+\end{gather*}
+Dove $\alpha$ e $\beta$ sono gli angoli rispetto all'orizzontale
+delle forze (nel disegno sono a novanta). Se scegliessi il polo di applicazione
+del momento nel centro della carrucola allora avrei che i momenti sono rappresentati
+dalle forze e la corda si stacca lungo la tangente per via di come è fatta e quindi
+non c'è bisogno di conoscere gli angoli in quanto basta conoscere il modulo della
+forza ed il braccio (la massa è infatti trascurabile).
+\begin{gather*}
+    \vec{M}_C^{EXT}  = 0 
+\end{gather*}
+E quindi si ottiene:
+\begin{gather*}
+    F_1 = F_2 
+\end{gather*}
+Per stare in equilibrio, senza sapere nessun modulo. 
+\subsection{Il problema della scala}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il problema della scala}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0);
+        \draw(0, 0) -- (0, 3);
+        \draw(0, 2) -- (1, 0);
+        \draw[->](0, 2) -- (0.75, 3) node[at end, above] {$\vec{N}_1$};
+        \draw[->](1, 0) -- (1, 0.75) node[at end, right] {$\vec{N}_2$};
+        \draw[->](1, 0) -- (0.25, 0) node[at end, below] {$\vec{F}_d$};
+        \draw[->] (0.5, 1) -- (0.5, 0.25) node[at end, left] {$M\vec{g}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+DAto che si ha attrito statico, io posso dire che i vettori sono
+bilanciati così (data la forza di attrito):
+\begin{gather*}
+    |\vec{F}_a| \leq \mu_s|\vec{N}_2|  
+\end{gather*}
+\begin{gather*}
+    \vec{N}_1 + \vec{N}_2 + M\vec{g} + \vec{F}_a  = 0 \Rightarrow  N_1 = F_a\\
+    N_1 - \vec{F}_a = 0  \Rightarrow N_2 = Mg \\
+    N_2 - Mg = 0 \Rightarrow N_2 = Mg
+\end{gather*}
+Con la prima cardinale non sono in grado di determinare se la scala
+rimane in equilibrio oppure no, devo scegliere allora un polo di riduzione
+per calcolare il momento e quindi dirmi a che angolo $\alpha$ è in equilibrio.
+Scegliendo il polo nel punto in cui la scala si appoggia per terra,
+posso allora esprimere il momento come:
+\begin{gather*}
+    (C - B) = \frac{L}{2}(-\sin\alpha \hat{i} + \cos\alpha \hat{j}) \\
+    (A - B) = 2(C - B)
+\end{gather*}
+\begin{gather*}
+    \vec{M}_B^{EXT} = (C - B)\times M\vec{g} + (A - B)\times \vec{N}_1  \\
+    =  \frac{L}{2}(-\sin\alpha  \hat{i} + \cos\alpha \hat{j} ) \times (-Mg\hat{j} )  + L (-\sin\alpha \hat{i} + \cos\alpha \hat{j}) \times N_1 \hat{i} = \\
+    = + \frac{L}{2}\sin\alpha Mg\hat{k} - L \cos\alpha N_1 \hat{k} = 0   
+\end{gather*}
+Si ottiene allora che:
+\begin{gather*}
+    N_1 = \frac{1}{2} \tan\alpha Mg
+\end{gather*}
+Quindi la forza di attrito:
+\begin{gather*}
+    N_1 = F_a \leq \mu_s N_2 \\
+    \tan\alpha \leq 2\mu_s
+\end{gather*}
+\subsection{La cerniera sferica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        
+    \end{tikzpicture}    
+\end{wrapfigure}
+Voglio sapere le condizioni di equilibrio; l'unico vincolo imposto è
+che la forza sia sempre orizzontale e sapere se questo equilibrio è stabile
+oppure instabile.
+\begin{gather*}
+    \vec{F} = F\hat{i} \\
+    M\vec{g} = -Mg\hat{j} \\
+    \vec{R} = R_x\hat{i} + R_y \hat{j}        
+\end{gather*}
+Imponendo ora la prima cardinale si ottiene:
+\begin{gather*}
+    \vec{F} + M\vec{g} + \vec{R} = 0 \\
+    F + R_x = 0 \\
+    -Mg + R_y = 0 \\
+    R_x = F \\
+    R_y = Mg   
+\end{gather*}
+Per la seconda cardinale invece:
+\begin{gather*}
+    (C - A) \times \vec{g} + (B - A) \times \vec{F} = \frac{L}{2}(\sin\alpha \hat{i} - \cos\alpha \hat{j} ) \times (-Mg\hat{j} ) + L(\sin\alpha \hat{i} + \cos\alpha \hat{j} ) \times F\hat{i}  = \\
+    -\frac{L}{2} \sin\alpha Mg\hat{k} + L\cos\alpha F = 0  
+\end{gather*}
+Allora per essere in equilibrio si deve verificare:
+\begin{gather*}
+    F = \frac{1}{2}\tan\alpha M g
+\end{gather*}
+Posso associare una certa energia potenziale a questo sistema e quindi
+studiarne non solo la dinamica ma anche se l'equilibrio è stabile oppure
+instabile? Potrei allora indicare l'energia potenziale della forza peso:
+\begin{gather*}
+    V_{peso} = -\frac{L}{2}\cos\alpha Mg
+\end{gather*}
+Posso trattare la forza $F$ come se fosse la forza di gravità e quindi
+ottenere la sua energia potenziale proprio come per la forza peso (dato che è sempre
+orizzontale ad ogni istante); indicato allora:
+\begin{gather*}
+    V_F = - L\sin\alpha Mg
+\end{gather*}
+L'energia potenziale totale allora è la somma: 
+\begin{gather*}
+    V = V(\alpha) = -\frac{L}{2}\cos\alpha Mg- L\sin\alpha Mg
+\end{gather*}
+FAtta allora la derivata e posta uguale a zero:
+\begin{gather*}
+    \tan\alpha = \frac{2F}{Mg}
+\end{gather*}
+Facendo allora la derivata seconda ottengo se è stabile o instabile:
+\begin{gather*}
+    \frac{d^{2} V}{d\alpha^{2} } = \frac{L}{2}\cos\alpha Mg + \sin\alpha L F
+\end{gather*}
+Calcolata con quello che abbiamo trovato prima e considerato
+che $0 < \alpha < \frac{\pi}{2}$ allora si ottiene che la derivata
+è sempre maggiore di zero e quindi è un equilibrio stabile. 
+
+\subsection{}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0);
+
+
+
+        \draw(5, 0) -- (5.5, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Evitando il movimento ulteriore per il quale si spostano da un lato
+le sbarrette oppure quando l'angolo tra i due è superiore di $180$°,
+per ogni sbarretta ci sono delle forze che agiscono su di loro, tra cui 
+la forza peso, la stessa forza elastica.
+Applicando  
+
+\end{document}

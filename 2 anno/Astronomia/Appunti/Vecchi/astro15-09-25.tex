@@ -1,0 +1,70 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti astronomia}
+\author{Tommaso Miliani}
+\date{15-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+Il corso si divide in tre sezioni:
+\begin{enumerate}
+    \item Astronomia sferica: ossia l'astronomia celeste, cenni storici,
+    trigonometria sferica;
+    \item L'indagine astronomica: ossia l'utilizzo di strumenti come telescopi
+    per compiere misurazioni ed osservazioni sulle stelle; la determinazione dell'età
+    delle stelle e l'osservazione stellare in generale;
+    \item Gravitazione e meccanica celeste: campo e potenziale celeste con
+    legge di Gauss, problema dei due e tre corpi, fluidi auto gravitanti (fluidi + gravità),
+    struttura stellare.
+\end{enumerate}
+L'esame consiste in un colloquio orale diviso in tre domande,
+una per parte del corso.
+
+\section{Introduzione al corso}
+
+
+
+\end{document}

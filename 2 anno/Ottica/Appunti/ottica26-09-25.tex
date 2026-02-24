@@ -1,0 +1,221 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di Ottica}
+\author{Tommaso Miliani}
+\date{26-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Funzionamento dell'occhio umano}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (4, 0);
+        \draw[<->](2, -1) -- (2, 1);
+        \draw(3, -1) -- (3, 1) node[near end, right] {Piano immagine};
+        \draw[|-|](2.1, -1) -- (2.9, -1) node[midway, below] {$q$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+L'occhio ha una forma sferica con un indice di rifrazione di 
+circa $n = 1.4$. Sulla parte posteriore abbiamo la retina, ossia
+il rilevatore dell'occhio in grado di raccogliere la luce in entrata dal cristallino
+e poi trasferita al nostro cervello tramite il nervo ottico. Sulla
+retina si forma l'immagine che noi vediamo e dunque la retina è il piano immagine. Poiché
+non si riesce a cambiare la distanza $q$ tra il cristallino e la retina,
+io posso mettere a fuoco piani sorgenti diversi utilizzando dei muscoli
+che contraggono il cristallino o lo rilassano e contribuisce per
+solo un terzo del potere convergente dell'occhio. Gli altri due terzi
+del potere convergente dell'occhio derivano dalla cornea posta
+davanti al cristallino ed immersa nell'humor acqueo mentre l'occhio 
+è immerso nell'humor vitreo (ognuno con i suoi indici di rifrazione).
+La distanza $q = 0.02 m$. E' l'analogo del sistema ottico in figura.
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (6, 0);
+        \draw(3, -1) -- (3, 1);
+        \draw(4, -1) -- (4, 1);
+        \draw(0, 1) -- (3, 0) -- (4, -0.33);
+        \draw(2, 0.33) arc(160:180:1) node[midway, left] {$\theta$};
+        \draw(0, 0) -- (0, 1) node[midway, right] {$h$};
+        \draw[cyan](4, 0) -- (4, -0.33) node[midway, right] {$h'$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+La distanza minima di messa a fuoco aumenta con l'età in quanto
+diminuisce la capacità di strizzare il cristallino da parte dei muscoli del cristallino: la
+distanza minima è di $p_{min} \approx 0.3m$. Un occhio sano riesce inoltre a mettere a fuoco
+fino ad una distanza $p_{max} = +\infty $. La distanza $q$ dell'occhio è $0.02m$. 
+La distanza focale dell'occhio è di $0.02m$, voglio vedere cosa succede
+alla focale dell'occhio quando si vuole osservare un oggetto alla distanza minima:
+\begin{gather*}
+    \frac{1}{f} = \frac{q + p}{pq} \ \Longrightarrow \  f = \frac{pq}{p + q} \ \Longrightarrow \ f \approx 19.2 mm
+\end{gather*}
+Posso allora ricavare l'ingrandimento dell'occhio: più gli oggetti sono vicini e più sono grandi all'interno del
+nostro occhio.
+\begin{gather*}
+    I = \frac{h'}{h} = -\frac{p}{q}
+\end{gather*}
+
+\section{Lente di ingrandimento}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \caption{Lente di ingrandimento}
+    \begin{tikzpicture}
+        \draw(-3, 0) -- (4, 0);
+        \draw[<->](0, -2) -- (0, 2);
+        \filldraw (-1.5, 0) circle (1pt) node[anchor = north] {$F'$};
+        \filldraw (1.5, 0) circle (1pt) node[anchor = north] {$F$};
+        \draw[<->](2.5,-1) -- (2.5, 1);
+        \draw(3.5, -1) -- (3.5, 1);
+        \draw(-1, 0) -- (-1, 1) node[midway, left] {$h$};
+        \draw[red](-1, 1) -- (2.5, -2.5);
+        \draw[red](-1, 1) -- (0,1) -- (1.5, 0) -- (2.5, -0.75);
+        \draw[red](-1, 1) -- (-2.5, 2.5);
+        \draw[red](-2.5, 2.5) -- (0, 1);
+        \draw[red](-2.5, 0) -- (-2.5, 2.5) node[midway, left] {$h'$};
+        \draw[green](-2.5, 2.5) -- (3.5, -0.5);
+        \draw[green](-1, 1) -- (0, 1.25);
+        \draw[red](0.75, 0) arc (180:145:0.75) node[midway, left] {$\theta$};
+        \draw[green](1.5, 0.5) arc (140:180:0.75) node[at start, above] {$\theta'$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per poter allora ingrandire gli oggetti, si utilizzano delle lenti in grado di avere
+un potere di ingrandimento tale per cui si possa vedere meglio oggetti molto piccoli.
+Ponendo un oggetto prima della focale della lente, si osserva che i raggi luminosi dell'oggetto
+non si incontrano; l'oggetto apparirà quindi più grande
+quando arriva all'occhio umano ad una certa distanza $d$. Data  la legge delle lenti sottili,
+con $p < f$ allora sappiamo che 
+\begin{gather*}
+    \frac{1}{q} = \frac{p - f}{fp} < 0
+\end{gather*}
+I raggi luminosi per l'occhio, appaiono come se si formino prima dell'oggetto
+stesso: l'occhio umano osserva allora la sorgente virtuale dell'immagine. Posso allora
+studiare l'angolo con cui l'immagine virtuale $h'$ si intersechi 
+con l'occhio umano anche se in realtà il raggio verde è generato dall'oggetto $h$.
+La distanza dove si forma l'immagine virtuale adesso è proprio $q$; voglio ora trovare l'angolo
+verde $\theta'$; sappiamo che, in assenza della lente, l'oggetto con altezza $h$
+formerebbe un angolo
+\begin{gather*}
+    \tan \theta = \frac{h}{p + d}
+\end{gather*}
+Invece, l'angolo $\theta'$ che si forma sarà dato da:
+\begin{align}
+    \tan\theta' = \frac{h'}{q + d} \qquad q < 0
+\end{align}
+Possiamo ora determinare quale sarà l'angolo più grande. Dall'espressione
+dell'ingrandimento possiamo ricavare $h'$ in funzione della lente e di $h$:
+\begin{gather*}
+    \frac{h'}{h} = -\frac{q}{p} = - \frac{pf}{p - f}\frac{1}{p} \ \Longrightarrow \ h' = \frac{f}{f  - p}h
+\end{gather*}
+Allora posso combinare le due espressioni della tangente per vedere quale è l'angolo
+più grande
+\begin{gather*}
+    \tan\theta' = \frac{f}{f - p}\frac{h}{q + d}
+\end{gather*}
+Posso allora
+riscrivere $q$ attraverso le relazioni con $f$ e $p$ (ho invertito $p- f$ con
+$f - p$ a causa del segno di $q$):
+\begin{gather*}
+    q = \frac{pf}{f - p} \ \Longrightarrow \ \tan\theta' = \frac{f}{f - p}\frac{h}{\frac{pf + df -dp}{f - p}} \\
+\end{gather*}
+Allora posso confrontare le due espressioni direttamente:
+\begin{gather*}
+    \tan\theta = \frac{h}{p + d} \ \Longrightarrow \ \tan\theta' = \frac{h}{p + d - \left(\frac{dp}{f}\right)}
+\end{gather*}
+Si ottiene allora che $\theta' > \theta$ proprio perché il
+denominatore è più piccolo e allora l'immagine si ingrandisce.
+
+\section{Sistema di lenti}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(-3, 0) -- (3, 0);
+        \draw[<->](0, -1.5) -- (0, 1.5) node[at start, below] {$f_1$};
+        \draw[<->](1, -1.5) -- (1, 1.5) node[at start, below] {$f_2$};
+        \draw[|-|](-2, -0.2) -- (0, -0.2) node[midway, below] {$p$};
+        \draw[|-|](0.1, 0.1) -- (0.9, 0.1) node[midway, above] {$d_{1,2}$};
+        \draw[|-|](1.1, -0.2) -- (1.9, -0.2) node[midway, below] {$q'$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si vuole dimostrare il comportamento di due lenti convergente:
+l'ipotesi è che aumenti il potere convergente e che quindi il sistema di lenti
+si possa comportare come una unica lente con un potere
+convergente maggiore per cui la focale totale sarà la somma della
+focale. Tuttavia questa cosa è sbagliata in quanto
+il potere convergente è maggiore se la focale della lente è piccola:
+allora il potere convergente mi aspetto che sia direttamente proporzionale all'inverso
+della lente
+\begin{gather*}
+    \frac{1}{f} \approx \frac{1}{f_1} + \frac{1}{f_2}
+\end{gather*}
+Questo è dimostrabile a partire dell'applicazione della legge delle lenti
+sottili a tutto il sistema di lenti (così come si era fatto per l'occhio) e
+quindi vale per qualsiasi distanza $d_{1, 2}$ tra le due lenti. 
+\begin{gather*}
+    d_{1, 2} = q + p' 
+\end{gather*}
+E quindi si ottiene 
+\begin{align}
+    \frac{1}{f} = \frac{1}{f_1} + \frac{1}{f_2}
+\end{align}
+Esperimento a lezione con 4 lenti:
+\begin{align*}
+    f_1 &= 50 mm \\
+    f_2 &= -100 mm \\
+    f_3 &= 300 mm \\
+    f_4 &= -500 mm
+\end{align*}
+
+
+
+\end{document}

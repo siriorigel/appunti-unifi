@@ -1,0 +1,227 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Ottica}
+\author{Tommaso Miliani}
+\date{17-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section*{Telescopi}
+\section{Principio di funzionamento di un telescopio}
+Il telescopio è uno strumento ottico in grado di poter
+osservare degli oggetti molto lontani dall'occhio umano. 
+Dato che se volessi un ingrandimento dell'angolo, dovrei avere
+che $f_1 > f_2$. I raggi di luce che vengono dalla sorgente luminosa hanno
+un certo angolo $\alpha$ rispetto all'asse ottico. Dunque, il raggio che
+viene dall'estremità della luna si proietta sul punto focale della 
+lente del telescopio e dunque, con la seconda lente lente formerà un angolo
+$\beta > \alpha$, ottenendo così un ingrandimento dell'immagine stessa. 
+La dimensione dell'immagine si esprime come
+\begin{gather*}
+    f_1 \tan \alpha = f_2 \tan \beta
+\end{gather*}  
+Si conclude allora che
+\begin{gather*}
+    \frac{f_1}{f_2} = \frac{\beta}{\alpha} > 1
+\end{gather*}
+E dunque sul mio occhio la Luna ha una dimensione maggiore 
+rispetto a quando non utilizzo un telescopio. 
+
+\section{L'effetto della diffrazione}
+Ci si deve immaginare che ci siano altri raggi 
+che impattano sulla lente e che risultano deflessi di un certo angolo
+rispetto ai raggi che arrivano dalla sorgente luminosa
+che dipende dalla lunghezza d'onda. L'immagine in corrispondenza
+del fuoco primario della prima lente ha un allargamento (spread), a causa
+della diffrazione della prima lente pari a
+\begin{gather*}
+    \delta y_1 = f_1 \cdot \frac{\lambda}{D_1}
+\end{gather*}
+Tutti i dettagli dell'oggetto osservato non sono più definiti ma 
+l'immagine tende dunque a sfocarsi. Posso pensare inoltre che esista 
+anche uno spread angolare associato all'angolo che risulta sull'occhio:
+\begin{gather*}
+    \delta \beta_1 = f_1\frac{\lambda}{D_1} \frac{1}{f_2}
+\end{gather*}
+E dunque ottengo che
+\begin{align}
+    \delta y_1 = f_2 \delta \beta_1
+\end{align}
+Dunque sulla seconda lente 
+\begin{gather*}
+    \delta \beta_2 = \frac{\lambda}{D_2}
+\end{gather*}
+Dunque posso ottenere l'effetto combinato delle
+due lenti sullo spread dei raggi luminosi come
+\begin{gather*}
+    \delta \beta = \frac{\lambda}{D_1} \frac{f_1}{f_2} + \frac{\lambda}{D_2}
+\end{gather*}
+Dove si è usato $\tan \beta_1 \approx \beta_1$ e $\tan \beta_2 \approx \beta_2$
+secondo l'approssimazione parassiale. Inoltre posso trascurare il secondo termine
+dello spread su $\beta$ in quanto è molto piccolo e considerare solamente il termine 
+dovuto dal rapporto delle focali. Si ha inoltre che
+\begin{gather*}
+    f_1 \delta \alpha = f_2 \delta \beta \ \Longrightarrow \ \delta \beta = \frac{f_1}{f_2}\delta \alpha = \frac{\lambda}{D_1}
+\end{gather*}
+
+\section*{Esperienza diffrazione}
+\section{Scopo dell'Esperienza}
+Gli scopi dell'esperienza sono i seguenti:
+\begin{itemize}
+    \item Verifica delle legge di una onda piana da una fenditura 
+    nel limite di campo lontano (legge di Fraunhofer);
+    \begin{gather*}
+        I(\theta) = I_0 sinc^{2}\left(\frac{KD}{2}\sin \theta\right)
+    \end{gather*}
+\end{itemize}
+
+\section{L'apparato sperimentale}
+Il laser che si utilizza è un laser a $668,66 \pm 0.01 \ nm$ che punta su
+di un filtro in assorbimento variabile. Dopo il filtro c'è una
+fenditura larga circa $30 - 40 \ \mu m$ che è posta ad una distanza
+$x$ rispetto al rilevatore. Ogni posizione $y'$ sul rilevatore corrisponde ad un certo
+angolo $\theta$ per il seno cardinale. Nel limite di Fraunhofer, ossia quando
+$x >> D$, in più ci si mette nel limite in cui $x >> y'$ (che  è possibile
+in quanto il rilevatore ha una dimensione di circa un centimetro). 
+Dunque
+\begin{gather*}
+    \theta << 1 \ \Longrightarrow \ \sin \theta \approx \tan \theta \approx \theta
+\end{gather*}
+Il rilevatore è composto da $1032 \times 1032$ pixel ognuno di 
+una dimensione di $d \approx 5 \mu m$. Ogni raggio di luce eccita gli elettroni
+dei led e dunque misurare l'intensità incidente in base alla quantità di elettroni
+incidenti. Dato che ogni pixel è in grado di restituire un valore di intensità
+al massimo di $2^{8}$, bisogna regolare il filtro in modo tale che
+nessun led possa saturare; se i pixel saturassero, non riuscirei a determinare
+se l'intensità è effettivamente massima oppure il led arriva a saturazione
+troppo presto. \\
+Si utilizza un programma in Mathematica per poter fittare il seno cardinale 
+in funzione degli indici dei pixel. La coordinata $y'$ di ogni pixel dipende
+dalla larghezza del pixel e dal suo indice. Dunque l'intensità
+diventerà la seguente funzione:
+\begin{gather*}
+    I(y') = I_0 sinc^{2}\left(\frac{KD}{2}\sin\theta\right) = I_0 sinc^{2}\left(\frac{KD}{2} \frac{d}{x}y\right)
+\end{gather*}
+Si introduce inoltre un parametro che mi possa centrare il seno cardinale
+proprio sull'asse che congiunge il centro del rilevatore e la sorgente del 
+fascio di luce:
+\begin{gather*}
+    I(y') = I_0 sinc^{2}\left(\frac{KD}{2}\sin\theta\right) = I_0 sinc^{2}\left(\frac{KD}{2} \frac{d}{x}(y - y_0)\right)
+\end{gather*}
+Dal fit non lineare del profilo di intensità misurato con la CCD ricavo
+$B \pm \Delta B$, dove $B = \frac{KD}{2} \frac{d}{x}$. L'idea è ora
+confrontare tale misura con il valore teorico nel quale sostituisco i valori 
+di $k$ conoscendo $\lambda$ e le loro incertezze. I dati da trovare sono dunque:
+\begin{itemize}
+    \item $k \pm \Delta k$: si ricava conoscendo $\lambda  \pm \Delta \lambda$;
+    \item $D \pm \Delta D$: $\left\{\begin{array}{l}
+            40 \pm 2 \ \mu m \\
+            30 \pm 2 \ \mu m 
+        \end{array}\right.$.
+    \item $d = 5.20 \pm 0.01 \ \mu m$.
+    \item $x \pm \Delta x$: si misura con il calibro.  
+\end{itemize} 
+Infine confronto i $B_i \pm \Delta B_i$ sperimentali ottenuti
+e li confronto con quello teorico verificando che siano consistenti per poter dimostrare la legge. 
+I valori $B_i$ sono tutti diversi ognuno per ogni riga di pixel poiché la fenditura
+non è perfetta, inoltre ogni valore dipende dalla posizione rispetto alla fenditura. 
+Inoltre, se vi sono $n$ fenditure con larghezza $D$, il seno cardinale
+presenterà anche un termine in funzione delle $n$ fenditure spaziate
+di $a$:
+\begin{gather*}
+    I(\theta) = I_0 sinc^{2}\left(\frac{KD}{2}\sin\theta\right) \frac{\sin^{2} \left(\frac{naK}{2}\sin\theta\right)}{n\sin^{2}\left(\frac{ka}{2}\sin\theta\right)}
+\end{gather*}
+E dunque
+\begin{gather*}
+    \frac{ka}{2}\sin\theta = m \pi \ \Longrightarrow \ \sin\theta = \frac{2m\pi}{ka} \ \Longrightarrow \ m\frac{\lambda}{a}
+\end{gather*}
+In corrispondenza di multipli interi di  questa quantità si osservano
+i picchi dell'intensità. \\
+Utilizzando dunque la CCD come un reticolo
+di diffrazione in riflessione, il singolo pixel è fatto di una parte in silicio
+che riflette la luce ed una parte che contorna il pixel che invece assorbe
+la luce. La distanza tra i pixel è quindi $a_p$ e la larghezza
+della parte riflettente è $D_p$. Si vedrà dunque in riflessione il pattern
+dell'intensità sulla parete del laboratorio.  Si può dunque stimare l'angolo di
+riflessione del primo ordine rifratto e di quello $-1$. Posso prendere
+la distanza sulla parete $l$ tra i due ordini uno e meno uno e la distanza
+tra la parete e la CCD come $L$: 
+\begin{gather*}
+    \sin\theta \approx \tan\theta \approx \frac{\frac{l}{2}}{L}
+\end{gather*}
+
+\section{Seconda parte delle'esperienza: verifica della legge di diffrazione}
+Nella seconda parte dell'esperienza si verifica la legge di diffrazione di un'onda
+piana incidente su di un reticolo diffrazione. Misuro allora 
+$\theta_i$ per valori diversi di $\lambda_i$ ricavando $a_i$. Mi assicuro allora che
+i vari valori di $a_i$ trovati siano consistenti tra di loro. Utilizzando una
+lampada a gas di Mercurio, si prende una cella di vetro all'interno della quale ci si mette un gas
+di interesse: ci si mette un catodo ed un anodo e ci si attacca un generatore ad alta tensione.
+Mediante degli impulsi ad alta tensione si eccitano gli elettroni  degli 
+gli atomi di Mercurio, i quali saltano da un orbitale all'alto emettendo
+dei fotoni che hanno energia
+\begin{gather*}
+    \Delta E = h \nu 
+\end{gather*}
+In corrispondenza di un angolo più piccolo si avrà dunque una luce più violacea
+e, più cresce l'angolo, più la luce tenderà verso il rosso. Per ogni $\lambda_i$ per lo
+spettro goniometro si va ad osservare un $\theta_i^{+}$ ed un $\theta_i^{-}$, per trovare dunque
+l'angolo per una data lunghezza d'onda si avrà
+\begin{gather*}
+    \theta = \frac{\theta_i^{+} - \theta_i^{-}}{2} \ \Longrightarrow \ \sin \theta = m \frac{\lambda}{a}
+\end{gather*}
+Questa misura $\theta_i^{+}$ e $\theta_i^{-}$ si fa perché, dato che
+la lettura è fatta con un crocefilo, vicino allo zero la luce è talmente intensa
+che il crocefilo non è visibile, dunque si osserva cosa accade a destra e a sinistra del laser
+per ottenere $\theta$. Si ottiene le incertezza sia per $\theta_i^{+}$ che per $\theta_i^{-}$. 
+
+\end{document}

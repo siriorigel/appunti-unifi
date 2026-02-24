@@ -1,0 +1,193 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Analisi (Bianchini)}
+\author{Tommaso Miliani}
+\date{06-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Equazioni differenziali associate alla famiglia di curve}
+Dove
+\begin{gather*}
+    F_c(x, y) = 0
+\end{gather*}
+Sonon famiglie parametriche di curve con $c \in \mathbb{R}$. 
+Se una curva parametrica è regolare questo vuol dire che deve essere
+$C^{1}$ e il vettore derivato ha norma diversa da zero.
+\begin{gather*}
+    F_c \in C^{1}(A) \qquad A \subset \mathbb{R}^{2} 
+\end{gather*}
+Curve regolari localmente sono grafici di funzioni. Se una curva è regolare 
+l'unica cosa che può succedere è che 
+\begin{gather*}
+    \frac{\partial f}{\partial y} \neq 0 
+\end{gather*}
+Quindi cerco $y = y(x)$ tale che $F_c(x, y) = 0$ che, per il teorema
+del Dini è un grafico di funzione.  Dato che è costante, anche la
+sua derivata lo deve essere, dunque
+\begin{gather*}
+    \frac{\partial }{\partial x}(F_c(x, y(x)))  = 0 \qquad \forall x \in \mathbb{I}
+\end{gather*}
+Ossia
+\begin{gather*}
+    \frac{\partial f(x, y(x))}{\partial x} + y'(x) \frac{\partial f(x, y(x))}{\partial y} = 0  
+\end{gather*}
+$\forall c \in \mathbb{R}$ vale questo. Dato che si hanno due equazioni in due incognite,
+è possibile risolvere il sistema per determinare $x$ e $c$
+\begin{example}
+    \begin{gather*}
+        y = cx^{2} \qquad F_c(x, y) = y - cx^{2}
+    \end{gather*}
+    E dunque la derivata rispetto ad $x$ della funzione parametrica
+    \begin{gather*}
+        y' - 2cx = 0 \qquad
+        c = \frac{y}{x^{2}}
+    \end{gather*}
+    Dunque
+    \begin{gather*}
+        y' - 2\frac{y}{x} = 0 \ \Longrightarrow \ xy' -2y = 0
+    \end{gather*}
+    Imponendo le condizioni $y(0) = 0$ e $y'(0) = 0$ per trovare
+    una famiglia di parabole a doppia funzione con vertice coincidente in $V = (0, 0)$.
+\end{example}
+
+\subsection{Ricerca di traiettorie ortogonali a $F_c(x, y) = 0$}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        
+    \end{tikzpicture}    
+\end{wrapfigure}
+\begin{definition}[Traiettorie ortogonali]
+    Le traiettorie ortogonali sono curve che intersecano in un unico punto ogni curva
+    della famiglia e in tale punto sono ortogonali con la curva stessa. Ossia i rispettivi 
+    vettori tangenti sono perpendicolari tra di loro
+\end{definition}
+Ossia la curva di partenza e quella derivata sono
+\begin{gather*} 
+    \begin{pmatrix} x \\
+    y(x) \end{pmatrix} \qquad \begin{pmatrix} t \\
+    u(t) \end{pmatrix}_{t \in J}
+\end{gather*}
+Dunque passano per lo stesso punto:
+\begin{gather*}
+    \begin{pmatrix} x \\
+    y(x) \end{pmatrix}  \quad \exists t \in J : \begin{pmatrix} t \\
+    u(t) \end{pmatrix} = \begin{pmatrix} x \\
+    y(x) \end{pmatrix}  
+\end{gather*}
+E inoltre sonon perpendicolari i loro vettori derivati (e quindi 
+anche loro lo sono):
+\begin{gather*}
+    \begin{pmatrix} 1 \\
+    y'(x)\end{pmatrix} \perp \begin{pmatrix} 1 \\
+    u'(t) \end{pmatrix}_{t = x} \ \Longrightarrow \ 1 + y'(x)u'(x) = 0 \ \Longrightarrow \  u'(x) = -\frac{1}{y'(x)}  
+\end{gather*}
+Posso allora trovare l'equazione differenziale omogenea per le traiettorie
+ortogonali come
+\begin{gather*}
+    f(x, u(x), -\frac{1}{u'(x)}) = 0 
+\end{gather*}
+
+\begin{example}
+    Cerco le traiettorie ortogonali alla famiglia di parabole localmente 
+    ai grafici $(x, u(x))$ che deve soddisfare $f(x, u, -\frac{1}{u'}) = 0$. 
+    Riprendendo l'esempio di prima deve risultare che
+    \begin{gather*}
+        -\frac{1}{u'(x)} - 2\frac{u}{x} = 0 \ \Longrightarrow \ 2uu' - x = 0
+    \end{gather*}
+    Per cui si ottiene, integrando che
+    \begin{gather*}
+        u^{2} = -\frac{x^{2}}{2} + k \qquad k \in \mathbb{R}
+    \end{gather*}
+    Dunque 
+    \begin{gather*}
+        u^{2} + \frac{x^{2}}{2} = k
+    \end{gather*}
+\end{example}
+
+\begin{example}
+    Trovare le curve regolari localmente grafico di $y(x)$ tale
+    che $\forall (x, y) \in \gamma$, la distanza di $(x, y)$ da $Q$ è 
+    $d(Q, u(0))$ dove $Q$ è la retta tangente a $\gamma$ del punto $(x, y)$
+    e l'asse $y$. 
+    \begin{gather*}
+        \gamma : \underline{x}(t) = \begin{pmatrix} x(t) \\
+        y(t) \end{pmatrix} 
+    \end{gather*}
+    Per il teorema del Dini è localmente grafico. Allora la retta tangente 
+    nel punto $(x, y(x))$ è proprio
+    \begin{gather*}
+        \begin{pmatrix} x(t)  \\
+        y(t)\end{pmatrix}  = \begin{pmatrix} 1 \\
+        y'(x) \end{pmatrix} \tau + \begin{pmatrix} x \\
+        y(x) \end{pmatrix}  \qquad \tau \in \mathbb{R}
+    \end{gather*}
+    Allora
+    \begin{gather*}
+        Y - y = y'(x)(X - x) \ \Longrightarrow \ Q = \begin{pmatrix} 0 \\
+        y - xy'(x) \end{pmatrix} 
+    \end{gather*}
+    Imponendo le distanze al quadrato si ottiene l'equazione differenziale
+    \begin{gather*}
+        2xyy' = 1 + x^{2} + y^{2}
+    \end{gather*} 
+    Con $2yy' = (y^{2})'$ si ha che $u(x) = y^{2}(x)$ e dunque:
+    \begin{gather*}
+        xu' = 1 - x^{2} + u \ \Longrightarrow \ u' - \frac{u}{x} + \frac{x^{2} - 1}{x} = 0
+    \end{gather*}
+    
+\end{example}
+
+
+\end{document}

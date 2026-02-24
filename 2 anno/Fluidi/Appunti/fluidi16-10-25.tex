@@ -1,0 +1,231 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di fluidi}
+\author{Tommaso Miliani}
+\date{16-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\subsection{Ridefinizioni di termostato e temperatura}
+Il termostato diventa quindi un sistema la cui capacità termica
+$\mathcal{C} \to \infty $ in quanto il termostato deve avere la 
+capacità di non mutare la propria temperatura pur scambiando quantità di
+temperature molto grande.  Un termometro, invece, è un sistema termodinamico
+$\mathcal{C} \to 0$, in quanto deve poter scambiare quantità di calore molto piccole
+e causare una sua variazione di temperatura grande. Si dice allora che
+un qualsiasi sistema termodinamico $S_1$ è un termostato rispetto ad un
+sistema termodinamico $S_2$ se $\mathcal{C}(S_1) >> \mathcal{C}(S_2)$; mentre
+un sistema termodinamico $S_1$ si dice termometro rispetto ad un sistema
+termodinamico $S_2$ se $\mathcal{C}{S_1} << \mathcal{C}(S_2)$. 
+
+\section{Cosa accade agli scambi termici durante le trasformazioni}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Coesistenza delle fasi durante un passaggio di fase}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$t$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$T$};
+        \draw(0, 0) --(1, 1) -- (2.5, 1) -- (4, 2);
+        \draw[dashed](1, 1) -- (1, 0);
+        \draw[dashed](2.5, 1) -- (2.5, 0);
+        \filldraw(1.75, 0) node[anchor = north] {coesistenza};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se si vuole far avvenire un passaggio di stato si deve fornire dell'energia
+o sottrarre dell'energia al materiale per cui vogliamo far avvenire il passaggio di 
+stato. Durante il passaggio di stato, il fluido è in stato di coesistenza
+tra le due fasi tra cui avviene il passaggio. Durante quel tempo, si definisce
+il \textbf{calore latente} ($l$), ossia l'energia che si deve fornire al fluido
+durante quel periodo di coesistenza per far sì che il corpo finisca
+il passaggio di stato. I valori per il passaggio da liquido a gas e da solido a liquido
+sono diversi tra di loro e si indicano con $l_v$ e $l_F$ rispettivamente e sono
+proprie di ogni sostanza. Il calore latente di vaporizzazione è sempre più grande
+di quello di fusione in quanto gli atomi hanno più movimenti e possono,
+in media, avere pià legami tra di loro in quanto sono più liberi di muoversi; inoltre
+per ottenere un gas devo necessariamente romperli tutti i legami
+intermolecolari mentre per il passaggio da solido a liquido basta che
+se ne rompano una quantità sufficiente tale per cui gli strati
+del reticolo possano scorrere uno sopra l'altro. 
+
+\subsection{La relazione tra energia interna e capacità termica a volume costante}
+Se si decidesse di considerare l'energia interna come funzione
+solamente del volume e della temperatura. Se io volessi scrivere il
+differenziale di questa funzione:
+\begin{gather*}
+    U(V, T) \qquad dU = \left(\frac{\partial U}{\partial V} \right)_T dV + \left(\frac{\partial U}{\partial T} \right)_V dT
+\end{gather*}
+Il fatto che il valore di $T$ sia fissato quando derivo parzialmente il volume
+è dovuto al fatto che le funzioni di stato potrebbero essere funzioni di
+diverse variabili, allora devo specificare se la derivata parziale rispetto
+al volume devo dire se è stata fatta a temperatura costante oppure a pressione
+costante in quanto ho scelto la dipendenza funzionale di $U$ rispetto
+a sole due variabili. Dato che
+\begin{gather*}
+    dU = \delta Q - \delta L \ \Longrightarrow \ \delta Q - \delta L = \left(\frac{\partial U}{\partial V} \right)_T dV + \left(\frac{\partial U}{\partial T} \right)_V dT
+\end{gather*} 
+Nel caso particolare in cui il volume sia costante, allora non compirò alcun lavoro sull'ambiente esterno e 
+dunque posso esprimere il calore come 
+\begin{gather*}
+    \delta Q  = \left(\frac{\partial U}{\partial V} \right)_T dV + \left(\frac{\partial U}{\partial T} \right)_V dT
+\end{gather*}
+Dato che sono a volume costante, posso utilizzare la capacità termica e devo anche considerare
+che $dV = 0$ poiché è una trasformazione a volume costante:
+\begin{align}
+        \mathcal{C}_V  dT = \left(\frac{\partial U}{\partial T} \right)_V dT \ \Longrightarrow \ \mathcal{C}_V  = \left(\frac{\partial U}{\partial T} \right)_V 
+\end{align}
+Questo risultato mi permette di dire che esiste una relazione diretta tra la
+capacità termica a volume costante e la derivata parziale dell'energia interna
+rispetto alla temperatura calcolata a volume costante.
+Posso allora dire che questa è una funzione di stato (ma solo in questo caso particolare per un fluido). 
+
+
+\section{Conseguenze del primo principio per i gas perfetti}
+\subsection{Trasformazioni adiabatiche}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Trasformazione adiabatica}
+    \begin{tikzpicture}[scale = 0.5]
+        \draw[very thick](0, 0) rectangle (4, 2);
+        \draw[thick](1.5, 0) -- (1.5, 2);
+        \filldraw[cyan, opacity = 0.3](0, 0) rectangle (1.5, 2);
+        \draw[->](4.2, 1) -- (4.8, 1);
+        \draw[very thick](5, 0) rectangle (9, 2);
+        \filldraw[cyan, opacity = 0.3](5, 0) rectangle (9, 2);
+        \node at(0.75, -0.5) {$V_A$};
+        \node at(7, -0.5) {$V_B$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Ricordando cosa succede nell'espansione libera di un gas il lavoro compiuto dal
+sistema è esattamente zero e, dato che non viene fornito nessun calore al
+gas, allora l'energia interna è anch'essa zero: vale
+\begin{gather*}
+    \Delta U = Q - L = 0
+\end{gather*}
+Se lo facessi con un gas qualunque e non un gas perfetto, allora la temperatura
+varierebbe di un pochino. Nel caso di gas perfetto con $\Delta T = 0$ possiamo 
+esprimere la trasformazione come:
+\begin{gather*}
+    (V_A, T) \to (V_B, T) \\
+    (p_A, T) \to (p_B, T)
+\end{gather*}
+Se è vero che $\Delta U \neq 0$, allora vuol dire che la funzione
+\begin{gather*}
+    U(V_A, T) = U(V_B, T)
+\end{gather*}
+Siccome lo stato è variato ma l'energia interna non è variata, allora l'energia
+interna non dipenderà da $V$. Posso fare il medesimo ragionamento per la pressione e
+ottenere che
+\begin{gather*}
+    U(p_A, T) = U(p_B, T)
+\end{gather*}
+E dunque l'energia interna non dipenderà dalla pressione. L'energia interna è 
+allora solo funzione delle temperatura per un gas perfetto. Se la temperatura
+è costante allora l'energia interna è nulla per un gas perfetto e si ottiene l'utile
+relazione
+\begin{align}
+    Q = L = \int_{V_i}^{V_f} p \ dV \ \Longrightarrow \ nRT\ln\left(\frac{V_f}{V_i}\right) = Q 
+\end{align}
+Nel caso di un gas perfetto il risultato ottenuto per la capacità termica
+rispetto all'energia interna è generalizzabile come
+\begin{align}
+    \mathcal{C}_V = \frac{dU}{dT}
+\end{align}
+Dato che si è dimostrato che l'energia interna è funzione della temperatura,
+posso dire che anche la capacità termica è funzione della temperatura.
+\begin{align}
+    \mathcal{C}_V = \mathcal{C}_V(T)
+\end{align} 
+Questo mi porta a dire che dalla relazione per l'energia
+interna
+\begin{gather*}
+    dU = \delta Q - \delta L
+\end{gather*}
+Posso ottenere, per un gas perfetto le seguenti sostituzioni:
+\begin{gather*}
+    \mathcal{C}_V dT = \delta Q - pdV 
+\end{gather*}
+Quando la pressione è costante si ottiene
+una relazione che lega le capacità termiche a 
+volume e pressione costante:
+\begin{gather*}
+    \mathcal{C}_V dT = \mathcal{C}_P dT - pdV \\
+    \ \Longrightarrow \ (\mathcal{C}_P - \mathcal{C}_V)dT = pdV
+\end{gather*}
+Adesso devo trovare una relazione che possa legare il volume alle altre
+due variabili termodinamiche. Posso vedere che il volume è una funzione
+con la seguente espressione:
+\begin{gather*}
+    V = V(p, T) \ \Longrightarrow \ dV = \left(\frac{\partial V}{\partial p} \right)_T dp + \left(\frac{\partial V}{\partial T} \right)_p dT
+\end{gather*}
+Allora la relazione tra le capacità termiche diventa (ricordando che siamo
+a pressione costante):
+\begin{gather*}
+    \mathcal{C}_P - \mathcal{C}_V = p\left(\frac{\partial V}{\partial T} \right)_p 
+\end{gather*}
+Adesso posso anche esplicitare l'espressione per il volume ricordando
+che 
+\begin{gather*}
+    V = \frac{nRT}{p} \ \Longrightarrow \ \mathcal{C}_P - \mathcal{C}_V = nR
+\end{gather*}
+Per un gas perfetto si ottiene allora il risultato generale:
+\begin{gather*}
+    \mathcal{C}_P - \mathcal{C}_V \geq 0
+\end{gather*}
+Questo è dovuto al fatto che se $\mathcal{C}_V$ è una certa funzione
+rispetto alla temperatura, allora lo è anche $\mathcal{C}_P$ secondo 
+la seguente:
+\begin{gather*}
+    \mathcal{C}_V = g(T) \ \Longrightarrow \ \mathcal{C}_P = g(T) + nR
+\end{gather*}
+Quello che ci dice la termodinamica per un gas perfetto, queste considerazioni
+non mi bastano per poter determinare una equazione di stato.
+
+
+
+\end{document}

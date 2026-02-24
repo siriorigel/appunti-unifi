@@ -1,0 +1,249 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{APpunti di Fluidi}
+\author{Tommaso Miliani}
+\date{30-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section*{Termodinamica}
+\section{La termodinamica}
+\subsection{Storia della termodinamica}
+La termodinamica è esplosa a metà dell'ottocento con le
+prime macchine termiche, ossia delle macchine che sfruttavano energia
+termica per poter compiere lavoro. Lo sviluppo storico
+della termodinamica parte con le macchine termiche e si sviluppa
+in modo non propriamente logico ma anzi è stato frutto di un processo
+molto tortuoso che ha eventualmente portato alla nascita della termodinamica così come la 
+studiamo oggi. 
+
+\subsection{Lo studio della termodinamica}
+Nella parte di termodinamica ci si occupa dello studio
+dei sistemi a scala macroscopica e non a scala microscopica. Le coordinate
+dello spazio che si definisce nella termodinamica prendono il nome
+di \textbf{coordinate termodinamiche}:  grandezze come la pressione, densità di massa sono
+ottime coordinate termodinamiche in quanto riescono a descrivere le caratteristiche
+del nostro sistema termodinamico. Nel caso di sistemi omogenei la quantità di massa non
+varia mai e quindi utilizzare il volume o la densità è semplicemente una preferenza anche
+se in generale in termodinamica si parla più in termini di volume che
+in termini di densità (come invece si fa nei fluidi). Quando si considera un
+sistema termodinamico $S$ possiamo fare delle considerazioni:
+\begin{itemize}
+    \item Si è sempre in grado di stabilire lo stato del sistema attraverso
+    le coordinate termodinamiche;
+    \item Si determinano i confini del sistema rispetto all'ambiente esterno con il quale il sistema interagisce (anche chiamato \textbf{ambiente});
+    \item Il sistema più l'ambiente è chiamato \textbf{Universo}; non l'universo
+    della cosmologia ma semplicemente un insieme: $S + A = U$;
+\end{itemize}
+La densità e la pressione non sono in grado di descrivere accuratamente tutti i sistemi
+termodinamici ma è necessario introdurre un'altra coordinata termodinamica, ossia
+la \textbf{Temperatura} $T$. La definizione operativa dell temperatura è molto complessa
+ma ci permette di dire che cosa vuol dire che due sistemi hanno la stessa temperatura. 
+
+
+
+\subsection{L'equilibrio termodinamico}
+A differenza dell'equilibrio meccanico, l'equilibrio termodinamico
+consiste nel definire quando un sistema è in equilibrio con un altro
+sistema: per farlo bisogna determinare se le loro coordinate termodinamiche sono costanti
+nel tempo. Quando in un sistema macroscopico si hanno delle coordinate termodinamiche
+che dipendono dallo spazio, ma sono costanti nel tempo, allora siamo in presenza dell'effetto di
+un campo di forze esterne che agisce sul sistema. Quando accade questo siamo in presenza di un
+\textbf{equilibrio termodinamico locale}: l'equilibrio termodinamico è 
+valido solamente per un dato punto e non per tutti i punti del sistema
+nel corso del tempo proprio perché le coordinate termodinamiche variano spazialmente. 
+Questo equilibrio non è considerato in questo corso se non per pochi casi. \\
+La cosa non ovvia è che quando il sistema è all'equilibrio termodinamico le
+variabili termodinamiche sono dipendenti l'una dall'altra: esiste allora una relazione
+funzionale tale per cui una è funzione delle altre due. Questo risultato
+prende il nome di \textbf{equazione di stato}
+\begin{gather*}
+    f(p, V, T) = 0
+\end{gather*} 
+Ovviamente l'espressione della funzione $f$ non si conosce quasi mai anche se si
+è certi che esista una espressione esplicita per l'equazione di stato. Dato un sistema, se  questo è
+lasciato senza interagire con il sistema ambiente allora non cambierà il suo equilibrio;
+se interagisse invece con il sistema ambiente allora il suo equilibrio varierà.
+
+\subsection{Estensività}
+Se si considerasse un sistema $S$ e lo si suddividesse in due sistemi $S_1$ e $S_2$ tale
+per cui si suppone che la quantità di sostanza  di $S_1$ sia esattamente uguale alla 
+sostanza di $S_2$ e che la somma 
+delle loro sostanze dia la sostanza totale di $S$; dato che all'inizio
+il sistema $S$ era all'equilibrio, allora facciamo in modo che anche i due
+sottosistemi siano all'equilibrio: la grandezza $X$ quantità di sostanza è estensiva
+quando $X_1 = X_2 = \frac{X}{2}$: è anche la definizione di additività e di
+\textbf{estensività} poiché in termodinamica si dà per scontato che questi due
+termini descrivano la medesima cosa. La massa, il volume sono grandezze estensive
+poiché dipendono dalla quantità di sostanza; grandezze come la temperatura sono invece estensive.
+Le grandezze che non sono né estensive né intensive non sono valide coordinate termodinamiche anche se 
+devo possedere almeno una grandezza estensiva per poter descrivere in maniera
+completa un sistema termodinamico; se così non fosse allora non
+sarei in grado di determinare se il sistema considerato sia molto grande oppure
+molto piccolo.
+
+
+\subsection{Pareti ed equilibrio termico}
+Una \textbf{parete} è un oggetto che sia capace di separare tra loro
+due sistemi termodinamici. Una parete è \textbf{adiabatica} se ai due lati della
+parete possono coesistere due sistemi termodinamici all'equilibrio
+qualunque essi siano: questo vuol dire che la parete è \textbf{isolante}
+e non permette quindi l'interazione tra questi due sistemi. Una parete
+che non è adiabatica è definita come parete \textbf{diatermica}: i due sistemi che 
+si trovano separati da questa parete si accorgono l'uno della presenza dell'altro
+e iniziano ad interagire: se si aspettasse molto tempo varierebbero il loro stato
+di equilibrio raggiungendone uno nuovo.  Due sistemi possono non essere
+all'equilibrio termico fra loro ma all'equilibrio termodinamico se sono separati da una parete
+adiabatica; tuttavia se sono separati da una parete diatermica i due sistemi
+saranno sia in equilibrio termico fra loro che in equilibrio termodinamico.
+Dalla fisica sperimentale si ha che se un sistema $A$ è all'equilibrio
+termico con $C$ e anche il sistema $B$ è anch'esso in equilibrio
+termico con $C$ allora anche $A$ e $B$ sono in equilibrio termico. Potremmo
+riassumere queste considerazioni mediante la seguente:
+\begin{align}
+    (A \sim C) \wedge (B \sim C) \ \Longrightarrow \ (A \sim B)
+\end{align}
+Che prende il nome di \textbf{Principio zero della termodinamica}. La relazione
+di equilibrio termico è una relazione transitiva che si può dimostrare ponendo una parete adiabatica
+tra $A$ e $B$ e ponendo un sistema "a ponte" tra i due sistemi. Se poi si  sostituisse 
+la parete adiabatica con una parete diatermica si osserverebbe che i due sistemi $A$ e $B$
+sono già all'equilibrio e quindi la relazione scritta in precedenza è valida.  
+
+\subsection{La temperatura}
+La temperatura è la grandezza che mi consente di dire se
+due sistemi sono in equilibrio termico: la temperatura per due sistemi
+all'equilibrio termico è infatti la stessa. Anche senza definirla so che è una grandezza intensiva in quanto abbiamo visto che non 
+dipende dalla quantità di sostanza per i sistemi considerati nel 
+principio zero. Perché  si utilizza la temperatura per dire se un oggetto è 
+più caldo di un altro? L'esperienza sensoriale ci dice che se si pone
+due oggetti uno più caldo dell'altro vicini non saremmo più in grado di determinare se uno è più 
+caldo dell'altro. La sensazione dunque è una cosa che per definire il concetto di oggetto
+più caldo o freddo non è sufficiente per determinare le relazioni tra due corpi; 
+devo quindi utilizzare una quantità estensiva per determinare se un oggetto è più caldo 
+di un altro. \\
+Per definire la temperatura posso considerare un sistema $S$ in modo tale
+da essere nella situazione come quella illustrata nel principio zero
+della termodinamica e, considerate due variabili $x, y$ che non siano la temperatura, il fatto di essere all'equilibrio termico non è scontato poiché quando
+due sistemi sono all'equilibrio termico tra di loro allora ci dovrebbe essere una relazione
+tra le variabili dei vari sistemi. Posso allora esprimere la l'equazione di stato:
+\begin{gather*}
+    f_{A, C}(x_A, y_A, x_C, y_C) = 0 \\
+    f_{B, C}(x_B, y_B, x_C, y_C) = 0
+\end{gather*} 
+Possiamo allora fare una assunzione sensata per cui
+\begin{gather*}
+    y_C = g_{A, C}(x_A, y_A, x_C) \\
+    y_C = g_{B, C}(x_B, y_B, x_C)
+\end{gather*}
+Queste due sono uguali tra di loro: applicando allora il principio zero
+si ha
+\begin{gather*}
+    f_{A, B}(x_A, y_A, x_B, y_B) = 0
+\end{gather*}
+Allora lo stato di equilibrio dei vari sistemi è caratterizzato
+dall'aver assegnato le variabili a quel sistema: i valori per cui quest'ultima
+è soddisfatta devono essere gli stessi che per le altre. Dato che
+devono descrivere lo stesso stato, la variabile $x_C$ può essere eliminata:
+la dipendenza funzionale delle funzioni $g$ non dipendono da $x_C$. 
+Allora posso dire che esistono due funzioni:
+\begin{gather*}
+    h_A(x_A, y_A) = h_B(x_B, y_B)
+\end{gather*} 
+Posso allora permutare i sistemi $A, B, C$ come voglio: posso ottenere
+dunque un'altra
+relazione con $A$ e $C$:
+\begin{gather*}
+    h_A(x_A, y_A) = h_C(x_C, y_C) \ \Longrightarrow \ h_A(x_A, y_A) = h_B(x_B, y_B)= h_C(x_C, y_C)
+\end{gather*}
+Se due sistemi sono all'equilibrio termico allora la funzione delle variabili 
+$x$ e $y$ per ciascun sistema sono in relazione con gli altri sistemi
+e dunque questa funzione di variabili è esattamente la \textbf{temperatura empirica}.
+Se noi fossimo in grado di determinare queste funzioni allora potremmo definire la temperatura
+come funzione delle altre variabili termodinamiche (il che non è possibile anche se si sa che esiste).
+La grandezza temperatura è dunque quella grandezza funzione della pressione e
+del volume  che mi permette di determinare se due sistemi sono in equilibrio
+termico oppure no. Se la temperatura è fissata posso immaginare di prendere, dei vari stati,
+solo quegli $x, y$ che mi portino (secondo qualche relazione funzionale) ad avere quella determinata temperatura. Questi punti
+appartengono ad una curva che prende il nome di \textbf{curva isotermica} e rappresentano solo una
+parte ristretta degli stati totali che assumerebbe il mio sistema. 
+
+
+\section{Misurare la temperatura e sua definizione operativa}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il termometro con il sistema $S$}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (2, 2) node[midway] {$S, T_S$};
+        \draw(-1, 0.5) rectangle (0, 1.5) node[midway] {$A, T_A$};
+    \end{tikzpicture}    
+\end{wrapfigure}Possiamo definire uno strumento (dal principio zero) che ci permetta di misurare
+la temperatura: infatti se riesco a definire la temperatura di un sistema io posso 
+a quel punto metterlo a contatto termico con un altro e dunque
+ottengo la misura della temperatura. Posso quindi utilizzare un \textbf{termometro}
+per poter definire operativamente la temperatura così come ho fatto per la definizione
+operativa di forza mediante una grandezza minore. Posso valutare allora una proprietà
+che dipende dalla temperatura, ossia una \textbf{proprietà termometrica} come
+il volume. Mettendo ora a contatto il termometro $A$ con il sistema $S$ che vogliamo misurare
+si può misurare la temperatura di $T_A$ che ora è la stessa di $T_S$; tuttavia la
+temperatura iniziale del sistema $T_S$ non sono in grado di determinarla.
+Per ovviare al problema posso costruire un sistema di termometri con masse sempre più piccole
+in modo tale che possa misurare la temperatura con ogni termometro e poi riportare
+il sistema alle condizioni iniziali. Posso trovare allora la temperatura di ogni termometro ed ottenere che
+questi valori di temperatura sperimentalmente sono sempre
+tra valori assegnati e dunque la successione è monotona e limitata e dunque
+è convergente: la temperatura è data dal limite
+\begin{align}
+    T = \lim_{M_A \to 0}T(M_A) 
+\end{align}
+Ad un certo punto il mio strumento non ha più risoluzione per poter determinare la temperatura.
+Qualsiasi sistema $A$ può essere utilizzato per determinare la temperatura
+di un certo sistema $S$ purché la massa $m_A << m_S$ per evitare di modificare
+in modo sostanziale la temperatura del sistema $S$.
+
+\end{document}

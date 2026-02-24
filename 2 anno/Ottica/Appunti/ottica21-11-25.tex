@@ -1,0 +1,196 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti Ottica}
+\author{Tommaso Miliani}
+\date{21-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section*{Esperienza Interferometro di Machelson}
+\section{Apparato sperimentale}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'interferometro di Machelson}
+    \begin{tikzpicture}
+        \draw[->](0, 0.2) -- (2.25, 0.2);
+        \draw[->](2.25, 0.2) -- (2.25, 2);
+        \draw[->](2.5, 2) -- (2.5, 0.75);
+        \draw[->](2.5, 0.75) -- (1, 0.75);
+        \draw[->](2.5, 0.75) -- (2.7, 0.35) -- (2.7, -2);
+        \draw[->](2.25, 0.2) -- (2.55, 0) -- (4.5, 0);
+        \draw[->](4.5, -0.25) -- (2.42, -0.25);
+        \draw[->](2.42, -0.25) -- (2.42, -2);
+        \draw[->](2.42, -0.25) -- (2.15, -0.1) -- (0, -0.1);
+        \draw(1.75, -1) -- (2, -1.2) -- (3, 1) -- (2.75, 1.2);
+        \draw[very thick](2.75, 1.2) -- (1.75, -1);
+        \draw[pattern = north west lines, pattern color = white](1.75, 2) rectangle (3, 2.5);
+        \draw[pattern = north west lines, pattern color = white](4.5, 0.75) rectangle (5, -1);
+        \filldraw (2.1, -2) rectangle (3, -2.25);
+    \end{tikzpicture}
+\end{wrapfigure}
+L'interferometro di Machelson è un beam splitter e non un polarizer:
+dunque non polarizza la luce ma semplicemente divide il fascio 
+luminoso in base  al campo incidente. Il laser che si utilizza è un laser
+che spara una luce a lunghezza d'onda ignota. Dunque il primo scopo dell'esperienza
+è proprio quello di misurare la lunghezza d'onda incognita che viene
+sparata dal laser elio-neon. Si pul esprimere l'intensità
+totale del campo elettrico in funzione della distanza dei due rilevatori
+come
+\begin{gather*}
+    I = I_0 \sin^{2}\left(\frac{\pi(L_1 - L_2)}{\frac{\lambda}{2}}\right)   
+\end{gather*}
+La lunghezza d'onda incognita è quella del laser verde utilizzato per l'esperienza
+della polarizzazione. Il segnale del fotodiodo sui rilevatori è misurato 
+tramite un oscilloscopio digitale che misura una tensione analogica
+in Volt a 12 bit. \\
+Montando uno dei due specchi su di una ceramica piezoelettrica: ossia 
+una ceramica al quale applico una tensione variabile, lo spessore della ceramica
+cambia: si dilata dunque in base alla tensione che gli è applicata. Questo fenomeno 
+permette di cambiare dunque la lunghezza di uno dei due cammini ottici
+attraverso della tensione. Si deve dunque misurare, in funzione della tensione, 
+l'intensità del fascio di luce e tracciare un fit sinusoidale attraverso i dati 
+raccolti dall'oscilloscopio digitale. Si genera dunque una rampa lineare della tensione applicata
+alla ceramica piezoelettrica che dovrebbe, in linea teorica, determinare un allungamento
+$\Delta L$ lineare, anche se in realtà è un andamento monotono che non si conosce 
+(ma sicuramente non lineare).
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$t$};
+        \draw[->](0, 0) -- (0, 2) node[at end, left] {$V$};
+        \draw(0, 0) -- (3, 2);
+        \draw[->](5, 0) -- (8, 0) node[at end, below] {$V$};
+        \draw[->](5, 0) -- (5, 2) node[at end, left] {$I$};
+        \draw[domain=5:8, dashed] plot (\x, {sin(\x * 3 r) * sin(\x * 3 r)});
+        \draw[->](10, 0) -- (13, 0) node[at end, below] {$V$};
+        \draw[->](10, 0) -- (10, 2) node[at end, left] {$\Delta L$};
+        \draw(10, 0) -- (13, 2) node[at end, right] {No};
+        \draw[domain=10:13, red] plot (\x, {((\x - 10) * (\x- 10)) /  3});
+        \draw[domain=10:13, cyan, samples = 50] plot (\x, {sqrt(\x - 10)});
+    \end{tikzpicture}
+\end{gather*}
+Sul grafico si deve avere sia la tensione in uscita dal rilevatore di luce, che la
+tensione alla ceramica piezoelettrica: dunque sullo schermo del computer
+si hanno entrambe le tensioni. Il grafico è tratteggiato in quanto la sinusoide è
+calcolata ottenendo dati ogni pochi millisecondi. I dati sono 
+caricati sul programma scritto in Mathematica in modo tale che si analizzi i punti per trovare 
+i massimi locali per determinare la curva $V - \Delta L$.
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0);
+        \draw[->](0, 0) -- (0, 2);
+        \filldraw[red](0.7, 0.5) circle (1pt);
+        \filldraw[green](0.5, 0.5) circle (1pt);
+        \filldraw[red](1.4, 0.75) circle (1pt);
+        \filldraw[green](1.1, 0.75) circle (1pt);
+        \filldraw[red](2.4, 1.25) circle (1pt);
+        \filldraw[green](1.9, 1.25) circle(1pt);
+    \end{tikzpicture}
+\end{gather*}
+Si toglie ora il laser
+elio-neon e si sostituisce con il laser verde dell'esperienza della polarizzazione
+in modo tale che si possa ottenere un grafico in funzione della tensione l'intensità
+e si ottiene un grafico simile a quello ricavato con la lampada
+elio-neon. I grafici dell'intensità sono leggermente sfasati tra di loro.
+L'intensità del seno quadro del laser rosso ha un massimo per
+\begin{gather*}
+    I_R(\Delta L(v)) = I_0 \sin^{2}\left(\frac{\pi \Delta L(v)}{\frac{\lambda_R}{2}}\right) \ \Longrightarrow \ \max \frac{\pi \Delta L (v)}{\frac{\lambda_R}{2}} = \frac{\pi}{2} + m_R \pi
+\end{gather*}
+Mentre per il laser verde ha un max per
+\begin{gather*}
+    I_R(\Delta L(v)) = I_0 \sin^{2}\left(\frac{\pi \Delta L(v)}{\frac{\lambda_R}{2}}\right) \ \Longrightarrow \ \max \frac{\pi \Delta L(v)}{\frac{\lambda_V}{2}} = \frac{\pi}{2} + m_V \pi
+\end{gather*}
+Si possono dunque ottenere le curve dei massimi delle due sorgenti
+rosse e verde.
+\begin{gather*}
+    \left\{\begin{array}{l}
+        m_R = \frac{\Delta L(v)}{\frac{\lambda_R}{2}} - \frac{1}{2} \\
+        m_V = \frac{\Delta L(v)}{\frac{\lambda_V}{2}} - \frac{1}{2}
+    \end{array}\right.
+\end{gather*}
+Si deve immaginare ogni volta che ci sia un certo valore di tensione 
+della ceramica piezoelettrica in modo tale che si possa far coincidere la curva 
+di tensione rossa con quella verde. Matematicamente è possibile farlo attraverso
+$m_R \frac{\lambda_R}{\lambda_V}$ per cui la curva rossa viene moltiplicata per il 
+rapporto tra le lunghezze d'onda ottenendo
+\begin{gather*}
+    \frac{\Delta L (v)}{\frac{\lambda_V}{2}} - \frac{1}{2}\frac{\lambda_R}{\lambda_V}
+\end{gather*}
+Per far coincidere le curve devo aggiungere un certo offset opportuno,
+ossia $\frac{1}{2}\frac{\lambda_R}{\lambda_V} - \frac{1}{2}$:
+\begin{gather*}
+    \frac{\Delta L(v)}{\frac{\lambda_V}{2}} - \frac{1}{2}
+\end{gather*}
+Si \underbar{misura} il coefficiente $F$, ossia il rapporto tra le lunghezze d'onda: si misura dunque questo 
+coefficiente per qualche volta in modo da ricavare anche lo scarto massimo su questo: il $\lambda_R$ è dato 
+dalle caratteristiche della lampada a elio neon.
+\begin{gather*}
+    \left< \lambda_V \right> = \frac{\left< \lambda_R \right> }{\left< F \right> } \ \Longrightarrow \ \frac{\Delta \lambda_V}{\lambda_V} = \frac{\Delta \lambda_R}{\lambda_R} + \frac{\Delta F}{F}
+\end{gather*} 
+In generale lo spettro è centrato intorno ad una certa lunghezza d'onda con un certo 
+intervallo: si stabilisce dunque tramite l'interferometro di Machelson
+questa ampiezza: per farlo si deve ricordare la teoria. In presenza di una intensità luminosa
+che è distributa secondo una gaussiana con parametro di larghezza $\sigma = \Delta \omega$: 
+se questa è spedita attraverso Machelson, si vede che l'intensità in funzione del $Delta L $ modificheà
+la Gaussiana totalmente:
+\begin{align}
+    I(\Delta L) = \frac{I_0}{2}\left(1 - \exp\left(-\left(\frac{\Delta L - \Delta \omega}{c}\right)^{2}\right) \cos\left(\frac{2\Delta L \omega_0}{c}\right)\right)
+\end{align}
+Il grafico che si vede facendo questo esperimento è il seguente:
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$\Delta L$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$I(\Delta L$)};
+        %\draw[domain = 0.1:4, samples = 50] plot (\x, {2 * sin(3 *\x r) * sin(3 * \x r) / (\x * 0.5)});
+    \end{tikzpicture}
+\end{gather*}
+
+\end{document}

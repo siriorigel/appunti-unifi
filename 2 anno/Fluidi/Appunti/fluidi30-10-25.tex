@@ -1,0 +1,289 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Termodinamica}
+\author{Tommaso Miliani}
+\date{30-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Il teorema di Clausius}
+Dato che
+\begin{gather*}
+    \eta \leq \eta_R
+\end{gather*}
+Allora posso dire che
+\begin{gather*}
+    1 + \frac{Q_2}{Q_1} \leq 1  -\frac{T_2}{T_1}
+\end{gather*}
+Dunque si ottiene che
+\begin{gather*}
+    \frac{Q_1}{T_1} + \frac{Q_2}{T_2} \leq 0
+\end{gather*}
+Questa disuguaglianza è uguale a zero se e solo se la
+macchina è reversibile. Durante delle trasformazioni cicliche, se si
+scambia calore con dei termostati si ha che
+\begin{gather*}
+    \sum \frac{Q_1}{T_1} \leq 0
+\end{gather*} 
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Sistema in grado di dimostrare il teorema di Clausius.}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (0.5) node[midway] {$M$};
+        \draw(0.25, -0.42) -- (1, -0.75) node[at end, below] {$L$};
+        \draw(-1, 1) rectangle (-0.5, 1.5) node[midway] {$T_1$};
+        \draw(0, 1) rectangle (0.5, 1.5) node[midway] {$T_2$};
+        \filldraw(1, 1.25) circle (1pt);
+        \filldraw(1.5, 1.25) circle (1pt);
+        \draw(2, 1) rectangle (2.5, 1.5) node[midway] {$T_n$};
+        \draw(-0.75, 1.5) -- (-0.75, 2);
+        \draw(-0.75, 2.5) circle (0.5) node[anchor = center] {$R$};
+        \draw(-1.25, 2.5) -- (-1.75, 2.5) node[at end, above] {$L$};
+        \draw(-0.75, 3) -- (0, 4) node[midway, left] {$Q_{1,0}$};
+        \draw(-0.5, 4) rectangle (2, 5) node[midway] {$T_0$};
+        \filldraw(0.25, 2.5) circle (1pt);
+        \filldraw(1, 2.5) circle (1pt);
+        \filldraw(1.75, 2.5) circle (1pt);
+        \draw(-0.75, 1) -- (-0.25, 0.42) node[midway, left] {$Q_1$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Che fa zero solamente nel caso reversibile (dimostrato da Clausius). Per
+dimostrarlo possiamo innanzitutto determinare il sistema termodinamico: questo sistema $M$ 
+che compie solamente dei cicli. Questo sistema interagisce meccanicamente 
+con l'ambiente compiendo del lavoro; inoltre scambia con $n$ termostati
+una certa quantità di calore $Q_1, \dots, Q_n$. Posso apporre ai termostati
+una macchina reversibile che compie del lavoro in modo tale che il calore che 
+prende la macchina $R$ è lo stesso calore che deve fornire 
+la macchina $M$ al termostato $T_1$ e viceversa. In questo modo 
+il bilancio energetico del termostato $1$ risulta nullo. Si 
+applicano altre $R_{n - 1}$ macchine termiche in modo tale che
+il calore totale scambiato con il termostato $T_1$ e tutti gli altri termostati
+siano zero. Dato che tutte le macchine sono reversibili, allora sono anche
+delle macchine di Carnot, dunque si può imporre 
+\begin{gather*}
+    \frac{Q_{i, 0}}{T_0} - \frac{Q_i}{T_i}
+\end{gather*}
+Dunque il calore scambiato con il termostato $T_0$ è proprio
+\begin{gather*}
+    Q_{i, 0} = T_0 \frac{Q_i}{T_i}
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Schematizzazione del sistema del teorema di Clausius}
+    \begin{tikzpicture}
+        \draw(0, 0) ellipse (1 and 0.5) node[midway] {$M + \sum R$};
+        \draw(0, 0.5) -- (0, 1.5);
+        \draw(-1, 1.5) rectangle (1, 2.5) node[midway] {$T_0$}; ù
+        \draw(1, 0) -- (2, 0) node[at end, right] {$L_{tot}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il Sistema, complessivamente, fa un certo lavoro che sarà la somma
+del lavoro della macchina $M$ e delle altre macchine reversibili. Il sistema
+complessivo è un sistema che scambia calore con un unico termostato $T_0$. QUesto 
+vuol dire che è un sistema ciclico che fa (o subisce) una certa quantità 
+di lavoro
+\begin{gather*}
+    L_{tot} = L +\sum L_i
+\end{gather*}
+Ma scambia calore solamente con $T_0$. Possiamo allora dire che
+\begin{gather*}
+    L_{tot} = Q_{tot} = \sum Q_{i, 0} \leq 0
+\end{gather*}
+Si sostituisce con il calore ottenuto prima
+\begin{gather*}
+    T_0 \sum \frac{Q_i}{T_i} \leq 0 \ \Longrightarrow \ \sum \frac{Q_i}{T_i} \leq 0
+\end{gather*}
+Adesso, nell'ipotesi in cui la macchina $M$ sia reversibile, per non 
+violare il secondo principio della Termodinamica, allora 
+quella sommatoria deve necessariamente essere uguale a zero per evitare che 
+l'unica processo che si otterrebbe da questo sistema scambiando calore con un solo 
+con un termostato sia lavoro positivo.  
+Posso riscrivere la tesi del teorema di Clausius come 
+\begin{gather*}
+    Q_i = \sum_{k = 1}^{m_i} \delta Q_k^{(i)}  
+\end{gather*}
+E dunque
+\begin{gather*}
+    \sum_{i = 1}^{n} \frac{Q_i}{T_i} = \sum_{i = 1}^{n} \frac{1}{T_i} \sum_{k = 1}^{m_i} \delta Q_k^{(i)}  = \sum_{i = 1}^{n} \sum_{k = 1}^{m_i} \frac{\delta Q_k^{(i)} }{T_i} 
+\end{gather*}
+Posso allora riscrivere la seconda sommatoria come un integrale e dunque
+\begin{gather*}
+    \sum_{i = 1}^{n} \int_{i} \frac{\delta Q^{(i)} }{T_i} = \oint \frac{\delta Q}{T} \leq 0
+\end{gather*}
+Questo è possibile pensando che il ciclo, invece che scambiare calore
+con un numero finito di termostati, scambia quantità infinitesime di calore 
+con una distribuzione continua di sorgenti:
+\begin{gather*}
+    \lim_{n \to \infty } \sum_{i = 1}^{n}\frac{\delta Q_i}{T_i}  = \oint \frac{\delta Q}{T}
+\end{gather*}
+Questa notazione è dunque una generalizzazione del teorema di Clausius 
+per cui si implica che se è valido per un caso finito allora è possibile che sia
+valido anche per il caso in cui il numero di termostati sia infinito. Se
+dunque le trasformazioni sono solamente reversibile allora 
+\begin{gather*}
+    \oint \left(\frac{\delta Q}{T}\right)_{REV} = 0
+\end{gather*}
+
+\section{Definizione di Entropia}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2);
+        \filldraw(-1, -1.72) circle (1pt) node[anchor = north] {$A$};
+        \filldraw(1, 1.72) circle (1pt) node[anchor = south] {$B$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso in cui il ciclo sia reversibile, è possibile prendere due stati qualunque
+attraversati da questa trasformazione e dire che l'integrale di linea
+è possibile scomporlo in due pezzi
+\begin{gather*}
+    \int_{A}^{B} \left(\frac{\delta Q}{T}\right)_{REV} + \int_{B}^{A} \left(\frac{\delta Q}{\delta T}\right)_{REV} = 0
+\end{gather*}
+Potrei voler invertire gli estremi dell'integrale quando voglio percorrere il cammino al contrario,
+e in questo caso è possibile farlo in quanto siamo nell'ipotesi di
+trasformazione reversibile (non è vero però nel caso in cui le
+trasformazioni non siano reversibili). 
+\begin{gather*}
+     \int_{A}^{B} \left(\frac{\delta Q}{T}\right)_{REV}  = - \int_{B}^{A} \left(\frac{\delta Q}{T}\right)_{REV} 
+\end{gather*}
+Dato che posso trovare una funzione di stato tale per cui è possibile
+esprimere quell'integrale, si può definire
+\begin{gather*}
+     \int_{A}^{B} \left(\frac{\delta Q}{T}\right)_{REV} = f(A, B) \ \Longrightarrow \ f(A, A) = 0
+\end{gather*}
+Posso esprimere questo come differenza tra i valori di una certa funzione
+di stato $S$ tra istante iniziale e finale:
+\begin{align}
+        S(B) - S(A) =  \int_{A}^{B} \left(\frac{\delta Q}{T}\right)_{REV} 
+\end{align}
+Ossia l'\textbf{Entropia}. Si definisce dunque l'entropia di un certo stato
+termodinamico $P$ rispetto ad un certo stato di equilibrio $O$ come
+\begin{gather*}
+    S_P = \int_{O}^{P} \left(\frac{\delta Q}{T}\right)_{REV} 
+\end{gather*}
+L'entropia è una quantità estensiva ed additiva: l'entropia di due
+sistemi risulta essere la somma della loro entropia. L'entropia non 
+è una funzione della trasformazione: infatti dire che l'entropia durante 
+una trasformazione varia non ha senso poiché, a meno che la
+trasformazione non sia quasi statica, non si riesce a determinare quello 
+che accade all'entropia durante una trasformazione. L'entropia 
+diventa allora una funzione di stato, dunque, differenziando, posso ottenere
+\begin{gather*}
+    dS = \frac{\delta Q_{REV}}{T}
+\end{gather*}
+Se si scambia dunque del calore in modo reversibile con un termostato 
+a temperatura $T$, il differenziale dell'entropia diventa un differenziale esatto
+anche se il differenziale del calore non è esatto. Tutte le trasformazioni reversibili
+che si possono descrivere sono anche quasi statiche per cui posso 
+determinare l'entropia per tutte le trasformazioni reversibili. Tuttavia
+questa ipotesi non è molto forte in quanto è vero che non sono in grado 
+di trovare delle trasformazioni reversibili che non siano quasi statiche,
+ma questo non mi assicura che esistano. 
+
+\section{Il criterio per determinare se una trasformazione è reversibile o meno}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \filldraw(0, 0) circle (1pt) node[anchor = north] {$A$};
+        \filldraw(2, 2) circle (1pt) node[anchor = south] {$B$};
+        \draw[dashed] (0, 0) .. controls (0.6, 2) and (1.5, 2.2) .. (2, 2) node[midway, above] {$1$};
+        \draw(0, 0) .. controls (0.6, 0.2) and (1.6, 0.8) .. (2, 2) node[midway, below] {$2$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+La definizione di entropia mi permette di determinare se una
+trasformazione sia reversibile oppure no (è un procedimento analitico).
+Immagino che tra due stati $A$ e $B$ ci sia uno spazio degli stati
+(che è continuo come lo spazio $\mathbb{R}^{2}$ ) e ipotizzo che
+esista almeno una trasformazione reversibile che connetta i due punti
+(anche se non posso a priori dire se è quasi statica oppure no). 
+Le due trasformazioni $1$ e $2$ costituiscono un ciclo (con la trasformazione
+2 che è reversibile):
+\begin{gather*}
+    AB^{(1)} + BA^{(2)} = \text{ciclo}  
+\end{gather*}
+E dunque posso dire che
+\begin{gather*}
+    \int_{A, 1}^{B} \frac{\delta Q}{T} + \int_{B, 2}^{A} \left(\frac{\delta Q}{T}\right)_{REV} \leq 0
+\end{gather*}
+Dato che la trasformazione $AB^{(2)}$ è una trasformazione reversibile allora 
+\begin{gather*}
+    \int_{A, 1}^{B}\frac{\delta Q}{T} - \int_{A, 2}^{B} \left(\frac{\delta Q}{T}\right)_{REV} \leq 0
+\end{gather*} 
+E dunque l'entropia:
+\begin{gather*}
+    S(B) - S(A) \geq \int_{A, 2}^{B} \frac{\delta  Q}{T}
+\end{gather*}
+Se il segno dell'entropia non fosse quello, allora si sarebbe commesso uno
+dei seguenti tre errori:
+\begin{enumerate}
+    \item Ho sbagliato i conti
+    \item Esiste una trasformazione che in realtà non esiste (una trasformazione
+    adiabatica che connette due stati alla stessa temperatura).
+    \item Ho violato il secondo principio della termodinamica per come è stata definita
+    l'entropia. 
+\end{enumerate}
+Si ottiene allora l'algoritmo per determinare se una trasformazione è reversibile:
+\begin{gather*}
+    \Delta S > \int_{A, 2}^{B} \frac{\delta Q}{T} \ \Longrightarrow \ \textbf{Irreversibile} \\
+    \Delta S = \int_{A, 2}^{B} \frac{\delta Q}{T} \ \Longrightarrow \ \textbf{Reversibile}
+\end{gather*}
+C'è un caso particolare in cui quell'integrale è molto facile: ossia se non 
+c'è scambio di calore tra il sistema e l'ambiente e dunque per un
+sistema termicamente isolato $\Delta S \geq 0$. L'entropia vincola dunque l'evoluzione
+futura del sistema: se non scambia calore con l'ambiente esterno, allora nel futuro la sua entropia
+è destinata a crescere. L'entropia, che è una quantità fisica misurabile, 
+mi permette di determinare se lo stato di un sistema
+si trova più avanti nel tempo oppure più indietro nel tempo. E' per questo 
+che si dice che, dato che è un sistema chiuso, l'entropia dell'universo 
+è destinata ad aumentare. 
+
+\end{document}

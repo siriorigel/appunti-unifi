@@ -1,0 +1,378 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica (Cuccoli)}
+\author{Tommaso Miliani}
+\date{18-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Moto di un oggetto con forza di tipo elastico su un piano inclinato}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 1.1}
+    \caption{Binario con molla ed oggeto}
+    \begin{tikzpicture}
+        \draw (-1, 0) -- (4, 0);
+        \draw[decoration={aspect=0.3, segment length=4mm, amplitude=1mm,coil},decorate] (-1, 0.5) -- (1, 0.5);
+        \draw (-1, 0) -- (-1, 1);
+        \draw (1, 0) rectangle (2, 1); 
+        \draw[->] (1.5, 0.5) -- (1.5, -0.5) node[at end, right] {$m\vec{g} $}; 
+        \draw[->] (1.5, 0.5) -- (1.5, 1.5) node[at end, right] {$\vec{N} $};
+        \draw[->] (1, 0.5) -- (0.5, 0.5) node[midway, above] {$\vec{F}_e$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso di una molla ideale, questa obbedisce alla legge di Hooke: 
+alla sua estremità essa applica una forza elastica data da:
+\begin{align}
+    \vec{F}_e = K\Delta l \hat{u}  
+\end{align}
+PErché una molla possa applicare una forza ad un oggetto allora occorre
+che sia fissata. La molla considerata è inoltre perfettamente simmetrica:
+essa applica la stessa forza sia se vengono tirate che compresse. La legge di 
+Hooke vale se e solo se $\Delta l \to 0$, altrimenti una molla non ideale 
+perde le sue caratteristiche e si deforma.  Un'altra caratteristica di una molla
+ideale è la sua assenza di massa. \\
+La situazione nel disegno si possono scrivere le seguenti:
+\begin{align}
+    \vec{N} + m\vec{g} + \vec{F}_e = m\vec{a}    
+\end{align}
+LA sitauzione vettoriale:
+\begin{gather*}
+    \vec{F}_e = -K\Delta l \hat{i} \\
+    \vec{a} = \ddot{x} \hat{i} \\
+    \vec{N} = N\hat{j} \\
+    \vec{g} = -g\hat{j}      
+\end{gather*}
+SI ottiene allora combinando tutto insieme:
+\begin{gather*}
+    -K\Delta l = m\ddot{x} \\
+    N  = mg
+\end{gather*}
+Fissato l'origine del sistema di riferimento nel punto in cui la
+molla è a riposo (a noi non interessa chi ha spostato la massa nella posizione
+in cui la molla non è più a riposo), allora si ottiene:
+\begin{align}
+    m\ddot{x} &= -K x \\
+    m \ddot{x} + K x &= 0 
+\end{align}
+Questa equazione differenziale è risolvibile facilmente ed ha le seguenti caratteristiche:
+è lineare, omogenea, del secondo ordine e a coefficienti costanti. \\
+L'ordine di un equazione differenziale è dato dall'ordine massimo della derivata che
+compare nell'equazione, la linearità è data dalla potenza dell'incognita x. E' omogenea
+poiché non compare il termine noto, inoltre è a coefficienti costanti in quanto
+i coefficienti non sono variabili rispetto al tempo. \\
+Dato che e entrambi i coefficienti sono positivi, allora possiamo dividere tutto per $m$ e
+ottenere:
+\begin{gather*}
+    \ddot{x} + \frac{K}{m} x = 0
+\end{gather*}
+Posto allora il nuovo coefficiente uguale al quadrato di un numero reale
+(per ricordarci che è un numero positivo), allora si ottiene:
+\begin{gather*}
+    \ddot{x} + \Omega^{2} x = 0 \\
+    \ddot{x} = -\Omega^{2}x 
+\end{gather*}
+Le possibili soluzioni sono:
+\begin{align}
+    x_1(t) = \cos\Omega t \\
+    x_2(t) = \sin\Omega t
+\end{align}
+
+
+\section{Il moto armonico }
+Poiché derivandole due volte si ottiene esattamente il secondo membro
+della differenziale. La soluzione generale si ottiene combinando le due ottenendo
+una combinazione lineare di seno e coseno:
+\begin{align}
+    x(t) =& a\cos\Omega t + b \sin\Omega t
+\end{align}
+L'equazione differenziale è proprio l'equazione che descrive un moto
+armonico: il requisito essenziale è la derivata seconda e la funzione x con
+lo stesso segno nello stesso membro.  Due modi equivalenti per la soluzione
+generale sono anche:
+\begin{align}
+    x(t) &= A \cos(\Omega t + \phi) \\
+    x(t) &= A \sin(\Omega t + \phi)
+\end{align}
+Essendo tutte e tre equivalenti, le tre equazioni possono essere utilizzate 
+tutte al fine del risolvimento degli esercizi senza distinzione.
+Se applichiamo la regola della somma e sottrazione degli argomenti 
+di seno e coseno, allora si riottiene la forma estesa dell'equazione 
+se si ottiene che:
+\begin{align}
+    a =& A \cos\phi \\
+    b =& -A \sin\phi
+\end{align}
+E quindi:
+\begin{align}
+    \tan\phi =& -\frac{b}{a} \\
+    A =& \sqrt{a^{2} + b^{2} } 
+\end{align}
+Le costanti che compaiono prendono quindi i seguenti nomi:
+$\Omega$ è chiamata \textbf{pulsazione} del moto armonico che
+ha le dimensioni di $t^{-1}$ ed è univocamente determinata dalla fisica
+del problema e quindi anche $a, b$, dipendendo dalle condizioni iniziali, cambiano. 
+Il periodo del moto armonico è dato proprio da:
+\begin{align}
+    T =& \frac{2\pi}{\Omega}
+\end{align}
+E quindi la sua frequenza per definizione non è nient'altro che:
+\begin{align}
+    \nu = \frac{\Omega}{2\pi}
+\end{align}
+Derivando l'equzione del moto armonico si ottiene:
+\begin{gather*}
+    \dot{x}(t) = -a\Omega \sin\Omega t + b\Omega \cos\Omega t \\
+    \Rightarrow  \dot{x}(t = 0) = b \Omega = v_0   
+\end{gather*}
+La velocità in $t = 0$ è proprio data dalla derivata e quindi si può ricavare
+\begin{gather*}
+    b = \frac{v_0}{\Omega}
+\end{gather*}
+Tutte queste considerazioni sono possibili solo grazie al fatto che ho posto
+il sistema di riferimento della sistema proprio nel punto in cui la
+molla è a riposo.
+
+
+\section{Il caso specifico: una molla attaccata al soffitto}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 3.1}
+    \caption{Sistema con molla attaccata al soffitto}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0);
+        \draw[decoration={aspect=0.3, segment length=4mm, amplitude=1mm,coil},decorate] (1.5, 0) -- (1.5, -2);
+        \draw (1, -2) rectangle (2, -3);
+        \draw[->, very thick] (1.5, -2) -- (1.5, -1) node[midway, right] {$\vec{F}_e$};
+        \draw[->] (1.5, -3) -- (1.5, -4) node[at end, right] {$m\vec{g} $};
+        \draw[decoration={aspect=0.3, segment length=1mm, amplitude=1mm,coil},decorate] (1, 0) -- (1, -1);
+        \draw[|-|] (0.5, -1) -- (0.5, -2) node[midway, right] {$\Delta l$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nella seguente immagine non ho ancora definito l'origine del sistema di riferimento 
+ma posso già definire i vettori con gli opportuni versori ottenendo la seguente situazione:
+\begin{gather*}
+    \vec{F}_e = K \Delta l \hat{j} \\
+    \vec{g} = -g\hat{j} \\
+    \vec{a} = \ddot{y} \hat{j} \\
+    K\Delta l = - mg = m \ddot{y}      
+\end{gather*}
+Adesso si pone l'origine del sistema di riferimento nel punto in cui
+la molla è a riposo. Se chiamiamo allora $\Delta l = -y$ si ottiene
+l'equzione del moto armonico non omogeneo:
+\begin{gather*}
+    -K y -mg = m\ddot{y} \\
+    my + Ky = -mg
+\end{gather*}
+Per risolvere questa equazione differenziale posso operare attraverso una
+sostituzione di variabile nella seguente maniera:
+\begin{gather*}
+    y(t) = \zeta (t) + \hat{y} \Rightarrow \ddot{y} (t) = \ddot{\zeta}(t)  \\
+    m\ddot{\zeta} + K\zeta + K \hat{y} = -mg \\
+    \text{Posto} \ \hat{z} = -\frac{mg}{K} \\
+    m \ddot{\zeta} + K \zeta = 0   
+\end{gather*}
+Quando $\zeta$ è zero, allora si ritorna alla situazione in cui l'origine del sistema
+di riferimento è proprio la posizione di equilibrio. 
+\begin{align}
+    y(t) = A\cos(\Omega t + \phi)- \frac{mg}{K}
+\end{align}
+Derivando si ottiene :
+\begin{align}
+    \dot{y} (t) = -\Omega A \sin(\Omega t + \phi) 
+\end{align}
+E quindi si hanno le impostazioni delle soluzioni:
+\begin{align}
+    \left\{\begin{array}{c}
+        A \cos\phi = \frac{mg}{K} \\
+        A \sin\phi = 0
+    \end{array}\right. \Rightarrow \left\{\begin{array}{c}
+        A = \frac{mg}{K} \\
+        \phi = 0
+    \end{array}\right.
+\end{align}
+Poiché $A = 0$ non ci da alcuna informazione sul moto .
+\begin{gather*}
+    y(t) = \frac{mg}{K} \left( \cos(\Omega t)  - 1\right)
+\end{gather*}
+\begin{align}
+    y_{max} &= -2\frac{mg}{K} \\
+    \dot{y}_{max} &= \frac{mg}{K} \Omega = g \sqrt{\frac{m}{g}}  
+\end{align}
+Dopo quanto  tempo si raggiunge la quota massima:
+\begin{gather*}
+    \Omega t_{min} = \pi \\
+    t_{min} = \frac{\pi}{\Omega} = \frac{T}{2}
+\end{gather*}
+Quando si raggiunge il massimo modulo per la prima volta:
+\begin{gather*}
+    t_{max} = \frac{\pi}{2\Omega} = \frac{\text{Periodo}}{4} 
+\end{gather*}
+
+
+\section{Moto del pendolo semplice (o pendolo matematico)}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 2.2}
+    \caption{Un pendolo semplice}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (1, -2);
+        \filldraw[gray] (1, -2) circle (3pt);
+        \draw[dashed] (0, 0) -- (0, -2.5);
+        \draw[dashed](1, -2) arc (-60: -90: 2);
+        \draw[->](1, -2) -- (1, -3) node[at end, below] {$m\vec{g}$ };
+        \draw[->] (1,-2) -- (1.5, -1.75) node[at end, above] {$\hat{u}_t$};
+        \draw[dashed] (0.5, -1) arc (-60:-90:1) node[midway, below] {$\theta$};
+        \draw[->, thick](1, -2) -- (0.5, -1) node[at end, above] {$\vec{N} $};
+        \draw[->] (1, -2) -- (1.5, -3) node[at end, right] {$\vec{g}_r$};
+        \draw[->] (1, -2) -- (0.5, -2.25) node[at end, below] {$\vec{g}_t$}; 
+        \filldraw (0, - 2.25) circle (1pt) node[anchor = north] {$A$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il pendolo semplice è in opposizione al pendolo fisico o pendolo composto. Cos'è un pendolo?
+Un pendolo è costruito con un filo ed una massa sufficientemnete piccola
+da poter essere approssimata as un punto materiale. Dal punto di vista matamatico
+si comporta qualunque punto materiale su di una traiettoria circolare su di un piano
+verticale come un pendolo.  Questo accadrà se e solo se il filo è completamente teso e
+se il punto materiale è vincolato in qualche modo in moto tale da poter solo
+ruotare e che non cada verticalmente (senza attrito).\\
+La risultante in quessto caso sarà: 
+\begin{gather*}
+     \vec{ N} + m\vec{g } = m\vec{a}   
+\end{gather*}
+Chiamiamo i versori $\hat{u}_n$ il versore di $\vec{N}$ e $\hat{u_t}$ il versore 
+della forza centripeta. Se il punto è attaccato ad un filo rigido allora si ha che $N \geq 0$,
+inoltre se è una guida o un asticella allora $N \subset R$. \\
+Si decompone ora la forza peso nella componente radiale e tangenziale
+ottenendo la seguente:
+\begin{align}
+    m \vec{g} = -mg\cos\theta \hat{u}_n -mg\sin\theta \hat{u}_t  
+\end{align}
+
+L'accelerazione ora sarà data dalla derivata seconda:
+\begin{align}
+    \vec{a} = \ddot{s}\hat{u}_t + \frac{\dot{s}^{2} }{l}\hat{u}_n   
+\end{align}
+
+Dividendo le componenti tangenziali e normali si ottiene:
+\begin{align}
+    \left\{\begin{array}{c}
+        -mg \sin\theta = m \ddot{s} \\
+        -mg\cos\theta + N = \frac{\dot{s}^{2}  }{l} 
+    \end{array}\right.
+\end{align}
+Noi però sappiamo che dalla definizione degli archi con gli angoli in radianti:
+\begin{align}
+    S &= \theta l \\
+    \dot{S} &= \dot{\theta}l \\
+    \ddot{S} &= \ddot{\theta} l  
+\end{align}
+Quindi possiamo riscrivere le due equazioni con le nuove sostituzioni:
+\begin{align}
+    \left\{\begin{array}{c}
+        ml \ddot{\theta} = -mg\sin\theta \\
+        N =ml\dot{\theta}^{2} + mg\cos\theta    
+    \end{array}\right.
+\end{align}
+IL primo membro della seconda è sicuramente positiva e quindi sarà
+soddisfatta se e solo se $-\frac{\pi}{2} < \theta < \frac{\pi}{2}$ altrimenti
+non sarà negativo. Se l'oggetto nel movimento si ferma, allora non arriverà mai sopra il corpo
+del pendolo poiché si azzererà $\dot{\theta}$ che non mi fa tornare l'Euazione 
+e quindi si affloscia il filo.\\
+Risolvendo la prima allora ottengo :
+\begin{gather*}
+    \ddot{\theta} + \frac{g}{2}\sin\theta = 0
+\end{gather*} 
+IPOTESI: Piccole oscillazioni, ossia $\theta(t) \leq \frac{\pi}{20}$ si ottiene attraverso lo sviluppo di Taylor
+che $\sin\theta \approx \theta$ e quindi si ottiene la differenziale di un moto
+armonico:
+\begin{align}
+    \ddot{\theta} + \frac{g}{l}\theta = 0.
+\end{align}
+IL moto è armonico solo per questa approssimazione, altrimenti non è
+armonico. 
+\begin{align}
+    \Omega = \sqrt{\frac{g}{l}} 
+\end{align}
+E quindi il periodo è dato:
+\begin{align}
+    T = \frac{2\pi}{\Omega} = 2\pi \sqrt{\frac{l}{g}} 
+\end{align}
+L'isocronismo del pendolo funziona se e solo se si compiono piccole oscillazioni,
+altrimenti il periodo è un'altra cosa. Se l'oscillazion è più grande si trova una formula
+in sviluppo in serie (senza dimostrazione poihcè si fa a lab) à popriroe:
+\begin{align}
+    2\pi \sqrt{\frac{l}{g}}\left( 1 + \left( \frac{1}{2} \right)^{2} \sin^{2} \left( \frac{\theta}{2} \right) 
+    + \left( \frac{13}{24} \right)^{2} \sin^{4} \left( \frac{\theta}{2} + ..\right) \right) 
+\end{align}
+Le caratteristiche di un pendolo sono la massa , la lunghezza del filo, l'accelerazione di
+gravità e l'ampiezza del moto (che è adimensionale) quindi il pedolo non diopedne
+dimensionalmente dall'ampiezza del moto. Facendo l'analisi dimensionale per il periodo:
+\begin{gather*}
+    \left[ T \right] = \left[ m^{\alpha} l^{\beta }  g^{\gamma} \right] \\
+    \left[ T \right] = \left[ m^{\alpha} l^{\beta}  (l t^{-2} )^{\gamma}  \right]
+\end{gather*}
+Si ottiene che:
+\begin{gather*}
+    0 = \alpha \\
+    0 = \beta + \gamma \Rightarrow \beta = \frac{1}{2} \\
+    1 = -2\gamma \Rightarrow \gamma = -\frac{1}{2}
+\end{gather*}
+Quindi il periodo sarà:
+\begin{align}
+    T = \text{const} \sqrt{\frac{l}{g}} 
+\end{align}
+E la costante sarà $2\pi$ per piccole oscillazioni, altrimenti si utlizza
+la formulona generale. E se il sistema di riferimento è inerziale, come si può determinare
+tutto.
+
+\section{Sistema di riferimento non inerziale}
+SR inzeriale: 
+\begin{gather*}
+    \vec{F} = m \vec{a}  
+\end{gather*}
+Se è noto il moto di S' rispetto ad S, allora  noi sappiamo che
+\begin{gather*}
+    \vec{a} = \vec{a}' + \vec{a}_t + \vec{a}_c    
+\end{gather*}
+E quindi la risultante per il primo principio saraà:
+\begin{gather*}
+    \vec{F} = m\vec{a}' + m\vec{a}_t + m\vec{a}_c  
+\end{gather*}
+Quindi esprimendo tutte le forze con le loro accelerazioni si ottien infine 
+che 
+\begin{gather*}
+    \vec{F}' 0 m\vec{a}'  
+\end{gather*}
+Posso quindi lavorare in un sistema di riferimento non inerziale se e solo se
+sono disposto a lavorare con due pseudo forze aggiuntive.
+
+
+\end{document}

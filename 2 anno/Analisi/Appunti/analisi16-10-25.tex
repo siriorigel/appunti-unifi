@@ -1,0 +1,371 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di analisi}
+\author{Tommaso Miliani}
+\date{16-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Anal}
+
+\begin{theorem}[Condizione sufficiente]
+    Sia $f : \mathbb{A} \to \mathbb{R}$ e sia $(x_0, y_0) \in \mathbb{A}$
+    e sia $f$ $C^{2}$ in un intorno di quel punto. 
+    Supponiamo che $(x_0, y_0)$ sia un punto critico della funzione. Allora
+    \begin{enumerate}
+        \item Se $D^{2}f(x_0, y_0)$ è definita positiva $\ \Longrightarrow \ (x_0, y_0)$ è 
+        un punto di minimo relativo.
+        \item Se $D^{2}f(x_0, y_0)$ è definita negativa $\ \Longrightarrow \ (x_0, y_0)$ è
+        un punto di massimo relativo.
+        \item Se $D^{2}f(x_0, y_0)$ è indefinita $\ \Longrightarrow \ (x_0, y_0)$ non è né
+        un punto di massimo né di minimo relativo, ma è un punto di sella.   
+    \end{enumerate} 
+\end{theorem}
+\begin{proof}
+    Si dimostrano le tre:
+    \begin{enumerate}
+        \item Sia $h = (h_1, h_2) \neq 0$. Considero 
+        \begin{gather*}
+            f(x_0 + h_1, y_0 + h_2)
+        \end{gather*} 
+        E considero lo sviluppo di Taylor fino al secondo
+        ordine. Adesso posso dire che 
+        \begin{gather*}
+            f(x_0 + h_1, y_0 + h_2) = f(x_0, y_0) + \left< Df(x_0, y_0), h \right> + \frac{1}{2}\left< D^{2}f(x_0, y_0)h, h  \right> + o(||h||^{2} ) 
+        \end{gather*}
+        Adesso, dato che il secondo termine è nullo, posso riscriverlo nella forma:
+        \begin{gather*}
+            f(x_0 + h_1, y_0 + h_2) - f(x_0, y_0)= \frac{1}{2}\left< D^{2}f(x_0, y_0)h, h  \right> + o(||h||^{2} ) 
+        \end{gather*}
+        Adesso voglio vedere se la differenza è negativa o positiva. Posso dividere per la norma
+        del vettore $h$ al quadrato. 
+        \begin{gather*}
+            \frac{f(x_0 + h_1, y_0 + h_2)}{||h||^{2} } = \frac{\frac{1}{2}\left< D^{2}f(x_0, y_0)h, h  \right> + o(||h||^{2} ) }{||h||^{2} }
+        \end{gather*}
+        Posta $q(h) = \left< Ah, h \right>$  una forma bilineare , allora, se
+        moltiplicassi per una costante $c$
+        \begin{gather*}
+            q(ch) = \left< A(ch), ch \right> \ \Longrightarrow \ q(ch) = c^{2} \left<Ah, h \right> 
+        \end{gather*} 
+        A questo punto posso dire che il pezzo a destra moltiplicato da un mezzo può
+        essere espresso come: (portando dentro al prodotto scalare la norma):
+        \begin{gather*}
+            \left< D^{2}f(x_0, y_0)\frac{h}{||h||}, \frac{h}{||h||}  \right> 
+        \end{gather*}
+        Utilizzando una funzione ausiliaria:
+        \begin{gather*}
+            p(v) = \left< D^{2}f(x_0, y_0)v, v  \right> 
+        \end{gather*}
+        Dove $v = (v_1, v_2)$ appartenente al cerchio con centro l'origine e di raggio $1$ (che si indica con $\mathbb{S}^{1} $)
+        Con cerchio si intende proprio il cerchio di valori e non la palla!. Questa
+        funzione continua su $\mathbb{S}^{1}$ e posso dire che $p(v) > 0, \forall v \in \mathbb{S}^{1}$ poiché
+        ho già assunto che la matrice $D^{2}f(x_0, y_0)$ è definita positiva, allora il numero
+        che ottengo moltiplicandola per $v$ è sempre strettamente positivo. Dato che $\mathbb{S}^{1}$ è chiuso
+        e limitato, allora per il teorema di Weierstrass questa funzione ausiliaria ha un massimo
+        ed un minimo. Se chiamo $m$ il minimo (dato che è strettamente maggiore di zero)
+        \begin{gather*}
+            p(v) \geq m > 0 \quad \forall v \in \mathbb{S}^{1}  
+        \end{gather*}
+        Allora anche 
+        \begin{gather*}
+            p\left(\frac{h}{||h||}\right) \geq m > 0
+        \end{gather*}   
+        Dato che il denominatore del prodotto scalare è maggiore stretto di zero, allora
+        posso dire che
+        \begin{gather*}
+            \frac{1}{2} \left< D^{2}f(x_0, y_0)\frac{h}{||h||}, \frac{h}{||h||}  \right>  \geq \frac{1}{2}m
+        \end{gather*}
+        Resta adesso da dimostrare che l'o piccolo della funzione. Per definizione si ha che
+        \begin{gather*}
+            \lim_{h \to 0} \frac{o(||h||^{2} )}{||h||^{2} } = 0 
+        \end{gather*}
+        Allora se $\exists \delta > 0$ tale che $||h|| < \delta$ allora si ha che
+        l'o piccolo è (sfruttando il fatto che il limite faccia zero):
+        \begin{gather*}
+            -\frac{m}{4} < \frac{o(||h||^{2} )}{||h||^{2} } < \frac{m}{4}
+        \end{gather*}
+        Allora se
+        \begin{gather*}
+            ||h || < \delta, h \neq 0 \ \Longrightarrow \ \frac{f(x_0 + h_1, y_0 + h_2) - f(x_0, y_0)}{||h||^{2} } \leq \frac{1}{2}m - \frac{1}{4}m > 0
+        \end{gather*}
+        Quindi
+        \begin{gather*}
+            f(x_0 + h_1, y_0 + h_2) \geq f(x_0, y_0) + \frac{m}{4}||h||^{2} > f(x_0, y_0).
+        \end{gather*} 
+        \item  La dimostrazione è analoga alla prima
+        \item La dimostrazione segue dal principio di condizione necessaria
+        di esistenza del punto di minimo relativo.
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+    Sia $A$ una matrice simmetrica con $c, h \in \mathbb{R}^{n}$. Se
+    \begin{align}
+        q(h) = \left<Ah, h\right>
+    \end{align} 
+    \begin{enumerate}
+        \item $q$ è definita positiva  $\Longleftrightarrow$ tutti gli autovalori
+        sono $> 0$.
+        \item $q$ è definita negativa $\Longleftrightarrow$ tutti gli autovalori sono $< 0$. 
+        \item $q$ è indefinita $\Longleftrightarrow$ se esiste un
+        autovalore $>0$ ed  un autovalore $< 0$
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Condizioni per forme quadratiche per matricie $2 \times 2$]
+    Supponendo che $A \in M(2 \time 2, \mathbb{K})$, allora posso dire che 
+    \begin{gather*}
+        A = \begin{pmatrix}
+            a_{1,1} & a_{1, 2} \\
+            a_{1, 2} & a_{2, 2}
+        \end{pmatrix}
+    \end{gather*}
+    Posso dire che
+    \begin{enumerate}
+        \item Se $\det A > 0$ e $a_{1, 1} > 0 \ \Longleftrightarrow $ è definita positiva;
+        \item Se $\det A > 0$ e $a_{1, 1} < 0 \ \Longleftrightarrow  $ è definita negativa;
+        \item Se $\det A < 0$ allora $q$ è indefinita.
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Condizioni per forme quadratiche per matrici $3 \times 3$]
+    Sia $A \in M(3 \times 3, \mathbb{K})$ con
+    \begin{gather*}
+        A= \begin{pmatrix}
+            a_{1, 1} & a_{1, 2} & a_{1, 3} \\
+            a_{1, 2} & a_{2, 2} & a_{2, 3} \\
+            a_{1, 3} & a_{2, 3} & a_{3, 3}
+        \end{pmatrix}
+    \end{gather*}
+    Allora, chiamate $det A_1 = a_{1, 1}$, $A_2 = \det \begin{pmatrix}
+        a_{1, 1} & a_{1, 2} \\
+        a_{1, 2} & a_{2, 2}
+    \end{pmatrix}$ e $A_3 = \det A$ i determinanti delle matrici:
+    \begin{enumerate}
+        \item Se $\det A_1, \det A_2, \det A_3 > 0 \Longleftrightarrow $ q è definita positiva;
+        \item Se $\det A_1 < 0$, $\det A_2 > 0, \det A_3 < 0 \Longleftrightarrow $ q è definita negativa;
+        \item Se $\det A \neq 0$ e non valgono né $1$ né $2$ allora è indefinita.
+    \end{enumerate}
+\end{theorem}
+
+\section{Trovare i punti critici, esempi}
+
+\begin{example}
+    \begin{gather*}
+        f(x, y) = 3x^{2} + y^{2} -x^{3}y   
+    \end{gather*}
+    Posso mettere a sistema le derivate parziali e le soluzioni
+    di questo sistema sono esattamente i punti critici. 
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            \frac{\partial f}{\partial x} = 6x - 3x^{2}y = 0\\
+            \frac{\partial f}{\partial y} = 2y -x^{3} = 0     
+        \end{array}\right.
+    \end{gather*}
+    Il primo ha soluzioni
+    \begin{gather*}
+        x = 0 \ \wedge \ y = \frac{2}{x} 
+    \end{gather*}
+    Il secondo ha soluzioni
+    \begin{gather*}
+        x = \pm \sqrt{2} 
+    \end{gather*}
+    E dunque i punti che si ottengono sono esattamente
+    \begin{gather*}
+        (0, 0) \quad (\sqrt{2}, \sqrt{2} ) \quad (-\sqrt{2}, -\sqrt{2} )
+    \end{gather*}
+    La matrice Hessiana è data da:
+    \begin{gather*}
+        D^{2}f(x, y) = \begin{pmatrix}
+            6x - 3x^{2}y & -3x^{2} \\
+            -3x^{2} & 2   
+        \end{pmatrix} 
+    \end{gather*}
+    Devo ora determinare il determinante della funzione Hessiana calcolata
+    nei punti trovati:
+    \begin{gather*}
+        D^{2}f(0, 0) = \begin{pmatrix}
+            6 & 0 \\
+            0 & 2
+        \end{pmatrix} \ \Longrightarrow \ \det >0 \ \Longrightarrow \ \text{def positiva} \ \Longrightarrow \  \text{minimo} \\
+        D^{2}f(\sqrt{2}, \sqrt{2} ) = \begin{pmatrix}
+            -6 & -6 \\
+            -6 & 2
+        \end{pmatrix} \ \Longrightarrow \ \det < 0 \ \Longrightarrow \ \text{indefinita} \ \Longrightarrow \ \text{sella} \\
+        D^{2}f(-\sqrt{2}, -\sqrt{2}  ) \qquad \text{Idem}   
+    \end{gather*}
+\end{example}
+
+\begin{example}[Esempio a tre variabili]
+    Data
+    \begin{gather*}
+        f(x, y, z) = x^{2}y + y^{2}z + z^{2} - 2x   
+    \end{gather*}
+    Il sistema è dunque
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            \frac{\partial f}{\partial x} = 2xy -2 = 0 \\
+            \frac{\partial f}{\partial y} = x^{2} + 2zy = 0 \\
+            \frac{\partial f}{\partial z} = y^{2} + 2z  = 0    
+        \end{array}\right.
+    \end{gather*}
+    Le soluzioni sono
+    \begin{gather*}
+        x = 1 \qquad y = 1 \qquad z = -\frac{1}{2}
+    \end{gather*}
+    Allora la matrice Hessiana sarà
+    \begin{gather*}
+        D^{2}f(x, y, z) = \begin{pmatrix}
+            2y & 2x & 0 \\
+            2x & 2z & 2y \\
+            0 & 2y & 2x
+        \end{pmatrix} 
+        D^{2}f(1, 1, -\frac{1}{2}) = \begin{pmatrix}
+            2 & 2 & 0 \\
+            2 & 1 & 2 \\
+            0 & 2 & 2 
+        \end{pmatrix} 
+    \end{gather*}
+    I determinanti delle sotto matrici sono
+    \begin{gather*}
+        \det 2 = 2 \qquad \det \begin{pmatrix}
+            2 & 2 \\
+            2 & 1
+        \end{pmatrix} = -6 \qquad \det D^{2}f(1, 1, -\frac{1}{2}) = -20 
+    \end{gather*}
+    La matrice è indefinita. 
+\end{example}
+
+\begin{example}[Esempio difficile]
+    \begin{gather*}
+        f(x, y) = xy\exp\left(\frac{-x^{2} + y^{2}  }{2}\right)
+    \end{gather*}
+    \begin{itemize}
+        \item Trovare e classificare i punti critici in $\mathbb{R}^{2}$;
+        \item Esistono minimi o massimi assoluti in $\mathbb{R}^{2}$?  
+    \end{itemize}
+    Possiamo trovare i punti critici mediante la solita risoluzione:
+    \begin{gather*}
+        (0, 0) \quad (1, 1) \quad (1, -1) \quad (-1, 1) \quad (-1, -1)
+    \end{gather*}
+    Adesso possiamo calcolare le Hessiana per tutti:
+    \begin{gather*}
+        D^{2}f(0, 0) = \begin{pmatrix}
+            0 & 1 \\
+            1 & 0
+        \end{pmatrix} \ \Longrightarrow \ \text{sella} \\
+        D^{2}f(1, 1) = D^{2}f(-1, -1) = \begin{pmatrix}
+            -\frac{2}{e} & 0 \\
+            0 & -\frac{2}{e}
+        \end{pmatrix}  \ \Longrightarrow \ \text{max locali} \\
+        D^{2}f(1, -1) = D^{2}f(-1, 1) = \begin{pmatrix}
+            \frac{2}{e} & 0 \\
+            0 & \frac{2}{e}
+        \end{pmatrix}  \ \Longrightarrow \ \text{min locale}
+    \end{gather*}
+\end{example}
+
+\section{Esempi in cui $Df$ non è né definita positiva o negativa o 
+indefinita in qualcuno dei suoi punti critici}
+\begin{example}[Esempio del libro negro]
+    La funzione
+    \begin{gather*}
+        f(x, y) = x^{4} - 6x^{2}y^{2} + y^{4}    
+    \end{gather*}
+    Cerco i punti critici per cui
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            4x(x^{2} - 3y^{2}) = 0  \\
+            4y(y^{2} - 3x^{2}) = 0     
+        \end{array}\right.
+    \end{gather*} 
+    Quindi
+    \begin{gather*}
+        \text{Se } x = 0 \ \Longrightarrow \ y = 0 \qquad \text{se } x = \pm y\sqrt{3} \ \Longrightarrow \ y = 0 
+    \end{gather*}
+    L'unico punto critico è allora $(0, 0)$ la cui matrice Hessiana è
+    \begin{gather*}
+        D^{2}f(0, 0) = \begin{pmatrix}
+            0 & 0 \\
+            0 & 0
+        \end{pmatrix} 
+    \end{gather*}
+    Per capire che tipo di punto è, dato che questa matrice non è né indefinita, né
+    definita positiva o negativa, è quello di applicare il \textbf{restrizioni}: essenzialmente
+    si restringe la funzione a rette (o curve) che passano per il punto critico
+    e studio il segno di queste restrizioni. 
+    \begin{gather*}
+        f(x, y) - f(0, 0) = f(x, y)
+    \end{gather*}
+    Così posso considerare le rette che hanno $x = 0$:
+    \begin{gather*}
+        f(0, y) = y^{4} \geq 0 \\
+        f(x, 0) = x^{4} \geq 0  
+    \end{gather*}
+    Posso studiare ora i valori per i fasci di rette ($y = mx + q$) con $q = 0$.
+    \begin{gather*}
+        f(x, mx) = x^{4}(4 - 6m^{2} + m^{4}  ) 
+    \end{gather*}
+    Allora il punto $(0, 0)$ è un punto di sella. 
+\end{example}
+
+\begin{theorem}[]
+    Sia $f$ una funzione definita su di un insieme aperto $\mathbb{A} \subset \mathbb{R}^{2}$, 
+    tale che $f: \mathbb{A} \to \mathbb{R}$. Se esiste un massimo fi $f$
+    $(x_0, y_0) \in \mathbb{A}$:
+    \begin{enumerate}
+        \item O $(x_0, y_0)$ è interno ma $f$ non è derivabile;
+        \item O $(x_0, y_0)$ è interno e $Df(x_0, y_0) = 0$;
+        \item O $(x_0, y_0)$ si trova nella frontiera.
+    \end{enumerate}
+    
+\end{theorem}
+
+
+\end{document}

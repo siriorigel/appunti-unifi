@@ -1,0 +1,61 @@
+\documentclass[a4paper, oneside]{book}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig} %wrapping images in text
+\usepackage{color}
+\pagecolor{black}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{FIsica}
+\author{Tommaso Miliani}
+\date{Appunti 21-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[chapter]
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{SIstemi con rotazione}
+NElla situazione in cui $\vec{\omega}$ è costante, noi sappiamo 
+che su di una giostra il pavimento è orizzontale e gira intorno ad un
+asse vertical . COme si scelgono i sistemi di riferimento? Se ne sceglie
+uno solidale con la giostra $S'$ in modo tale che 
+\begin{wrapfig}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0);
+        \draw(0, 0) -- (1, 3);
+        \draw(1, 3) -- (4, 3);
+        \draw(4, 3) -- (3, 0);
+        \draw(1.5, 1.5) circle (1);
+        \draw[->](1.5, 1.5) -- (1.5, 2.5) node[at end, right] {$\vec{\omega}$};
+        \draw (1.5, 1.5) -- (2, 2.5);
+        \filldraw (2, 2.5) circle(1pt);
+        \draw
+    \end{tikzpicture}
+\end{wrapfig}
+\begin{gather*}
+    
+\end{gather*}
+
+\end{document}

@@ -1,0 +1,234 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Banchi esercizi}
+\author{Tommaso Miliani}
+\date{20-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Esercizio esame novembre 24}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Schematizzazione del problema}
+    \begin{tikzpicture}
+        \draw(0, 0) circle(3);
+        \draw[dashed, very thin](-4, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[dashed, very thin](0, -4) -- (0, 4) node[at end, left] {$y$};
+        \filldraw (0, 2) circle(1pt) node[anchor = east] {$P$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Sul filo agiscono diverse forze ma non essendoci la gravità,
+la forza che la rimpiazza è quella centrifuga e tende a spostarlo
+verso una direzione (è radiale). Le ipotesi sono:
+\begin{enumerate}
+    \item La piattaforma ruota con velocità $\omega_0$ costante (c'è un motore esterno che tiene in rotazione il disco).
+    \item Il filo del pendolo è ideale;
+    \item Si lavora con la schematizzazione del punto materiale;
+    \item SIstema non inerziale $O_{xy}$.
+\end{enumerate}
+Punto a: \\
+Per calcolare la distanza si può scrivere per le coordinate:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        x_P = l\sin\phi \\
+        y_P = a + l\sin\phi
+    \end{array}\right.
+\end{gather*}
+Adesso per calcolare la distanza dal centro $O$ basterà calcolare la distanza
+dal filo come:
+\begin{gather*}
+    |P - O|^{2} = x_P^{2} + y_P^{2} = l^{2}\sin^{2}\phi + a^{2} + l^{2}\cos^{2}\phi + 2al\cos\phi        
+\end{gather*}
+E quindi
+\begin{gather*}
+    |P - O| = \sqrt{l^{2} + a^{2} +2al\cos\phi} 
+\end{gather*}
+PUNTO B: \\
+Sul punto P ci sono diverse forze: prima di tutto la forza di trascinamento verso l'esterno,
+la forza di Coriolis (che non so dove agisce) e la forza centrifuga. Di queste forze quella che compie
+lavoro è quella di trascinamento mentre quelle che non compiono lavoro sono la forza di Coriolis e la tensione (poiché
+è sempre ortogonale alla direzione tangente). \\
+Il lavoro della forza di trascinamento è data da:
+\begin{gather*}
+    V = -\frac{1}{2}m\omega^{2}_0 |P - O|^{2}   = -\frac{1}{2}m\omega_0^{2}(l^{2} + a^{2} + 2al\cos\phi) 
+\end{gather*}
+I termini sono quasi tutti costanti, possiamo allora considerare solo
+il coseno e riassumere quindi l'energia potenziale come una costante meno
+il pezzo non costante:
+\begin{gather*}
+    V = cost - m\omega_0^{2}al\cos\phi 
+\end{gather*}
+Derivando si ottiene proprio l'espressione:
+\begin{gather*}
+    V' = -m\omega_0^{2}al(-sin\phi) = 0 
+\end{gather*}
+Le cui soluzioni per ottenere l'equilibrio sono proprio $0, \pi$. Verifichiamo
+allora la stabilità di questo equilibrio, per cui la derivata seconda sarà proprio:
+\begin{gather*}
+    V''= m\omega_0^{2}al\cos\phi  \Rightarrow  \left\{\begin{array}{l}
+        > 0, \quad \phi = 0 \text{ stabile}\\
+        < 0, \quad \phi = \pi \text{ instabile}
+    \end{array}\right.
+\end{gather*}
+
+PUNTO C: \\
+L'energia non è conservata in un sistema di riferimento esterno a causa
+del motore del disco che lo tiene in rotazione mentre si conserva nel sistema
+di riferimento ruotante $O_{x, y}$. Il ruolo del motore allora è descritto
+con la forza di trascinamento. Possiamo allora scrivere l'energia nel sistema di
+riferimento ruotante con un termine cinetico e uno potenziale:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \dot{x}_P = l\cos\phi \cdot  \dot{phi} \\
+        \dot{y}_P = -l\sin\phi \cdot  \dot{phi}
+    \end{array}\right.
+\end{gather*} 
+Da qui allora si ha che 
+\begin{gather*}
+    \dot{V}_P^{2} = \dot{x}_P^{2} + \dot{y}_P^{2}  = l^{2}\dot{\phi}^{2}  
+\end{gather*}
+Troviamo allora il classico risultato del moto circolare e l'energia allora è ora:
+\begin{gather*}
+    E = \frac{1}{2}ml^{2}\dot{\phi}^{2} - m\omega_0^{2}al\cos\phi   
+\end{gather*}
+Con la costante dell'energia potenziale che posso liberamente mettere uguale 
+a zero poiché l'energia meccanica è definita a meno di una costante. Con il metodo
+dell'energia allora posso derivare l'energia ottenendo:
+\begin{gather*}
+    \dot{E} = 0 = \frac{1}{2}ml^{2}2\ddot{\phi}\dot{\phi} - m\omega^{2}_0al(-\sin\phi)\dot{\phi} = 0   
+\end{gather*}
+Semplificando si ottiene la seguente equazione di moto:
+\begin{gather*}
+    l\ddot{\phi} + \omega_0^{2} a\sin\phi = 0
+\end{gather*}
+Diventa allora l'equazione del pendolo senza la forza peso
+ma con la forza centrifuga. Nel limite allora delle piccole oscillazioni 
+sappiamo allora che $\phi$ è vicino a quella di equilibrio. 
+\begin{gather*}
+    \ddot{\phi} + \Omega^{2}\phi = 0 , \quad \Omega^{2} = \frac{\omega_0^{2} a}{l} 
+\end{gather*}
+Allora il periodo delle oscillazioni si ha che è:
+\begin{gather*}
+    T = \frac{2\pi}{\Omega}, \Omega = \sqrt{\frac{l}{a}} 
+\end{gather*}
+PUNTO D: \\
+Senza le approssimazioni delle piccole oscillazioni dobbiamo 
+prima studiare il moto e trovare la tensione del filo. Si sa da Newton che:
+\begin{gather*}
+    m\vec{a} = \vec{T} + \vec{F}_{co} + \vec{F}_T    
+\end{gather*}
+Allora queste si esprimono come:
+\begin{align*}
+    \vec{F}_{co} &= -2m\omega_0 \times \vec{v}  \\
+    &=-2m\omega_0l\dot{\phi}\hat{u}_n  
+\end{align*}
+Dato che la tensione è opposta a $\hat{u}_n$ si ha:
+\begin{gather*}
+    \vec{T} = -T\hat{u}_n   
+\end{gather*} 
+E la trascinamento:
+\begin{gather*}
+    \vec{F}_T = m\omega_0^{2}(P - O)  
+\end{gather*} 
+Proietto allora lungo la direzione N tutte le forze ottenendo che:
+posso scrivere intanto la tensione:
+\begin{gather*}
+    \vec{T} = m\vec{a} - \vec{F}_{co} - \vec{F}_T    \\
+    \vec{T} = - \hat{u}_n \vec{T} = -(m\vec{a}-\vec{F}_{co} - \vec{F}_T) \hat{u}_n      
+\end{gather*} 
+Allora scriviamo i vettori che compaiono come proiezioni sulla direzione n:
+\begin{gather*}
+    \vec{a}\cdot \hat{u}_n = -l\dot{\phi}^{2} \text{ centripeta} \\
+    \vec{F}_T \cdot  \hat{u}_n = m\omega_0^{2} (P - O)\cdot \hat{u}_n      
+\end{gather*}
+Possiamo esprimere il versore lungo n come:
+\begin{gather*}
+    \hat{u}_n = \sin\phi\hat{i} + \cos\phi\hat{j}   
+\end{gather*}
+E si ottiene allora la forza di trascinamento come:
+\begin{gather*}
+    \vec{F}_T = m\omega_0^{2}(x_P\sin\phi + y_P\cos\phi)  
+\end{gather*}
+Allora date le sostituzioni delle coordinate di P, possiamo
+allora dire che:
+\begin{gather*}
+    m\omega_0^{2}(l + a\cos\phi) 
+\end{gather*}
+Adesso la proiezione della forza di coriolis è proprio:
+\begin{gather*}
+    \vec{F}_{co} -2m\omega_0l\dot{\phi}
+\end{gather*}
+Sostituendo tutte le espressioni trovate ora nell'espressione
+per la tensione si ottiene allora:
+\begin{gather*}
+    T = ml\dot{\phi}^{2}-2m\omega_0l\dot{\phi} - 2m\omega_0 l \dot{\phi} 
+\end{gather*}
+Dobbiamo allora trovare $\dot{\phi}$ per poter trovare l'espressione per la tensione.
+L'energia la abbiamo scritta prima come:
+\begin{gather*}
+    E = \frac{1}{2}ml^{2}\dot{\phi}^{2} - m\omega_0^{2}al\cos\phi   
+\end{gather*}
+Parte da fermo $(\dot{\phi} = 0)$ e quindi:
+\begin{gather*}
+    E_0 = -m\omega _0^{2}al\cos\phi_0 
+\end{gather*}
+E quindi portando dall'altra parte possiamo ottenere:
+\begin{gather*}
+    \frac{1}{2}ml^{2} \dot{\phi}^{2} = -m\omega_0^{2}al(\cos\phi_= - \cos\phi)  \\
+    \dot{\phi}^{2} = \frac{2\omega_0^{2}a}{l} (\cos\phi - \cos\phi_0) \geq 0 
+\end{gather*} 
+Dato che l'espressione ha senso se e solo se è positiva, allora devo (dato $\phi_0 = \frac{\pi}{6}$) che
+\begin{gather*}
+    -\phi_0 \leq \phi \leq \phi_0
+\end{gather*}
+Anche senza le piccole oscillazioni allora so che il pendolo può oscillare (in 
+questa situazione) solo tra quei due valori. ALlora $\dot{\phi}$ diventa:
+\begin{gather*}
+    \dot{\phi} = -\sqrt{\frac{2\omega_0^{2} a}{l}(\cos\phi - \cos\phi_0)} 
+\end{gather*}
+Il segno meno è dovuto poiché nel primo periodo $\phi$ diminuisce 
+e quindi la tensione diventa:
+\begin{gather*}
+    T = ml\left(\frac{2\omega_0^{2} a}{l}(\cos\phi - \cos\phi_0) - 2\omega_0 \cdot  \left( -\sqrt{\frac{2\omega_0^{2} a}{l}(\cos\phi - \cos\phi_0)} \right) + \frac{\omega_0^{2}}{l}(l + a \cos\phi)\right)
+\end{gather*}
+Raccogliendo allora:
+\begin{gather*}
+    T = ml\omega_0^{2}\left(\frac{3a}{l}\cos\phi - \frac{2a}{l}\cos\phi_0 + 1 + 2\sqrt{\frac{2a}{l}(\cos\phi - \cos\phi_0)} \right) 
+\end{gather*}
+
+
+\end{document}

@@ -1,0 +1,67 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Lab}
+\author{Tommaso Miliani}
+\date{18-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Risoluzione esercizi del compito}
+Data a funzione:
+\begin{gather*}
+    f = \frac{5a^{2} -b}{ab}
+\end{gather*}
+SOno dati i valori di $a$ e $b$ con i rispettivi errori assoluti:
+\begin{gather*}
+    a = (50 \pm 1) \cdot cm \\
+    b = (2500 \pm 18) \cdot cm^{2}  
+\end{gather*}
+Seguendo la strada delle derivate logaritmiche, allora si ottiene il
+differenziale dei logaritmi:
+\begin{gather*}
+    \frac{\Delta f}{f} \approx df =  d\ln(5a^{2} -b) - d\ln(a) - d\ln(b) \\
+    \Rightarrow \frac{10a - 1}{5a^{2} - b} - \frac{1}{a} - \frac{1}{b}
+\end{gather*}
+Si raccoglie ora e si mette il valore assoluto al posto delle parentesi
+nei raccoglimenti e dunque si ottiene l'espressione per l'errore relativo
+cecando di raccogliere a il più possibile ottendneod:
+\begin{gather*}
+    \frac{\Delta f}{f} \approx \left| \frac{10a}{5a^{2} - b} \right|\Delta a + \left| \frac{1}{5a^{2} - b} + \frac{1}{b}\right| \Delta b  
+\end{gather*}
+
+Sostituendo numericamente si ottiene la seguente espressione
+\begin{gather*}
+    \frac{\Delta f}{f} \approx 
+\end{gather*}
+
+
+
+
+\end{document}

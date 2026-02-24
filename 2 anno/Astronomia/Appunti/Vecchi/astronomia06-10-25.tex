@@ -1,0 +1,171 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{APpunti di astronomia}
+\author{Tommaso Miliani}
+\date{06-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Indice di colore}
+E' una quantità generica che può essere definita a partire dalla 
+differenza di qualsiasi magnitudine. In particolar modo posso utilizzare la
+differenza tra la banda blu e quella verde come la 
+differenza tra le magnitudini :
+\begin{gather*}
+    B - V = m_B - m_V = -2.5 \log \frac{F_B}{F_V} + c
+\end{gather*}
+Dove $c$ è una costante che dipende dal sistema fotometrico utilizzato. 
+\begin{gather*}
+    m_B = m_{B0} - 2.5 \log F_B + 2.5 \log F_{B0} \\
+    m_V = m_{V0} - 2.5 \log F_V + 2.5 \log F_{V0}
+\end{gather*}
+La costante sarà allora
+\begin{gather*}
+    c = m_{B0} - m_{V0} + 2.5 \log \frac{F_{B0}}{F_{V0}}
+\end{gather*}
+Nel sistema JMK Si ha che $m_{B0} = m_{V0} = 0$ e quindi i flussi 
+$F_{B0}$ e $F_{V0}$ sono dati tali per cui $B  - V = 0$ per
+la stella Vega. Questa si chiama \textbf{convenzione di Vega}. La costante
+prende il nome di \textbf{zero point} che cambia in base al sistema fotometrico
+scelto: in questo modo se so quali sistemi utilizzo posso passare
+dalle magnitudini delle stelle ai flussi.  
+In questo modo si può correlare direttamente l'emissione di luce
+colorata con la temperatura: nel caso dell stella Vega, l'emissione tra il blu
+ed il verde è zero  allora $B - V$. In una stella blu
+$V > B$, allora la banda $B$ è più luminosa in quanto è proporzionale
+al logaritmo inverso: ho prevalenza di flusso blu rispetto al flusso verde:
+\begin{gather*}
+    B - V < 0 \ \Longrightarrow \ \text{Stella blu} \\
+    B - V > 0 \ \Longrightarrow \ \text{Stella giallo-verde}
+\end{gather*}
+Si può allora introdurre il concetto di temperatura: più una stella emette 
+in luce blu è più calda di una stella che ha emissione maggiore sulla banda verdastra.
+
+\section{$\eta_\lambda$: L'estinzione atmosferica}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La figura di Airy di profilo sul rivelatore}
+    \begin{tikzpicture}
+        \draw(0, -2) -- (0, 2);
+        \draw(0.1, 0.5) ..controls (0.2, 0.2)  and (5.1, 0)  .. (0.1, -0.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Quando la luce passa nel mezzo interstellare e nell'atmosfera, la luce viene deviata
+oppure perde energia; siccome la descrizione del mezzo interstellare è molto complicato,
+qui ci si concentra solo sugli effetti dell'atmosfera. L'atmosfera
+ci permette di osservare la luce ottica e le onde radio; tutto il resto è assorbito
+o fortemente mitigato. L'atmosfera si presenta allora come un filtro che
+riduce il flusso che viene dalle stelle e si comporta anche come una lente
+che quindi modifica l'angolazione dei raggi luminosi. Inoltre il vento,
+le nuvole etc possono distorcere le immagini astronomiche. Si
+definisce allora \textbf{seeing} il parametro che quantifica la sfocatura dell'immagine
+dovuta all'atmosfera; per parlare di seeing si introduce il concetto di \textbf{diffrazione}:
+ossia il fenomeno per il quale le onde si propagano dietro a degli ostacoli; se la
+sorgente è puntiforme allora si parla di \textbf{Figura di Airy}.
+Si può immaginare la figura di Airy come una immagine tridimensionale sulle $x, y$
+e sull'asse dell'intensità.  \\
+La distanza tra il primo minimo ed il picco è (dove $D$ è il diametro della fenditura):
+\begin{gather*}
+    \Delta \theta_D = 1.22 \frac{\lambda}{D}
+\end{gather*}
+Ossia un allargamento angolare che è dovuto al fatto che
+ho diffrazione e che ho sempre al rilevatore: il telescopio con queste
+caratteristiche è l'allargamento angolare che produce il mio
+telescopio per una sorgente puntiforme. Dato che l'allargamento è un
+fenomeno casuale, posso determinare che abbia una distribuzione Gaussiana; posso 
+allora determinare (attraverso il principio di FWHM) che
+ $\Delta \theta_S$, ossia l'angolo di allargamento dovuto alla
+\textbf{rifrazione} dell'atmosfera, si mette in relazione con $\Delta \theta_D$:
+\begin{gather*}
+    \Delta \theta_S \geq \Delta \theta_D
+\end{gather*}
+In buoni siti, il mio $\Delta \theta_S$ è dell'ordine di circa un arcosecondo. Per telescopi
+piccoli con aperture dell'ordine di $0.1 \ m$  posso ottenere che
+\begin{gather*}
+    \Delta \theta_S = \Delta\theta_D = 1.22 \frac{\lambda}{D}
+\end{gather*}
+Posso allora definire il \textbf{parametro di Fried} che mi definisce dalla lunghezza d'onda
+l'apertura del telescopio al limite dell'angolo di diffrazione:
+\begin{align}
+    1.22 \frac{\lambda}{\Delta \theta_S} = r_0
+\end{align}
+Quindi $\Delta\theta_D$ mi indica il limite teorico oltre sotto al quale io
+non riesco più a distinguere due sorgenti puntiformi. Generalmente, per telescopi con
+grande potere risolutivo, si può utilizzare solamente $\Delta \theta_S$ in quanto
+il $\Delta \theta_D$ sarà sempre molto minore. 
+
+\subsection{L'assorbimento}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0);
+        \draw[|-|](-0.2, 0) -- (-0.2, 2) node[midway, left] {$H$};     
+    \end{tikzpicture}    
+\end{wrapfigure}
+L'altro effetto dell'atmosfera è l'assorbimento dell'atmosfera. Una certa
+sorgente che proviene dallo zenith giunge al rilevatore con la massima intensità
+in quanto c'è molta meno atmosfera da attraversare. Per una
+sorgente ad un certo angolo $z$ rispetto allo zenith,
+si ha che seguono la legge di \textbf{Beer-Lambert}: 
+\begin{align}
+    dI_\lambda = I_\lambda K_\lambda(x)dx'
+\end{align}
+Dove $K_\lambda(x)$ è il coefficiente di assorbimento e dipende
+dalla quota dell'atmosfera e non dall'angolo $z$. SI definisce inoltre
+$dx$ la distanza tra uno strato e l'altro dell'atmosfera degli strati provenienti
+dallo zenith e $dx'$ come la distanza tra uno strato e l'altro di una sorgente
+proveniente da una sorgente con un certo angolo $z$ rispetto allo zenith. 
+\begin{gather*}
+    \int_{I_{0\lambda}}^{I_\lambda} \frac{dI_\lambda'}{I_\lambda'} = - \int_{H}^{0} K_\lambda(x)\sec z \  dx = -\int_{0}^{H}K_\lambda (x) \sec z \ dx 
+\end{gather*}
+Con questo integrale io posso determinare quanto si attenua il flusso
+con l'atmosfera:
+
+\end{document}

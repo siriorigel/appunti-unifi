@@ -1,0 +1,322 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di Ottica}
+\author{Tommaso Miliani}
+\date{20-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Sommare due lunghezze d'onda diverse}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'interferometro di Machelson}
+    \begin{tikzpicture}
+        \draw[->](0, 0.2) -- (2.25, 0.2);
+        \draw[->](2.25, 0.2) -- (2.25, 2);
+        \draw[->](2.5, 2) -- (2.5, 0.75);
+        \draw[->](2.5, 0.75) -- (1, 0.75);
+        \draw[->](2.5, 0.75) -- (2.7, 0.35) -- (2.7, -2);
+        \draw[->](2.25, 0.2) -- (2.55, 0) -- (4.5, 0);
+        \draw[->](4.5, -0.25) -- (2.42, -0.25);
+        \draw[->](2.42, -0.25) -- (2.42, -2);
+        \draw[->](2.42, -0.25) -- (2.15, -0.1) -- (0, -0.1);
+        \draw(1.75, -1) -- (2, -1.2) -- (3, 1) -- (2.75, 1.2);
+        \draw[very thick](2.75, 1.2) -- (1.75, -1);
+        \draw[pattern = north west lines, pattern color = white](1.75, 2) rectangle (3, 2.5);
+        \draw[pattern = north west lines, pattern color = white](4.5, 0.75) rectangle (5, -1);
+        \filldraw (2.1, -2) rectangle (3, -2.25);
+        \draw[|-|, red](2, 1.9) -- (2, 0.3) node[midway, left] {$L_1$};
+        \draw[|-|, red](2.5, -0.5) -- (4.4, -0.5) node[midway, below] {$L_2$};
+    \end{tikzpicture}
+\end{wrapfigure}
+Se i due fasci in ingresso sono di lunghezze d'onde diverse, si è già detto 
+l'intensità totale come è ottenuta. Se le intensità sono equivalenti per entrambi i
+fasci di luce, allora posso esprimere le intensità come
+\begin{gather*}
+    I_1 = I_2 = I_0
+\end{gather*}
+Sfruttando le formule di Prostaferesi e le considerazioni trigonometriche
+sul seno quadro per cui $\sin^{2}(\alpha) = \frac{1 - \cos(\alpha)}{2}$, posso esprimere
+l'intensità totale dei due fasci luminosi come 
+\begin{gather*}
+    I_0 \left(1 - \cos((k_1 + k_2) \Delta L) \cdot  \cos((k_1 - k_2) \Delta L)\right)
+\end{gather*}
+Il primo contributo del coseno rappresenta l'oscillazione più lunga mentre il secondo
+è una oscillazione più corta (spazialmente) per cui la variazione di lunghezza d'onda
+$\delta l$ per entrambi i fasci sono:
+\begin{gather*}
+    \delta l_1 = \frac{2\pi}{k_1 + k_2} \\
+    \delta l_2 = \frac{2\pi}{k_1 - k_2}
+\end{gather*}
+L'ampiezza del secondo termine determina la modulazione dell'onda che introduce
+una dipendenza spaziale all'oscillazione delle onde. Tramite l'interferometro
+e spostando gli specchi di un certo $\Delta L$, la luce in ingresso nell'interferometro 
+risulta modulata.
+
+\subsection{Lo spettro continuo}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'intensità luminosa in funzione della pulsazione}
+    \begin{tikzpicture}[domain=0.5:3.5]
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$\omega$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$I(\omega)$};
+        \draw plot (\x, {3* e^(-(\x - 2)^2)});
+        \draw[dashed](2, 3) -- (2, 0) node[at end, below] {$\omega_0$};
+        \draw[|-|](2.1, 1.5) -- (2.75, 1.5) node[midway,below] {$\Delta \omega$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso in cui si utilizzi una sorgente luminosa di luce bianca: questa conterrà tutte le
+lunghezze d'onda del visibile in maniera continua. Si può ora andare ad analizzare
+cosa accade nell'interferometro al variare di $\Delta L$. 
+La luce emessa da un led bianco è centrato intorno ad un valore di $\omega_0$ e $\lambda_0$:
+con una certa distribuzione dell'intensità luminosa, io so che
+\begin{gather*}
+    \omega_0 = ck_0 \ \Longrightarrow \ \omega_0 = c \frac{2\pi}{\lambda_0}
+\end{gather*}
+Dato che il led è costruito in modo tale che sia visibile all'occhio umano,
+io posso fare in modo che il $\Delta \lambda$ sia circa uguale a $150 nm$ per
+poter stare nel visibile. Per trovare il corrispettivo intervallo
+in termini di $\omega$ posso dire che, dato che esiste una relazione lineare tra
+$\omega$ e $\lambda$,
+\begin{gather*}
+    \frac{\Delta \lambda}{\lambda_0} = \frac{\Delta \omega}{\omega_0}
+\end{gather*}
+Conosciuto $\Delta \lambda$, allora è possibile trovare $\Delta \omega$, ossia
+l'intervallo della pulsazione della luce. Il $\Delta \lambda$ e $\Delta \omega$ sono
+delle stime qualitative della distanza del centro della distribuzione
+gaussiana della lunghezza d'onda dal punto di metà altezza . Con
+queste considerazioni posso determinare l'intensità luminosa che
+riceve il rilevatore in funzione dello scostamento delle distanze
+dei due specchi $\Delta L$ in maniera discreta:
+\begin{gather*}
+    I(\Delta L) = \sum I_i \sin^{2}(k_i \Delta L) 
+\end{gather*}
+Posso allora passare al caso continuo attraverso l'integrale
+nella seguente maniera:
+\begin{gather*}
+    I(\Delta L) = \int I(\omega)\Delta \omega \sin^{2}(k_\omega \Delta L) = \int I(\omega) \sin^{2}\left(\frac{\omega}{c}\Delta L\right)d\omega  
+\end{gather*}
+Il led che si ha non ha necessariamente una distribuzione gaussiana delle lunghezze
+d'onda centrate intorno ad un certo $\lambda_0$ ma supponiamo che
+lo sia entro certe approssimazioni. Posso allora cercare di risolvere l'integrale 
+della funzione dell'intensità luminosa secondo la distribuzione Gaussiana:
+\begin{gather*}
+    I(\omega) = \frac{I_0}{\sqrt{\pi} \Delta\omega}\exp\left(-\frac{\omega - \omega_0}{\Delta \omega}\right)^{2} 
+\end{gather*}
+Di conseguenza la risoluzione dell'integrale di $I(\Delta L)$ è:
+\begin{gather*}
+    \frac{I_0}{2}\left(1 - \exp\left(-\frac{(\Delta L \Delta \omega)^{2} }{c}\right)\cos\left(\frac{2\Delta L\omega_0}{2}\right)\right)
+\end{gather*}
+Da questo di può vedere cosa succede quando $\Delta L \to 0$: 
+\begin{gather*}
+    \frac{I_0}{2} \left(1 - \cos\left(2\frac{\Delta L\omega_0}{2}\right)\right) \ \Longrightarrow \ \frac{I_0}{2}\sin^{2}(k_0\Delta L) 
+\end{gather*}
+Per $\Delta L$ molto piccoli allora i fasci luminosi oscillano 
+normalmente mentre per $\Delta L$ non piccoli invece c'è da considerare anche il termine
+esponenziale. Il coefficiente $\frac{I_0}{\sqrt{\pi}\Delta \omega }$ è tale per cui
+si ottiene
+\begin{gather*}
+    \int I(\omega) d\omega = I_0
+\end{gather*}
+Posso determinare il valore minimo di $\Delta L$ tale per cui
+io posso osservare l'oscillazione dell'intensità luminosa. Questa lunghezza
+è detta \textbf{lunghezza di coerenza}, e si indica con $L_c$ e si
+definisce come l'ampiezza di oscillazione tale per cui
+il termine $L_c$ è tale per cui l'esponente della $e$ diventa $1$,
+ossia
+\begin{gather*}
+    \frac{L_c \cdot  \Delta \omega}{c} = 1
+\end{gather*}
+Si ha quindi
+\begin{align}
+    L_c = \frac{c}{\Delta \omega} \ \Longrightarrow \ L_c = \frac{c}{\omega_0}\frac{\lambda_0}{\Delta \lambda}
+\end{align}
+Ho sostituito $\Delta \omega$ in funzione di $\lambda_0$ e inoltre posso esprimere anche
+$\omega_0$ in funzione di $\lambda _0$ come $\omega_0 = c\frac{2\pi }{\lambda_0}$. Dunque
+\begin{align}
+        L_c = \frac{\lambda_0^{2} }{2\pi \cdot  \Delta \lambda}
+\end{align}
+Si scopre, facendo i conti, che per un led che emette luce bianca nel
+visibile, la lunghezza di coerenza è di $400 \ nm$. Se si vuole dunque
+vedere l'oscillazione della luce per un led a luce bianca bisogna utilizzare una
+lunghezza di coerenza di questa dimensione. 
+
+
+\section*{L'esperienza dell'ottica geometrica}
+\section{Introduzione: obiettivi e finalità}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (5, 0);
+        \draw[<->](2.5, -1.5) -- (2.5, 1.5);
+        \filldraw(1, 0) circle (1pt);
+        \draw(1, 0) -- (2.5, 1) -- (4, 0);
+        \draw(1, 0) -- (2.5, 0.5) -- (4, 0);
+        \draw(1, 0) -- (2.5, -0.5) -- (4, 0);
+        \draw(1, 0) -- (2.5, -1) -- (4, 0);
+        \draw[|-|](1, 1.5) -- (2.4, 1.5) node[midway, above] {$p$};
+        \draw[|-|](2.6, 1.5) -- (4, 1.5) node[midway, above] {$q$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+L'esperienza dell'ottica geometrica è la verifica della legge delle
+lenti sottili e di una misura della focale di una lente convergente incognita. 
+Ricordando la legge delle lenti sottili
+\begin{gather*}
+    \frac{1}{p} + \frac{1}{q} = \frac{1}{f}
+\end{gather*}
+Si eseguono seguenti procedure in laboratorio
+\begin{enumerate}
+    \item Ogni sperimentatore misura
+    $f \pm \Delta f$ ad un valore diverso $p$ (e di conseguenza di $q$);
+    \item Se tutte le misure sono consistenti 
+    entro le barre di errore, allora si sarà dimostrata la legge delle lenti sottili. 
+    \item Determinare la migliore stima di $f$ mediante la media pesata
+    del valore di $f$ trovato da ogni sperimentatore.
+\end{enumerate}
+
+\section{L'apparato sperimentale}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \caption{Rappresentazione apparato Lente di servizio e oculare-occhio}
+    \begin{tikzpicture}[scale=1.5]
+        \draw(0, 0) -- (4,0);
+        \draw[thin](0.5 ,1.25) -- (4, 1.25) node[at end, above] {asse ottico};
+        \draw(0, 0) -- (0, 1.5);
+        \draw(0.5, 0) -- (0.5, 1.5);
+        \draw[thick](0.5, 1) -- (0.5, 1.5); 
+        \draw[|-|](0.5, 1.7) -- (1.5, 1.7) node[midway, above] {$d$};
+        \draw(1.2, 0) rectangle (1.8, 0.4);
+        \draw(1.4, 0.4) rectangle (1.6, 1);
+        \draw(1.5, 1.25) ellipse (0.1 and 0.25);
+        \draw(0.5 , 1.25) -- (1.5, 1.5) -- (2.5, 1.25);
+        \draw(0.5, 1.25) -- (1.5, 1) -- (2.5, 1.25);
+        \filldraw(2.5, 1.25) circle (1pt);
+        \node at (2.5, 1.75) {sorgente virtuale};
+        \draw(2.3, 1) rectangle (3, 1.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+L'apparato sperimentale consiste in un regolo lungo circa
+un metro e mezzo con precisione di un millimetro. Una lente
+è posta ad una certa distanza con una scala graduata (nonio)
+che mi permette di ottenere una precisione di posizionamento
+del decimo di millimetro. La sorgente è realizzata mediante un led che 
+illumina una diapositiva in modo tale che il led giaccia esattamente
+sull'asse ottico rispetto alla lente e parallelo alla guida.
+\begin{enumerate}
+    \item Per determinare la distanza della diapositiva dalla lente, devo fare in
+    modo di creare una immagine virtuale utilizzando la lente convergente con $f = 50 \ mm$
+    nella configurazione $2f - 2f$ (dove $f$ è quella della lente conosciuta). 
+    La lente che si utilizza prende il nome di \textbf{lente di servizio} per cui:
+    \begin{gather*}
+        \frac{1}{q} = \frac{1}{2f}
+    \end{gather*}
+    Per cui $d = 2f$. L'incertezza associata a questa distanza non è fondamentale
+    in quanto l'immagine nella sorgente virtuale si formerà (più o meno
+    sfuocata) a prescindere dalla precisione. 
+\end{enumerate}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Schematizzazione del sistema oculare-occhio}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (5, 0);
+        \draw[red, thick](0.5, -1) -- (0.5, 1);
+        \draw[thin](0.5, 0) -- (1.5, 1) -- (3, 1) -- (4, 0);
+        \draw[thin](0.5, 0) -- (1.5, -1) -- (3, -1) -- (4, 0);
+        \draw[<->, thick](1.5, -1) -- (1.5, 1);
+        \draw[<->, thick](3, -1) -- (3, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Ad una certa distanza c'è un oculare che mi permette di osservare
+l'immagine ottenuta. Sull'oculare c'è un crocefilo che mi permette di osservare
+l'allineamento dell'immagine sull'oculare. Il fatto che si utilizza
+un oculare con una lente davanti (che è possibile ruotare con una ghiera),
+vuol dire che si utilizza l'occhio per osservare l'immagine. 
+Si dispone l'oculare in modo tale che il crocefilo sia visibile e anche l'immagine
+(questo accade quando il mio occhio li vede nitidi entrambi) e in modo
+tale che l'immagine sia sovrapposta esattamente sul crocefilo.
+La schematizzazione oculare-occhio comprende il crocefilo con una lente
+associata ed il cristallino dell'occhio (che deve essere completamente rilassato
+in modo tale da avere il fuoco all'infinito).
+Nel disegno il tratto rosso è il crocefilo, le due lenti convergenti sono invece la
+lente prima dell'occhio e poi il cristallino. 
+
+
+\begin{wrapfigure}{r}{0.65\textwidth}
+    \centering
+    \caption{L'apparato sperimentale totale}  
+        \begin{tikzpicture}[scale=1.2]
+        \draw(0, 0) -- (7.5,0);
+        \draw[thin](0.5 ,1.25) -- (7.5, 1.25) node[at end, above] {asse ottico};
+        \draw(0, 0) -- (0, 1.5);
+        \draw(0.5, 0) -- (0.5, 1.5);
+        \draw[thick](0.5, 1) -- (0.5, 1.5); 
+        \draw[|-|](0.5, 1.7) -- (1.5, 1.7) node[midway, above] {$d$};
+        \draw(1.2, 0) rectangle (1.8, 0.4);
+        \draw(1.4, 0.4) rectangle (1.6, 1);
+        \draw(1.5, 1.25) ellipse (0.1 and 0.25);
+        \draw(0.5 , 1.25) -- (1.5, 1.5) -- (2.5, 1.25) -- (4.25, 0.9) -- (6, 1.25);
+        \draw(0.5, 1.25) -- (1.5, 1) -- (2.5, 1.25) -- (4.25, 1.6) -- (6, 1.25);
+        \filldraw(2.5, 1.25) circle (1pt) node[anchor = north, align = center] {sorgente \\ virtuale};
+        \draw(3.95, 0) rectangle (4.55, 0.4);
+        \draw(4.15, 0.4) rectangle (4.35, 0.9);
+        \draw(4.25, 1.25) ellipse (0.15 and 0.35);
+        \draw[|-|](2.5, 1.7) -- (4.2, 1.7) node[midway, above] {$p$};
+        \draw[|-|](4.3, 1.7) -- (6, 1.7) node[midway, above] {$q$};
+        \draw(5.8, 1) rectangle (6.5, 1.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Adesso posso spostare l'oculare dal punto dove si forma
+l'immagine virtuale e mettere una lente ad una certa distanza
+$p$ dall'immagine virtuale ed una certa distanza $q$ dall'oculare nuovo:
+
+
+
+\end{document}

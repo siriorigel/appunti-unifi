@@ -1,0 +1,184 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Ottica}
+\author{Tommaso Miliani}
+\date{08-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Esperienza Polarizzazione}
+\begin{gather*}
+    \begin{tikzpicture}[scale=1.2]
+        \filldraw[cyan](0, 0) circle (0.1) node[anchor = north] {\tiny sorgente};
+        \draw(0.75, 0) circle (0.1);
+        \draw[->](0.75, -0.1) -- (0.75, -1) node[at end, right] {$\hat{z} $};
+        \filldraw(0.75, 0) circle (1pt) node[anchor = south] {$\hat{y} $};
+        \draw(1.5, 0) circle (0.1) node[anchor = north] {$\vv{E_{0y}} $};
+        \draw(1.5, 0) circle (1pt);
+        \draw[->](1.5, 0.1) -- (1.5, 1) node[at end, right] {$\vv{E_{0z}}$};
+        \draw (2.5, -0.5) rectangle (3.5, 0.5);
+        \draw(2.5, 0.5) -- (3.5, -0.5);
+        \node at (3, 0.6) {\tiny cubo pulizia};
+        \draw(4.5, 0) circle (0.1);
+        \draw[->](4.5, 0.1) -- (4.5, 1) node[at end, right] {$\vv{E_{0z}}$};
+        \draw(5.5, -0.5) rectangle (6, 0.5);
+        \node[align = center] at (5.75, 0.6) {\tiny lamina di ritardo};
+        \draw[->](7, 0.1) -- (7, 1) node[at end, right] {$\vv{E_{0z}}$};
+        \filldraw(7, 0) circle (1pt) node[anchor = north] {$\vv{E_y}$};
+        \draw(7, 0) circle (0.1);
+        \draw(8, -0.5) rectangle (9, 0.5);
+        \node at (8.5, 0.6) {\tiny cubo analisi};
+        \draw(8, 0.5) -- (9, -0.5);
+        \draw[->](8.5, 0) -- (8.5, -1) node[at end, right] {$\vv{E_y}$};
+        \draw[->](8.5, 0) -- (9.25, 0);
+        \draw[->](9.5, 0) -- (9.5, 1) node[at end, right] {$\vv{E_z}$}; 
+        \draw(8, -1.5) rectangle (9, -2);
+        \node at (8.5, -1.75) {\tiny rilevatore};
+        \draw[dashed](8.5, -1.5) -- (8.5, 0);
+        \draw[dashed](0, 0) -- (10, 0);
+        \draw(10, -0.25) rectangle (11, 0.25) node[midway] {\tiny rilevatore};
+    \end{tikzpicture}
+\end{gather*}
+Si studiano le leggi di trasformazione della polarizzazione di una onda
+polarizzata linearmente che incide su di una lamina di ritardo con angolo
+generico tra polarizzazione incidente e gli assi della lamina. $z$ e $y$ sono
+gli assi del cubo polarizzatore mentre gli assi $a$ e $b$ sono gli assi della lamina
+rispettivamente dell'asse lento e di quello veloce.  Il campo magnetico uscente
+dal cubo polarizzatore è dato da
+\begin{gather*}
+    \vv{E_{tot}} = \left(E_{0z} \cos^{2}\theta(\psi + \delta \phi) + E_{0z}\sin^{2}\theta \cos\psi\right)\hat{z}  + \left(E_{0z}\cos\theta \sin\theta\cos(\psi + \delta \phi) - E_{0z}\sin\theta \cos\psi\cos\theta \right)\hat{y} 
+\end{gather*}
+Il fascio di luce passa dopo attraverso una lamina di ritardo e dunque il campo elettrico sarà modificato ed
+è possibile esprimerlo attraverso gli assi fast e slow come:
+\begin{gather*}
+    \vv{E_{out}} = E_{0z}\cos\theta\cos(\psi + \delta \phi) \hat{a} - E_{0z}\sin\theta\cos\psi \hat{b}    
+\end{gather*}
+Dove
+\begin{gather*}
+    \hat{a} = \cos\theta \hat{z} + \sin\theta \hat{y} \qquad \hat{b} = -\sin\theta \hat{z} + \cos\theta \hat{y}      
+\end{gather*}
+
+\subsection{Lamina $\frac{\lambda}{2}$}
+La prima lamina è una lamina $\frac{\lambda}{2}$ e il suo $\delta \phi = \pi$, il campo
+elettrico totale uscente dalla lamina può essere espresso come
+\begin{gather*}
+    \vv{E_{out}} = E_{0z}\left(-\cos^{2}\theta \cos\psi + \sin^{2}\theta\cos\psi\right) \hat{z} - 2E_{0z}\sin\theta\cos\theta\cos\psi\hat{y} =   -E_{0z}\cos\psi\left(\cos 2\theta\right) \hat{z} - E_{0z}\sin 2\theta \cos \psi \hat{y}  
+\end{gather*}
+Allora l'intensità media rispetto all'asse $z$ in uscita dalla lamina di ritardo sarà
+\begin{align}
+    I_z = c\epsilon_0 \left< E_z^{2} \right> = c\epsilon_0 \left< E_{0z}^{2} \cos^{2}\psi\right> \cos^{2}2\theta  
+\end{align}
+Dove il termine $ c\epsilon_0 \left< E_{0z}^{2} \cos^{2}\psi\right>$ indica l'intensità 
+luminosa iniziale prima di attraversare la lamina di ritardo.
+Si può esprimere ora l'intensità luminosa della luce rispetto 
+all'asse $y$ e tracciarne il grafico (sia di $I_y$ che di $I_z$):
+\begin{gather*}
+    I_y = I_0\sin^{2}2\theta  \\
+    \begin{tikzpicture}[domain=0:3.14]
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$\theta$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$I_y, I_z$};
+        \draw[cyan, samples = 50] plot (\x, {3 * cos(2 * \x r) * cos(2 * \x r)});
+        \draw[red, samples = 50] plot (\x, {3 * sin(2 * \x r) * sin(2 * \x r)});
+        \filldraw(3.14, 0) node[anchor = north] {$\pi$};
+        \filldraw(3.14 / 4, 0) node[anchor = north] {$\frac{\pi}{4}$};
+        \filldraw(3.14 / 2, 0) node[anchor = north] {$\frac{\pi}{2}$};
+        \filldraw(3.14 * 3 / 4, 0) node[anchor = north] {$\frac{3}{4}\pi$};
+    \end{tikzpicture}  
+\end{gather*}
+Dove il tratto rosso corrisponde all'intensità sull'asse $y$ ed il tratto ciano rappresenta 
+l'intensità sull'asse $z$. La lamina ha un asse slow diretto lungo $\hat{a}$ diretto lungo l'asse
+$\hat{z}$; dunque rimane una polarizzazione lineare in quanto la lamina ritarda
+solamente l'oscillazione dell'onda. la prima lamina con $\theta = 0$ non cambia la
+polarizzazione mentre una lamina con angolo $\theta \neq 0$ lo fa.
+
+\subsection{Lamina $\frac{\lambda}{4}$}
+Mettendo la lamina a $\frac{\pi}{4}$ rispetto alla posizione iniziale e non
+ho più luce polarizzata nel verso $\hat{z}$ ma sarà tutta polarizzata
+verso $\hat{y}$ dunque $I_y$ ha un minimo. $\delta \phi = \frac{\pi}{2}$. 
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (2, 0) node[at end, below] {$z$};
+        \draw[->](0, 0) -- (0, 2) node[at end, left] {$z$};
+        \draw(-1, -1) -- (1, 1) node[at end, right] {slow};
+        \draw(-1, 1) -- (1, -1) node[at start, above] {fast};
+    \end{tikzpicture}
+\end{gather*}
+Il campo elettrico in uscita dalla lamina ha la seguente espressione (derivata dall'espressione all'inizio della sezione):
+\begin{gather*}
+    \vv{E_{out}} = E_{0z} \left(\cos^{2}\theta(-\sin\psi) + \sin^{2}\theta \cos\psi\right)\hat{z} + E_{0z}\left(-\sin\psi\cos\theta\sin\theta - \cos\psi \sin\theta \cos\theta\right) \hat{y}   
+\end{gather*}
+Posso ottenere i moduli dei campi elettrici nelle due direzioni elevando al quadrato
+e poi, moltiplicando per $\epsilon_0$ e $c$ e mediando nel tempo si ha che
+\begin{gather*}
+    I_z = c\epsilon_0 \left< E_z^{2} \right> = c\epsilon_0 \left< E_0^{2} (sin^{2}\psi \cos^{4}\theta + \sin^{4} \theta \cos^{2}\psi) \right> = I_0\left(1 - \frac{1}{2}\sin^{2}(2\theta)\right) \\
+    I_y 0 \frac{I_0}{2}\sin^{2}(2\theta)
+\end{gather*} 
+La lamina $\frac{\lambda}{4}$ spancia l'ellisse che descrive il luogo dei punti
+che attraversano il campo elettrico.
+\begin{gather*}
+    \begin{tikzpicture}[samples=50, domain=0:3.14]
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$\theta$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$I_y, I_z$};
+        \draw[red] plot (\x, {(3 / 2) * sin(2 * \x r) * sin (2 * \x r)});
+        \draw[cyan] plot (\x, {3 - (3 / 2) * sin(2 * \x r) * sin(2 * \x r)});
+    \end{tikzpicture}
+\end{gather*}
+Di conseguenza, lungo $y$ non ho mai l'intensità riflessa dal mio cubo, al minimo
+ne ho la metà. Se la lamina introduce shift di fase lungo
+$z$ non cambia la mia polarizzazione quindi lungo $y$ ho zero luce e
+dunque avrò una polarizzazione ellittica.
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (1, 0) node[at end, below] {$z$};
+        \draw[->](0, 0) -- (0, 2) node[at end, left] {$y$};
+        \draw[cyan](0, 0) ellipse (1.25 and 0.5);
+    \end{tikzpicture}
+\end{gather*}
+
+\end{document}

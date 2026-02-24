@@ -1,0 +1,246 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di ottica}
+\author{Tommaso Miliani}
+\date{03-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Polarizzazione su di uno specchio metallico}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La situazione dopo $t = \epsilon$ }
+    \begin{tikzpicture}
+        \draw(0, 0) -- (1, 0);
+        \draw(0, 0) -- (0, 2);
+        \draw(0, 0) -- (1, 2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Dato un campo elettrico che si propaga lungo l'asse $x$, il campo
+elettrico generico nel piano $yz$ si può scrivere come
+\begin{gather*}
+    \vv{E} = E_{0z}\cos(kx - \omega t + \phi_z)\hat{u}_z + E_{0y}\cos(kx - \omega t + \phi_y)\hat{u}_y   
+\end{gather*}
+Con i moduli $E_{0z} = E_{0y}$ tale che i vettori sono in fase con $\phi_y = \phi_z + \frac{\pi}{2}$, scelgo 
+che $\phi_z = 0$ e dunque $\phi_y = \frac{\pi}{2}$, allora posso dire che il vettore
+campo elettrico si può esprimere come
+\begin{gather*}
+    \vv{E} = E_0 \cos(kx - \omega t + \frac{\pi}{2})\hat{u}_y + E_0 \cos(kx - \omega t)\hat{u}_z   
+\end{gather*}
+La componente lungo $y$ diventa leggermente positiva mentre la componente lungo
+$z$ è leggermente ridotta dopo un certo tempo $\epsilon$, che scelgo molto piccolo.
+Allora risulta che il campo elettrico è ruotato rispetto alla direzione iniziale e sarà polarizzato
+verso sinistra.
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}[scale = 0.5]
+        \draw(0, -1.5) -- (0, 1.5);
+        \draw[color=cyan]   plot (\x,{cos(\x r)});    
+    \end{tikzpicture}    
+\end{wrapfigure}
+Voglio vedere che succede se mando una certa onda piana
+con una certa polarizzazione $\sigma$ su di uno specchio. 
+L'interferenza distruttiva causata dal metallo non permette di
+avere campo elettrico dentro lo specchio ma solo fuori come 
+riflesso. Gli elettroni che oscillano nel mezzo metallico, oltre che
+a generare il campo elettrico in controfase, generano un onda anche 
+verso la direzione di provenienza del campo elettrico e dunque i due 
+campi elettrici non si eliminano.
+Dobbiamo scrivere il campo elettrico che si propaga verso sinistra 
+cambiando la fase del campo di una fase $\pi$:
+\begin{gather*}
+    \vv{E} = -E_{0}\cos(-kx -\omega t + \frac{\pi}{2} )\hat{u}_y + E_0 \cos(-kx -\omega t)\hat{u}_z   
+\end{gather*}
+L'effetto dello specchio metallico è dunque quello di invertire il valore
+del campo elettrico in virtù del fatto che il campo generato è in controfase.
+Quindi i due campi sono opposti in $x = 0$ ed il nuovo campo si propaga verso
+sinistra e non verso destra; la polarizzazione quando la luce incide su di
+uno specchio viene invertita per cui se prima era a polarizzazione circolare
+sinistra, l'onda uscente avrà una polarizzazione circolare destra.
+
+\section{L'energia dell'onda elettromagnetica}
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (1, 0) node[at end, below] {$\hat{k}$ };
+        \draw(3, -1) -- (3, 1) node[at end, above] {$A$};
+        \draw(3, 1) -- (2.5, 0) -- (2.5, -2) -- (3, -1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Perché ci si scalda al sole? Quando una onda elettromagnetica
+incide sui nostri elettroni li mette in accelerazione e dunque
+guadagnano energia cinetica e la rilasciano sottoforma di calore.
+Come si può determinare l'energia emessa da una data onda elettromagnetica? 
+Posso determinare \textbf{l'intensità luminosa}, ossia l'energia che
+passa per una data superficie $A$:
+\begin{align}
+    \frac{\Delta E}{\Delta t} \cdot \frac{1}{A} = I = \epsilon_0 c \vv{E}(t)^{2}  
+\end{align}
+Ossia l'energia che attraversa una certa superficie in un certo intervallo di
+tempo:
+\begin{align}
+    \Delta E = I A \Delta t
+\end{align}
+Dato che il campo elettrico oscilla sempre, ci sono degli istanti in cui
+il campo elettrico è nullo: l'intensità luminosa dunque oscilla anch'essa
+con un certo periodo e con una certa fase rispetto al campo elettrico. Dato che
+\begin{gather*}
+    \omega = \frac{2\pi}{T} = \frac{2\pi c}{\lambda}
+\end{gather*}
+Dove $\lambda$ non è altro che la lunghezza d'onda della radiazione
+considerata: se si considera la radiazione luminosa $\sim 0.6 \cdot  10^{-6} \ m$, si ha
+che il periodo di oscillazione è $0.2 \cdot  10^{-14} \ s$. La nostra intensità luminosa
+è allora la media dell'intensità luminosa su un periodo di oscillazione
+del campo elettrico:
+\begin{gather*}
+    <I> = c\epsilon_0 \frac{1}{T}\int_{0}^{T}\vv{E}^{2} \ dt  \ \Longrightarrow \ <I> = c\epsilon_0 \frac{1}{T}\int_{0}^{T}E_0^{2}\cos^{2}(kx - \omega t) \ dt  
+\end{gather*}
+Allora posso risolvere la media rispetto al coseno alla seconda, che non è altro che
+un mezzo, allora posso dire che
+\begin{align}
+    <I> = \frac{1}{2}c\epsilon_0 E^{2} 
+\end{align}
+Di conseguenza la media dell'intensità luminosa non è altro che la metà
+dell'intensità luminosa totale in valore assoluto. Se la polarizzazione
+del campo elettrico in modulo rimane sempre $E_0$ allora l'intensità
+varia poiché si ha il doppio dell'intensità: questa onda polarizzata è la somma del
+contributo dell'onda piana iniziale e del contributo sfasato rispetto
+a questa onda. 
+
+\section{Il fenomeno della trasmissione di un mezzo dielettrico}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'interfaccia tra dielettrici}
+    \begin{tikzpicture}
+        \draw(0, -1) -- (0, 1) node[at end, left] {$n_1$} node[at end, right] {$n_2 > n_1$};
+        \draw[dashed](-3, 0) -- (3, 0);
+        \draw(-3, 1) -- (0, 0);
+        \draw(-1.5, 0.5) arc (150:180:1) node[midway, left] {$\theta$};
+        \draw[->, thick, red](-2.25, 0.75) -- (-2, 1.35) node[at end, right] {$\vv{E_{\parallel}}$};
+        \filldraw[red](-2.25, 0.75) circle (1pt) node[anchor = north east] {$\vv{E_{\perp}}$ };
+        \draw(-2.25, 0.75) circle (0.1);
+        \draw(0, 0) -- (3, -0.5);
+        \draw[red, thick, ->](1.5, -0.25) -- (1.7, 0.5) node[at end, right] {$\vv{E_{\parallel}^{T} }$ };
+        \draw(0, 0) -- (-3, -1);
+        \draw[->, thick, red](-2.25, -0.75) -- (-2, -1.35) node[at end, right] {$\vv{E_{\parallel}}$};
+        \filldraw[red](-2.25, -0.75) circle (1pt) node[anchor = south east] {$\vv{E_{\perp}}$ };
+        \draw(-2.25, -0.75) circle (0.1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+I fenomeni di trasmissione e di riflessione alle interfacce tra dielettrici dipendono
+dalla polarizzazione delle onde rispetto al piano
+di incidenza. Il \textbf{piano di incidenza} è il piano che contiene il \textbf{raggio
+incidente} definito dal vettore $\hat{k}$ e la direzione normale alla superficie
+nel punto di incidenza: nel disegno il piano di incidenza coincide
+con il foglio. Il vettore campo elettrico è dunque scomponibile in due componenti
+una parallela ed una perpendicolare al piano di incidenza (il cui verso, ossia se entrante
+o uscente è arbitrario). Un fenomeno particolare che si incontra è
+quando una onda incide un dielettrico senza essere riflessa (ossia la luce
+se ha una polarizzazione con solo $\vv{E_{\parallel}}$) viene  solo trasmessa. 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{L'angolo di Brewester}
+    \begin{tikzpicture}
+        \draw[dashed](-3 , 0) -- (3, 0);
+        \draw(0, -2) -- (0, 2);
+        \draw(-1, 2) -- (0, 0) -- (2, -1);
+        \draw(0, 0) -- (-1, -2);
+        \draw(-0.5, 1) arc (110:180:1) node[midway, left] {$\theta_1$};
+        \draw(1, -0.5) arc (-30:0:1) node[midway, right] {$\theta_2$};
+        \draw[->, green](0, 0) -- (0.25, 0.5) node[at end, above] {$\vv{d_E}$ };
+        \draw[->, green](0.25, -0.12) -- (0.5, 0.35);
+        \draw[->, green](0.5, -0.25) -- (0.75, 0.25);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se avessi un dipolo elettrico oscillante con il campo orientato in una
+certa direzione, allora esso emetterà solamente campo elettrico con
+direzione perpendicolare alla direzione del dipolo elettrico oscillante;
+l'emissione lungo la direzione di oscillazione è nulla. Il risultato delle onde
+in trasmissione o riflessione sono date dalle cariche all'interno del
+dielettrico: si immagina di avere la condizione per cui si ha una interfaccia 
+con un raggio di luce che incide ad un certo angolo sul dielettrico in modo tale che
+si crei un angolo di $90^{\circ}$ tra i raggi riflessi e trasmessi: in questo
+caso si creano dipoli elettrici nel dielettrico che oscillano perpendicolarmente alla
+direzione dell'onda trasmessa. Questi dipoli possono creare solo delle onde nella
+direzione dell'onda riflessa e dunque l'onda riflessa non può esistere.
+Questo angolo particolare prende il nome di \textbf{angolo di Brewester} e questo vale solo
+quando $\vv{E}$ giace sul piano di incidenza e dunque si può verificare
+solo per una polarizzazione lineare e vale dunque per $\vv{E_{\parallel}}$.   
+La relazione che ottengo tra gli angoli sotto mi permette di ricavare l'angolo di Brewester:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \theta_1 + \theta_2 + \frac{\pi}{2} = \pi \\
+        n_1 \sin \theta_1 = n_2 \sin\theta_2
+    \end{array}\right. \ \Longrightarrow \ \left\{\begin{array}{l}
+        \theta_2 = \frac{\pi}{2} - \theta_1 \\
+        n_1 \sin \theta_1 = n_2 \sin (\frac{\pi}{2} - \theta_1) = n_2 \cos\theta_1
+    \end{array}\right. 
+\end{gather*}
+Si ottiene allora l'angolo critico per il quale si ha questa condizione: 
+\begin{align}
+    \tan \theta_1 = \frac{n_2}{n_1}
+\end{align}
+L'angolo tra aria e vetro di Brewester è esattamente $\theta = 56^{\circ}$. Se della luce
+con polarizzazione ellittica (casuale) incide con l'angolo di Brewester su di una
+superficie dielettrica, la riflessione emerge con polarizzazione lineare e perpendicolare.
+L'interfaccia si comporta come se fosse un polarizzatore: solo la luce con una data polarizzazione
+può percorrere il cammino di riflessione. 
+Una polarizzazione \textbf{ellittica} è una polarizzazione tale per cui
+\begin{gather*}
+    E_{0y} \neq E_{0z} \qquad \text{se} \qquad \phi_y \neq \phi_z
+\end{gather*}
+E dunque la punta del campo elettrico sul piano $zy$ segue la traiettoria di una ellisse.
+
+
+\end{document}

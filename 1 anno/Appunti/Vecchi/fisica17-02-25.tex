@@ -1,0 +1,228 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica}
+\author{Tommaso Miliani}
+\date{17-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Esercizio sulla dinamica di fletcher}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 1.2}
+    \caption{Carrucola}
+    \begin{tikzpicture}
+        \draw (4, 3) -- (4, 0);
+        \draw (4.35, 3.19) -- (4.35, 2.0);
+        \draw (1.5, 3.35) -- (4.17, 3.35);
+        \draw (4.1, 2.0) rectangle (4.6, 1.6);
+        \draw (1, 3) rectangle (1.5, 3.5);
+        \draw [->] (1.4, 3.25)--(2, 3.25);
+        \draw [->] (1.25, 3.27)--(1.25, 3.75);
+        \draw [->] (1.25, 3.23)--(1.25, 2.75);
+        \draw (4.2, 3.2) circle (0.15) node[right] {}; 
+        \draw (0, 3) -- (4, 3); 
+    \end{tikzpicture}
+\end{wrapfigure}
+Per il primo oggetto si scrive:
+\begin{align}
+    \vec{N}_1 + m_1\vec{g} + \vec{T}_1 = m_1 \vec{a}_1 \\
+    \vec{T}_2 + m_2 \vec{g} = m_2 \vec{a}_2        
+\end{align}
+Utilizzando due versori ($\hat{k}$ per il primo corpo) allora si ha che i vettori
+hanno i seguenti versori:
+\begin{gather*}
+    \vec{N}_1 = N_1 \hat{k} \\
+    \vec{g} = g \hat{k}    
+\end{gather*}
+Allora si hanno le seguenti equazioni per i corpi:
+\begin{gather*}
+    \vec{T}_1  = m_1 \ddot{x}_1 \\
+    N_1 - m_1g = 0 
+\end{gather*}
+E per il secondo:
+\begin{gather*}
+    T_2 - m_2 g = m_2 \ddot{z}_2 \\
+\end{gather*}
+Se la fune rimane tesa per tutto l'esercizio e quindi si hanno le 
+proprietà del filo ideale, allora questo comporta che dal punto di vista
+geometrico  si ottiene:
+\begin{gather*}
+    \Delta \ddot{x}_1 = - \Delta\ddot{z}_2 \\
+    \Rightarrow \dot{x}_1 = \dot{z}_2 \\  
+    \Rightarrow a = \ddot{x}_1 = - \ddot{z}_2 
+\end{gather*}
+UN'ulteriore proprietà della funicella ideale è la sua assenza di massa:
+allora la forza esercitata da una parte o dall'altra è la stessa e come
+conseguenza si ha che le tensioni sono uguali in modulo:
+\begin{gather*}
+    T_1 = T_2 = T
+\end{gather*}
+Questo dipende anche dalle proprietà della Carrucola: essa deve essere 
+priva di massa per poter avere la relazione scritta sopra. \\
+Si può ora riscrivere le equazioni come:
+\begin{align}
+    T = m_1 a \\
+    T - m_2 g = -m_2 a
+\end{align}
+Dalla prima si sostituisce nella seconda e quindi:
+\begin{gather*}
+    m_1 a - m_2 g = -m_2 a \\
+    \Rightarrow a = g\frac{m_2}{m_1 + m_2}
+\end{gather*}
+Allora la tensione è esprimibile come:
+\begin{align}
+    T = g\frac{m_1 m_2}{m_1 + m_2}
+\end{align}
+L'esercizio di dinamica finisce qui ma se volessimo studiare il comportamento del sistema
+nell'istante dopo, allora si muoverebbero di moto uniformemente accelerato.
+
+\section{I vincoli non ideali: la forza di attrito}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 2.1}
+    \caption{La forza di attrito}
+    \begin{tikzpicture}
+        \draw (0, 0) -- (2, 0);
+        \draw (0.5, 0) rectangle (1.5, 1);
+        \draw[->] (1, 1) -- (1, 2) node[midway, left] {$\vec{N}$};
+        \draw[->] (1.5, 0.5) -- (2, 0.5) node[midway, above] {$\vec{F}$};
+        \draw[->] (0.5, 0.5 ) -- (0, 0.5) node[midway, above] {$\vec{F_s}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se il vincolo fosse ideale, applicando una forza molto piccola orizzontalmente
+rispetto alla verticale, l'oggetto non si muove. Ma questo perché?
+IN una situazione ideale l'oggetto dovrebbe muoversi di moto uniformemente accelerato.
+MA in una situazione reale il vincolo applica una forza orizzontale chiamata
+\textbf{forza di attrito radente} che impedisce il movimento di un oggetto rispetto
+all'altro. Applicando una forza sempre maggiore questa forza di resistenza
+si adatta alla forza che viene impressa all'oggetto fino a che oltre una certa
+intensità l'oggetto inizia a muoversi. Quindi:
+\begin{align}
+    \left| \vec{F}_s  \right| \leq \text{max}
+\end{align}
+Posto che il vincolo possa sopportare un livello di stress molto alto, allora 
+$\vec{N}$ può crescere quanto si vuole, se si applica una forza verticale mentre si
+applica una forza orizzontale per far muovere l'oggetto, ci si accorge che: 
+\begin{align}
+    \left| \vec{F}_s  \right| \leq \mu_s \left| \vec{N}\right| 
+\end{align} 
+Il \textbf{coefficiente di attrito statico} $\mu_s$ è un coefficiente proprio tra
+un oggetto e la superficie su cui è in contratto. \\
+Sempre una forza tangente al vincolo si oppone al movimento di un oggetto
+in movimento sopra di esso poiché si osserva che un oggetto in movimento si ferma
+dopo qualche istante come se ci fosse una forza opposta al movimento che si
+oppone a quest'ultimo. Questa forza è proprio la \textbf{forza di attrito radente dinamico}
+che è $\propto \vec{N}$ così come l'altra. Mentre quella statica si adatta in 
+modo da compensare il movimento; questa forza invece ha come modulo sempre
+uguale al suo massimo consentito: 
+\begin{align}
+    \vec{F}_s = -\mu_d \left| \vec{N} \right|\hat{u}_v    
+\end{align} 
+Dove 
+\begin{gather*}
+    \hat{u}_v = \frac{\vec{v} }{|\vec{v}|}
+\end{gather*}
+
+Essendo i vincoli dei dispositivi meccanici che impediscono dei movimenti 
+ma ne lasciano liberi altri, il vincolo è un oggetto materiale e fisico
+e le forze vincolari sono forze di interazioni tra due oggetti diversi e quindi
+agiscono secondo il terzo principio della dinamica: ogni qualvolta che agisce 
+una forza su di un oggetto allora esiste una forza opposta ad N che è agisce
+sull'oggetto di partenza.
+
+\subsection{Le superfici perfette}
+Supponendo di avere due superfici a contatto e che siano fatti dello stesso identico
+materiale; Feimann suppone che le superfici si possano lisciare nel modo 
+più perfetto possibile (a dimensioni atomiche), allora quando mettiamo a contatto
+queste due superfici si saldano diventando un unico blocco e quindi $\mu_s \to \infty$.
+
+\subsection{Un esempio della schematizzazione delle forze su di un piano inclinato}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 2.2}
+    \caption{Esempio di attrito}
+    \begin{tikzpicture}
+        \draw (0, 0) -- (4, 0);
+        \draw (0, 0) -- (0, 2);
+        \draw (0,  2) -- (4, 0);
+        \draw (1, 1.5) -- (1.5, 2);
+        \draw (2, 1) -- (2.5, 1.5);
+        \draw (1.5, 2) -- (2.5, 1.5);
+        \draw[->] (2, 1.75) -- (2.5, 2.5) node[at end, left] {$\vec{N} $};
+        \draw[->, very thick] (1, 1.5) -- (0, 2) node[midway, above] {$\vec{F_{at}}$}; 
+        \draw[->] (1.5, 1.25) -- (1.5, 0.25) node[at end, left] {$m\vec{g} $};
+        \draw (3.5, 0.25) arc (150:180:0.5) node[midway, left] {$\alpha$};
+        \draw[->, red] (3, 1) -- (4, 0.5) node[at end, below] {$\hat{i}$};
+        \draw[->, red] (3, 1) -- (3.5, 2) node[at end, left] {$\hat{j}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+All'istante $t = 0$ la velocità del corpo sul piano è:
+\begin{align}
+    \vec{v}(t) = 0 
+\end{align}
+Le forze stanno in relazione tra di loro nella seguente maniera:
+\begin{align}
+    \vec{F}_{at} + \vec{N} m\vec{g} = m\vec{a}    
+\end{align}
+Ma dato il nostro sistema di riferimento noi sappiamo che: 
+\begin{gather*}
+    \vec{F}_{at} = -F_{at}\hat{i}  \\
+    \vec{N} = N\hat{j}  
+\end{gather*}
+Il vettore forza di gravità invece è dato da:
+\begin{gather*}
+    \vec{g} = g\sin\alpha \hat{i} - g\cos\alpha \hat{j}   
+\end{gather*}
+L'accelerazione scomposta diventa allora:
+\begin{align}
+    a \hat{i } =& -F_{at} + mg \sin\alpha = ma  \\
+    a \hat{j} =& N - mg\cos\alpha = 0  
+\end{align}
+Come ipotesi assumo che $F_{at} = mg\sin\alpha$ e quindi si ha che:
+\begin{gather*}
+    \left| \vec{F}_{at}  \right| = \left| F_{at} \right| \leq \mu_s \left| \vec{N}  \right|? 
+\end{gather*}
+Se sì, l'oggetto è fermo, se no, allora l'oggetto è in movimento. QUindi con l'angolo
+del piano inclinato posso ricavare:
+\begin{gather*}
+    mg \sin\alpha \leq \mu_S mg\cos\alpha \Rightarrow \tan\alpha \leq \mu_s
+\end{gather*}
+Se $\tan\alpha \leq \mu_s$ è fermo , altrimenti non è fermo ma è in movimento e quindi si 
+ottiene che:
+\begin{gather*}
+    F_{at} = \mu_d \left| \vec{N}  \right| = \mu_d mg\cos\alpha
+\end{gather*}
+E quindi si ottiene l'accelerazione che è data da:
+\begin{gather*}
+    a = g\left( \sin\alpha - \mu_d \cos\alpha \right)
+\end{gather*}
+
+\end{document}

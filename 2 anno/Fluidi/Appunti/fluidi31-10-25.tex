@@ -1,0 +1,199 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{}
+\author{Tommaso Miliani}
+\date{31-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Copiare da pipas}
+
+
+\section{Dimostrazione cp}
+\begin{gather*}
+    \delta Q = \mathcal{C}_p dT
+\end{gather*}
+Adesso posso dire che il sistema 1 scambierà un calore
+pari a
+\begin{gather*}
+    Q_1 = \int_{T_1}^{T_e} \delta Q  = \int_{T_1}^{T_e}\mathcal{C}_1 dT 
+\end{gather*}
+incrementando piano piano la temperatura, sono sicuro che
+l'integrale sia sicuramente maggiore di zero e dunque il sistema 
+prende del calore (anche se non so necessariamente calcolare
+l'integrale). Posso quindi determinare la variazione di
+Entropia del sistema 1 attraverso la seguente:
+\begin{gather*}
+    \Delta S_1 = \int_{T_1}^{T_e} \frac{\delta Q}{T} = \int_{T_1}^{T_e} \frac{\mathcal{C}_1}{T} \ dT  > 0
+\end{gather*}
+Invece per il calore $Q_2$ si ha che
+\begin{gather*}
+    Q_2 = \int_{T_2}^{T_e} \mathcal{C}_2 \ d T = - \int_{T_e}^{T_2}\mathcal{C}_2 \ dT  
+\end{gather*}
+Dato che il numero dentro l'integrale è positivo, il calore scambiato dal sistema 2
+è dunque negativa (poiché cede calore all'ambiente, ossia il sistema 1). 
+La sua variazione di entropia sarà dunque data da
+\begin{gather*}
+    \Delta S_2 = \int_{T_2}^{T_e} \frac{\delta Q}{T} = \int_{T_2}^{T_e} \frac{\mathcal{C}_2}{T}\ dT = - \int_{T_e}^{T_2}\frac{\mathcal{C}_2}{T} \ dT < 0  
+\end{gather*}
+Questo risultato non viola nulla in quanto i due sistemi stanno interagendo termicamente. Siccome
+il sistema complessivo è racchiuso tra pareti adiabatiche, il sistema complessivo non scambia
+dunque calore con l'esterno e non subisce né fa lavoro. Quindi la variazione 
+dell'energia interna del sistema complessivo sarà data esattamente da
+\begin{gather*}
+    \Delta U = \Delta U_1 + \Delta U_2 = 0
+\end{gather*}
+Dato che non viene compiuto alcun lavoro (e non è subito), la variazione dell'energia
+interna sarà data esclusivamente dal calore:
+\begin{gather*}
+    \Delta U = Q_1 + Q_2 = 0 \ \Longrightarrow \ Q_1 = -Q_2
+\end{gather*}
+Deve dunque risultare che la temperatura del termostato 
+\begin{gather*}
+    T < T_e \ \Longrightarrow \ \frac{1}{T} > \frac{1}{T_e} \ \Longrightarrow \ \frac{\mathcal{C}_1}{T} > \frac{\mathcal{C}_1}{T_e}
+\end{gather*}
+E quindi si ottiene la variazione di entropia del sistema 1:
+\begin{gather*}
+    \int_{T_1}^{T_e} \frac{\mathcal{C}_1}{T} \ dT > \int_{T_1}^{T_e} \frac{\mathcal{C}_1}{T_e} \ dT  \\
+    \int_{T_1}^{T_e} \frac{\mathcal{C}_1}{T_e} \ dT = \frac{1}{T_e} \int_{T_1}^{T_e} \mathcal{C}_1 \ dT = \frac{Q_1}{T_e} \ \Longrightarrow \ \Delta S_1 > \frac{Q_1}{T_e}  
+\end{gather*}
+Per il secondo sistema invece devo considerare che il sistema sta perdendo calore,
+dunque il termostato successivo è più freddo del precedente e si ha un flusso in uscita di 
+calore. 
+\begin{gather*}
+    T > T_e \ \Longrightarrow \ \frac{1}{T} < \frac{1}{T_e} \ \Longrightarrow \ \delta Q < 0  
+\end{gather*}
+Posso esprimere dunque secondo gli integrali
+\begin{gather*}
+    \int_{T_2}^{T_e} \frac{\mathcal{C}_2}{T} \ dT > \int_{T_2}^{T_e} \frac{\mathcal{C}_2}{T} \ dT \ \Longrightarrow \ \Delta S_2 > \frac{Q_2}{T_e}  
+\end{gather*}
+Dunque le entropie si relazionano
+\begin{gather*}
+    \Delta S_1 > \frac{Q_1}{T_2} > -\Delta S_2 \\
+    S_1 > -\Delta S_2 \ \Longrightarrow \ \Delta S_1 + \Delta S_2 > 0
+\end{gather*}
+Dunque la variazione di entropia è sempre maggiore di zero 
+per qualsiasi sistema isolato (in questo caso è il sistema 1 + il sistema 2).
+E' quindi possibile avere una variazione di entropia che sia minore
+di zero, ma se e solo se il sistema non è isolato e sta scambiando del calore
+con un ambiente esterno (come nel caso del sistema 2). 
+
+\section{Variazione dell'energia}
+Supponendo che il sistema fluido faccia solamente lavoro tramite
+le forze di pressione, posso ricavare l'energia interna come 
+\begin{gather*}
+    dU = \left(\frac{\partial U}{\partial T} \right)_V \ dT + \left(\frac{\partial U}{\partial V} \right)_T \ dV = \delta Q - p\ dV
+\end{gather*}
+Posso dunque dividere tutto per la temperatura e ottenere
+\begin{gather*}
+    \frac{\delta Q}{T} = \frac{1}{T} +  \left(\frac{U}{T}\right)_V \ dT + \frac{1}{T} \left(\left(\frac{\partial U}{\partial V}\right)_T + p\right)\ dV
+\end{gather*}
+Facendo l'ipotesi che la quantità di calore che è scambiata sia scambiata in maniera reversibile, 
+posso determinare il differenziale dell'entropia all'espressione 
+dell'energia interna. (con $S = S(V, T)$).
+\begin{gather*}
+    dS = \left(\frac{\partial S}{\partial T} \right)_V \ dT + \left(\frac{\partial S}{\partial V} \right)_T \ dV
+\end{gather*}
+Immaginando di prendere la derivata rispetto al volume e devo derivare in maniera
+mista la funzione:
+\begin{gather*}
+    \frac{\partial }{\partial V} \frac{\partial S}{\partial T} = \frac{\partial }{\partial T} \frac{\partial S}{\partial V}    \\
+    \frac{\partial }{\partial V} \left(\frac{1}{T} \left(\frac{\partial U}{\partial T} \right)_V\right) = \frac{\partial }{\partial T} \left(\frac{1}{T}\left(\left(\frac{\partial U}{\partial V} \right)_T + p\right)\right) \\
+    \frac{1}{T} \frac{\partial^{2 } U}{\partial V \partial T} = \frac{1}{T} \left(\left(\frac{\partial U}{\partial V} \right)_T + p\right) + \left(\frac{\partial ^{2} U}{\partial T \partial V} \right) + \left(\frac{\partial p}{\partial T} \right)_V   
+\end{gather*}
+Ottenendo allora 
+\begin{gather*}
+    \frac{1}{T}\left(\left(\frac{\partial U}{\partial V} \right)_T + p\right) = \left(\frac{\partial p}{\partial T} \right)_V
+\end{gather*}
+Si esprime allora l'energia interna di un sistema fluido qualunque e come questa si relazione 
+in funzione delle variabili termodinamiche:
+\begin{gather*}
+    \left(\frac{\partial U}{\partial V} \right)_T = T\left(\frac{\partial p}{\partial T} \right)_V - p
+\end{gather*}
+Dunque ottengo
+\begin{gather*}
+    T\ dS = \delta Q = dU + p \ dV \\
+    T \ dS = \mathcal{C}_V \ dT + \left(\frac{\partial U}{\partial V} \right)_T \ dV + p\  dV
+\end{gather*}
+E dunque si ha l'espressione dell'entropia di un qualsiasi sistema fluido 
+come funzione di stato. 
+\begin{gather*}
+    T \ dS = \mathcal{C}_V \ dT + T\left(\frac{\partial p}{\partial T} \right)_V \ dV
+\end{gather*}
+Si può ottenere una analoga semplicemente utilizzando l'equazione dell'energia interna:
+\begin{gather*}
+    T \ dS = \mathcal{C}_p \ dT - T\left(\frac{\partial V}{\partial T} \right)_p \ dp
+\end{gather*}
+Inoltre si ottengono le quattro equazioni termodinamiche di MAxWell:
+\begin{gather*}
+    \left(\frac{\partial S}{\partial T} \right)_V = \frac{\mathcal{C}_V}{T} \\
+    \left(\frac{\partial S}{\partial V} \right)_T = \left(\frac{\partial p}{\partial T} \right)_V \\
+    \left(\frac{\partial S}{\partial T} \right)_p = \frac{\mathcal{C}_p}{T} \\
+    \left(\frac{\partial S}{\partial p} \right)_T = - \left(\frac{\partial V}{\partial T} \right)
+\end{gather*}
+Per un gas perfetto si ha che
+\begin{gather*}
+    dS = \frac{\mathcal{C}_V}{T} \ dT + \left(\frac{\partial p}{\partial T} \right)_V \ dV \\
+    dS = \mathcal{C}_V \frac{dT}{T} + nR \frac{dV}{V}
+\end{gather*}
+Dunque si ha l'espressione dell'entropia per un gas perfetto 
+a volume costante:
+\begin{gather*}
+    S(T, V) = \mathcal{C}_V \ln\frac{T}{T_0} + nR\ln \frac{V}{V_0}\\
+    S(T; V) = \mathcal{C}_V (\ln \frac{T}{T_0} + \frac{nR}{\mathcal{C}_V}\ln\frac{V}{V_0})
+\end{gather*}
+Ossia
+\begin{gather*}
+    S(T, V) = \mathcal{C}_V \left(\ln\frac{T}{T_0} + \ln \left(\frac{V}{V_0}\right)^{\gamma -1}\right) \ \Longrightarrow \ S(V, T) = \mathcal{C}_V \ln\left(\frac{TV^{\gamma - 1}}{TV_0^{\gamma -1}}\right)
+\end{gather*}
+
+\end{document}

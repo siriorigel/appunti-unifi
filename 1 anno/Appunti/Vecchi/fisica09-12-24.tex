@@ -1,0 +1,127 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica}
+\author{Tommaso Miliani}
+\date{09-12-24}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Massa e sua definizione operativa}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 1.1}
+    \caption{Carrellino delle masse}
+    \begin{tikzpicture}
+        \draw ( 0, 0) -- (4, 0);
+        \draw (0.5, 0) rectangle (1, 1);
+        \draw (3.5, 0) rectangle (4, 1);
+        \draw (1.75, 0.25) rectangle (2.75, 0.75);
+        \draw (2, 0.13) circle (0.13);
+        \draw (2.5, 0.13) circle (0.13);
+        \draw[decoration={aspect=0.3, segment length=1mm, amplitude=1mm,coil},decorate] (1, 0.5) --  (1.75, 0.5);
+        \draw[decoration={aspect=0.3, segment length=1mm, amplitude=1mm,coil},decorate] (2.75,0.5) --  (3.5, 0.5);
+        \draw (2, 0.75) rectangle (2.5, 1.25) node[midway] {$M$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+Il carrellino inizia ad oscillare se applico una certa forza su di esso e le ruote
+servono a smorzare l'attrito con il terreno. Adesso arriviamo ai principi della
+dinamica attraverso questo. In cinematica sostanzialmente si sceglieva aribtrariamente
+il sistema di riferimento: mentre in dinamica il sistema di riferimento può cambiare
+la descrizione del sistema fisico: si definiscono quindi
+solo una classe di sistemi di riferimento ossia i sistemi di riferimento
+inzerziali. 
+\begin{enumerate}
+    \item Un oggetto si muove di moto rettilineo uniforme se e solo se non ci sono forze applicate su di esso;
+    \item 
+\end{enumerate}
+Sperimentalmente le forze applicate su di un oggetto sono dovute ad altri corpi:
+selezioniamo idelmente degli oggetti lontani da altri: un oggetto molto lontano
+da tutti gli altri corpi per evitare proprio gli effetti di tutte le altre forte:
+adesso però avendo cambiato il sistema di riferimento può cambiare tutto.
+Definisco sistema inzeriale un sistema in cui un oggetto è in quiete o si muove di moto 
+rettilineo uniforme. Il primo principio diventa una affermazione dell'esistenza
+dei sistemi di riferimento inzerziali:
+\begin{gather*}
+    \vec{v} = \vec{v} + \vec{v}_o
+\end{gather*}
+Se adesso un corpo è sottoposto a delle forze, 
+il secondo principio ci dice che la somma delle forze  (e quindi la risultante) è
+\begin{align}
+    \sum_{i = 1}^{n} k\vec{F}_i = M\vec{a}   \\
+    \vec{a} \propto \frac{1}{k}\frac{\sum_{i = 1}^{n} \vec{F}_i}{M} 
+\end{align}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 1.2}
+    \caption{Piano inclinato}
+    \begin{tikzpicture}
+        \draw (0, 3) -- (4, 0);
+        \draw (0, 3) -- (0.2, 3.3);
+        \draw[decoration={aspect=0.3, segment length=1mm, amplitude=1mm,coil},decorate] (0.155, 3.2) --  (0.8, 2.7);
+        \draw (0.95, 2.6) circle (0.15) node[right] {M}; 
+        \draw (0, 0) -- (4, 0); 
+        \draw (3.5, 0.35) arc (140: 180: 0.55) node[midway, left] {$\alpha$};
+        \draw[->] (0.95, 2.7) -- (0.95, 3.7) node[at end, right] {$\vec{N} $};
+        \draw[->] (1.1, 2.55) -- (2.05, 1.8) node[at end, above] {$\vec{P}_{//}$};
+        \draw[->] (0.85, 2.5) -- (0, 1.5) node[at end, below] {$\vec{P}_{\perp}$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Se la massa è definita come il periodo del carrellino sopra oppure
+definita come l'allungamento della molla, allora ho bisogno di un k, una
+costante che mi permetta di specificare il rapporto diretto tra la massa e
+la sua relativa accelerazione. Arrivo a dire però che $k = 1$ se definisco
+individualmente la forza, la massa e l'accelerazione allora si possono scegliere
+le unità di misura in modo più semplice possibile ed esprimerlo come uno. 
+\begin{align}
+    \sum_{i = 1}^{n}\vec{F}_i = M \vec{a}   
+\end{align}
+Su di un piano inclinato per esempio io lascio cadere un oggetto (il quale
+può cadere in modo diverso date forme diverse o che l'aria ha effetti differenti
+dal vuoto).
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 1.3}
+    \caption{Sistema di riferimento con carrucola}
+    \begin{tikzpicture}
+        \draw (0, 0) -- (3, 0);
+        \draw (3, 0) -- (3, -2);
+        \draw (1, 0) rectangle (2, 1) node[midway] {M};
+        \draw[->] (1.5, 0) -- (1.5, -1) node[at end, right] {$\vec{P}$};
+        \draw (3, 0) -- (3.25, 0.25);
+        \draw (3.37, 0.37) circle (0.13);
+        \draw (2, 0.5) -- (3.4, 0.5);
+        \draw (3.5, 0.4) -- (3.5, -1);
+        \draw[->,  very thick] (3.5, -1) -- (3.5, -2) node[at end, right] {$\vec{F}$};
+    \end{tikzpicture}     
+\end{wrapfigure}
+
+
+\end{document}

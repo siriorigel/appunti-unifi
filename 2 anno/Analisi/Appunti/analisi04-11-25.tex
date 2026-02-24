@@ -1,0 +1,206 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Analisi Bianchi}
+\author{Tommaso Miliani}
+\date{04-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Insiemi semplicemente connessi}
+Se $\omega$ è esatta, allora $\omega$ è chiusa, altrimenti,
+se $F$ è un campo conservativo, allora $\text{rot}F = 0$.
+Vale anche il viceversa? In generale no. Se infatti
+$\omega$ è definita su di un certo insieme $\mathbb{A}$ ed è
+chiusa, non è detto che esista una funzione $F$ definita su tutto $\mathbb{A}$
+tale che $\omega = dF$.
+\begin{example}
+    Non esiste $F$ definita su $\mathbb{R}^{2} - \{(0, 0)\} : \omega = dF$. \\
+    $\exists F$ definita su $\{(x, y) : x> 0\} : \omega = dF$ poiché è un insieme semplicemente
+    connesso. 
+\end{example}
+
+\begin{observation}
+    Se $\mathbb{A}$ è semplicemente connesso, allora si può invertire
+    la definizione. 
+\end{observation}
+
+\begin{definition}[Essere semplicemente connesso]
+    Un insieme aperto $\mathbb{A}$ si dice \textbf{semplicemente connesso}
+    se è connesso e inoltre ogni curva chiusa, e interamente contenuta in $\mathbb{A}$, 
+    può essere ridotta mediante una deformazione continua ad un unico 
+    punto senza mai uscire da $\mathbb{A}$. 
+\end{definition}
+
+\begin{example}[Esempi in $\mathbb{R}^{2}$]
+    Sono semplicemente connessi cerchi, ellissi, poligoni, semipiani,
+    il piano $\mathbb{R}^{2}$ intero ed il piano privato di una semiretta. 
+    Non sono semplicemente connessi il piano o un cerchio, o un 
+    ellisse, o un poligono privato di un punto, una corona circolare o un insieme che presenta un buco. \\
+    In tutti i casi si deve pensare che, per una curva chiusa che gira intorno
+    al buco, una deformazione continua non riesce a deformare la curva in un punto
+    poiché non riesce a stare dentro l'insieme ma si deve per forza passare per il buco. 
+\end{example}
+
+\begin{example}[Esempi in $\mathbb{R}^{3}$]
+    Il toro non è un solido semplicemente connesso mentre
+    una sfera lo è, così come un guscio sferico in quanto 
+    è possibile "scansare" il buco.  Qualsiasi curva nello spazio
+    può chiudere un insieme e renderlo semplicemente connesso 
+    togliendo un numero finito di punti. 
+\end{example}
+
+\begin{definition}
+    Un insieme $\mathbb{A}$ si dice \textbf{stellato} se esiste un punto
+    $P_0 \in \mathbb{A}$ tale che $\forall P \in \mathbb{A}$, tutto il segmento
+    di estremi $P$ e $P_0$ è contenuto in $\mathbb{A}$. Si dice
+    stellato poiché sono insiemi concavi. 
+\end{definition}
+
+Per la definizione esatta di semplicemente connesso si introduce la def
+\begin{definition}[Omotopia tra curve]
+    Siano$\gamma_1$ e $\gamma_2$ curve contenute in $\mathbb{A}$ aperto e connesso
+    con $\mathbb{A} \subset \mathbb{R}^{2}$ o $\mathbb{R}^{3}$. Supponiamo che
+    $\phi_1:(a, b) \to \mathbb{A}$  e $\phi_2:(a, b) \to \mathbb{A}$ siano 
+    delle parametrizzazione di $\gamma_1$ e di $\gamma_2$ rispettivamente. 
+    In questo modo. 
+    \begin{gather*}
+        \phi_1(a) = \phi_2(a) = P_a \qquad \phi_1(b) = \phi_2(b) = P_b
+    \end{gather*} 
+    Allora $\gamma_1$ e $\gamma_2$ si dicono \textbf{Omotope} in $\mathbb{A}$ se
+    esiste una funzione continua $\phi(t, \lambda)$, che dipende dal parametro $t \in [a, b]$ e
+    $\lambda \in [0, 1]$, tale che siano soddisfatte le seguenti condizioni 
+    \begin{enumerate}
+        \item $\phi(t, 0) = \phi_1(t) \qquad \phi(t, 1) = \phi_2(t) \qquad \forall t \in [a, b]$;
+        \item $\phi(a, \lambda) = P_a \ \qquad \phi(b, \lambda) = P_b \qquad \forall \lambda \in [0, 1]$;
+        \item $\forall \lambda \in [0, 1]  \quad\qquad \phi_\lambda := \phi = \phi(t, \lambda) \subset \mathbb{A}$. 
+    \end{enumerate}
+    L'introduzione del parametro $\lambda$ è un modo per far variare in modo continuo
+    una curva generica tra $\lambda_1$ e $\lambda_2$ in modo continuo. Per ogni $\lambda$
+    fissato si ha una famiglia di curve con i soliti estremi $P_a$ e $P_b$.  \\
+    Se $\gamma_1$ e $\gamma_2$ sono due curve chiuse e 
+    \begin{gather*}
+        \phi_1(a) = \phi_2(a) = P_a \qquad \phi_1(b) = \phi_2(b) = P_b
+    \end{gather*} 
+    allora nella definizione precedente queste si dicono omotope se vale la
+    definizione precedente con la seconda condizione sostituita dalla seguente:
+    \begin{gather*}
+        \phi(a, \lambda) = \phi(b, \lambda) \qquad \forall \lambda \in [0, 1]
+    \end{gather*}
+\end{definition}
+Si può ora dare la definizione formale di insieme semplicemente connesso
+\begin{definition}[Definizione rigorosa di semplicemente connesso]
+    Un insieme aperto di $\mathbb{A}$ di $\mathbb{R}^{2}$ o $\mathbb{R}^{3}$ si dice semplicemente connesso
+    se è connesso e due curve qualsiasi contenute in $\mathbb{A}$, ed aventi gli stessi estremi, 
+    sono omotope. Questa definizione può essere data anche alle curve chiuse
+    in quanto ogni curva chiusa contenuta in $\mathbb{A}$ è omotopa ad una curva costante, ossia
+    si riduce ad un solo punto.  
+\end{definition}
+
+\begin{theorem}[Teorema $n!$]
+    Sia $\omega = a_1(x, y)dx + a_2(x, y)dy$ una forma differenziale
+    $C^{1}$ e chiusa in un insieme $\mathbb{A} \subset \mathbb{R}^{2}$ aperto
+    e semplicemente connesso. Allora $\omega$ è esatta.  Vale un enucnniato analogo in $\mathbb{R}^{3}$.
+\end{theorem}
+\begin{proof}
+    Prese due curve $\gamma_1$ e $\gamma_2$ con gli stessi estremi $P_a $ e $P_b$, voglio dimostrare allora 
+    che l'integrale delle forme differenziali sulle due curve è lo stesso. Poiché $\mathbb{A}$ è semplicemente connesso,
+    $\gamma_1$ e $\gamma_2$ sono omotope. Esiste allora una funzione
+    \begin{gather*}
+        \gamma(t, \lambda) :[a, b] \times [0, 1] \to \mathbb{A}
+    \end{gather*}
+    che soddisfa le prime due proprietà della definizione di omotopia. 
+    Si definisce allora $\forall \lambda \in [0, 1]$ l'integrale
+    \begin{gather*}
+        I(\lambda) = \int_{\gamma_\lambda}^{} \omega = \int_{a}^{b} a_1(x(t, \lambda), y(t, \lambda)) \frac{\partial x}{\partial t}(t, \lambda) + a_2(x(t, \lambda), y(t, \lambda))\frac{\partial y}{\partial t}(t, \lambda) \ dt   
+    \end{gather*}
+    Si vuole dimostrare che questo numero non dipenda da $\lambda$ e che dunque $I(0) = I(1)$. 
+    Si suppone che $\phi(t, \lambda)$ sia $C^{1}([a, b] \times [0, 1])$ e che 
+    le derivate seconde miste 
+    \begin{gather*}
+        \frac{\partial^{2} x}{\partial \lambda \partial t} \qquad \frac{\partial^{2} y}{\partial \lambda \partial t }  
+    \end{gather*}
+    Siano entrambe continue. Posso dunque derivare rispetto a $\lambda$
+    l'integrale e vedere che sia zero:
+    \begin{gather*}
+        \frac{d}{d\lambda}I(\lambda) = \frac{d}{d\lambda}\int_{\lambda_\gamma}^{} \omega 
+    \end{gather*}
+    Fare la derivata dell'integrale è come derivare l'argomento dell'integrale
+    (ancora non dimostrata nel corso, ma sarà definita successivamente). A questo punto si 
+    ha una funzione composta e quello che si vuole fare è dimostrare che l'ipotesi
+    $\omega$ chiusa, implichi che l'integrale tra $a$ e $b$ dell'argomento sia
+    \begin{gather*}
+        \int_{a}^{b}\frac{d}{d\lambda} \left(\dots\right) dt \underset{dimostrare}{=}\int_{a}^{b} \frac{d}{dt}\left(\dots\right)dt  
+    \end{gather*}
+    Ogni funzione è primitiva della propria derivata e dunque posso dire che 
+    \begin{gather*}
+        \int_{a}^{b}\frac{d}{d\lambda} \left(\dots\right) \ dt = \int_{a}^{b}\frac{d}{dt}a_1(x(t, \lambda), y(t, \lambda)) \frac{\partial x}{\partial \lambda}(t, \lambda) + a_2(x(t, \lambda), y(t, \lambda))\frac{\partial y}{\partial \lambda}(t, \lambda) \ dt
+    \end{gather*}
+    Sfruttando la seconda condizione delle funzioni omotope allora l'integrale
+    è esattamente zero. 
+    \begin{gather*}
+        \frac{d}{d\lambda} \left(a_1(x(t, \lambda), y(t, \lambda)) \frac{\partial x}{\partial t}(t, \lambda) + a_2(x(t, \lambda), y(t, \lambda))\frac{\partial y}{\partial t}(t, \lambda)\right) \\
+        \frac{d}{dt} \left(a_1(x(t, \lambda), y(t, \lambda)) \frac{\partial x}{\partial \partial}(t, \lambda) + a_2(x(t, \lambda), y(t, \lambda))\frac{\partial y}{\partial \lambda}(t, \lambda)\right)
+    \end{gather*}
+    Si vuole ora dimostrare che le due espressioni sono uguali: posso fare la derivata di funzione
+    per entrambe le espressioni $I$ e $II$:
+    \begin{gather*}
+        \frac{d}{d\lambda}(I) = \left(\frac{\partial a_1}{\partial \lambda}\left(\dots\right) \frac{\partial x}{\partial \lambda} + \frac{\partial a_1}{\partial y}\left(\dots\right)\frac{\partial y}{\partial \lambda} \right) \frac{\partial x}{\partial t}     + a_1\left(\dots\right)\cdot \frac{\partial ^{2}x}{\partial \lambda \partial t} \left(\dots\right) + \\
+        \left(\frac{\partial a_2}{\partial \lambda}\left(\dots\right) \frac{\partial x}{\partial \lambda} + \frac{\partial a_2}{\partial y}\left(\dots\right)\frac{\partial y}{\partial \lambda} \right) \frac{\partial x}{\partial t}     + a_2\left(\dots\right)\cdot \frac{\partial ^{2}y}{\partial \lambda \partial t} \left(\dots\right) \\
+        \frac{d}{d\lambda}(II) = \left(\frac{\partial a_1}{\partial x}\left(\dots\right) \frac{\partial x}{\partial t} + \frac{\partial a_1}{\partial \lambda}\left(\dots\right)\frac{\partial y}{\partial t} \right) \frac{\partial y}{\partial \lambda}     + a_1\left(\dots\right)\cdot \frac{\partial ^{2}x}{\partial t \partial \lambda} \left(\dots\right) + \\
+        \left(\frac{\partial a_2}{\partial x}\left(\dots\right) \frac{\partial x}{\partial t} + \frac{\partial a_2}{\partial y}\left(\dots\right)\frac{\partial y}{\partial t} \right) \frac{\partial y}{\partial \lambda}     + a_2\left(\dots\right)\cdot \frac{\partial ^{2}y}{\partial t \partial \lambda} \left(\dots\right)
+    \end{gather*}
+    Dato che so che è chiusa, posso dire che $\forall (x, y) \in \mathbb{A} \frac{\partial a_1}{\partial y}(x, y) = \frac{\partial a_2}{\partial x}(x, y) $. 
+\end{proof}
+
+
+
+\end{document}

@@ -1,0 +1,186 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Ottica (Approfondimenti)}
+\author{Tommaso Miliani}
+\date{28-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Cavità ottiche}
+Supponendo di avere uno specchio ad alta riflettività e di avere 
+un infinità di strati sulle superfici di questo specchio; la probabilità
+di riflessione $R \approx 1$. Se si ponesse un'altra interfaccia sotto 
+allo specchio ad alta riflettività, mi aspetto che lo specchio sotto non 
+interferisca con lo specchio sopra. Quello che accade, invece, è che il primo specchio fa
+trasmettere tutta la luce sullo specchio posto sotto. 
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (4, 0);
+        \draw(0, -1.5) -- (4, -1.5);
+        \draw(0.5, 1) -- (1.75, -2.5) node[at end, left] {(1)};
+        \draw(1.75, 0) -- (2.75, -2.5) node[at end, left] {(2)};
+        \draw(2.75, 0) -- (3.75, -2.5) node[at end, left] {(3)};
+    \end{tikzpicture}    
+\end{wrapfigure} 
+Si studiano dunque i contributi totali
+\begin{enumerate}
+    \item $t^{2}E_0\cos(kx' - \omega t)$
+    \item $t^{2}r^{2}E_0\cos(kx' - \omega t + 2kn\frac{d}{\cos\theta'})$
+    \item $t^{2}r^{4}E_0\cos(kx' - \omega t +4kn \frac{d}{\cos\theta'})$
+\end{enumerate}
+Complessivamente dunque, il campo elettrico totale in trasmissione diventa
+la somma di tutti i contributi trasmessi dopo l'interfaccia:
+\begin{gather*}
+    E_T = \sum_{j = 0}^{+\infty } t^{2}r^{2j}E_0\cos\left(kx' - \omega t + 2j\frac{knd}{\cos\theta'}\right)
+\end{gather*}
+Si può dunque chiamare 
+\begin{gather*}
+    \delta = \frac{2knd}{\cos\theta'} 
+\end{gather*}
+Allora, utilizzando i complessi, posso ricavare l'intensità totale del campo 
+trasmesso sotto l'interfaccia come:
+\begin{gather*}
+    E_T = (1 - R)E_0 \sum_{j = 0}^{+\infty }R^{j}\text{Re}\left[e^{i(kx' - \omega t + j\delta)}\right] \\
+    \ \Longrightarrow \ (1- R)E_0 \text{Re}\left[e^{i(kx' - \omega t)}\sum_{j = 0}^{+\infty } R^{j}e^{ij\delta}\right]
+\end{gather*}
+Si ricorda dunque la serie notevole
+\begin{gather*}
+    \sum_{i = 1}^{+\infty }h^{i} = \frac{1}{1 - h} 
+\end{gather*}
+E dunque
+\begin{gather*}
+    E_T = (1 - R)E_0 \text{Re}\left[e^{i(kx' -\omega t )} \frac{1}{1 - Re^{i\delta}}\right]
+\end{gather*}
+Posso dunque risolvere prendendo il modulo del secondo numero complesso 
+ed il coseno della somma delle fasi complesse:
+\begin{gather*}
+    E_T = (1 - R)E_0 \left| \frac{1}{1 - Re^{i\delta}} \right| \cos(kx' - \omega t + \phi) 
+\end{gather*}
+Il fatto che questo campo elettrico oscilli con qualsiasi fase $\phi$ è irrilevante
+in quanto poi si medierà l'intensità nel tempo e dunque il termine di fase
+non influirà: 
+\begin{gather*}
+    I_T = I_0(1 - R) \left| \frac{1}{1 - Re^{i\delta}} \right|^{2} = \\
+    \frac{I_0(1 - R)^{2}}{\left| 1 - R(\cos\delta + i\sin\delta) \right| } = \\
+    \frac{I_0(1-R)^{2}}{1 + R^{2} - 2R\cos\delta} \ \Longrightarrow \ I_0
+\end{gather*}
+A questo punto, dato che si è preso degli specchi con un alto indice di riflettività $R = 1 - \epsilon$, 
+in genere dovrebbe passare un termine $\epsilon$ dallo specchio. Se però c'è un altro specchio 
+ad alta riflettività sotto il primo specchio, accade che l'intensità 
+trasmessa è proprio  $I_0$ in quanto il coseno fa 1. Se la cavità tra gli specchi
+è largo $d$, l'intensità all'interno della cavità è dato da
+\begin{gather*}
+    \frac{I_0}{1 - R} = \frac{I_0}{1 - \epsilon}
+\end{gather*}
+Dunque, se si sceglie $\epsilon = 10^{-4}$, allora passerà una luce pari
+a $10^{4}I_0$: la potenza dentro la cavità è molto maggiore di quella in entrata.
+Il motivo di questo paradosso è che quando il campo elettrico incide sulla prima
+superficie riflettente, c'è una piccola probabilità che essa si possa trasmettere. 
+Se si accende un laser per poco tempo, è impossibile che dentro la cavità 
+ci sia della luce: accendendo allora il laser, si osserva che i pacchetti luminosi
+in ingresso arrivano uno dopo l'altro. 
+\begin{itemize}
+    \item Arriva il pacchetto rosso, che ha una piccola probabilità di 
+    riflettere e si trasmette quindi poca intensità.
+    \item Arriva il pacchetto blu, che ha anch'esso una piccola probabilità di 
+    trasmettere e dunque si trasmessa poca intensità ed entra in controfase con il pacchetto rosso in 
+    uscita. 
+    \item Arrivando gli altri pacchetti, si sommano sempre di più i contributi in uscita degli altri 
+    pacchetti (sono i contributi che si sono trasmessi all'interno e che stanno uscendo dall'interfaccia)
+    che sono in controfase con quelli riflessi e dunque più pacchetti arrivano e più si attenua la
+    riflessione del primo specchio, annullando, dopo un tempo molto lungo la riflessione.
+\end{itemize}
+A questo punto si ha solo trasmissione all'interno della cavità ottica dopo un tempo infinito poiché tutti i contributi 
+che sono stati trasmessi all'interno hanno completamente annullato qualsiasi riflessione. Dunque aspettando un 
+tempo infinito, si arriva alla condizione di intensità luminosa trovata prima e a quel punto 
+tutta l'intensità del laser viene trasmessa all'interno della cavità.
+Se si vuole studiare la condizione per il quale $\delta$ sia un multiplo di $2\pi$, allora
+\begin{gather*}
+    2\pi m = \frac{2knd}{\cos\theta} \ \Longrightarrow \ m \frac{nd}{\lambda\cos\theta}
+\end{gather*}
+La condizione di risonanza della cavità ottica si ha quando 
+\begin{gather*}
+    \frac{nd}{\cos\theta} = \frac{\lambda}{2}m
+\end{gather*}
+La condizione fisica dunque per la risonanza è a multipli della metà della lunghezza d'onda e si realizzano 
+le condizioni per la trasmissione totale dell'intensità luminosa all'interno della cavità. Si può dunque studiare il
+picco di questa funzione (che è una Gaussiana centrata intorno a questi valori ottenuti): 
+Si impone allora che il delta larghezza a metà altezza è dato da:
+\begin{gather*}
+    \frac{I_T}{I_0} = \frac{1}{2}
+\end{gather*}
+Quando 
+\begin{gather*}
+    \cos\delta = 1 - \frac{(1- R)^{2}}{2R} \ \Longrightarrow \ \cos\delta \approx 1 - \frac{\epsilon^{2}}{2}
+\end{gather*}
+Si ha dunque un modo molto preciso per poter confrontare $\lambda$ con distanze macroscopiche di
+distanze tra specchi. 
+
+\section*{Utilizzi pratici dell'ottica}
+\subsection{L'esperimento di Virgo}
+L'esperimento di Virgo utilizza le cavità ottiche in modo tale da aumentare
+l'insenità del laser utilizzato per trovare le onde gravitazionali. La potenza 
+del laser utilizzato è a $80$ Watt, ma con un \textit{\textbf{finesse}} $\frac{1}{\epsilon} = 5400$, dunque
+aumenta la cavità aumenta la potenza del laser. La limitazione di questo
+esperimento è sicuramente l'assorbimento degli specchi che iniziano a scaldarsi
+quando passa il laser.  
+
+\subsection{Orologi precisi}\
+Si utilizzano degli \textbf{orologi} realizzati con le
+cavità ottiche che permettono di stabilizzare in maniera molto precisa
+la lunghezza d'onda della radiazione e dunque la frequenza della lunghezza
+d'onda grazie a questi orologi che hanno una dilatazione termica quasi nulla per 
+temperature vicine alla temperatura ambiente. 
+
+\end{document}

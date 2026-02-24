@@ -1,0 +1,257 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Meccanica}
+\author{Tommaso Miliani}
+\date{24-02-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Introduzione al corso}
+\begin{itemize}
+    \item Prof: Omar Morandi
+    \item Esame: 2 parziali con possibilità di recuperarne uno, 
+    altrimenti si sostiene un esame scritto totale + orale. Si possono
+    portare libri e appunti (i compitini valgono fino a settembre). L'orale è 
+    un colloquio (più teorico) anche se ci possono essere esercizi. Si può accedere
+    all'orale con media dei compiti anche con 14-17.
+    \item Testi: "Meccanica Analitica" di Marmi, Fasano
+    \item 
+\end{itemize}
+
+
+\section{Introduzione}
+L'idea è capire il moto di sistemi meccanici complessi come strutture articolate 
+rigide. La descrizione tramite metodi matematici è il motivo per il quale prende il nome 
+di meccanica analitica (che è simile alla meccanica razionale). Il termine analitica deriva 
+dal fatto che si utilizzano funzioni lagrangiane e hamiltoniane.
+Ci si concentra su oggetti meccanici tipo molle, aste, ruote, riformulato 
+in una formulazione più generale, elegante e completa rispetto al corso di fisica I. 
+
+\subsection{Richiami da fisica I e geometria}
+Si utilizzeranno per determinate cose anche notazioni diverse, il motivo è 
+che ogni notazione ha una sua definizione e un suo utilizzo. 
+Vettori
+\begin{gather*}
+    \vv{r}  = \begin{pmatrix} x\\
+    y\\
+    z \end{pmatrix}  = (A - O)  \qquad \left| \vv{r}  \right| \doteq \sqrt{x^{2} + y^{2} + z^{2}}  
+\end{gather*}
+Per cui si definisce il prodotto scalare come 
+\begin{gather*}
+    \alpha \in \mathbb{R} \qquad \alpha \vv{v} = \alpha v_1 \hat{1} + \dots + \alpha v_k \hat{k}   
+\end{gather*}
+Si ottiene il versore di un vettore dividendo il vettore per il suo modulo:
+\begin{gather*}
+    \hat{v} = \frac{\vv{v} }{\left| v \right| } 
+\end{gather*}
+Il suo prodotto scalare è definito come la mappa lineare che 
+\begin{gather*}
+    \left< \vv{v}, \vv{w}   \right>  = \vv{v} \cdot \vv{w} = \left| v \right| \cdot \left| w \right| \cos(\vv{v} \angle \vv{w} )  \in \mathbb{R}  
+\end{gather*}
+L'angolo tra due vettori non è mai definito in quanto due vettori formano sempre un piano e dunque esistono
+due angoli tra loro: uno interno ed uno esterno, anche se, per il coseno, la definizione risulta non ambigua. 
+\begin{gather*}
+    \left| \vv{v}  \right| = \sqrt{\left< \vv{v}, \vv{v}   \right> }  
+\end{gather*}
+Bla bla bla calcolo vettoriale
+
+\begin{example}
+    Presa un asta di lunghezza $l$ vincolata ad avere i suoi due estremi appartenenti 
+    all'asse $x$ e all'asse $y$:
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[->](0, 0) -- (3, 0) node[at end, below] {$x$};
+            \draw[->](0, 0) -- (0, 3) node[at end, left] {$y$};
+            \draw[->](0, 0) -- (1, 1);
+            \filldraw(1, 1) circle (1pt) node[anchor = south west ] {$C$};
+            \draw(0, 2) -- (2, 0) node[midway, above] {$l$};
+        \end{tikzpicture}
+    \end{gather*}
+    Conoscendo l'angolo $\alpha$, quanto valgono le coordinate del centro della scala? \\ \noindent
+    Si determina adesso il vettore posizione come 
+    \begin{gather*}
+        (C - O) = (A - O)  + (C - A) = \hat{j}l\cos\alpha + \frac{l}{2}\sin\alpha \hat{i} -  \frac{l}{2}\sin\alpha \hat{i} 
+    \end{gather*}
+\end{example}
+
+\begin{example}
+    Si ha un asta che è vincolata ad un perno, come una biella attaccata ad un 
+    albero motore:
+    \begin{gather*}
+        \begin{tikzpicture}
+        \draw[->](0, 0) -- (5, 0) node[at end, below] {$x$};
+        \draw(0.5, 0) -- (2.5, 0.85) node[midway, above] {$l$};
+        \draw(2.5, 0.85) -- (3, 0);
+        \draw[dashed](3, 0) circle (1);
+        \draw(1.7, 0.5) arc (30:0:1) node[midway, left] {$\theta$};
+        \draw(3.4, 0) arc (0:125:0.4) node[midway, above] {$\alpha$};
+        \filldraw(0.5, 0) circle (1pt) node[anchor = north] {A};
+        \filldraw(2.5, 0.85) circle (1pt) node[anchor = south] {B};
+        \filldraw(3, 0) circle (1pt) node[anchor = north] {C};
+        \draw(3, 0) -- (3.82, -0.5) node[midway, below] {$R$};
+        \filldraw(0, 0) circle(1pt) node[anchor = north] {O};
+    \end{tikzpicture} 
+    \end{gather*}
+    Si deve determinare la posizione di A in funzione dell'angolo $\alpha$ in figura. 
+    Si ricava dunque 
+    \begin{gather*}
+        (A  - O) = (B - O) + (A - B)
+    \end{gather*}
+    Si determinano ora i vettori che descrivono la posizione di A:
+    \begin{gather*}
+        (A - B) = -l(\cos\theta \hat{i} + \sin\theta \hat{j}  )\\
+        (B - O) = (B - C) - (C - O) =  R(\hat{i}\cos\alpha + \hat{j}\sin\alpha  ) +d\hat{i} 
+    \end{gather*}
+    Dato che $\theta$ ed $\alpha$ non sono indipendenti (ancora non si sa che 
+    cosa vuol dire però è intuibile facendo variare uno e bloccando l'altro: se l'oggetto 
+    si rompe, allora erano dipendenti), devo adesso ricondurre tutto in funzione
+    di $\alpha$. Utilizzando ora il teorema dei seni, si può ricavare il legame che 
+    intercorre tra i due angoli:
+    \begin{gather*}
+        \frac{R}{\sin\theta} \frac{1}{\sin(\pi -\alpha)}
+    \end{gather*} 
+    Teorema dei seni 
+    \begin{gather*}
+        \frac{a}{\sin\alpha} = \frac{b}{\sin\beta} = \frac{c}{\sin\gamma}
+    \end{gather*}
+    E teorema dei coseni:
+    \begin{gather*}
+        \left| a \right|^{2} = \left| b \right|^{2} + \left| c \right|^{2} - 2\left| b \right| \left| c \right|\cos\alpha     
+    \end{gather*}
+\end{example}
+
+\subsection{Introduzione alla meccanica analitica vera e propria}
+Richiamo del teorema di derivazione di composte
+\begin{theorem}
+    $f(x) : U \subset R \to \mathbb{R}^{n}$, pensando $x$ come funizione di $y$, il quale 
+    è definito su $V \subset R$,
+    $x = x(y)$ funzione $R \to R$ , si definisce una funzione composta $h(y)$ definita come 
+    \begin{gather*}
+        h(y) \doteq f(x(y))
+    \end{gather*}
+    Si può determinare la derivata
+    \begin{gather*}
+        \frac{dh}{dy} = \left. \frac{df}{dx} \right| _{x(y)} \frac{dx}{dy}
+    \end{gather*}
+    Chiaramente una funzione composta. 
+\end{theorem}
+Si richiama anche il teorema del calcolo integrale:
+\begin{theorem}
+    \begin{gather*}
+        \int_{y_1}^{y_2} h(y) \ dy = \int_{y_1}^{y_2} f(x(y)) \ dy = \int_{x(y_1)}^{x(y_2)} f(x) \left(\frac{dy}{dx}\right)  \ dx
+    \end{gather*}
+
+\end{theorem}
+
+\section{Curve}
+\subsection{Perché interessano}
+Le curve permettono di descrivere le traiettorie (parametrizzandole rispetto al tempo)
+di qualsiasi oggetti. L'insieme dei punti spaziali occupati dal mio oggetto rispetto 
+al tempo costituiscono una curva. Concettualmente le traiettorie che 
+si considerano sono sempre reali e possono essere curve in $\mathbb{R}^{3}$ o $\mathbb{R}^{2}$. 
+Si vede anche che, una traiettoria in uno spazio $\mathbb{R}^{n}$ descrive uno spazio ?????.
+
+\subsection{Curva in $\mathbb{R}^{3}$}
+Una curva in $\mathbb{R}^{3}$ è una applicazione continua definita 
+su di un intervallo aperto continuo e regolare:
+\begin{align}
+    \vv{r} (t) : U \subset \mathbb{R} \to \mathbb{R}^{3}
+\end{align}
+Dunque si può definire 
+\begin{gather*}
+    r(t) = \begin{pmatrix} x(t) \\
+    y(t) \\
+    z(t)\end{pmatrix} = x(t) \hat{i} + y(t) \hat{j} + z(t) \hat{k}   
+\end{gather*}
+Si considera adesos il seguente esempio 
+\begin{example}[Esempio di curva e parametrizzazioni diverse]
+    Cosideriamo una curva di raggio 1:
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[->](-2, 0) -- (2, 0) node[at end, below] {$x$};
+            \draw(-1, 0) arc (180:0:1);
+            \draw[->](0, 0) -- (0, 2) node[at end, left] {$y$};
+            \draw(0, 0) -- (0.85, 0.5);
+            \draw(0.6, 0) arc (0:30:0.6) node[midway, right] {$\theta$};
+            \filldraw(0, 0) circle (1pt) node[anchor = north] {O};
+        \end{tikzpicture}
+    \end{gather*}
+    Devo adesso parametrizzare la curva secondo un parametro:
+    potrei scegliere $\theta$, per cui posso esprimere
+    \begin{gather*}
+        \vv{r} = \cos\theta \hat{i} + \sin\theta \hat{j} \qquad 0 < \theta < \pi   
+    \end{gather*}
+    Si può anche utilizzare un parametro $t$ per definire:
+    \begin{gather*}
+        \vv{r}(t) = t\hat{i} + \sqrt{1 - t^{2}}\hat{j} \qquad -1 < t < 1   
+    \end{gather*}
+    A livello formale queste due curve sono diverse. Questo perché le curve sono univocamente definite
+    da un parametro: cambiando parametro si cambia curva anche se, 
+    ovviamente, hanno il solito tracciato. Dal punto di vista cinematico conviene 
+    considerarle come se fossero uguali. 
+\end{example}
+\noindent
+Due parametrizzazioni diverse (due curve diverse), $r_1(t_1)$ e $r_2(t_2)$ sono
+equivalenti se $\exists$ una relazione biuinivoca tra l'insieme di definizione, 
+regolare, derivabile e con inversa derivabile e tale che
+\begin{gather*}
+    t_2(t_1) : U_1 \to U_2 \ | \ r_2(t_2(t_1)) = r_1(t_1) 
+\end{gather*}
+Da un punto di vista matematico sono equivalenti ed esprimono la stessa quantità con 
+parametrizzazioni differenti. Nell'esempio di prima si definisce una relazione tra le due
+parametrizzazioni nella seguente maniera: 
+\begin{gather*}
+    t = \cos\theta \ \text{per } \hat{i} \qquad \sqrt{1 - t^{2}} = \sin\theta \ \text{per } \hat{j}   
+\end{gather*}
+Dunque queste sono equivalenti. Devo adesso verificare che il segno della derivata 
+sia uguale.
+
+
+\end{document}

@@ -1,0 +1,652 @@
+\documentclass[a4paper]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=0.8in,
+            right=0.8in,
+            top=0.8in,
+            bottom=0.7in,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{multicol}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\pagestyle{empty}
+\title{Analisi 1 - Ultimate Cheatsheet}
+
+\begin{document}
+\maketitle
+\section{Trigonometria}
+\begin{multicols}{2}
+    \subsection*{Angoli e valori}
+    \begin{center}
+        \begin{tabular}{| c | c | c | c |}
+        \hline 
+        Angolo & sin & cos & tan \\
+        \hline
+        $0$ & $0$ & $1$ & $0$ \\
+        \hline
+        $\frac{\pi}{6}$ & $\frac{1}{2}$ & $\frac{\sqrt{3}}{2}$ & $\frac{\sqrt{3}}{3}$ \\
+        \hline
+        $\frac{\pi}{4}$ & $\frac{\sqrt{2}}{2}$ & $\frac{\sqrt{2}}{2}$ & $1$ \\
+        \hline
+        $\frac{\pi}{3}$ & $\frac{\sqrt{3}}{2}$ & $\frac{1}{2}$ & $\sqrt{3}$ \\
+        \hline
+        $\frac{\pi}{2}$ & $1$ & $0$ & - \\ 
+        \hline
+        $\frac{3\pi}{2}$ & $\frac{\sqrt{3}}{2}$ & $-\frac{1}{2}$ & $-\sqrt{3}$ \\
+        \hline
+        $\frac{3\pi}{4}$ & $\frac{\sqrt{2}}{2}$ & $-\frac{\sqrt{2}}{2}$ & $-1$ \\
+        \hline
+        $\frac{5\pi}{6}$ & $\frac{1}{2}$ & $-\frac{\sqrt{3}}{2}$ & $-\frac{\sqrt{3}}{3}$ \\
+        \hline
+        $\pi$ & $0$ & $1$ & $0$ \\
+        \hline
+        \end{tabular}
+    \end{center}
+    \subsection*{Angoli associati}
+    \begin{align*}
+        &\sin(-x) = -\sin(x) \\
+        &\cos(-x) = \cos(x) \\
+        &\tan(-x) = -\tan(x) \\
+        &\tan\left(\frac{\pi}{2} - x\right) = \tan(x) \\
+        &\sin\left(\frac{\pi}{2} - x\right) = \cos(x) \\
+        &\cos\left(\frac{\pi}{2} - x\right) = \sin(x)
+    \end{align*}
+    \subsection*{Identità fondamentali}
+    \begin{align*}
+        \sin^2(x) + \cos^2(x) &= 1 \\
+        \tan^2(x) + 1 &= \frac{1}{cos^2(x)} \\
+        \tan(x) &= \frac{\sin(x)}{\cos(x)} \\
+        \cot(x) &= \frac{\cos(x)}{\sin(x)} \\
+        \csc(x) &= \frac{1}{\sin(x)} \\
+        \sec(x) &= \frac{1}{\cos(x)} \\
+        Posto \ \tan\left(\frac{x}{2}\right) &= t \\
+        \cos(x) &= \frac{1 - t^{2}}{1 + t^{2}} \\
+        \sin(x) &= \frac{2t}{1 + t^{2} }
+    \end{align*}
+    \subsection*{Somma e differenza}
+    \begin{align*}
+        \cos(\alpha \pm \beta) &= \cos(\alpha)\cos(\beta) \mp \sin(\alpha)\sin(\beta) \\
+        \sin(\alpha \pm \beta) &= \sin(\alpha)\cos(\beta) \pm \sin(\beta)cos(\alpha) \\
+        \tan(\alpha \pm \beta) &= \frac{\tan(\alpha) \pm \tan(\beta)}{1 \mp \tan(\alpha)\tan(\beta)}
+    \end{align*}
+    \subsection*{Duplicazione, bisezione, abbassamento di grado}
+    \begin{align*}
+        \tan(2x) &= \frac{2\tan(x)}{1-\tan(x)} \\
+        \sin(2x) &= 2\sin(x)\cos(x) \\
+        \cos(2x) &= \cos^2(x) - \sin^2(x) \\
+        \tan\left(\frac{x}{2}\right) &= \pm \sqrt{\frac{1-\cos(x)}{1+\cos(x)}} \\
+        \sin\left(\frac{x}{2}\right) &= \pm \sqrt{\frac{1-\cos(x)}{2}} \\
+        \cos\left(\frac{x}{2}\right) &= \pm \sqrt{\frac{1+\cos(x)}{2}} \\
+        \sin(x)^{2} &= \frac{1 - \cos(2x)}{2} \\
+        \cos(x)^{2} &= \frac{1 + \cos(2x)}{2}
+    \end{align*}
+    \subsection*{Formule di prostaferesi}
+    \begin{align*}
+        &\sin(\alpha) + \sin(\beta) = 2\sin\left(\frac{\alpha + \beta}{2}\right)\cos\left(\frac{\alpha -\beta}{2}\right) \\
+        &\sin(\alpha) - \sin(\beta) = 2\cos\left(\frac{\alpha + \beta}{2}\right)\sin\left(\frac{\alpha -\beta}{2}\right) \\
+        &\cos(\alpha) + \cos(\beta) = 2\cos\left(\frac{\alpha + \beta}{2}\right)\cos\left(\frac{\alpha -\beta}{2}\right)\\
+        &\cos(\alpha) - \cos(\beta) = -2\cos\left(\frac{\alpha + \beta}{2}\right)\sin\left(\frac{\alpha - \beta}{2}\right)
+    \end{align*}
+    \subsection*{Seno e coseno iperbolici}
+    \begin{align*}
+        \sinh &= \frac{e^{x} -e^{-x} }{2} \\
+        \cosh &= \frac{e^{x} +e^{-x} }{2}
+    \end{align*}
+\end{multicols}
+
+\section{Limiti}
+\begin{multicols}{2}
+    \subsection*{Limiti di successioni}
+    \begin{align*}
+        \lim_{n \rightarrow + \infty} a^n &= \left\{ \begin{array}{l}
+            + \infty, \qquad se \quad a > 1, \\
+            1, \qquad se \quad a = 1, \\
+            0, \qquad se \quad -1 < a < 1, \\
+            non \exists, \qquad se \quad a \leq -1, \\
+        \end{array}\right. \\
+        \lim_{n \rightarrow + \infty} \sqrt[n]{a} &= \lim_{n \rightarrow + \infty}a^{\frac{1}{n}} = 1. \\
+        \lim_{n \rightarrow +\infty} \sqrt[n]{n^b} &= 1. \\
+        \lim_{n \to \infty} \log_a(n) &= \left\{ \begin{array}{c}
+            -\infty, \qquad se \quad 0 < a < 1, \\
+            +\infty, \qquad se \quad a > 1
+        \end{array}\right. \\
+        \lim_{n \to \infty} \sqrt[n]{a_n} &= \lim_{n \to \infty} \frac{a_{n+1}}{a_n} \\
+        \lim_{n \to \infty} \ \frac{a_n}{n} &= \lim_{n \to \infty} \ (a_{n+1} - a_n) \\
+        \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n &= e
+    \end{align*}
+    \subsubsection{Definizioni}
+    \begin{align*}
+        \lim_{x \to x_0} f(x) =& l \Longleftrightarrow \ \forall \epsilon > 0, \exists
+        \delta > 0 : |f(x) - l| < \epsilon, \\ & \ \forall x \in A : 0 \ne |x - x_0| < \delta \\
+        &\\
+        \lim_{x \to x_0} f(x) =& + \infty \Longleftrightarrow \ \forall M > 0, \exists \delta > 0 : f(x) > M, \\
+        & \ \forall x \in A : 0 \ne |x - x_0| < \delta. \\
+        &\\
+        \lim_{x \to x_0} f(x) =& - \infty \Longleftrightarrow \ \forall M > 0, \exists \delta > 0 : f(x) < -M, \\
+        & \ \forall x \in A : 0 \ne |x - x_0| < \delta. \\
+        &\\
+        \lim_{x \to + \infty} f(x) =& l \Longleftrightarrow \ \forall \epsilon > 0, \exists k : |f(x) - l| < \epsilon,
+        \\ &\ \forall x \in A : x > k. \\
+        &\\
+        \lim_{x \to + \infty} f(x) =& + \infty  \Longleftrightarrow \ \forall M > 0, \ \exists k : f(x) > M, \\
+        & \ \forall x \in A : x > k. \\
+        \lim_{x \to + \infty} f(x) =& - \infty  \Longleftrightarrow \ \forall M > 0, \ \exists k : f(x) < - M, \\
+        & \ \forall x \in A : x > k. \\
+        \lim_{x \to - \infty} f(x) =& l \Longleftrightarrow \ \forall \epsilon > 0, \exists k : |f(x) - l| < \epsilon,
+        \\ &\ \forall x \in A : x < - k. \\
+        &\\
+        \lim_{x \to - \infty} f(x) =& + \infty  \Longleftrightarrow \ \forall M > 0, \ \exists k : f(x) > M, \\
+        & \ \forall x \in A : x <- k. \\
+        \lim_{x \to - \infty} f(x) =& - \infty  \Longleftrightarrow \ \forall M > 0, \ \exists k : f(x) < - M, \\
+        & \ \forall x \in A : x < - k. 
+    \end{align*}
+    \subsection*{Limiti di funzioni}
+    \begin{align*}
+        \lim_{x \to 0} \frac{\log(1 + f(x))}{f(x)} &= 1 \\
+        \lim_{x \to 0} \frac{\log_a(1 + f(x))}{f(x)} &= \frac{1}{\log(a)} \\
+        \lim_{x \to 0} \frac{e^{f(x)} - 1}{f(x)} &= 1 \\
+        \lim_{x \to 0} \frac{a^{f(x)} - 1}{f(x)} &= \log(a) \\
+        \lim_{x \to \pm \infty} \left(1 + \frac{1}{f(x)}\right)^{f(x)} &= e \\
+        \lim_{x \to 0} \frac{(1 + f(x))^c - 1}{f(x)} &= c \\
+        \lim_{x \to 0} \frac{\sin(f(x))}{f(x)} &= 1 \\ 
+        \lim_{x \to 0} \frac{1 - \cos(f(x))}{f(x)^2} &= \frac{1}{2}
+    \end{align*}
+    \subsection*{Gerarchia degli infiniti}
+    Per $n \to +\infty$:
+    \begin{align*}
+        &\log_a(n) << n^b << c^n << n! << n^n \\
+        &con \ a,b,c \in R
+    \end{align*}
+    \subsubsection{Definizioni}
+    \begin{align*}
+        &\lim_{n \rightarrow + \infty} a_n = a \quad oppure \quad a_n \rightarrow a, \\
+        &\forall \epsilon > 0 \ \exists v \ : \ |a_n - a| < \epsilon \ \forall n > v. \\
+        &\\
+        &\lim_{n \rightarrow + \infty} a_n = + \infty \quad oppure \quad a_n \rightarrow + \infty. \\
+        &\forall \ M > 0 \ \exists v \in R \ : \ a_n > M \ \forall \ n > v \\
+        &\\
+        &\lim_{n \rightarrow + \infty} a_n = - \infty \quad oppure \quad a_n \rightarrow - \infty. \\
+        &\forall \ M > 0 \ \exists v \in R\  :\ a_n < -M \ \forall \ n > v 
+    \end{align*}
+    \subsection{Teoremi utili}
+    \subsubsection{Successioni}
+    TEOREMA DELL'UNICITA' DEL LIMITE \\
+    TEOREMA DELLA PERMANENZA DEL SEGNO \\
+    TEOREMA DEI CARABINIERI \\
+    CRITERIO DEL RAPPORTO \\
+    TEOREMA DI BOLZANO-WEIERSTRASS
+    \subsubsection{Funzioni}
+    TEOREMA DI WEIERSTRASS \\
+    TEOREMA DEI VALORI INTERMEDI (I e II) \\
+    CRITERIO DI INVERTIBILITA'
+\end{multicols}
+
+\section{Derivate}
+\begin{multicols}{2}
+    \subsection{Derivate fondamentali}
+    \begin{align*}
+        D \ cf(x) &= cf'(x)\\
+        D\ (f(x) \pm g(x)) &= f'(x) \pm g'(x)\\
+        D\ (f(x)\cdot g(x)) &= f'(x)g(x) + f(x)g'(x)\\
+        D\ \left(\frac{f(x)}{g(x)}\right)& = \frac{f'(x)g(x) - g'(x)f(x)}{g^2}\\
+        D\ f(g(h(x))) &= f'(g(h(x)))\cdot g'(h(x)) \cdot h'(x)\\
+        D\ f^{-1}(y) &= \frac{1}{f'(x)} = \frac{1}{f'(f^{-1}(y))}\\
+        D \ x^n &= nx^{n-1} \\
+        D \ \log_a(x) &= \frac{1}{x}\log_a(e), \ \forall x > 0, a > 0, a \ne 1. \\
+        D \ \sin(x) &= \cos(x)\\ 
+        D \ \cos(x) &= -\sin(x)\\
+        D \ \tan(x) &= \frac{1}{\cos^2(x)} = 1 + \tan^2(x).
+    \end{align*}
+    \subsection{Definizione e retta tangente}
+    \begin{align*}
+        &\lim_{h \to 0} \ \frac{f(x + h) - f(x)}{h} \\
+        &y = f(x_0) + f'(x_0)(x-x_0). \\
+        &\lim_{x \to x_0} \ \frac{f(x)-f(x_0)}{x - x_0}.
+    \end{align*}
+    \subsection{Teoremi utili}
+    TEOREMA DI FERMAT \\
+    TEOREMA DI ROLLE \\
+    TEOREMA DI LAGRANGE \\
+    CRITERIO DI MONOTONIA (e stretta)\\
+    CRITERIO DI CONVESSITA' \\
+    TEOREMA DI CAUCHY \\
+    TEOREMA DI L'HOPITAL 
+\end{multicols}
+
+\section[s]{Utilizzo dei teoremi sui limiti}
+\begin{multicols}{2}
+    TEOREMA DI UNICITA' DEL LIMITE: \\
+    Una successione convergente non può avere due limiti distinti. \\
+    TEOREMA DELLA PERMANENZA DEL SEGNO: 
+    \begin{align*}
+        se \ \lim_{n \rightarrow +\infty} a_n = a>0 \ \exists \ v \ | \ a_n > 0 \ \forall n > v.
+    \end{align*}
+    
+    TEOREMA DEI CARABINIERI: 
+    \begin{align*}
+        &a_n \leq c_n \leq b_n, \qquad \forall n \in N. \\
+        &\lim_{n \rightarrow + \infty} a_n = \lim_{n \rightarrow + \infty} b_n = a \\
+        &c_n \to a.
+    \end{align*}
+    CRITERIO DEL RAPPORTO:
+    \begin{align*}
+        &b_n = a_{n+1}/a_n \\
+        &se \ b_n \to b, b < 1 \Rightarrow a_n \to 0.
+    \end{align*}
+    TEOREMA DI BOLZANO-WEIERSTRASS:
+    \begin{align*}
+        &a_n \ limitata \\
+        &a_{n_k} \to l
+    \end{align*}
+    TEOREMA DI WEIERSTRASS:
+    \begin{align*}
+        &f(x) \ derivabile \ in [a, b]\\
+        &\exists x_1, x_2 \in [a, b] : f(x_1) \leq f(x) \leq f(x_2), \ \forall x \in [a, b]
+    \end{align*}
+    TEOREMA DEI VALORI INTERMEDI:
+    \begin{align*}
+        &\forall x \in [a, b] \ se \ f(x) \ continua \\ 
+        &\Rightarrow \ \exists f(x) = y. \\
+        &\forall x \in [a, b] \ se \ f(x) \ continua \\
+        &\Rightarrow \ min\{f(x)\} \leq f(x) \leq max\{f(x) \}.
+    \end{align*}
+    CRITERIO DI INVERTIBILITA':
+    \begin{align*}
+        &se \ f(x) \nearrow \nearrow \ \vee f(x) \searrow \searrow \\
+        &f(x) \ invertibile
+    \end{align*}
+   
+\end{multicols}
+
+\section[]{Utilizzo dei teoremi sulle derivate}
+\begin{multicols}{2}
+    TEOREMA DI FERMAT:
+    \begin{align*}
+        &f\in[a, b], \ f(x_0) = min\{f(x)\} \ \vee \ max\{f(x)\} \\
+        &\Rightarrow f'(x_0) = 0.
+    \end{align*}
+    TEOREMA DI ROLLE
+    \begin{align*}
+        &f(x) \ continua \in [a, b] \ e \ derivabile \in (a, b) \\
+        &se \ f(a) = f(b) \Rightarrow \exists x_0 \in (a, b) : f'(x_0) = 0.
+    \end{align*}
+    TEOREMA DI LAGRANGE:
+    \begin{align*}
+        &f(x) continua \in [a, b] \ e \ derivabile \in (a, b) \\
+        &\Rightarrow \exists x_0 \in (a, b) : f'(x_0) = \frac{f(b)-f(a)}{b-a}
+    \end{align*}
+    CRITERIO DI MONOTONIA:
+    \begin{align*}
+        &f(x) continua \in [a, b] \ e \ derivabile \in (a, b) \\
+        &f'(x)\geq 0, \qquad \forall x \in (a, b) \ f \nearrow \ \in [a, b] \\
+        &f'(x) \leq 0, \qquad \forall x \in (a, b) \ f \searrow \ \in [a, b]
+    \end{align*}
+    CRITERIO DI CONVESSITA':
+    \begin{align*}
+        &f(x) \ continua \in [a, b] \ e \ derivabile \in (a, b) \\
+        &f(x) \ convessa \in [a, b]; \\
+        &f'(x) \ crescente \in [a, b]; \\
+        &f''(x) \geq 0 \ \forall x \in (a, b).
+    \end{align*}
+    TEOREMA DI CAUCHY:
+    \begin{align*}
+        &f(x) continua \in [a, b] \ e \ derivabile \in (a, b) \\
+        &g'(x) \ne 0 \ \forall x \in (a, b) \\
+        &\Rightarrow \exists x_0 \in (a, b) : \frac{f'(x_0)}{g'(x_0)} = \frac{f(b)-f(a)}{g(b)-g(a)}.
+    \end{align*}
+    TEOREMA DI L'HOPITAL:
+    \begin{align*}
+        &f(x), g(x) \to 0 \ derivabili \ in \ un \ intorno \ di \ x_0\\
+        &se \ g'(x) \ne 0 \ \forall x \ne x_0 \\
+        &\Rightarrow \lim_{x \to x_0} \frac{f(x)}{g(x)} = \lim_{x \to x_0} \frac{f'(x)}{g'(x)}.
+    \end{align*}
+\end{multicols}
+
+\section{Integrali}
+\subsection{Integrali immediati}
+\begin{multicols}{2}
+    \begin{align*}
+        \int x^{b}  \ dx &= \frac{x^{b + 1}}{b+ 1} + c; \\
+        \int \frac{1}{x} \ dx &= \log(x) + c; \\
+        \int a^{x}  \ dx &= \frac{a^{x} }{\log(a)} + c; \\
+        \int e^{x}  \ dx &= e^{x}  + c; \\
+        \int \sin (x) \ dx &= -\cos(x) + c; \\
+        \int \cos(x) \ dx &= \sin(x) + c; \\
+        \int \frac{1}{\cos^{2}(x)} \ dx &= \tan(x) + c; \\
+        \int \frac{1}{\sqrt{1 - x^{2}}} \ dx &= \arcsin(x) + c; \\
+        \int -\frac{1}{\sqrt{1 - x^{2} }} \ dx &= \arccos(x) + c; \\
+        \int \frac{1}{1 + x^{2} } \ dx &= \arctan(x) + c; \\
+        \int \frac{1}{a^{2} +x^{2} } \ dx &= \frac{1}{a} \arctan\left(\frac{x}{a}\right) + c; \\
+        \int \log(x) =& x\log(x) -x + c \\
+        \int \frac{1}{\sin^{2}(x)} \ dx &= -\cot(x) + c; \\
+        \int \cosh (x) \ dx &= \sinh x + c; \\
+        \int \sinh (x) \ dx &= \cosh(x) + c; \\
+        \int \frac{1}{\cosh^{2}(x)} \ dx &= \tanh (x) + c; \\
+        \int \frac{1}{\sinh^{2}(x)} \ dx &= -\coth(x) + c; \\
+        \int \frac{1}{\sqrt{1 + x^{2} } } \ dx &= arcisinh(x) + c; \\
+        \int \frac{1}{\sqrt{x^{2}-1} } \ dx &= arccosh(x) + c;
+    \end{align*}
+    \subsection{Altri integrali immediati}
+    \begin{align*}
+        \int \frac{b}{(cx + a)^{2} } \ dx &= -\frac{b}{c} \cdot  \frac{1}{(x + \frac{a}{c})^{2} } + C \\
+        \int \frac{1}{\sin(x)} \ dx &= \int \csc(x) \ dx = -\log\left(\tan\left(\frac{x}{2}\right)\right) + c \\
+        &\text{si risolve moltiplicando per $\cot(x) + \csc(x)$}\\
+        \int \frac{1}{\cos(x)} \ dx &= \int \sec(x) \ dx = \ln\left(\frac{\sin\left(\frac{x}{2}\right) + \cos\left(\frac{x}{2}\right)}{\cos\left(\frac{x}{2}\right) - \sin\left(\frac{x}{2}\right)}\right) + c \\
+        &\text{Si risolve moltiplicando per $\tan(x) + \sec(x)$}\\
+        \int \sqrt{x^{2} + 1} \ dx &= \frac{1}{4}(\sinh(2x) - 2x) \\
+        &\text{Si risolve con la sostituzione di $x = \sinh(t)$} \\
+    \end{align*}
+    \subsection{Tecniche di integrazione}
+    PER PARTI
+    \begin{gather*}
+        \int f(x) g'(x) \ dx = f(x) g(x)  - \int f'(x)g(x) \ dx 
+    \end{gather*}
+    DERIVATE DI COMPOSTE
+    \begin{gather*}
+        \int F'(g(x) )\cdot g'(x) \ dx = F(g(x) ) + c
+    \end{gather*}
+    INTEGRAZIONE PER SOSTITUZIONE
+    \begin{gather*}
+        \int f(x) \ dx \Rightarrow t = g(x), dt = g'(x)dx
+    \end{gather*}
+    \subsection{Integrali impropri e loro carattere}
+    \begin{gather*}
+        \lim_{c \to +\infty } \int_{x_0}^{c}f(x) \ dx = \lim_{c \to +\infty } F(c) -F(x_0)  
+    \end{gather*}
+    Se due funzioni integrabili sono tali che $0 \leq f(x) \leq g(x)$,
+    allora se la maggiore converge anche la minore converge,
+    altrimenti se la maggiore diverge anche la minore diverge.
+    \subsection{Teoremi degli integrali}
+    TEOREMA DI CANTOR \\
+    TEOREMA DI INTEGRABILITA' DELLE FUNZIONI CONTINUE \\
+    PRIMO TEOREMA DELLA MEDIA
+    \begin{gather*}
+        m(b - a)\leq \int_{a}^{b}f(x) \ dx \leq M(b - a) 
+    \end{gather*}
+    SECONDO TEOREMA DELLA MEDIA
+    \begin{gather*}
+        \int_{a}^{b}f(x) \ dx = f(x_0)(b- a) 
+    \end{gather*}
+    INTEGRABILITA' DELLE FUNZIONI MONOTONE
+\end{multicols}
+
+
+\section{Taylor}
+\subsection{Sviluppi di alcune funzioni}
+\begin{align*}
+    f(x) =& f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2}(x-x_0)^{2}+ .... \\ 
+    e^{x} =& 1 + x + \frac{x^{2}}{2} + \frac{x^{3}}{3!} + \dots + \frac{x^{n}}{n!} + o(x^{n}); \\
+    \log(1 + x) =& x - \frac{x^{2}}{2} + \frac{x^{3}}{3} - \dots + (-1)^{n+1} \frac{x^{n}}{n} + o(x^{n}); \\
+    \sin(x) =& x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!} - \dots + (-1)^{n} \frac{x^{2n+1}}{(2n + 1)!} + o(x^{2n+2}): \\
+    \cos(x) =& 1 - \frac{x^{2}}{2} + \frac{x^{4} }{4!} - \dots + (-1)^{n} \frac{x^{2n}}{(2n)!} + o(x^{2n + 1}); \\
+    \tan (x) =& x + \frac{x^{3}}{3} + \frac{2x^{5} }{15} + \frac{17x^{7} }{315} + o(x^{8} ) \\
+    \sinh(x) =& x + \frac{x^{3} }{6} + \frac{x^{5} }{5!} + \dots + \frac{x^{2n + 1}}{(2n + 1)!} + o(x^{2n + 2} ) \\
+    \cosh(x) =& 1 + \frac{x^{2} }{2} + \frac{x^{4} }{4!} + \dots + \frac{x^{2n} }{(2n)!} +o(x^{2n + 2} )\\
+    \tanh(x) =& x - \frac{x^{3} }{3} + \frac{2x^{5} }{15} - \frac{17x^{7} }{315} + o(x^{8}) \\
+    arctanh(x) =& x + \frac{x^{3} }{3} + \frac{x^{5} }{5} + \dots + \frac{x^{2n + 1} }{2n + 1} + o(x^{2n + 2} ) \\
+    \arctan(x) =& x  - \frac{x^{3} }{3} + \frac{x^{5} }{5} - \dots + (-1)^{n} \frac{x^{2n + 1} }{2n + 1} + o(x^{2n + 2});  \\
+    \arcsin(x) =& x + \frac{x^{3} }{6} + o(x^{4} ) \\
+    \arccos(x) =& \frac{\pi}{2} - x - \frac{x^{3} }{6} + o(x^{4} ) \\
+    (1 + x)^{\alpha} =& 1 + \alpha x + \frac{\alpha(\alpha - 1)x^{2} }{2} +  \frac{\alpha(\alpha - 1)(\alpha - 2)x^{3} }{6} + \dots \begin{pmatrix} \alpha \\
+    n \end{pmatrix} x^{n} + o(x^{n} ) \\
+    \frac{1}{1+x} =& 1 + x + x^{2} + x^{3} + \dots + x^{n} + o(x^{n}  ) \\
+    \sqrt{1 + x} =& 1 + \frac{x}{2} - \frac{x^{2} }{8} + o(x^{2} ).   
+\end{align*}
+\subsection{Proprietà degli o piccoli}
+\begin{align}
+    o(x^{n}) + o(x^{n}) &= o(x^{n}) \\
+    c \cdot o(x^{n}) &= o(cx^{n}) = o(x^{n}) \\
+    o(x^{n}) - o(x^{n}) &= o(x^{n}) \\
+    x^{m} \cdot o(x^{n}) &= o(x^{m+n} ) \\
+    o(x^{m}) \cdot o(x^{n}) &= o(x^{m+n} ) \\
+    o(o(x^{n} )) &= o(x^{n} ) \\
+    o(x^{n}  + o(x^{n} )) &= o(x^{n})
+\end{align}
+
+\section{Serie numeriche}
+\begin{multicols}{2}
+    \subsection{Somma parziale}
+    \begin{gather*}
+        S_N = \sum_{n = 1}^{N} a_n
+    \end{gather*}
+    \subsection{Serie geometriche}
+    \begin{gather*}
+        \sum_{n = 0}^{\infty } q^{n} = \frac{1}{1-q}, se \ q < |1|
+    \end{gather*}
+    \subsection{Serie armoniche}
+    \begin{gather*}
+        \sum_{n = 1}^{+\infty } \frac{1}{n^{p}}  
+    \end{gather*}
+    Converge se $p > 1$, diverge se $p \leq 1$.
+    \begin{gather*}
+        \sum_{n = 2}^{+\infty } \frac{1}{n^{\alpha} \log(n)^{\beta} } 
+    \end{gather*}
+    \begin{enumerate}
+        \item Converge se $\alpha > 1$ e $\forall \beta$.
+        \item Converge se $\alpha = 1$ e $\beta > 1$
+        \item Diverge per $\alpha = 1$ e $\beta \leq 1$
+        \item Diverge per $\alpha < 1$ 
+    \end{enumerate}
+    \begin{gather*}
+        \sum_{n = 2}^{+\infty } \frac{1}{e^{n\gamma}n^{\alpha}\log(n)^{\beta}} 
+    \end{gather*}
+    \begin{enumerate}
+        \item Converge per $\forall \gamma > 0, \forall a, b$
+        \item Diverge per $\gamma < 0$
+        \item Per $\gamma = 0$ vedere sopra
+    \end{enumerate}
+    \subsection{Teoremi delle serie}
+    CONDIZIONE NECESSARIA PER LA CONVERGENZA DELLA SERIE
+    \begin{gather*}
+        Se \sum_{n = 1}^{\infty } a_n \ converge \Rightarrow \lim_{n \to \infty } a_n = 0  
+    \end{gather*}
+    CRITERIO DEL CONFRONTO
+    \begin{gather*}
+        Prese \ 0 \leq a_n \leq b_n \\
+        Se \ \sum_{n = 1}^{\infty } b_n < + \infty \Rightarrow \sum_{n = 1}^{\infty } a_n < + \infty \\
+        Se \   \sum_{n = 1}^{\infty } a_n = + \infty \Rightarrow \sum_{n = 1}^{\infty } b_n = + \infty 
+    \end{gather*}
+    CRITERIO DEL CONFRONTO ASINTOTICO
+    \begin{gather*}
+        a_n \geq 0, b_n > 0 \Rightarrow  \\
+        \exists \lim_{n \to +\infty } \frac{a_n}{b_n} = L \in (0, +\infty ), L \neq 0. \Rightarrow  \\
+        \sum_{n = 1}^{\infty } a_n \ e \ \sum_{n = 1}^{\infty } b_n\\
+        hanno \ lo \ stesso \ carattere   
+    \end{gather*}
+    CRITERIO DEGLI INFINITESIMI 
+    \begin{gather*}
+        Se \ \lim_{n \to \infty } n^{p}a_n = l \\
+        l \ne + \infty , p > 1 \Rightarrow \sum_{n = 1}^{\infty } a_n < + \infty \\
+        l \ne 0, p \leq 1, \Rightarrow \sum_{n = 1}^{\infty }a_n = + \infty    
+    \end{gather*}
+    CRITERIO DELLA RADICE
+    \begin{gather*}
+        \lim_{n \to \infty } \sqrt[n]{a_n} = l  \Rightarrow  \\
+        l < 1 \Rightarrow  \sum_{n = 1}^{\infty }a_n < + \infty \\
+        l > 1 \Rightarrow  \sum_{n = 1}^{\infty } a_n = + \infty 
+    \end{gather*}
+    CRITERIO DEL RAPPORTO 
+    \begin{gather*}
+        \lim_{n \to \infty} \frac{a_{n + 1}}{a_n} = l \Rightarrow \\
+        l < 1 \Rightarrow  \sum_{n = 1}^{\infty }a_n < + \infty \\
+        l > 1 \Rightarrow  \sum_{n = 1}^{\infty } a_n = + \infty    
+    \end{gather*}
+    CRITERIO DI LEIBNIZ
+    \begin{gather*}
+        Se \ \lim_{n \to \infty } a_n = 0 \ e \ decresce \Rightarrow \\
+        \sum_{n = 1}^{\infty }(-1)^{n}(a_n) = l 
+    \end{gather*}
+    CRITERIO DELL'INTEGRALE \\
+    L'integrale improprio di una funzione continua e decrescente e la sua serie
+    associata hanno lo stesso carattere.
+\end{multicols}
+
+
+
+\appendix
+\section{Studio di funzione}
+\begin{enumerate}
+    \item \emph{Dominio} di $f(x)$;
+    \item parità($f(-x)=f(x), \forall x$) o disparità($-f(-x) = f(x), \forall x$), oppure periodica;
+    \item intersezioni con gli assi cartesiani;
+    \item segno della funzione;
+    \item limiti agli estremi del dominio;
+    \item asintoti orizzontali, verticali o obliqui, trovare asintoti obliqui:
+    \begin{align*}
+        &m = \lim_{x \to \infty} \ \frac{f(x)}{x}; \\
+        &q = \lim_{x \to \infty} \ (f(x) - mx)\\
+        &y = mx + q
+    \end{align*}
+    \item intervalli di monotonia;
+    \item massimi e minimi relativi e relativi valori (quando ci sono massimi e minimi assoluti);
+    \item intervalli di concavità o convessità e punti di flesso con la derivata seconda;
+    \item classificazione delle discontinuità (se presenti).
+\end{enumerate}
+\section{Polinomi}
+\subsection{Divisione tra polinomi}
+Esempio di divisione tra polinomi
+\begin{gather*}
+    \frac{x^{2} + 4x}{x + 2} = 
+    \begin{tabular}{c | c}
+        $x^{2} + 4x$ & $x + 2$ \\
+        \hline
+        $-x^{2} -2x$ & $x + 2$ \\
+        $2x$ & \\
+        $-2x - 4$ & \\
+        $-4$
+    \end{tabular} = x + 2 -\frac{4}{x + 2}
+\end{gather*}
+\subsection{Falso quadrato}
+Il falso quadrato è molto utile per la scomposizione dei cubi:
+\begin{align*}
+    &x^3-y^3 = (x-y)(x^2 +xy +y^2) \\
+    &x^3+y^3 = (x+y)(x^2 -xy + y^2)
+\end{align*}
+dove al secondo membro $x^2 \pm xy +y^2$ è il falso quadrato.
+
+\section{Dimostrazioni per induzione}
+Supponiamo che una proposizione dipendente da un indice $n \in N$
+sia vera per $n=1$ e che inoltre, supposta vera per n, sia vera anche per il successivo
+n + 1. Allora la proposizione è vera $\forall n \in N$. Esempio pratico: dimostrare che
+$n^2+n+3$ è dispari $\forall n \in N$. Posto che l'ipotesi sia vera, allora trovo un
+indice $n$ per cui questa vale (banalmente per n = 1). Ponendo ora n+1, voglio vedere se
+vale ancora:
+\begin{align*}
+    (n+1)^2+(n+1)+3 \ = \ n^2+2n+1+n+1+3\  = \ n^2 + n + 1 + 2n + 2 
+\end{align*}
+Per ipotesi anche questa è verificata in quanto $2n + 2$ è un numero pari
+mentre $n^2 + n + 1$ è la nostra ipotesi $-2$, per induzione è quindi verificata.
+
+\section{Combinatoria}
+Definizione di numero fattoriale:
+\begin{align*}
+    n! = n(n-1)(n-2)\dots(n-(n-1)).
+\end{align*}
+Il numero di disposizioni di $k$ elementi tra $n$ elementi dati è:
+\begin{align*}
+    n(n-1)\dots(n-k+1) = \frac{n!}{(n-k)!}
+\end{align*}
+Il numero di combinazioni di $k$ elementi è:
+\begin{align*}
+    \left(\begin{array}{l}
+        n \\
+        k
+      \end{array}\right) = \frac{n!}{(n - k)!k!}.
+\end{align*}
+Da cui seguono le identità:
+\begin{align*}
+    \left(\begin{array}{l}
+        n \\
+        k
+    \end{array}\right) = \left(\begin{array}{l}
+        \ \ n \\
+        n - k
+    \end{array}\right), \qquad
+    \left(\begin{array}{l}
+        n \\
+        k
+    \end{array}\right) = \left(
+        \begin{array}{c}
+            n-1 \\ k
+        \end{array}
+    \right) +
+    \left(
+        \begin{array}{c}
+            n-1 \\ k-1
+        \end{array}
+    \right).
+\end{align*}
+Binomio di Newton:
+\begin{align*}
+    (a + b)^{n} = \left(\begin{array}{l}n\\0\end{array}\right) a^{n} +
+        \left(\begin{array}{l}n\\1\end{array}\right)a^{n - 1}b+
+        \dots + &\left(\begin{array}{l}n\\k\end{array}\right)a^{n - k}b^{k} + 
+        \dots + \left(\begin{array}{l}\ \ n\\n - 1\end{array}\right)ab^{n - 1} +
+        \left(\begin{array}{l}n\\n\end{array}\right)b^{n}. = \\ 
+    &= \sum_{k = 0}^{n} \left(
+        \begin{array}{c}
+            n \\ k
+        \end{array}
+    \right)a^{n-k}b^{k}
+\end{align*}
+
+\section{Integrazione di fratte}
+Si può dividere una fratta nei seguenti modi: \\
+Prima di tutto si cerca di ridurre il numeratore al primo grado attraverso la divisione tra polinomi. Passando ora al delta del denominatore (posto che sia di secondo grado),
+nel caso in cui il $\Delta > 0$ allora si procede come segue:
+\begin{gather*}
+    \int \frac{ax + b}{x^{2} + cx + d}\\
+    \int \frac{ax + b}{(x + e)(x + f)} = \int \frac{A}{x + e} + \int \frac{B}{x + f}
+\end{gather*} 
+A questo punto si ricombinano le due frazione e si ottengono i valori di A e B per cui si
+ottiene il numeratore di partenza. \\
+$\Delta = 0$ \\
+Si procede in maniera simile: 
+\begin{gather*}
+    \int \frac{ax + b}{x^{2} + cx + d}\\
+    \int \frac{ax + b}{(x + e)(x + e)} = \int \frac{A}{x + e} + \int \frac{B}{(x + e)^{2}}
+\end{gather*}
+Se $\Delta < 0$ si prova un raccoglimento parziale o a scomporre la frazione in modo da risolvere per
+parti o da ricondurre all'integrale dell'arcotangente col completamento del quadrato. Altrimenti esiste
+la forma (grazie Alessandro):
+\begin{gather*}
+    \int \frac{ax + b}{(x - 1)(cx^{2} + dx + e)} \ dx = \int \frac{A}{x-1} + \frac{B + Cx}{(cx^{2} +dx + e)} \ dx
+\end{gather*}
+
+\section{Integrazione di trigonometriche (principalmente seno e coseno) e $e^{x}$ }
+Nel caso in cui un integrale contenga seno e coseno oppure $e^{x}$ (o anche entrambi), si cerca
+di integrare per parti in modo tale da avere a destra dell'uguale lo stesso integrale di 
+partenza: così possiamo portarlo dall'altra parte e dividere per il coefficiente risultante
+ed ottenere il risultato dell'integrale. 
+
+\section{Numeri complessi}
+\begin{multicols}{2}
+    \subsection*{Forma algebrica e formule di base}
+    \begin{align*}
+        &a + ib \\
+        &i^2 = -1 \\
+        &z' = a-ib \ (coniugato) 
+    \end{align*}
+    \subsection*{Forma trigonometrica e radici}
+    \begin{align*}
+        &z = \rho(\cos(\theta) + i\sin(\theta)) = \rho e^{i\theta} \\
+        &z^n = \rho^n(\cos(n\theta) + i\sin(n\theta))
+    \end{align*}
+\end{multicols}
+
+\end{document}

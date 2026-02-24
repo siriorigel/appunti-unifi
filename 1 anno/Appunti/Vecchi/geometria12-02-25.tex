@@ -1,0 +1,112 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Geometria}
+\author{Tommaso Miliani}
+\date{12-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{AUtovettori e eautovalroti}
+\begin{definition}
+    IL polinomio \textbf{caratteristico} di una matrice $A \in M(n \times n, K)$ è il polinomio
+    definito come 
+    \begin{align}
+        P_A(t) = \det(A - tI_n)
+    \end{align}
+\end{definition}
+
+\begin{example}
+    \begin{gather*}
+        A = \left( \begin{array}{c c c}
+            2 & 0 & 0 \\
+            0 & 7 & 0 \\
+            0 & 0 & 7
+        \end{array} \right)
+    \end{gather*}
+    ALlora il polinomio caratteristico:
+    \begin{gather*}
+        P_A(t) = \det\left( \begin{array}{c c c}
+            2 - t & 0 & 0 \\
+            0 & 7 - t& 0 \\
+            0 & 0 & 7 - t
+        \end{array} \right) = (2 - t)(7 - t)^{2} 
+    \end{gather*}
+\end{example}
+\begin{example}
+    \begin{gather*}
+        B = \left( \begin{array}{c c c c}
+            1 & 2 & 0 & 0 \\
+            0 & 3 & 0 & 0 \\
+            0 & 0 & 4 & 5 \\
+            0 & 0 & 5 & 0            
+        \end{array} \right)
+    \end{gather*}
+    Il suo polinomio caratteristico è proprio:
+    \begin{gather*}
+        P_B(t) = \det\left( \begin{array}{c c c c}
+            1 - t & 2 & 0 & 0 \\
+            0 & 3 - t & 0 & 0 \\
+            0 & 0 & 4 - t & 5 \\
+            0 & 0 & 5 & 0            
+        \end{array} \right) = ((4 - t)(-t) - (25))(3- t)(1 - t)
+    \end{gather*}
+\end{example}
+
+\begin{definition}
+    Sia $V$ uno spazio vettoriale di dimensioni finite e sia
+    la funzione $f : V \to V$ un'applicazione lineare. Definisco
+    allora il polinomio caratteristico dell'applicazione lineare come:
+    \begin{align}
+        P_f(t) = \det(M_{B, B} (f) - tI_n)  
+    \end{align}
+\end{definition}
+
+\begin{definition}[Matrici simili]
+    Siano $A$ e $B$ due matrici quadrate si dicono \textbf{simili}
+    se esiste una matrice invertibile $C \in GL(n, K)$ tale che:
+    \begin{align}
+        A = C^{-1} BC 
+    \end{align}
+\end{definition}
+
+\begin{lemma}
+    LA definizione del polinomio caratteristico della funzione
+    non dipende dalla scelta di B di V.
+\end{lemma}
+\begin{proof}
+    PRese $B$ e $B'$ due basi di V allora io so che:
+    \begin{gather*}
+        P_{M_{B, B}(f)} = P_{M_{B', B'}(f)}
+    \end{gather*}
+    Dimostriamo allora che matrici simili hanno lo stesso polinomio
+    caratteristico
+\end{proof}
+
+\end{document}

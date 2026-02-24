@@ -1,0 +1,167 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{mhchem}
+\usepackage{chemfig}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fluidi}
+\author{Tommaso Miliani}
+\date{21-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Riprendendo l'esempio dell'atmosfera}
+L'equazione fondamentale dell'idrostatica non può essere utilizzata per poter
+determinare il problema dell'atmosfera di fluido. Si era
+infatti scelto 
+\begin{gather*}
+    p = \text{const } \rho
+\end{gather*}
+In modo tale che
+\begin{gather*}
+    \rho(z) \text{ simile a }  p(z) = p_0 \exp\left(-\frac{z}{k}\right)
+\end{gather*}
+La prima osservazione che si può fare è che compaiono delle coordinate
+termodinamiche che non sono costanti nello spazio (ma non dal tempo). Questo
+non è un vero e proprio equilibrio termodinamico in quanto è vero che non dipendono
+dal tempo, ma dipendono anche dallo spazio; dunque si parla di 
+\textbf{equilibrio termodinamico locale}. La dipendenza dalla coordinata
+$z$ è la conseguenza dell'azione di qualcosa di esterno al fluido. 
+Qui è come si trattasse di tanti strati di fluido in equilibrio termodinamico
+tutti leggermente diversi tra di loro. Il fluido che si studia è che 
+sia l'atmosfera terrestre. E' del tutto ragionevole considerare  l'atmosfera come un gas 
+perfetto in quando ha la seguente composizione:
+\begin{gather*}
+    \ce{O_2} \quad \ce{N_2} \to 99\% \\
+    \ce{CO_2} \quad \ce{H_2O} \qquad \ce{CH_4} \to 1 \%
+\end{gather*}
+Un gas è approssimabile ad un gas perfetto se la sua temperatura non è confrontabile
+con la sua temperatura critica. La temperatura critica dell'azoto
+molecolare è circa $125 \ K$ mentre la temperatura critica dell'ossigeno è
+circa $155 \ K$. Anche ai bordi della troposfera si parla di temperature
+dell'ordine di $200 \ K$ (più freddo della temperatura sulla superficie ma comunque
+molto superiori delle varie temperature critiche). Approssimare 
+l'atmosfera ad un gas perfetto non è esatto ma è una buona approssimazione. Se
+l'atmosfera è un gas perfetto, dire che l'atmosfera ha una relazione di pressione costante
+con l'indice politropico uguale ad $1$. Questo significa assumere che tutte
+le trasformazioni che avvengono nel gas (e che dunque ci sia una equazione che mi permetta
+di determinare la pressione in funzione di una costante), equivale a dire che
+tutte le trasformazioni avvengano a temperatura costante. Questo modello prende il nome
+di \textbf{modello di atmosfera isotermica}. 
+
+Il fatto che l'atmosfera sia stratificata e che dunque la pressione diminuisca con
+la quota mi permette di definire dei processi che avvengono all'interno dell'atmosfera.
+Tipicamente è possibile che ci siano delle porzioni di fluido che cambiano di densità
+per motivi termodinamici oppure dinamici; dunque le porzioni meno 
+dense salgono e,  dato che la pressione è minore, allora questa porzione di fluido
+continua ad espandersi via via che sale nel fluido. Se invece succede 
+che una porzione di fluido diventi più densa, allora questa viene spinta verso il basso 
+e dunque continua a ricevere spinta verso il basso. Questo fenomeno prende il 
+nome di \textbf{convezione}.  Mediamente non esiste una dipendenza dal tempo e
+queste trasformazioni non sono descritte da una legge che vincola la pressione ad essere costante. 
+Questi movimenti sono sufficientemente veloci in modo tale che non ci sia scambio di energia tra la
+bolla di fluido ed il fluido intorno (di fatto il moto avviene in un ambiente adiabatico).
+
+\subsection{La formulazione rigorosa}
+Dato il primo principio e, dato che si è detto che questi movimenti non
+scambiano energia con il resto del fluido, posso dire che
+\begin{gather*}
+    dU + pdV = 0 \ \Longrightarrow \ dU = \mathcal{C}_V dT  
+\end{gather*}
+E dunque 
+\begin{gather*}
+    dU = mc_V dT \qquad pdV = -dp\frac{V}{\gamma} \ \Longrightarrow \ mc_V dT - dp\frac{V}{\gamma}= 0
+\end{gather*}
+Posso quindi risolvere e ottenere
+\begin{gather*}
+    \frac{m}{V}c_V dT - \frac{dp}{\gamma} = 0 \ \Longrightarrow \rho c_V dT - \frac{dp}{\gamma} = 0
+\end{gather*}
+Sostituendo con l'espressione di $\gamma$, ottengo l'espressione per la pressione 
+infinitesimo è data da
+\begin{gather*}
+    \rho c_V dT - \frac{c_V}{c_p}dp = 0 \ \Longrightarrow \ dp = c_P \rho dT
+\end{gather*}
+Dato che 
+\begin{gather*}
+    c_p \rho dT = -\rho g dz
+\end{gather*}
+Posso esprimere la variazione della temperatura rispetto al rapporto dell'accelerazione
+di gravità è del calore specifico a pressione costante.
+\begin{gather*}
+    dp = -\rho g dz
+\end{gather*}
+Dunque si ottiene
+\begin{align}
+    \frac{dT}{dz} = -\frac{g}{c_p}
+\end{align}
+Quello che si trova in questo modo è che se si integrasse questa
+espressione si otterrebbe l'espressione della temperatura del fluido in funzione
+della quota come
+\begin{align}
+    T(z) = T_0 - \frac{g}{c_p}z
+\end{align}
+Dunque per l'atmosfera terrestre 
+\begin{gather*}
+    \frac{dT}{dz} \approx -0.98 \cdot 10^{-2} K \cdot m^{-1}  
+\end{gather*}
+Dunque questa equazione riesce a predire il profilo di temperatura del
+fluido in funzione della quota: il profilo di temperatura è, con ottima
+approssimazione, lineare. Quello che viene fuori è che le misure ci dicono che
+se si prova a misurare quella derivata, in realtà è leggermente più piccola:
+\begin{gather*}
+    \left(\frac{dT}{dz}\right)_{Misurata} \approx -0.7 \cdot 10^{-2} \ K \cdot  m^{-1}  
+\end{gather*}
+Ossia una discrepanza del $30\%$. Questo si spiega con il fatto che c'è un cambiamento
+di stato tra il vapore acqueo e l'aria: con l'effetto della convezione l'acqua
+sale e si raffredda e dunque ricade sottoforam di pioggia: il punto è che non altera
+il modello del fluido ma è un fluido nel quale si ha una fonte di energia che rilascia il suo calore
+latente di vaporizzazione: ogni goccia d'acqua sputa energia e scalda il sistema. SI può ottenere una controprova
+cerando la dipendenza dall'umidità di questa formulazione. 
+
+
+
+\end{document}

@@ -1,0 +1,276 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica}
+\author{Tommaso Miliani}
+\date{01-04-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+
+\section{Il teorema di Hoygen Steiner}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2);
+        \draw(0, 0) node[anchor = east] {$O$};
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$x$};
+        \draw[dashed, ->](0, 0) -- (0, 3) node[at end, right] {$z$};
+        \draw[dashed, ->](0, 0) -- (1, 1) node[at end, below] {$y$};
+        \filldraw(0, -1) circle (1pt) node[anchor =east] {$C$};
+        \filldraw(1, 0) circle (1pt) node[anchor = north] {$A$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+IL teorema collega momenti di inerzia rispetto ad assi paralleli.
+Preso un corpo rigido con un dato centro di massa e scelto un asse lungo
+tale centro di massa farà in modo che il momento di inerzia si possa
+calcolare come:
+\begin{gather*}
+    I_C = \sum_{i = 1}^{n}m_id_i^{2}  
+\end{gather*}
+Con la seguente notazione posso esprimere un asse che passa lungo il centro
+di massa:
+\begin{gather*}
+    \hat{C} 
+\end{gather*}
+Se prendessi un altro punto $A$ che si trova a distanza $d$ dall'asse
+passante per C voglio allora calcolarmi il momento di inerzia e ottengo che per
+un punto qualsiasi rispetto all'asse è proprio:
+\begin{gather*}
+    I_{\hat{C} } = \sum_{i = 1}^{n}m_i (x_i^{2} + y_i^{2} ) 
+\end{gather*}
+Poiché posso considerare che stia su un piano perpendicolare all'asse
+e quindi il momento di inerzia del punto A sarà proprio:
+\begin{gather*}
+    I_{\hat{A} } = \sum m_i((x_i - D)^{2} + y_i^{2} ) = \sum m_i(x_i^{2} + y_i^{2} ) + \sum m_iD^{2} - 2\sum m_ix_iD
+\end{gather*}
+Il primo termine è proprio il momento di inerzia rispetto al centro di massa, mentre il secondo è
+il momento di inerzia totale della massa ed il terzo è il momento di inerzia uguale a zero.
+Allora il momento di inerzia tra due assi paralleli è proprio il momento di inerzia del primo
+asse più la distanza per la massa del corpo:
+\begin{gather*}
+    I_{\hat{A} } = I_{\hat{C} } + MD^{2} 
+\end{gather*}
+E quindi il momento di inerzia minimo è quello che passa per il centro di massa.
+
+\section{Il momento di inerzia rispetto ad un asse}
+Si può calcolare il momento di inerzia rispetto ad un dato asse in un corpo
+rigido attraverso la seguente (per una figura piana):
+\begin{align}
+    I_x = \sum_{i = 1}^{n}m_iy_i^{2}  
+\end{align}
+
+\subsection{La sbarra omogenea sottile}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Sbarra omogenea}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (3, 0.5);
+        \draw[|-|](0, -0.5) -- (3, -0.5) node[midway, below] {$x$};
+        \draw[->](1.5, 0.25) -- (4, 0.25) node[at end, below] {$x$};
+        \draw[->](1.5, 0.25) -- (1.5, 1) node[at end, left] {$y$};
+        \draw[|-|](1.5, 0.75) -- (2, 0.75) node[midway, above] {$x$};
+        \filldraw(2, 0.75) circle (1pt) node[anchor = west] {$dm$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per calcolare il suo momento di inerzia possiamo dividere la sbarra in tanti piccoli pezzi
+e dunque il mio momento di inerzia non è più una somma ma un integrale, scelto allora 
+un sistema di coordinate ed un asse ortogonale per il centro di massa
+si può dire che:
+\begin{gather*}
+    I = \int dm d^{2} 
+\end{gather*}
+La massa infinitesima è data da:
+\begin{gather*}
+    dm = dx \lambda
+\end{gather*}
+SOstituendo nell'integrale allora:
+\begin{gather*}
+    I = \int_{-\frac{L}{2}}^{\frac{L}{2}}  dx \lambda x^{2} 
+\end{gather*}
+E allora il centro di massa di questo oggetto è dato da:
+\begin{align}
+    I_{\hat{C} } = \frac{1}{12}ML^{2}, \qquad M = \lambda L 
+\end{align}
+Rispetto ad un asse passante per il bordo il momento di inerzia diventa: 
+\begin{gather*}
+    I_{\hat{A} } = \lambda \int_{0}^{L} x^{2}dx = \frac{1}{3}ML^{2}  
+\end{gather*}
+
+\subsection{Il rettangolo omogeneo}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (3, 2);
+        \draw[|-|](-0.5, 0) -- (-0.5, 2) node[midway, left] {$b$};
+        \draw[|-|](0, -0.5) -- (3, -0.5) node[midway, below] {$a$};
+        \draw[dashed, ->] (0, 1) -- (4, 1);
+        \filldraw(2, 0) rectangle (2.1, 2);
+        \draw[dashed, ->](1.5, -1) --(1.5, 3) node[at end, right] {$y$};
+        \filldraw (1.5, 1) circle (1pt) node[anchor = east] {$C$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+In questo rettangolo essendo che è omogeneo, la sbarretta infinitesima di cui voglio
+calcolare il momento di inerzia posso schiacciarle tutte in un unica sbarrettina e quindi 
+è proprio equivalente al caso della sbarretta omogenea di lunghezza $b$ e
+massa $M$. Lo stesso vale per il momento di inerzia rispetto all'asse $Y$ considerando le piccole
+sbarrette di lunghezza $a$. Dato che il momento di inerzia è additivo, il momento
+di inerzia somma rispetto all'asse $z$ è proprio:
+\begin{align}
+    I_{\hat{z} } = \frac{1}{12}M(a^{2} +b^{2} )
+\end{align}
+
+\section{Il parallelepipedo omogeneo}
+Dato che il parallelepipedo è omogeneo, posso calcolare il momento di inerzia
+come se fosse tutto schiacciato nel caso del rettangolo omogeneo e quindi il suo momento di
+inerzia è proprio:
+\begin{align}
+    I_{\hat{z} } = \frac{1}{12}M(a^{2} + b^{2} )
+\end{align}
+
+\subsection{Il cerchio omogeneo}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il momento del cerchio}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2);
+        \draw(-3, 0) -- (3, 0) node[at end, below] {$x$};
+        \draw(0, -3) -- (0, 3) node[at end, right] {$y$}; 
+        \draw[|-|](-2, -2) -- (0, -2) node[midway, below] {$R$};
+        \draw(0, 0) circle (1.5);
+        \draw(0, 0) circle (1.4);
+        \filldraw (0.7, 0) circle (0pt) node[anchor = north] {$r$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso considerare per calcolare il suo momento di inerzia una corona
+circolare infinitesima e quindi calcolare il momento di inerzia per una
+corona spessa $dr$. La superficie infinitesima della corona sarà data da:
+\begin{gather*}
+    dS = 2\pi r dr. \\
+    dm  = \sigma dS
+\end{gather*}
+Dato che la corona ha un certo spessore $dr$, allora  posso calcolare il momento 
+di inerzia per una corona e fare l'integrale unidimensionale per considerare
+tutte le corone e ricavare il momento totale rispetto all'asse $z$
+\begin{gather*}
+    I_z = \int_{0}^{R}\sigma 2 \pi r^{3}dr = \sigma 2\pi \frac{R^{4} }{4}    
+\end{gather*}
+E dato che la massa totale è proprio $M = \pi R^{2}\sigma$, allora il momento di inerzia
+del cerchio omogeneo sarà:
+\begin{align}
+    I_z = \frac{1}{2}MR^{2} 
+\end{align} 
+Allora dato che il momento di inerzia è la somma dei momenti di inerzia
+rispetto agli altri assi, posso dire che:
+\begin{gather*}
+    I_z = I_x + I_y
+\end{gather*}
+E quindi 
+\begin{align}
+    I_x &= \frac{1}{4}MR^{2}\\
+    I_y &= \frac{1}{4}MR^{2}  
+\end{align}
+
+\subsection{Il momento rispetto al cilindro}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il cilindro}
+    \begin{tikzpicture}
+        \draw(0, 1) -- (3, 1);
+        \draw(0, -1) -- (3, -1);
+        \draw(0, 1) arc(125:235:1.2);
+        \draw(3, 1) arc(55:-55:1.2);
+        \draw(3, 1) arc(125:235:1.2);
+        \draw[->, dashed](-1, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->, dashed](1.5, -1.5) -- (1.5, 1.5) node[at end, right] {$y$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso considerarlo equivalente al momento del cerchio tutto schiacciato (dato che è 
+omogeneo) e quindi la ruota fisica è proprio un cerchio e questo è del tutto
+lecito in quanto non cambia considerarlo come un cerchio della massa del cilindro.
+Rispetto all'asse $y$ invece la cosa si complica: il momento di inerzia rispetto
+a quell'asse è dato da quello del cerchio più il termine di Hoygen Steiner:
+\begin{gather*}
+    dI = \frac{1}{4}dmR^{2}+ dmx^{2}  
+\end{gather*}
+ALlora dato che 
+\begin{gather*}
+    dm = \rho dV = \rho \pi R^{2} dx  
+\end{gather*}
+E allora il momento di inerzia è esprimibile come integrale unidimensionale
+\begin{gather*}
+    I = \int_{-\frac{h}{2}}^{\frac{h}{2}}\left(\rho \pi R^{2} dx\left(\frac{R^{2} }{4} + x^{2} \right)\right) 
+\end{gather*}
+\begin{align}
+    I_y = M(\frac{R^{2} }{4} + \frac{h^{2} }{12})
+\end{align}
+
+\subsection{La sfera omogenea}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2);
+        \draw[->](-3, 0) -- (3, 0);
+        \draw[->](0, -3) -- (0, 3);
+        \node[ellipse,
+        draw,
+	    minimum width = 0.1cm, 
+	    minimum height = 2.6cm] (e) at (1.5,0) {};
+        \draw(0, 0) -- (1.5, 1.25) node[midway, above] {$R$};
+        \filldraw(1, 0) circle(0pt) node[anchor = north] {$x$};
+        \draw[dashed] (1.5, 0) -- (1.5, 1.25) node[midway, left] {$r$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+\begin{gather*}
+    r^{2} = R^{2} - x^{2} \\
+    dS = \pi r^{2} = \pi(R^{2} - x^{2}  )    \\
+    dV = dx dS = \pi (R^{2} - x^{2}  ) dx \\
+    dm = \rho d V
+\end{gather*}
+Il momento di inerzia rispetto ad un asse (per gli altri assi è uguale):
+\begin{gather*}
+    I_x = \int \frac{1}{2}dmr^{2} 
+\end{gather*}
+Per cui sostituendo e risolvendo (Lazy ahh)
+\begin{align}
+    I_x = \frac{2}{5}MR^{2} 
+\end{align}
+
+\end{document}

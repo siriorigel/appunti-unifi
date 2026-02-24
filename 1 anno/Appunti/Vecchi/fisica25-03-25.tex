@@ -1,0 +1,143 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Fisica}
+\author{Tommaso Miliani}
+\date{25-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Altri esempi corpo rigido}
+
+\subsection{Asta in rotazione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        
+    \end{tikzpicture}    
+\end{wrapfigure}
+
+
+
+Adesso si verifica che l'equilibrio sia stabile o instabile:
+con la derivata seconda si ha:
+\begin{gather*}
+    Mg \frac{L}{2}\cos\alpha - \frac{2}{3}M\omega^{2}L^{2}\cos^{2}\alpha + \frac{1}{3}M\omega^{2}L^{2}     
+\end{gather*}
+Calcolata nelle soluzioni, allora si ha che:
+\begin{gather*}
+    \alpha = 0:\left\{\begin{array}{l}
+        > 0 \quad \omega^{2} < \frac{3}{2}\frac{g}{L} \\
+        < 0 \quad \omega^{2} > \frac{3}{2}\frac{g}{L}
+    \end{array}\right. \\
+    \alpha = \pi \text{ sempre instabile}
+\end{gather*}
+Nel caso limite in cui $\cos\alpha = \frac{3g}{2\omega^{2}L}$ si ha che
+la derivata seconda vale esattamente:
+\begin{gather*}
+    Mg\frac{L}{2}\frac{3g}{2\omega^{2}L} - \frac{2}{3}M\omega^{2}L^{2}\frac{9g^{2}}{4\omega^{4}L^{2} } + \frac{1}{3}M\omega^{2}L^{2}   
+\end{gather*}
+E allora diventa:
+\begin{gather*}
+    \frac{3Mg^{2} }{4\omega^{2}} - \frac{2}{3}\frac{Mg^{2} }{\omega^{2} } + \frac{1}{3}M\omega^{2}L^{2} = \frac{1}{3}M\omega^{2}L^{2}\left(1 - \frac{9}{4}\frac{g^{2} }{\omega^{4} L^{2} }\right)  
+\end{gather*}
+Diventa stabile se e solo se:
+\begin{gather*}
+    \omega^{2} > \frac{3}{2}\frac{g}{L} 
+\end{gather*}
+
+\subsection{La formula fondamentale per i punti del corpo rigido}
+Nel corpo rigido ogni corpo si muove con una certa velocità che ha 3 gradi
+di libertà per la velocità del centro e 3 gradi di libertà per 
+la velocità angolare:
+\begin{gather*}
+    \vec{v}_P = \vec{v}_O + \omega \times(P - O)  
+\end{gather*}
+Nel caso di moti traslatori 
+\begin{gather*}
+    \vec{\omega} = 0, \qquad \vec{v}_P = \vec{v}_O   
+\end{gather*}
+Il momento angolare allora è dato da:
+\begin{gather*}
+    \vec{L}_{\Omega} = \sum_{i = 1}^{n}(P_i - \Omega) \times m_i \vec{v}_i = \sum_{i = 1}^{n}(P_i - \Omega) \times m_i \vec{v}_O = (C - \Omega)\times M \vec{v}_O      
+\end{gather*}
+
+Nel caso del moto ROTOtraslatorio,
+\begin{gather*}
+    \vec{v}_O \neq 0, \quad \vec{\omega} \neq 0  
+\end{gather*}
+Allora il momento angolare sarà:
+\begin{gather*}
+    \vec{L}_{\Omega} = \sum_{i = 1}^{n}(P_i - \Omega)\times m_i\vec{v}_i = \sum_{i = 1}^{n}m_i(P_i - \Omega)\times \vec{v}_O + \sum_{i = 1}^{n}m_i(P_i - \Omega) \times (\vec{\omega} \times (P_i - O) )     
+\end{gather*}
+Nel caso in cui il momento angolare sia applicato sull'origine del 
+sistema di riferimento e che questo coincida esattamente con il centro
+del corpo rigido, allora si semplifica :
+\begin{gather*}
+    \vec{L}_O = \sum_{i = 1}^{n}m_i(P_I - O)\times (\vec{\omega} \times (P_i - O))  
+\end{gather*}
+Nel caso in cui $\vec{\omega}$ sia costante, allora essendo il suo versore
+costante, il momento si semplifica ulteriormente.
+
+\subsection{IL momento assiale}
+\begin{align}
+    L_{\omega, O} = \vec{L}_O \cdot  \hat{u}_{\omega} = \sum_{i = 1}^{n}m_i \cdot \hat{u}_{\omega} (P_i - O) \times (\hat{u}_{\omega} \times (P_i - O)) \omega    
+\end{align}
+Con le regole del prodotto misto si ottiene:
+\begin{gather*}
+    L_{\omega, O} =  \left(\sum_{i = 1}^{n} m_i \left| \hat{u}_{\omega} \times (P_i - O)  \right|^{2}  \right) \omega
+\end{gather*}
+Posso allora esprimere la distanza dall'asse di rotazione
+di ogni punto come
+\begin{align}
+    |\hat{u}_{\omega} \times (P_i - O)| = d_i 
+\end{align}
+Posso allora esprimere il momento di inerzia:
+\begin{align}
+    I = \sum_{i = 1}^{n}m_id_i^{2}  = \int d^{2} dm 
+\end{align}
+E quindi il momento di inerzia:
+\begin{gather*}
+    L_{\vec{\omega} } = I \omega
+\end{gather*}
+L'equazione cardinale si semplifica allora come:
+\begin{align}
+    \vec{M}_{\Omega} \cdot  \hat{u}_{\omega} = I_{\hat{\omega} } \dot{\omega}  
+\end{align}
+diventando il momento assiale delle forze.2
+
+\end{document}

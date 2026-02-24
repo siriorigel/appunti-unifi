@@ -1,0 +1,342 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Anal}
+\author{Tommaso Miliani}
+\date{30-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Integrale di una forma differenziale}
+Sia $\omega : \mathbb{A} \to \mathbb{R }^{3\star}$ una
+forma differenziale continua. Se 
+\begin{gather*}
+    \omega = a_1 dx_1 + a_2 dx_2 + a_3 + dx_3
+\end{gather*}
+Quando dico che la forma differenziale è continua, intendo 
+che $a_i$ siano funzioni continue. Sia inoltre $\gamma$ una 
+curva orientata con supporto contenuto in $\mathbb{A}$ regolare
+a tratti, e sia $\phi(t) : [a, b] \to \mathbb{A}$ una sua parametrizzazione
+concorde con l'orientazione. Si definisce 
+\begin{gather*}
+    \int_\gamma = \int _\gamma \cos(x) (\tau(x)) \ dS 
+\end{gather*}
+Dove $x$ è un punto della curva. Posso vedere in questo punto il 
+vettore tangente concorde con il verso della curva che indico con $\tau(x)$ 
+dunque l'integrale è un numero in quanto l'applicazione lineare $\mathbb{R}^{3} \to \mathbb{R}$
+corrispondente ad $x$ applicata a $\tau(x)$. 
+\begin{gather*}
+    \int_{a}^{b} \omega(\phi(t))\left(\frac{\dot{\phi}(t)}{\left\lVert \phi(t) \right\rVert }\right)\left\lVert \dot{\phi}(t) \right\rVert \ dt  
+\end{gather*}
+Ossia è come fare
+\begin{gather*}
+    \int_{a}^{b} \left(a_1(\phi(t))dx_1 +  a_3(\phi(t))dx_3 +a_3(\phi(t))dx_3\right) \left(\dot{\phi}(t)_1, \dot{\phi}(t)_2, \dot{\phi}(t)_3\right) \ dt \\
+    \int_{a}^{b} a_1(\phi(t)) \dot{\phi}(t) + a_2(\phi(t))\dot{\phi}_2(t) + a_3(\phi(t))\dot{\phi}_3(t) \ dt  
+\end{gather*}
+Ossia una sorta di prodotto scalare tra i campi $a_i$ ed i vettori $\dot{\phi}(t)$ e non 
+dipende dalla parametrizzazione scelta ma solo dal verso che scelgo, dunque
+\begin{gather*}
+    \int_{\gamma_1^{+}}^{} \omega = - \int_{\gamma^{-}}^{}  \omega
+\end{gather*}
+
+\begin{example}
+    Sia 
+    \begin{gather*}
+        \omega (x, y) = ydx - xy dy
+    \end{gather*}
+    \begin{gather*}
+        \begin{tikzpicture}[scale = 0.8]
+            \begin{axis}[grid=major, view = {0}{90}, domain=-1:1, y domain =0:1]
+                \addplot3[cyan, 
+                quiver={u=y, v=-x*y, scale arrows=0.15},
+                samples=16, -latex]
+                {0};
+            \end{axis}
+        \end{tikzpicture}
+    \end{gather*}
+    Con $(\cos t, \sin t), t \in [0, \pi]$ percorsa in senso orario 
+    mentre la parametrizzazione è orientata in senso opposto:
+    dunque devo metterci un segno meno. 
+    \begin{gather*}
+        \int_{\gamma}^{} \omega = -\int_{0}^{\pi} \sin t (-\sin t) + (-\sin t \cos t) \cos t \ dt = \frac{\pi}{2} + \frac{2}{3}
+    \end{gather*}
+\end{example}
+
+\begin{theorem}[Integrazione delle forme esatte]
+    Sia $\omega$ una forma 
+    differenziale esatta e continua definita nell'aperto $\mathbb{A}$. 
+    Sia $\gamma$ una curva regolare a tratti con sostegno contenuto in $\mathbb{A}$
+    di estremi $P_0$ e $P_1$ orientata nel verso che va da $P_0$ a $P_1$.
+    Sia $f$ una primitiva di $\omega$. Allora l'integrale di questa 
+    forma differenziale su questa curva è 
+    \begin{gather*}
+        \int_{\gamma}^{} \omega = f(P_1) - f(P_2)
+    \end{gather*} 
+    Ossia 
+\end{theorem}
+\begin{proof}
+    $\omega$ è esatta e $f$ è una sua primitiva: questo vuol dire che
+    \begin{gather*}
+        a_1(x, y, z) = \frac{\partial f}{\partial x_1} (x_1, x_3, x_3) 
+    \end{gather*}
+    E anche le altre funzioni: questo vuol dire che c'è una funzione 
+    $f$ per cui valgono queste relazioni. Sia 
+    \begin{gather*}
+        \phi[a, b] \to \mathbb{A} 
+    \end{gather*}
+    una parametrica di $\gamma$ concorde con l'orientazione 
+    e dunque 
+    \begin{gather*}
+        \phi( a) = P_0 \qquad \phi(b) = P_1
+    \end{gather*}
+    E dunque vado ad applicare la formula per gli integrali delle forme
+    differenziali
+    \begin{gather*}
+        \int_{\gamma}^{} \omega = \int_{a}^{b} \left(\frac{\partial f}{\partial x_1} (\phi(dt)) \dot{\phi}(t) + \frac{\partial f}{\partial x_1} (\phi(dt)) \dot{\phi}(t) + \frac{\partial f}{\partial x_1} (\phi(dt)) \dot{\phi}(t) \right) \ dt  
+    \end{gather*}
+    che è proprio la derivata composta $\frac{d}{dt}F(\phi(t))$ per cui
+    $f(\phi(t)) = f(\phi_1(t), \phi_2(t), \phi_3(t))$ posso dire che
+    \begin{gather*}
+        \int_{a}^{b}\frac{d}{dt}f(\phi(t)) = \left.f(\phi(t))\right|_{a}^{b} = f(\phi(b)) - f(\phi(a)) = f(P_1) - f(P_2)
+    \end{gather*}
+\end{proof}
+
+\begin{definition}[Insieme aperto connesso]
+    Un insieme aperto è connesso se presi due punti, allora esiste una
+    curva che permette di andare da un punto all'altro rimanendo 
+    all'interno dell'insieme stesso. 
+\end{definition}
+
+
+\begin{theorem}[Caratterizzazione delle forme esatte]
+    Sia $\mathbb{A}$ un insieme aperto connesso e sia $\omega$
+    una forma differenziale continua definita su $\mathbb{A}$ e $\gamma, \gamma_1, \gamma_2$
+    delle curve regolari a tratti con sostegno contenuto in $\mathbb{A}$. Le 
+    tre proprietà seguenti sono equivalenti
+    \begin{enumerate}
+        \item $\omega$ è esatta;
+        \item Per ogni curva chiusa $\gamma$ contenuta in $\mathbb{A}$
+        \begin{gather*}
+            \int_{\gamma}^{} \omega = 0 
+        \end{gather*}
+        \item Se $\gamma_1 \neq \gamma_2$ hanno gli stessi estremi e lo
+        stesso verso di percorrenza si ha
+        \begin{gather*}
+            \int_{\gamma_1}^{} \omega = \int_{\gamma_2}^{} \omega
+        \end{gather*}
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    $1 \ \Longrightarrow \ 2$ \\
+    Il punto di partenza e di arrivo coincidono e dunque,
+    dal teorema precedente, l'integrale può essere espresso come
+    \begin{gather*}
+        \int_{\gamma}^{} \omega = f(P_1) - f(P_0) = 0
+    \end{gather*}
+    Dove $f$ è una primitiva di $\omega$.  \\
+    $2 \ \Longrightarrow \ 3$ \\
+    Date le due curve $\gamma_1$ e $\gamma_2$ con gli stessi estremi 
+    e verso di percorrenza. Si considera la curva $\gamma_1 \cup \gamma_2^{-}$ la 
+    curva che consiste nella curva 1 e la curva 2 percorsa in verso opposto. E dunque
+    \begin{gather*}
+        0 = \int_{\gamma_1 \cup \gamma_2^{-}}^{} \omega = \int_{\gamma_1}^{} \omega + \int_{\gamma_2^{-}}^{} \omega
+    \end{gather*}
+    Dato che cambio il verso, allora posso dire che
+    \begin{gather*}
+        \int_{\gamma_1}^{}\omega = \int_{\gamma_2}^{}  \omega 
+    \end{gather*}
+    $3 \ \Longrightarrow \ 1$ \\
+    Definisco allora un punto $P_0 = (x_1, x_2, x_3)$ e voglio definire una 
+    funzione per ogni punto nella seguente maniera
+    \begin{gather*}
+        f(P_0) = \int_{\gamma}^{} \omega
+    \end{gather*}
+    Supponendo che debba calcolare la derivata, io mi muovo 
+    dal punto $P_0$ in modo tale che aumenti di poco le sue coordinate. Posso 
+    quindi muovermi solamente lungo una delle sue componenti
+    \begin{gather*}
+        t \to (x_1 +t, x_2, x_3) \quad t \in [0, h]
+    \end{gather*}
+    Con $h$ molto piccolo. Chiamato $\phi$ il vettore spostamento,
+    allora la curva $\gamma$ è esattamente:
+    \begin{gather*}
+        f(x_1 + h, x_2, x_3) = \int_{\gamma \cup \phi}^{}  \omega
+    \end{gather*}
+    Posso ora fare il rapporto incrementale e ottenere
+    \begin{gather*}
+        \frac{f(x_1 + h, x_2, x_3)  - f(x_1, x_2, x_3)}{h} = \frac{\int_{\gamma \cup \phi}^{} - \int_{\gamma}^{} \omega }{h} = \frac{\int_{\phi}^{} \omega}{h}
+    \end{gather*}
+    Questo integrale non è altro che l'integrale tra $[0, h]$ di
+    \begin{gather*}
+        \frac{1}{h}\int_{0}^{h} a_1(x_1 +t, x_2, x_3) \ dt \ \Longrightarrow \ \frac{1}{h} \int_{0}^{h} a_1(x_1 + t, x_2, x_3) \ dt 
+    \end{gather*}
+    Se si chiama $P(h)$ l'integrale 
+    \begin{gather*}
+        \int_{0}^{h}  a_1(x_1 + t, x_2, x_3) \ dt 
+    \end{gather*}
+    Si nota subito che $h \to 0$ quell'integrale è zero, ossia $P(0) = 0$. Per cui 
+    il teorema fondamentale per il calcolo integrale mi dice che 
+    quel limite esiste e garantisce che $P'(0)$ esiste e che coincide con l'integranda 
+    calcolata per $t = 0$. 
+    Finire da Foto 
+    
+\end{proof}
+
+\begin{example}
+    SIa 
+    \begin{gather*}
+        \omega = \nabla (x^{2}y + \frac{y^{3}}{3}) \ \Longrightarrow \ 2xy dx + (x^{2}+ y^{2} dy)
+    \end{gather*}
+    E' una forma esatta e di cui conosco il potenziale. 
+    \begin{gather*}
+        \begin{tikzpicture}[scale=0.8]
+            \begin{axis}[grid=major, view={0}{90}]
+                \addplot3[cyan, 
+                quiver={u=2*x*y, v=x*x + y*y,  scale arrows=0.05},
+                samples=16, -latex]
+                {0};
+            \end{axis}
+        \end{tikzpicture}
+    \end{gather*}
+    Posso considerare
+    \begin{gather*}
+        \mathbb{A} \to \mathbb{R}^{2} \qquad P_0= (0, 0) \qquad P=(x, y)
+    \end{gather*}
+    Presa una parametrizzazione  $\gamma = (tx, ty)$. Lazy
+\end{example}
+
+\section{Forme chiuse e forme esatte su fortnite}
+Sia $\omega$ una forma differenziale $C^{(1)} \in \mathbb{A} \subset \mathbb{R}^{n}$,
+\begin{gather*}
+    \omega = a_1(x)dx_1 + \dots a_n(x)dx_n
+\end{gather*}
+Dove $x = (x_1, \dots, x_n)$. Si dice che $\omega$ è chiusa, se
+\begin{gather*}
+    \forall i, j = 1, \dots, n \quad i \neq j
+\end{gather*}
+Risulta che
+\begin{gather*}
+    \frac{\partial a_i(x)}{\partial x_j} = \frac{\partial a_j(x)}{\partial x_i}   \qquad \forall x \in \mathbb{A} 
+\end{gather*}
+
+\begin{theorem}
+    Sia $\mathbb{A} \subset \mathbb{R}^{3}$ una forma differenziale
+    $\omega \in C^{(1)}$. Se $\omega$ è esatta, allora $\omega$ è chiusa. 
+\end{theorem}
+\begin{proof}
+    Se $\omega$ è esatta, allora ha una primitiva $\omega = df$
+    dove $f$ è il potenziale di $\omega$. Si sceglie una coppia 
+    di $i, j$  (tra 1 e 3) con $i \neq j$. Dato che è $C^{(1)}$, e dunque
+    lo sono pure le derivate parziali della $f$, allora esistono 
+    le derivate in modo tale che 
+    \begin{gather*}
+        \frac{\partial f}{\partial x_i} = \frac{\partial f}{\partial x_j}  
+    \end{gather*}
+    E sono derivabili e le loro derivate continue. In particolare 
+    esistono e sono continue 
+    \begin{gather*}
+        \frac{\partial^{2} f}{\partial x_j \partial x_i} \qquad \frac{\partial ^{2} f }{\partial x_i \partial x_j }  
+    \end{gather*}
+    Per il teorema di Schawrtz sono uguali quando continue. La continuità implica allora
+    \begin{gather*}
+        \frac{\partial f}{\partial x_j} a_1 = \frac{\partial }{\partial x_j} \left(\frac{\partial f}{\partial x_i} \right) = \frac{\partial f}{\partial x_i}\left(\frac{\partial f}{\partial x_j} \right) = \frac{\partial }{\partial x_1}a_j    
+    \end{gather*}
+\end{proof}
+
+Cosa vuol dire essere chiuso per un campo? Questo è un concetto che è legato 
+al rotore del campo. Posso definire, se è dato un campo $C^{(1)}$ su di un certo insieme
+aperto, posso definire il rotore di $F = (F_1, F_2, F_3)$:
+\begin{gather*}
+    \text{rot} F = \nabla \times F = \det \begin{pmatrix}
+        i & j & k \\
+        \frac{\partial }{\partial x_1} & \frac{\partial }{\partial x_2}  & \frac{\partial }{\partial x_3} \\
+        F_1 & F_2 & F_3 
+    \end{pmatrix} 
+\end{gather*}
+
+\begin{theorem}[Irrotazionalità di un campo]
+    Se $F$ è un campo $C^{(1)}$ di un insieme aperto $\mathbb{A}$, se $F$ è conservativo,
+    allora il suo rotore è nullo: dunque è irrotazionale. L'equivalente del teorema
+    nel caso dei campi si dimostra esattamente nello stesso modo. 
+\end{theorem}
+
+Se $\omega$ è una forma $C^{(1)}$ chiusa, allora $\omega$ è esatta? 
+Se $F$ è irrotazionale, allora è conservativo? 
+In generale non è così. Tuttavia è vero il contrario.
+
+\begin{example}
+    \begin{gather*}
+        \omega = \frac{-x}{x^{2} + y^{2}} dx + \frac{x}{x^{2} + y^{2}} dy
+    \end{gather*}
+    E' definita ed è $C^{(1)}$ in $\mathbb{R}^{2}$
+    \begin{gather*}
+        \begin{tikzpicture}[scale = 0.8]
+            \begin{axis}[grid=major, view = {0}{90}, domain =-2:2, y domain =-2:2]
+                \addplot3[cyan, 
+                quiver={u=-x/(x*x + y*y), v=x/(x*x + y*y), scale arrows=0.1},
+                samples=16, -latex]
+                {0};
+            \end{axis}
+        \end{tikzpicture}
+    \end{gather*}
+    $\omega$ è chiusa, infatti le derivate sono uguali. 
+\end{example}
+
+\begin{definition}
+    Un insieme si dice \textbf{semplicemente connesso} se posso deformarla
+    fino a farla diventare un punto che appartenga all'insieme stesso senza
+    mai uscire dall'insieme stesso. 
+\end{definition}
+
+\begin{theorem}
+    Se $\omega$ è una forma differenziale chiusa e $C(1)$ in un insieme semplicemente
+    connesso $\mathbb{A}$, allora esiste una primitiva di $\omega$ definita in $ \mathbb{A}$. 
+\end{theorem}
+
+
+\end{document}

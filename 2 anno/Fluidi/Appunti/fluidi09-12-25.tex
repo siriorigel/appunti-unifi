@@ -1,0 +1,314 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fluidodinamica (Landi)}
+\author{Tommaso Miliani}
+\date{09-12-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Vorticità}
+La vorticità ($\vv{\omega} $), è definita come il rotore del campo
+di velocità:
+\begin{gather*}
+    \vv{\omega} = \vv{\nabla} \times \vv{u}   
+\end{gather*} 
+Dove il rotore del vettore velocità è dato da
+\begin{gather*}
+    \vv{\nabla} \times \vv{a} = \det \begin{pmatrix}
+        \hat{x} & \hat{y} & \hat{z} \\
+        \partial_x & \partial_y & \partial_z \\
+        a_x & a_y & a_z   
+    \end{pmatrix}  = (\partial_y a_z - \partial_z a_z) \hat{x} + (\partial_z a_x - \partial_x a_z) \hat{y} + (\partial_x a_y - \partial_y a_x) \hat{z}   
+\end{gather*}
+Dove $\vv{a}$ è il vettore velocità generico e $\partial_i$ indica la derivata
+parziale rispetto alla componente $i$ specificata. Se un fluido è in rotazione, allora la vorticità è diversa da zero: indica 
+dunque se c'è rotazione in un fluido.
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (3, 0) node[at end, below] {$x$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$y$};
+        \draw[->](1, 0.5) arc (0:60:1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Supponendo di avere un fluido che sta ruotando (rigidamente) intorno ad un asse,
+posso dunque definire la velocità del fluido come
+\begin{gather*}
+    \vv{u} = \vv{\Omega} \times \vv{r} = \Omega \hat{z} \times (x\hat{x} + y\hat{y}  )    = \Omega x\hat{y} - \Omega y \hat{x}   
+\end{gather*}
+Dove il vettore posizione è dato da
+\begin{gather*}
+    \vv{r} = x\hat{x} -y \hat{y}   
+\end{gather*}
+Posso dunque ricavare il rotore del vettore velocità per definire la vorticità: (ricordando
+che non c'è velocità lungo $\hat{z}$ ):
+\begin{gather*}
+    \vv{\omega}  = (\partial_x u_y - \partial_y a_x) \hat{z}  = (\Omega + \Omega) \hat{z} = 2\Omega \hat{z}  
+\end{gather*}
+Se si ha una situazione in cui si ha un campo che è funzione
+solo della distanza, si può dimostrare che il rotore della velocità è 
+identicamente nullo. Analogamente, un flusso lungo una certa direzione $x$, e che è funzione di $x$, 
+sta accelerando o decelerando ha rotore nullo poiché il rotore compie 
+sempre derivate incrociate. Nella presenza di una struttura a getto, la vorticità
+è non nulla: questo perché la componente lungo $x$ dipende da quella 
+lungo $y$: il suo termine di vorticità non nullo è sempre diretto 
+lungo $z$. 
+
+\subsection{Evoluzione dinamica della vorticità}
+Tramite l'equazione di Eulero:
+\begin{gather*}
+    \rho \left(\frac{\partial \vv{u} }{\partial t} - (\vv{u} \cdot \vv{\nabla}  ) \vv{u} \right) = - \vv{\nabla} p - \rho \vv{\nabla} \phi_G 
+\end{gather*}
+Dove l'ultimo termine è un campo potenziale qualsiasi. Posso dunque riscriverla come
+\begin{gather*}
+    \frac{\partial \vv{u} }{\partial t} - (\vv{u} \cdot \vv{\nabla}  ) \vv{u}  = - \vv{\nabla} w - \vv{\nabla} \phi_G  
+\end{gather*}
+Dove $dw = \frac{dp}{\rho}$ è l'entalpia specifica per unità di massa. Da questa
+posso utilizzare delle applicazioni di rotori e divergenze per ottenere una forma che 
+mi permetta di descrivere dinamicamente l'evoluzione della vorticità. Posso utilizzare
+la seguente identità:
+\begin{gather*}
+    \vv{\nabla} \times \vv{u} \times \vv{u}  = - \vv{\nabla} \frac{u^{2}}{2} - (\vv{u} \cdot \vv{\nabla}  ) \vv{u}  
+\end{gather*}
+Sulla componente $x$ posso ottenere
+\begin{gather*}
+   \left. (\vv{\nabla} \times \vv{u}  ) \times \vv{u} \right|_x = (\vv{\nabla} \times u )_y u_z - (\vv{\nabla} \times \vv{u}  )_z u_y = (\partial_z u_x - \partial_x u_z) u_z - (\partial_x u_y - \partial_y u_x) u_y 
+\end{gather*}
+Posso ora aggiungere e togliere $u_x \partial_x u_x$ e si ottiene dunque
+l'espressione rispetto al gradiente:
+\begin{gather*}
+    u_x \partial_x u_x + u_y \partial_y u_x + u_z \partial_z u_x - u_x \partial_x u_x - u_y\partial_x u_y - u_z \partial_x u_z 
+\end{gather*}
+Che diventa, dato che è il gradiente e la divergenza rispetto a $x$:
+\begin{gather*}
+    (\vv{u} \cdot \vv{\nabla}  )u_x - \frac{\partial }{\partial x} \frac{u^{2}}{2} = (\vv{u} \cdot \vv{\nabla}  )u_x - \vv{\nabla} \frac{u^{2}}{2}_x  
+\end{gather*}
+Da questa relazione posso ottenere la seguente:
+\begin{gather*}
+    \frac{\partial \vv{u} }{\partial t} + (\vv{\nabla} \times \vv{u}  ) \times \vv{u}  = -\vv{\nabla}\left(\frac{u^{2}}{2} + w + \phi_G\right) 
+\end{gather*}
+Supponendo di essere ora in condizioni stazionarie, si fa il prodotto scalare con $\vv{u}$. Dunque posso espreimere
+\begin{gather*}
+    \vv{u} \cdot \left((\vv{\nabla} \times \vv{u}  ) \times \vv{u} \right) = - \vv{u} \cdot \vv{\nabla} \left(\frac{u^{2}}{2} + w + \phi_G\right)   
+\end{gather*} 
+Dunque, essendo prodotto triplo di vettori paralleli tra di loro, si ha la seguente 
+\begin{gather*}
+    \vv{u} \cdot \vv{\nabla} \left(\frac{u^{2}}{2} + w + \phi_G\right)   = 0
+\end{gather*}
+Il gradiente di questa espressione è dunque perpendicolare ad $\vv{u}$, ossia
+$\vv{u}$ è parallelo all'isolivello della funzione $f$ descritta da quello dentro
+le parentesi. Dunque lungo la linea di isolivello, questa quantità è costante in condizioni
+stazionarie. Si può trascrivere ora la derivata rispetto al tempo 
+del vettore velocità in modo tale da fare apparire la vorticità:
+\begin{gather*}
+    \frac{\partial \vv{u} }{\partial t} + \vv{\omega} \times \vv{u} = - \vv{\nabla} \left(\frac{u^{2}}{2} + w + \phi_G\right)    
+\end{gather*}
+Applicando l'operatore rotore a tutti e due i membri (questa operazione è legale) , è 
+possibile invertire la derivata rispetto al tempo con l'operatore rotore (cioè scambiare l'ordine
+degli operatori, che ,in questo caso, non cambia il risultato).
+\begin{gather*}
+    \frac{\partial }{\partial f} \vv{\omega} + \vv{\nabla} \times (\vv{\omega} \times \vv{u}  ) = - \vv{\nabla} \times \vv{\nabla} \left(\frac{u^{2}}{2} + w + \phi_G\right)     
+\end{gather*}
+Il secondo membro può essere espresso come il rotore del
+gradiente di una funzione scalare, ossia zero (si può dimostrare ):
+\begin{gather*}
+    \vv{\nabla} \times \vv{\nabla}f =  \det \begin{pmatrix}
+        \hat{x} & \hat{y} & \hat{z} \\
+        \partial_x & \partial_y & \partial_z \\
+        \partial_x f & \partial_y f & \partial_z f   
+    \end{pmatrix} = (\partial_y \partial_z f + \partial_z \partial_y f)\hat{x}  + (\partial_z \partial_x f - \partial_x \partial_z f)\hat{y} + (\partial_x \partial_y f - \partial_y \partial_x f)\hat{z}  = 0
+\end{gather*}
+Dato che ci si pone nelle condizioni nel quale le derivate sono interscambiabili, allora 
+il primo termine è nullo, così come il secondo e dunque anche il terzo. Questo vale sempre
+per funzioni regolari. Dunque si ottiene il seguente risultato:
+\begin{gather*}
+    \frac{\partial \vv{\omega} }{\partial t} + \vv{\nabla} \times (\vv{\omega} \times \vv{u}  ) = 0  
+\end{gather*}
+Nelle condizioni in cui non c'è vorticità in tutto il fluido per un certo tempo, allora non si può generare vorticità: se il fluido non ha vorticità,
+allora non se ne può generare poiché la derivata rispetto al tempo del vettore nullo è
+esattamente nulla. Si ha inoltre un'altra identità vettoriale
+\begin{gather*}
+    \vv{\nabla} \times (\vv{A} \times \vv{B}  ) = - (\vv{A} \cdot \vv{\nabla}  ) \vv{B} + (\vv{B} \cdot \vv{\nabla}  ) \vv{A} + \vv{A} (\vv{\nabla} \cdot \vv{B}  ) - \vv{B}(\vv{\nabla} \cdot \vv{A}  )    
+\end{gather*}
+Senza dimostrazione. Utilizzando questa identità nella relazione precedente si ottiene:
+\begin{gather*}
+    \frac{\partial \vv{\omega} }{\partial t} + (\vv{u} \times \vv{\nabla}   ) \vv{\omega} - (\vv{\omega} \cdot \vv{\nabla}  )\vv{u} - \vv{u}(\vv{\nabla} \cdot \vv{\omega}  )   = 0
+\end{gather*}
+I primi due termini sono la derivata sostanziale, dunque, dato che
+la divergenza del vettore $\vv{\omega}$, ossia la divergenza di un rotore di un campo vettoriale
+$\vv{A}$ qualsiasi è zero (questo vuol dire che il vettore $\vv{\omega}$ non ha sorgente e
+le linee di campo sono dunque sempre chiuse) allora si ottiene che
+\begin{gather*}
+    \frac{d\vv{\omega} }{dt} - (\vv{\omega} \vv{\nabla} )\vv{u} + \omega (\vv{\nabla} \cdot \vv{u}  ) = 0
+\end{gather*}
+
+\section{Teorema di Kelvin}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0);
+        \draw[->](0, 0) -- (0, 3);
+        \draw[->](0, 0) -- (-1, -1);
+        \draw(2, 2) circle (1);
+        \node at (2.75, 2) {$C(z)$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Sulla curva $C$ si calcola $\Phi$, ossia il flusso della vorticità:
+\begin{gather*}
+    \Phi = \int_{\Sigma(C)}^{} \vv{\omega} \cdot \hat{n} \ d\sigma  
+\end{gather*}
+Dato che la divergenza di $\vv{\omega}$ è uguale a zero, allora non
+cambia il tipo di superficie che si utilizza per quella determinata curva $C$
+scelta.  Supponendo di avere una carica positiva con campo uscente, supponendo di
+prendere una curva qualsiasi e di calcolare il flusso attraverso quella curva su 
+di una superficie, in questo caso cambia il flusso poiché il campo 
+in questione ha una sorgente ben definita. Si può ora
+far evolvere il sistema con le equazioni di eulero e con le equazioni di identità,
+gli elementi fluidi si sono mossi In generale, mi ricostruiranno una seconda curva $C$ al tempo
+$t + \Delta t$. Dunque il flusso
+\begin{gather*}
+    \Phi (t + \Delta t) = \int_{\Sigma (C(t + \Delta t))}^{} \vv{\omega} \cdot \hat{n} \ d\sigma   
+\end{gather*}
+Si può dimostrare dunque, a partire da quell'equazione, il \textbf{Teorema di Kelvin}: ossia si può dimostrare
+che il flusso $\Phi(t + \Delta t) = \Phi(t)$. Ossia il flusso della curva comovente
+con gli elementi fluidi è uguale a quello della curva iniziale $C(t)$ iniziale. 
+\begin{gather*}
+    \Phi(t) = \int_{\Sigma(C)}^{} \vv{\omega} \cdot \vv{n} d \sigma = \int_{\Sigma(C)}^{}   (\vv{\nabla} \cdot \vv{u}  ) \vv{n} \ d\sigma 
+\end{gather*}
+Si può ora applicare il teorema di Stokes in modo tale da fare la somma di tutti i contributi lungo la curva
+e dunque si ottiene il flusso al tempo $t$ come
+\begin{gather*}
+    \int_{C}^{} \vv{u}\cdot \vv{dl}   
+\end{gather*}
+Ossia la circuitazione di $\vv{u}$ intorno alla curva chiusa $C$. Supponendo di avere
+un fluido che, invece di avere solo una caduta libera da un rubinetto, ha anche un moto 
+rotatorio: prendendo una sezione circolare ad una certa altezza ed una ad un punto più basso ,evidentemente
+il circuito comovente è più piccolo sulla superficie inferiore. Si può allora definire
+l'integrale come
+\begin{gather*}
+    \int_{C(t)}^{} \vv{u} \cdot dl = \int_{C(t + \Delta t )}^{}  \vv{u} \cdot dl 
+\end{gather*}
+Dunque, se si accorcia la rotazione , dato che si conserva il momento angolare,
+il fluido deve necessariamente accelerare la sua rotazione. 
+
+\subsection{Fluido irrotazionale}
+In un fluido irrotazionale
+\begin{gather*}
+    \vv{\omega} = \vv{\nabla} \times \vv{u} = 0   
+\end{gather*}
+Posso allora scrivere il vettore velocità come $\vv{u} = \nabla \psi$. Se 
+trovo dunque una equazione per la funzione $\psi$, posso ottenere un 
+fluido irrotazionale. In altre parole, se riesco a definire la funzione
+$\psi$ che mi permette di costruire un campo $\vv{u}$ tale che il suo 
+rotore sia nullo, allora avrò costruito un campo irrotazionale: 
+ossia un fluido che non ruota. Una condizione che posso usare è che il fluido 
+sia incomprimibile: ossia che la divergenza del vettore $\vv{u}$ sia nulla. 
+Questa è una possibile soluzione:
+\begin{gather*}
+    \vv{\nabla}(\vv{\nabla} \psi ) = 0 
+\end{gather*} 
+Questo mi costruisce le linee di campo in modo che sia irrotazionale
+ed incomprimibile. Posso esprimere questo come il Laplaciano quadro di $\psi$:
+\begin{gather*}
+    \vv{\nabla}(\vv{\nabla} \psi )  = \partial_x(\partial_x \psi) + \partial_y(\partial_y \psi) + \partial_z(\partial_z \psi) =  \partial_x^{2} \psi + \partial_y^{2} \psi + \partial_z^{2} \psi = \nabla^{2} \psi
+\end{gather*}
+Se è incomprimibile, allora è uguale a zero. Dunque ho definito delle 
+linee di campo incomprimibili e irrotazionali. 
+
+\section{Fluido che incontra un ostacolo (stazionario, irrotazionale e incomprimibile)}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](-2, 0) -- (2, 0) node[at end, below] {$x$};
+        \draw[->](0, -2) -- (0, 2) node[at end, left] {$y$};
+        \draw(0, 0) circle (1);
+        \draw[->](-3, 1) -- (-2.5, 1) node[at end, below] {$\vv{u}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si hanno le seguenti condizioni per il fluido ideale considerato:
+\begin{itemize}
+    \item Il fluido ha una velocità $\vv{u}$ per distanze $d >> r_0$.
+    \item Si vuole che $\left.\vv{u} \cdot \hat{r}\right|_ {r = r_0} = 0$.
+    Se cambiassi oggetto mi cambierebbe la condizione del bordo. 
+\end{itemize} 
+La soluzione è
+\begin{gather*}
+    \psi = u_0 x \left(1 + \frac{r_0^{2}}{r^{2}}\right)
+\end{gather*}
+Dato che $u_x = \partial_x \psi$, allora
+\begin{gather*}
+    u_x = \partial_x \psi = u_0 \left(1 + \frac{r_0^{2}}{r^{2}}\right) - \frac{2u_0x^{2}r_0^{2}}{r^{4}} = u_0 \left(1 + \frac{(y^{2} - x^{2})r_0^{2}}{r^{2}}\right)
+\end{gather*}
+Dove $r$ è il modulo della distanza dall'origine del sistema di riferimento cartesiano. 
+Se $\theta$ è l'angolo di impatto, si ha che
+\begin{gather*}
+    u_x = u_0 \left(1 + (\sin^{2}\theta - \cos^{2}\theta) \frac{r_0^{2}}{r^{2}}\right) \\
+    u_y = -\frac{2u_0 xyr_0^{2}}{r^{4}} = -2u_0 \sin\theta\cos\theta \frac{r_0^{2}}{r^{4}}
+\end{gather*}
+In quel punto $u_y = 0$ così come $u_x$ quando $\theta = \pi$. Dunque
+quello prende il nome di \textbf{punto di stagnazione}: il fluido si ferma, così
+come nel caso di $\theta = 0$. Per $\theta = \frac{\pi}{2}$ invece, si ha che
+solo moto orizzontale ma la velocità è due volte quella di partenza del fluido:
+il fluido dunque accelera quando impatta con la sfera e decelera quando si allontana fino
+a tornare alla stessa velocità di quella di partenza. Quando si è 
+lontani dall'ostacolo il fluido si accorge sempre meno dell'ostacolo.
+Dato che il fluido è in condizioni stazionarie, si deve avere che
+la pressione rispetto al punto lontano aumenta nel punto in cui la velocità diminuisce;
+nel punto tangente invece è più bassa. 
+\begin{gather*}
+    
+\end{gather*}
+
+\end{document}

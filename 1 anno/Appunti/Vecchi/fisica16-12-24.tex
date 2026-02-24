@@ -1,0 +1,279 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{FIsica}
+\author{Tommaso Miliani}
+\date{16-12-24}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Dinamica di Fletcher}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 1.1}
+    \caption{Dinamica di due corpi ed una carrucola.}
+    \begin{tikzpicture}
+        \draw (-1, 0) --(2, 0);
+        \draw (2, 0) -- (2, -2);
+        \draw (2, 0) -- (2.2, 0.2);
+        \draw (2.35, 0.35) circle (0.15);
+        \draw (0, 0) rectangle (1, 1) node[midway] {$M_1$};
+        \draw (1, 0.5) -- (2.4, 0.5);
+        \draw (2.5, 0.4) -- (2.5, -1.5);
+        \draw (2.2, -1.5) rectangle (2.8, -2.1) node[midway] {$M_2$};
+        \draw[->] (-0.5, 0) -- (-0.5, 0.5) node[at end, left] {$y$};
+        \draw[->] (-0.5, 0) -- (0, 0) node[at end, below] {$x$};
+        \draw[->] (2.2, -0.2) -- (2.7, -0.2) node[at end, right] {$y$}; 
+        \draw[->] (2.2, -0.2) -- (2.2, -0.7) node[at end, below] {$x$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per lo studio di questo sistema prima di tutto si individua un sistema di riferimento 
+inerziale: in questo caso si centra le assi del nostro sistema di riferimento
+nel primo oggetto. Così si può approssimare il sistema di riferimento come se fosse
+inerziale e solidale con la Terra entro certe approssimazioni. Disegnamo ora lo schema delle forze che agiscono sui corpi.
+\begin{tikzpicture}
+    \draw (0, 0) -- (2, 0);
+    \draw (0.5, 0) rectangle (1.5, 1) node[midway] {$M_1$};
+    \draw[->] (1, 1) -- (1, 2) node[at end, left] {$\vec{N} $};
+    \draw[->] (1.5, 0.5) -- (2.5, 0.5) node[at end, above] {$\vec{T} $};
+    \draw[->] (1, 0) -- (1, -1) node[midway, right] {$m_2 \vec{g}$};
+    \draw (5, 0) rectangle (6, 1) node[midway] {$M_2$};
+    \draw[->] (5.5, 1) -- (5.5, 2) node[at end, right] {$\vec{T}$};
+    \draw[->] (5.5, 0) -- (5.5,  -1) node[midway, right] {$m_2 \vec{g} $};
+\end{tikzpicture} \\
+A questo punto possiamo impostare il sistema con tutte le forze e si ottiene per il primo
+corpo (considerato che non si ha attrito ed il suo sistema di riferimento considerato
+prima del blocco stesso):
+\begin{gather*}
+    \left\{ \begin{array}{c}
+        \vec{N} = N\vec{j} \\
+        m_1 \vec{g} = -m_1 \vec{j} \\
+        \vec{T} = \vec{T} \vec{i}       
+    \end{array}\right. \\
+    \vec{N} + m_1 \vec{g} + \vec{T} =m_1 \vec{a}_1 \\
+    \left\{\begin{array}{c}
+        (y) \quad N - m_1 g = 0 \\
+        (x) \quad T = m_1 \ddot{x_1}
+    \end{array}\right.    \\
+    N = m_1 g \\
+    T =  \ddot{x_1}
+\end{gather*}
+Adesso si scrive lo schema delle forze per quanto riguarda il secondo
+corpo con il sistema di riferimento sotto la carrucola:
+\begin{gather*}
+    \left\{\begin{array}{c}
+        \vec{T}' = -T'\hat{i} \\
+        m_2 \vec{g} = m_2 g \hat{i}    
+    \end{array}\right.\\
+    \vec{T}' + m_2 \vec{g} = m_2 \vec{a}_2 \\
+    -T' + m_2g = m_2 \ddot{x}_2    
+\end{gather*}
+A questo punto si fanno delle assunzioni per risolvere il problema: prima di tutto
+il filo è ideale (non si estende né si deforma); inoltre ho considerato
+le tensioni come se fossero uguali e da questo si ottiene che:
+\begin{gather*}
+    \ddot{x_1} = \ddot{x_2} \\
+    |\vec{T}| = |\vec{T}'|\\
+    T = T'  
+\end{gather*}
+Imposto ora il sistema tra le tensioni ottenendo:
+\begin{gather*}
+    \left\{ \begin{array}{c}
+        T = m_2 \ddot{x_1} \\
+        -T + m_2 g = m_2 \ddot{x_1}
+    \end{array}\right.
+\end{gather*}
+Sommando si ottiene:
+\begin{gather*}
+    m_2 g = (m_1 + m_2) \ddot{x_1} \\
+\end{gather*}
+\begin{align}
+    \ddot{x_1} = \frac{m_2 g}{m_1 + m_2}
+\end{align}
+Questo ci torna poiché l'inerzia è la somma delle masse e la forza
+che agisce su questo oggetto è solo la forza peso del secondo oggetto.
+Se ora tolgo $m_1$ allora $m_2$ è in caduta libera. Altrimenti se non
+ci fosse $m_2$ allora $\ddot{x_1} = 0$ Si ottiene allora la tensione
+moltiplicando per $m_1$:
+\begin{align}
+    \boxed{T = m_1 \ddot{x_1} = \frac{m_1 m_2 g}{m_1 + m_2}}
+\end{align}
+Adesso integriamo quella di prima:
+\begin{gather*}
+    \dot{x}_1 = \frac{m_2 g}{m_1 + m_2} t + a \\
+    x_1 = \frac{m_2g}{2(m_1 + m_2)}t^{2} + at + b  
+\end{gather*}
+La posizione fisicamente è descritta con queste formule ma sono io che
+decidon dove mettere l'origine degli assi cartesiani e se io decido che
+l'origine di essi è dove si trovava $m_1$ al tempo $ t = 0$ allora $b = 0$
+altrimenti b diventa la distanza dall'origine della massa al tempo $t = 0$.
+
+\section{Il filo ideale (NON COMPLETO)}
+Il concetto di filo ideale in fisica presuppone che: applicata una forza
+da entrambe le parti del filo di pari intensità allora non si ha alcuna deformazione.
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 2.1}
+    \caption{Filo ideale}
+    \begin{tikzpicture}
+        \draw[<-] (0, 0) -- (1, 0) node[midway, above] {$\vec{T}$};
+        \draw[-, ultra thick] (1, 0) -- (3, 0);
+        \draw[->] (3, 0) -- (4, 0) node[midway, above] {$\vec{T}'$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso del filo da solo allora, assumendo:
+\begin{gather*}
+    m_{filo} \sim 0 \qquad \vec{T}  + \vec{T}' = m_{filo} \vec{a} = 0  
+\end{gather*}
+Nel caso della dinamica di Fletcher invece si ha che lo stesso filo ideale e
+le stesse tensioni hanno però somma diversa da zero in quanto la carrucola riesce
+in qualche modo ad "agire" sul filo con una forza diversa da zero
+\begin{tikzpicture}
+    \draw (0, 4) -- (0, 0);
+    \draw (0, 0) -- (4, 0);
+    \draw (0, 4) arc (90: 0: 4);
+    \draw (0, 0) -- (3.4, 2);
+    \draw (3.4, 2.2) arc (45: 0: 0.5);
+    \draw[->] (3.4, 2) -- (4, 2.45) node[at end, right] {$d\vec{N} $};
+    \draw[->] (3.4, 2.2) -- (3.1, 2.6) node[at end, right] {$\vec{T}_{\phi} $};
+\end{tikzpicture}
+DAl punto di vista fisico il sistema si esprime quindi con le seguenti:
+\begin{gather*}
+    d\vec{N} + \vec{T}_{\phi} + \vec{T}'_{\phi} = m_{filo}\vec{ a} \sim 0    
+    \left\{\begin{array}{c}
+        dN - T_{\phi} \sin\left(\frac{d\phi}{2}\right) - T_{\phi}
+    \end{array}\right. 
+\end{gather*}
+
+
+\section{Macchina di Atwood}
+La macchina di Atwood è forse una delle macchine più importanti della fisica
+classica poiché è riuscita a dare una spiegazione al secondo principio della
+dinamica. Se siamo nel piano si hanno 2 gradi di libertà e complessivamente se ne
+hanno quattro in quanto si ha anche la possibilità di oscillare. Il filo
+in questo caso si appoggia per metà giro della carrucola. Attraverso un'accorta
+preparazione dell'esperimento si possono ridurre a due eliminando i gradi di libertà.
+Utilizziamo inoltre un filo idelale e quindi le posizioni delle masse sono legate in 
+modo tale che il filo possa scendere dalla parte della massa più grande riducendo
+il grado di libertà a 1.
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 3.1}
+    \caption{Macchina di Atwood}
+    \begin{tikzpicture}
+        \draw (0, 0) circle (1);
+        \draw (-1, 0) -- (-1, -1.5);
+        \draw (1, 0) -- (1, -2.5);
+        \draw[->] (0, 0) -- (0, 0.5) node[at end, left] {$y$};
+        \draw[->] (0, 0) -- (0.5, 0) node[at end, below] {$x$};
+        \draw (-1.25, -1.5) rectangle (-0.75, -2) node[midway] {$M_1$};
+        \draw (0.75, -2.5) rectangle (1.25, -3) node[midway] {$M_2$};
+        \draw[->] (-1, -1.5) -- (-1, - 1) node[at end, left] {$\vec{T}$};
+        \draw[->] (-1, -2) -- (-1, -2.5) node[at end, right] {$m_1\vec{g}$};
+        \draw[->] (1, -2.5) -- (1, -2) node[at end, left] {$\vec{T}'$};
+        \draw[->] (1, -3) -- (1, -3.5) node[at end, right] {$m_2\vec{g}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+\begin{gather*}
+    1: \quad \vec{T} + m_1 \vec{g} = m_2 \vec{a}_1 \\
+    2: \quad \vec{T}' + m_2 \vec{g} = m_1 \vec{a}_2      \\
+    \left\{\begin{array}{c}
+        T - m_2 g = m_2 \ddot{y}_1 \\
+        T' - m_1g = m_1 \ddot{y}_2 
+    \end{array}\right. \\
+    Posto \ T = T' \ \wedge \ \ddot{y}_2 = -\ddot{y}_1 
+\end{gather*}
+\begin{align}
+    \boxed{\ddot{y_1} = \frac{(m_2 - m_1)g}{m_1 + m_2}}
+\end{align}
+Posto $m_2 >> m_1$ allora $\ddot{y}_1 = g$. Se invece $m_1 >> m_2$ allora
+$\ddot{y}_1 = -g$. Troviamo ora la tensione:
+\begin{gather*}
+    T = m_1 g + m_1 \ddot{y}_1 \Rightarrow 
+\end{gather*}
+\begin{align}
+    \boxed{T =\frac{2m_1m_2}{m_1 + m_2}g}
+\end{align}
+
+\section{La molla ideale}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 4.1}
+    \caption{La molla ideale}
+    \begin{tikzpicture}
+        \draw (0, 0) -- (0.5, 0);
+        \draw (0.5, 0) -- (0.5, -1);
+        \draw[decoration={aspect=0.3, segment length=1.2mm, amplitude=1mm,coil},decorate,opacity=0.9] (0.5, -0.5) -- (1.5,-0.5);
+        \draw (0.5, -1) -- (2.5, -1);
+        \draw (1.5, -1) rectangle (2.5, 0) node[midway] {$M$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Una molla ha una posizione di riposo e qundo essa si trova in quella posizione allora
+non esercita forze. Dallo schema la forza della molla è come segue:
+\begin{align}
+    \vec{F} = -k(x - l_r)\hat{i}  
+\end{align}
+La Molla tende ad esercitare una forza che è la fa tornare sempre
+alla posizione di riposo. Lo schema delle forze del sistema si rappresenta
+come segue, ponendo il sistema di riferimento inerziale proprio nel punto in cui la molla
+è a riposo. Dal punto di vista delle forze quindi:
+\begin{gather*}
+    \vec{F}_d = -kx\hat{i} \\
+    -kx = m \ddot{x} \\
+    \boxed{m\ddot{x} + kx = 0}   
+\end{gather*}
+\begin{center}
+    \begin{tikzpicture}
+    \draw (0, 0) -- (0.5, 0);
+    \draw (0.5, 0) -- (0.5, -1);
+    \draw[decoration={aspect=0.3, segment length=4.2mm, amplitude=3mm,coil},decorate,opacity=0.9] (0.5, -0.5) -- (2.5,-0.5);
+    \draw (2.5, -1) rectangle (3.25, -0.25) node[midway] {$M$};
+    \draw (0.5, -1) -- (4, -1);
+    \draw[<->] (0.75, -1.25) -- (1.75, -1.25) node[midway, below] {$l_r$};
+    \draw[->] (2.5, -0.6) -- (2, -0.6) node[at end, below] {$\vec{F}_d$};
+    \draw[->] (2.85, -0.25) -- (2.85, 0.25) node[at end, right] {$\vec{N} $};
+    \draw[->] (2.85, -1) -- (2.85, -1.5) node[at end, right] {$m \vec{g}$};
+\end{tikzpicture} 
+\end{center}
+Ossia l'equazione del moto armonico. Questa equazione differenziale del secondo
+ordine omogenea non è integreabile facilmente, comunque si ottiene: 
+
+\begin{gather*}
+    \ddot{x} + \frac{k}{m}x = 0, \ posto \ \omega^{2} = \frac{k}{m} \\
+    \ddot{x} + w^{2}x = 0   
+\end{gather*}
+Quindi diventa:
+\begin{gather*}
+    x = A \cos(\omega t + \phi) \\
+    \dot{x} = -A\sin(\omega t + \phi)\omega \\
+    \ddot{x} = -A \cos(wt + \phi)\omega^{2} \\
+    -A \cos(\omega t + \phi)\omega^{2} + \omega^{2} A \cos(\omega t + \phi) = 0
+\end{gather*}
+
+\end{document}

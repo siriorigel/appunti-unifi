@@ -1,0 +1,83 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Lab zoccols}
+\author{Tommaso Miliani}
+\date{03-04-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Roba già fatta altre cento volte}
+
+
+
+
+
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \star \ \phi_0 = \phi_0(0) \\
+        \star \ T_0'
+    \end{array}\right.
+\end{gather*}
+Nel limite delle piccole oscillazioni dunque vale la seguente:
+\begin{gather*}
+    \ddot{\phi} + \frac{b}{m}\dot{\phi} + \frac{g}{l}\phi = 0
+\end{gather*}
+E allora dato che
+\begin{gather*}
+    \frac{g}{l} = \omega_0^{2} 
+\end{gather*}
+Nel nostro caso sappiamo con certezza che il moto è di natura smorzata ma oscillatoria 
+posso allora esprimere l'angolo in funzione del tempo come:
+\begin{gather*}
+    \phi(t) = Be^{kt} \Rightarrow B, k \in C 
+\end{gather*}
+Derivando l'espressione
+\begin{gather*}
+    \dot{\phi} = kBe^{kt} = k\phi 
+\end{gather*}
+E allora la derivata seconda rispetto al tempo è proprio
+\begin{gather*}
+    \ddot{\phi} = k^{2}\phi^{kt}  
+\end{gather*}
+SOstituendo tutto quanto nel limite delle piccole oscillazioni si ottiene
+dunque la seguente espressione:
+\begin{gather*}
+    
+\end{gather*}
+
+
+\end{document}

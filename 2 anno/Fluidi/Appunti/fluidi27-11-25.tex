@@ -1,0 +1,358 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti Fisica statistica}
+\author{Tommaso Miliani}
+\date{27-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Ripassino}
+L'energia totale del sistema si può scrivere come la somma delle energia di tutti i
+sottosistemi e dunque $\epsilon$ dipende solamente dagli stati di ogni 
+sottosistema. Si può verificare che la probabilità che si verifichi
+un certo stato per un singolo sottosistema come
+\begin{align}
+    \prod = \frac{e^{-\beta\epsilon_i}}{\sum_{\alpha} e^{-\beta \epsilon_\alpha}}
+\end{align}
+E dunque l'energia totale come
+\begin{align}
+    E = \sum_{i = 1}^{N}\epsilon_i 
+\end{align}
+Se si volesse calcolare il contributo all'energia media totale si utilizzerebbe una distribuzione 
+del seguente tipo (con un determinato valore atteso del contributo dell'energia 
+di ognuno dei sottosistemi):
+\begin{align}
+    \left< \epsilon \right> = \frac{\sum \epsilon_i e^{-\beta \epsilon_i}}{\sum e^{-\beta\epsilon_i}} 
+\end{align}
+
+\section{Somma dei contributi energetici interni e determinazione della funzione energetica}
+Una cosa utile è che la somma sopra è una somma su tutti i possibili stati microscopici
+e dunque può essere utile cercare di passare da una somma degli stati ad una somma sui singoli valori dell'energia.
+La somma sugli stati si esprime come
+\begin{gather*}
+    \sum e^{-\beta\epsilon_i}
+\end{gather*}
+Invece di sommare solamente i singoli stati, posso sommare rispetto a tutti i 
+contributi energetici introducendo una funzione $g(\epsilon)$ che conta per ogni 
+valore dell'energia quanti sono gli stati microscopici che hanno quel determinato
+valore dell'energia:
+\begin{gather*}
+    \sum g(\epsilon)e^{-\beta\epsilon_i}
+\end{gather*}
+Se invece di avere una somma continua di stati o di energie, ad un integrale su i possibili valori 
+dell'energia in funzione della funzione $g(\epsilon)$, come
+\begin{gather*}
+    \sum g(\epsilon)e^{-\beta\epsilon_i} \to \int_{\epsilon_{min}}^{\epsilon_{max}} g(t)e^{-\beta\epsilon} \ d\epsilon 
+\end{gather*}
+La funzione $g(\epsilon) \ d\epsilon$ mi descriver il numero di stati nei quali 
+l'energia varia tra $\epsilon$ e $\epsilon + d\epsilon$ e prende il nome di 
+funzione di densità degli stati: è infatti una densità di energia . Dunque si può ottenere il valore 
+atteso dell'energia dei singoli sottosistemi come
+\begin{gather*}
+    \left< \epsilon \right> = \frac{\int \epsilon g(\epsilon) e^{-\beta\epsilon} \ d\epsilon }{\int g(\epsilon) e^{-\beta \epsilon} } 
+\end{gather*}
+Si osserva, da questa funzione, che ci siamo ricondotti a integrali definiti in funzioni ad una sola variabile. Questo
+è un problema che si risolve sempre (o si risolve analiticamente o con un calcolatore): quando l'integrale è
+ben definito allora lo si sa sempre calcolare e dunque l'energia sui sottosistemi è risolto purché io 
+riesca a determinare la funzione $g(\epsilon)$,anche se non si deve conoscere totalmente in quanto si deve
+solo conoscere il suo valore a meno di una costante.
+
+\section{Determinazione della funzione $g(\epsilon)$ quando la funzione energetica dipende 
+quadraticamente dalla variabile microscopica}
+E' possibile determinare questa funzione ponendoci nel caso in cui il singolo
+sottosistema abbia come energia 
+\begin{gather*}
+    \epsilon = \frac{1}{2}mv_x^{2}
+\end{gather*} 
+Posso definire, nello spazio della velocità $v_x$ il numero di stati, e dunque lo stato 
+infinitesimo all'interno dello spazio delle fasi è dato da
+\begin{gather*}
+    dN = \frac{dv_x}{\Delta v}
+\end{gather*}
+E dunque posso esprimere la funzione $g(\epsilon)$ come
+\begin{gather*}
+    g(\epsilon)d\epsilon = \frac{dN}{d\epsilon}d\epsilon = \frac{1}{\Delta v}\frac{dv_x}{d\epsilon}d\epsilon
+\end{gather*}
+Adesso non mi resta che calcolare la derivata della funzione $v_x$ nella seguente maniera:
+\begin{gather*}
+    v_x = \sqrt{\frac{2\epsilon}{m}} \ \Longrightarrow \ \frac{dx}{d\epsilon} = \frac{1}{d\epsilon}\sqrt{\frac{2\epsilon}{m}} = \frac{1}{\sqrt{2m\epsilon} }  
+\end{gather*}
+E allora si è determinata la funzione $g(\epsilon)$ come
+\begin{gather*}
+    g(\epsilon) = \frac{1}{\Delta v \sqrt{2m} }\epsilon^{-\frac{1}{2}} + c
+\end{gather*}
+Si può quindi determinare il valore atteso di $\epsilon$:
+\begin{gather*}
+        \left< \epsilon \right> = \frac{\int \epsilon^{\frac{1}{2}}  e^{-\beta\epsilon} \ d\epsilon }{\int \epsilon^{-\frac{1}{2}} e^{-\beta \epsilon} } 
+\end{gather*}
+Risolvendo gli integrali:
+\begin{gather*}
+    \left< \epsilon \right> = \frac{\frac{\sqrt{\epsilon} }{2\beta^{\frac{3}{2}}} }{\frac{\sqrt{\epsilon} }{\sqrt{\beta} }} = \frac{1}{2\beta} = \frac{1}{2}k_B T
+\end{gather*}
+Se invece si volesse calcolare il contributo dell'energia media degli oscillatori
+armonici (e dunque l'energia non in funzione del tempo ma dello spazio), dovrei utilizzare una
+funzione energetica come
+\begin{gather*}
+    \epsilon = \frac{1}{2}kx^{2}
+\end{gather*}
+E dunque dire che
+\begin{gather*}
+    dN = \frac{dx}{\Delta x}
+\end{gather*}
+Dal punto di vista matematico questo calcolo è lo stesso di quello fatto prima, purché
+posso sostituire i dati che si hanno ora nelle espressioni di prima, posso dunque scrivere
+direttamente il risultato:
+\begin{gather*}
+    g(\epsilon) = \frac{1}{\Delta x \sqrt{2k} }\epsilon^{-\frac{1}{2}}
+\end{gather*}
+E dunque si ottiene di nuovo lo stesso risultato
+\begin{gather*}
+    \left< \epsilon \right> = \frac{1}{2}k_B T 
+\end{gather*}
+Nel caso di un corpo rigido che ruota intorno ad un asse,
+il contributo all'energia di questo corpo è dato da
+\begin{gather*}
+    \epsilon = \frac{1}{2}I_c \omega^{2}
+\end{gather*}
+Questo è uguale all'esempio di prima purché si sostituiscano le costanti:
+si trova dunque che
+\begin{gather*}
+    g(\epsilon) = \frac{1}{\Delta \omega \sqrt{2I} }\epsilon^{-\frac{1}{2}}
+\end{gather*}
+Ottenendo lo stesso contributo energetico
+\begin{gather*}
+    \left< \epsilon \right> = \frac{1}{2}k_B T 
+\end{gather*}
+Questi tre casi hanno in comunque il fatto che la dipendenza dalla variabile microscopica è 
+al quadrato, dunque tutte le volte che si ha un sistema nel quale le variabili 
+microscopiche contribuiscono in maniera additiva e quadratica allora si ha lo stesso
+contributo energetico come
+\begin{gather*}
+    \left< \epsilon \right> = \frac{1}{2}k_B T 
+\end{gather*}
+
+\section{Teorema di equipartizione dell'energia e spiegazione capacità termiche
+per i gas mono, di e poli atomici}
+Il teorema di equipartizione non vale solamente se i contributi
+delle variabili microscopiche sono quadratiche, ma per semplicità
+si tratterà solamente il caso in cui la dipendenza dalla funzione energetica
+sia quadratica e additiva, allora ha la seguente espressione
+\begin{align}
+    \left< \epsilon \right> \frac{1}{2}k_B T 
+\end{align}
+Questo risultato permette di risolvere il mistero dei calori specifici
+dei gas perfetti e perché dipenda dal fatto che siano monoatomici, diatomici o poliatomici.
+Il caso monoatomico è tale che
+\begin{gather*}
+    E = \sum k_i \qquad k_i = \frac{1}{2}m(\vv{v} )^{2} = \frac{1}{2}m(v_x^{2} + v_y^{2} + v_z^{2})_i
+\end{gather*}
+Infine si trova, nel caso dell'energia interna è dato 
+\begin{gather*}
+    U = \left< E \right> = \sum k_i = N \left< k \right> = N \frac{3}{2}k_B T  
+\end{gather*}
+Si è trovato che l'energia interna del gas monoatomico è dato proprio dall'espressione sopra,
+dunque la capacità termica di un gas monoatomico è data esattamente da
+\begin{gather*}
+    \mathcal{C}_V = \frac{dU}{dT} = \frac{3}{2}Nk_B
+\end{gather*}
+Nel caso in cui si abbia numero di moli $\mathcal{N}= 1$, allora si può dire che
+\begin{gather*}
+    \mathcal{C}_V = \frac{3}{2}R
+\end{gather*} 
+L'estensione degli atomi fisicamente non ci interessa (anche se hanno una estensione
+ben definita) poiché la massa totale sta concentrata in una regione di spazio che è 5 volte più
+piccola dell'effettiva estensione dell'atomo. Si può dunque pensare che la massa totale possa
+essere tutta concentrata all'interno del nucleo per una molecola monoatomica (in buona approssimazione).
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Modellizazione delle molecole diatomiche}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (0.75);
+        \draw(3, 0) circle (0.4);
+        \draw[->](-1, 0) -- (4, 0) node[at end, below] {$x$};
+        \filldraw(0, 0) circle (1pt);
+        \filldraw(3, 0) circle (1pt);
+        \filldraw(1, 0) circle (1pt);
+        \draw[->](1, -1) -- (1, 1) node[at end, left] {$y$};
+        \node at (0, -1) {$m_1$};
+        \node at (3, -1) {$m_2$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per una molecola diatomica invece, questo oggetto è dato da due atomi e 
+dunque in prima approssimazione posso considerala come un corpo rigido:
+oscillando le molecole, in realtà non è ottima l'approssimazione di corpo rigido
+ma solamente se l'energia interna è piccola in quanto con poca energia gli atomi 
+non oscillano molto. Si può dunque considerare la particella diatomica come se
+fossero due sferette collegate da una molla (con costante elastica molto grande 
+approssimabile ad una sbarretta rigida) e massa zero. Dunque devo anche
+considerare i termini rotazionali delle molecole intorno al centro di massa:
+\begin{gather*}
+    K = K_{CM} + K_{ROT} = \frac{1}{2}m(v_x^{2} + v_y^{2} + v_z^{2}) + \frac{1}{2}\left(I_x\omega_x^{2} + I_y\omega_y^{2} + I_z\omega_z^{2}\right)
+\end{gather*} 
+I contributi energetici rotazionali per tutti gli assi non sono dello stesso ordine:
+$I_x$ è molto più piccolo degli altri due e dunque l'energia cinetica è data
+da 5 pezzi quadratici additivi, ossia
+\begin{align}
+    U = N\frac{5}{2}k_B T
+\end{align}
+E dunque vale
+\begin{align}
+    \mathcal{C}_V = \frac{5}{2}R
+\end{align}
+
+Nel caso di un atomo poliatomico, non si ha più un asse rispetto al 
+quale il momento di inerzia è molto minore degli altri due, dunque devo tenere anche conto
+della terza componente ottenendo esattamente per l'energia 
+interna del sistema
+\begin{align}
+    U = 3Nk_B T
+\end{align}
+E dunque la capacità termica è data esattamente come
+\begin{align}
+    \mathcal{C}_V = 3R
+\end{align}
+Tuttavia, il contributo rispetto all'asse che passa dal centro di massa
+è trascurabile nel caso in cui le molecole poliatomiche è trascurabile
+e dunque ci si riconduce nel caso precedente come nel caso
+della $\ce{CO2}$ che è analogo all'energia della $\ce{CO}$. 
+
+\section{Schematizzazione energia del solido}
+E' possibile schematizzare l'energia interna di un solido come 
+l'energia potenziale di tanti oscillatori armonici in quanto,
+quando si fornisce molta energia ad un reticolo, le molecole iniziano ad
+oscillare e dunque modificano la distanza tra di loro e la distanza
+dagli assi di rotazione (nel caso di e poli atomico). Dunque si
+ottiene l'energia attesa delle molecole come
+\begin{gather*}
+    E = \sum \frac{1}{2}(v_x^{2} + v_y^{2} + v_z^{2})_i + \frac{1}{2}(k_xx_i^{2} + k_yy_i^{2} + k_zz_i^{2})
+\end{gather*}
+Allora l'energia interna del sistema è la somma di tutti i valori attesi dell'energia:
+\begin{align}
+    U = \left< E \right> = 3Nk_B T  
+\end{align}
+Allora la capacità termica di un solido è data da
+\begin{align}
+    \mathcal{C}_V \approx 3Nk_B = 3R
+\end{align}
+Per una mole di solido. Questa è nota come legge di Dulong-Petit. Questa
+è valida per temperature intermedie, infatti per temperature  molto alte,
+le molecole non si comportano più come oscillatori armonici ma le vibrazioni
+diventano molto grandi. A basse temperatura invece gli effetti quantistici
+diventano molto grandi e non è più valida. 
+
+\section{Entropia in un sistema}
+Dato che si è detto che per ogni sistema l'entropia è tale che
+\begin{gather*}
+    S = Ns
+\end{gather*}
+Dove $s$ è l'entropia dei singoli sottosistemi (atomi). Nella pratica
+questa funzione è meglio definita se $N$ è molto grande. SI pul dunque deteminare
+$s$:
+\begin{align}
+    s = -k_B \sum \pi_k \ln \pi_k
+\end{align}
+Dove si ha
+\begin{gather*}
+    \pi_k = \frac{e^{-\beta \epsilon_k}}{\sum_{i} e^{-\beta\epsilon_i}} = \frac{1}{z}e^{-\beta \epsilon_k} 
+\end{gather*}
+Si ha dunque che
+\begin{gather*}
+    s = -k_B \sum \pi_k (\ln z + \beta \epsilon_k) = k_B \ln z \sum \pi_k + \beta k_B \sum \epsilon_k \pi_k = \\
+    k_B(\ln z + \beta \left< \epsilon \right> )
+\end{gather*}
+Dato però, che per un gas monoatomico si ha che $\left< \epsilon \right>  = \frac{3}{2}k_B T = \frac{3}{2\beta}$,
+si ha che il contributo all'entropia di una singola particella è data esattamente da
+\begin{gather*}
+    s = k_B(\ln z + \frac{3}{2})
+\end{gather*}
+E allora il contributo totale all'entropia è data da
+\begin{gather*}
+    S = Ns = Nk_B(\ln z + \frac{3}{2})
+\end{gather*}
+Rimane dunque da definire solamente $\ln z$: questo si può fare
+attraverso la seguente funzione:
+\begin{gather*}
+    z = \sum e^{-\beta \epsilon_k} = \int \frac{dx dy dz \ dv_x dv_y dv_z}{(\Delta x \Delta v)^{3}}e^{-\beta \epsilon(x, v)} 
+\end{gather*}
+Dato che dipende solamente dalla velocità, si deve necessariamente avere che
+\begin{gather*}
+    \int_{V}^{} \frac{dx dy dz}{(\Delta x)^{3}} \int \frac{d v_x dv_y dv_z}{(\Delta V)^{3}} e^{-\beta\frac{1}{2}m(v_x^{2} + v_y^{2} + v_z^{2})}
+\end{gather*}
+Il primo integrale è facile in quanto è solamente il seguente integrale:
+\begin{gather*}
+    \frac{V}{(\Delta x)^{3}} \left(\int_{-\infty }^{+ \infty } \frac{d\eta}{\Delta v}e^{-\frac{1}{2}\beta\eta^{2}} \right)^{3}
+\end{gather*}
+Allora, con la seguente sostituzione si ha che
+\begin{gather*}
+    x^{2}  =\frac{1}{2}m\beta\eta^{2} \qquad \frac{1}{\Delta v}\sqrt{\frac{2}{m\beta}}\int_{-\infty }^{+\infty } e^{-x^{2}} dx = \frac{1}{\Delta v} \sqrt{\frac{2\pi}{m\beta}}   
+\end{gather*}
+Si ottiene dunque che
+\begin{gather*}
+    z = \frac{V}{(\Delta x)^{3}} \frac{1}{(\Delta v)^{3}} \left(\frac{2\pi}{m\beta}\right)^{-\frac{3}{2}}
+\end{gather*}
+Allora si ottiene che 
+\begin{gather*}
+    \ln z = \ln \frac{V}{(\Delta x)^{3}} + \frac{3}{2}\ln \left(\frac{2\pi k_B}{m(\Delta v)^{2}}T\right)
+\end{gather*}
+Si definisce 
+\begin{gather*}
+    \frac{m(\Delta v)^{2}}{2\pi k_B} = T_0 \qquad (\Delta x)^{3} = V_0
+\end{gather*}
+E dunque l'entropia totale è data da
+\begin{align}
+    S = Nk_B\left(\ln \left(\frac{V}{V_0}\right) + \frac{3}{2}\ln\left(\frac{T}{T_0}\right) + \frac{3}{2}\right)
+\end{align}
+Questa espressione, che sembra valida, in realtà è molto sbagliata. 
+
+
+\end{document}

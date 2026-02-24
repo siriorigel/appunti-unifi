@@ -1,0 +1,268 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Ottica}
+\author{Tommaso Miliani}
+\date{24-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section*{Fine esperienza interferenza}
+\section{Sorgente luminosa non monocromatica}
+Se si avesse una sorgente di luce non monocromatica, 
+l'intensità in uscita dall'interferometro di Machelson
+è data dalla seguente (con le formule di bisezione):
+\begin{gather*}
+    I(\Delta L)  = I_0 \sin^{2}\left(\frac{\Delta L \omega_0}{c}\right)
+\end{gather*}
+E si riscrive nel modo più canonico:
+\begin{gather*}
+    I_0\sin^{2}\left(\pi\frac{\Delta L}{\frac{\lambda_0}{2}}\right)
+\end{gather*}
+L'uscita dipende dal seno al quadrato perché l'onda riflessa acquisisce
+un termine di fase negativo, dunque il campo elettrico, e di conseguenza
+l'intensità, sono zero. Per $\Delta L << 1$ è come se la sorgente fosse monocromatica.
+Quando invece
+\begin{gather*}
+    \frac{\Delta L\Delta \omega}{c} \approxeq 1
+\end{gather*}
+Allora questa lunghezza $l_c = \Delta L$ per cui è uguale ad uno prende 
+il nome di lunghezza di coerenza: questa fa sì che il coseno sia molto 
+piccolo e dunque si ottiene che l'ampiezza dell'oscillazione tende
+all'asintoto $\frac{I_0}{2}$. Dunque si sceglie questa lunghezza di coerenza
+in modo tale che
+\begin{gather*}
+    I(l_c) = \frac{I_0}{2}\left(1 + e^{-1}\right)
+\end{gather*}
+Ossia che si trovi un massimo per la funzione. Per stimare la lunghezza
+di coerenza devo anche dare una stima per  $\Delta \omega$: dunque si può relazionare
+questa grandezza con la lunghezza d'onda 
+\begin{gather*}
+    \frac{\Delta \omega}{\omega_0} = \frac{\Delta \lambda}{\lambda_0} \ \Longrightarrow \ \Delta \omega = \frac{\Delta \lambda \omega_0}{\lambda_0} 
+\end{gather*}
+Allora
+\begin{gather*}
+    l_c = \frac{c\lambda_0}{\Delta \lambda} \frac{\lambda_0}{2\pi c}
+\end{gather*}
+Ponendo $\lambda_0 \approx 550 \ nm$ e $\Delta \lambda \approx 150 \ nm$, si ha che
+$l_c \approx 350 \ nm$. È fondamentale non toccare lo specchio con la ceramica
+piezoelettrica in quanto se si sposta dalla condizione di $\Delta L = 0$ non si vedrà più niente.
+Sperimentalmente per trovare $l_c$, si deve misurare $\lambda_0$ e poi si utilizza
+il programma in Mathematica. 
+\begin{itemize}
+    \item Si ricava una traccia per $I(\Delta L)$ attorno a $\Delta L \approx 0$. 
+    \item Si determina la lunghezza d'onda $\lambda_0$ 
+    \item Si identificano il numero di oscillazioni $n$ affinché si ottenga il valore massimo
+    dell'oscillazione sia da $I_0$ a $\frac{I_0}{2}(1 + e^{-1})$ e moltiplico
+    per $\frac{\lambda_0}{2}$ per trovare $l_c$.
+    \item Si trova $\Delta \lambda_0$ con la formula per la lunghezza di coerenza.  
+\end{itemize}
+La luce è filtrata da un filtro verde in modo tale che la lunghezza d'onda sia centrata
+intorno a $\lambda_0 \approx 552 \pm 2 \ nm$ e che ha un intervallo di 
+misura di circa $\Delta \lambda \approx 5 \pm 2 \ nm$. In questo modo il rilevatore
+vede una lunghezza d'onda molto stretta e dunque la lunghezza di coerenza aumenta. 
+
+
+\section*{Approfondimenti dell'ottica}
+\section{Interferenza da film sottili}
+Consideriamo cosa succede ad un onda piana che attraversa
+un sottile strato di materiale dielettrico a facce piane e parallele
+con indice di rifrazione $n > 1$. 
+\subsection{Legge di Fresnel}
+La legge di Fresnel sulla riflessione e trasmissione ad una interfaccia
+stabilisce la quantità di luce riflessa e quella trasmessa: 
+\begin{align}
+    r = \frac{n_1 - n_2}{n_1+ n_2}
+\end{align}
+Questo coefficiente stabilisce che il campo riflesso e quello trasmesso
+è dato dalle seguenti relazioni
+\begin{gather*}
+    E_r = r E_{in} \qquad E_t = t E_{in}
+\end{gather*}
+Già da qui si scopre che nel caso tipico Aria-Vetro, si scopre che
+$r = -0.2$ e dunque si può quantificare l'intensità e le relazioni tra 
+l'intensità riflessa e quella trasmessa:
+\begin{gather*}
+    I_r = 0.04 I_{in}
+\end{gather*} 
+Ossia si ha una riflessione dell'ordine del $4\%$. Posso dunque 
+indicare con $R$ il coefficiente di riflessione dell'intensità luminosa;
+per le regole di conservazione dell'energia $T = 1 - R$, dunque
+\begin{gather*}
+    I_T = TI_{in}
+\end{gather*}
+Allora posso dire che
+\begin{gather*}
+    T = 1 - R = 1 - r^{2} \qquad t = \sqrt{1 - r^{2}} 
+\end{gather*}
+Ottenendo allora la relazione generale che lega il coefficiente di trasmissione 
+a quello di riflessione: nel caso specifico, dato $R = 0.04$, allora
+si può dire che $t = 0.98$: dunque il campo elettrico trasmesso 
+nel dielettrico è ben il $98\%$ del campo totale. 
+
+\subsection{Applicazione della legge di Fresnel}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Interfaccia}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (4, 0);
+        \draw(0, -0.5) -- (4, -0.5);
+        \node at (-0.25, 0.5) {$n_1$};
+        \node at (-0.25, -0.25) {$n_2$};
+        \node at (-0.25, -0.75) {$n_1$};
+        \draw(1.5, 2) -- (2, 0) -- (2.5, 2);
+        \draw[thick, ->](1.5, 2) -- (1.75, 1) node[at end, left] {$\vv{E_0} $};
+        \draw[dashed] (2, 0) -- (2, 2);
+        \draw(2, 0) -- (2.4, -0.5) -- (2.8, 0) -- (3.3, 2);
+        \draw[red, thick](2, 0) -- (2.5, 2);
+        \draw[cyan, thick](2.8, 0) -- (3.3, 2);
+        \draw[dashed](2, 0) -- (2, -0.5);
+        \draw (2, -0.25) arc (-90:-70:0.5) node[at start, left] {$\theta'$};
+        \draw(2.4, -0.5) -- (2.65, -1);
+        \draw(2.8, 0) -- (3.2, -0.5) -- (3.45, -1);
+        \draw(3.2, -0.5) -- (3.6, 0);
+        \draw[green, thick](3.6, 0) -- (4.1, 2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Presa l'interfaccia dielettrica con indice di rifrazione $n_2$
+immerso nell'aria, supponendo che i raggi di luce incidano con un angolo
+$\theta << 1$, sull'interfaccia aria-vetro si ha una prima riflessione e
+trasmissione: per cui si ottiene che una parte del fascio di luce 
+viene trasmessa e una parte riflessa, così accade per tutti i fasci riflessi all'interno del 
+vetro che provano ad uscire. Dunque, considerato che la luce che viene riflessa 
+all'interno del vetro, devo aggiungere un ritardo di fase per tenere conto 
+di questo cammino extra che è stato compiuto. Il cammino che compie in più il campo che esce dal vetro 
+è dato da
+\begin{gather*}
+    l = 2\frac{d}{\cos\theta'}
+\end{gather*}
+Il fascio rosso dunque ha modulo del campo:
+\begin{gather*}
+    -|r|E_0 \cos(kx - \omega t)
+\end{gather*}
+Il fascio rosso invece ha come modulo (dato dalla differenza del cammino):
+\begin{gather*}
+    E_0 t^{2}r\cos\left(kx - \omega t + 2\frac{kn_2 d}{\cos\theta'}\right)
+\end{gather*}
+Mentre il fascio verde è dato da
+\begin{gather*}
+    E_0t^{2}r^{3}\cos\left(kx - \omega t + 4\frac{kn_2d}{\cos\theta'}\right)
+\end{gather*}
+Dunque per studiare riflessione e trasmissione basterà studiare semplicemente i primi 
+due fasci in quanto dal terzo in poi i contributi sono molto piccoli e dunque valgono i
+risultati che si sono ottenuti nell'interferometro di Machelson. Il motivo per il quale
+le bolle di sapone risultano colorate (dei colori dello spettro luminoso) è dato dal
+fatto che la luce che esce e rientra nel sapone genera interferenza. Tutte le volte che 
+si usa un laser si deve considerare che ogni volta che il fascio di laser passa
+attraverso i componenti ottici si perde il $4\%$ dell'intensità. 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il coating delle lenti a bassa riflettività}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (4, 0);
+        \draw(0, -1.5) -- (4, -1.5);
+        \filldraw[cyan, opacity = 0.3](0, 0) rectangle (4, -0.25);
+        \node at (4.6, -0.15) {$n_1 > 1.5$};
+        \node at (2, -0.75) {$n_{vetro} = 1.5$};
+        \draw(2, 1) -- (2.5, 0) -- (2.75, -0.25) -- (3, 0) -- (3.5, 1);
+        \draw(2.5, 0) -- (3, 1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Per ovviare al problema
+si può depositare sulla superficie delle lenti un materiale dielettrico molto sottile 
+con un indice di rifrazione $n_1 > n_2$, ossia maggiore dell'indice di rifrazione
+del vetro. Lo spessore del \textbf{coating} fatto da questo materiale dielettrico lo scelgo 
+in modo tale che tra i due fasci riflessi ci sia interferenza distruttiva.
+Dunque l'intensità di luce che viene riflessa dopo che entra nel dielettrico
+(che deve essere in interferenza con quella inizialmente riflessa) è data da
+\begin{gather*}
+    I_r = I_0 t^{4}r^{6}
+\end{gather*}
+E dunque si perde solamente lo $0.06\%$ della luce. 
+
+\subsection{Coating ad alta riflettività}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Coating ad alta riflettività}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (4, 0) node[at start, above] {$n_{aria}$};
+        \draw (0, -1) -- (4, -1);
+        \draw[<->](0, 0) -- (0, -1) node[midway, left] {$\frac{\lambda}{4n_1}$};
+        \draw(0, -2.5) -- (4, -2.5);
+        \draw[<->](0, -1) -- (0, -2.5) node[midway, left] {$\frac{\lambda}{4n_2}$};
+        \node at (4.2, -0.5) {$n_1$};
+        \node at (4.8, -1.75) {$1 < n_2 < n_1$};
+        \node at (4.2, -3) {$n_1$};
+        \draw(0, -3.5) -- (4, -3.5);
+        \draw(1.5, 0.5) -- (2, 0) -- (2.5, 0.5) node[at end, right] {1};
+        \draw(2, 0) -- (2.5, -1) -- (3, 0) -- (3.5, 0.5) node[at end, right] {2};
+        \draw(2.5, -1) -- (3, -2.5) -- (3.5, -1) -- (4, 0) -- (4.5, 0.5) node[at end, right] {3};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si considera un coating ad alta riflettività: si può sfruttare la legge di Snell, e
+di Fresnel e l'interferenza costruttiva in riflessione per creare specchi 
+ad elevata riflettività. Si utilizzano film sottili alternati a vetro in modo tale che
+si possa sfruttare l'interferenza costruttiva. Si definiscono allora le proprietà dei seguenti 
+raggi luminosi (quando ovviamente $\theta << 1$):
+\begin{enumerate}
+    \item Ha uno shift di $\pi$ dovuto alla riflessione dovuta all'interfaccia 
+    aria-mezzo dielettrico con $n_{aria} < n_{d}$. 
+    \item Il secondo raggio ha un ritardo di fase di $\pi$ dovuto alla doppia propagazione
+    all'interno del dielettrico di spessore di $\frac{\lambda}{4n_1}$.
+    \item Il terzo fascio ha un ritardo di fase di $\pi$ rispetto al fascio 2 dovuto alla propagazione
+    all'interno del film spesso $\frac{\lambda}{4n_2}$ ed un ritardo di fase di $\pi$ dovuto
+    alla riflessione $n_2 \to n_1$. 
+\end{enumerate}
+Anche questo coating deve necessariamente essere utilizzato con una certa
+lunghezza d'onda e con un determinato angolo di incidenza. 
+
+\end{document}

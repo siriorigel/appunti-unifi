@@ -1,0 +1,224 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Geometria}
+\author{Tommaso Miliani}
+\date{05-12-24}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Esercizio 6}
+E' data una matrice endomorfica:
+\begin{gather*}
+    f: M(n \times n, R) \to M(n \times n, R) \\
+    Im(f) = S_n(R) \ matrice \ simmetrica \ n \times n \\
+    Ker(f) = A_n(R) \ matrice \ antisimmetrica \ n \times n
+\end{gather*}
+Se B è simmetrica allora B si ottiene come:
+\begin{align*}
+    B = f\left(\frac{1}{2}B\right)
+\end{align*}
+Perché
+\begin{align*}
+    f\left(\frac{1}{2}B\right) \frac{1}{2} \ ^{t}B  + \frac{1}{2}B =
+    \frac{1}{2}B + \frac{1}{2}B = B.
+\end{align*}
+
+\section{Relazioni tra matrici e funzioni lineari}
+Data una matrice $A \in M(m \times n, K)$ associata ad una funzione lineare
+\begin{align*}
+    F_a : K^{n}  \to K^{m},  x \to Ax
+\end{align*}
+Come esempio prendiamo M(2 x 3):
+\begin{gather*}
+    \left(\begin{tabular}{c c c}
+        $a_{1, 1}$ & $a_{1, 2}$ & $a_{1, 3}$ \\
+        $a_{2, 1}$ & $a_{2, 2}$ & $a_{2, 3}$ 
+    \end{tabular}\right) \\
+    f_A : K^3 \to K^2 \\
+    \begin{pmatrix} x_1 \\
+    x_2 \\
+    x_3 \end{pmatrix} \to 
+    \left( \begin{tabular}{c c c}
+        $a_{1, 1}x_1$ & $a_{1, 2}x_2$ & $a_{1, 3}x_3$ \\
+        $a_{2, 1}x_1$ & $a_{2, 2}x_2$ & $a_{2, 3}x_3$ 
+    \end{tabular} \right)
+\end{gather*}
+In generale le soluzioni di $Ax = b$ sono:
+\begin{gather*}
+    f_A^{-1} b = \left\{ x : f_A(x) = b \right\} \\
+    Kerf_A = \left\{ x : Ax = 0 \right\} \ sistema \ omogeneo 
+\end{gather*}
+Questo ci permette di esprimere i sistemi lineari come delle funzioni lineari: per esempio per le matrici $M(2 \times 3, K)$ si ottengono delle funzioni lineari che
+danno delle funzioni lineari $3 \times 2$ che tra poco chiameremo isomorfismo.\\
+Pensare agli spazi come spazi di funzioni è un modo moderno di pensare
+allo spazio all'interno del quale ogni oggetto è rappresentato dalle funzioni che ci sono sopra.
+
+\section{Poposizione di rappresentazione}
+\begin{definition}
+    Sia $g: K^{n} \to K^{m} \ lineare \Rightarrow  \ \exists A \in 
+    M(m \times n, K) : g = f_A$  
+\end{definition}
+\begin{proof}
+    Costruisco una matrice A tale che la colonna di A è definita come $g(e_i) : i = \{1, \dots, n\}$, allora
+    so che questa $g(e_i) \in K^{m}$ quindi costruisco una matrice che è proprio
+    $m \times n$ e basta dimostrare che questa matrice funziona soddisfa la nostra realazione:
+    \begin{gather*}
+        A \cdot  \begin{pmatrix} \lambda_1 \\ \vdots\\ \lambda_n \end{pmatrix}  = \lambda_1 g(e_1) + \dots + \lambda_n g(e_n) = \\
+        g\left(\sum_{i = 1}^{n} \lambda_i e_i\right) = f_A \\
+        Ossia \ \left( \begin{tabular}{c | c | c}
+            $\lambda_1 g(e_1)$ & $\vdots$ & $\lambda_n g(e_n)$
+        \end{tabular}\right)
+    \end{gather*} 
+\end{proof}
+
+Esempio:
+\begin{gather*}
+    g: R^3  \to R ^2 \\
+    \begin{pmatrix} x_1 \\
+    x_2 \\
+    x_3 \end{pmatrix} \to \left( \begin{tabular}{c c c}
+        $5x_1$ & $12x_2$ & $2024x_3$ \\
+        $25x_1$ & $12x_2$ & $7x_3$ 
+    \end{tabular} \right) \\
+    A = \left( \begin{tabular}{c c c}
+        5 & 12 & 2024 \\
+        25 & 12 & 7
+    \end{tabular} \right) \\
+    Quindi \ g(e_1) = \begin{pmatrix} 1 \\
+    0 \\
+    0 \end{pmatrix} = \begin{pmatrix} 5 \\
+    25 \end{pmatrix}  
+\end{gather*}
+
+\section{Il nuovo prodotto tra matrici}
+\begin{lemma}
+    Il prodotto tra matrici è definito in questo modo perché
+    esiste un legame tra il mondo delle matrici e delle funzioni lineari :
+    la composizione di funzioni lineari.
+    \begin{align*}
+        f_A = f_{A'} \Leftrightarrow A = A'
+    \end{align*}
+    \begin{gather}
+        f_{A, B} = f_A \circ f_B
+    \end{gather}
+\end{lemma}
+\begin{lemma}
+    \begin{gather*}
+        f_A : K^{n} \to K^{m} \\
+        f_B : K^{P} \to K^{n} \\
+        con: \ A (m \times n), \  B(n \times P), \ AB (m \times P)
+    \end{gather*}
+    \begin{gather}
+        f_A \circ f_B = f_AB \Rightarrow K^{P} \to K^{n} \to K^{m} = K^{P} \to K^{m}.  
+    \end{gather}
+    Quindi diventa (derivando dalla composizione al prodotto):
+    \begin{align*}
+        f_A \circ f_B(x) = A(Bx) =  (AB)x = f_{AB}(x)S
+    \end{align*}
+\end{lemma}
+
+\section{Associazione delle funzioni lineari in spazi definiti}
+Gli spazi vettoriali generalmente non avranno le basi (come gli spazi di funzioni): questo 
+porta alla possibilità do cambiare la funzione come nelle serie ( che sono una rappresentazione diversa
+con un altra base di una specifica funzione). Posti ora $V, W$ come spazi vettoriali
+chiamo $P = \left< v_1, \dots, v_n \right>$ la base di $V$ e chiamo 
+$A = \left< w_1, \dots, w_n \right>$ la base di arrivo di $W$. \\
+Definisco una matrice $M(n \times m)$ associata ad f nelle basi $P$ ed $A$: 
+\begin{align*}
+    M_{A, B}(f)
+\end{align*}
+La i-esima colonna è formata dalle coordinate di $f(v_j)$ rispetto ad $A$
+e tutto ciò va $h = 1, \dots, n$. \\
+Esempio:
+\begin{gather*}
+    P = \{v_1, v_2, v_3\} \\
+    A = \{w_1, w_2\} \\
+\end{gather*}
+Per cui ottengo, in funzione di ogni vettore, le seguenti:
+\begin{gather*}
+    f(v_1) = a_{1,1} w_1 + a_{2, 1} w_2 \\
+    f(v_2) = a_{1, 2} w_1 + a_{2, 2} w_2 \\
+    f(v_3) = a_{1, 3}w_1 + a_{2, 3} w_2 
+\end{gather*}
+Per ogni elemento di v associo un elemento di A, il quale per
+ogni v deve mantenere la colonna (per questo nella prima espressione
+si ha $a_{1, 1} \ e \ a_{2, 1}$).  Per cui la matrice finale è:
+\begin{gather*}
+    M_{A, B}(f) = \left( \begin{tabular}{c | c | c}
+        $a_{1,1}$ & $a_{1, 2}$ & $a_{1, 3}$ \\
+        $a_{2, 1}$ & $a_{2, 2}$ & $a_{2, 3}$
+    \end{tabular} \right) \Rightarrow  \\
+    \left( f(v_1) \ | \ f(v_2) \ | \ f(v_3)\right) 
+\end{gather*}
+Per cui una funzione lineare del tipo:
+\begin{align}
+    f: V^{n} \to W^{m} \Rightarrow \ matrice \ m \times n 
+\end{align}
+I valori di m ed n si scambiano.
+
+\begin{lemma}
+    Posto che $f: V \to W$ è una funzione lineare allora siano:
+    $x_1, \dots, x_n$ coordinate di $v$ rispetto a B e $y_1 \dots,
+    y_n$ le coordinate di $f(v)$ rispetto ad A allora si può dire che:
+    \begin{align*}
+        x = \begin{pmatrix} x_1 \\ \vdots\\ x_n \end{pmatrix},
+        y = \begin{pmatrix} y_1 \\ \vdots\\ y_n \end{pmatrix} 
+    \end{align*}
+    La matrice sarà quindi:
+    \begin{align*}
+        M_{A, B} (f)\quad \cdot x \quad = \quad y \\
+        m \times n \qquad n \times 1 \quad m \times 1
+    \end{align*}
+    Si osserva che 
+    \begin{align*}
+        x = e_i = \begin{pmatrix} 0 \\
+        \vdots \\
+        1\\
+        \vdots \\
+        0 \end{pmatrix} \leftarrow \ i-esimo \ elemento. 
+    \end{align*}
+    che sono le coordinate di v. In modo equivalente si può dire
+    che (se $a_{i , j}$ sono i coefficienti di $M_{A,B}(f)$):
+    \begin{align}
+            \boxed{f(v_i) = \sum_{i = 1}^{n} a_{i, j} w_i}
+    \end{align}
+\end{lemma}
+
+\section{Cambiamento di base}
+Da guardare sul libro
+\begin{theorem}
+    Se  $V$ ha due basi $B, B'$ allora dico che $x$ sono le coordinate
+    di $v$ rispetto a $B$, $x'$ le coordinate di $v'$ rispetto a $B'$ allora:
+    \begin{align*}
+        V \to V 
+    \end{align*}
+\end{theorem}
+
+\end{document}

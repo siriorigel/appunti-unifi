@@ -1,0 +1,346 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{calc}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti astronomia}
+\author{Tommaso Miliani}
+\date{17-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Sfera celeste}
+\subsection{Il cielo come proiezione}
+Gli astri delle costellazioni e gli altri corpi hanno tutti distanze diverse ma
+a noi appaiono proiettati su di una superficie: dalle tre coordinate per individuare un astro ne bastano
+quindi due. La Terra, ruotando sul proprio asse, fa si che ruoti il cielo intorno
+e quindi le stelle visibili di notte: tutti i pianeti e le stelle ruotano attorno al polo
+Nord celeste, che non è altro che il prolungamento del polo nord terrestre sulla sfera celeste.
+Dato che si tratta di una superficie sferica, otteniamo le coordinate degli oggetti
+attraverso gli angoli: servono allora due cerchi per determinare da dove considerare gli
+angoli.\\
+Tutti gli astri sorgono da Est e tramontano ad Ovest: tuttavia con la latitudine può cambiare
+l'osservazione dei corpi celesti: in particolar modo cambia l'altezza del Sole. Si può tuttavia utilizzare come riferimento
+la stella Polare in quanto il polo Nord celeste è molto vicino a quella stella; si utilizza anche
+la proiezione dell'equatore sulla sfera celeste chiamato \textbf{equatore celeste}. \\
+Si hanno dunque due tipi di sistemi di coordinate astronomici: sistemi locali e assoluti.
+Per passare ad un sistema di coordinate assoluti io utilizzo l'equatore celeste o l'eclittica in quanto non 
+dipende dalla latitudine; si utilizza anche il sistema delle stelle fisse che ci permette
+di ottenere le coordinate di un astro rispetto ad una stella fissa nel cielo (ossia una stella il cui moto proprio
+è veramente molto piccolo). 
+
+\subsection{Sistemi di coordinate}
+\subsubsection{Sistema orizzontale}
+Il sistema di coordinate più immediato e quello più naturale è il sistema di coordinate locale
+che ci consente di ottenere le coordinate di un oggetto attraverso due coordinate:
+\begin{itemize}
+    \item Azimut: coordinate rispetto all'asse Sud-Nord: ossia la differenza
+    angolare rispetto al Nord ($0 \sim 360$°)
+    \item Altezza: coordinata rispetto all'orizzonte ($-90 \sim 90$°).
+\end{itemize}
+
+\subsubsection{Sistema equatoriale relativo}
+Si utilizza l'inclinazione dell'asse terrestre costante rispetto alle
+stelle fisse, utilizzando il meridiano locale. E' un sistema di coordinate
+solidale con la Terra e ci permette di definire due coordinate (è ancora locale perché dipende da dove
+sono sulla Terra):
+\begin{itemize}
+    \item Declinazione $\delta$: Ossia l'angolo tra l'oggetto e l'equatore celeste che diventa il
+    cerchio fondamentale della sfera celeste;
+    \item Angolo orario $h$: si misura in ore e ci indica proprio lo spostamento rispetto al
+     meridiano  locale celeste (ottenuto con il prolungamento del meridiano sulla sfera celeste) .
+\end{itemize}
+
+\subsubsection{Sistema equatoriale assoluto}
+Questo sistema di coordinate è definito a partire da due coordinate
+ma a differenza di quello relativo, questo è fisso rispetto alle stelle fisse e
+permette di avere le stesse coordinate per un oggetto a prescindere
+dalla posizione sulla superficie terrestre.
+\begin{itemize}
+    \item Declinazione $\delta$: Ossia la differenza angolare rispetto al cerchio fondamentale
+    (ossia l'equatore celeste);
+    \item Ascensione retta $\alpha$: ossia la declinazione angolare rispetto al meridiano di Greenwich 
+    sulla sfera celeste. 
+\end{itemize}
+Si può ottenere il \textbf{tempo siderale locale}: ossia il il tempo siderale è il tempo che
+impiega la Terra a compiere un giro completo rispetto alle stelle (che è circa 3 min e 56 secondi più veloce
+del giorno solare a cui siamo abituati).
+\begin{align}
+    \Theta = h_{\gamma} = h + \alpha
+\end{align}
+Con questo, possiamo ottenere le coordinate equatoriali assolute
+conoscendo il nostro angolo orario e viceversa. 
+
+\subsubsection{Sistema eclitticale}
+In questo sistema di coordinate il cerchio fondamentale è l'Eclittica, ossia
+il piano dell'orbita terrestre ed il cerchio di riferimento è il cerchio 
+meridiano passante per i poli e i punti equinoziali. Come coordinate si utilizzano
+le seguenti:
+\begin{itemize}
+  \item \textbf{Latitudine eclittica} $\beta$: ossia l'angolo rispetto all'eclittica;
+  \item \textbf{Longitudine eclittica} $\gamma$: ossia la longitudine rispetto al punto di contatto tra l'equatore
+  celeste e l'eclittica (ossia rispetto all'equinozio di primavera). 
+\end{itemize}
+
+\subsubsection{Il sistema galattico}
+Per studiare corpi nella galassia si utilizzano le coordinate locali rispetto 
+al Sole e come piano fondamentale quello galattico e il piano rispetto al quale
+determino la longitudine galattica utilizzo la congiungente Sole Centro della Galassia.
+
+
+\section{Trigonometria sferica}
+\subsection{Triangoli sferici e prime definizioni della trigonometria sferica}
+IMMGINE GROSSA
+Un triangolo sferico $ABC$ è formato da tre archi appartenenti a
+tre cerchi massimi. Se $r$ è il raggio della sfera, allora si ha che 
+l'arco $|AB| = r\theta$.  Possiamo trovare l'area del triangolo sferico 
+che è proporzionale al suo eccesso sferico che è sempre diverso da zero
+ed è diverso per ogni triangolo. L'\textbf{eccesso sferico} è la differenza tra
+la somma dei tre angoli interni del triangolo e l'angolo piatto. Se le
+ampiezze degli angoli sono $\alpha, \beta, \gamma$, allora l'eccesso sferico sarà
+\begin{align}
+    E = \alpha + \beta + \gamma - \pi
+\end{align}
+L'area di iun triangolo sferico è allora
+\begin{align}
+    A = Er^{2} 
+\end{align}
+
+\subsection{Coordinate sferiche e trasformazioni}
+IMMAGINE
+Se ruotiamo due sistemi cartesiani di un certo angolo $\chi$, mantenendo invariata
+la $x$ in modo tale che $x = x'$.  
+\begin{gather*}
+    \left\{\begin{array}{l}
+        x' = x \\
+        y' = y\cos \chi + z\sin\chi \\
+        z' = -y\sin\chi + z\cos\chi
+    \end{array}\right.
+\end{gather*}
+Possiamo allora passare alle coordinate sferiche nel seguente modo:
+\begin{align*}
+    x &= \cos\psi\cos\theta  &x' &= \cos\psi'\cos\theta' \\
+    y &= \sin\psi\cos\theta  &y' &= \sin\psi'\cos\theta' \\
+    z &= \sin\theta &z' &= \sin\theta'
+\end{align*}
+A questo punto si possono ottenere le seguenti relazioni risolvendo utilizzando le
+relazioni che si sono viste fino ad ora
+\begin{align*}
+    \cos\phi'\cos\theta &= \cos\psi\cos\theta \\
+    \sin\psi'\cos\phi' &= \sin\psi\cos\theta\cos\chi + \sin\theta\sin\chi \\
+    \sin\theta' &= -\sin\psi\cos\theta\sin\chi + \sin\theta\cos\psi
+\end{align*}
+
+
+IMMAGINE
+Si possono allora applicare le coordinate nelle espressioni
+del triangolo sferico. Considerando il seguente sistema di riferimento 
+nell'immagine, posso trovare le seguenti relazioni per gli angoli
+$\psi, \theta, \chi$:
+\begin{gather*}
+    \psi = \alpha - 90\text{°} \qquad \theta = 90\text{°} - b  \qquad \chi = c \\
+    \psi' = 90\text{°} - \beta \qquad \theta ' = 90 \text{°} - a
+\end{gather*}
+Si ottiene allora dalla trigonometria (nell'assunzione secondo la quale il raggio della sfera sia molto 
+grande):
+\begin{align*}
+    \sin \beta \sin a &= \sin \alpha \sin b \\
+    \cos \beta \sin a &= -\cos \alpha \sin b \cos c + \cos b \sin c \\
+    \cos a &= \cos \alpha \sin b \sin c + \cos b \cos c 
+\end{align*}
+Da qui posso utilizzare la regola sei seni per ottenere le seguenti relazioni
+\begin{gather*}
+    \frac{\sin a}{\sin \alpha} = \frac{\sin b}{\sin B} = \frac{\sin c}{\sin \gamma}
+\end{gather*}
+
+\subsection{Il triangolo nautico : da equatoriale relativo a orizzontale}
+IMMAGINE
+
+Il triangolo nautico serve per trasformare le coordinate
+equatoriali relative nel sistema orizzontale. Oppure si possono utilizzare lòe
+trasformazioni inclinando di un angolo negativo : 
+qui $S$ equatoriale, $S$' è il sistema orizzontale. 
+\begin{gather*}
+    \psi = 90\text{°} - h  \qquad \theta = \delta \\
+    \psi' = 90\text{°} - \alpha \qquad \theta' = a \\
+    \chi = -(90\text{°} - \phi)
+\end{gather*}
+Impostati ora gli angoli , posso ricavare mediante il sistema di riferimento
+delle coordinate sferiche mediante le seguenti relazioni:
+\begin{align*}
+    \sin\alpha\cos a &= \sin h \cos \delta \\
+    \cos\alpha \cos a &= \cos h \cos \delta \sin \phi - \sin \delta \cos \phi \\
+    \sin a &= \cos h \cos \delta \cos \phi + \sin \delta \sin \phi
+\end{align*}
+
+
+\subsection{Il tempo siderale: da equatoriale assoluto a relativo}
+IMMAGINE
+Per trasformare le coordinate equatoriali assolute, ossia la posizione
+di un astro dal catalogo o dalle effemeridi. La posizione da catalogo indica la
+posizione di uh astro secondo i cataloghi stellari ad una certa ora
+e giorno dell'anno mentre la posizione di un astro dalle effemeridi è la posizione
+di un astro tramite il giorno giuliano e il tempo siderale alla mezzanotte di
+Greenwich. Nel sistema orizzontale serve il tempo siderale
+(TS locale) ovvero l'angolo orario del punto $\gamma$:
+\begin{align}
+    \Theta = h_{\gamma} = h + \alpha
+\end{align}
+Puntando verso un astro di riferimento con un telescopio
+dotato di montatura equatoriale posso leggere $h$ sul disco orario e ricavare
+allora $TS$ in quell'istante. Altrimenti servirebbe un orologio specifico più rapido di 
+circa 3min e 56 secondi rispetto a quelli standard. 
+
+\subsection {Culminazione, levata e tramonto degli astri}
+Ci poniamo al meridiano di Greenwich (per cui $h = \alpha = 0$). L'altezza massima 
+raggiunta da un astro si troverà come
+\begin{align}
+    a_{max} = 90\text{°} - \phi + \delta \ \Longrightarrow \ z_{min} = \phi - \delta
+\end{align}
+L'altezza massima è anche chiamate culminazione superiore o transito di un astro; un
+astro risulta \textbf{circumpolare} (ossia rimane sempre sopra l'orizzonte) per
+una data latitudine se
+\begin{gather*}
+    \delta > 90\text{°} - \phi
+\end{gather*}
+Sempre nella terza relazione possiamo porre $a = 0$ l'angolo orario
+di levata e tramonto di un astro si ricava da:
+\begin{align}
+    \cos h = -\tan\delta \tan\phi
+\end{align}
+
+\subsection{Variazioni di coordinate}
+Esistono molti motivi per cui le stelle
+ possono cambiare nel tempo le loro
+ coordinate. Il primo è il loro moto
+ proprio, dato che su tempi lunghi non
+ esistono vere stelle fisse. Scomponendo
+ la velocità in tangenziale e radiale, solo
+ la velocità tangenziale porta a variazioni
+ di coordinate celesti, mentre la componente
+ radiale è misurabile tramite effetto
+ Doppler (più preciso). Il satellite Gaia
+ sta mappando un miliardo di stelle con
+ precisione di 20 micro secondi d'arco
+ (distanze e moti propri). \\
+ L'asse terrestre in realtà non è fisso: a
+ causa della non-sfericità della Terra si ha
+ un moto di precessione con periodo di 26
+ mila anni. Il punto d'Ariete si sposta in
+ modo retrogrado sull'eclittica, con
+ incremento delle longitudini galattiche di
+ 50''/anno (precessione degli equinozi).
+ Differenziando le trasformazioni tra i due
+ sistemi eclitticale ed equatoriale assoluto:
+ \begin{gather*}
+     d\delta = d\gamma \sin\epsilon\cos\alpha \\
+     d\alpha = d\gamma(\sin\epsilon\sin\alpha\tan\delta + \cos\epsilon)
+ \end{gather*}
+ Ulteriori correzioni che coinvolgono pure
+ l'angolo di inclinazione sono dovute alla
+ Luna (nutazione, periodo di 18.6 anni), di
+ entità minore e spesso trascurate.
+ Il moto di rivoluzione terrestre
+ provoca l'aberrazione (velocità
+ finita della luce, max 21'', solo
+ 0.3'' per la rotazione) e per stelle
+ vicine la parallasse annua (se la
+ distanza è un parsec vale 1'').
+ C'è poi la rifrazione (per $a\lessapprox10$°).
+
+
+
+
+\section{Misura del tempo}
+\subsection{Gnomoni meridiane e orologi solari}
+Il moto diurno del Sole è lo strumento più ovvio per poter misurare il tempo.
+Si utilizzava ai tempi lo \textbf{gnomone}, ossia la punta di un palo che proietta la sua 
+ombra su di una \textbf{meridiana}, la quale, al mezzogiorno, individua esattamente
+l'asse Nord-Sud; le ombre che proietta sono diverse per ogni stagione. Si usa invece
+l'orologio solare che è una meridiana che presenta anche le ore sopra di essa. \\
+Il giorno è definito come due passaggi successivi in meridiana da parte del Sole; tuttavia
+via mentre la terra gira la Terra sta anche girando intorno al Sole: essendo il giorno definito come
+un moto di 24h, il giorno siderale è sempre minore del giorno solare. Se definisco
+$P$ il tempo assoluto di un anno di $P = 365.2564$ e il giorno normale come $\tau = 1$ e
+$\tau_s$ la durata del giorno siderale rispetto a quello normale, ottengo il numero di giorni
+in più come
+\begin{gather*}
+    \frac{P}{\tau_s} - \frac{P}{\tau} = I
+\end{gather*}
+Nell'uso civile ci si rifà alle 24h anche se il giorno in realtà ha
+durata variabile durante i mesi dell'anno. Si può trovare la durata del giorno effettivo
+come la differenza tra l'ora solare vera e l'ora solare media:
+\begin{gather*}
+    E.T. = T - T_M
+\end{gather*}
+Se ci cercasse di scattare delle foto del Sole alla stessa ora solare media della culminazione del
+Sole con una macchina fissa, sovrapponendo le immagini di tutto l'anno si ottiene una visualizzazione
+delle differenze della durata del giorno ed il vero moto del Sole nel cielo chiamato \textbf{Analemma solare}.
+
+\subsection{Tempo universale e fusi orari}
+Dato che il Sole non può sorgere in tutti i punti della Terra
+allo stesso momento, si definisce un tempo universale
+rispetto al meridiano di Greenwich e si utilizzano i fusi orari
+(essenzialmente degli sfasamenti rispetto all'orario standard) 
+per ogni zona della terra. Esistono ben 24 fusi orari e ogni paese decide quale 
+utilizzare per determinare l'ora. \\
+Essendo che la rotazione della Terra non è uniforme, non posso definire il secondo come
+$1/86400$ del giorno solare, come era definito una volta, ma si è passati a
+definire il secondo secondo degli orologi atomici che correggono gli
+effetti della relatività generale basandosi sulla variazione energetica degli
+elettroni nell'atomo di Cesio-133. Anche la definizione di anno non è universale in quanto
+nel corso della storia si sono susseguiti diversi calendari, ognuno ottenuto attraverso
+metodi di calcolo dei giorni diversi tra di loro. Giulio Cesare impose che
+l'anno sarebbe durato $365.25$ giorni, ma rispetto al Calendario Gregoriano si è arrivati
+ad uno sfasamento di 10 giorni nel 1582; per ovviare al problema, i bisestili non erano stati
+più contati ogni 4 anni ma in modo tale da avere 97 bisestili ogni 400
+anni invece che 100.
+Si può stimare allora il tempo siderale conoscendo i giorni che mancano all'equinozio di primavera
+e aggiungendo dodici ore in quanto si misurano da SUD
+\begin{align}
+    \Theta \approx T + 12h + n \cdot 4min
+\end{align}
+
+\end{document}

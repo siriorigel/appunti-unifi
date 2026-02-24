@@ -1,0 +1,154 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Analisi}
+\author{Tommaso Miliani}
+\date{03-12-24}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Integrazione per trovare la derivata di composte}
+\begin{gather}
+    \frac{d}{dx}F(g(x)) = F'(g(x))\cdot g'(x) \\
+    \int F'(g(x))\cdot g'(x)dx = F(g(x)) + c \\
+\end{gather}
+Posto 
+\begin{gather*}
+    f(x) = F(x) \\
+    F(x) = \int f(x) dx
+\end{gather*}
+Allora si ha la formula di integrazione per sostituizione:
+\begin{gather}
+    \int f(g(t))\cdot g'(t)dt = \int f(x)dx \\
+    con \ x = g(t) 
+\end{gather}
+Esempio:
+\begin{gather*}
+    \int \frac{\log t}{t} = \int x dx \Rightarrow  x = \frac{\log t }{t}  \Rightarrow \frac{\log^2 t}{2} + c
+\end{gather*}
+Formula dell'integrazione di potenze per sostituizione
+\begin{gather}
+    \int g(t)^{\alpha}g'(t) dt =  \frac{g(t)^{\alpha + 1} }{\alpha + 1} + c 
+\end{gather}
+
+\begin{gather*}
+    \int \sin^{3}t \ dt = \int \sin^{2} t \cdot \sin t \ dt \\
+    = \int (1-\cos^2 t) \sin t \ dt \\
+    g(t) = -\cos t. \\
+    g'(t) = \sin t \\
+    f(x) = 1 - x^2 \\
+    \int 1 - x^2  \ dx = \frac{\cos^3 t }{3} + c
+\end{gather*}
+Si può anche cambiare variabile all'interno dell'integrale e quindi si ottiene
+che dentro l'integrale devo sostituire $g$ al posto di $x$ e $g'(t)dt$ al posto di $dx$.
+\begin{gather*}
+    \int \frac{\log t}{t} \ dt, \ pongo \ x = \log t \Rightarrow 1\ dx =  \frac{1}{t} \ dt \\
+    \int x \ dx = \frac{x^2}{2} + c = \frac{\log^{2} t}{2} + c
+\end{gather*}
+
+\section{Integrazione di derivate composte in un intervallo definito}
+\begin{gather}
+    \int_{a}^{b} f'(g(t))\cdot g'(t)dt = \left|^{g(b)}_{g(a)}x\right. = F(g(b)) - F(g(a)) = \\
+    \int_{a}^{b} f(x) dx. 
+\end{gather}
+Esempio:
+\begin{gather*}
+    \int \frac{1}{\sqrt{1 - x^2}} \ dx \\
+    posto \ x = \sin t \\
+    \sqrt{1-x^2 } = \sqrt{1- \sin^2 t} = \sqrt{\cos^2 t}
+\end{gather*}
+Integrata ora per $-1 < x < 1$ allora diventa:
+\begin{gather*}
+    dx = \cos t \ dt. \\
+    \int \frac{1}{\cos t} \cdot \cos t \ dt = t + c \\
+    Quindi \ essendo \ x = \sin t \\
+    \arcsin(x) + c
+\end{gather*}
+
+\section{Area del cerchio}
+Data la formula della circonferenza: $x^2  + y^2  = R^2$
+voglio calcolare:
+\begin{gather*}
+    4\int_{0}^{R} \sqrt{R^2 -x^2 } \ dx \\
+    Posto \ ora \ x = R \sin t \\
+    4\int_{0}^{\frac{\pi}{2}} R^2  \cos^2  t \ dt \\
+    Posto \ \cos^2 t = \frac{1+\cos(2t)}{2} \Rightarrow  4R^2 \int_{0}^{\frac{\pi}{2}} \frac{1 + \cos(2t)}{2} \ dt  \\
+    \Rightarrow  \left|^{\frac{\pi}{2}}_{0} \frac{x^2 }{4} + \frac{\sin(2t)}{4}\right. 
+\end{gather*} 
+
+\section{Integrali di fratte}
+Posto inizialmente che il grado di $P(x) < Q(x)$, questi sono
+due polinomi; se il grado non è minore allora dobbiamo eseguire
+la divisione tra polinomi.
+Divisione tra polinomi:
+\begin{gather}
+    \frac{P(x)}{Q(x)} = A(x) + \frac{R(x)}{Q(x)}
+\end{gather}
+Esempio:
+\begin{gather*}
+    \frac{x^{3} - 2x }{x^{2} + 3} \ diventa \\
+    \begin{tabular}{c c c | c}
+        $x^3$  &  & $-2x$ & $x^{2} +3$ \\
+        \hline 
+        $-x^3$  & & -3x & x \\
+        &&-x&
+    \end{tabular} =  \\
+    -x + \frac{x}{x^2 +3}
+\end{gather*}
+Le cose importanti sono le seguenti:
+\begin{enumerate}
+    \item Il grado di $P(x) < Q(x)$;
+    \item Il coefficiente della potenza più grande di Q sia 1.
+\end{enumerate}
+
+\begin{gather*}
+    \int \frac{1}{x^2 +bx + c} \ dx  \\
+    Completamento \ del \ quadrato: \ \left(x+\frac{b}{2}\right)^2 + c - \frac{b^2}{4} = \left( x + \frac{b}{2} \right)^2  -\frac{\Delta}{4}
+    = -\frac{\Delta}{4} \left( \frac{\left(x+\frac{b}{2}\right)^2 }{\left(\frac{\sqrt{-\Delta}}{2}\right)^2 } + 1\right) 
+\end{gather*}
+Quindi l'integrale diventerà:
+\begin{gather*}
+    \frac{4}{-\Delta}\int \frac{1}{\left(\frac{2x + b}{\sqrt{-\Delta}}\right)+1} \ dx
+\end{gather*}
+Ponendo ora
+\begin{align*}
+    y = \frac{\left(x+\frac{b}{2}\right)^2 }{\left(\frac{\sqrt{-\Delta}}{2}\right)^2 }
+\end{align*}
+Diventa
+\begin{align*}
+    \frac{4}{-\Delta}\int \frac{1}{y^2  + 1} \cdot \frac{\sqrt{-\Delta}}{2} \ dy = \frac{2}{\sqrt{-\Delta}} \arctan\left(\frac{2x + b}{\sqrt{-\Delta}}\right) + c
+\end{align*}
+Un'altro fratto semplice è:
+\begin{align}
+    \int \frac{1}{(x-x_0)^{n}} \ dx = \int \frac{1}{y^{n} } \ dy = \int y^{-n} \ dy = \frac{y^{-n+1}}{-n+1} +c
+\end{align}
+
+
+
+\end{document}

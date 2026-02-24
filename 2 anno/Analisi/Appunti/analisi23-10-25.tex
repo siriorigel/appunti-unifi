@@ -1,0 +1,166 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti Anal}
+\author{Tommaso Miliani}
+\date{23-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Curve parametriche}
+\begin{definition}
+    Si considera la curva 
+    \begin{gather*}
+        \underline{r}(k) : I \to \mathbb{R}^{3} \qquad I = [a, b] 
+    \end{gather*}
+    E dunque 
+    \begin{gather*}
+        \underline{r}(k) = \begin{pmatrix} 
+            x(t) \\
+            y(t) \\
+            z(t)
+        \end{pmatrix} \qquad x,y,z : I \to \mathbb{R}  
+    \end{gather*}
+    Dove $\gamma$ è il sostegno di $\underline{r}$ per cui $\gamma = \underline{r}(I)$.
+\end{definition}
+
+\begin{definition}[Oreientazione]
+    L'orientazione è il verso di percorrenza del sostegno.
+\end{definition}
+
+\begin{definition}[Iniettività]
+    Una curva $\underline{r}(t)$ semplice se non ha autointersezioni 
+    (ossia non si interseca con sé stessa) $\underline{r}(t)$ è iniettiva.
+\end{definition}
+
+\begin{definition}[Semplice e chiusa]
+    Una curva $\underline{r}$ è semplice e chiusa se
+    $\underline{r}(a) = \underline{r}(b)$. 
+\end{definition}
+
+\begin{example}
+    La circonferenza piana
+    \begin{gather*}
+        \underline{x}(\theta) = \begin{pmatrix} 
+            R\cos\theta + x_0 \\
+            R\sin\theta + y_0
+        \end{pmatrix} 
+    \end{gather*}
+    Dato il centro della circonferenza $C = (x_0, y_0)$ e $R > 0$:
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw(0, 0) -- (4, 0);
+            \draw(0, 0) -- (0, 4);
+            \draw(1, 2) circle (1);
+            \filldraw(1, 2) circle (1pt);
+        \end{tikzpicture}
+    \end{gather*}
+    Dato che la curva è semplice ed è chiusa (agli estremi si chiude).
+\end{example}
+
+\begin{definition}[Regolarità]
+    Si dice che una curva è regolare se è semplice e le sue componenti sono 
+    derivabili e
+    \begin{align}
+        |\dot{\underline{r}}(t)| \neq 0 \quad \forall t \in \mathring{I}
+    \end{align}
+    Dunque posso dire che 
+    \begin{align}
+        \dot{x}^{2}(t) + \dot{y}^{2}(t) + \dot{z}^{2}(t) \neq 0 \quad \forall t \in (a, b)   
+    \end{align}
+\end{definition}
+
+\begin{definition}
+    Una curva si dice regolare a tratti se
+    \begin{gather*}
+        \underline{r}(t) = \left\{\begin{array}{l}
+            r_1(t) \quad t \in [a, t_1] \\
+            \vdots \\
+            r_k(t) \quad t \in [t_k, b]
+        \end{array}\right.
+    \end{gather*}
+    Con $\underline{r}_i$ curve regolari
+\end{definition}
+
+
+\begin{definition}[Retta di sostengo]
+    
+\end{definition}
+
+\begin{definition}[Versore tangente]
+    
+\end{definition}
+
+\begin{definition}[Derivate della curva]
+    \begin{itemize}
+        \item $\underline{r}(t)$: è la traiettoria;
+        \item $\dot{\underline{r}}(t)$: è la velocità;
+        \item $\ddot{\underline{r}}(t)$: è l'accelerazione.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    Due parametri
+    \begin{gather*}
+        \underline{\phi}[a, b] \to \mathbb{R}^{2} \quad \underline{\psi}[\alpha, \beta] \to \mathbb{R}^{3}  
+    \end{gather*}
+    Sono equivalenti se e solo se
+    \begin{align}
+        \exists g : I \to J \quad g \in C^{1} : g'(t) \neq 0 \quad \forall t \in \mathring{I} : \underline{\phi}(t) = \underline{\psi}(g(t)) \quad \forall t \in I 
+    \end{align}
+\end{definition}
+
+\begin{observation}
+    Se $\underline{\psi}$ e $\underline{\phi}$ sono equivalenti allora
+\end{observation}
+
+\begin{definition}[Lunghezza di una curva]
+    
+\end{definition}
+
+\end{document}

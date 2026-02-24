@@ -1,0 +1,290 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fisica statistica}
+\author{Tommaso Miliani}
+\date{18-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Distribuzione della probabilità di urto}
+Oltre a sapere il numero tipico di urti in un sistema chiuso, ci
+si può anche chiedere quale sia la distribuzione di probabilità degli urti in un
+sistema. Ci si aspetta dunque che il valore atteso degli urti sia dato proprio da
+\begin{align}
+    \left< n \right>  = \frac{t}{\tau}
+\end{align}
+Questa probabilità discreta, posso indicare quale è la probabilità che in questo tempo $t$
+ci siano delle collisioni. Si prende l'intervallo di tempo e lo si divide in tanti
+intervalli piccoli. Se li prendessi sufficientemente piccoli posso dire che
+in ogni intervallo avvenga un solo urto; in ognuno di essi posso definire la
+probabilità di collisione come $\frac{t}{N\tau}$ e la probabilità che non 
+avvenga dunque $1 - \frac{t}{N\tau}$. Tuttavia, devo considerare anche che
+negli altri intervalli non avvenga alcun urto:
+\begin{align}
+    \left(\frac{t}{\tau N}\right)^{n} \left(1 - \frac{t}{N\tau}\right)^{N - n}
+\end{align}
+Ottengo allora il numero medio di urti come
+\begin{align}
+    \begin{pmatrix} n \\
+    N \end{pmatrix} = \frac{N!}{n!(N - n)!} 
+\end{align}
+Facendo tendere $N \to  +\infty $, posso ottenere la probabilità di urto di 
+un singolo intervallo $p_n$ si ottiene secondo la distribuzione binomiale:
+\begin{align}
+    p_n = \frac{N!}{n!(N - n)!} \left(\frac{t}{\tau N}\right)^{n}\left(1 - \frac{t}{\tau N}\right)^{N - n}
+\end{align}
+I cui limiti: 
+\begin{gather*}
+    \lim_{N \to \infty } \frac{N!}{n!(N - n)!} \approx \frac{N^{n}}{n!} \\
+    \lim_{N \to \infty } \left(1 - \frac{t}{\tau N}\right)^{N - n} \approx \left(1 - \frac{t}{\tau N}\right)^{N} 
+\end{gather*}
+Allora
+\begin{gather*}
+    p_n = \lim_{N \to \infty }  \frac{N^{n}}{n!} \left(\frac{t}{\tau N}\right)^{n}\left(1 - \frac{t}{\tau N}\right)^{N} = \frac{1}{n!}\left< n! \right>^{n}e^{-\left< n \right> } 
+\end{gather*}
+Ossia una distribuzione di Poisson. Questa distribuzione governa tutti i
+processi discreti in fisica nei quali non ci si aspetta alcun tipo di correlazione 
+tra i singoli eventi stocastici. Allora posso ottenere la probabilità totale come
+\begin{gather*}
+    \sum_{n = 0}^{\infty } p_n = e^{-\frac{t}{\tau}} \sum_{n = 0}^{\infty } \frac{1}{n!}\left(\frac{t}{\tau}\right)^{n} = e^{-\frac{t}{\tau}}  e^{\frac{t}{\tau}} = 1
+\end{gather*} 
+Da questa posso anche stimare il tempo medio tra gli urti: infatti tutti gli urti
+non avvengono nello stesso istante di tempo.
+\begin{align}
+    f(t)\ dt =e^{-\frac{t}{\tau}}\frac{dt}{\tau} \ \Longrightarrow \ f(t) = \frac{1}{\tau}e^{-\frac{t}{\tau}}
+\end{align}
+Espressa come la probabilità che non ci siano urti fino a $t$ moltiplicata
+per la probabilità che ci siano urti da $t$ fino a $t + dt$. 
+Ci si aspetta che il tempo medio di urto deve essere
+\begin{align}
+    \left< t \right> &= \int_{0}^{\infty } dt \frac{t}{\tau}e^{-\frac{t}{\tau}} = \tau \int_{0}^{\infty }xe^{-x}\ dx = \tau   \\
+    \left< t^{2} \right> &= \int_{0}^{\infty } dt \frac{t^{2}}{\tau}e^{-\frac{t}{\tau}} = \tau \int_{0}^{\infty }xe^{-x}\ dx = 2\tau^{2}   \\
+\end{align}
+Si può calcolare adesso la varianza del tempo di urti coem:
+\begin{align}
+    \sigma_t^{2} = \left< t^{2} \right>  - \left< t \right>^{2} = 2\tau^{2} - \tau^{2} = \tau^{2} = \left< t \right>^{2}  
+\end{align}
+Si dà per buono che anche la distribuzione delle distanze degli urti
+sarà la solita distribuzione esponenziale che prende il nome di
+\begin{align}
+    g(\lambda) = \frac{1}{l}e^{-\frac{\lambda}{l}}
+\end{align}
+Più è lungo l'intervallo di urto e minore è la probabilità di
+ottenere un urto, dove $\lambda$ è la distanza dell'urto e $l$ è 
+la distanza media degli urti. Si verifica (così come per $\tau$) con
+\begin{align}
+    \left< \lambda \right> &= \int_{0}^{\infty } g(\lambda)\lambda \ d\lambda = l  \\
+    \left< \lambda^{2} \right> &= \int_{0}^{\infty } g(\lambda)\lambda^{2} \ d\lambda = 2l^{2}  
+\end{align}
+Si ottiene anche la varianza come
+\begin{align}
+    \sigma_\lambda^{2} = \left< \lambda^{2} \right> - \left< \lambda \right>^{2} = l^{2}  
+\end{align} 
+
+\section{Dinamica caotica}
+Con queste considerazioni si può definire il \textbf{cammino aleatorio} o \textbf{random walk}, 
+ossia quando la direzione di una particella ha una direzione qualsiasi sia dopo che prima
+dell'urto, abbia una distribuzione uniforme per gli angoli pre e
+post urto (la velocità dopo l'urto 
+non è dunque correlata né con la velocità prima dell'urto né con la velocità della
+particella con cui impatta). Sto dunque assumendo una ipotesi molto sbagliata
+che però mi semplifica notevolmente il modello stocastico. Non solo non è corretto dire 
+che l'urto "scorrela" le velocità, ma è proprio affermare il contrario in quanto nella meccanica
+classica l'urto correla la velocità delle particelle. 
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Relazione tra coefficiente di impatto e angolo dopo l'impatto}
+    \begin{tikzpicture}[scale=1.2]
+        \draw(0, 0) circle (0.5);
+        \draw(0.75, -0.7) circle (0.5);
+        \draw[<-](1.25, -0.7) -- (2, -0.7);
+        \draw[dashed](0, 0) -- (2, 0) node[midway, above] {$b$};
+        \draw[dashed](0, 0) -- (1.5, -1.4);
+        \filldraw(0, 0) circle(1pt);
+        \filldraw(0.75, -0.7) circle (1pt);
+        \draw(0, 0) -- (0.6, -2);
+        \draw(1.2, 0) arc (0:-35:1.5) node[midway, right] {$\frac{\theta}{2}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si può dimostrare che in realtà questa ipotesi sia corretta: 
+prese due sfere omogenee di massa uguale che si urtano in maniera perfettamente 
+elastica, la loro velocità finale dopo l'impatto sia legato al coefficiente di 
+impatto e l'angolo della velocità finale dipende dall'angolo iniziale di impatto
+(ossia l'angolo tra le velocità dei dischi). Il parametro di impatto
+è dato da
+\begin{gather*}
+    b = 2R \sin \frac{\theta}{2} \ \Longrightarrow \ \frac{b}{2} = R\sin\frac{\theta}{2}
+\end{gather*}
+Dato che si può conoscere l'incertezza $\Delta b_1$, posso determinare
+l'incertezza sull'angolo $\theta$ applicando la propagazione
+degli errori:
+\begin{gather*}
+    \frac{b_1 + \Delta b_1}{2} = R\sin\left(\frac{\theta_1 + \Delta \theta_1}{2}\right)
+\end{gather*}
+Approssimando l'argomento del seno (poiché si presuppone che sia molto piccolo),
+si può utilizzare lo sviluppo di Taylor e dunque ottenere:
+\begin{gather*}
+    \Delta \theta_1 \approx \frac{\Delta b_1}{R\cos\left(\frac{\theta_1}{2}\right)} = \frac{\Delta b_1}{R}
+\end{gather*}
+Il successivo urto sarà distante di una certa lunghezza, dunque se avessi una certa incertezza sull'angolo di 
+uscita, per il secondo urto si potrebbe dire che
+\begin{gather*}
+    \Delta b_2 \approx l\Delta \theta_1 \ \Longrightarrow \ \Delta \theta_2 \approx \frac{\Delta b_2}{R} = \frac{l}{R}\Delta \theta_1
+\end{gather*}
+Allora per il terzo urto
+\begin{gather*}
+    \Delta \theta_3 \approx \frac{l}{R}\Delta \theta_2 = \left(\frac{l}{R}\right)^{2}\Delta \theta_1
+\end{gather*}
+Dunque quello che accade è che per $n$ collisioni, l'incertezza sull'angolo 
+dopo l'impatto è
+\begin{gather*}
+    \Delta \theta_n = \left(\frac{l}{R}\right)^{n - 1}\Delta \theta_1
+\end{gather*}
+Questa incertezza cresce in maniera esponenziale in base al numero di urti;
+si può ottenere anche il numero di collisioni che servono far sì che questa incertezza abbia ordine 
+$\pi$ (ossia che non si sappia più la direzione dell particella).
+\begin{gather*}
+    \pi = \left(\frac{l}{R}\right)^{n - 1}10^{-20} \qquad \left\{\begin{array}{l}
+        l \approx 5 \cdot  10^{-8}\ m \\
+        R \approx 10^{-10} \ m
+    \end{array}\right. \ \Longrightarrow \ n \approx 9
+\end{gather*}
+Se si conoscesse con precisione infinita il parametro iniziale, allora sarà possibile
+determinare in maniera infinita il comportamento del sistema,
+se invece non si conoscesse con precisione infinita il parametro iniziale,
+allora dopo un tempo molto piccolo questa incertezza è tale che non si conosce più il
+comportamento del suddetto sistema. Questa tipologia di studio di sistemi 
+prende il nome di \textbf{dinamica caotica}.
+
+\section{Random Walk}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (1, 1) node[at end, above] {$\vv{\lambda_1}$ };
+        \draw[->](1, 1) -- (1.2, 0.4) node[at end, below] {$\vv{\lambda_2}$};
+        \draw[->](1.2, 0.4) -- (3, 1.2) node[at end, above] {$\vv{\lambda_3}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+E' possibile determinare quanta strada compie una singola particella
+che si muove in modo caotico all'interno di un gas? L'ipotesi che sia 
+un cammino aleatorio e che la direzione della velocità dopo l'urto sia
+uniforme determinata, dunque il vettore posizione della particella è dato da
+\begin{gather*}
+    \vv{r} = \sum_{i = 1}^{n}\vv{\lambda_i}   
+\end{gather*}
+Allora il vettore posizione 
+\begin{gather*}
+    \vv{r} = \left| \vv{r}  \right|  = \vv{r} \cdot  \vv{r} \sum_{i = 1}^{n} \vv{\lambda_i} \cdot \sum_{j = 1}^{n}\vv{\lambda_j} = \sum_{i = 1}^{n}\sum_{j = 1}^{n}\lambda_i\lambda_j\cos\theta_{i, j} = \\
+    \sum_{i = 1}^{n}\left(\lambda_i^{2} + \lambda_i \sum_{j\neq i }^{n}\lambda_j \cos\theta_{i, j} \right)               
+\end{gather*}
+Dato che
+\begin{gather*}
+    \sum_{j\neq i }^{n}\lambda_j \cos\theta_{i, j} = N\frac{1}{N}\sum_{j\neq i }^{n} \lambda_i \cos\theta_{i, j} 
+\end{gather*}
+Allora essendo
+\begin{gather*}
+    \frac{1}{N}\sum_{j\neq i }^{n} \lambda_i \cos\theta_{i, j} = \left< \lambda \cos\theta \right> = l \cos\theta 
+\end{gather*}
+Si ottiene il valore atteso della distribuzione del random walk dove $l$ è il cammino medio,
+si può ottenere 
+\begin{gather*}
+    \left< \cos\theta \right> = \int_{-\pi}^{\pi}f(\theta)\cos\theta \ d\theta = \frac{1}{2\pi}\int_{-\pi}^{\pi}\cos\theta \ d\theta  = 0
+\end{gather*}
+Il primo pezzo della sommatoria è invece
+\begin{gather*}
+    r^{2} = \sum_{i = 1}^{n}\lambda_i^{2} = N\frac{1}{N}\sum_{i = 1}^{n}\lambda_i^{2} \ \Longrightarrow \ N\left< \lambda^{2} \right> 
+\end{gather*}
+Quando $N >> 1$. Allora si trova che, per un certo istante $t$, quando sono avvenuti 
+$N$ urti, si ottiene che
+\begin{gather*}
+    r^{2}(t) = N\left< \lambda^{2} \right> = 2Nl^{2} 
+\end{gather*}
+Allora si ha che
+\begin{gather*}
+    Nl = \left< v \right>t \ \Longrightarrow \ r^{2}(t) = 2lvt 
+\end{gather*}
+Se la mia particella si muove ogni volta girando a caso, alla fine la direzione non
+la posso conoscere: infatti sommando tutti i vettori posizione possibili devono essere zero
+in quanto può andare in tutte le direzioni allo stesso modo. Tuttavia,
+in modulo, posso vedere di quanto si è allontanata dall'urto:
+\begin{align}
+    r(t) = \sqrt{r^{2}(t)} \propto t^{\frac{1}{2}} 
+\end{align}
+Questo è l'esempio di un processo microscopico che macroscopicamente si
+osserva con l'equazione di diffusione dei gas. Per esplorare una regione
+di circa un metro, per una particella dell'aria, ci vorrebbe circa 
+5 ore!! Questo vuol dire che la distribuzione di calore (o di odori) non avviene
+per conduzione ma attraverso moti convettivi. 
+Nelle ipotesi di equilibrio i valori di pressione e temperatura
+dipendono dal valore atteso della velocità al quadrato $\left< v^{2} \right>$. 
+Quello che conta è legare la temperatura al valore atteso della temperatura, ossia
+l'energia cinetica del sistema totale fratto il numero di particelle. GLi urti non cambiano
+questo risultato in quanto gli urti sono elastici e dunque non dissipano nessuna energia cinetica.
+All'equilibrio dunque metterci o meno gli urti non cambia i risultati ottenuti e la
+distribuzione della velocità è invariante dagli urti. 
+
+\section{Moto Browniano}
+Prendendo della particelle in sospensione all'interno di un liquido, 
+queste particelle si muovono all'interno del liquido secondo il random walk.
+Il primo ad accorgersene è stato Robert Brown nel 1828 che osservava al microscopio
+le particelle di polline nell'acqua ma solo Einstein è riuscito a dare una spiegazione a questo fenomeno:
+la sua spiegazione è stata che il polline e l'acqua sono all'equilibrio termodinamico tra 
+di loro (chiamando con lettere maiuscole le particelle del moto browniano):
+\begin{gather*}
+    \frac{1}{2}m\left< v^{2} \right> = \frac{1}{2}M\left< V^{2} \right> = \frac{3}{2}R_B T 
+\end{gather*}
+
+
+
+
+\end{document}

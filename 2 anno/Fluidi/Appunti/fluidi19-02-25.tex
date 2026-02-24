@@ -1,0 +1,301 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fluidodinamica (Landi)}
+\author{Tommaso Miliani}
+\date{19-12-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Fluidi reali}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[thick](0, 2) -- (3, 2);
+        \draw[thick](0, 0) -- (3, 0);
+        \draw[->](3, 2.5) -- (4, 2.5) node[at end, above] {$\vv{F}$};
+        \draw[->](1.5, 1.5) -- (3, 1.5);
+        \draw[->](1.5, 1) -- (2.5, 1);
+        \draw[->](1.5, 0.5) -- (2, 0.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Presi due piani fermi e posto un fluido tra questi due 
+piani (distanziati di $D$), si comincia ad imprimere una forza $\vv{F}$
+ad uno dei due piani. Se il fluido fosse ideale, starebbe fermo
+e non succederebbe assolutamente niente. Dato che il fluido non è 
+ideale, esso si mette in movimento e comincia ad avere una certa
+velocità, che dipende dalla distanza dalla parete in movimento.
+QUesto effetto è dato dall'attrito della parete sul fluido.
+\begin{gather*}
+    F \propto \eta\frac{S\Delta u}{D}
+\end{gather*}
+Dove $\eta$ è il \textbf{coefficiente di attrito dinamico}
+dove $\Delta u$ è la differenza di velocità tra il fluido sulla parete che
+si muove e il fluido sulla parete che non si muove. Si può anche scrivere la 
+pressione del fluido come
+\begin{gather*}
+    \frac{F}{S} = \eta \frac{\Delta u}{D}
+\end{gather*}
+Immaginando di avere invece due elementi fluidi uno sopra l'altro, uno 
+dei due fluidi accelera l'altro. Si può dire che la pressione esercitata
+dal fluido sarà sostanzialmente
+\begin{gather*}
+    \frac{\vv{F} }{S} = \eta \frac{\Delta u_x}{D} \hat{x} 
+\end{gather*}
+Si può dunque dire che il contributo elementare della forza è dato da
+\begin{gather*}
+    d\vv{F}  = \eta \frac{du_x}{dz} \hat{x} \ d\sigma  = \eta (\hat{z} \cdot  \vv{\nabla}  )\vv{u} \ d\sigma 
+\end{gather*}
+Il fluido reale è dunque un fluido nel quale non si trascurano le forze di interazione del fluido. 
+
+\section{Calcoli sul fluido reale (DA RIVEDERE)}
+Il gradiente di un vettore prende il nome di tensore 
+\begin{gather*}
+    \vv{\vv{\Pi} } = \begin{pmatrix}
+        \Pi_{x x} & \Pi_{x y} & \Pi_{x z} \\
+        \Pi_{y x} & \Pi_{y y} & \Pi_{y z} \\
+        \Pi_{z x} & \Pi_{z y} & \Pi_{z z} \\
+    \end{pmatrix} 
+\end{gather*}
+Questo tensore mi garantisce che il suo prodotto scalare con un 
+versore qualsiasi della terna cartesiana destrorsa mi da un vettore
+le cui componenti sono 
+\begin{gather*}
+    \vv{\vv{\Pi} } \hat{z} = \Pi_{x z} \hat{x} + \Pi_{y z} \hat{y} + \Pi_{z z} \hat{z}     
+\end{gather*}
+Ossia che ha tutte e tre le componenti.  Supponendo di avere un versore $\hat{n}$ in un 
+qualunque sistema di riferimento e si considera il prodotto scalare
+\begin{gather*}
+    p\vv{\vv{\Pi} } \hat{n} = \begin{pmatrix}
+        p & 0 & 0 \\
+        0 & p & 0 \\
+        0 & 0 & p
+    \end{pmatrix} \begin{pmatrix} \hat{n_x} \\
+    \hat{n_y} \\
+    \hat{n_z}    \end{pmatrix}  = pn_x \hat{x} + pn_y \hat{y} + pn_z\hat{z}    
+\end{gather*} 
+Ossia la forza parallela al vettore $\hat{n}$ utilizzando il tensore.  Si utilizza questo sistema poiché in questo
+modo si può considerare una forzaz che agisce su di una superficie in modo tale che
+la risultante delle forze sulla superficie è 
+\begin{gather*}
+    \int_{\Sigma (V)}^{} p\hat{n} \ d\sigma = \int_{}^{}  \vv{\vv{\Pi} } \hat{n} \ d\sigma =  
+\end{gather*}
+Si utilizza la stessa strategia usata per calcolare la forma differenziale per la pressione. Utilizzando il 
+solito sistema di riferimento, si considera un cubo di fluido e si iniziano a determinare le forze
+che agiscono sul fluido sui vari piani
+\begin{gather*}
+    \left.d\vv{F}\right|_{z + dz} = \left.\vv{\vv{\Pi} } \hat{z}\right|_{z + dz} dx dy = (\Pi_{x z} \hat{x} + \Pi_{y z} \hat{y} + \Pi_{z z} \hat{z} ) dx dy\\
+    \left.d\vv{F}\right|_{z} = \left.-\vv{\vv{\Pi} } \hat{z}   \right| _{z} dx dy = - (\Pi_{x z} \hat{x} + \Pi_{y z} \hat{y} + \Pi_{z z} \hat{z} ) dx dy
+\end{gather*}
+Il contributo delle forze di superficie lungo $y$ rispetto alle superfici
+ortogonali all'asse $z$:
+\begin{gather*}
+    dF_y = \frac{\left.\vv{\vv{\Pi} }_{y z}\right|_{z - dz} dx dy - \left.\Pi_{y z}\right|_{z} }{dz}dx dy dz = -\frac{\partial \Pi_{yz}}{\partial z}d V
+\end{gather*}
+Si ha lo stesso per le altre due componenti, inziando con le $x$:
+\begin{gather*}
+    d\vv{F}_{x + dx}  = \vv{\vv{\Pi} } \hat{x} dy dz =  ( \Pi_{x x} \hat{x} + \Pi_{x y} \hat{y} + \Pi_{x z} \hat{z}  ) dy dz \\
+    d\vv{F}_{x} = -\vv{\vv{\Pi} } \hat{x} dy dz =  -( \Pi_{x x} \hat{x} + \Pi_{x y} \hat{y} + \Pi_{x z} \hat{z}  ) dy dz 
+\end{gather*}
+Si somma dunque i contributi e si ottiene
+\begin{gather*}
+    dF_y = \frac{d\vv{F}_{x + dx} - d\vv{F}_{x}}{dx}dx dy dz = \frac{\partial }{\partial x} \Pi_{ y x} dV \\
+    dF_x = \frac{\partial }{\partial x} \vv{\vv{\Pi_{x x}} }  d V \\
+    dF_z = \frac{\partial }{\partial x} \vv{\vv{\Pi} }_{z x} d V  
+\end{gather*}
+La divergenza di un tensore mi da un campo vettoriale
+\begin{gather*}
+    \vv{\nabla}\cdot \vv{\vv{\Pi} } = \sum_i \frac{\partial }{\partial x_i}\Pi_{j, i}   
+\end{gather*}
+L'integrale sulla superdicie diventa
+\begin{gather*}
+    \oint_{\Sigma(V)} \left(-p\hat{n}  + \vv{\vv{\Pi} \hat{n}  } \right) \ d\sigma = \int dV\left(- \vv{\nabla}p + \vv{\nabla} \vv{\vv{\Pi} }   \right)
+\end{gather*}
+Adesso posso esplicare
+\begin{gather*}
+    \rho \left(\frac{\partial \vv{u} }{\partial t} + (\vv{u} \cdot \vv{\nabla}  ) \vv{u}  \right) = -\vv{\nabla} p + \rho \vv{g} + \vv{\nabla}\cdot \vv{\vv{\Pi} }    
+\end{gather*}
+Adesso possiamo determinare che forma ha il tensore, per le componenti qualsiasi
+\begin{gather*}
+    \Pi_{i, j} = \eta\left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i} - \frac{2}{3}\sum_{k = 1}^{3} \frac{\partial u_k}{\partial x_k} \delta_{i, k} \right) + \xi \sum_k \frac{\partial u_k}{\partial x_k} \delta_{i, x} 
+\end{gather*}
+$\eta$ prende il nome di \textbf{viscosità di scorrimento} e $\xi$ è invece la \textbf{bulk viscosity }, o \textbf{viscosità di volume}. Si può definire un oggetto 
+che è il gradiente di un campo vettoriale, che è un tensore:
+\begin{gather*}
+    \vv{\nabla} \vv{u} = \frac{\partial u_i}{\partial x_j}   
+\end{gather*}
+Dunque
+\begin{gather*}
+    \vv{\vv{\Pi} } = \eta \left(\vv{\nabla}\vv{u} + (\vv{\nabla} \vv{u} )^{T}  - \frac{2}{3}\mathbf{II} \vv{\nabla} \cdot \vv{u}   \right) + \xi \mathbf{II} \vv{\nabla}\cdot \vv{u}   
+\end{gather*}   
+Per un fluido incomprimibile si ottiene
+\begin{gather*}
+    \vv{\vv{\Pi} } = \eta \left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}  \right)  \ \Longrightarrow \ \vv{\nabla} \cdot \vv{\vv{\Pi} } = \eta \sum_j \frac{\partial }{\partial x_j} \left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}  \right) = \eta \sum_i \frac{\partial^{2} u_i}{\partial x_j}  + \eta \sum_j \frac{\partial}{\partial x_j}    \frac{\partial u_j}{\partial x_i} 
+\end{gather*}
+Posso dunque invertire le derivate 
+\begin{gather*}
+    \eta \sum \frac{\partial u_i}{\partial x_i} + \eta \frac{\partial }{\partial x_i} \sum_j \frac{\partial u_j}{\partial x_j} = \eta \sum_i \frac{\partial^{2}}{\partial x_i^{2}} u_i + \eta \frac{\partial \vv{\nabla} \cdot \vv{u}  }{\partial x_i}   
+\end{gather*}
+Dove
+\begin{gather*}
+    \vv{\nabla}\cdot (\vv{\nabla}\cdot \vv{u}  ) = \nabla^{2}\vv{u} 
+\end{gather*}
+E' l'operatore Laplaciano. Posso esprimere per un fluido reale incomprimibile l'equazione
+di stato come
+\begin{gather*}
+    \rho \left(\frac{\partial \vv{u} }{\partial t} +  (\vv{u} \cdot \vv{\nabla}  ) \vv{u} \right) - \vv{\nabla}p + \rho \vv{g} + \eta \nabla^{2} \vv{u}    
+\end{gather*}
+che prende il nome di \textbf{equazione di Navier-Stokes}. Se si assume densità
+costante, si può dividere tutto per la pressione e ricavare 
+\begin{align}
+    \nu = \frac{\eta}{\rho}
+\end{align}
+Ossia il coefficiente di \textbf{viscosità cinematica}, la quale ha come dimensioni
+superficie su unità di tempo (ossia il coefficiente di diffusione). 
+
+\section{Tempi caratteristici}
+In un fluido in caduta, da una certa quota $l$, si può determinare il tempo caratteristico di caduta come
+\begin{gather*}
+    \tau_g = \sqrt{\frac{l}{2g}} 
+\end{gather*}
+Dunque a livello di energia
+\begin{gather*}
+    \frac{u^{2}}{2} - gl \ \Longrightarrow \ u = \sqrt{2gl} 
+\end{gather*}
+Si può stimare il tempo caratteristico dell'ultimo termine facendo un analisi
+dimensionale dell'equazione:
+\begin{gather*}
+    \frac{u}{\tau_\nu} \approx \nu \frac{u}{l^{2}} \ \Longrightarrow \ \tau_\nu = \frac{l^{2}}{\nu}
+\end{gather*}
+Questo mi permette di dire che il tempo di diffusione viscosa è lungo quanto meno è viscoso il fluido.
+Si può dire, in generale, che se
+\begin{gather*}
+    \tau_g << \tau_\nu 
+\end{gather*}
+Allora l'approssimazione ideale è corretta, altrimenti siamo nel caso non ideale. Possiamo 
+scrivere un rapporto tra questi due per ottenere:
+\begin{gather*}
+    \frac{\tau_\nu}{\tau_g} >> 1 \quad \text{ideale}
+\end{gather*}
+Se si considera un tempo caratteristico
+\begin{gather*}
+    \tau_c = \frac{l}{u} \quad \tau_\nu = \frac{l^{2}}{\nu}
+\end{gather*} 
+Si ha che siamo in un regime \textbf{turbolento} quando
+\begin{gather*}
+    \frac{\tau_\nu}{\tau_c} >> 1
+\end{gather*}
+Il rapporto
+\begin{gather*}
+    \frac{\tau_\nu}{\tau_c} = \frac{lu}{\nu} = R_\nu
+\end{gather*}
+In un tubo, $l$ è la larghezza del tubo stesso mentre, nel caso di un'ostacolo,
+$l$ rappresenta la larghezza dell'ostacolo.
+
+\section{Applicazione (Legge di Poiselle)}
+Preso un tubo a sezione cilindrica di raggio $r_0$ in cui passa
+un fluido in condizioni stazionarie. Se fosse ideale, la velocità del fluido
+sarebbe costante ma, dato che si vuole che esca l'acqua dal tubo, ci deve essere un gradiente di pressione
+in modo che spinga il fluido veros una regione a pressione minore. Si può dunque scrivere
+l'equazione (trascurando $g$ in quanto il tubo è orizzontale).
+\begin{gather*}
+    (\vv{u} \cdot \vv{\nabla}  )\vv{u} = -\frac{\vv{\nabla}p }{\rho_0} + \nu \vv{\nabla}^{2} \vv{u}  
+\end{gather*}
+Si può esprimere la velocità del fluido in funzione della distanza dal centro:
+\begin{gather*}
+    \vv{u} (r) \hat{z} \ \Longrightarrow \ -\vv{\nabla}\frac{p}{\rho_0} + \nu \vv{\nabla}^{2} \vv{u}     
+\end{gather*}
+Il primo termine è zero poiché $\vv{u}$ è funzione di $r$ e dunque il gradiente
+è diretto lungo $r$ mentre $u$ è diretta lungo $z$. Nell'ipotsi che $p$
+vari linearmente nella lunghezza,
+\begin{gather*}
+    p(z) = p_0 + (p_L - p_0) \frac{z}{L}
+\end{gather*} 
+Dunque
+\begin{gather*}
+    \frac{1}{p_0} \frac{\partial p}{\partial t} = \frac{1}{\rho_0} \frac{p_L - p_0}{L} = \nu \frac{1}{r} \frac{\partial }{\partial r}\left(r \frac{\partial u_z}{\partial r} \right) 
+\end{gather*}
+Posso risolvere per $u_z$ l'equazione e le derivate parziali diventano delle derivate
+totali in quanto $u$ dipende solo da $z$. Si ottiene per intergreaizone diretta:
+\begin{gather*}
+    r \frac{du}{dr} = \int_{0}^{r} \frac{p_L - p_0}{L \rho_0 \nu } r'\ dr
+\end{gather*}
+Dunque si ottiene
+\begin{gather*}
+    -\frac{\Delta p}{L\eta} \frac{r^{2}}{2} \qquad \eta = \rho_0 \nu
+\end{gather*}
+E allora
+\begin{gather*}
+    \frac{du}{dr} = - \frac{\Delta p}{L\eta} \frac{r^{2}}{2}
+\end{gather*}
+Posso integrare e ottenere
+\begin{gather*}
+    u(r) = - \frac{\Delta p}{L\eta} \frac{r^{2}}{4} + C
+\end{gather*}
+Si impone allora che $u(r_0) = 0$. 
+\begin{gather*}
+    u(r_0) = - \frac{\Delta p}{L\eta} \frac{r_0^{2}}{4} + C = 0 \ \Longrightarrow \ C = \frac{\Delta p}{L\eta} \frac{r_0^{2}}{4}
+\end{gather*}
+E dunque si ottiene
+\begin{gather*}
+    u(r)  =\frac{\Delta p}{L\eta} r_0^{2} \left(1 - \frac{r^{2}}{r_0^{2}}\right)
+\end{gather*}
+Ossia la velocità del fluido è maggiore al centro del tubo proprio a
+causa degli attriti con le pareti del tubo. Si può dunque calcolare la
+portata (di volume) del fluido:
+\begin{gather*}
+    Q_V = 2\pi \int_{0}^{r_0} r u(r) \ dr = 2\pi \frac{\Delta pr_0^{2}}{4L\eta} \int_{0}^{r_0} r(1 - \frac{r^{2}}{r_0^{2}})  dr  = \frac{\pi}{8} \frac{\Delta pr_0^{4}}{L\eta}
+\end{gather*}
+che prende il nome di Legge di Poiselle.
+
+
+\end{document}

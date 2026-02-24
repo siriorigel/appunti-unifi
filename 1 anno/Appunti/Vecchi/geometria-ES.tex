@@ -1,0 +1,150 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Esercizi geometria}
+\author{Tommaso Miliani}
+\date{03-12-24}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Esercizio 15}
+\begin{align*}
+    A = \left\{ \left( \begin{array}{c}
+        x_1 \\
+        x_2 \\
+        x_3 \\
+        x_4
+    \end{array} \right) \in R^{4} : x_1 - x_2 + x_3 -x_4 = 0 \right\},
+    \qquad B = \left\{\left(\begin{array}{c}
+        t + s \\
+        2s \\
+        t\\
+        t+s
+    \end{array}\right) : t, s \in R \right\}.
+\end{align*}
+\subsection{Forma cartesiana di B}
+\begin{gather*}
+    t\left( \begin{array}{c}
+        1 \\
+        0 \\
+        1 \\
+        1
+    \end{array}\right) + s \left( \begin{array}{c}
+        1 \\
+        2 \\
+        0 \\
+        1
+    \end{array}\right)  \\
+    \left(\begin{tabular}{c c | c}
+        1 & 1 & $x_1$ \\
+        0 & 2 & $x_2$ \\
+        1 & 0 & $x_3$ \\
+        1 & 1 & $x_4$ 
+    \end{tabular}\right) \quad \Rightarrow \quad
+    \left(\begin{tabular}{c c | c}
+        1 & 1 & $x_1$ \\
+        0 & 2 & $x_2$ \\
+        1 & 0 & $x_3$ \\
+        0 & 0 & $x_4 - x_1$ 
+    \end{tabular}\right) \Rightarrow 
+    \left(\begin{tabular}{c c | c}
+        1 & 1 & $x_1$ \\
+        1 & 0 & $x_3$ \\
+        0 & 2 & $x_2$ \\
+        0 & 0 & $x_4 - x_1$ 
+    \end{tabular}\right) \\
+    \Rightarrow \left(\begin{tabular}{c c | c}
+        1 & 1 & $x_1$ \\
+        0 & -1 & $x_3 - x_1$ \\
+        0 & 2 & $x_2$ \\
+        0 & 0 & $x_4 - x_1$ 
+    \end{tabular}\right)
+    \Rightarrow  \left(\begin{tabular}{c c | c}
+        1 & 1 & $x_1$ \\
+        0 & -1 & $x_3 - x_1$ \\
+        0 & 0 & $x_2 + 2x_3 -2x_1$ \\
+        0 & 0 & $x_4 - x_1$ 
+    \end{tabular}\right) \Rightarrow x_4 = x_1 \ per \ avere \ sol. \\
+    \Rightarrow \left\{ \begin{array}{c}
+        x_2 + 2x_3  -2x_1 \\
+        x_4 - x_1 = 0
+    \end{array}\right. \\
+    La \ matrice \ associata \ e' \\
+    \left( \begin{tabular}{c c c c | c}
+        -2 & 1 & 2 & 0 & 0 \\
+        -1 & 0 & 0 & 1 & 0
+    \end{tabular}\right) \\
+    \Rightarrow  \left(\begin{tabular}{c c c c | c}
+        -1 & 0 & 0 & 1 & 0  \\
+        0 & 1 & 2 & -2 & 0
+    \end{tabular}\right) \Rightarrow x_1 = x_4, x_2 = 2x_4 - 2x_3 \Rightarrow \\
+    x_3 \begin{pmatrix} 0 \\
+    -2 \\
+    1 \\
+    0 \end{pmatrix} + x_4 \begin{pmatrix} 1 \\
+    1 \\
+    0 \\
+    1 \end{pmatrix} \\
+\end{gather*}
+
+\subsection{Una base di A}
+\begin{gather*}
+    x_1 - x_2 + x_3 = x_4 \Rightarrow \begin{pmatrix} x_1 \\
+    x_2 \\
+    x_3 \\
+    x_1 - x_2 + x_3 \end{pmatrix} \Rightarrow \\
+    x_1 \begin{pmatrix} 1 \\
+    0 \\
+    0 \\
+    1 \end{pmatrix} + x_2 \begin{pmatrix} 0 \\
+    1 \\
+    0 \\
+    -1 \end{pmatrix}  x_3 \begin{pmatrix} 0 \\
+    0 \\
+    1 \\
+    1 \end{pmatrix} 
+\end{gather*}
+
+\subsection{Base di B}
+I vettori specificati per indicare s, t sono già la sua base per cui:
+\begin{align*}
+    <\begin{pmatrix} 1\\
+    0\\
+    1\\
+    1 \end{pmatrix}, \begin{pmatrix} 1 \\
+    2 \\
+    0 \\
+    1 \end{pmatrix} > 
+\end{align*}
+
+\subsection{Una base di $A \cap B$}
+Da GrassMan so che $\dim(A) + \dim(B) = \dim(A \cap B) + \dim(A + B)$.
+\begin{align*}
+    
+\end{align*}

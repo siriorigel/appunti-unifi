@@ -1,0 +1,334 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di Ottica}
+\author{Tommaso Miliani}
+\date{13-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Aberrazioni delle lamine in condizioni non ideali}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$\vv{E_\parallel}$};
+        \draw[->](0, 0) -- (2, 2) node[at end, above] {$a$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$\vv{E_\perp} $};
+        \draw[->](0, 0) -- (-1, 2) node[at end, above] {$b$};
+        \draw(0.5, 0) arc (0:45:0.5) node[midway, right] {$\theta$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Quando si opera con delle lamine $\frac{\lambda}{4}$ e $\frac{\lambda}{2}$
+che non hanno ritardi di fase ideali, ossia quando la polarizzazione non è
+lineare oppure si è in condizioni di umidità e temperatura che differiscono
+da quelle specificate dal costruttore, si introducono inevitabilmente delle aberrazioni. 
+Si è detto, fino ad ora, che esistono degli assi relativi ai cubi paralleli e
+degli assi ortogonali relativi alla lamina. Si potrebbe avere che la mia lamina di
+ritardo ha gli assi lenti e veloci inclinati di un certo angolo 
+$\theta$ rispetto agli assi paralleli al polarizzatore. Per poter analizzare 
+questa situazione, si ricorda l'espressione dei complessi in forma esponenziale
+\begin{gather*}
+    e^{i\theta} = \cos\theta + i\sin\theta 
+\end{gather*}
+Ricordando ora l'espressione del campo elettrico:
+\begin{gather*}
+    \vv{E} = E_{0z}\cos(kx - \omega t + \phi_z)\hat{k}  + E_{0y} \cos(kx - \omega t + \phi_y)\hat{y}  
+\end{gather*}
+Utilizzando i complessi posso esprimere il campo elettrico come una componente lungo l'asse
+reale e l'altra lungo l'asse degli immaginari. Mi ricordo però di prendere
+solamente la parte reale di questa espressione e dunque:
+\begin{gather*}
+    \vv{E} = Re\left(E_{0z}e^{i(kx - \omega t + \phi_z)}\hat{z} + E_{0y}e^{i(kx - \omega t + \phi_y)} \hat{y} \right) 
+\end{gather*}
+Posso pensare di avere una matrice $2\times 1$ ed esprimere il campo
+in forma matriciale:
+\begin{gather*}
+    \begin{pmatrix}
+    E_{0z}e^{i(kx - \omega t + \phi_z)} \\
+    E_{0y}e^{i(kx - \omega t + \phi_y)}
+    \end{pmatrix}
+\end{gather*}
+Allora lungo gli assi $a, b$, che sono orientati di un certo $\theta$
+rispetto agli assi paralleli ed ortogonali, si esprime il campo
+elettrico come:
+\begin{gather*}
+    \vv{E}_{a, b} = E_{0z} \cos(kx - \omega t + \phi_z) \left(\cos\theta \hat{a} - \sin\theta \hat{b}  \right) + E_{0y} \cos(kx - \omega t + \phi_z) \left(\sin\theta \hat{a} + \cos\theta \hat{b}  \right) 
+\end{gather*}
+Questa espressione si può allora riscrivere come le coordinate del campo rispetto
+ai versori $\hat{a}$ e $\hat{b}$. Posso dunque pensare a questa espressione come
+il prodotto tra una matrice due per due e il vettore del campo elettrico nelle sue componenti:
+\begin{align}
+    Re\begin{pmatrix}
+        \cos\theta & \sin\theta \\
+        -\sin\theta & \cos\theta 
+    \end{pmatrix}\begin{pmatrix}
+        E_{0z} e^{i(kx - \omega t + \phi_z)} \\
+        E_{0y} e^{i(kx - \omega t + \phi_y)}  
+    \end{pmatrix}
+\end{align}   
+La matrice a sinistra prende il nome di matrice delle rotazioni in funzione
+dell'angolo $\theta$, questa matrice permette di ottenere l'espressione di un vettore
+rispetto a degli assi ruotati di un certo angolo $\theta$, e si indica con $R(\theta)$. 
+La matrice che serve per tornare agli assi di partenza è la matrice inversa (ossia quella
+coi segni invertiti per il seno).  Adesso, data l'espressione
+del campo elettrico generico rispetto alla base $\hat{a}, \hat{b} $
+\begin{gather*}
+    \vv{E}_{a, b} E_{0a}\cos(kx - \omega t + \phi_a) \hat{a} + R_{0b} \cos(kx - \omega t + \phi_b)\hat{b} 
+\end{gather*} 
+Posso esprimerlo attraverso i numeri complessi nel vettore
+\begin{gather*}
+    Re \begin{pmatrix}
+        E_{0a}e^{i(kx - \omega t + \phi_a)} \\
+        E_{0b}e^{i(kx - \omega t + \phi_b)}  
+    \end{pmatrix}
+\end{gather*}
+Posso introdurre sull'asse lento un ritardo di fase. Per cui
+il campo elettrico uscente è dato dal campo rispetto al versore $\hat{b}$ e 
+dal campo rispetto al versore $\hat{a}$ con un ritardo di fase:  
+\begin{gather*}
+    \vv{E_{a, b}^{OUT} } = E_{0a}\cos(kx - \omega t + \phi_a + \delta \phi)\hat{a}  + E_{0b}\cos(kx - \omega t + \phi_b)\hat{b}   
+\end{gather*}
+Partendo dal vettore di ingresso nella lamina, posso ottenere l'espressione del campo in uscita
+attraverso il prodotto tra matrici come
+\begin{gather*}
+    Re\begin{pmatrix}
+        e^{\delta\phi} & 0  \\
+        0 & 1 
+    \end{pmatrix} \begin{pmatrix}
+        E_{0a}e^{i(kx - \omega t + \phi_a)} \\
+        E_{0b}e^{i(kx - \omega t + \phi_b)}  
+    \end{pmatrix}
+\end{gather*}
+Analogamente a quanto detto prima, se si volesse ottenere il campo elettrico in entrata a partire dal campo
+elettrico in uscita, si può applicare la matrice inversa. Si riassume che l'espressione
+del campo elettrico in uscita da una lamina, che è entrato con un certo angolo, 
+ha espressione
+\begin{align}
+    \vv{E_{a, b}^{OUT} } = Re \left(R(-\theta)\begin{pmatrix}
+        e^{\delta \phi} & 0 \\
+        0 & 1 
+    \end{pmatrix}R(\theta) \begin{pmatrix}
+        E_{0z}e^{i(kx - \omega t + \phi_z)}\\
+        E_{0y}e^{i(kx - \omega t + \phi_y)}  
+    \end{pmatrix}\right) 
+\end{align}
+
+\section{Interferenza}
+L'Interferenza si verifica quando sono presenti due o più campi elettromagnetici
+con fasi differenti. Di fatto, quando si sommano i campi elettromagnetici
+si utilizzano le formule di prostaferesi per il coseno:
+\begin{align}
+    \cos\alpha + \cos\beta = 2\cos\left(\frac{\alpha + \beta}{2}\right) \cdot  \cos\left(\frac{\alpha - \beta}{2}\right)
+\end{align}
+Dato che ci sono molte variabili per cui i campi potrebbero differire, possiamo
+partire dall'analisi del caso semplice in cui solamente la fase differisce per i 
+due campi elettrici.
+
+\subsection{Interferenza semplice}
+Il caso semplice di Interferenza si ha quando i due campi elettromagnetici
+hanno la stessa direzione di propagazione e quindi stessa frequenza (o pulsazione) ; inoltre,
+per rimanere nel caso semplice, hanno anche stessa polarizzazione e stessa ampiezza.
+L'unica differenza è la fase differente. 
+\begin{gather*}
+    \vv{E_1} = E_0\cos(kx - \omega t + \phi_1)\hat{y}  \\
+    \vv{E_2} = E_0\cos(kx - \omega t + \phi_2)\hat{y}   
+\end{gather*}
+Posso ottenere allora il campo elettrico totale come la somma tra i due
+contributi secondo la formula di prostaferesi:
+\begin{gather*}
+    \vv{E_{TOT}} = 2E_0\cos\left(kx - \omega t + \frac{\phi_1 + \phi_2}{2}\right) \cdot  \cos\left(\frac{\phi_1 - \phi_2}{2}\right) 
+\end{gather*}
+Il totale dell'intensità mediata nel tempo, si ottiene come 
+\begin{align}
+    \left< I_{TOT}  \right> = c\epsilon_0 \left< \vv{E}_{TOT}  \right>  = c\epsilon_0\frac{1}{T}\int_{0}^{T}4E_0^{2}\cos^{2}\left(kx - \omega t + \frac{\phi_1 + \phi_2}{2}\right) \cos^{2}\left(\frac{\phi_1 + \phi_2}{2}\right) \ dt
+\end{align}
+Ossia la media temporale dell'integrale del campo elettrico mi dà l'intensità totale media
+in un certo intervallo di tempo $\Delta T = T$. Questo mi permette allora di esprimere
+l'intensità delle due onde come l'intensità di una unica onda "somma". 
+\begin{gather*}
+    \left< I_{TOT} \right> =  4I_0\cos^{2} \left(\frac{\phi_1 - \phi_2}{2}\right)
+\end{gather*}
+Quando $\phi_1 = \phi_2$ allora c'è un istante in cui l'intensità è molto maggiore dell'intensità
+generata dalla semplice somma delle onde, mentre c'è un istante in cui si "distrugge"
+l'energia delle due onde, ossia quando $\phi_1 = \pi + \phi_2$. Si riassume con
+\begin{itemize}
+    \item Se $\phi_1 - \phi_2 = 2\pi n$: le onde sono in \textbf{fase}, e si ha interferenza costruttiva;
+    \item Se $\phi_1 - \phi_2 = 2\pi n + \pi$: le onde sono in \textbf{controfase} e si ha interferenza distruttiva.
+\end{itemize}
+
+\subsection{Oscillazione con polarizzazioni diverse}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (1.5, 1.5) node[at end, above] {$\vv{E_1}$};
+        \draw[->](0, 0) -- (0, 2) node[at end, right] {$y$} node[at end, left] {$\vv{E_2}$};
+        \draw(0, 0.5) arc (90:45:0.5) node[midway, above] {$\alpha$};
+        \draw[->](0, 0) -- (-1, -1) node[at end, right] {$z$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+In questo caso l'ampiezza e la direzione dei campi elettrici non
+sono mai gli stessi per le due onde. Supponiamo ancora che abbiano
+lo stesso $\hat{k}$ ma i due hanno polarizzazioni lineari diverse. 
+\begin{gather*}
+    \vv{E_1} = \vv{E_{01}}\cos(kx - \omega t + \phi_1) \\
+    \vv{E_2} = \vv{E_{02}}\cos(kx - \omega t + \phi_2)    
+\end{gather*}
+Si può ora scrivere il campo elettrico totale e poi si va a farne il modulo
+al quadrato per determinarne l'intensità. Dato che i due campi adesso hanno
+stessa ampiezza e direzione ma con polarizzazioni diverse, posso determinare
+la somma totale del vettore campo elettrico come il modulo
+\begin{gather*}
+    \left| \vv{E_{TOT}}  \right|^{2} = \left| \vv{E_1} + \vv{E_2}  \right|^{2}    = \left| \vv{E_1}  \right|^{2} + \left| \vv{E_2}  \right|^{2} + 2\vv{E_1} \cdot  \vv{E_2}      
+\end{gather*}
+Questo deve essere equivalente alla seguente espressione, ossia il modulo
+del vettore campo elettrico totale:
+\begin{gather*}
+    |\vv{ E_{01}}|^{2} \cos^{2}(kx - \omega t + \phi_1) + \left| \vv{E_{02}}  \right|^{2}\cos^{2} (kx - \omega t + \phi_2) + 2\vv{E_{01}} \cdot  \vv{E_{02}}\cos(kx - \omega t + \phi_1) \cdot  \cos(kx - \omega t + \phi_2)     
+\end{gather*}
+Il terzo termine si può pensare come il prodotto scalare tra i due vettori che compongono 
+il campo elettrico:
+\begin{gather*}
+    \left| \vv{E_{01}}  \right| \cdot  \left| \vv{E_{02}}  \right| \cos\alpha  
+\end{gather*}
+Dove $\alpha $ è l'angolo compreso tra i due vettori del campo elettrico come
+nel disegno. Con le formule di prostaferesi inverse posso esprimere il coseno che moltiplica il 
+terzo termine in funzione di angoli generici $\beta$ e $\gamma$ (gli argomenti dei due coseni):
+\begin{gather*}
+    \cos\beta \cdot  \cos\gamma = \frac{1}{2}\left(\cos(\beta + \gamma) + \cos(\beta - \gamma)\right)
+\end{gather*}
+Allora il terzo termine del modulo del campo totale è esprimibile come:
+\begin{gather*}
+    2\left| \vv{E_{01}}  \right| \cdot  \left| \vv{E_{02}}  \right|\cos\alpha + \frac{1}{2} \left(\cos(2kx - \omega t + \phi_1 + \phi_2) + \cos(\phi_1 - \phi_2)\right) 
+\end{gather*}
+Si può esprimere allora l'intensità totale del campo elettrico come la somma delle intensità delle due onde
+più l'intensità dovuta al terzo termine dell'espressione del modulo totale (Ossia
+l'espressione di prima). 
+\begin{gather*}
+    \left< I_{TOT} \right> = I_1 + I_2 + c\epsilon_0 \frac{2\left| \vv{E_{01}}  \right| \left| \vv{E_{02}}  \right|\cos\alpha}{2} \cdot  \cos(\phi_1 - \phi_2)  
+\end{gather*}
+L'intensità $I_1$  ($I_2$ è analoga) si esprime come:
+\begin{gather*}
+    I_1 = c\epsilon_0 \cdot  \frac{\left| \vv{E_{01}}  \right|^{2}  }{2} \ \Longrightarrow \ \sqrt{I_1} = \sqrt{c}\sqrt{\epsilon_0} \frac{|\vv{E_{10}}| }{\sqrt{2} }   
+\end{gather*}
+Che posso sostituire nell'espressione dell'intensità totale al terzo termine:
+\begin{gather*}
+    \left< I_{TOT} \right> = I_1 + I_2 + 2\sqrt{I_1}\sqrt{I_2}\cos\alpha \cos(\phi_1 - \phi_2)   
+\end{gather*}
+Il terzo termine dell'intensità totale è chiamato \textbf{termine di interferenza}. Questo termine
+determina se c'è interferenza oppure no.
+\begin{itemize}
+    \item Se $\alpha = \frac{\pi}{2}$: non c'è alcuna Interferenza poiché le polarizzazioni
+    sono perpendicolari tra di loro.
+    \item Se $I_1 = I_2$, allora si ritrova il caso trattato nel paragrafo precedente:
+    \begin{gather*}
+        I_{TOT} = 2I_0 (1 + \cos(\phi_1 - \phi_2)) \ \Longrightarrow \ 4I_0 \cos^{2}\left(\frac{\phi_1 - \phi_2}{2}\right) 
+    \end{gather*}
+    \item Se $\alpha = 0$: si ha il caso con Interferenza trattato ora.  
+\end{itemize} 
+
+\section{L'onda stazionaria}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}[scale = 1.3]
+        \draw[->](-2, 0) -- (2, 0) node[at end, below] {$x$};
+        \draw[dashed](0, 1.5) -- (0, -1.5);
+        \draw(-1, -1) -- (0, 0) -- (1, -1);
+        \draw(-0.3, -0.3) arc (225:315:0.4) node[midway, below ] {$\theta$}; 
+        \draw[very thick, ->](-0.8, -0.8) -- (-0.3, -0.3) node[midway, left] {$\vv{k_1}$};
+        \draw[very thick, ->](0.8, -0.8) -- (0.3, -0.3) node[midway, right] {$\vv{k_2}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+L'onda stazionaria si ottiene nel caso in cui si ha interferenza di vettori
+d'onda delle due onde elettromagnetiche che interferiscono tali che $\vv{k_1}$ e $\vv{k_2}$
+non sono più paralleli: si ottiene un'onda stazionaria. 
+\begin{gather*}
+    \vv{E_1} = E_0 \hat{y}\cos(\vv{k_1} \cdot  \vv{r} - \omega t + \phi_1  )  \\
+    \vv{E_2} = E_0 \hat{y}\cos(\vv{k_2} \cdot  \vv{r} - \omega t + \phi_2  )  
+\end{gather*}  
+Nel caso del modulo totale del campo elettrico:
+\begin{gather*}
+    \left| \vv{E_{TOT}}  \right| E_0^{2} \left(\cos(\vv{k_1} \cdot  \vv{r} - \omega t + \phi_1  ) + \cos(\vv{k_2} \cdot  \vv{r} - \omega t + \phi_2   )\right)^{2}  
+\end{gather*}
+Applico nuovamente le formule di prostaferesi al contrario ottenendo 
+\begin{gather*}
+    4E_0^{2}\left(\cos^{2} \left(\frac{(\vv{k_1}  + \vv{k_2}) \cdot  \vv{r}  }{2} - \omega t + \frac{\phi_1 + \phi_2}{2}\right) \cdot  \cos^{2} \left(\frac{(\vv{k_1} - \vv{k_2}  )\cdot \vv{r} }{2} + \frac{\phi_1 - \phi_2}{2}\right)\right) 
+\end{gather*}
+C'è una parte del campo che ha dipendenza temporale ed un apart del campo che non ha dipendenza temporale. Quando
+calcolo l'intensità totale mediata nel tempo allora la parte che dipende dal tempo è mediata, l'altra è costante:
+\begin{gather*}
+    \left< I_{TOT} \right> = 4c\epsilon_0 \frac{E_0^{2} }{2}\cos^{2}\left(\frac{\vv{k_1} - \vv{k_2}  }{2} \cdot \vv{r} + \frac{\phi_1 - \phi_2}{2} \right) = 4I_0\cos^{2}\left(\frac{\vv{k_1} - \vv{k_2}  }{2} \cdot \vv{r} + \frac{\phi_1 - \phi_2}{2}\right)  
+\end{gather*}
+Si trova allora che l'intensità dipende dalla posizione in cui si posiziona il rilevatore: l'intensità
+è diventata funzione della posizione e non dipende dal tempo (dunque è una onda stazionaria).
+Potrei esprimere questa espressione attraverso il vettore differenza $\vv{\Delta k}$ tra i
+vettori d'onda delle due onde:
+\begin{gather*}
+    \left< I_{TOT} \right> = 4I_0\cos^{2}\left(\frac{|\vv{\Delta k}| }{2} \cdot  x + \frac{\phi_1 - \phi_2}{2}\right)  
+\end{gather*} 
+Posso esprimere allora il prodotto del vettore d'onda come $\delta x$, ossia la periodicità spaziale
+dell'onda stazionaria. Se si considera $\theta$ l'angolo tra i due vettori d'onda, 
+allora il vettore dentro il coseno è esattamente:
+\begin{gather*}
+    \left| \vv{k}  \right| \sin\frac{\theta}{2} \cdot  \delta x = \pi 
+\end{gather*}
+Allora, ricordando il modulo di $\vv{k}$, posso esprimere
+\begin{gather*}
+    \frac{2}{\lambda}\sin\frac{\theta}{2} \delta x = 1
+\end{gather*} 
+Dunque possiamo scegliere $\delta x$ in modo arbitrario
+\begin{gather*}
+    \delta x = \frac{\lambda}{2\sin\frac{\theta}{2}} \qquad \theta << 1 \ \Longrightarrow \ \delta x = \frac{\lambda}{\theta}
+\end{gather*}
+Se l'angolo tra le due onde è molto piccolo, allora si può approssimare con l'argomento e dunque
+la lunghezza d'onda si amplifica. 
+
+\end{document}

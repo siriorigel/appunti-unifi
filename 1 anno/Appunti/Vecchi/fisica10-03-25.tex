@@ -1,0 +1,244 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{FIsica}
+\author{Tommaso Miliani}
+\date{10-3-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Condizione di equilibrio}
+La derivata dell'energia potenziale rispetto ad $x$
+presuppone di avere solo un grado di libertà. 
+\begin{gather*}
+    \frac{dV}{dx}= 0
+\end{gather*}
+Ci da la condizione di equilibrio: infatti nel caso del pendolo
+si ha che:
+\begin{gather*}
+    V = mg(L - L\cos\theta)
+\end{gather*}
+Facendo la derivata sul grado di libertà che sto considerando
+allora posso fare la derivata su $\theta$ e questo automaticamente
+tiene conto del vincolo poiché se parlo di $x, y. z$ non sto considerando
+i vincoli del sistema, se invece li considero e lo vincolo nel piano allora 
+l'unico grado di libertà è proprio $\theta$.
+\begin{gather*}
+    \frac{dV}{d\theta} = mgL\sin\theta
+\end{gather*}
+Ossia le soluzioni sono, considerato un filo che è resistente alla
+trazione ma non alla compressione:
+\begin{gather*}
+    \theta = \left\{\begin{array}{l}
+        0 \\
+        \pi
+    \end{array}\right.
+\end{gather*}
+Se invece considerassi il caso di una asta, allora se il pendolo è perpendicolare
+l'asta impedisce al punto materiale di cadere e compensa il peso. Matematicamente
+si esprime la piccola variazione di teta rispetto alla verticale se il punto materiale
+e l'asta sono sopra con l'energia potenziale, nel caso della condizione di equilibrio
+$\theta = 0$, l'energia potenziale è minima, altrimenti è massima, infatti facendo la derivata seconda
+rispetto al grado di libertà, si ottiene proprio:
+\begin{gather*}
+    \frac{d^{2} V}{d\theta^{2} } = mgL\cos\theta
+\end{gather*}
+Quindi:
+\begin{gather*}
+    V^{''}(0) = mgL > 0, \qquad  V^{''}(\pi) = -mgL < 0,
+\end{gather*}
+Quindi in $\theta = \pi$ c'è proprio un massimo (equilibrio instabile) per l'energia potenziale
+ed un minimo per $\theta = 0$ (equilibrio stabile).
+IN più dimensioni la stazionarietà si ottiene con le derivate parziali di
+tutte le variabili:
+\begin{gather*}
+    \frac{\partial V}{\partial x} = 0, \dots 
+\end{gather*}
+E quindi facendo la derivata parziale due volte rispetto
+ad x, y... allora la sua forma può essere o un massimo o un minimo
+in funzione proprio delle variabili si ottengono o paraboloidi, oppure una
+sella: una condizione di minimo in una variabile ed una di massimo in un'altra.
+Sarebbe stabile in una direzione ma sostanzialmente è instabile: nel punto di sella
+infatti non c'è una vera stabilità.
+
+\subsection{Molla ed equilibrio sul soffitto}
+Scelto il punto di equilibrio dove la molla è a riposo:
+\begin{gather*}
+    V = \frac{1}2{kx^{2} }
+\end{gather*}
+messo ora il peso devo considerare anche l'energia potenziale della
+forza peso che dipende dalla quota data dalla coordinata $x$ e quindi
+sarà negativa. Per trovare la condizione di equilibrio faccio allora la derivata
+rispetto ad $x$:
+\begin{gather*}
+    \frac{dV}{dx} = kx -mg
+\end{gather*}
+E quindi si annulla proprio per $kx = mg$ ossia dove le due
+forze si eguagliano in funzione dell'unica coordinata $x$ e quindi
+un solo punto di equilibrio. Troviamo ora se è instabile o stabile
+attraverso la derivata seconda:
+\begin{gather*}
+    \frac{d^{2} V}{dx^{2} } = k > 0, \text{equilibrio stabile}
+\end{gather*} 
+
+\subsection{L'antimolla}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg}
+    \caption{Antimolla}
+    \begin{tikzpicture}
+        \draw[decoration={aspect=0.3, segment length=1.2mm, amplitude=1mm,coil},decorate,opacity=0.9] (0, 2) -- (0.5, 1.8);
+        \draw[dashed](0, 0) -- (0, 2) node[midway, left] {$L$};
+        \draw(0, 0) -- (0.5, 1.8) node[midway, right] {$L$};
+        \draw(0, 0.5) arc(90:75:0.5) node[midway, above] {$\theta$};
+        \filldraw(0.5, 1.8) node[anchor = west] {$m$};2
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nell'antimolla l'asta ha massa zero e vincola il punto materiale ad avere solo un grado di libertà
+facendo sì che l'energia potenziale della massa diventi proprio:
+\begin{gather*}
+    V = \frac{1}{2}kL^{2}\theta^{2} + mgl\cos\theta  
+\end{gather*}
+E allora si ottiene l'espressione, utilizzando taylor per il coseno:
+\begin{gather*}
+    \cos\theta \approx 1 - \frac{\theta^{2} }{2} \\
+    V \approx \frac{1}{2}kL^{2}\theta^{2} + mgl\left(1 - \frac{\theta^{2} }{2}\right)  
+\end{gather*}
+Facendo la derivata prima si ottiene la soluzione::
+\begin{gather*}
+    \frac{dV}{d\theta} = L(kL - mg)\theta \\
+    \theta = 0.
+\end{gather*}
+C'è anche il caso in cui $kL = mg$; facendo invece la derivata seconda si ha:
+\begin{gather*}
+    \frac{d^{2} V}{d\theta^{2} } = L(kL -mg)
+\end{gather*}
+Se $kL > mg$ allora la derivata seconda è maggiore di zero
+ho un equilibrio stabile, altrimenti la derivata seconda è minore
+di zero e ho un equilibrio instabile, se sono uguali allora fisicamente
+la derivata seconda è zero e significa che è un equilibrio indifferente.
+
+\section{Studio del moto con un piccolo spostamento dall'equilibrio}
+In funzione di una certa distanza $x$ rispetto alla posizione di equilibrio $x_{eq}$
+è dato dallo sviluppo di taylor della funzione dell'energia potenziale:
+\begin{gather*}
+    V(x) = V(x_eq) + \frac{dV}{dx}|_{x = x_{eq}}(x - x_{eq}) + \frac{1}{2}\frac{d^{2} V}{dx^{2} }|_{x = x_{eq}}(x - x_{eq})^{2} + \dots 
+\end{gather*}
+Allora date le definizioni di prima con le derivate prime e seconde si ha proprio:
+\begin{gather*}
+    V(x) = c + \frac{1}{2} k(x - x_{eq})^{2}   
+\end{gather*}
+Dove $V_{eq} = c$ e $k$ è un parametro della derivata seconda che può 
+essere positivo o negativo.
+\begin{gather*}
+    k = \left\{\begin{array}{l l}
+        k > 0 & \text{moto armonico}\\
+        k < 0 & \text{moto esponenziale}
+    \end{array}\right.
+\end{gather*}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{fidjs}
+    \caption{dsf}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$V(x)$};
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$x$};
+        \draw( 0, 2) ..controls(1, -1) and (1.5, 4) .. (3, 0);
+        \draw[thin, dashed] (0, 1.25) -- (3, 1.25) node[at start, left] {$E_1$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Questo vuol dire che possiamo sapere, discostandosi di poco
+rispetto all'equilibrio, il tipo di moto che accadrà. 
+Spesso si trova il grafico rispetto al parametro e quindi quando
+si ha un vincolo si ha l'energia potenziale con un vincolo liscio e forze
+conservative, allora si conserva l'energia e quindi essendo l'energia
+la somma tra la potenziale e la cinetica, l'energia cinetica è sempre
+positiva per definizione. Questo però ci pone dei limiti poiché
+una è sempre positiva o zero e l'altra cambia sempre di segno e l'energia
+meccanica è sempre costante. Si ha quindi una situazione in cui
+ci sono alcune configurazioni  permesse mentre altre non sono proprio possibili
+a causa della natura dell'energia cinetica: nel caso in figura le configurazioni
+permesse sono sempre quelle sotto l'energia meccanica, altrimenti l'energia cinetica dovrebbe essere
+negativa.
+\begin{gather*}
+    E = \frac{1}{2}mv^{2} + V(x) \\
+    v = \pm \sqrt{2\frac{E - V(x)}{m}}   
+\end{gather*}
+Per costruzione, dipendendo da $x$ cambierà il segno. Si può allora
+fare qualcosa di più e quindi essendo la velocità
+\begin{gather*}
+    v = \frac{ds}{dt} , \quad v = \dot{s}, \quad s = s(x). 
+\end{gather*}
+Posso separare le variabili $s, t$ e quindi:
+\begin{gather*}
+    \frac{ds}{ \pm \sqrt{2\frac{E - V(s)}{m}} } = dt
+\end{gather*}
+Prendendo allora l'integrale da entrambe le parti tra due intervalli
+di tempo $t_1, t_2$ e $s_1, s_2$ allora:
+\begin{gather*}
+    \int_{s_1}^{s_2} \frac{ds}{ \pm \sqrt{2\frac{E - V(s)}{m}} } = \int_{t_1}^{t_2}dt \\
+    2(t_2 - t_1) = \int_{s_1}^{s_2} \sqrt{\frac{2m}{E - V(s)}} \ ds.   
+\end{gather*}
+In linea di principio posso calcolarmi questo integrale nelle piccole
+oscillazioni. Si introduce allora il concetto di \textbf{barriera di potenziale}:
+ossia l'altezza oltre la quale la pallina non può muoversi
+tra due cunette, non può allora andare nell'altra cunetta e
+classicamente non può essere attraversato. 
+
+\section{Sistemi non approssimabili ad un punto materiale (Dinamica dei sistemi)}
+Il mio sistema non è più formato da un punto materiale ma da degli
+oggetti estesi  che possono essere divisi in tanti punti materiali e studiarne
+la dinamica. IN generale posso scegliere quali corpi posso ingegare nel mio sistema
+a seconda di come è più comodo.
+Per ciascun punto conosco massa e vettore posizione. Il centro di massa è un
+punto ideale definito come (in un sistema discreto):
+\begin{align}
+    \vec{r}_c = \frac{\sum_{i = 1}^{N}m_i \vec{r}_i}{\sum_{i = 1}^{N} m_I}   
+\end{align}
+Dove $m_i$ è la massa propria di ogni misura, posso definire nella stessa
+maniera la massa del centro di massa come la somma delle masse totali e quindi
+ottenere l'espressione di prima come:
+\begin{gather*}
+    \vec{r}_c = \frac{1}{M}\sum_{i = 1}^{N}m_i \vec{r}_i   
+\end{gather*}
+IN un sistema continuo non posso semplicemente fare l'integrale di quella roba
+ma devo invece considerare in volumetto elementare di massa molto piccola
+$dm$ e volume $dV$ e, se sono sufficiente piccole, allora $dm = \rho dV$ tra di loro
+ed in generale sono funzione della posizione $\vec{r}$, allora posso sostituire questa
+espressione con un integrale come:
+\begin{gather*}
+    \vec{r} = \frac{\int_{V} \vec{r} \rho dV}{\int_{V} \rho dV} 
+\end{gather*}
+
+C'è una relazione se divido in due il corpo? Il centro di massa di tutto
+l'oggetto è sempre il solito ma posso considerare le somme pe rle due partizioni
+e quindi il centro di massa è proprio la somma tra le due masse delle partizioni.
+
+
+\end{document}

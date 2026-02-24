@@ -1,0 +1,112 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Lab 1}
+\author{Tommaso Miliani}
+\date{25-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{L'esperienza dell'elasticità}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg werew}
+    \caption{dsf}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (2, 0.5);
+        \draw(-0.5, 0) -- (0, 0);
+        \draw(0, 0) -- (0, -0.5);
+        \draw(2.5, 0) -- (2, 0);
+        \draw(2, 0) -- (2, -0.5);
+        \draw[->](1, 0) -- (1, -1) node[at end, right] {$\vec{F}$};
+        \draw[->](0, 0.5) -- (0, 1.5) node[at end, right] {$\vec{N}$};
+        \draw[->](2, 0.5) -- (2, 1.5) node[at end, left] {$\vec{N}$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+La situazione sperimentale è di questo tipo: si ha una barretta appoggiata
+su dei supporti in modo che sia stabile e che non ci siano deformazioni: è un corpo
+isotropo omogeneo approssimabile ad un parallelepipedo. Se si fa flettere
+la sbarretta, allora la parte flessa è solo una parte (la zona centrale della
+sbarretta). In un mondo ideale si applica una forza alla sbarretta che è appoggiata agli estremi
+in modo da poter vedere che ci sono due vincolari a destra e a sinistra:
+\begin{gather*}
+    \vec{F} + 2\vec{N} = 0  
+\end{gather*}
+Per descrivere la deformazione della sbarretta possiamo spezzare la barretta
+in modo tale da considerare la situazione di destra e di sinistra come se fossero
+due flessioni distinte e quindi posso dire per la parte destra:
+\begin{gather*}
+    M = EI\frac{1}{R}
+\end{gather*}
+Dove $I$ è il momento di inerzia della sbarretta e $R$ è il raggio della
+circonferenza che  approssima al meglio la curvatura e quindi considerata
+la funzione $R(x)$ come la funzione del raggio che lo approssima al meglio,
+\begin{gather*}
+    \frac{1}{R(x)} \approx \left| \frac{d^{2} y }{dx^{2} } \right|  \\
+    M(x) \approx  N\left(\frac{L}{2}-x\right)\sin\frac{\pi}{2}
+\end{gather*}
+COmbinando le equazioni si ottiene
+\begin{gather*}
+    \frac{F}{2}\left( \frac{L}{2} -x\right) \approx EI \frac{d^{2}y}{dx^{2}}
+\end{gather*}
+Si può quindi trovare l'integrale:
+\begin{gather*}
+   \int_{0}^{x} \left| \frac{d^{2} y }{dx^{2} } \right| =  \frac{F}{2EI} \int_{0}^{x} \left( \frac{L}{2} - x\right)  = \\
+   \frac{F}{2EI} \left( \left( \frac{L}{2}x - \frac{x^{2} }{2} \right) - 0 \right)
+\end{gather*}
+Adesso per ottenere l'integrale del $\frac{dy}{dx}$ integro nuovamente
+questo risultato ottenendo:
+\begin{gather*}
+    \int_{0}^{x}\frac{dy}{dx} =  \frac{F}{2EI} \int_{0}^{x} \left( \left( \frac{L}{2}x - \frac{x^{2} }{2} \right) - 0 \right) = \\
+    \frac{F}{2EI} \left( \frac{Lx^{2} }{4} - \frac{x^{3} }{6}\right)
+\end{gather*}
+Nel piano delle fibre neutre calcoliamoci $y(\frac{L}{2})$ e ottenere a questo
+punto dopo tutti i conti:
+\begin{gather*}
+    y\left( \frac{L}{2} \right) = \frac{FL^{3} }{48 E I}
+\end{gather*}
+Chiamando $A$ il Lato della faccia vincolata parallela all'asse x e B
+l'altra parallela all'asse y, si ricava che 
+\begin{gather*}
+    I = \frac{1}{12}ab^{3} 
+\end{gather*}
+E quindi sostituendo questo risultato si ottiene:
+\begin{gather*}
+    y\left( \frac{L}{2} \right) = \frac{FL^{3} }{4 E ab^{3} }
+\end{gather*}
+A questo punto la variazione di quota della sbarretta risulta essere
+\begin{gather*}
+    f \approx cF
+\end{gather*}
+Dove
+\begin{gather*}
+    c = \frac{L^{3} }{4 E ab^{3} }
+\end{gather*}
+che è chiamata coefficiente di deformazione
+\end{document}

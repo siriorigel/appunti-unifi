@@ -1,0 +1,127 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Lab (zoccols)}
+\author{Tommaso Miliani}
+\date{19-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Le approssimazioni nell'esperimento del pendolo}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il pendolo ideale}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (0, -2) node[at end, below] {$\phi_0 = 0$};
+        \draw(0, 0) -- (0.75, -1.8);
+        \draw[dashed](0.75, -1.75) arc (-60:-120:1.5) node[at start, below] {$C$};
+        \draw(0, -1) arc (-90:-60:0.75) node[midway, below] {$\phi_0$}; 
+    \end{tikzpicture}    
+\end{wrapfigure}
+Massa puntiforme $R << l = \bar{OC}$ con il filo ideale:
+\begin{enumerate}
+    \item $m_f =  0$, $m_f << m$;
+    \item Inestensibilità: $l$ costante;
+    \item Perfetta flessibilità;
+    \item Seguendo le leggi di un pendolo semplice ideale
+\end{enumerate}
+La legge del pendolo semplice che segue è proprio:
+\begin{align}
+    \ddot{\phi} + \frac{g}{l}\sin\phi = 0
+\end{align}
+E quindi:
+\begin{gather*}
+    \dot{\phi}^{2} = 2\frac{g}{l}(\cos\phi - \cos\phi_0) 
+\end{gather*}
+Per cui il suo periodo è proprio:
+\begin{gather*}
+    T_0 = 2\pi\sqrt{\frac{l}{g}} 
+\end{gather*}
+Per ottenere l'angolo bisogna integrare
+l'espressione di $\dot{\phi}$. Si separa allora $dt$ e quindi si ottiene
+come primo passaggio:
+\begin{gather*}
+    \frac{d\phi}{\sqrt{2(\cos\phi - \cos\phi_0)}} = \left(\frac{g}{l}\right)^{\frac{1}{2}}dt 
+\end{gather*}
+\begin{gather*}
+    \left(\frac{g}{l}\right)^{\frac{1}{2}} \int_{\frac{3T}{4}}^{T} dt = \int_{0}^{\phi_0} \frac{d\phi}{\sqrt{2(\cos\phi - \cos\phi_0)}} 
+    = \left(\frac{g}{l}\right)^{\frac{1}{2}}\frac{T}{4} 
+\end{gather*}
+Quando $\phi \to \theta$ allora si può esprimere il dimezzamenteo del seno di $\phi$:
+\begin{gather*}
+    \sin\frac{\phi}{2} = \sin\frac{\phi_0}{2} + \sin\theta
+\end{gather*}
+Allora possiamo esprimere l'integrale come:
+\begin{gather*}
+    \int_{0}^{\frac{\pi}{2}}\frac{d\theta}{(1 - \sin^{2}\frac{\phi}{2} \sin^{2}\theta)^{\frac{1}{2}} } = K(\sin^{2}\frac{\phi_0}{2} ) 
+\end{gather*}
+Dove $K$ è una costante che compare nella risoluzione dell'integrale
+e dato che $\sin^{2}\frac{\phi_0}{2} < 1$ per piccole oscillazioni.  Allora 
+E quindi il suo periodo è una funzione per cui è esprimibile come:
+\begin{gather*}
+    T = T(l, g, \phi_0) = \left(2\pi\sqrt{\frac{l}{g}} \right) \cdot  f(\phi_0) = T_0(l, g) \cdot  f(\phi_0) \\
+    10\text{°} \leq \phi_0 \leq 25\text{°}
+\end{gather*} 
+\begin{gather*}
+    \begin{tabular}{c | c | c | c}
+        $\phi_0$ & $\phi_0(rad)$ & $\frac{1}{4}\sin^{2}\frac{\phi_0}{2}$ & $\frac{\phi}{64}\sin^{4}\frac{\phi_0}{2}$ \\
+        \hline 
+        $10\text{°}$ & $0.125$ & $1.9 \cdot 10^{-3} $ & $8 \cdot 10^{-6}  $ \\
+        $20\text{°}$ & $0.349$ & $7.5 \cdot 10^{-3}$ & $1.3 \cdot 10^{-4}$ \\
+        $25\text{°}$ & $0.436$ & $1.17 \cdot 10^{-2}$ & $3.4 \cdot 10^{-4} $ 
+    \end{tabular}
+\end{gather*}
+AI fini della misura data l'incertezza con cui misuro il periodo
+con le piccole oscillazioni o con le oscillazioni generali è indifferente
+i due metodi:
+\begin{align}
+    \left( \frac{\delta T}{T} \right) &\approx \frac{1}{4}\sin^{2}\frac{\phi}{2} << \left(\frac{\Delta T}{T}\right) \\
+    \left( \frac{\delta T}{T} \right) &\approx \frac{1}{4}\sin^{2}\frac{\phi_0}{2} \geq \left(\frac{\Delta T}{T}\right) 
+\end{align}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il pendolo}
+    \begin{tikzpicture}
+        \draw[dashed](0, 0) -- (0, -2) node[at start, above] {$O$};
+        \draw(-1, 0) -- (1, 0);
+        \draw(0, 0) -- (1, -2) node[midway, right] {$l$};
+        \draw(0, -1) arc (-90:-60:1) node[midway, below] {$\phi_0$};
+        \draw(0, -2) -- (1, -2) node[midway, above] {$x_0$};
+        \draw()
+    \end{tikzpicture}    
+\end{wrapfigure} 
+
+\end{document}

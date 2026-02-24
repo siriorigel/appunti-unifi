@@ -1,0 +1,163 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Analisi}
+\author{Tommaso Miliani}
+\date{05-12-24}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Integrali impropri}
+Supponendo che io abbia una funzione continua, il suo integrale 
+è esattamenta l'area del sottografico: il che è  ragionevolmente calcolabile.
+SI potrebbe però pensare in linea teorica sottoinsiemi del piano
+illimitati: ossia che non riesco a racchiudere in zone limitate di piano
+\begin{align*}
+    f: [1, +\infty] \to R, f(x) =\frac{1}{x}
+\end{align*}
+Posso considerarare il suo sottografico per cui $x \geq 1$ e $ 0 \leq y \leq \frac{1}{x}$.
+La domanda è questa: l'area è finita o infinita?
+Idealmente sto facendo:
+\begin{align*}
+    \int_{1}^{+\infty } \frac{1}{x} \ dx 
+\end{align*}
+Però non posso definirlo con Riemann poiché non posso fare partizioni
+finite per un intervallo infinito poiché altrimenti dovrei fare una somma
+con almeno una partizione di lunghezza infinita e questo perde di
+significato. \\
+Posso integrare fino ad un certo punto ed integrare fino a $c$ con $c > 1 $ e quindi
+so fare:
+\begin{align*}
+    \int_{1}^{c} \frac{1}{x} \ dx
+\end{align*}
+Posso fare ora il $\lim_{c \to \infty}$ quindi:
+\begin{align*}
+    \lim_{c \to \infty } \int_{1}^{c} \frac{1}{x} \ dx. 
+\end{align*} 
+Per cui diventa:
+\begin{gather*}
+    \int_{1}^{c} \frac{1}{x} \ dx = F(c) - F(1) \\
+    ossia \ \lim_{c \to \infty } \ln(c) - 0 = +\infty . 
+\end{gather*}
+
+Con un'altro esempio si vede invece che l'integrale di una funzione che
+tende all'infinito non sempre ha un area infinita:
+\begin{align*}
+    f: [1, \infty ] \to R \\
+    f(x) = \frac{1}{x^2} 
+\end{align*}
+Il suo integrale associato diventa quindi:
+\begin{align*}
+    \lim_{c \to \infty } \int_{1}^{c} \frac{1}{x^2 } \ dx.
+\end{align*}
+La mia primitiva è dunque $-\frac{1}{x}$ (è solo una delle primitive),
+in ogni caso diventa:
+\begin{align*}
+    \int_{1}^{c} \frac{1}{x^2 } \ dx = \lim_{c \to \infty } -\frac{1}{c} + \frac{1}{1} = 1. 
+\end{align*}
+
+\begin{definition}[Integrale improprio]
+    Sia $a \in R$ e sia $f: [a, +\infty ] \to R$ e supponiamo che $f$ sia
+    tale che sia integrabile in $[a, c] \ \forall c > a$. Se esiste finito
+    o infinito il limiti per $ c \to \infty $ dell'int:
+    \begin{gather}
+        \int_{a}^{c} f(x) \ dx
+    \end{gather}  
+    Allora $f(x)$ è integrabile in senso improprio nell'intervallo
+    $[a, c]$ e si pone:
+    \begin{gather}
+        \int_{a}^{+\infty } f(x) \ dx = \lim_{c \to +\infty } \int_{a}^{c} f(x) \ dx   
+    \end{gather}
+    Inoltre se il limite è finito allora l'integrale è convergente
+    altrimenti divergente. Se invece il limite non esiste allora l'integrale
+    è indeterminato.
+\end{definition}
+
+Gli esercizi sugli integrali impropri solitamente chiedono di
+il carattere dell'integrale improprio. Un esempio è:
+\begin{align*}
+    \int_{1}^{+\infty } \frac{1}{x^2  + \ln^2 (x)} \ dx 
+\end{align*}
+
+\section{Carattere degli integrali impropri di funzioni con segno costante}
+\begin{lemma}[Carattere degli integrali impropri di funzioni con segno costante]
+    Se  $f: [a, +\infty ] \to R$ è integrabile in $[a, c] \ \forall c > a$ e
+    $f(x) \geq 0 \ \forall x geq a$ allora l'integrale di f(x) è ben
+    definito ed esiste e può essere finito o infinito.
+\end{lemma}
+\begin{proof}
+    La funzione che associa $c \to \int_{a}^{c} f(x) \ dx$ è costante e allora
+    $c_1, c_2 > 0$ con $c_2 < c_1$  faccio:
+    \begin{gather*}
+        \int_{a}^{c_2} - \int_{a}^{c_1} f(x) \ dx = \int_{a}^{c_1} f(x) \ dx + \int_{a}^{c_2} f(x) \ dx - \int_{a}^{c_1} f(x) \ dx
+    \end{gather*}
+    Quindi si ha che:
+    \begin{gather*}
+        \int_{a}^{c_2} f(x) \ dx \geq \int_{a}^{c_1} f(x) \ dx \Rightarrow \int_{c_1}^{c_2} f(x) \ dx  \geq 0.  
+    \end{gather*}
+\end{proof}
+
+La proposizione vale anche se $f(x) \leq 0$ in $[a, +\infty]$ ed in
+questo caso l'integrale improprio può essere un numero oppure
+divergere a $-\infty $.
+La situazione del tutto speculare è quella per $[-\infty , a]$.
+GLi integrali da $.\infty a +\infty $ è un integrale non ben definito
+poiché si potrebbe trovare valori diversi dell'integrale se si fa crescere
+più velocemente un interevallo rispetto all'altro.
+
+\begin{theorem}
+    Siano $f, g$ due funzioni integrabili e tali che: $0 \leq f(x) \leq g(x)$:
+    allora:
+    \begin{gather}
+        Se \ \int_{a}^{+\infty } g(x) \ dx \ converge \\
+        Allora \ \int_{a}^{+\infty } f(x) \ dx \ converge. 
+    \end{gather}
+    Analogamente se
+    \begin{gather}
+        \int_{a}^{+\infty } g(x) \ dx \ diverge \\
+        Allora \ \int_{a}^{+\infty } f(x) \ dx \ diverge.  
+    \end{gather}
+\end{theorem}
+
+\begin{proof}
+    Riprendendo:
+    \begin{align*}
+        \int_{1}^{+\infty } \frac{1}{x^2  + \ln^2 (x)} \ dx 
+    \end{align*}
+Voglio dimostrare che questo integrale converge, allora prendo : $\frac{1}{x^2 }$ come
+$g(x)$ e quindi, dal momento che
+\begin{align*}
+    \int_{1}^{+\infty } \frac{1}{x^2 } \ dx = 1 
+\end{align*}    
+Allora anche il primo integrale converge poiché io ho imposto
+che $0 \leq f(x) \leq g(x)$.
+\end{proof}
+
+
+\end{document}

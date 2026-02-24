@@ -1,0 +1,275 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti ottica}
+\author{Tommaso Miliani}
+\date{27-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section*{Esperienza della polarizzazione}
+\section{Scopi e finalità}
+\subsection{Il fit sinusoidale}
+Nella polarizzazione si deve validare le leggi della polarizzazione
+per le lenti $\frac{\lambda}{4}$ e per le lenti $\frac{\lambda}{2}$. 
+Si deve realizzare un fit (non lineare) di una funzione sinusoidale:
+per realizzarlo dobbiamo fare le seguenti assunzioni (così come per i fit lineari):
+\begin{itemize}
+    \item l'incertezza $\sigma$ sulla variabile aleatoria $x$ sia trascurabile: questo vuol dire che
+    si ha uno strumento che misura ole $x$ con una precisione di diversi ordini di grandezza superiore delle $y$. 
+    \item La funzione $g$, ossia la funzione del fit, abbia una distribuzione
+    gaussiana e con i vari $\sigma_{y_i}$ costanti per tutte
+    le misure $ \ \Longrightarrow \ \sigma_{y_i} \approx \sigma_y$. 
+    \item Devo minimizzare il $\chi^{2}$.  
+\end{itemize} 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La funzione generica}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0);
+        \draw[->](0, 0) -- (0, 4);
+        \draw(0.5, 1) ..  controls (1, 1.9) and (1.2, 1.9) .. (1.7, 1.3);
+        \draw(1.7, 1.3) .. controls (2.2, 0.7) and (2.7, 1.8) .. (3.5, 1);
+        \draw(1, 0.1) -- (1, -0.1) node[at end, below] {$x_1$};
+        \draw(2, 0.1) -- (2, -0.1) node[at end, below] {$x_2$};
+        \draw(3, 0.1) -- (3, -0.1) node[at end, below] {$x_3$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel nostro caso non posso applicare le regole del fit lineare ma posso supporre di avere una
+funzione generica ottenuta con dei certi valori sperimentali
+$(x_i, y_i)$ dove i dati sono legati tra di loro mediante una determinata legge
+\begin{gather*}
+    f(a, b, c, \dots)
+\end{gather*}
+Tuttavia questa funzione non è completamente arbitraria ma è del tipo
+\begin{gather*}
+    f = a\cos^{2}(bx + \phi) + \text{offset} 
+\end{gather*}
+Questa funzione sarà ovviamente una funzione dell'angolo $x$ (ossia la rotazione
+della lamina) e descrive l'intensità luminosa del cubo in analisi
+in trasmissione e riflessione. Dunque posso determinare il $\chi^{2}$ come
+\begin{gather*}
+    \chi^{2} = \frac{\sum (y_i - f(a, b, \phi, \text{offset}, x))^{2} }{\sigma_y^{2} } 
+\end{gather*}  
+Posso ottenere la minimizzazione del $\chi^{2}$ mediante l'utilizzo di un calcolatore 
+e delle $\overline{a}, \overline{b}, \overline{c}, \overline{d}$. Inoltre è capace di ottenere
+anche le incertezze associate alle singole variabili. 
+
+\subsection{Le lamine $\frac{\lambda}{4}$ e $\frac{\lambda}{2}$ nell'esperienza}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La lamina $\frac{\lambda}{2}$}
+    \begin{tikzpicture}
+        \draw[red, thick, ->](0, 0) -- (2, 0) node[at end, right] {asse fast};
+        \draw[cyan, thick, ->](0, 0) -- (0, 2) node[at end, below] {asse slow};
+        \draw[thick, ->](0, 0) -- (2, 1) node[at end, right] {in};
+        \draw[thick, ->](0, 0) -- (-2, 1) node[at end, above] {out};
+        \draw(0, 0.5) arc (90:30:0.5) node[midway, above] {$\theta$};
+        \draw(0, 0.5) arc (90: 150:0.5) node[midway, above] {$\theta$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Le lamine possono riflettere il campo elettrico lungo le due direzioni
+\begin{gather*}
+    E_{z} = E_{z0}\cos(kx - \omega t + \phi_z) \\
+    E_{y} = E_{y0}\cos(kx - \omega t + \phi_y)
+\end{gather*}
+Con la lamina $\frac{\lambda}{4}$ posso cambiare la spanciatura dell'ellisse che 
+descrive la polarizzazione ellittica generica senza modificare la direzione degli assi:
+per quello si utilizza la $\frac{\lambda}{2}$. 
+
+\section{Apparato sperimentale}
+Si ha un tavolo con una breadboard: ossia un piano di 
+alluminio con dei fori che permette di fissare gli 
+strumenti ottici. La polarizzazione in uscita dal laser non la
+conosciamo e potrebbe aver qualsiasi tipo di polarizzazione 
+ma si conosce la lunghezza d'onda che è di $532 \ nm$. 
+\begin{gather*}
+        \begin{tikzpicture}
+        \draw[->](-1, 0) -- (10, 0) node[at end, below] {$x$};
+        \draw(0, -0.25) rectangle (1, 0.25);
+        \draw(-1, 0) circle (0.2);
+        \filldraw(-1, 0) circle (1pt) node[anchor = south] {$y$}; 
+        \draw[->](-1, 0) -- (-1, -2) node[at end, right] {$z$};
+        \draw(2, 0) circle (0.2);
+        \draw[->](2, 0) -- (2, 1) node[at end, right] {$\vv{E_{\parallel}}$};
+        \draw(1.9, 0.1) -- (2.1, -0.1) node[at end, below] {$\vv{E_\perp}$ };
+        \draw(1.9, -0.1) -- (2.1, 0.1);
+        \draw(3, -0.75) rectangle (3.3, 0.75);
+        \draw (4, -0.75) rectangle  (5.5, 0.75);
+        \draw[->](6, 0) -- (6, -1) node[at end, below] {$\vv{E_\parallel}$ };
+        \draw(6.5, -0.75) rectangle (6.8, 0.75); 
+        \draw[->](7.5, 0) -- (7.5, -1) node[at end, right] {$\vv{E_{\parallel}}$};
+        \draw(7.4, 0.1) -- (7.6, -0.1) node[at start, above] {$\vv{E_\perp}$ };
+        \draw(7.4, -0.1) -- (7.6, 0.1);
+        \draw(7.5, 0) circle (0.2);
+        \draw(8, -0.75) rectangle (9.5, 0.75);
+        \draw(8.75, 0) -- (8.75, -2);
+        \draw(10, -0.5) rectangle (11, 0.5);
+    \end{tikzpicture}  
+\end{gather*}
+SI fa passare il campo 
+attraverso un filtro variabile che permette di cambiare (variando il
+suo angolo di rotazione) l'intensità luminosa che passa. La luce passa poi
+attraverso un cubo di pulizia, che permette di filtrare il campo perpendicolare 
+e di far passare solo il campo $\vv{E_\parallel}$ che risulta avere
+verso contrario a quello di entrata.  \\
+Si utilizza un supporto con goniometro che permette di ruotare la lamina; dato che
+il laser passa dentro la lamina, posso fare in modo che l'asse slow e quello fast
+possano ruotare rispetto alla scala goniometrica. Questo componente ottico sta dopo il cubo
+di pulizia e permette di cambiare la polarizzazione in base all'angolo di rotazione $\theta$.
+Dopo si pone un altro cubo di pulizia che permette di filtrare nuovamente  il
+campo perpendicolare (che prende il nome di cubo di analisi) e porre i due rilevatori. 
+
+\section{Funzioni del fit}
+\subsection{Calibrazione dei laser}
+Si presentano vari problemi nella raccolta dei dati sperimentali:
+\begin{itemize}
+    \item Il rilevatore non è perfetto e dunque non riesce a misurare
+    perfettamente tutta l'intensità;
+    \item Il rilevatore ha una sensibilità diversa da quella dell'altro 
+    rilevatore
+    \item I rilevatori sono sporchi oppure tarati male
+    \item L'allineamento dell'apparato ottico non è perfetto 
+\end{itemize}
+E' possibile ovviare alla calibrazione dei rilevatori sfruttando la 
+lamina $\frac{\lambda}{2}$: dopo aver posizionato i rilevatori si ruota la
+lamina $\frac{\lambda}{2}$ e si misura il valore massimo che si ottiene in ognuno
+dei rilevatori. 
+
+\subsection{Lamina $\frac{\lambda}{2}$}
+Si può ora descrivere le leggi di Malus per i vari assi
+\begin{gather*}
+    I_\parallel(\theta) = I_0 \cos^{2}(2\theta) \\
+    I_\perp(\theta) = I_0 \sin^{2}(2\theta)  
+\end{gather*}
+SI ottiene allora le seguenti condizioni
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[red, ->](0, 0) -- (2, 0) node[at end, below] {$E$};
+        \draw[cyan,->](0, 0) -- (0, 2);
+        \node at (1.5, 1.5) {$\theta = 0$};
+        \draw(5, 0) -- (7, 0) node[at end, below] {$E$};
+        \draw[cyan, ->](5, 0) -- (5, 2);
+        \draw(5, 0) -- (7, 2);
+        \draw(5, 0) -- (4, 2); 
+        \node at (7, 1.5) {$\theta = \frac{\pi}{4}$};
+    \end{tikzpicture}
+\end{gather*}
+Facendo ora ruotare le polarizzazioni, si ottengono tanti dati sperimentali:
+in funzione dell'angolo si può allora disegnare il grafico della legge di Malus
+(circa 20 punti per gli angoli da zero a $360$° equispaziati, ossia ogni $\sim 20$°)
+Mentre si collezionano i dati per l'intensità trasmessa, si collezionano anche i dati
+per l'intensità riflessa e si disegnerà anche il grafico attraverso quei punti.
+La funzione del fit sarà ora data da
+\begin{gather*}
+    f(a, b, \phi, \text{offset}, x) = a\cos^{2}(bx + \phi) + \text{offset} 
+\end{gather*}
+Supponendo ora di avere questa funzione da farne il fit, dividendo $I_\parallel(\theta)$
+e $I_\perp(\theta)$ per i loro valori massimi ci si aspetta che l'ampiezza
+dell'oscillazione del coseno e del seno sia $\overline{a} \approx 1$. Posso invece dire che $\overline{b} \approx 2$ in quanto 
+nella legge di Malus deve risultare $2\theta$ e dove $\text{offset} = 0$. Tra la fase del coseno e del seno ci si
+aspetta una differenza di circa $\approx \frac{\pi}{2}$, e dunque, arbitrariamente, posso dire che $\overline{\phi} \approx 0$.  
+Riassumendo
+\begin{gather*}
+    \overline{a} \approx 1 \qquad \overline{b} \approx 2 \qquad \overline{\phi} \approx 0 \qquad \text{offset} \approx 0  
+\end{gather*}
+Tuttavia in condizioni non ideali l'offset del laser non sarà zero ma 
+sarà un valore molto piccolo da dover sottrarre a tutti i valori
+trovati in laboratorio. Si può ora vedere che
+\begin{gather*}
+    \cos^{2}(2\theta) = 1 - \sin^{2}(2\theta) = 1 - \cos^{2} (2\theta + \frac{pi}{2})  
+\end{gather*}
+Data questa legge, si osserva che si trova un altro set di valori con 
+\begin{gather*}
+    \overline{a} \approx -1 \qquad \overline{b} \approx 2 \qquad \overline{\phi} \approx = \frac{\pi}{2}  \qquad \text{offset} = 1 
+\end{gather*}
+In questo caso si vede che $\chi^{2}$ ha due minimi e permette di ottenere due
+funzioni dal programma di fit.  
+
+\subsection{La lamina $\frac{\lambda}{4}$}
+Con la lamina $\frac{\lambda}{4}$ si per la legge di Malus che
+\begin{gather*}
+    I_\parallel = I_0\left(1 - \frac{1}{2}\sin^{2}(2\theta) \right) \\
+    I_\perp =   \frac{I_0}{2}\left(\sin^{2}(2\theta) \right)
+\end{gather*}
+Dato che questa lamina mi permette di spanciare l'ellisse, se ruotassi la lamina
+di un certo angolo $\theta = \frac{\pi}{2}$, il ritardo di fase è lungo una direzione dove il campo elettrico non
+oscilla neanche, allora la polarizzazione rimane tutta $\vv{E_\parallel}$ e dunque
+tutta la potenza è trasmessa.
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[red, ->](0, 0) -- (2, 0) node[at end, below] {E};
+        \draw[cyan,->](0, 0) -- (0, 2);
+        \node at (1.5, 1.5) {$\theta = 0$};
+        \draw[->](4, 0) -- (6, 0);
+    \end{tikzpicture}
+\end{gather*} 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}[domain=0:4]
+        \draw[->](0, 0) -- (4, 0) node[right] {$\theta$};
+        \draw[->](0, 0) -- (0, 2) node[right] {$I_0$};
+        \draw[samples = 100, red] plot (\x, {sin(2 *\x r) * sin(2 *\x r)}) node[left] {$I_\perp$};
+        \draw[samples = 100, cyan] plot (\x, {2 - sin(2 * \x r) * sin(2 * \x r)}) node[left] {$I_\parallel$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+L'ellisse si spancia solamente quando $\theta = \frac{\pi}{4}$. Allora, la polarizzazione
+in uscita diventa circolare.
+\begin{gather*}
+    \theta = \frac{\pi}{4} \qquad I_\parallel = \frac{I_0}{2} \qquad I_\perp = \frac{I_0}{2}
+\end{gather*}
+Dato che la lamina $\frac{\lambda}{2}$ permette di ruotare il campo di un certo angolo
+$\theta$ e, quando la luce passa nuovamente  all'interno della lamina viene riportata alla polarizzazione 
+iniziale, tutta la luce che torna sul cubo analisi sarà totalmente riflessa. Invece, una $\frac{\lambda}{4}$
+attraversata due volte si comporta come una $\frac{\lambda}{2}$: l'effetto complessivo 
+del doppio passaggio è una riflessione rispetto all'asse slow della lamina. 
+
+\end{document}

@@ -1,0 +1,420 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath} 
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\usepackage{svg}
+\usepackage{float}
+%\definecolor{page}{rgb}{0.129,0.157,0.212}
+%\pagecolor{page}
+%\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Esperienza Diffrazione}
+\author{Gruppo 19 \\ Fabbri Marco, Miliani Tommaso, Mongatti Giulio, Tinacci Lorenzo}
+\date{10 Dicembre 2025}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Scopo dell'esperienza ed ipotesi}
+Lo scopo generale dell’esperienza è la verifica delle leggi per la distribuzione angolare
+dell’intensità di un onda piana in uscita da una singola fenditura e da un reticolo nel
+limite di Fraunhofer (grandezza della fenditura molto maggiore della distanza a cui si misura l'intensità). 
+La legge che regola la diffrazione da singola fenditura è la seguente:
+\begin{align}
+    I(\theta) = I_0 \text{sinc}^{2}\left(\frac{kD}{2}\sin \theta\right)
+\end{align}
+Mentre quella per la diffrazione da un reticolo di fenditura
+\begin{align}
+    I(\theta) = I_0 \text{sinc}^{2}\left(\frac{kD}{2}\sin\theta\right) \frac{\sin^{2} \left(\frac{nak}{2}\sin\theta\right)}{n^{2}\sin^{2}\left(\frac{ka}{2}\sin\theta\right)}
+\end{align}
+
+\section{Diffrazione da singola fenditura}
+\subsection{Schema generale di misura}
+Gli sperimentatori devono ottenere, attraverso un sistema di acquisizione e un programma
+di analisi, delle immagini per poter ricavare una stima del fattore $B$, tramite la seguente relazione:
+\begin{align}
+    B = \frac{kD}{2} = \frac{\pi D d}{\lambda x}
+\end{align}
+Dove
+\begin{itemize}
+    \item $D$ è lo spessore della fenditura attraverso la quale passa il fascio laser;
+    \item $\lambda$ è la lunghezza d'onda del laser utilizzato;
+    \item $x$ è la distanza tra la fenditura e il rilevatore CCD che permette di acquisire l'immagine;
+    \item $d$ è lo spessore dei pixel della fotocamera.
+\end{itemize}
+Per tale verifica gli sperimentatori misurano, mediante una telecamera, il profilo di intensità
+generato da una fenditura su cui incide un fascio laser e lo confrontano con quanto previsto 
+dalla teoria.
+Il valore misurato di $B$ dal programma va quindi comparato con un valore atteso ottenuto
+dalla formula data; se i due valori $B_{\text{atteso}}$ e $B_\text{medio}$ risultano consistenti, la legge può dirsi verificata.
+Per misurare $B$ si allinea il CCD con la fenditura in modo tale che si possano vedere il massimo
+di intensità centrale e primi due massimi laterali; si acquisisce quindi il profilo di intensità e si 
+analizzano più righe del rilevatore per ottenere un profilo unidimensionale di intensità, determinato dalla legge:
+\begin{align}
+    I(y) = I_0\text{sinc}^2\left(\frac{kDdy}{2x}\right) 
+\end{align}
+Dove
+\begin{gather*}
+    \frac{dy}{x} = \theta  \approx \tan\theta \approx \sin\theta
+\end{gather*} 
+nel limite di Fraunhofer. \\
+Per fare un confronto quantitativo è necessario determinare $B_\text{atteso}$ ottenendo le misure di
+$x$ e $d$ con relativa incertezza, mentre le altre grandezze sono fornite dal costruttore.
+$x$ viene definito dalla somma della distanza $x'$ tra i supporti rispettivamente della fenditura e del CCD,
+e la somma delle distanze dei due apparati dai rispettivi supporti $\delta_1 + \delta_2$. $x'$ viene misurato più
+volte con un calibro di sensibilità di $0.1$ cm, così da ottenere media e scarto massimo e poter dunque determinare $x$ ed il suo errore secondo la seguente relazione: 
+\begin{align}
+    x = \delta_1 + x' + \delta_2 \qquad \quad \Delta x = \Delta \delta_1 + \Delta x'.
+\end{align}
+Per stimare l'errore sulla dimensione dei pixel, si sfrutta il fatto che la riflessione del 
+rilevatore suddiviso in pixel quadrati è analoga alla trasmissione di un reticolo bidimensionale con
+fenditure di separazione $a=d$.  Per la misura si usufruisce di un laser con lunghezza d'onda nota
+($\lambda = 532$ nm), osservando una diffrazione che segue la legge
+\begin{gather*}
+    \sin\theta = m \frac{\lambda}{d} \quad m \in \mathbb{Z}
+\end{gather*}
+la quale è approssimabile, nel limite di Fraunhofer, alla seguente: 
+\begin{align}
+    \frac{l}{2L} = m\frac{\lambda}{d} 
+\end{align}
+Dove 
+\begin{itemize}
+    \item $l$: distanza tra ordini di diffrazione 1 e -1;
+    \item $L$: distanza fra la CCD e la parete su cui appare la diffrazione, 
+    ottenuta trovando la distanza tra telecamera e la parete $L'$ e sommandoci $\delta_2$.
+\end{itemize}
+Per la stima dell'errore su $d$ si è misurato 5 volte $L$ e $l$ usando il metro in dotazione. 
+Calcolati media e scarto massimo, abbiamo ottenuto l'errore su $d$ usando la propagazione dell'errore
+secondo le derivate logaritmiche. 
+\begin{align}
+    \Delta d = D\left( \Delta l\left|-\frac{1}{l}\right| \cdot \Delta \lambda \left|\frac{1}{\lambda}\right| + \Delta L\left| \frac{1}{L}\right|\right)
+\end{align}
+Dopo aver ottenuto l'errore su $d$ si utilizza nuovamente la propagazione per trovare $\Delta B_\text{atteso}$: 
+\begin{align}
+    \Delta B_\text{atteso} = B_\text{atteso} \left(\Delta d \left| \frac{1}{d}\right| + \Delta D\left| \frac{1}{D}\right| + \Delta \lambda\left| -\frac{1}{\lambda}\right| + \Delta x\left| -\frac{1}{x} \right|\right)
+\end{align}
+
+\subsection{Apparato sperimentale}
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw(0, -0.25) rectangle (1, 0.25);
+        \draw(1, 0) -- (3, 0);
+        \draw(3, -0.5) rectangle (3.5, 0.5);
+        \draw(3.5, 0) -- (10, 0);
+        \draw(4.75, 0.2) rectangle (5.25, 1);
+        \draw(4.75, -0.2) rectangle (5.25, -1);
+        \filldraw(5, 0) circle (1pt);
+        \filldraw(10, 0) circle (1pt) node[anchor = west] {$O$};
+        \draw(5, 0) -- (10, 1);
+        \draw(7, 0) arc (0:12:2) node[midway, right] {$\theta$};
+        \draw[->](10, -1) -- (10, 1) node[at end, right] {$y'$};
+        \draw[|-|](5.3, -1) -- (9.95, -1) node[midway, above] {$x'$};
+        \node at(5, -1.3) {fenditura};
+        \node at(3.25, 0.75) {filtro};
+        \node at(0.5, 0.5) {laser};
+        \node at (11.3, 0) {rilevatore};
+    \end{tikzpicture}
+\end{gather*}
+L'apparato sperimentale per la verifica della legge per una singola fenditura è composto da un laser, una fenditura
+e di una telecamera dotata di rilevatore CCD, tutti allineati fra loro. Per prevenire
+la saturazione della telecamera, si pone inoltre un filtro aggiuntivo opportunamente regolabile. 
+Dell'apparato sperimentale si conoscono le seguenti caratteristiche:
+\begin{itemize}
+    \item lunghezza d'onda laser $\lambda = (668.66 \pm 0.01)$ nm;
+    \item spessore fenditura $D = (30 \pm 2)\  \mu$m;
+    \item distanza fenditura-supporto $\delta_1 = (2.8 \pm 0.3)$ mm;
+    \item distanza entrata fotocamere-CCD $\delta_2 = 12.536$ mm;
+    \item dimensione del singolo pixel della CCD di 5.2 $\mu$m.
+\end{itemize}
+Si hanno a disposizione, inoltre, i seguenti strumenti:
+\begin{itemize}
+    \item calibro con sensibilità di $0.05$ mm;
+    \item metro con sensibilità di 2 mm. 
+\end{itemize}
+Il rilevatore CCD è collegato ad un computer sul quale è presente un programma di prelievo ed
+analisi delle immagini ottenute mediante il rilevatore, che permette di eseguire il fit su un'area di pixel scelta arbitrariamente dallo sperimentatore.
+Per la buona riuscita del fit, è necessario disabilitare il gain e la gamma riducendo al minimo
+il segnale in ingresso, diminuire il tempo di esposizione per rendere più visibili i massimi 
+ed i minimi di intensità del fascio e settare il framerate a circa 10 fps per eliminare il flickering 
+causato dalle lampade a led del laboratorio. 
+
+\subsection{Misure} 
+Per trovare $B$ si è utilizzato un programma di analisi dati scritto in Mathematica,
+ricavando, dalla seguente foto,
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{terza.png}
+\end{figure} \mbox{} \\
+le seguenti misure di $B$, a seconda delle righe di pixel considerate.
+\begin{gather*}
+    \text{Prima foto} \\
+    \begin{tabular}{ c c }
+        \hline
+        $B$ & Righe \\
+        \hline
+        $0.00980836$ & 376 -- 401 \\
+        $0.00976523$ & 375 -- 610 \\
+        $0.00956782$ & 513 -- 617\\
+        $0.00989841$ & 374 -- 474 \\
+        $0.00970475$ & 465 -- 624\\
+        \hline
+    \end{tabular}
+\end{gather*}
+Di seguito si riportano le misure di $x'$ misurate con il calibro e le misure
+di $l$ ed $L$ misurate con il metro:
+\begin{gather*}
+    \begin{tabular}{c c c}
+        \hline
+        $x'$ (mm) & $l$ (cm) & $L$ (m)\\
+        \hline
+        61.40 & 93.8  & 4.10 \\
+        61.25 & 93.6  & 4.08 \\
+        61.15 & 93.6  & 4.08 \\
+        61.20 & 94.0  & 4.09 \\
+              & 93.8  & 4.09 \\
+        \hline
+    \end{tabular}
+\end{gather*}
+Da questi dati si ottengono le seguenti misure con errore associato (ricordando 
+di sottrarre l'offset di $10.0$ cm dalle misure di $l$):
+\begin{itemize}
+    \item $x' = (61.2 \pm 0.2)$ mm;
+    \item $l = (83.8 \pm 0.4)$ cm;
+    \item $L = (4.09 \pm 0.02)$ m.
+    \item $B_\text{medio} = 0.00977 \pm 0.00013$.
+\end{itemize}
+Da queste misure si possono ottenere le altre misure indirette mediante le relazioni descritte prima con
+relativo errore associato:
+\begin{itemize}
+    \item $x = (76.4 \pm 0.5)$ mm;
+    \item $d = (5.20 \pm 0.03) \ \mu$m;
+    \item $B_\text{atteso} = 0.0096 \pm 0.0008$.
+\end{itemize}
+
+\subsection{Commento qualitativo}
+I valori ottenuti di $B_\text{medio}$ e $B_\text{atteso}$ risultano compatibili. Si noti che l'errore
+di $B_\text{atteso}$ è di gran lunga maggiore rispetto a quello di $B_\text{medio}$ a causa dell'errore
+considerevole sulla larghezza della fenditura ($\frac{\Delta D}{D} = 7\%$). Possiamo dunque dirsi
+verificate le leggi sulla diffrazione per una singola fenditura nel limite di Fraunhofer.
+
+\section{Seconda parte dell'esperienza: il reticolo di diffrazione}
+\subsection{Scopo dell'esperienza ed ipotesi}
+La seconda parte dell’esperienza mira a verificare che la posizione angolare dei massimi
+principali di diffrazione segua la regola data dalla seguente relazione:
+\begin{align}
+        \sin\theta = m\frac{\lambda}{a} \quad m \in \mathbb{Z}
+\end{align}
+E verificare dunque l'equazione (2). \\
+In questa relazione:
+\begin{itemize}
+    \item $\theta$: Angolo di diffrazione;
+    \item $\lambda$: la lunghezza d’onda;
+    \item $m$: ordine di diffrazione; 
+    \item $a$: il passo del reticolo.
+\end{itemize}
+
+
+\subsection{Schema generale di misura}
+Per trovare il passo del reticolo a partire dalla separazione angolare delle bande 
+luminose, si utilizza la seguente relazione:
+\begin{align}
+    a = \frac{m\lambda}{\sin\theta} \qquad m \in \mathbb{Z}
+\end{align}
+L’errore relativo ad $a$ è dato dalla seguente espressione ottenuta dalla propagazione degli errori:
+\begin{align}
+    \Delta a = a \left| m \right| \left( \Delta \lambda \left| \frac{1}{\lambda} \right| + \Delta \theta\left| -\frac{\cos\theta}{\sin\theta} \right|   \right)
+\end{align}
+Di seguito viene descritta la corretta procedura per la calibrazione
+dell’apparato sperimentale: inizialmente, si cerca di ottimizzare al
+massimo il sistema ottico dello sperimentatore regolando l’oculare
+finché il crocefilo non risulta a fuoco. Puntando poi il cannocchiale
+verso un oggetto lontano, si muove l’intero sistema crocefilo-oculare
+per rendere l’immagine nitida. In questo modo il cannocchiale
+risulterà correttamente focalizzato all’infinito.
+Si posiziona, in seguito, la fenditura ad una distanza pari alla
+lunghezza focale della lente: in questo modo la luce emessa
+dalla lampada sarà perfettamente collimata. Quindi, osservando
+la fenditura dal cannocchiale mobile appena regolato, si cerca
+la distanza ottimale per cui essa apparirà nitida. La luce è ora
+assimilabile ad un’onda piana.
+Prima di effettuare le misure effettive è necessario posizionare
+il reticolo sullo spettrogoniometro e verificare che la direzione di propagazione
+dell’onda piana sia ortogonale al piano del reticolo.
+Lo sperimentatore può adesso avvicinare l’occhio con cui ha calibrato
+l’intero sistema ottico al cannocchiale per osservare l’effetto di
+diffrazione prodotto dal reticolo; noterà che, spostando il
+cannocchiale, appariranno molteplici fenditure di colore diverso
+(fenomeno verificatosi a causa della composizione spettrale della
+lampada a Mercurio). Posizionando approssimativamente il crocefilo
+sul centro della fenditura interessata, e servendosi della
+vite tangenziale, si misurerà l’angolo di diffrazione leggendo la scala dello spettrogoniometro.
+Durante questo processo lo sperimentatore noterà che certe lunghezze
+d’onda saranno meno vivide di altre; è consigliato prendere più di
+una misura per le suddette, farne la media e calcolare lo scarto
+massimo.
+
+\subsection{Apparato sperimentale}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{goniometrico.png}
+\end{figure}
+Per la seconda parte dell'esperienza si utilizza uno spettrogoniometro,
+strumento di misura che permette di misurare gli angoli
+di deviazione o diffrazione della luce con una sensibilità di 30”. Su di esso è posto
+un reticolo di diffrazione di 600 linee/mm nominali. Per quanto riguarda
+la sorgente luminosa, viene utilizzata una
+lampada a Mercurio (Hg) capace di produrre
+colori puri a lunghezze d’onda molto precise:
+404.656 nm (viola), 407.781 nm (violetto),
+435.881 nm (blu), 491.604 nm (verde scuro), 546.074 nm (verde chiaro),
+576.959 nm (giallo), 579.065 nm (giallo scuro).
+La fenditura è posta tra la lampada e il cannocchiale fisso;
+l’onda piana prodotta da essa, incidendo sul reticolo, è 
+diffratta ad angoli diversi secondo la legge sopracitata ed è
+proiettata sull'oculare del cannocchiale mobile, usato
+dallo sperimentatore per misurare gli angoli di
+diffrazione.
+
+
+\subsection{Misure}
+Per effettuare la misura dell’angolo di diffrazione,
+esistono due approcci: 
+\begin{enumerate}
+    \item Il metodo più semplice ma meno preciso
+    consiste nel misurare la posizione angolare del massimo
+    centrale (ordine 0, $\alpha_0$) e la posizione della riga
+    spettrale di interesse (ordine 1, $\alpha_1$), per cui si otterrebbe 
+    l'angolo di diffrazione come:
+    \begin{align}
+        \theta_d = \left| \alpha_0 - \alpha_1 \right| 
+    \end{align}
+    \item Il “metodo della semidifferenza”, invece, sfrutta la
+    simmetria del fenomeno della diffrazione. La procedura consiste
+    nel rilevare la posizione angolare della stessa riga spettrale
+    (medesimo colore) in modo simmetrico rispetto all'asse ottico:
+    prima in corrispondenza dell'ordine positivo ($n=+1$, $\alpha_+$)
+    e successivamente per l'ordine negativo ($n=-1$, $\alpha_-$).
+    L'angolo di diffrazione $\theta$ viene quindi determinato
+    calcolando la semidifferenza tra le due coordinate angolari
+    registrate
+    \begin{align}
+        \theta_d = \frac{\left| \alpha_0 - \alpha_1 \right| }{2}
+    \end{align}
+\end{enumerate}
+Non è consigliato usare il primo metodo visto che si potrebbero introdurre
+errori sistematici associati alla ricerca del massimo centrale, spesso non
+individuabile con alta precisione siccome molto luminoso e largo.
+Per effettuare i calcoli abbiamo deciso di usare il secondo al fine di
+minimizzare gli errori sistematici. Infatti, in nessun caso è richiesto
+di centrare il crocefilo con un colore che abbia un’intensità alta quanto
+quella bianca al centro. \\ Per le lunghezze d'onda verde scuro e violetto si sono 
+inoltre compiute 5 misure per poter determinare la loro media poiché sono 
+le lunghezze d'onda meno visibili e dunque quelle più soggette ad errore. 
+L'errore sulla media di queste due lunghezze d'onda è utilizzato
+come errore sulle misure per $\alpha_+$ e $\alpha_-$. \\Di seguito si riportano le misure per 
+le due lunghezze d'onda:
+\begin{gather*}
+    \begin{tabular}{l c c c c c}
+        \hline
+        Colore & Misura 1 & Misura 2 & Misura 3 & Misura 4 & Misura 5\\ 
+        \hline
+        Verde scuro $\alpha_+$ & 127° 5' & 127° 4' 30'' & 127° 5' & 127° 4' 30 '' & 127° 4' 30'' \\
+        Verde scuro $\alpha_-$ & 92° 39' & 92° 38' 30'' & 92° 38' & 92° 38' 30'' & 92° 38' \\
+        Violetto $\alpha_+$ & 124° 5' 30'' & 124° 4' 30'' & 124° 5' & 124° 5' 30''& 124° 5' \\
+        Violetto $\alpha_-$ & 95° 40' & 95° 39' &95° 38' 30''&95° 39' 30''&95° 40' \\
+        \hline
+    \end{tabular}
+\end{gather*}
+Di seguito la tabella riassuntiva per ogni lunghezza d'onda. Per i valori del
+verde scuro e del violetto si sono utilizzate le medie delle misure sopraelencate:
+\begin{gather*}
+    \begin{tabular}{l c c c}
+        \hline
+        Colore & $\lambda$ $10^{-10}$ m & $\alpha_+$ & $\alpha_-$ \\
+        \hline 
+        Giallo scuro & 5790.65 & 130° 15' & 89° 24' 30''\\
+        Giallo &5769.59 & 130° 10'& 89° 28' 30'' \\
+        Verde chiaro & 5460.74 & 129° 2' & 90° 39' \\
+        Verde scuro & 4916.04 & 127° 4' 42'' & 92° 38' 12'' \\
+        Blu & 4358.81 & 125° 5' 30 '' & 94° 40' \\
+        Violetto & 4077.81 & 124° 5' 6''&  95° 39' 24'' \\
+        Viola & 4046.56 & 123° 59' 30'' & 95° 46' 30'' \\
+        \hline
+    \end{tabular}
+\end{gather*}
+Da queste misure, si sono utilizzate le relazioni per ottenere i seguenti risultati
+\begin{gather*}
+    \begin{tabular}{l c c}
+        \hline
+        Colore & $a \pm \Delta a$ $10^{-10}$ m & $N \pm \Delta$N \\
+        \hline
+        Giallo scuro & $16596 \pm 12$  &  $602.5 \pm 0.4$\\
+        Giallo & $16594 \pm 12$ & $602.6 \pm 0.4$ \\
+        Verde chiaro & $16611 \pm 13 $ & $602.0 \pm 0.5$ \\
+        Verde scuro & $16605 \pm 14 $ & $602.2 \pm 0.5$ \\
+        Blu & $16611 \pm 16$  & $602.0 \pm 0.6 $  \\
+        Violetto &  $16607 \pm 17$ & $602.1 \pm 0.6$  \\
+        Viola & $16661 \pm 17$ & $602.4 \pm 0.6$   \\
+        \hline
+    \end{tabular}
+\end{gather*}
+
+\clearpage
+\subsection{Commento qualitativo}
+\begin{figure}[H]
+    \centering
+    \includesvg[width=1\textwidth]{diffrazione-goniometrico.svg}
+\end{figure}
+Dal grafico sopra si evince che esiste compatibilità tra le misure indirette della spaziatura
+tra le fenditure del reticolo di diffrazione utilizzato. Svolgendo la media pesata delle misure
+di $a$, si ottiene un valore di $a$ più preciso per il nostro set di dati:
+\begin{gather*}
+    a = (16604 \pm 5) \cdot 10^{-10} \ \text{m}
+\end{gather*}
+Anche se questa media pesata differisce di oltre $12\sigma_a$ dal valore 
+dato dal costruttore di $16666.66 \ 10^{-10}$ m, possiamo, data la compatibilità
+delle nostre misure, dire verificate la legge di diffrazione da reticolo. 
+
+\end{document}

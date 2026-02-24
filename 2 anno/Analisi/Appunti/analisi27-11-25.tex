@@ -1,0 +1,289 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Analisi (Bianchi)}
+\author{Tommaso Miliani}
+\date{27-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Teorema di Stokes e della divergenza}
+Si deve prima attribuire cosa sia una superficie su di uno
+spazio e come si calcola un integrale su di una superficie 
+nello spazio. Questi teoremi possono essere applicati sia nel piano che nello spazio.
+Nel caso del piano questi sono casi particolari delle formule di Gauss-Green. 
+Se $f : [a, b] \to \mathbb{R}$ sia continua in $C^{(1)}$, se si vuole 
+integrare in 
+\begin{gather*}
+    \int_{a}^{b} \frac{df(x)}{dx}dx = f(b) - f(a)
+\end{gather*}
+Si pul interpretare questo come se si avesse un insieme in $\mathbb{R}$ che
+lega l'integrale di qualche cosa su questo intervallo $[a,b]$ ad una funzione
+che coinvolge la funzione solamente agli estremi di questa funzione. Gli
+estremi di questo intervallo sono il bordo di questo intervallo che si esprime tramite qualche 
+cosa che sta nel bordo di quell'insieme. Se una certa forma differenziale $\omega$ è
+esatta e $\omega$ è esattamente il differenziale di una certa funzione $f$, se se $\gamma$ è una curva orientata, allora 
+si sa che l'integrale su di $\gamma$ di questa forma differenziale è esattamente
+\begin{gather*}
+    \int_{\gamma}^{} \frac{\partial f}{\partial x}dx \frac{\partial f}{\partial y}dy = f(P_2) - f(P_1)  
+\end{gather*}
+Dove $P_1$ e $P_2$ sono, rispettivamente, gli estremi iniziali e finali di $\gamma$ (dunque lei ha
+un certo verso di percorrenza). Quello che si sta facendo è che si sta integrando su di una certa curva
+e l'integrale di questa cosa è legata solo al valore della funzione nel bordo. Le formule
+di Gauss-Green sono una cosa simile ma in $\mathbb{R}^{2}$ il cui bordo è
+una curva che delimita un certo insieme. Le formule di permettono di dire che se 
+$D \subset \mathbb{R}^{2}$ è un certo insieme che soddisfa certe ipotesi e $\partial D$ è la sua frontiera
+orientata in un certo modo allora 
+\begin{gather*}
+    \int_{D}^{} (f)(x, y) \ dx dy = \int_{\partial D}^{} f
+\end{gather*}
+Ossia la funzione $(f)$ è una certa funzione che soddisfa le ipotesi e $f$ è 
+la funzione della frontiera.
+
+\begin{definition}[Verso di percorrenza di una frontiera]
+    Posto $D$ come insieme limitato di $\mathbb{R}^{2}$, si suppone che la $\partial D$
+    sia una curva semplice chiusa, regolare a tratti. Si definisce orientazione positiva
+    della frontiera di $D$ quella antioraria. Percorrendo la frontiera di $D$ nel verso
+    positivo, l'insieme $D$ rimane sempre sulla sinistra. 
+\end{definition}
+
+\begin{lemma}
+    Sia $F$ un campo vettoriale piano di componenti $F(x, y) = (P(x, y), Q(x, y))$. Sia 
+    $D \subset \mathbb{R}^{2}$, supponendo che $F \in C^{(1)}(\overline{D} )$.
+    Se $D$ è $y$ semplice, e il suo bordo
+    è una curva regolare a tratti chiusa, allora l'integrale su $D$ di 
+    \begin{gather*}
+        \int_{D}^{} \frac{\partial P}{\partial y}(x, y) \ dx dy  = - \int_{\partial D}^{} P(x, y) \ dx
+    \end{gather*} 
+    Se $\partial D$ è una curva regolare a tratti, e $D$ è $x$ semplice, allora
+    \begin{gather*}
+        \int_{D}^{} \frac{\partial Q}{\partial x}(x, y) \ dx dy = \int_{\partial D}^{} Q(x, y)  \ dy
+    \end{gather*}
+\end{lemma}
+\begin{proof}
+    (1): Supponendo inizialmente che $D$ sia un insieme $y$ semplice
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[->](0, 0) -- (2, 0);
+            \draw[->](0, 0) -- (0, 2);
+            \draw(0.5, 0.5) -- (0.5, 1);
+            \draw(1.5, 0.25) -- (1.5, 1.5);
+            \draw(0.5, 1) .. controls (0.75, 1.3) and (1.25, 1.7) .. (1.5, 1.5);
+            \draw(0.5, 0.5) .. controls (0.75, 0.5) and (1.25, 0.8).. (1.5, 0.25);
+            \node at (1, 1) {$D$};
+            \draw[dashed](0.5, 0.5) -- (0.5, 0) node[at end, below] {$a$};
+            \draw[dashed](1.5, 0.25) -- (1.5, 0) node[at end, below] {$b$};
+        \end{tikzpicture}
+    \end{gather*}
+    Ossia $D = \{(x, y) : x \in [a, b], \phi_1(x) \leq y \leq \phi_2(x)\}$, con 
+    $\phi_1$ e $\phi_2$ che sono entrambe $C^{(1)}$ a tratti. Si può allora calcolare
+    l'integrale come
+    \begin{gather*}
+        \int_{D}^{} \frac{\partial f}{\partial y}(x, y) \ dx dy = \int_{a}^{b}dx \int_{}^{} \frac{\partial P}{\partial y}(x, y) dy    
+    \end{gather*}
+    Quindi
+    \begin{gather*}
+        \int_{a}^{b}(P(x, \phi_2(x)) - P(x, \phi_1(x))) dx 
+    \end{gather*}
+    Posso spezzare la frontiera in quattro parti e chiamare il pezzo più basso 
+    come (1)  e procedere in senso antiorario. Richiamando l'integrale su di una curva orientata,
+    \begin{gather*}
+        \int_{\gamma}^{} g(x, y) dx 
+    \end{gather*}
+    Dove $\gamma$ è una curva orientata $\gamma : [c,d ] \to \mathbb{R}^{2}$. E dunque
+    \begin{gather*}
+        \int_{c}^{d}g(\gamma_1(t), \gamma_2(t)) \dot{\gamma_1}(t)\ dt 
+    \end{gather*}
+    Posso allora calcolare l'integrale (procedendo in senso antiorario) come 
+    \begin{gather*}
+        \int_{\partial D}^{} P dx = \int_{(1)}^{} + \int_{(2)}^{} + \int_{(3)}^{} + \int_{(4)}^{} 
+    \end{gather*}
+    Ovviamente
+    \begin{gather*}
+        \int_{(2)}^{} P\ dx = \int_{(4)}^{} P\ dx = 0
+    \end{gather*}
+    Poiché, se si facesse la parametrizzazione della curva $(2)$ e $(4)$, si avrebbe che
+    \begin{gather*}
+        t \to (b, t) \qquad t \in [\phi_1(b) , \phi_2(t)]
+    \end{gather*}
+    Allora l'integrale è esattamente 
+    \begin{gather*}
+        \int_{\phi_1(b)}^{\phi_2(b)} P(b, t) \cdot 0 \ dt = 0 
+    \end{gather*}
+    Per la parametrizzazione della curva (1):
+    \begin{gather*}
+        t \to (t, \phi_1(t)) \ t \in [a, b]
+    \end{gather*}
+    E dunque 
+    \begin{gather*}
+        \int_{(1)}^{} P(x, y) \ dx = \int_{a}^{b}P(t, \phi_1(t)) \cdot  1 \ dt = \int_{a}^{b} P(t, \phi_1(t)) \ dt  
+    \end{gather*}
+    Rimane da fare la parametrizzazione per (3):
+    \begin{gather*}
+        t \to (t, \phi_2(t)) \ t\in[a, b]
+    \end{gather*}
+    Per usare questa parametrizzazione devo mettere un meno in quanto sono nel
+    verso discorde:
+    \begin{gather*}
+        \int_{(3)}^{} P(x, y) \ dx = \int_{a}^{b}P(t, \phi_2(t))\ dt 
+    \end{gather*}
+    Dato che i due pezzi (1) e (3) sono uguali alle loro controparti nell'integrale
+    della tesi (eccetto per il segno meno), allora si ottiene che
+    \begin{gather*}
+        \int_{a}^{b}P(x, \phi_2(x)) \ dx - \int_{a}^{b}P(x, \phi_1(x)) \ dx = -\int_{(3)}^{} P \ dx - \int_{(1)}^{}  P \ dx
+    \end{gather*}
+    E dunque è dimostrata la formula (1). 
+\end{proof}
+
+\begin{lemma}[Formule di Gauss-Green prime]
+    Sia $F$ un campo vettoriale piano di componenti $F(x, y) = (P(x, y), Q(x, y))$. Sia 
+    $D \subset \mathbb{R}^{2}$, supponendo che $F \in C^{(1)}(\overline{D} )$.
+    Sia $\partial D$ una curva semplice
+    e chiusa, regolare a tratti, se $D$ è sia $x$ semplice che $y$ semplice, allora valgono
+    entrambe le formule di prima e posso fare 
+    \begin{gather*}
+        \int_{D}^{}\left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}  \right) dx dy = \int_{\partial D}^{}Pdx + Qdy  = \int_{\partial D}^{} \left< F, T \right>d?  
+    \end{gather*}
+    In senso antiorario. 
+\end{lemma}
+
+\begin{definition}
+    Si dice che un insieme $D \subset \mathbb{R}^{2}$ è un insieme $s$-decomponibile
+    se è sia decomponibile in un insieme finito di sottodomini $D_1, \dots, D_s$, semplici
+    rispetto ad entrambi gli assi e le cui frontiere sono curve semplici, chiuse
+    e regolari a tratti.   
+\end{definition}
+
+Se $D$ è $s$-decomponibile, come orientazione positiva su $\partial D$, si intende
+sempre quella data alle singole componenti di $\partial D$, in modo che, percorrendole, si
+lasci il dominio sempre alla propria sinistra. 
+
+\begin{theorem}
+    Se $D$ è $s$-decomponibile, e $F$ è un campo vettoriale continuo in $C^{(1)}(\overline{D} )$,
+    allora vale la formula
+    \begin{align}
+        \int_{D}^{}\left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}  \right) dx dy = \int_{\partial D}^{}Pdx + Qdy  = \int_{\partial D}^{} \left< F, T \right>d?  
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Considerando un dominio qualsiasi $D$ diviso in tanti sottodomini
+    $D_i$: 
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw(0, 0) ellipse (2 and 1);
+            \draw(-1, 0) circle (0.5);
+            \draw(0.75, -0.5) ellipse (0.75 and 0.25);
+            \draw(-1, 0.5) -- (-1, 0.9);
+            \draw(-1.5, 0) -- (-2, 0);
+            \draw(-0.5, 0) -- (0, -0.5);
+            \draw(1.5, -0.5) -- (1.75, -0.5);
+            \draw(0.75, -0.75) -- (0.75, -0.9);
+            \draw(0.75, -0.25) -- (0.75, 0.9);
+            \draw(-1, -0.5) -- (-1, -0.9);
+        \end{tikzpicture}
+    \end{gather*}
+    Si può iniziare dicendo che
+    \begin{gather*}
+        \int_{D}^{} \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}  \right) dx dy
+    \end{gather*}
+    E' esattamente la somma degli integrali su tutti i domini (che in genere sono finiti per definizione),
+    dunque posso dire che
+    \begin{gather*}
+        \sum \int_{D_i}^{} \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}  \right) dx dy
+    \end{gather*}
+    Ad ognuna di queste parti posso applicare la formula di Gauss-Green e dunque
+    \begin{gather*}
+        \sum \int_{\partial D_i}^{} P dx + Q dy 
+    \end{gather*}
+    Per essere valida, vanno percorsi tutti i sottodomini in senso antiorario,
+    dunque posso dire che tutti i bordi interni si annullano tra di loro in quanto
+    sono percorsi sempre in senso contrario: allora la somma totale dei contributi 
+    nell'integrale terrà conto solamente dei bordi esterni e di quelli vicino 
+    ai due buchi di $D$. Si ottiene allora
+    \begin{gather*}
+        \int_{\partial D}^{} Pdx + Q dy 
+    \end{gather*}
+\end{proof}
+
+\begin{example}
+    Usare le formule di Gauss-Green in particolare per 
+    \begin{gather*}
+        \int_{\gamma}^{}(x - y^{3})dx + (y^{3} + x^{3}) dy 
+    \end{gather*}
+    Dove $\gamma$ è la curva che descrive la frontiera di
+    $D = \{(x, y) : x^{2} + y^{2} \leq 1, x \geq 0, y\geq 0\}$. 
+    \begin{gather*}
+        \int_{\partial D}^{} idem = \int_{D}^{} \frac{\partial }{\partial x}(y^{3} + x^{3}) - \frac{\partial }{\partial y}(x - y^{3}) \ dx dy    
+    \end{gather*}
+    Allora
+    \begin{gather*}
+        \int_{D}^{} (3x^{2} + 3y^{2}) dx dy = \frac{3}{8}\pi  
+    \end{gather*}
+\end{example}
+
+\section{Teorema di Stokes nel piano}
+\begin{definition}[Teorema di Stokes]
+    Considerato un campo vettoriale $F = F(F_1, F_2, 0)$, se si calcola il rotore del campo
+    \begin{gather*}
+        \text{rot} F = k \left(\frac{\partial F_2}{\partial x} - \frac{\partial F_1}{\partial y}\right)  
+    \end{gather*}
+    Per un campo del genere il rotore ha una componente solo nell'asse $z$. Dunque 
+    Se $D$ è $s$-decomponibile, e $F \in C^{(1)}(\overline{D} )$, allora l'integrale
+    \begin{gather*}
+        \int_{D}^{} \text{rot} F\  dx dy = \int_{\partial D}^{} \left< F, T \right> \ ds   
+    \end{gather*} 
+    Si è reinterpretato in modo diverso le formule di Gauss-Green. Inoltre, adesso, 
+    si può prendere un campo in modo tale che sia 
+\end{definition}
+
+
+
+\end{document}

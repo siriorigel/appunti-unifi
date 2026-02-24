@@ -1,0 +1,168 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{}
+\author{Tommaso Miliani}
+\date{}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section*{Compito Novembre}
+\section{Esercizio 1}
+\subsection{Punto 1}
+Si può imporre la condizione di statica, ma si prova che le reazioni 
+vincolari che agiscono sul blocco sono
+\begin{gather*}
+    m_1g\cos\alpha \qquad m_2g\cos\alpha
+\end{gather*}
+Si trova dunque $F_a$, imponendo dunque la condizione di attrito statico.
+
+
+\subsection{Punto 2}
+Si studiano tutte le componenti del sistema in modo indipendente,
+dunque si impostano le equazioni di moto per tutti i corpi del sistema,
+dunque i due gradi di libertà $x_1$ e $x_2$ si evolvono in modo 
+indipendente ma il centro di massa ha un solo grado di libertà. A questo punto 
+il centro di massa non si muove di moto uniformemente accelerato, anche se non 
+sono in grado di dire che tipo di moto hanno i due corpi da soli. Il centro di massa compie dunque 
+un moto armonico.
+Scrivere $x_{cm}$ e scrivere allora in funzione di $x_{cm}$ il moto 
+di $x_1$ con due termini: uno dell'oscillazione del moto e si verifica 
+anche che $x_1$ non riesce a salire. Trattare questo corpo come un 
+corpo unico in modo tale che la molla non oscilli è un errore. I due 
+gradi di libertà infatti possono essere scomposti in due gradi di libertà indipendenti tra di loro: 
+la stessa cosa accade anche alla variabiel $\Delta$ e si risolvono 
+dopo in modo scollegato i due e infine si unisce il risultato. 
+
+\subsection{Punto 3}
+Nel sistema di riferimento il blocco $M$ si vuole fisso
+
+\section{Esercizio 2}
+\subsection{Punto 1}
+Se si ignora il corpo di sotto che trasla, i due rulli fanno rotolamento puro rispetto
+alla tavola sopra, e dunque con la formula di rotolamento puro, il punto di contatto sulla
+tavola che scorre sotto ha velocità doppia, e dunque istantaneamente il punto di
+contatto è fisso e dunque la velocità della sbarretta è esattamente due volte la velocità
+del centro di massa del disco. Si trova dunque
+\begin{gather*}
+    V_E = 2R\omega \qquad  V_A = V_B = R\omega
+\end{gather*}
+
+
+\subsection{Punto 2}
+Si studia il moto capendo le condizioni iniziali: 
+\begin{gather*}
+    x_C(0) = x_C(A) = \frac{L}{2} 
+\end{gather*}
+SI scrive dunque l'energia in funzione al pezzo che scende, alla sbarretta
+che trasla e la rotazione dei due dischi (l'energia del centro di masssa no 
+è inclusa in quanto la sto calcolando rispetto ad un polo fisso).
+Trovata la $x$ di equilibrio che coincide con $E$ derivando l'energia meccanica,
+si utilizzano le condizioni iniziali: integrando le espressioni della velocità si 
+ottengono le condizioni per le quali durante l'oscillazione si abbia velocità
+massima per $A$ imponendo che A non vada mai oltre il punto $E$. 
+\begin{gather*}
+    x_A \geq x_E \qquad x = x_{MAX}
+\end{gather*}
+Se lo spostamento è massimo, tutto ritorna allo stato di quiete e si poteva ugualiare
+l'energia potenenziale iniziale a quella finale. 
+
+\subsection{Punto 3}
+IL modulo finale della velocità dei rulli si trova attraverso la 
+soluzione del moto armonico semplice, dunque facendo i conti 
+si ha che 
+\begin{gather*}
+    \omega = \frac{2}{5}\sqrt{\frac{g}{L}} 
+\end{gather*}
+Infine il
+\begin{gather*}
+    t = \frac{5}{4}\pi\sqrt{\frac{L}{g}} 
+\end{gather*}
+
+\subsection{Punto 4}
+In funzione del tempo le tensioni si trovano attraverso le forze che 
+agiscono sulle tavole superiori: ossia le forze di tensione, la reazione 
+vincolare dei due dischi e la forza di attrito che permette il rotolamento
+e la forza peso. Dato che sono vincoli unilateri, i loro moduli devono essere
+positivi: si studia dunque le due forze di attrito:
+\begin{gather*}
+    T = f_A + f_B \qquad T > 0 \left\{\begin{array}{l}
+        T_C = 0 \\
+        T_D = \left| T \right| 
+    \end{array}\right.\qquad T < 0 \left\{\begin{array}{l}
+            T_C = \left| T \right| \\
+            T_D = 0 
+        \end{array}\right. 
+\end{gather*}
+Ossia sono i due casi in cui una delle due tira e l'altra no (ossia
+sono impercettibilmente tese solamente per tenere ferma la tavola sopra).
+Sui singoli dischi adesso agiscono: le forze peso e quelle di attrito. 
+
+\subsection{Punto 5}
+La condizione di non strisciamento deriva esattamente dalla condizione di 
+rotolamento puro sui dischi:
+\begin{gather*}
+    F_{A_1} = \frac{3}{4}mR\dot{\omega}
+\end{gather*}
+Le due $\vv{N}$ dei dischi non sono uguali e sono dirette verso il
+basso rispetto ai punti di contatti. Studiando l'equazione cardinale
+della tavola sopra:
+\begin{gather*}
+    \vv{N_A} + \vv{N_B} = M\vv{g}   
+\end{gather*} 
+Per capire se sono diversi si studiano i moemnti rispetto ad un polo qualsiasi
+imponendo la condizione di non rotolamento: dato che un disco 
+si avvicina e l'altro si allontana, le due reazioni vincolari devono necessariamente essere
+diverse
+
+
+
+\end{document}

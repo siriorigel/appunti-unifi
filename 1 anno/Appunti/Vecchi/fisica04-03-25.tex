@@ -1,0 +1,283 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{FIsica}
+\author{Tommaso Miliani}
+\date{04-03-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{Il lavoro}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{FIg 3r}
+    \caption{Il lavoro di una forza su di una superficie inclinata}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (5, 0);
+        \draw(0, 0) -- (0, 2);
+        \draw(0, 2) -- (5, 0);
+        \draw(5, 0.2) circle (0.12);
+        \draw[->](4.88, 0.2) -- (4, 0.6) node[at end, above] {$\vec{F}_0$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Definiamo il lavoro di una forza come:
+\begin{align}
+    \delta L = \vec{F} \cdot \vec{dr}  
+\end{align}
+Dove $dr$ rappresenta lo spostamento infinitesimale mentre $\delta L$
+non è un differenziale esatto. Allora possiamo
+definire il lavoro totale come la somma di tutti gli infinitesimi spostamenti:
+\begin{align}
+    L_{AB, \vec{F}} = \sum_{i = 0}^{n}\vec{F}_i \vec{dr}_i = \int_{A, \Gamma}^{B}\vec{F}\cdot \vec{dr}   
+\end{align}
+Nel disegno, il lavoro compiuto dalla forza dipende dall'angolo del piano inclinato e quindi:
+\begin{gather*}
+    L_{\vec{F}_0} = \int_{OF}^{}\vec{F}_0 \cdot  \vec{dr} = Mg \sin\alpha L = Mgh   
+\end{gather*}
+Se volessi esplicitare l'integrale allora posso dividerlo lungo tutte le direzioni e quindi risolvere
+la somma degli integrali. Con il concetto di integrale possiamo anche dimostrare il teorema
+delle forze vive.
+
+\subsection{IL teorema delle forze vive}
+\begin{align}
+    \delta L = \vec{F} \cdot \vec{dr}   
+\end{align}
+Se avessi più forze, ognuna di esse dovrebbe compiere un certo lavoro
+che dipende dallo spostamento che causano: posso considerare quindi
+la risultante delle forze applicate su di un corpo lungo una traiettoria
+istante per istante come se le forze fossero tutte applicate insieme 
+come somma in un unica forza:
+\begin{gather*}
+    \vec{F}_{tot} = \sum_{i = 0}^{n} \vec{F}_i   
+\end{gather*}
+Posso quindi definire il lavoro totale:
+\begin{align}
+    \delta L_{tot} =  \sum_{i = 0}^{n} \vec{F}_i  \cdot \vec{dr} = \sum_{i = 0}^{n} \delta L_{\vec{F}_i}  
+\end{align}
+Il secondo principio della dinamica ci dice che in un sistema di riferimento la risultante delle forze
+produce un accelerazione e quindi:
+\begin{gather*}
+    \vec{F}_{tot} = m\vec{a}  
+\end{gather*}
+Si può allora riscrivere il lavoro iniziale come:
+\begin{gather*}
+    \delta L_{\vec{F}_{tot}} = m\vec{a} \cdot  dr  
+\end{gather*}
+Essendo la velocità la derivata rispetto al tempo del vettore posizione, allora
+è proprio $\frac{dr}{dt}$ e quindi al posto di $\vec{F}$ posso mettere:
+\begin{align}
+    \delta L_{\vec{F}_{tot}} = m\frac{d\vec{v} }{dt} \cdot \vec{v}dt  = md\vec{v}\vec{v}  
+\end{align} 
+Nel differenziale però perdo l'informazione della direzione di $\vec{v}$ poiché posso 
+riscrivere l'ultimo membro come
+\begin{gather*}
+    d\left( \frac{1}{2} m\vec{v} \cdot  \vec{v} \right) 
+\end{gather*} 
+Il prodotto scalare diventa allora:
+\begin{gather*}
+    d\left( mv^{2}  \right)
+\end{gather*}
+Un lavoro infinitesimo produce una variazione infinitesima di questa
+quantità che prende il nome di energia cinetica. possiamo allora dire:
+\begin{align}
+    \delta L_{\vec{F}_{tot}} = d\left( \frac{1}{2}mv^{2} \right) = dK
+\end{align}
+Dove $K$ è proprio l'energia cinetica. Se io avessi da compiere
+un lavoro continuo e non infinitesimo? Allora su di una traiettoria il lavoro
+diventerà:
+\begin{align}
+    L_{AB, \Gamma} = \int_{A, \Gamma}^{B} \vec{F} \cdot  \vec{dr} = \int_{A, \Gamma}^{B} dK = \frac{1}{2}mv_{B}^{2} - \frac{1}{2}mv_{A}^{2}     
+\end{align}
+E allora possiamo concludere con il teorema delle forze vive che il lavoro
+è proprio la variazione dell'energia cinetica:
+\begin{gather*}
+    L_{AB, \Gamma} = \Delta K
+\end{gather*}
+Questo ci dice inoltre che se io compio lavoro su di un oggetto
+allora sto provocando una variazione dell'energia cinetica. Il differenziale
+di $K$ dipende solo dalle condizioni iniziali e finali e non è quindi una
+funzione della posizione. 
+
+\section{Risoluzione dei problemi mediante il teorema delle forze vive}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 2}
+    \caption{Un corpo su di un piano inclinato}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0);
+        \draw(0, 2) -- (3, 0);
+        \draw(2, 0) arc(180:150: 1) node[midway, left] {$\alpha$};
+        \draw(0, 2.12) circle (0.12);
+
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso impostare il problema nella seguente maniera: sapendo che devo trovare la
+funzione della discesa dell'oggetto, questa è proprio:
+\begin{gather*}
+    mg\sin\alpha = m\ddot{x} \\
+    x = \frac{1}{2}g\sin\alpha t^{2} 
+\end{gather*}
+E poi si ricava la velocità finale combinando le varie derivate.
+Il metodo due è quello dell'energia cinetica con un vincolo semplice:
+la forza normale è ortogonale allo spostamento e quindi non produce alcun tipo
+di lavoro poiché non impedisce lo spostamento lungo la traiettoria permessa. Allora il lavoro è proprio:
+\begin{gather*}
+    L_{AB} = Mg\sin\alpha L \\
+    v_B = v_f, \qquad v_A = 0 
+\end{gather*}
+Utilizzando ora il teorema delle forze vive, per cui ho solo $v_B$
+\begin{gather*}
+    Mg\sin\alpha L = \frac{1}{2}Mv_{f}^{2} 
+\end{gather*}
+E allora:
+\begin{gather*}
+    v_f = \sqrt{2g\sin\alpha L} 
+\end{gather*}
+Questo non ci da il tempo di arrivo dell'oggetto ma solo la velocità finale.
+
+\subsection{L'attrito nel teorema delle forze vive}
+La forza di attrito vale:
+\begin{gather*}
+    |\vec{F}_{at}| = \mu_d Mg \sin\alpha - \mu_d Mg\cos\alpha 
+\end{gather*}
+La velocità finale diventerà allora:
+\begin{gather*}
+    v_f = \sqrt{2gL(\sin\alpha - \mu_d \cos\alpha)} 
+\end{gather*}
+Mentre la forza peso è costante, la forza di attrito non è costante
+poiché dipende dal verso in cui sta andando l'oggetto. Se analizzassimo il caso
+di un oggetto che scorre giù da un piano lungo una guida allora la forza
+peso non fa lavoro sui tratti orizzontali ma la forza di attrito è sempre presente
+e con verso sempre contrario al moto. 
+
+\section{Forze posizionali}
+Una forza posizionale è una forza che dipende dalla posizione di un oggetto,
+come la forza elastica; forze come l'attrito non so no posizionali poiché dipendono dal 
+verso di applicazione della forza.
+\begin{align}
+    \vec{F} = \vec{F}(x, y, z)  
+\end{align}
+
+\subsection{Forze conservative}
+Si distinguono le forze conservative (sottoclasse) che sono quelle forze
+posizionali in cui il lavoro non dipende dal cammino seguito:
+\begin{gather*}
+    L_{AB, \Gamma_1} = L_{AB, \Gamma_2}, \forall \Gamma_1, \Gamma_2
+\end{gather*}
+La seconda definizione di queste forze è che il lavoro in un percorso
+chiuso è zero (chiamata anche circuitazione):
+\begin{align}
+    \oint \vec{F} \cdot  \vec{dr} = 0  
+\end{align}
+Lungo una traiettoria chiusa, che io la percorra in un senso
+o nell'altro, non cambia il lavoro, cambia solo di segno per cui
+la sua circuitazione sarà sempre 0. e quindi la prima implica la seconda e
+viceversa. \\
+Terza definizione: $\exists V$ energia potenziale tale che:
+\begin{align}
+    \delta L &= -dV \\
+    L_{AB, \Gamma} &= V(A) - V(B), \qquad \forall \Gamma
+\end{align}
+Abbiamo un differenziale non esatto eguagliato ad un differenziale esatto. 
+Lungo una traiettoria possiamo identificare un punto di riferimento $P_0$ 
+da cui facciamo passare il psorcorso $A, P_0, B$ e quindi si ottiene che la
+ciruitazione di questo percoros sia:
+\begin{gather*}
+    L_{AP_0} + L_{P_0B} + L_{BA} = 0
+\end{gather*}
+Fissato il punto $P_0$ allora questa è una funzione di $A$ e nessuno
+mi vieta di definirla in questo modo:
+\begin{align}
+    L_{P_0A} &= -V(x_A, y_A, z_A) \\
+    L_{P_0B} &= -V(x_B, y_B, z_B)
+\end{align}
+E per cui si ottiene che
+\begin{align}
+    L_{AB} = V(A) - V(B)
+\end{align}
+L'energia potenziale è sempre definita a meno di una costante; possiamo allora
+esprimere il lavoro mediante l'energia potenziale (che è posizionale e quindi in funzione dello spazio)
+e allora scrivere:
+\begin{gather*}
+    \delta L = -dV = - (V(x + dx, y+dy, z + dz) - V(x, y, z))
+\end{gather*}
+Matematicamente questo si può scrivere come:
+\begin{gather*}
+    - (V(x + dx, y+dy, z + dz) - V(x, y +dy, z +dz) + V(x, y +dy, z +dz)\\
+    - V(x , y , z +dz) + V(x , y , z +dz) - V(x, y, z))
+\end{gather*}
+Posso allora fare la derivata parziale per ogni variabile che compare
+ottenendo allora 
+\begin{gather*}
+    -\left(\frac{\partial V}{\partial x}dx + \frac{\partial V}{\partial y}dy  + \frac{\partial V}{\partial z}dz\right) 
+\end{gather*}
+Esprimendo la forza nel lavoro mediante le sue componenti allora si ottiene:
+\begin{gather*}
+    \delta L = \vec{F} \cdot  \vec{dr} = F_x dx + F_y dy + F_Z dz  
+\end{gather*}
+E questo vale qualunque sia $dx, dy, dz$. Eguagliando allora lo stesso 
+incremento infinitesimo dell'energia potenziale ad ogni componente della forza, si ottiene 
+proprio che
+\begin{gather*}
+    \left\{\begin{array}{c}
+    F_x = -\frac{\partial V}{\partial x}\\
+    F_y = -\frac{\partial V}{\partial y}\\
+    F_z = -\frac{\partial V}{\partial z}
+    \end{array}\right. \Rightarrow \vec{F} = - \nabla V 
+\end{gather*}
+Dove $\nabla$ è l'operatore differenziale che esprime la derivata parziale rispetto
+a tutte le componenti di un certo vettore 
+\begin{gather*}
+    \delta L = \vec{F}\cdot \vec{dr}  
+\end{gather*}
+Con l'operatore nabla attraverso:
+\begin{gather*}
+    \delta L = -\nabla V \cdot \vec{dr} = -dV 
+\end{gather*}
+Con questa si ottiene che:
+\begin{align}
+    \nabla \times \vec{F} &= 0 \\
+     \vec{F} &= -\nabla V \\
+    \nabla \times \nabla V &= 0 
+\end{align}
+ossia il rotore della forza è proprio il prodotto vettoriale.  
+Si fa ora il determinante del prodotto vettoriale e quindi:
+\begin{align}
+    \det\left| \begin{tabular}{c c c}
+         $\hat{i} $ & $\hat{j} $&  $\hat{k}$ \\
+         $\frac{\partial }{\partial x}$ &  $\frac{\partial }{\partial y}$ & $\frac{\partial }{\partial z}$ \\
+         $\frac{\partial V}{\partial x}$  & $\frac{\partial V}{\partial y}$  &$\frac{\partial V}{\partial z} $
+    \end{tabular} \right| = \hat{i} \left( \frac{\partial^{2} V }{\partial y \partial z} - frac{\partial^{2} V }{\partial y \partial z}\right) = 0. 
+\end{align}
+
+e dal momento che le derivate parziali commutano, allora il determinante è zero
+ed il rotore della forza è zero.
+
+\end{document}
+

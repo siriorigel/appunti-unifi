@@ -1,0 +1,78 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{wrapfig}
+\graphicspath{ {./images/} }
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Lab merda}
+\author{Tommaso Miliani}
+\date{26-02-25}
+
+\begin{document}
+\theoremstyle{definition}
+\theoremstyle{theorem}
+\theoremstyle{lemma}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[theorem]
+
+\maketitle
+
+\section{ALtra esperienza (grande borrata)}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \label{Fig 12.2}
+    \caption{Grafico del fit lineare delle misure}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (3, 0) node[at end, below] {$p$};
+        \draw(0, 0) -- (0, 3) node[at end, left] {$h$};
+        \draw[|-|](0.5, 2.75) -- (0.5, 2.5);
+        \draw[|-|](1, 2.25) -- (1, 2);
+        \draw[|-|](1.5, 1.75) -- (1.5, 1.5);
+        \draw[|-|](2, 1.25) -- (2, 1);
+        \draw[|-|](2.5, 0.75) -- (2.5, 0.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+COn questo grafico (un fit lineare che va compilato mentre si prendono le misure),
+allora se esce fuori un punto che sta fuori dalla retta ideale, questo va o scartato oppure
+è un campanello di allarme per informarci che qualcosa non va. SI ottiene
+allora $E$:
+\begin{align}
+    E = \frac{L^{2} }{4ab^{3}c}
+\end{align}
+Si può fare una stima a priori propagando l'errore in modo tale da vedere
+come si propaga l'errore:
+\begin{gather*}
+    \frac{\Delta E}{E} = 3\frac{\Delta L}{L} + \frac{\Delta a}{a} + 3\frac{\Delta b}{b} + \frac{\Delta c}{c}
+\end{gather*}
+DOve $c$ è la differenza di quota tra i pesi:
+\begin{gather*}
+    c = \frac{h_0 - h}{p}
+\end{gather*}
+E quindi si ottiene che:
+\begin{gather*}
+    \frac{\Delta c}{c} = \frac{\Delta h_0 + \Delta h}{h_0 - h} + \frac{\Delta p}{p}
+\end{gather*}
+Facendo una stima dei contributi a propri si può utilizzare i valori di
+$a, b$ calcolati a priori con le relative incertezze e prenderne il prim valore per
+poter poi determinare a termine dell'esperienza le nuove grandezze in modo più preciso:
+per la lunghezza $L$, questa è calcolata tra i coltelli. Se si fanno tutte le misurte
+perfettamente , la misura più critica sarà quella di b. 
+
+
+\end{document}

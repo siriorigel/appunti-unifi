@@ -1,0 +1,101 @@
+%% Creator: Inkscape 1.4.3 (0d15f75042, 2025-12-25), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'temperatura_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{960bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.75)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{temperatura_svg-tex.pdf}}%
+    \put(0.08288281,0.04195313){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}0\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{temperatura_svg-tex.pdf}}%
+    \put(0.08288281,0.15242188){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}2x1023\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{temperatura_svg-tex.pdf}}%
+    \put(0.08288281,0.26289062){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}4x1023\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{temperatura_svg-tex.pdf}}%
+    \put(0.08288281,0.37335937){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}6x1023\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{temperatura_svg-tex.pdf}}%
+    \put(0.08288281,0.48382031){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}8x1023\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{temperatura_svg-tex.pdf}}%
+    \put(0.08288281,0.59428906){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}1x1024\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{temperatura_svg-tex.pdf}}%
+    \put(0.08288281,0.70475781){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}1.2x1024\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{temperatura_svg-tex.pdf}}%
+    \put(0.17042969,0.02789062){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1x10-10\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{temperatura_svg-tex.pdf}}%
+    \put(0.26041406,0.02789062){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}2x10-10\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{temperatura_svg-tex.pdf}}%
+    \put(0.35040625,0.02789062){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}3x10-10\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{temperatura_svg-tex.pdf}}%
+    \put(0.44039062,0.02789062){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}4x10-10\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{temperatura_svg-tex.pdf}}%
+    \put(0.53038281,0.02789062){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}5x10-10\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{temperatura_svg-tex.pdf}}%
+    \put(0.620375,0.02789062){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}6x10-10\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{temperatura_svg-tex.pdf}}%
+    \put(0.71035937,0.02789062){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}7x10-10\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{temperatura_svg-tex.pdf}}%
+    \put(0.80035156,0.02789062){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}8x10-10\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{temperatura_svg-tex.pdf}}%
+    \put(0.89033594,0.02789062){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}9x10-10\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{temperatura_svg-tex.pdf}}%
+    \put(0.98032813,0.02789062){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}1x10-9\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{temperatura_svg-tex.pdf}}%
+    \put(0.92741406,0.69069531){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}12000K\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{temperatura_svg-tex.pdf}}%
+    \put(0.92741406,0.67663281){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}9000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{temperatura_svg-tex.pdf}}%
+    \put(0.92741406,0.66257031){\makebox(0,0)[rt]{\lineheight{1.25}\smash{\begin{tabular}[t]{r}6000\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{temperatura_svg-tex.pdf}}%
+    \put(0.01498438,0.37639844){\rotatebox{90}{\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Intensità luminosa\end{tabular}}}}}%
+    \put(0.53488281,0.00679688){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Lunghezza d'onda\end{tabular}}}}%
+    \put(0.53488281,0.72585156){\makebox(0,0)[t]{\lineheight{1.25}\smash{\begin{tabular}[t]{c}Temperature\end{tabular}}}}%
+  \end{picture}%
+\endgroup%

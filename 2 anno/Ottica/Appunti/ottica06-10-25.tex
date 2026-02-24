@@ -1,0 +1,335 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di ottica}
+\author{Tommaso Miliani}
+\date{03-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Funzionamento di un cubo polarizzatore}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Schematizzazione del campo elettrico}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (2, 0) node[at end, below] {$y$};
+        \draw[->](0, 0) -- (0, 2) node[at end, left] {$z$};
+        \draw[->, thick](0, 0) -- (1, 1) node[at end, right] {$\vv{E}$ };
+        \draw[->, thick](0, 0) -- (1, 0) node[at end, below] {$\vv{E_y}$};
+        \draw[->, thick](0, 0) -- (0, 1) node[at end, left] {$\vv{E_z}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Alcuni materiali dielettrici sono detti \textbf{birifrangenti}: ossia
+hanno due indici di rifrazione per due polarizzazione lineari ortogonali
+della luce che li attraversa. Una applicazione è il \textbf{cubo polarizzatore},
+il cui scopo è proprio quello di separare due polimerizzazioni ortogonali di un
+fascio incidente sul cubo con polarizzazione  generica.
+Si può ora analizzare il funzionamento del cubo polarizzatore attraverso il
+secondo modello: tra le due facce del cubo è inserito un film sottile birifrangente
+per cui l'indice di rifrazione per gli assi ortogonali è diverso. Si avrà allora 
+che gli indici di rifrazione $n_{\parallel} \neq n_{\perp}$. Voglio ora che
+l'angolo di incidenza a $45$ gradi sia l'angolo di rifrazione totale 
+per $\vv{E_{\perp}}$.
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il cubo polarizzatore}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (2, 0);
+        \draw[->, thick](0.5, 0) -- (1.5, 0) node[at end, above] {$\vv{E_{\perp}}$};
+        \draw[->, thick](0.5, 0) -- (0.5, 1) node[at end, left] {$\vv{E_{\parallel}}$ };
+        \filldraw(0.5, 0) circle (1pt);
+        \draw(0.5, 0) circle (0.15);
+        \draw(2, 1) -- (4, -1) -- (2, -1) -- (2, 1); 
+        \draw(2.2, 1) -- (4.2, -1) -- (4.2, 1) -- (2.2, 1);
+        \filldraw[pattern = north east lines, pattern color = white](2.2, 1) -- (4.2, -1) -- (4, -1) -- (2, 1) -- (2.2, 1);
+        \draw[dashed](2, 0) -- (3, 0) -- (2, -1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Posso elencare le ipotesi:
+\begin{itemize}
+    \item Scelgo $n_{\perp}$ in modo tale che $\frac{\pi}{4}$ sia l'angolo di 
+    riflessione totale interna per luce con polarizzazione  $\vv{E_{\perp}}$.
+    \item Scelgo $n_{\parallel}$ in modo tale che l'angolo $\frac{\pi}{4}$ sia l'angolo di Proust
+    per luce con polarizzazione $\vv{E_{\parallel}}$.
+\end{itemize}
+L'angolo di rifrazione è dunque molto grande per questo coincide
+con l'interfaccia, allora si ha riflessione totale interna secondo la 
+legge di snell:
+\begin{gather*}
+    n_{vetro} \sin\frac{\pi}{4} = n_{\perp} \sin\frac{\pi}{2}
+\end{gather*}
+L'indice di rifrazione $n_{\perp}$ deve allora soddisfare questa condizione
+per poter essere un angolo di riflessione interna totale
+per la luce con polarizzazione $\vv{E}_{\perp}$:
+\begin{gather*}
+    n_{\perp} = n_{vetro}\frac{\sqrt{2} }{2}
+\end{gather*} 
+Mentre $n_{\parallel}$ del film birifrangente è in relazione con l'indice
+di rifrazione del vetro secondo la seguente:
+\begin{gather*}
+    \tan\theta = \frac{n_{\parallel}}{n_{vetro}} \ \Longrightarrow \ n_{\parallel} = n_{vetro}
+\end{gather*}
+Dato che l'angolo è per costruzione è $\frac{\pi}{4}$ allora la relazione a destra vale.
+
+\section{Polarizzatore a fili metallici}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Polarizzatore a fili metallici}
+    \begin{tikzpicture}
+        \draw(0, 0) rectangle (2, 2);
+        \draw(0.1, 0) -- (0.1, 2);
+        \draw(0.2, 0) -- (0.2, 2);
+        \draw(0.3, 0) -- (0.3, 2);
+        \draw(0.4, 0) -- (0.4, 2);
+        \draw(0.5, 0) -- (0.5, 2);
+        \draw(0.6, 0) -- (0.6, 2);
+        \draw(0.7, 0) -- (0.7, 2);
+        \draw(0.8, 0) -- (0.8, 2);
+        \draw(0.9, 0) -- (0.9, 2);
+        \draw(1.0, 0) -- (1.0, 2);
+        \draw(1.1, 0) -- (1.1, 2);
+        \draw(1.2, 0) -- (1.2, 2);
+        \draw(1.3, 0) -- (1.3, 2);
+        \draw(1.4, 0) -- (1.4, 2);
+        \draw(1.5, 0) -- (1.5, 2);
+        \draw(1.6, 0) -- (1.6, 2);
+        \draw(1.7, 0) -- (1.7, 2);
+        \draw(1.8, 0) -- (1.8, 2);
+        \draw(1.9, 0) -- (1.9, 2);
+        \draw(2.0, 0) -- (2, 2);
+        \draw[->, thick](-0.5, 0.5) -- (-0.5, 1.5) node[at end, left] {$\vv{E_{\parallel}}$ };
+        \draw[->, thick](0.5, -0.5) -- (1.5, -0.5) node[at end, below] {$\vv{E_{\perp}}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Un altro strumento per poter ottenere una sola polarizzazione da un 
+fascio di luce lineare è detto polarizzatore a \textbf{fili metallici}.
+Il polarizzatore a fili metallici è una lastra di materiale sulla quale ci si
+può depositare dei fili metallici sottili  lungo una direzione ben definita
+(in genere ognuno con un  diametro di $10\sim100 \ nm$). Supponendo di avere
+una luce incidente al filo metallico con componente sia parallela che
+perpendicolare al fascio di fili e di farla passare attraverso il polarizzatore.
+La luce che passa dentro questo polarizzatore è quella con $\vv{E_{\perp}}$ poiché il campo parallelo
+mette in moto gli elettroni nei fili sottili e, dato che sono più alti che larghi,
+allora c'è più movimento degli elettroni che creano un campo
+elettrico con interferenza distruttiva per la componente parallela. Le onde
+perpendicolari, invece, passano in quanto il diametro dei microfili è
+molto piccolo e dunque non c'è abbastanza spazio per poter mettere
+in movimento gli elettroni per poter creare interferenza distruttiva.
+
+\section{Lamine di ritardo}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Ritardo di fase}
+    \begin{tikzpicture}
+        \draw[->](0, 0) --(2, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- ( 0, 2) node[at end, left] {$y$};
+        \filldraw(0, 0) circle (1pt) node[anchor = north] {$O$}; 
+        \filldraw(1.5, 0) circle (1pt) node[anchor = north] {$O'$};
+        \draw[->](1.5, 0)-- (3.5, 0) node[at end, below] {$x'$};
+        \draw[->](1.5, 0) -- (1.5, 2) node[at end, left] {$y$};
+        \draw[|-|](0.1, 0.2) -- (1.4, 0.2) node[midway, above] {$d$};
+        \draw[|-|](1.6, 0.2) -- (2.5, 0.2) node[midway, above] {$x'$};
+        \draw[|-|](0, -0.7) -- (2.5, -0.7) node[midway, below] {$x$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Le \textbf{lamine di ritardo} si basano su materiali birifrangenti e
+servono a modificare la polarizzazione della luce.
+Supponiamo di scrivere un campo elettrico lungo una sola
+direzione con 
+\begin{gather*}
+    \vv{E_{\parallel}} = E_{0z}\cos(kx - \omega t)\hat{z} 
+\end{gather*}  
+Potrei chiedermi come l'onda, rispetto all'origine $O$,
+cambia rispetto al tempo il campo elettrico? Quindi posso 
+considerare un altro sistema di riferimento $O'$ descritto con
+assi paralleli a quelli del sistema di riferimento $O$. Concentrandosi
+ora sul sistema di riferimento $O'$, dopo un certo istante di
+tempo l'onda avrà camminato per una distanza $x$ rispetto a $O$
+e per una distanza $x'$ rispetto a $O'$. Posso quindi dire che il
+campo elettrico è
+\begin{gather*}
+    \vv{E}(x', t) = E_{0z}\cos(k(d + x') - \omega t)\hat{z}  
+\end{gather*}
+Per l'onda, dopo essersi propagata per una distanza $d$, posso 
+considerare un sistema di riferimento $O'$ attraverso un termine di fase
+$kd$ che prende il nome di \textbf{ritardo di fase} che è dovuto
+alla propagazione lungo il tratto di lunghezza $d$ che,
+nel caso si tratti di un mezzo dielettrico con indice di
+rifrazione $n$, questo termine diventa $knd$. 
+Si considera ora una lamina di spessore $d$ con materiale
+birifrangente ed un campo elettrico incidente generico dato 
+dalla seguente:
+\begin{gather*}
+    \vv{E_{in}} = E_{0y}\cos(kx - \omega t)\hat{y} + E_{0z}\cos(kx - \omega t)\hat{z}   
+\end{gather*}
+In questo caso le ampiezze possono essere anche diverse ma le fasi
+sono le stesse e dunque sono lineari. Adesso mi chiedo che cosa accade al campo
+elettrico dopo che ha attraversato la lamina in funzione di un sistema
+di riferimento $O'$ posto dopo la lamina. Se il materiale è birifrangente, allora
+dovrà necessariamente cambiare $n$ a seconda della direzione di oscillazione. Il
+campo elettrico di uscita dalla lamina allora sarà:
+\begin{gather*}
+    \vv{E_{out}}(x', t) = E_{0y}\cos(kx' -\omega t + kn_yd)\hat{y} + E_{0z}\cos(kx' - \omega t + kn_z d)\hat{z}   
+\end{gather*}
+La polarizzazione in uscita sarà quindi ellittica.  La velocità nel mezzo
+dipende da $\frac{\lambda}{T}$, ma la lunghezza d'onda dipende da $n$: nel 
+mezzo birifrangente esisterà un asse lungo il quale la velocità dell'onda va più lenta (e quindi
+si ha un indice di rifrazione maggiore) ed un asse lento con indice di rifrazione minore. \\
+Cambiando l'origine dei tempi, posso aggiungere o togliere a piacere
+un termine di fase comune su due coseni. Se ponessi come termine di fase $-kn_yd$, 
+allora il campo elettrico uscente sarà
+\begin{gather*}
+    \vv{E_{out}}(x', t) = E_{0y}\cos(kx'- \omega t)\hat{y} + E_{0z}\cos(kx' - \omega t + kd(n_z - n_y))\hat{z}  
+\end{gather*}
+E quindi la fase dipende dalla differenza tra gli indici di rifrazione.
+
+
+\subsection{La lamina $\frac{\lambda}{2}$}
+La prima lamina di interessa  è quella la cui fase è $\pi$:
+\begin{gather*}
+    kd(n_z - n_y) = \pi
+\end{gather*}
+Se esplicitassi $k$ 
+\begin{gather*}
+    k = \frac{2\pi}{\lambda} \ \Longrightarrow \ d(n_z - n_y) = \frac{\lambda}{2}
+\end{gather*}
+La differenza tra i due indici di rifrazione che moltiplicano la distanza prende
+il nome di \textbf{cammino ottico}. La differenza tra i cammini ottici in questa lamina è pari alla metà
+della lunghezza d'onda in uscita: l'effetto di questa lamina è quello di introdurre
+un ritardo di fase uguale a $\pi$ lungo l'asse lento. Inoltre, se la polarizzazione
+in ingresso è lineare, la luce trasmessa ha polarizzazione ancora lineare ma lungo l'asse
+riflesso rispetto all'asse veloce della lamina. Dato che la fase è $\pi$, allora 
+\begin{align}
+    \vv{E_{out}}(x', t) = E_{0y}\cos(kx'- \omega t + \frac{\pi}{2})\hat{y} - E_{0z}\cos(kx' - \omega t)\hat{z}  
+\end{align}
+
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(-2, 0) -- (2, 0) node[at end, below] {$z$};
+        \draw[->](0, -2) -- (0, 2) node[at end, left] {$y$};
+        \draw(0, 0)circle (1.5);
+        \filldraw(0, 0) circle (1pt);
+        \draw(0, 0) circle (0.15);
+        \draw[->, green](0.15, 0.1) -- (1.2,0.7);
+        \draw[->, purple](0.15, 0.15) -- (1, 1);
+        \draw[->, cyan](0.1, 0.2) -- (0.7, 1.25);
+        \draw[->, green](-0.15, 0.1) -- (-1.2,0.7);
+        \draw[->, purple](-0.15, 0.15) -- (-1, 1);
+        \draw[->, cyan](-0.1, 0.2) -- (-0.7, 1.25);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Nel caso di una polarizzazione circolare sinistra $\sigma^{+}$:
+\begin{gather*}
+    \vv{E_{out}} = E_{0}\cos(kx - \omega t + \frac{\pi}{2})\hat{y} + E_{0}\cos(kx - \omega t)\hat{z}   
+\end{gather*} 
+Aggiungendo ora il termine di fase anche per l'asse lento, allora si può scrivere
+\begin{gather*}
+    \vv{E_{out}} = E_0 \cos(kx - \omega t + \frac{\pi}{2})\hat{y} + E_0 \cos(kx - \omega t + \pi)\hat{z}   
+\end{gather*}
+Sottraggo ora un termine $-\pi$ rispetto ad entrambi i termini e quindi
+\begin{gather*}
+        \vv{E_{out}}(x', t) = E_{0y}\cos(kx'- \omega t - \frac{\pi}{2})\hat{y} - E_{0z}\cos(kx' - \omega t)\hat{z}  
+\end{gather*}
+
+\subsection{La lamina $\frac{\lambda}{4}$}
+La lamina di ritardo $\frac{\lambda}{4}$ è molto simile a quella
+di $\frac{\lambda}{2}$ anche se causa un ritardo che è la metà, ossia
+produce un ritardo di fase 
+\begin{gather*}
+    kd(n_z - n_y)  = \frac{\pi}{2}
+\end{gather*}
+La differenza dei cammini ottici è allora $\frac{\lambda}{4}$
+
+\subsection{Polarizzazione nei due casi}
+In generale la polarizzazione sarà ellittica, l'unico caso semplice
+però è quello in cui la polarizzazione lineare incidente ha le due componenti
+$E_{0y} = E_{0z}$. In questo caso semplice, la polarizzazione lineare
+incidente sarebbe lungo l'asse a $\frac{\pi}{4}$ rispetto
+agli assi $y, z$ solamente se il mio campo elettrico è allineato
+alla bisettrice del primo quadrante.\\
+E' possibile verificare che, se ho una polarizzazione ellittica,
+scegliendo un angolo opportuno in una lamina $\frac{\lambda}{4}$ posso ottenere
+una polarizzazione lineare e agire sulla spanciatura dell'ellisse. Poi con 
+una $\frac{\lambda}{2}$ posso ottenere una polarizzazione lineare rispetto
+all'asse preferito. 
+
+\subsection{Cosa succede se si utilizza una lamina progettata per una data lunghezza
+d'onda con un altra lunghezza d'onda}
+La mia lamina è stata progettata in modo tale che 
+\begin{gather*}
+    kd(n_z - n_y) = \pi + 2i\pi \qquad i \in \mathbb{N}
+\end{gather*}
+Supponendo che vogliamo utilizzare luce con  $\lambda '= \lambda + \Delta \lambda$
+e supponendo che non ci sia tanta differenza tra i due indici di rifrazione, allora 
+voglio determinare il ritardo di fase $\phi'$:
+\begin{gather*}
+    \phi' = k'd(n_z -n_y) = \frac{2\pi}{\lambda'}d(n_z - n_y) = \frac{2\pi}{\lambda + \Delta \lambda} d(n_z - n_y) 
+\end{gather*}
+Se la variazione d'onda ora è molto piccola, posso dire che il termine
+al denominatore è sviluppabile con Taylor:
+\begin{gather*}
+    \phi' = \frac{2\pi}{\lambda} d(n_z - n_y) \left(1 - \frac{\Delta \lambda}{\lambda}\right)
+\end{gather*}
+Allora posso riscrivere 
+\begin{gather*}
+    (\pi + 2i \pi)\left(1 - \frac{\Delta \lambda}{\lambda}\right)
+\end{gather*}
+Si possono allora considerare i seguenti casi
+\begin{itemize}
+    \item Se $i = 0$ prendono il nome di zero order: sono molto sensibili e costano
+    molto ma si adattano a tutte le lunghezze d'onda;
+    \item $i >> 0$ prendono il nome di \textbf{multiple order} e sono economiche ma
+    non funzionano con tutte le lunghezze d'onda ma solo per piccole variazioni
+\end{itemize}
+
+\end{document}

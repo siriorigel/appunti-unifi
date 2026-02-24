@@ -1,0 +1,269 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{chemfig}
+\usepackage{mhchem}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di fisica statistica}
+\author{Tommaso Miliani}
+\date{20-11-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Spazio delle fasi, macrostati e microstati}
+\subsection{Macrostati e microstati}
+A livello macroscopico si può definire un sistema termodinamico
+di uun fluido attraverso poche coordinate termodinamiche, ossia
+pressione, volume e temperatura (\textbf{Macrostato}). Per quanto riguarda lo stato microscopico,si devono considerare i vettori 
+posizione delle particelle e i vettori velocità, inoltre il numero di particelle $N$ 
+è dell'ordine  del numero di Avogadro. Posso dunque dire che la descrizione
+di uno stato microscopico è  di natura statistica e dunque per ogni stato 
+corrisponde un valore della probabilità. Dunque la funzione
+probabilità dipende sia dal tempo che dai vettori posizioni e 
+dai vettori velocità. 
+\begin{gather*}
+    \rho(\vv{r_1 }, \dots, \vv{r_n}, \vv{v_1}, \dots, \vv{v_n}, t   ) d^3\vv{r_1} \cdot \dots \cdot d^3\vv{r_n} \ d^3\vv{v_1} \cdot \dots\cdot d^3\vv{v_n}    
+\end{gather*}
+Questa funzione è dunque una funzione simile alla funzione densità di 
+probabilità: lo stato microscopico dunque è definito da questa funzione
+e prende il nome di \textbf{microstato}. Il differenziale $d^{3}$ vuol dire che
+devo differenziare rispetto alle tre coordinate spaziali, mentre non dipende dal
+differenziale temporale. 
+
+\subsection{Spazio delle fasi}
+Lo \textbf{spazio delle fasi} è quello spazio che è definito da tutti i
+vettori posizione e dunque ha dimensione $6N$. La funzione di probabilità è 
+dunque una funzione che è definita a partire di questo spazio nel seguente modo:
+\begin{align}
+    \rho : F \times \mathbb{R} \to \mathbb{R}
+\end{align} 
+Ossia la funzione distribuzione di probabilità $\rho$ è definita a partire dallo spazio
+delle fasi $F$ e dallo spazio cartesiano. La fisica statistica vuole trovare il
+macrostato a partire dal microstato. Il problema di determinare la distribuzione di 
+probabilità delle variabili microscopiche e associarle alle variabili macroscopiche
+è un problema totalmente risolto per l'equilibrio termodinamico secondo 
+la \textbf{meccanica statistica all'equilibrio}, secondo la quale si ha un modo univoco 
+per determinare la funzione di probabilità; fuori dall'equilibrio non si riesce ancora
+a determinare la suddetta funzione.  Le ipotesi per determinare $\rho$ sono 
+le seguenti:
+\begin{enumerate}
+    \item \textbf{Equilibrio termodinamico}: per cui $\rho$ non dipende da $t$ (si riducono le $6N + 1$ variabili a $6N$)
+    \item All'equilibrio il sistema è omogeneo e dunque la densità numerica è omogenea.
+    Questo significa che la probabilità di trovare un atomo non dipende dalla posizione e
+    dunque la funzione $\rho$ ha solamente $3N$ variabili poiché non si considerano 
+    le posizioni. 
+    \item Tutte le velocità degli atomi siano indipendenti ed identicamente distribuite,
+    dunque la funzione $\rho$ non è altro che il prodotto della densità di probabilità
+    delle singole variabili (indipendenza statistica) e dunque 
+    \begin{gather*}
+        \rho(\vv{v_1}, \dots, \vv{v_n}) = \prod f(\vv{v_1} )
+    \end{gather*}
+    \item Inoltre la funzione $f(\vv{v} )$ non dipende dalle tre componenti
+    ma solamente dalla loro somma in quadratura: 
+    \begin{gather*}
+        f(\vv{v} ) = f(v_x)f(v_y)f(v_z) \ \Longrightarrow \ f(\vv{v} ) = f(v^{2})
+    \end{gather*}
+\end{enumerate}
+Esiste una scala minima nello spazio delle fasi al di sotto della 
+quale non si può scendere: se esistesse uno spazio delle fasi molto piccolo
+nel quale le variabili sono distribuite ugualmente, non posso dire che 
+una di queste sia più probabile delle altre. Posso dunque introdurre un 
+cubetto che abbia lato $(\Delta x\Delta v)^{3N}$ all'interno del quale 
+la funzione $\rho$ diventa costante e non riesce a variare. La meccanica quantistica
+ci pone un limite per cui l'incertezza non può essere resa piccola a prescindere
+sia per la posizione che per la velocità.
+Se esiste un volumetto elementare con dimensione diversa da zero, si può pensare
+di poter "cubettare" lo spazio delle funzioni $N$ dimensionale e dunque, grazie all'ipotesi
+che si è fatto, $\rho$ sia costante e molto simile tra i vari volumetti. Questo vuol 
+dire che, dato che sono un insieme discreto e numerabile, esiste allora 
+una collezione discreta di stati microscopica del nostro sistema: invece di 
+considerare la funzione densità di probabilità con $6N$ variabili, 
+si può considerare un insieme discreto di $M$ variabili con $M$ il numero di stati 
+macroscopici, per cui la distribuzione fatta dagli stati $p_1, \dots, p_M$ è discreta. 
+Allora la probabilità dello stato $a$-esimo non è altro che
+\begin{gather*}
+    P_a = \rho(\vv{r_1}, \dots , \vv{r_n}, \vv{v_1}, \dots, \vv{v_n}  ) \qquad \vv{r_1}, \dots, \vv{r_n}, \vv{v_1}, \dots, \vv{v_n} \in (\Delta x \Delta v)^{3N}    
+\end{gather*}
+La procedura di partire da una situazione continua ad una discreta prende 
+il nome di \textbf{Coarse graining} e la probabilità da continua a discreta 
+prende il nome di \textbf{coarse-grained} simile alle fotografie digitali, anche se a
+livello pratico il limite di "risoluzione" di questa tecnica lo dà la meccanica quantistica.
+Ci sono tantissimi microstati che corrispondo allo stesso stato macroscopico, dunque 
+esiste una relazione asimmetrica per cui esistono infiniti valori di velocità per cui
+\begin{gather*}
+    p = p(\left< v^{2} \right> ) \qquad T = T(\left< v^{2} \right> )
+\end{gather*}
+Il fatto di aver ipotizzato di poter scrivere la probabilità come funzione 
+dello spazio delle fasi è già una approssimazione, dunque se conoscessi con certezza
+le posizioni e le velocità al variare del tempo, si avrebbe che una certa coordinata 
+dello spazio delle fasi è esattamente uno: non puà essere descritta da una funzione 
+ma da una distribuzione: nel caso in cui so risolvere la dinamica del 
+sistema e conosco con infinita precisione i dati iniziali, la funzioen $\rho$ non sarebbe 
+una funzione ma una distribuzione. Assumere dunque che la probabilità si possa scrivere
+come funzione di probabilità è anche questa una approssimazione grossolana. 
+
+\section{Determinare la quantità di informazione nella distribuzione}
+Assumendo di aver già fatto course graining per la nostra funzione di probabilità,
+e presa una collezione di valori per la probabilità, il valore della
+probabilità di uno di questi $N$ stati è massima mentre la probabilità
+per tutti gli altri stati è nulla: dunque siamo nella situazione di informazione più
+grande possibile: la distribuzione di probabilità è dunque certa. 
+Si può dunque provare a determinare la quantità di informazione 
+all'interno della nostra distribuzione attraverso la funzione che quantifica
+la mancanza di informazione:
+\begin{align}
+    H = -\sum_{a =1 }^{M}p_a \ln p_a = \left< \ln \frac{1}{p} \right> 
+\end{align}
+Questa funzione si esprime anche in funzione del valore atteso della probabilità:
+il fatto che ci sia $\frac{1}{p}$ già questo di per sé mi permette di determinare 
+la quantità di "ignoranza" che ho sul sistema. Si può dimostrare che, 
+se questa funzione è una buona approssimazione per la mancanza di informazione, allora 
+deve essere massima quando non si ha tanta informazione e minima quando 
+invece se ha tanta. 
+\begin{gather*}
+    p_k = 1 \qquad p_a = 0 \ \forall a \neq k
+\end{gather*}   
+Ossia posso tirare fuori dalla somma il caso particolare $p_k$:
+\begin{gather*}
+    H = - p_k \ln p_k \sum_{a \neq k}^{M} p_a \ln p_a  = -1\ln 1 \sum_{a \neq k }^{M} p_a \ln p_a = 0 
+\end{gather*}
+Che fa zero per il limite notevole. Dunque
+\begin{gather*}
+    H = 0 \ \Longleftrightarrow  \ p_k = 1 \quad p_a = 0 \ \forall a \neq k
+\end{gather*}
+DAto che questi numeri $p_a$ sono tutti $0 < p_a < 1$, allora ogni addendo della sommatoria 
+è positivo, dunque la funzione $H \geq 0$, e dato che si è trovato un
+valore per cui $H = 0$, allora si è trovato un minimo per la funzione $H$. Bisogna
+invece dimostare che la sitauzione nella quale in cui tutte le probabilità sono 
+uguali allora $H$ è massima. Si deve dunque trovare un estremo 
+della funzione in modo tale che le $n$ variabili si sommino ad 1. Utilizzando 
+i moltiplicatori di Lagrange, posso ottnere 
+\begin{gather*}
+    F = -\sum_{a = 1}^{M} p_a \ln p_a + \lambda \left(\sum_{a = 1}^{M} p_a - 1\right) 
+\end{gather*}
+E vado dunque ad annullare il gradiente della funzione:
+\begin{gather*}
+    \frac{\partial F}{\partial p_k} = 0 \quad \forall k = 1 \qquad \frac{\partial F}{\partial \lambda} = 0 
+\end{gather*}
+Allora posso fare
+\begin{gather*}
+    \frac{\partial F}{\partial p_k} = -(\ln p_k + 1) + \lambda \qquad \forall k\\
+    \frac{\partial F}{\partial \lambda} =  \sum_{a = 1}^{M}p_a - 1  
+\end{gather*}
+Imponendole uguali a zero:
+\begin{gather*}
+    \ln p_k = (-1 + \lambda) \qquad \forall k \\
+    \sum_{a = 1}^{M} = 1 
+\end{gather*}
+A questo punto la prima mi dà informazioni secondo la quale tutte le $p_k$ hanno un dato valore $p$ e 
+la seconda invece mi dice che sono esattamente uguali:
+\begin{gather*}
+    p_k = p \quad \forall k \ \Longrightarrow \ p_k = \frac{1}{M}
+\end{gather*}
+Con le derivate sconde si può ottener il caso per il quale 
+\begin{gather*}
+    \frac{\partial^{2} H}{\partial p_k^{2}} = -\frac{1}{p_k} 
+\end{gather*}
+E dunque, dato che le derivate sono massime, si è dimostrato che ha un massimo e 
+dunque si ha poca informazione sul sistema. 
+\begin{gather*}
+    H_{MAX} = - \sum_{a =1 }^{M} \frac{1}{M} \ln \frac{1}{M} = \frac{1}{M} \sum_{a = 1}^{M} \ln M = \ln M  
+\end{gather*}
+Il valore massimo della funzione è dunque il logaritmo del numero di stati che può assumere il sistema. Mi aspetto 
+anche una situazione intermedia per la quale si ha una sitauzione di probabilità intermedia: immaginando 
+di avere una biblioteca con un certo numero di libri, questi libri possono essere ordinati 
+sicuramente secondo un certo criterio. Alla fine si arriva a dire che si ha l'informazione massima possibile:
+i modi in cui posso disporre $N$ libri in $M$ possibili modi è esattamente uguale 
+al numero di permutazioni: $M = N!$. Supponendo di avere libri di tipi diversi 
+(ordinati per categorie ma comunque disordinati nelle loro categorie), allora 
+il numero di combinazioni ordinate possibili $M$ deve ridursi notevolemnte per cui
+\begin{gather*}
+    H = \ln(N_1!\dots N_k!)
+\end{gather*}
+Ed è dunque  sempre minore di:
+\begin{gather*}
+    H_MAX = \ln((N_1 + \dots + N_k)!)
+\end{gather*}
+Dove $M$ è il numero di stati complessivi del sistema e $k$ è il numero di sottostati. Dietro 
+a questa conisderazione c'è il teorema di Sheldon.
+\begin{theorem}[Teorema di Sheldon]
+    La funzione $H$ è l'unica funzione unica a meno di una costante moltiplicativa
+    che ha le seguenti proprietà (in realtà appartiene ad una famiglia di funzioni):
+    \begin{enumerate}
+        \item Fa zero sulla distribuzione certa
+        \item Massima sulla distribuzione uniforme
+        \item È additiva per distribuzioni indipendenti
+        \item È monotona crescente in $M$
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    No dimostrazione.
+\end{proof}
+Si pul dimostrare che è però additiva per la probabilità: per una certa distribuzione 
+di probabilità la probabilità per la distribuzione congiunta $H$
+è data da:
+\begin{gather*}
+    \{p_a^{(1)}\} \qquad a = 1, \dots, M_1 \\
+    \{p_b^{(2)}\} \quad a = 1,\dots, M_2 \\
+    \prod_{ab} = p_a^{(1)} p_b^{(2)}
+\end{gather*}
+\begin{gather*}
+    H_{a + b} = -\sum_{a = 1}^{M_1} \sum_{b = 1}^{M_2} \prod_{ab} \ln \prod_{ab}  
+\end{gather*}
+Che diventa con semplici passaggi
+\begin{gather*}
+    = - \sum_{a = 1}^{M_1} \sum_{b = 1}^{M_2}p_a^{(1)} p_b^{(2)} \ln p_a^{(1)}  - \sum_{a = 1}^{M_1} \sum_{b = 1}^{M_2}p_a^{(1)} p_b^{(2)} \ln p_b^{(2)}  
+\end{gather*}
+Dato che le distribuzioni sono normalizzate e, scomponendo le sommatorie, si ottiene 
+il risultato
+\begin{gather*}
+    -\sum_{a = 1}^{M_1}p_a^{(1)} \ln p_a^{(1)} - \sum_{a = 1}^{M_2}p_b^{(2)}\ln p_b^{(2)}  = H_1 + H_2
+\end{gather*}
+E dunque è additiva.
+
+\end{document}

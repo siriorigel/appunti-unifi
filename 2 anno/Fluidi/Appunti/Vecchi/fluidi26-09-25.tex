@@ -1,0 +1,358 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di Fluidi}
+\author{Tommaso Miliani}
+\date{26-09-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Esempi di esercizi dei fluidi}
+In linea generale per la risoluzione dei problemi in
+statica dei fluidi è trovare una relazione tra le pressione
+e la densità. Quando la pressione è funzione della densità si parla di \textbf{Legge barotropica}:
+\begin{align}
+     p = p(\rho) 
+\end{align}
+Questo permette di ottenere una relazione tipo
+\begin{gather*}
+    \vv{\nabla} p = \rho \vv{g}  
+\end{gather*}
+Si può anche assumere una certa legge di proporzionalità
+sulla potenza della densità:
+\begin{align}
+    p \propto C \rho^{\gamma} \ \Longrightarrow \  \frac{p}{p_0} = \left(\frac{\rho}{\rho_0}\right)^{\gamma} 
+\end{align}
+Questa legge prende il nome di \textbf{Legge politropica}. Ci sono dei motivi fisici
+che ci portano a determinare questa relazione: in quanto il valore $\gamma$ è dato
+dal rapporto dei calori specifici (che si tratterà più avanti). Possiamo considerare
+il seguente esempio per determinare perché questa relazione è valida:
+\begin{gather*}
+    \frac{\partial p}{\partial x} = 0 \qquad \frac{\partial p}{\partial y} = 0 \qquad \frac{\partial p}{\partial z} = -\rho g   
+\end{gather*}
+Allora posso dire anche in questo caso che la derivata parziale rispetto a $z$ è esattamente
+la derivata della pressione sulla costante $z$ poiché rispetto agli altri assi
+è nulla la pressione. Allora posso considerare il caso semplice in cui non si abbia la potenza
+delle $\rho$ con la legge di Stevino:
+\begin{gather*}
+    p = p_0 \left(\frac{\rho}{\rho_0}\right) \ \Longrightarrow \ \rho = \rho_0 \frac{p}{p_0}
+\end{gather*}
+Nell'espressione della derivata:
+\begin{gather*}
+    \frac{dp}{dz} = -\rho_0 \frac{p}{p_0}g \ \Longrightarrow \ \int_{p_0}^{p}\frac{dp'}{p'} = - \int_{0}^{z} \frac{\rho_0g}{p_0}dz'
+\end{gather*}
+Gli apici mi servono per differenziare i differenziali rispetto agli estremi di
+integrazione, quindi ho separato le variabili. Posso quindi risolvere l'equazione
+e ottenere:
+\begin{gather*}
+    \ln \frac{p}{p_0} = -\frac{\rho_0g}{p_0}z \ \Longrightarrow \ \boxed{p(z) = p_0 \exp\left(-\frac{\rho_0g}{p_0}z\right)}
+\end{gather*}
+Ho ottenuto una relazione esponenziale per la pressione rispetto alla pressione,
+se chiamassi allora
+\begin{gather*}
+    H = \frac{p_0}{\rho_0g}
+\end{gather*}
+Allora posso dire che la legge politropica si esprime come
+\begin{align}
+     p = p_0 \exp\left(-\frac{z}{H}\right)
+\end{align}
+In questo modo ho trovato una relazione esponenziale della variazione
+della pressione a seconda della quota $z$: il fatto che sia una espressione
+esponenziale (e non lineare) è coerente a livello fisico poiché se si avesse avuto una espressione
+lineare, questa ad un certo punto sarebbe diventata negativa, il che non avrebbe avuto alcun senso.
+Per la Terra posso ora stimare il fattore $H$ e dire quando la pressione diminuisce
+per un fattore $\frac{1}{e}$, ossia dopo circa $8.5 km$, la pressione si dimezza invece
+dopo $\approx 6 \ km$ rispetto al livello del mare (assumendo che $g$ non cambi). 
+
+\subsection{Anticipazione legge dei gas perfetti}
+La legge dei Gas perfetti ci dice che
+\begin{gather*}
+    pV = nRT
+\end{gather*}
+Posso determinare con il numero di Avogadro il numero di molecole
+all'interno del gas:
+\begin{gather*}
+    pV = \frac{NRT}{N_A} \qquad \text{con} \qquad N = nN_A
+\end{gather*}
+Posso anche esprimere la relazione tramite la costante di Boltzmann ($k_B = \frac{R}{N_A}$)
+\begin{gather*}
+    pV = Nk_BT
+\end{gather*}
+Per un volume infinitesimo $dV$ ci sarà un numero infinitesimo di particelle
+contenute all'interno di questo volumetto di gas. Se io lo moltiplicassi
+per la massa media delle particelle $\overline{m}$:
+\begin{gather*}
+    pdV = \overline{m}dN \frac{k_BT}{\overline{m} } 
+\end{gather*} 
+Si ha allora che il termine $\overline{m}dN$ è esattamente la massa infinitesima,
+allora posso riesprimere la relazione dei gas perfetti per un certo volume infinitesimo
+di gas come
+\begin{gather*}
+    p = \frac{dm}{dV} \frac{k_BT}{\overline{m} } \ \Longrightarrow \  p = \frac{k_BT}{\overline{m} } \rho
+\end{gather*} 
+Allora, assumendo che la temperatura sia la stessa da qui a $8.5km$, allora posso esprimere il rapporto
+tra la pressione e la densità come e ottenere allora una approssimazione (non molto corretta) 
+per determinare la pressione dell'atmosfera a $8.5km$ secondo questo modello invece che
+secondo la relazione (più precisa) che si era trovata prima.
+\begin{gather*}
+    \frac{p}{\rho} = \frac{k_BT}{\overline{m} }
+\end{gather*}
+Essendo questa una grossa approssimazione, in futuro sarà rivista e trattata in modo
+più completo nella parte di termodinamica e nella parte di fisica statistica. 
+
+\section{Le forze apparenti nei fluidi}
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \caption{Forze apparenti nei fluidi}
+    \begin{tikzpicture}[domain=0:2]
+        \draw[->](-1, 0) -- (3, 0) node[at end, below] {$x$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$z$};
+        \draw[color=cyan]  plot (\x, {(\x)^2 / 2 });
+        \draw(1.3, 0.9) rectangle (1.5, 1.1);
+        \draw[->](1.4, 1) -- (2.2, 1) node[at end, right] {$\vv{F_{cf}}$ };
+        \draw[->](1.4, 1) -- (0.8, 1.6) node[at end, above] {$\vv{\nabla}p dV$ };
+        \draw[->](1.4, 1) -- (1.4, 0.25) node[at end, right] {$\vv{g} \rho dV$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Abbandonando le ipotesi di barotropica e politropica, supponiamo di avere un fluido
+incomprimibile e che sia in rotazione rispetto all'asse $z$, posso esprimere il
+vettore velocità angolare e l'accelerazione di gravità come:
+\begin{align*}
+    \vv{\omega} &= \omega \hat{z} \\
+    \vv{g} &= -g \hat{z}    
+\end{align*}
+La quota $z_0$ è l'altezza del liquido nell'asse $z_0$. Preso un piccolo elemento
+di fluido piccolo a piacere, questo sentirà l'effetto di due forze: un effetto da
+parte della forza di gravità e anche la forza centrifuga (se osservato in un SdR inerziale).
+Ponendosi in coordinate cilindriche, posso definire $\vv{r}$ la distanza dall'asse di rotazione
+e quindi esprimere la forza centrifuga come:
+\begin{gather*}
+    \vv{F}_{cf} = \rho_0 dV \omega^{2}r \hat{r}   
+\end{gather*} 
+Ossia diretta lungo la direzione radiale. La somma delle due forze può essere
+bilanciata solamente da una forza $\vv{\nabla} pdV$. Non ci resta
+altro che scrivere le relazioni:
+\begin{gather*}
+    \vv{\nabla}p  =\rho \vv{g}  
+\end{gather*}
+Posso esprimere il gradiente della forza da coordinate cartesiane
+a coordinate cilindriche come
+\begin{gather*}
+    \vv{\nabla}F = \frac{\partial F}{\partial x}\hat{x} + \frac{\partial F}{\partial y}\hat{y} + \frac{\partial F}{\partial z} \hat{z}     \\
+    \ \Longrightarrow \ \vv{\nabla}F = \frac{\partial F}{\partial r}\hat{r} + \frac{1}{r}\frac{\partial F}{\partial \theta}\hat{\theta} + \frac{\partial f}{\partial z}\hat{z}       
+\end{gather*}
+Posso allora esprimere la derivata parziale rispetto alla pressione come
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \frac{\partial p}{\partial r} = \rho_0 \omega^{2}r \\
+        \frac{\partial p}{\partial \theta} = 0 \\
+        \frac{\partial p}{\partial z} = -\rho_0 g    
+    \end{array}\right.
+\end{gather*}
+La pressione allora dipenderà solamente dalla distanza rispetto all'asse di rotazione
+e dalla quota $z$ mentre non dipende dall'angolo di rotazione. Posso assumere
+allora che la pressione possa essere divisa in una funzione solo di $r$ e una solo di $z$:
+\begin{gather*}
+    p(r, z)  - p_0 = f_1(r) - f_2(z)  = \rho_0 \frac{\omega^{2} }{p}r^{2} - \rho_0gz + c_1 + c_2 
+\end{gather*}
+Posso allora esprimere le derivate parziali rispetto alle due funzioni, che derivano proprio da
+dalla derivata parziale della pressione rispetto a $r$ e $z$.
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \frac{\partial f_1}{\partial r} = \rho_0 \omega^{2} r  \ \Longrightarrow \ f_1 = \rho_0 \frac{\omega^{2} }{2}r^{2} + c_1 \\
+        \frac{\partial f_2}{\partial z} = -\rho_0 g \ \ \Longrightarrow \ f_2 = -\rho_0 gz + c_2   
+    \end{array}\right.
+\end{gather*}
+Per comodità posso escludere le costanti (dipende dal fatto che viene considerata la pressione $p_0$
+nell'espressione della pressione in funzione del raggio e della quota): infatti quando $r = 0$
+posso considerare le costanti come zero. infatti potrei esprimere la funzione
+della pressione come
+\begin{align}
+    \boxed{p(r, z) = \rho_0 \frac{\omega^{2} }{2}r^{2} - \rho_0 gz + p_0 }
+\end{align}
+Se volessi trovare il valore di $p_0$, allora troverei la condizione
+\begin{gather*}
+    \rho_0 \frac{\omega^{2} }{2}r^{2} = \rho_0 gz 
+\end{gather*}
+E dunque il valore di $z$ per cui si ha $p_0$ sono tutti i punti con
+\begin{gather*}
+    z = \frac{\omega^{2} }{2}\frac{r^{2} }{g} 
+\end{gather*}
+Tutte le isosuperfici sono date da una parabola nel grafico (ossia tutte le curve
+lungo le quali la pressione è la stessa). Quando un liquido ruota la superficie di un 
+liquido tende a formare un paraboloide proprio per questo motivo analitico. Il pelo del liquido
+allora (ossia la superficie di contatto tra il fluido ed un altro fluido) tende a formare
+un vortice quando ruota. 
+
+\section{Autogravitazione dei fluidi nel caso di una sfera di fluido}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La sfera di fluido}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (2);
+        \draw(0, 0) -- (0, 2) node[midway, left] {$r$};
+        \filldraw[red](-0.1, 2) rectangle (0.1, 2.2) node[anchor = west] {$dV$};
+        \draw[->, red, thick](0, 2) -- (0, 1) node[near end, right] {$\vv{F_g}$};
+        \draw(0, 0) -- (-2, 2) node[midway, below] {$R$};
+        \draw(0, 0) circle (2.85);
+        \draw[->, red, thick](0, 2.2) -- (0, 3.2) node[at end, right] {$\vv{\nabla}p$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+Fino ad ora si era considerato equilibri tra forza di pressione e forza esterna (come la gravità)
+generate da corpi esterni. E' l'equilibrio tra le pressioni e la forza di gravità che
+mantiene intatti i corpi celesti. La forza esercitata su unità di massa è data da:
+\begin{gather*}
+    \frac{\vv{F} }{m} = - \frac{GM(r)}{r^{2} } \rho dV \hat{r}  
+\end{gather*}
+Sto cercando di determinare la forza che agisce su di una parte del fluido $dV$ da parte della
+gravità del fluido interno ad una distanza $r$ dal centro. La parte di fluido di raggio $r$ agisce su di una certa porzione
+del fluido $dV$ ad una certa distanza $r$ in \textbf{autogravità}, posso esprimere la massa 
+a distanza $r$ dall'origine della sfera
+\begin{gather*}
+    M(r) = \int_{0}^{r} 4\pi r^{2}\rho (r) \ dr
+\end{gather*}
+Posso cambiare sistema di riferimento ed utilizzare le coordinate sferiche ed esprimere il gradiente
+della pressione in funzione del versore $\hat{r}$ come
+\begin{gather*}
+    \vv{\nabla}p = \rho \vv{g}(r) = -\frac{GM(r)}{r^{2} }\hat{r}   
+\end{gather*} 
+Il gradiente di una forza in questo caso sarà dato dalla seguente relazione 
+(devo trasformarlo dal sistema di riferimento cartesiano a quello sferico) utilizzando
+l'angolo $\theta$ rispetto alla verticale e l'angolo $\phi$ rispetto ad uno dei due assi perpendicolari
+a quello verticale ed il raggio $r$ come la distanza dal centro della sfera si ha:
+\begin{gather*}
+    \vv{\nabla}F = \frac{\partial F}{\partial r}\hat{r} + \frac{1}{r}\frac{\partial F}{\partial \theta} \hat{\theta} + \frac{1}{r\sin\theta}\frac{\partial F}{\partial \phi} \hat{\phi}       
+\end{gather*}
+Posso allora derivare parzialmente la pressione (tuttavia considero solamente rispetto al raggio
+in quanto, essendo a simmetria sferica, le derivate rispetto a $\phi$ e $\theta$ sono zero):
+\begin{gather*}
+    \frac{\partial p}{\partial r} = -G \rho \frac{M(r)}{r^{2} } = -\frac{4}{3}\pi G\rho_0^{2}r 
+\end{gather*}
+Posso integrare da entrambe le parti con separazione di variabili e dunque  ottenere l'integrale:
+\begin{gather*}
+    \int_{p_0}^{p} dp = -\int_{R_{\oplus}}^{r} \frac{4\pi}{3}G\rho_0^{2}r' \ dr \ \Longrightarrow \ -\frac{4\pi}{3}\rho_0^{2}\frac{G}{2} (r^{2} - R^{2}_{\oplus}  ) 
+\end{gather*}
+Dove $R_{\oplus}$ è il raggio della sfera. Posso allora esprimere la pressione
+con la seguente funzione:
+\begin{gather*}
+    p = p_0 + \frac{4}{3}\pi\rho_0^{2}\frac{G}{2}(R_{\oplus}^{2} -r^{2}  ) = p_0 + \frac{4}{3}\pi\frac{G}{2}R_{\oplus}^{2}\rho_0^{2} \left(1 - \frac{r^{2} }{R_{\oplus}}\right) 
+\end{gather*}
+La massa del pianeta è allora esprimibile come $M_{\oplus} = \frac{4}{3}\pi\rho_0R_{\oplus}^{3}$.  A questo punto posso esprimere la pressione
+come
+\begin{gather*}
+    p = p_0 + \frac{GM_{\oplus}}{R_{\oplus}}\frac{\rho_0}{2}R_{\oplus}\left(1 - \frac{r^{2} }{R_{\oplus}}\right)
+\end{gather*}
+Dove $\frac{GM_{\oplus}}{R_{\oplus}} = g_{\oplus}$. Per la Terra ottengo la pressione al centro di
+$\approx 10^{11} \ Pa$, ossia la pressione stimata della Terra con la sua massa, 
+densità e raggio come se fosse un fluido di densità costante in tutti i punti.  
+
+\subsection{Il pianeta fatto di fluido in rotazione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Lo schema delle forze nel fluido in rotazione autogravitante}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$z$};
+        \draw(0, 0) -- (2, 3) node[midway, left] {$r$};
+        \draw(0, 1) arc (90:55:1)node[midway, above] {$\theta$};
+        \draw[dashed](0, 3) -- (2, 3) node [midway, above] {$h = r\sin\theta$};
+        \draw[->, very thick](2, 3) -- (1, 1.5) node[at end, right] {$\vv{F_{\theta}}$ };
+        \draw[->, very thick](2, 3) -- (3, 3) node[at end, right] {$\vv{F_c}$};
+        \draw[->, very thick](2, 3) -- (2.5, 3.75) node[at end, right] {$\hat{r}$ };
+        \draw[->, very thick](2, 3) -- (2.5, 2.75) node[at end, right] {$\hat{\theta}$ };
+    \end{tikzpicture}    
+\end{wrapfigure}
+La distanza dall'asse di rotazione prende il nome di $h$ mentre $r$ è la distanza
+dal centro della massa di fluido in rotazione. Posso esprimere 
+l'angolo rispetto alla verticale del vettore posizione con
+l'angolo $\theta$. E quindi posso esprimere i vettori come
+\begin{gather*}
+    \vv{F_g} = -\frac{\rho_0 G M(r)}{r^{2} }\hat{r} = \rho_0^{2} G\frac{4\pi}{3}r  \\
+    \vv{F_c} = \rho_0 \omega^{2}h(\sin\theta \hat{r} + \cos\theta \hat{\theta}  )  = \rho_0 \omega r \sin\theta (\sin\theta \hat{r} + \cos \theta\hat{\theta}  )
+\end{gather*}
+Sapendo che
+\begin{gather*}
+    M(r) = \frac{4\pi}{3}r^{3} \rho_0 
+\end{gather*}
+La pressione ora deve bilanciare il contributo sia della forza di gravità che della forza centrifuga,
+allora posso esprimere la derivata della pressione sia su $\theta$ che su $r$:
+\begin{gather*}
+    \frac{\partial p}{\partial r} = -\rho_0^{2}\frac{4\pi}{3}rG+ \rho_0 \omega^{2}r \sin^{2}\theta \\
+    \frac{1}{r}\frac{\partial p}{\partial \theta} = -\rho_0^{2} \omega^{2}r\sin\theta\cos\theta       
+\end{gather*}
+Posso allora integrare come se $\theta$ fosse un parametro nella prima
+e quindi ottengo l'espressione della pressione in funzione del raggio
+e dell'angolo $\theta$ (dell'angolo $\phi$ non mi interessa in quanto sto
+considerando una sfera). Posso esprimere $f(\theta)$ come l'integrale della derivata
+parziale rispetto a $\theta$:
+\begin{gather*}
+    p(r, \theta) - p_0 = -\rho_0^{2}\frac{4\pi}{3}\frac{r^{2} }{2}G+ \rho_0 \omega^{2}\frac{r^{2} }{2} \sin^{2}\theta + f(\theta)
+\end{gather*}
+Allora posso derivare rispetto a $\theta$ questa espressione
+\begin{gather*}
+    \frac{\partial p}{\partial \theta} = \rho \omega^{2}r^{2} \sin\theta\cos\theta + f'(\theta)  
+\end{gather*}
+Adesso se ponessimo il termine $\frac{1}{r}$ davanti all'espressione, dovrebbe essere uguale con
+l'espressione della derivata parziale trovata prima, uguagliandole:
+\begin{gather*}
+    f'(\theta) = 0 \ \Longrightarrow \ f(\theta) = const
+\end{gather*}
+La soluzione è allora considerare una generica funzione $f(\theta)$ come costante
+ed esprimerla come $C$. Dato che ho scelto $p_0$ come la pressione
+al centro,allora la costante sarà tolta e otterrò 
+\begin{align}
+    p(r, \theta) - p_0 = -\rho_0 \frac{r^2 }{2}\left(G\rho_0\frac{4\pi}{3} - \omega^{2}\sin^{2}\theta  \right)
+\end{align}
+Posso esprimere come si è fatto con il raggio della sfera e la massa della sfera in modo da ottenere $g_{\oplus}$,
+ossia l'accelerazione di gravità e quindi trovare l'espressione della pressione
+finale come
+\begin{gather*}
+    p - p_0 = \frac{r^{2}\rho_0 g_{\oplus} }{2R_{\oplus}} \left(1 - \frac{\omega^{2}R_{\oplus} }{g_{\oplus}}\sin^{2}\theta \right)
+\end{gather*}
+
+
+\end{document}

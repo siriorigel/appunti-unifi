@@ -1,0 +1,122 @@
+\documentclass[a4paper]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=0.8in,
+            right=0.8in,
+            top=0.8in,
+            bottom=0.7in,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{multicol}
+\usepackage[d]{esvect}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\pagestyle{empty}
+\title{Physics 1 - Ultimate Cheatsheet}
+
+\begin{document}
+\maketitle
+\section{Calcolo vettoriale}
+\begin{multicols}{2}
+    \begin{enumerate}
+    \item $\vv{v} + \vv{w} = (v_x+ w_x)\hat{i} + (v_y+ w_y)\hat{j} + (v_z+ w_z)\hat{k}$;
+    \item $\vv{v} = \vv{w} \Leftrightarrow v_x = w_x, \quad v_y = w_y, \quad v_z = w_z$;
+    \item $\lambda\vv{v} = \lambda v_x \hat{i} + \lambda v_y \hat{j} + \lambda v_z \hat{k}$;
+    \item $\vv{v} \cdot \vv{w} = v_x w_x + v_y w_y + v_z w_z$;
+    \item $\vv{v} \cdot  \vv{v} = v^{2} = v_x^{2} + v_y^{2} + v_z^{2}$; 
+    \columnbreak
+    \item \[
+        \vv{v} \times \vv{w} = \det\left(\begin{array}{c c c }
+            \hat{i} & \hat{j} & \hat{k} \\
+            v_x & v_y & v_z \\
+            w_x & w_y & w_z
+        \end{array}\right)
+    \]
+    \end{enumerate}
+    \begin{gather*}
+            \left\{\begin{array}{l}
+        \vv{v} = \dot{s}\hat{u}_t \\
+        \vv{a} = \ddot{s}\hat{u}_t + \frac{\dot{s}^2}{\rho}\hat{u}_n      
+    \end{array}\right.
+    \end{gather*}
+\end{multicols}
+
+\section{Cinematica}
+\begin{multicols}{2}
+    \subsection{Moti uniformi}
+    \begin{gather*}
+        \dot{s}_0(t - t_0) + s_0
+    \end{gather*}
+    \subsection{Moti uniformemente vari}
+    \begin{gather*}
+            \left\{\begin{array}{l}
+        \dot{s} = \ddot{s}_0 (t - t_0) + \dot{s}_0   \\
+        s = \frac{1}{2}\ddot{s}_0(t - t_0)^{2} + \dot{s}_0 (t - t_0) + s_0
+    \end{array}\right.
+    \end{gather*}
+    \subsection{Moti rettilinei}
+    \begin{gather*}
+        x(t) = v_0t + x_0
+    \end{gather*}
+    \subsection{Moto circolare uniforme}
+    \begin{gather*}
+            \left\{\begin{array}{l}
+        \vv{r} = R \cos(\omega t) + R\sin(\omega t) \hat{j} \\
+        \vv{v} = -\omega R \sin(\omega t) \hat{i} + \omega R \cos(\omega t) = \omega R \hat{u}_t \\
+        \vv{a} = -\omega^{2} R\cos (\omega t) \hat{i} - \omega^{2}R \sin(\omega t) \hat{j} = -\omega^{2} \vv{r}             
+    \end{array}\right.
+    \end{gather*}
+    \subsection{Moto circolare uniformemente vario}
+    \begin{gather*}
+        s(t) = \frac{1}{2}a_0(t - t_0)^{2} + v_0(t - t_0) + s_0 \\
+        \theta(t) = \frac{1}{2}\frac{a_0}{R}(t - t_0)^{2} + \frac{v_0}{R}(t - t_0) + \theta_0  
+    \end{gather*}
+    \subsection{Grandezze angolari}
+    \begin{align*}
+        \vv{\alpha}(t) &= \frac{d\vv{\omega}}{dt} = \frac{d\omega}{dt}\hat{k} = \ddot{\theta}\hat{k}   \\
+        \vv{a} &= \vv{\alpha} \times \vv{r} + \vv{\omega} \times(\vv{\omega} \times \vv{r})    
+    \end{align*}
+    \columnbreak
+    \begin{gather*}
+            \left\{\begin{array}{l}
+                x(t) = A\cos(\omega_0 t + \phi_0) \\
+        v_x = \dot{x}= -\omega_0 A \sin(\omega t + \phi_0) \\
+        a_x = \ddot{x} = -\omega_0^2 A \cos(\omega_0 t + \phi_0) = - \omega_0^{2}x 
+    \end{array}\right.
+    \end{gather*}
+    \subsection{Moti relativi}
+    \begin{align*}
+        \vv{r} = \ &\vv{r'} + \vv{R}\\
+        \vv{v} = \ &\vv{v'} + \left(\frac{d\vv{R} }{dt}\right)_S + \vv{\omega} \times (\vv{r} - \vv{R}  ) \\
+        \vv{a} = \ &\vv{a'} + \left(\frac{d^{2} \vv{R} }{dt^{2} }\right)_S + \vv{\alpha}  \times (\vv{r} - \vv{R}  ) + \\
+        &\vv{\omega} \times (\vv{\omega} \times (\vv{r} - \vv{R} )) + 2\vv{\omega} \times \vv{v'}      \\
+        \vv{v_t} = \ &\left(\frac{d\vv{R} }{dt}\right)_S + \vv{\omega} \times (\vv{r} - \vv{R}  ) \\
+        \vv{a_t} = \ &\left(\frac{d^{2} \vv{R} }{dt^{2} }\right)_S + \vv{\alpha}  \times (\vv{r} - \vv{R}  ) + \\
+        &\vv{\omega} \times (\vv{\omega} \times (\vv{r} - \vv{R} )) \\
+        \vv{a_{co}} = \ &2\vv{\omega} \times \vv{v'}   \\
+        m\vv{a'} = \ &\vv{F} + \vv{F_t} + \vv{F_{co}} \\
+        \vv{F_t} = \ &-m\vv{a_t} \\
+        \vv{F_{co}} = \ &-2m\vv{\omega} \times \vv{v'}          
+    \end{align*}
+\end{multicols}
+\section{Principi della dinamica}
+
+
+\appendix
+\section{EXTRA}
+
+\end{document}
