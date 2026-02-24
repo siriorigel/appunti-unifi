@@ -1,0 +1,54 @@
+# --- File temporanei di LaTeX ---
+*.aux
+*.log
+*.toc
+*.out
+*.bbl
+*.blg
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.pdfsync
+
+# --- File di compilazione aggiuntivi ---
+*.dvi
+*.ps
+*.lof
+*.lot
+*.spl
+*.ilg
+*.idx
+*.glo
+*.gls
+*.ist
+*.acn
+*.acr
+*.alg
+*.glg
+
+# --- Cartelle di compilazione ---
+_build/
+latex-build/
+tmp/
+
+# --- File di backup di editor ---
+*~
+*.bak
+*.swp
+*.swo
+
+# --- File generati da IDE come Overleaf, TeXShop, TeXworks ---
+*.synctex.gz
+*.tex.backup
+*.tex.auto
+
+# --- Bibliografia ---
+# ignora solo file generati dalla compilazione BibTeX
+*.bbl
+*.blg
