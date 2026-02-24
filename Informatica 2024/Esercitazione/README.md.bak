@@ -1,0 +1,40 @@
+# Informatica2024
+
+Versione: 1.0.6
+
+Ultimo aggiornamento: Martedì 30 Aprile 2024
+
+## Contenuto
+Questo repository contiene una serie di esercizi di informatica in linguaggio C pensati per la preparazione all'esame universitario.
+
+## Collaborazione
+Nella sezione "Projects" è disponibile un ambiente di lavoro condiviso. È il luogo ideale per lo scambio di idee e per richiedere aiuto nei progetti.
+
+---
+
+## Sottoporre un Problema
+Se hai incontrato difficoltà nello svolgimento di un esercizio, segui questi passaggi:
+1. Crea un file nella directory appropriata.
+2. Segnala il problema nella sezione "**Issues**".
+3. Quando segnali il problema, inserisci la consegna dell'esercizio come commento introduttivo al programma e all'interno della descrizione dell'issue.
+
+---
+
+## Programmare su Github
+È possibile programmare direttamente su github.com tramite Codespaces. Segui questi passaggi:
+1. Clicca sul pulsante "Code<>" in alto a destra nella pagina principale.
+2. Troverai Codespaces.
+   
+**ATTENZIONE!** 
+La versione di gcc di Codespaces non supporta automaticamente la libreria math.h. Perciò, se utilizzi questa libreria, è necessario forzare la compilazione. Per farlo, scrivi nel terminale: **"gcc nome_programma.c -lm"**.
+
+**NOTA**
+Gli esercizi in Python sono solo per divertimento, quindi non preoccuparti troppo!
+
+---
+
+**Nota per gli sviluppatori:**
+
+Per aggiornare la data, esegui lo script `update_readme_date.sh` nella directory "Script".
+Per aggiornare la versione, esegui lo script `update_readme_version.sh` nella directory "Script".
+Se desideri aggiornare entrambi i parametri contemporaneamente, esegui il comando `Update_README.sh` nella directory principale.
