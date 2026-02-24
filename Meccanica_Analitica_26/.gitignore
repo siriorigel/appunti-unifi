@@ -1,0 +1,13 @@
+# Generati automaticamente da LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+.gz
