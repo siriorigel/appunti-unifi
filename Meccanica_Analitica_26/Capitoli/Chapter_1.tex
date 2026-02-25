@@ -233,3 +233,66 @@ Un modo più compatto per ricordare questa formula è utilizzare il determinante
 \end{equation*}
 
 \subsection{Momento di un vettore rispetto al polo}
+Dato un punto $O$ detto "polo" e un vettore $\vec v$ applicato in un punto $P$, posso definire il momento di $\vec v$ rispetto ad $O$, come:
+
+\begin{minipage}
+    {0.45\textwidth}
+    \begin{equation*}
+        \vec M_O \doteq (P-O) \wedge \vec v
+    \end{equation*}
+
+    Dalla definizione di prodotto vettoriale, si deduce che $\vec{M_O}$ è un vetttore allineato con la normale al piano generato da $(P-O)$ e $\vec v$, e i tre vettori formano una terna destrorsa.
+\end{minipage}
+\begin{minipage}
+    {0.45\textwidth}
+    \begin{center}
+    \begin{tikzpicture}[scale=1.5]
+
+    % Assi
+    \draw[->, thick] (-0.2,0) -- (3,0) node[right] {$x$};
+    \draw[->, thick] (0,-0.2) -- (0,2.5) node[above] {$z$};
+
+    % Punto O
+    \coordinate (O) at (0.3,0.2);
+    \filldraw[blue] (O) circle (1pt);
+    \node[left] at (O) {$O$};
+
+    % Punto P
+    \coordinate (P) at (2,1.5);
+    \node[right] at (P) {$P$};
+
+    % Vettore u = P - O
+    \draw[->, very thick, red] (O) -- (P)
+    node[midway, above left] {$\mathbf{u} = (P-O)$};
+
+    % Vettore v applicato in P
+    \coordinate (V) at ($(P)+(0.3,1)$);
+    \draw[->, very thick] (P) -- (V)
+    node[midway, left] {$\mathbf{v}$};
+
+    % Retta tratteggiata direzione v
+    \draw[dashed] ($(P)+(-0.6,-2)$) -- ($(P)+(0.6,2)$);
+
+    % Proiezione tratteggiata
+    \draw[dashed] (O) -- ($(P)+(0,-1)$);
+    \draw[dashed] ($(P)+(0,-1)$) -- (P);
+
+    % Angolo alpha
+    \draw[blue] (P) ++(0.4,0)
+    arc[start angle=0,end angle=60,radius=0.4];
+    \node[blue] at ($(P)+(0.6,0.4)$) {$\alpha$};
+
+    % Etichetta modulo
+    \node at (1.6,0.3) {$|P-O|\sin(\alpha)$};
+
+    \end{tikzpicture}
+    \end{center}
+\end{minipage}
+
+Il modulo di $\vec{M_O}$ rappresenta l'area del parallelogramma generato da $(P-O)$ e $\vec v$, ed è pari a: 
+\begin{equation*}
+    |\vec{M_O}| = |P-O||\vec v|\sin(\alpha)
+\end{equation*}
+dove $\alpha$ è l'angolo compreso tra i due vettori.
+
+La distanza $d=|P-O|\sin(\alpha)$ è la distanza tra il polo $O$ e la retta su cui è applicato il vettore $\vec v$ ed è detta \textbf{braccio} del momento.
