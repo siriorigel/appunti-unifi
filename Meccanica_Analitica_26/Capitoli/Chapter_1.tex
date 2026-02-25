@@ -71,3 +71,165 @@ Esso è una mappa con le seguenti proprietà:
     \item \textbf{Simmetria}: $\left< \vec u, \vec v \right> = \left< \vec v, \vec u \right> $ con $\vec u, \vec v \in \mathbb{R}^3$
     \item \textbf{Linearità}: $\left< \alpha \vec u + \beta \vec w, \vec v \right> = \alpha \left< \vec u, \vec v \right> + \beta \left< \vec w, \vec v \right> $ con $\alpha, \beta \in \mathbb{R}$ e $\vec u, \vec v, \vec w \in \mathbb{R}^3$
 \end{itemize}
+
+La definizione standard ci dice che:
+\begin{equation*}
+    \left< \vec u, \vec v \right> = |\vec u||\vec v|\cos \theta
+\end{equation*}
+dove $\theta$ è l'angolo compreso tra i due vettori. (Non è importante quale dei due angoli si prenda, poiché il coseno è una funzione pari).
+
+Se invece $\vec u = (u_x, u_y, u_z)$ e $\vec v = (v_x, v_y, v_z)$, allora: 
+\begin{equation*}
+    \left< \vec u, \vec v \right> = u_x v_x + u_y v_y + u_z v_z
+\end{equation*}
+
+\subsection{Prodotto vettoriale}
+È sempre una mappa bilineare, ma restituisce un vettore invece di uno scalare.
+
+\begin{minipage}
+    {0.45\textwidth}
+    \begin{equation*}
+        \mathbb{R}^3 \times \mathbb{R}^3 \to \mathbb{R}^3
+    \end{equation*}
+    \begin{equation*}
+        \vec u \wedge \vec v \mapsto \vec w
+    \end{equation*}
+\end{minipage}
+\begin{minipage}
+    {0.45\textwidth}
+    \begin{center}
+    \tdplotsetmaincoords{70}{120}
+    \begin{tikzpicture}[tdplot_main_coords, scale=3]
+
+        % Definizione vettori
+        \def\ux{1}
+        \def\uy{0.5}
+        \def\uz{0.2}
+
+        \def\vx{0.4}
+        \def\vy{1}
+        \def\vz{0.3}
+
+        \pgfmathsetmacro{\wx}{\uy*\vz - \uz*\vy}
+        \pgfmathsetmacro{\wy}{\uz*\vx - \ux*\vz}
+        \pgfmathsetmacro{\wz}{\ux*\vy - \uy*\vx}
+
+        % Piano generato da u e v
+        \filldraw[blue!10, opacity=0.5]
+            (0,0,0) -- (\ux,\uy,\uz) -- 
+            ({\ux+\vx},{\uy+\vy},{\uz+\vz}) --
+            (\vx,\vy,\vz) -- cycle;
+
+        % Vettore u
+        \draw[->, very thick, red]
+            (0,0,0) -- (\ux,\uy,\uz)
+            node[above left] {$\vec u$};
+
+        % Vettore v
+        \draw[->, very thick, green!60!black]
+            (0,0,0) -- (\vx,\vy,\vz)
+            node[above right] {$\vec v$};
+
+        % Prodotto vettoriale
+        \draw[->, very thick, blue]
+            (0,0,0) -- (\wx,\wy,\wz)
+            node[above] {$\vec w$};
+
+    \end{tikzpicture}
+    \end{center}
+\end{minipage}
+
+Possiamo ricavare le caratteristiche di $\vec w$:
+\begin{itemize}
+    \item $|\vec w| = |\vec u \wedge \vec v| = |\vec u||\vec v|\sin \theta$, dove $\theta$ è l'angolo compreso tra i due vettori.
+    \item $\vec w$ è diretto cme la direzione $\perp$ al piano generato da $\vec u$ e $\vec v$.
+    \item $\vec u$, $\vec v$ e $\vec w$ formano una terna destrorsa.
+\end{itemize}
+
+Le sue proprietà sono:
+\begin{itemize}
+    \item \textbf{Anticommutatività}: $\vec u \wedge \vec v = - \vec v \wedge \vec u$ con $\vec u, \vec v \in \mathbb{R}^3$
+    \item \textbf{Linearità}: $\left( \alpha \vec u + \beta \vec w \right) \wedge \vec v = \alpha \left( \vec u \wedge \vec v \right) + \beta \left( \vec w \wedge \vec v \right)$ con $\alpha, \beta \in \mathbb{R}$ e $\vec u, \vec v, \vec w \in \mathbb{R}^3$
+\end{itemize}
+
+Geometricamente, il modulo di $\vec w$ rappresenta l'area del parallelogramma generato da $\vec u$ e $\vec v$.
+
+\subsection{Terna euclidea}
+Per fissare una terna euclidea non conviene definire tre vettori qualsiasi, ma è più comodo definire \textbf{tre versori ortonormali}.
+
+Li chiamo $\hat i$, $\hat j$ e $\hat k$, rispettivamente paralleli agli assi $x$, $y$ e $z$.
+
+\textbf{N.B.} Talvolta fa comodo fare distinzioni tra:
+\begin{itemize}
+    \item \textbf{Vettore libero} -- Fisso solo la direzione, ma non il punto di applicazione. Es. Velocità angolare.
+    \item \textbf{Vettore Applicato} -- Fisso un punto di applicazione, oltre alla direzione. Es. Forza peso.
+\end{itemize}
+
+Il termine \textbf{ORTONORMALE} significa che i versori sono tra loro ortogonali:
+\begin{equation*}
+    \left< \hat i, \hat j \right> = \left< \hat j, \hat k \right> = \left< \hat k, \hat i \right> = 0
+\end{equation*}
+e sono normalizzati:
+\begin{equation*}
+    \left< \hat i, \hat i \right> = \left< \hat j, \hat j \right> = \left< \hat k, \hat k \right> = 1
+\end{equation*}
+
+Su tali versori è utile studiare il prodotto vettoriale:
+
+\begin{minipage}
+    {0.45\textwidth}
+    \begin{equation*}
+        \hat i \wedge \hat j = \hat k, \quad \hat j \wedge \hat k = \hat i, \quad \hat k \wedge \hat i = \hat j
+    \end{equation*}
+\end{minipage}
+\begin{minipage}
+    {0.45\textwidth}
+    \begin{center}
+    \begin{tikzpicture}[scale=2]
+
+    % Posizione dei versori
+    \node (i) at (0,1)   {$\hat{\mathbf i}$};
+    \node (j) at (1,0)   {$\hat{\mathbf j}$};
+    \node (k) at (-1,0)  {$\hat{\mathbf k}$};
+
+    % Frecce cicliche
+    \draw[->, thick] 
+        (i) -- (j);
+
+    \draw[->, thick] 
+        (j) -- (k);
+
+    \draw[->, thick] 
+        (k) -- (i);
+
+    \end{tikzpicture}
+    \end{center}
+\end{minipage}
+
+Il vantaggio di definirie i versori è che ogni vettore $\vec v$ può essere scritto come combinazione lineare dei versori:
+\begin{equation*}
+    \vec v = \begin{pmatrix}
+    v_x \\
+    v_y \\
+    v_z
+    \end{pmatrix} = v_x \hat i + v_y \hat j + v_z \hat k
+\end{equation*}
+
+Data questa notazione, vediamo come posso ricavare le componenti di un vettore $\vec w = \vec u \wedge \vec v$:
+\begin{align*}
+    \vec u \wedge \vec v &= (u_x \hat i + u_y \hat j + u_z \hat k) \wedge (v_x \hat i + v_y \hat j + v_z \hat k) \\
+    &= u_x v_x (\hat i \wedge \hat i) + u_x v_y (\hat i \wedge \hat j) + u_x v_z (\hat i \wedge \hat k) + u_y v_x (\hat j \wedge \hat i) + \\
+    &+ u_y v_y (\hat j \wedge \hat j) + u_y v_z (\hat j \wedge \hat k) + u_z v_x (\hat k \wedge \hat i) + u_z v_y (\hat k \wedge \hat j) + u_z v_z (\hat k \wedge \hat k) \\
+    &= (u_y v_z - u_z v_y) \hat i + (u_z v_x - u_x v_z) \hat j + (u_x v_y - u_y v_x) \hat k
+\end{align*}
+
+Un modo più compatto per ricordare questa formula è utilizzare il determinante (nonostante non sia un vero e proprio determinante, ma è solo una notazione mnemonica):
+\begin{equation*}
+    \vec u \wedge \vec v = \begin{vmatrix}
+    \hat i & \hat j & \hat k \\
+    u_x & u_y & u_z \\
+    v_x & v_y & v_z
+    \end{vmatrix}
+\end{equation*}
+
+\subsection{Momento di un vettore rispetto al polo}
