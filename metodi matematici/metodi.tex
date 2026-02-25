@@ -1,0 +1,369 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz-3dplot}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{arydshln}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{cancel}
+\usepackage[d]{esvect}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfplots}
+\usepackage{pifont}
+\usetikzlibrary{patterns}
+\makeindex
+%\usepackage{animate}
+%\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{tikzmark}
+\newcommand{\TikzNCbar}[4][10pt]{
+\tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+
+\graphicspath{ {images/} }
+
+\definecolor{redish}{rgb}{255, 0, 30}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}   
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\setlength\arrayrulewidth{0.3pt}
+
+\newcommand\eqq{\stackrel{\mathclap{\normalfont\mbox{?}}}{=}}
+\newcommand\bulletout  {\labelitemfont \textbullet}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\xmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\cmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
+% Comando:
+%   \potato[opzioni]{(x,y)}{scala}
+%
+% Opzioni = facoltative (es. fill=red!20, draw=black, thick)
+% (x,y)   = centro della patata
+% scala   = fattore di scala
+%
+\def\potatoshape{
+  (1,0) (2,1.5) (1.6,3) (0.3,2.7) (-0.4,1.2)
+}
+\newcommand{\potato}[3][draw=white]{
+  \begin{scope}[shift={#2}, scale=#3]
+    \draw[#1]
+      plot [smooth cycle, tension=1]
+      coordinates {\potatoshape};
+  \end{scope}
+}
+ \newcommand{\hookbox}[1]{
+\begin{center}
+\hfill\break
+\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt,anchor=base] (A) {
+\begin{minipage}{\dimexpr\linewidth-5em}
+\centering
+#1
+\end{minipage}
+};
+% Draw the left bracket
+\draw ([xshift=0pt]A.north west) -- ++(0, 0.5) -- ++(0.4, 0);
+% Draw the right bracket
+\draw ([xshift=0pt]A.south east) -- ++(0, -0.5) -- ++(-0.4, 0);
+\end{tikzpicture}
+\end{center}} 
+\title{Metodi matematici}
+\author{Gariboldi Alessandro}
+\date{ }
+
+
+\begin{document}
+
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{observation}{Oss.}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{problem}{Problema}[section]
+\newtheorem{solution}{Soluzione}[section]
+\newtheorem{proposition}{Proposizione}[section]
+
+
+\maketitle
+\section{25/02/26}
+\subsection{introduzione al corso}
+Questo è un corso che estende gli argomenti di analisi e geometria, e servono in generale per studiare meccanica quantistica 
+e altri argomenti di fisica avanzata.\\
+Strutturazione del corso:
+\begin{itemize}
+    \item Analisi complessa (funzioni a valori complessi, serie complesse e integrali complessi)
+    \item Analisi armonica (come le funzioni posso essere sviluppate come serie armoniche, usando seni e coseni)
+    \item Spazi di Hilbert (spazi vettoriali a dimensione infinita, che generalizzano lo spazio euclideo)
+\end{itemize}
+Strutturazione dell'esame:
+\begin{itemize}
+    \item Scritto: 3 esercizi uno per parte del corso, in generale simili a quelli del corso (si passa con 16, durata di 3 ore, validità di 1 anno a consigliato di farlo prima).
+    \item Orale: Meno incentrato sulle dimostrazioni, più sulla discussione di esercizi o semplici dimostrazione (poche) o argomenti
+\end{itemize}
+In generale questo perchè lo scopo di questo corso non è di fornire una stuttura formale, ma di fornire strumenti utili per la fisica.\\
+In generale per gli orali si possono fare anche fuori dagli appelli basta organizzarsi, nel caso è meglio organizzarsi a piccoli gruppi.\\
+Materiale didattico è presente su moodle in forma di dispense. 
+\subsection{Riassunto numeri complessi}
+I numeri complessi sono un'estensione dei numeri reali, ed è ottenuta dal numero $i$ che è la radice quadrata di $-1$.\\
+Questa è l'unità immaginaria che ci serve per estendere i numeri reali al campo dei complessi.\\
+Quindi un generico numero $z \in \mathbb{R}$ è della forma $z = x + iy$ con quindi un generico numero reale più un numero reale considerato $i$ volte.\\
+Ovviamente quando $i = 0$ otteniamo un sottoinsieme di $\mathbb{C}$ che è proprio $\mathbb{R}$.\\
+Quindi i numeri complessi sono un'estensione dei numeri reali, e possiamo rappresentarli come punti in un piano, chiamato piano complesso.\\
+Questo perchè $\mathbb{C} \simeq \mathbb{R} \times \mathbb{R}$ (dove $\simeq$ vuol dire isomorfo)come spazio vettoriale, quindi ogni numero complesso può essere rappresentato come un punto in un piano.\\
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->] (-3,0) -- (3,0) node[right] {$\Re$};
+        \draw[->] (0,-3) -- (0,3) node[above] {$\Im$};
+        \draw[blue, thick] (1,2) node[above] {\textcolor{white}{$z = x + iy$}} -- (0,0);
+        \draw[blue, thick] (1,-2) node[above] {\textcolor{white}{$\frac{1}{z}$}} -- (0,0);
+        \draw[red,thick] (1,0) node[below] {$x$} -- (0,0);
+        \draw[red,thick] (0,2) node[left] {$y$} -- (0,0);
+        \draw[dashed] (1,0) -- (1,2);
+        \draw[dashed] (0,2) -- (1,2);
+        %angolo
+        \draw[->] (0.5,0) arc (0:63.4:0.5);
+        \node at (0.8,0.2) {$\phi$};
+        %arco che rappresenta il passaggio da z a 1/z
+        \draw[->] (1,2) arc (63.4:243.4:2.236);
+        \node at (1.5,-1) {$*$};
+    \end{tikzpicture}
+\end{center}
+    \hfill\\
+    \noindent
+    Il modulo (valore assoluto) di un numero complesso è la distanza dall'origine, quindi:
+    \begin{gather*}
+        |z| = \sqrt{x^2 + y^2} \in \mathbb{R}^+\\
+        |z| = 0 \Leftrightarrow z = 0
+    \end{gather*}
+    La coniugata di un numero complesso è ottenuta cambiando il segno della parte immaginaria, quindi:
+    \begin{gather*}
+        z \to z^* \equiv \overline{z} = x - iy\\
+    \end{gather*}
+    Se ora riscriviamo il modulo in termini di $z$ e $z^*$ otteniamo:
+    \begin{gather*}
+        |z|^2 = z \ z^* = z^* \ z = |z^*|^2\\
+        = (x + iy)(x - iy) = x^2 + y^2
+    \end{gather*}
+    \begin{gather*}
+        \frac{1}{z} = \frac{z^*}{z^* \ z} = \frac{z^*}{|z|^2}
+    \end{gather*}
+    Un'altra rappresentazione dei numeri complessi è la forma polare, che è data da:
+    \begin{gather*}
+        x + i y = r \cos \phi + i r \sin \phi = r (\cos \phi + i \sin \phi)\\
+    \end{gather*}
+    Spesso si prende $\phi \in [\alpha, \alpha+ 2\pi[$ che prende un giro completo del pian, ma può essere utile anche prendere ad esempio $\phi \in ]-\infty, +\infty[$ che prende più giri del piano.\\
+    Consideriamo ora il prodotto tra due numeri complessi:
+    \begin{gather*}
+        z_1 z_2 = r_1 r_2 (\cos \phi_1 + i \sin \phi_1)(\cos \phi_2 + i \sin \phi_2)\\
+        = r_1 r_2 [\cos (\phi_1 + \phi_2) + i \sin (\phi_1 + \phi_2)]
+    \end{gather*}
+    Se estendiamo questo al concetto di potenze intere:
+    \begin{gather*}
+        z^2 = r^2 [\cos (2\phi) + i \sin (2\phi)]\\
+        z^n = r^n [\cos (n\phi) + i \sin (n\phi)]
+    \end{gather*}
+    Questo fa capire bene anche il coniugato che è dato da:
+    \begin{gather*}
+        \frac{1}{z} = \frac{1}{r} [\cos (\phi) - i \sin (\phi)]
+    \end{gather*}
+    Che è esattamente il coniugato poichè ha stessa parte reale e parte immaginaria ribaltata rispetto all'asse reale.\\
+    Concentriamoci ora sull trovare le radici:
+    \begin{gather*}
+        z^{\frac{1}{n}} \qquad w^n = z\\
+        w = \rho (\cos \theta + i \sin \theta)\\
+        z = r (\cos \phi + i \sin \phi)\\
+        \rho^n (cos n\theta + i \sin n\theta) = r (\cos \phi + i \sin \phi)\\
+        \begin{cases}
+            \rho = r^{\frac{1}{n}}\\
+            n \theta = \phi + 2 k \pi \quad k \in \mathbb{Z} \Rightarrow \theta = \frac{\phi}{n} + \frac{2 \pi k}{n}
+        \end{cases}
+    \end{gather*}
+    Questi sono proprio poligoni iscritti nella circonferenza di raggio $r^{\frac{1}{n}}$ con centro nell'origine:
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->] (-3,0) -- (3,0) node[right] {$\Re$};
+            \draw[->] (0,-3) -- (0,3) node[above] {$\Im$};
+            \draw (0,0) circle (2);
+            \draw[red,thick] (2,0) node[below, right] {$r^{\frac{1}{n}}$} -- (0,0);
+            \draw[rotate = 45](-1.4,-1.4) rectangle (1.4,1.4);
+        \end{tikzpicture}
+    \end{center}
+    \subsection{Proprietà dei complessi}
+    Definiamo una topologia come di intorni di un punto, quindi una successione di insiemi che contengono il punto e che sono sempre più piccoli.\\
+    Introduciamo ora il concetto di convergenza su $\mathbb{C}$ sfruttando la topologia su $\mathbb{C}$\\
+    Lo facciamo partendo dalla definizione di convergenza su $\mathbb{R}$, prendendo il limite sulla parte reale e sulla parte immaginaria.
+    \begin{definition}
+        Una successione $\left\{z_n\right\} _{n \in \mathbb{N}}$ di numeri complessi converge a $z \in \mathbb{C}$ se e solo se:
+        \begin{gather*}
+            \begin{cases}
+                \lim_{n \to +\infty} \Re(z_n) = \Re(z)\\
+                \lim_{n \to +\infty} \Im(z_n) = \Im(z)
+            \end{cases}
+        \end{gather*}
+        In modo equivalente possiamo scrivere:
+        \begin{gather*}
+            \lim_{n \to +\infty}\left\lvert  z_n -z \right\rvert = 0 
+        \end{gather*}
+    \end{definition}
+    \noindent
+    Consideriamo che $\mathbb{C}$ è uno spazio metrico con la distanza data da:
+    \begin{gather*}
+        d(z_1, z_2) \equiv |z_1 - z_2|
+    \end{gather*}
+    Questo soddisfa gli assiomi di distanza.\\
+    \hfill\\
+    Vediamo ora che gli intorni di $z$ sono tutte le palle aperte con centro $z$ e raggio $r > 0$:
+    \begin{gather*}
+        B(z, r[
+    \end{gather*}
+    Da questo concetto di intorno segue naturalmente la convergenza dei limiti.\\
+    \hfill\\
+    Chiediamoci ora se $\mathbb{C}$ è completo, cioè se ogni successione di Cauchy converge.\\
+    Si può dimostrare velovemente considerando che la parte reale e la parte immaginaria sono entrambe complete, quindi anche $\mathbb{C}$ è completo (ogni successione di Cauchy ha limite) e di conseguenza anche $\mathbb{C}^n$ è completo.\\
+    \hfill\\
+    Su $\mathbb{C}$ possiamo definire anche la norma oltre che alla distanza, e questa è data da:
+    \begin{gather*}
+        \left\lVert z \right\rVert  \equiv |z|
+    \end{gather*}
+    Quindi $\mathbb{C}$ è anche spazio normato.
+    Siccome $\mathbb{C}$ è completo e normato, allora è anche uno spazio di Banach.\\
+    Su $\mathbb{C}$ purtroppo si perde la proprietà di ordinamento, quindi non è uno spazio ordinato e non hanno senso le disuguaglianze tra numeri complessi al massimo è possibile eseguirle tra i moduli.\\ 
+    \subsection{serie di potenze complesse}
+    \begin{definition}
+        Data una successione di numeri complessi $\left\{z_n\right\} _{n \in \mathbb{N}} \in \mathbb{C}$, e definiamo le ridotte parizali come:
+        \begin{gather*}
+            \sum_{n=0}^N z_n \equiv S_N
+        \end{gather*}
+    \end{definition}
+    \begin{definition}
+        $\left\{z_n\right\} _{n \in \mathbb{N}}$ è una serie convergente se $S_N$ è una successione convergente, ovvero:
+        \begin{gather*}
+            \lim_{N \to +\infty} \sum_{n=0}^N z_n = \lim_{N \to +\infty} S_N = S \in \mathbb{C}
+        \end{gather*}
+    \end{definition}
+    \begin{theorem}
+        Condizione necessria (ma non sufficiente) per la convergenza di una serie è che $|z_n|$ sia una successione infinitesima ovvero:
+        \begin{gather*}
+            \lim_{n \to +\infty} |z_n| = 0
+        \end{gather*}
+    \end{theorem}
+    \begin{theorem}[Criterio del rapporto]
+        $\sum_n z_n$ è convergente se $\exists p : 0<0<1$ e $\exists \overline{n} \in \mathbb{N}$ tale che $\forall n > \overline{n}$:
+        \begin{gather*}
+            \left\lvert \frac{z_{n+1}}{z_n} \right\rvert \leq p
+        \end{gather*}
+    \end{theorem}
+    \begin{theorem}[Criterio della radice]
+        $\sum_n z_n$ è convergente se $\exists p : 0<0<1$ e $\exists \overline{n} \in \mathbb{N}$ tale che $\forall n > \overline{n}$:
+        \begin{gather*}
+            \sqrt[n]{|z_n|} \leq p
+        \end{gather*}
+    \end{theorem}
+    \begin{definition}[Convergenza assoluta]
+        $\sum_n z_n$ è convergente assolutamente se $\sum_n |z_n|$ è convergente.
+    \end{definition}
+    \begin{theorem}
+        La convergenza assoluta $\overset{\text{implica}}{\Rightarrow}$ la convergenza, ma non viceversa.
+    \end{theorem}
+    \begin{theorem}[Criterio del confronto]
+        Se $\left\{z_n\right\} _{n \in \mathbb{N}}$ è maggiorata in \underbar{modulo} ($|z_n| \leq a_n$)\\
+        da una successione di numeri reali positivi $\left\{a_n\right\} _{n \in \mathbb{N}}$ che è convergente, \\
+        \underbar{allora} anche $\sum_n z_n$ converge (assolutamente).\\
+    \end{theorem}
+    \begin{proposition}[Serie di potenze]
+        \begin{gather*}
+            \sum_{n=0}^{\infty} a_n (z - z_0)^n
+        \end{gather*}
+        Con $a_n, z, z_0 \in \mathbb{C}$, è una serie di potenze con centro in $z_0$.\\
+    \end{proposition}
+    Per semplicità consideriamo $z_0 = 0$ e quindi la serie di potenze diventa:
+    \begin{gather*}
+    \sum_{n=0}^{\infty} a_n z^n
+    \end{gather*}
+    \begin{definition}[Insieme di convergenza]
+        Definiamo come insieme di convergenza:
+        \begin{gather*}
+            C_a \equiv \left\{ z \right\}_{\in \mathbb{C}} \ \text{t.c} \ \sum_n a_n z^n \ \text{converge}
+        \end{gather*}
+    \end{definition}
+    \begin{lemma}[Di Abel]
+        Sia $w \in \mathbb{C}$ t.c. $a_n w^n$ sia limitata, \underbar{allora}\\
+        $\forall z \in \mathbb{C}$ t.c. $|z| < |w|$ la serie $\sum_n a_n z^n$ converge assolutamente.
+    \end{lemma}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->] (-3,0) -- (3,0) node[right] {$\Re$};
+            \draw[->] (0,-3) -- (0,3) node[above] {$\Im$};
+            \filldraw[pattern = north east lines] (0,0) circle (2);
+            \node at (0.5,2.2) {$C_a$};
+            \filldraw (1.5,1.5) circle (2pt) node[right] {$w \in C_a$};
+        \end{tikzpicture}
+    \end{center}
+    \begin{proof}
+        \begin{gather*}
+            \left\lvert a_n w^n\right\rvert \leq M\\
+            \left\lvert a_n z^n\right\rvert = \left\lvert a_n w^n (\frac{z^n}{w^n})\right\rvert \\
+            = \left\lvert a_n w^n \right\rvert \left\lvert \frac{z}{w}\right\rvert^n \leq M \underbrace{\left\lvert \frac{z}{w} \right\rvert^n}_{= p \ <1}
+        \end{gather*}
+    \end{proof}
+    \begin{definition}[Raggio di convergenza]
+        \begin{gather*}
+            R_a \equiv \sup \left\{|z|: z \in C_a\right\} 
+        \end{gather*}
+    \end{definition}
+    \begin{theorem}
+        L'insieme di convergena $C_a$ contiene il cerchio aperto $B(0, R_a)$ ed è contenuto nel cerchio chiuso $B(0, R_a]$.
+    \end{theorem}
+    \hfill\\
+    Le serie geometriche valgono anche su $\mathbb{C}$, quindi:
+    \begin{gather*}
+        \sum_{n=0}^{\infty} z^n = \frac{1}{1-z}
+    \end{gather*}
+    
+
+
+\end{document}

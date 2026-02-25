@@ -1,0 +1,317 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz-3dplot}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{arydshln}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{cancel}
+\usepackage[d]{esvect}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfplots}
+\usepackage{pifont}
+\usetikzlibrary{patterns}
+\makeindex
+%\usepackage{animate}
+%\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{tikzmark}
+\newcommand{\TikzNCbar}[4][10pt]{
+\tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+
+\graphicspath{ {images/} }
+
+\definecolor{redish}{rgb}{255, 0, 30}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}   
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\setlength\arrayrulewidth{0.3pt}
+
+\newcommand\eqq{\stackrel{\mathclap{\normalfont\mbox{?}}}{=}}
+\newcommand\bulletout  {\labelitemfont \textbullet}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\xmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\cmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
+% Comando:
+%   \potato[opzioni]{(x,y)}{scala}
+%
+% Opzioni = facoltative (es. fill=red!20, draw=black, thick)
+% (x,y)   = centro della patata
+% scala   = fattore di scala
+%
+\def\potatoshape{
+  (1,0) (2,1.5) (1.6,3) (0.3,2.7) (-0.4,1.2)
+}
+\newcommand{\potato}[3][draw=white]{
+  \begin{scope}[shift={#2}, scale=#3]
+    \draw[#1]
+      plot [smooth cycle, tension=1]
+      coordinates {\potatoshape};
+  \end{scope}
+}
+ \newcommand{\hookbox}[1]{
+\begin{center}
+\hfill\break
+\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt,anchor=base] (A) {
+\begin{minipage}{\dimexpr\linewidth-5em}
+\centering
+#1
+\end{minipage}
+};
+% Draw the left bracket
+\draw ([xshift=0pt]A.north west) -- ++(0, 0.5) -- ++(0.4, 0);
+% Draw the right bracket
+\draw ([xshift=0pt]A.south east) -- ++(0, -0.5) -- ++(-0.4, 0);
+\end{tikzpicture}
+\end{center}} 
+\title{Meccanica Analitica}
+\author{Gariboldi Alessandro}
+\date{ }
+
+
+\begin{document}
+
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{observation}{Oss.}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{problem}{Problema}[section]
+\newtheorem{solution}{Soluzione}[section]
+\newtheorem{proposition}{Proposizione}[section]
+
+
+\maketitle
+\section{24/02/26}
+\subsection{Introduzione al corso}
+Organizzazione d'esame:
+\begin{itemize}
+    \item ci sono i parziali (uno a metà corso e uno alla fine) di cui uno recuperabile
+    \item c'è un totale al posto dei compitini
+    \item c'è un orale al quale si entra con la media aritmetica dei parziali (possono esserci esercizi ma chiaramente piu torico)
+    \item appunti liberi all'esame
+\end{itemize}
+Materiale del corso:
+\begin{itemize}
+    \item Libri consigliato: fasano, marmi meccanica analitica, sennò anche goldstein o barletti, frosali meccanica razionale.
+    \item ovviamente moodle con dispense varie
+    \item Per eserciziario barletto ricci mecc. raz. esercizi o anche lo spiegel.
+\end{itemize}
+Generale introduzione al corso:\\
+Storicamente è un corso che nasce da matematici, in cui ci si interessa alla formalizzazione matematica del moto di sistemi meccanici complessi,
+ad esempio un braccio meccanico, per questo si chiama meccanica razionale, ovvero abbiamo un sistema meccanico e lo studiamo con strumenti matematici.\\
+Ora si preferisce il termine analitico per via dei modelli che si usano recentemente.\\
+Il corso si struttura principalmente in due parti:
+\begin{itemize}
+    \item meccanica lagrangiana
+    \item meccanica hamiltoniana
+\end{itemize}
+\subsection{Notazioni varie e richiami di fisica 1}
+Prendiamo un vettore generico si può esprimere in diversi modi:\\
+\begin{tikzpicture}
+    \draw[->] (0,0) -- (3,0) node[below] {$x$};
+    \draw[->] (0,0) -- (0,3) node[left] {$z$};
+    \draw[->] (0,0) -- (-2,-2) node[below] {$y$};
+    %versori
+    \draw[->,red] (0,0) -- (1,0) node[below] {$\hat{i}$};
+    \draw[->,red] (0,0) -- (0,1) node[left] {$\hat{k}$};
+    \draw[->,red] (0,0) -- (-0.7,-0.7) node[below] {$\hat{j}$};
+    \draw[->,thick] (0,0) -- (2,1) node[above, midway] {$\vec{r}$};
+    \node at(2,1)[above] {$A$};
+\end{tikzpicture}
+\hfill\\
+Il vettore che stiamo considerando può essere rappresentato in diversi modi:
+\begin{gather*}
+    A = \begin{bmatrix}
+        x\\
+        y\\
+        z
+    \end{bmatrix}\qquad
+    \vv{r} = \begin{bmatrix}
+        x\\
+        y\\
+        z
+    \end{bmatrix}\qquad
+    \vv{r} = B - A
+\end{gather*}
+Nell'ultimo modo $B$ è un punto di riferimento, ad esempio l'origine, e $A$ è il punto che stiamo considerando.\\
+Ricordiamo la norma di un vettore che è:
+\begin{gather*}
+    |\vv{r}| = \sqrt{x^2 + y^2 + z^2}
+\end{gather*}
+Si ricorda anche il prodotto scalare e i versori in generale.\\
+Una proprietà che ci interessa del prodotto scalare è la simmetria:
+\begin{gather*}
+    \left\langle \vv{u} , \vv{v} \right\rangle = \left\langle \vv{v} , \vv{u} \right\rangle
+\end{gather*}
+E la linearità:
+\begin{gather*}
+    \left\langle \alpha \vv{u} + \beta \vv{v} , \vv{w} \right\rangle = \alpha \left\langle \vv{u} , \vv{w} \right\rangle + \beta \left\langle \vv{v} , \vv{w} \right\rangle
+    \alpha, \beta \in \mathbb{R}\\
+    \vv{u} , \vv{v} , \vv{w} \in \mathbb{R}^3
+\end{gather*}
+Il prodotto vettoriale invece si ricorda essere:
+\begin{gather*}
+    \vv{w} = \vv{u} \land \vv{v}
+\end{gather*}
+Con $\vv{w}$ che è un vettore perpendicolare a $\vv{u}$ e $\vv{v}$, e con una norma che è:
+\begin{gather*}
+    |\vv{w}| = |\vv{u}| |\vv{v}| \sin(\vv{v} \angle \vv{u})
+\end{gather*}
+Questo invece gode della proprietà di antisimmetria:
+\begin{gather*}
+    \vv{u} \land \vv{v} = - \vv{v} \land \vv{u}\\
+    (\alpha \vv{u} + \beta \vv{v}) \land \vv{w} = \alpha (\vv{u} \land \vv{w}) + \beta (\vv{v} \land \vv{w})
+\end{gather*}
+Definiamo una terna ortonormale:
+\begin{gather*}
+    {\widehat{i}, \widehat{j}, \widehat{k}} \text{è una terna ortonormale se:}
+    \widehat{i} \land \widehat{j} = \widehat{k} = -\widehat{j} \land \widehat{i}\\
+    \widehat{j} \land \widehat{k} = \widehat{i} = -\widehat{k} \land \widehat{j}\\
+    \widehat{k} \land \widehat{i} = \widehat{j} = -\widehat{i} \land \widehat{k}
+\end{gather*}
+Vediamo il prodotto vettoriale tra due vettori generici:
+\begin{gather*}
+    \vv{u} = u_x \widehat{i} + u_y \widehat{j} + u_z \widehat{k}\\
+    \vv{v} = v_x \widehat{i} + v_y \widehat{j} + v_z \widehat{k}\\
+    \vv{u} \land \vv{v} = (u_x \widehat{i} + u_y \widehat{j} + u_z \widehat{k}) \land (v_x \widehat{i} + v_y \widehat{j} + v_z \widehat{k})\\
+    = (u_x \widehat{i} \land v_x \widehat{i}) + (u_x \widehat{i} \land v_y \widehat{j}) + (u_x \widehat{i} \land v_z \widehat{k}) + (u_y \widehat{j} \land v_x \widehat{i}) + (u_y \widehat{j} \land v_y \widehat{j}) + (u_y \widehat{j} \land v_z \widehat{k}) + (u_z \widehat{k} \land v_x \widehat{i}) + \\(u_z \widehat{k} \land v_y \widehat{j}) + (u_z \widehat{k} \land v_z \widehat{k})\\
+    = 0 + u_x v_y (\widehat{i} \land \widehat{j}) + u_x v_z (\widehat{i} \land \widehat{k}) + u_y v_x (\widehat{j} \land \widehat{i}) + 0 + u_y v_z (\widehat{j} \land k) + u_z v_x (\widehat{k} \land i) + u_z v_y (\widehat{k} \land j) + 0\\
+    = u_x v_y (\widehat{k}) - u_x v_z (\widehat{j}) - u_y v_x (\widehat{k}) + u_y v_z (\widehat{i}) - u_z v_x (\widehat{j}) - u_z v_y (\widehat{i})
+\end{gather*}
+Ora definiamo la somma vettoriale:
+\begin{gather*}
+    \vv{u} + \vv{v} = (u_x + v_x) \widehat{i} + (u_y + v_y) \widehat{j} + (u_z + v_z) \widehat{k}
+\end{gather*}
+\begin{example}
+    Vediamo ora un esercizio in cui abbiamo un'asta di lunghezza $l$ che ha i suoi estremi uno sull'asse $x$ e uno sull'asse $y$, e vogliamo calcolare il centro dell'asta.
+    \begin{tikzpicture}
+    \draw[->] (0,0) -- (3,0) node[below] {$x$};
+    \draw[->] (0,0) -- (0,3) node[left] {$y$};
+    \draw[very thick] (0,2) -- (2,0) node[above, midway] {$l$};
+    \draw[->, red] (0,0) -- (1,1) node[at end,below] {$C$};
+    \draw[->, red] (0,2) -- (1,1) node[at start, above] {$\textcolor{white}{A}$};
+    \node at(2,0)[below] {$B$};
+    \draw[->] (0,0) -- (0.5,0) node[below] {$\widehat{i}$};
+    \draw[->] (0,0) -- (0,0.5) node[left] {$\widehat{j}$};
+    \node at(0,0)[below] {$O$};
+    \draw (0,1.6) arc (0:-10:2) node[above, midway] {$\alpha$};
+    \end{tikzpicture}
+    \begin{gather*}
+        (C-O) = (A-O) + (C-A)\\
+        (A-O) = \widehat{j} l \cos(\alpha)\\
+        (C-A) = \widehat{i} l \sin(\alpha)\\
+    \end{gather*}
+\end{example}
+\begin{theorem}[dei seni]
+    Da un qualsiasi triangolo del tipo:
+    \begin{tikzpicture}
+        \draw(0,0) -- (2,0) node[midway, below] {$a$} -- (1,1.5) node[midway, above] {$b$} -- cycle node[midway, above] {$c$};
+        %angoli
+        \draw(0.3,0) arc (0:58:0.3) node[right] {$\beta$};
+        \draw(1.7,0) arc (180:122:0.3) node[left] {$\gamma$};
+        \draw(1.2,1.2) arc (-60:-136:0.3) node[below, midway] {$\alpha$};
+    \end{tikzpicture}
+    \hfil\\
+    Si ha che:
+    \begin{gather*}
+        \frac{a}{\sin(\alpha)} = \frac{b}{\sin(\beta)} = \frac{c}{\sin(\gamma)}
+    \end{gather*}
+\end{theorem}
+\begin{theorem}[di Carnot]
+    \begin{gather*}
+        |a|^2 = |b|^2 + |c|^2 - 2 |b| |c| \cos(\alpha)
+    \end{gather*}
+\end{theorem}
+\begin{proposition}[Derivazione funzione composta]
+    \begin{gather*}
+        f(x) : U \subseteq \mathbb{R} \to \mathbb{R}^n\\
+        x = x(y) : V \subseteq \mathbb{R} \to \mathbb{R}\\
+        y \subseteq V \qquad h(y) \doteq f(x(y))\\
+        \frac{dh}{dy} = \frac{df}{dx} \mid_{x(y)}  \cdot \frac{dx}{dy}
+    \end{gather*}
+    \begin{gather*}
+        \int_{y_1}^{y_2} h(y) dy = \int_{y_1}^{y_2} f(x(y)) dy = \int_{x(y_1)}^{x(y_2)} f(x) (\frac{dy}{dx}) dx
+    \end{gather*}
+\end{proposition}
+\begin{example}
+    Prendiamo una semicirconferenza centrata nell'origine e esprimiamola come una curva:
+    \begin{tikzpicture}
+        \draw[->] (-1.5,0) -- (1.5,0) node[below] {$x$};
+        \draw[->] (0,0) -- (0,2) node[left] {$y$};
+        \draw[thick] (1,0) arc (0:180:1);
+        \draw(0,0) -- (0.7,0.7) node[at end, right] {$A$};
+        \draw[dashed] (0.7,0) -- (0.7,0.7) node[at start, below]{$1$};
+        \draw (0.2,0) arc (0:45:0.2) node[above] {$\theta$};
+        \node at(0,0)[below] {$O$};
+        %versori
+        \draw[->,red] (0,0) -- (0.5,0) node[below] {$\hat{i}$};
+        \draw[->,red] (0,0) -- (0,0.5) node[left] {$\hat{j}$};
+    \end{tikzpicture}
+    \begin{gather*}
+        \vv{r} = \cos(\theta) \widehat{i} + \sin(\theta) \widehat{j}\qquad 0 < \theta < \pi \\
+        \vv{r} = t \widehat{i} + \sqrt{1-t^2} \widehat{j} \qquad -1 < t < 1
+    \end{gather*}
+\end{example}
+    \noindent
+    \begin{proposition}
+        Due parametrizzazioni $r_1(t_1)$ e $r_2(t_2)$ sono equivalenti \underbar{se}:\\
+        $\exists$ una relazione biunivoca: $t_2(t_1) \quad U_1 \to U_2$ \\
+        t.c. $r_2(t_2(t_1)) = r_1(t_1)$
+    \end{proposition}
+    \begin{proposition}
+        Una relazione generica è invertibile se è biunivoca:
+        \begin{gather*}
+            t_2 = t_2(t_1) \qquad U_1 \to U_2\\
+            y = f(x) \to \frac{df}{dx} \overset{<}{>} 0
+        \end{gather*}
+        allora la mia rel. è invertibile
+    \end{proposition}
+\end{document}

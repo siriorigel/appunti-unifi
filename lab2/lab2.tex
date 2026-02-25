@@ -225,4 +225,200 @@ $\vec{J}$ è una densità di corrente, e si misura in $A/m^2$.\\
 \begin{gather*}
     [J] = \frac{C}{s \cdot m^3} \frac{m}{s} = \frac{A}{m^2} 
 \end{gather*}
+\section{25/02/26}
+La scorsa lezione abbiamo detto che possiamo avere delle cariche $n \sim 9 \times 10^{22} \text{ atomi/cm}^3$, che possono avere una certa densità di carica $\rho$\\
+e che possono essere "accelerate" da un campo elettrico $\vv{E}$ ma che sotto le nostre ipotesi di $v_d \ll v_t$ e di urti che avvengono in un intervallo di tempo $\Delta t$ possiamo dire che $\vv{v_d} \propto \vv{E}$.\\
+Inoltre abbiamo visto che la corrente è data da $I = \int_S \vv{J} \cdot \hat{n} dS$ e che $\vv{J} = n q \vv{v_d} \parallel \vv{E}$, quindi possiamo dire che $I \propto E$.\\
+Come ultima cosa siamo arrivati alla legge di Ohm in forma locale:
+\begin{gather*}
+    \vv{J}(\vv{r}) = \sigma_c \vv{E}(\vv{r})
+\end{gather*}
+Dove $\sigma_c$ è la conducibilità elettrica, che è una proprietà del materiale.\\
+L'unica cosa che avevamo dimostrato era la velocità di deriva, ma avevamo visto che $\vv{v_t}$ è molto grande circa $100 km/s$\\
+Altro aspetto importante è che la legge di ohm si può riscrivere come:
+\begin{gather*}
+    \vv{E} = \rho_c \vv{J}
+\end{gather*}
+Dove $\rho_c$ è la resistività elettrica, che è l'inverso della conducibilità ovvero $\rho_c = \frac{1}{\sigma_c}$.\\
+\subsection{calcoliamo $v_d$}
+Prendiamo un cavo con una sezione di raggio $r = 1mm$ e $I = 1A$.\\
+Di conseguenza avremo la sezione $S = \pi r^2 = \pi (1mm)^2$\\
+Ora passando a $I$
+\begin{gather*}
+    I = 1A = n \ q \ v_d \ S =\\ 
+    %\frac{1 \cancel{C}/s}{9 \times 10^{22} el/cm^\cancel{3} \cdot 1.6 \times 10^{-19} \cancel{C} \cdot \pi (10^{-1})^2 \cancel{cm}^2} = 7 \times 10^{-5} m/s
+\end{gather*}
+\begin{gather*}
+    -dQ = \int_S \vv{J} \cdot \vv{dS} \\
+    -\frac{dQ(t)}{dt} = \int_S \vv{J} \cdot \vv{dS}
+    -\frac{dQ(t)}{dt} = -\int_V \frac{\partial \rho(x,y,z,t)}{\partial t} dx dy dz\\
+\end{gather*}
+Usando il teorema della divergenza ottengo:
+\begin{gather*}
+    -\int_V \frac{\partial \rho}{\partial t} dV = \int_S \vv{J} \vv{dS} = \int_V \vv{\nabla} \vv{J} dV\\
+    -\frac{\partial \rho}{\partial t} = \vv{\nabla} \cdot \vv{J} \Rightarrow \boxed{\vv{\nabla} \cdot \vv{J} + \cancel{\frac{\partial \rho}{\partial t}} = 0}\\
+    \Rightarrow \boxed{\vv{\nabla} \cdot \vv{J} = 0} \Rightarrow \boxed{\int_{S_\text{chiusa}} \vv{J} \cdot \vv{dS} = 0}
+\end{gather*}
+\subsection{nodi}
+Un nodo è un punto di incontro tra due o più conduttori.
+La somma algebrica delle correnti che entrano in un nodo è uguale alla somma algebrica delle correnti che escono da un nodo.\\
+Se ho una superficie chiusa che racchiude il nodo $n$ considerando $\int_S \vv{J} \widehat{n} dS = 0$
+\begin{center}
+    \begin{tikzpicture}
+        \draw[dashed] (0,0) circle (1.4);
+        %curve intersecanti
+        \draw (-1,-1) to [bend left=20] (1,1);
+        \draw (-1,1) to [bend right=20] (1,-1);
+        \draw(-1,-1) circle (3pt) node[below] {$S_3$};
+        \draw(1,1) circle (3pt) node[above] {$S_1$};
+        \draw(-1,1) circle (3pt) node[above] {$S_4$};
+        \draw(1,-1) circle (3pt) node[above] {$S_2$};
+        %versori n uscenti
+        \draw[->, thick] (-1,-1) -- (-1.4,-1.4) node[above] {$\hat{n} \quad I_4$}; 
+        \draw[->, thick] (1,1) -- (1.4,1.4) node[above] {$\hat{n} \quad I_2$}; 
+        \draw[->, thick] (-1,1) -- (-1.4,1.4) node[above] {$\hat{n} \quad I_1$}; 
+        \draw[->, thick] (1,-1) -- (1.4,-1.4) node[above] {$\hat{n} \quad I_3$}; 
+    \end{tikzpicture}
+\end{center}
+\begin{gather*}
+    \sum_{i=1}^n I_i = 0
+    I_1 + I_2 + I_3 + I_4 = 0
+\end{gather*}
+\subsection{Maglie e rami}
+\begin{center}
+    \begin{tikzpicture}[scale = 0.5]
+        \draw (-1,-1) to [bend left=20] (1,1);
+        \draw (-1,1) to [bend right=20] (1,-1);\
+        \filldraw(-0.4,0) circle (3pt) node[below] {$N$};
+    \end{tikzpicture}
+    $\qquad\qquad$
+    \begin{tikzpicture}
+        \draw (-1,0) -- (1,0) node[midway, above] {$R$};
+        \filldraw (-1,0) circle (2pt);
+        \filldraw (1,0) circle (2pt);
+        \draw (-1,0) -- (-1.5,-1);
+        \draw (-1,0) -- (-1.5,1);
+        \draw (1,0) -- (1.5,-1);
+        \draw (1,0) -- (1.5,1);
+    \end{tikzpicture}
+    $\qquad\qquad$
+    \begin{tikzpicture}
+        \draw (0,0) rectangle (2,2) node[midway] {$M$};
+        \filldraw (0,0) circle (2pt);
+        \filldraw (2,0) circle (2pt);
+        \filldraw (0,2) circle (2pt);
+        \filldraw (2,2) circle (2pt);
+    \end{tikzpicture}
+\end{center}
+Un ramo è un conduttore che collega due nodi, una maglia è un percorso chiuso che non contiene altri nodi al suo interno.\\
+Più maglie formano una rete.\\
+\subsection{Seconda legge di Kirchhoff e il potenziale}
+rotore uguale a 0 vuol dire conservativo.
+\begin{gather*}
+    \vv{\nabla} \land \vv{E} = 0
+\end{gather*}
+\begin{center}
+    \begin{tikzpicture}
+        %assi
+        \draw[->] (0,0) -- (3,0) node[below] {$x$};
+        \draw[->] (0,0) -- (0,3) node[left] {$y$};
+        \draw[->] (0,0) -- (-1,-1) node[below] {$z$};
+        \draw[->] (0,0) -- (2,1) node[midway, above] {$\vv{r_A}$};
+        \filldraw (2,1) circle (1pt) node[above] {$A$};
+        \draw[->] (0,0) -- (1,-0.5) node[midway, below] {$\vv{r_B}$};
+        \filldraw (1,-0.5) circle (1pt) node[below] {$B$};
+        \draw[->, thick] (2,1) to [bend left=20] (1,-0.5);
+        \node at(2,0.5) {$\Gamma$};
+        \node at(0,0) [left] {$O$};
+    \end{tikzpicture}
+\end{center}
+\begin{gather*}
+    \vv{E}(\vv{r}) = \frac{Q}{4 \pi \epsilon_0 r^2} \hat{r}\\
+    \mathcal{L}_{AB}^\Gamma = \int_\Gamma \vv{F} \vv{dl} = \int q \vv{E} \vv{dl} = \frac{qQ}{4 \pi \epsilon_0} \int_{r_a}^{r_b}  \frac{1}{r^2} \overset{\overset{1}{||}}{\widehat{r} \widehat{r}} dr = \int \frac{1}{r^2} dt = -\frac{1}{r}
+\end{gather*}
+\begin{gather*}
+    \mathcal{L}_{AB}^\Gamma = \frac{qQ}{4 \pi \epsilon_0} \left( -\frac{1}{r_b} + \frac{1}{r_a} \right)
+\end{gather*}
+Quest'ultimo è il principio di conservatività del campo (1a legge di Kirchhoff)\\
+Continuando otteniamo:
+\begin{gather*}
+    \lim_{q \to 0} \frac{U}{q} = \boxed{V(r) = \frac{Q}{4 \pi \epsilon_0} \frac{1}{r} + cost.}\\
+    V_A - V_B = \int_{A}^{B} \vv{E} \cdot \vv{dl}
+\end{gather*}
+Ricordiamo che se abbiamo una curva chiusa $\Gamma$ allora:
+\begin{gather*}
+    \oint_\Gamma \vv{E} \cdot \vv{dl} = 0
+\end{gather*}
+\begin{center}
+    \begin{tikzpicture}
+        \draw (-1,-1) rectangle (1,1);
+        \filldraw (1,1) circle (1pt) node[above] {$C$};
+        \filldraw (-1,-1) circle (1pt) node[below] {$A$};
+        \filldraw (-1,1) circle (1pt) node[above] {$B$};
+        \filldraw (1,-1) circle (1pt) node[below] {$D$};
+        \draw[dashed] (0,0) circle (1.4);
+        \node at(-1,0) [right] {$R_1$};
+        \node at(1,0) [left] {$R_3$};
+        \node at(0,1) [below] {$R_2$};
+        \node at(0,-1) [above] {$R_4$};
+        \node at(0,-1.4)[below] {$\Gamma$}; 
+    \end{tikzpicture}
+\end{center}
+\begin{gather*}
+    \oint_\Gamma \vv{E} \cdot \vv{dl} = \int_{A}^{B} \vv{E} \cdot \vv{dl} + \int_{B}^{C} \vv{E} \cdot \vv{dl} + \int_{C}^{D} \vv{E} \cdot \vv{dl} + \int_{D}^{A} \vv{E} \cdot \vv{dl} = 0\\
+    (V_A - V_B) + (V_B - V_C) + (V_C - V_D) + (V_D - V_A) = 0
+\end{gather*}
+\subsection{parliamo dipiù della resistività}
+Partendo da $\vv{E} \rho_R \vv{J}$ e considerando l'unità di misura della resistività:
+\begin{gather*}
+    [\rho_R] = \left[\frac{N}{C} \frac{m^2}{A}\right]  = \qquad V = \frac{J}{C}\\
+    \left[ \frac{J m}{C A} \right] = \left[ V \frac{m}{A} \right] = \left[ \Omega m\right]   
+\end{gather*}
+Prendiamo l'esempio del traliccio dell'alta tensione, dove alcune mucche morivano, questo succede perchè anche se ovviamente il cavo è la parte che fa meno resistenza e il traliccio ha un punto di materiale isolante, comunque una parte 
+della corrente passa attraverso il traliccio e quindi una piccola parte della corrente passa attraverso il traliccio, questo accadeva con le mucche per via dei passi molto lunghi, quindi 
+facevano si di avere una differenza di potenziale tra le due zampe, e quindi una corrente che passava attraverso il loro corpo, e questo era sufficiente per ucciderle.\\
+\hfill\\
+Altra cosa è il fatto che la differenza di potenziale tra il terreno e le nuvole e circa $200 V$ per $m$, noi non prendiamo la scossa perchè fungiamo da conduttori, ma quando si accumula sulle nuvole comunque da qualche parte devono 
+scaricarsi, e quindi quando si accumula una certa quantità di carica sulle nuvole, questa si scarica attraverso un fulmine\\
+\subsection{Conduttore a sezione costante}
+\begin{gather*}
+    \vv{E} = \rho_R \vv{J}
+\end{gather*}
+\begin{center}
+    \begin{tikzpicture}
+        %cilindro
+        \draw (-1,0) -- (1,0);
+        \draw (-1,1) -- (1,1);
+        \draw (-1,0.5) ellipse (0.3 and 0.5) node[above] {$S$};
+        \draw (1,0.5) ellipse (0.3 and 0.5) node[above] {$S$};
+        \node at(0,1) [above] {$\ell$};
+        \draw[thin] (-1,0.5) -- (1,0.5);
+        \draw[->] (1.1,0.5) -- (1.5,0.5) node[above] {$\widehat{n}$};
+    \end{tikzpicture}
+\end{center}
+\begin{gather*}
+    \int_{A}^{B} \vv{E} \cdot \vv{dl} = V_A - V_B = \int_{A}^{B} \rho_R \vv{J} \cdot \vv{dl} = \int_{A}^{B} \rho_R \frac{\vv{J} S}{S} \cdot \widehat{n} dl=\\
+    I \underbrace{\int_{A}^{B} \frac{\rho_R}{S} dl}_{R} = I \frac{\rho_R \ell}{S} = I R
+    \Delta V = I R
+\end{gather*}
+Quindi $R = \frac{\rho_R \ell}{S}$ è la resistenza elettrica, che è una proprietà del conduttore, e si misura in $\Omega$.\\
+\subsection{applicazione delle resistenze}
+\begin{center}
+    \begin{tikzpicture}
+        \draw(-2,0) -- (-0.5,0);
+        \draw(0.5,0) -- (2,0);
+        %resistenza
+        \draw (-0.5,0) -- (-0.3,-0.5);
+        \draw (-0.3,-0.5) -- (-0.1,0.5);
+        \draw (-0.1,0.5) -- (0.1,-0.5);
+        \draw (0.1,-0.5) -- (0.3,0.5);
+        \draw (0.3,0.5) -- (0.5,0);
+        \node at(0,0.5) [above] {$R$};
+    \end{tikzpicture}
+\end{center}
+\subsection{esercizio extra}
+Prendiamo un filo di rame $(Cu)$ lunghezza $\ell = 1m$ e raggio rella sezione $r = 1mm$, calcoliamo $R$:
+\begin{gather*}
+    R = \frac{1,7 \times 10^{-8} \Omega \cancel{m} 1 \cancel{m}}{\pi ( 10^{-3} \cancel{m})^2}
+\end{gather*}
 \end{document}
