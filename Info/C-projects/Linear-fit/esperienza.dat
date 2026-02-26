@@ -1,0 +1,63 @@
+# FOGLIO DI DATI UTILI
+# Temps: Iniziale 25.2; finale: 26.0
+# Misura larghezza sbarretta (a) (mm col calibro)
+29.40
+29.25
+29.35
+29.25
+29.35
+29.40
+29.40
+29.35
+29.45
+29.40
+#OFFSETS palmer (mm)
+0.02
+0.02
+0.02
+0.02
+0.02
+#Misura spessore sbarretta (b) (mm col palmer)
+1.03
+1.03
+1.03
+1.03
+1.03
+1.03
+1.03
+#Lunghezza sbarretta sui cavalieri (l) (mm con il righello (0.5 mm di errore))
+320.0
+320.0
+319.5
+320.0
+319.5
+319.5
+320.0
+#Pesi in uso (kg)
+0.92520
+0.64551
+0.46235
+0.29937
+0.18266
+0.06846
+#H0 (mm) (errore 0.02 mm)
+220.14
+220.20
+220.24
+220.26
+220.20
+220.26
+#Valore H0 con i rispettivi pesi (errore 0.02mm)
+207.76
+211.60
+214.12
+216.22
+217.80
+219.26
+#Valore H0 dopo i pesi (errore 0.02)
+220.20
+220.28
+220.20
+220.22
+220.24
+220.22

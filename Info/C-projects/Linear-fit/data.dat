@@ -1,0 +1,16 @@
+Linear fit with data from "values.dat"
+Values to be removed at row :
+RBEST:
+y = 220.243277 + -0.013454x
+A best = 220.243277
+B best = -0.013454
+
+Linear coefficient = 18918.673652
+The quality of the model is linear
+
+Sigmas: 
+Sigma on y: 262.689760
+Sigma on A: 192.366116
+Sigma on B: 0.370881
+
+Actual values of A and B in the linear model: 

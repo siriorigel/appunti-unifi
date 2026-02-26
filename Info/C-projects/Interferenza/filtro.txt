@@ -1,0 +1,6 @@
+INTERVALLO      F''     Metà altezza    N   Err(N)
+0.55 - 1.40     0.860   0.5126          45  2
+0.54 - 1.40     0.868   1.613           45  2
+
+Si può provare un altro metodo per cui
+F: 0.850 - 0.872 -> Errore: 0.011, Media 0.866 

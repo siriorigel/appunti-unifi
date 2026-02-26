@@ -1,0 +1,106 @@
+Before Chauvenet 
+Avarage: 0.084231
+Elements: 159
+Sigma: 0.071769
+Max value: 0.983510
+Min value: 0.077846
+
+Value to be eliminated at row 10
+Distance from avarage: 12.530119 sigma
+After Chauvenet 
+Avarage: 0.078539
+Elements: 158
+Sigma: 0.000282
+Max value: 0.079439
+Min value: 0.077846
+
+Bin Data: 
+Bin 0
+Interval: 0.077846  -  0.078023
+Center: 0.077935
+Nk: 3.000000
+Fk: 0.018987
+fk: 107.273117
+sigmafk: 61.934163
+fGauss: 0.000000
+
+Bin Data: 
+Bin 1
+Interval: 0.078023  -  0.078200
+Center: 0.078112
+Nk: 14.000000
+Fk: 0.088608
+fk: 500.607881
+sigmafk: 133.793084
+fGauss: 0.000000
+
+Bin Data: 
+Bin 2
+Interval: 0.078200  -  0.078377
+Center: 0.078288
+Nk: 29.000000
+Fk: 0.183544
+fk: 1036.973468
+sigmafk: 192.561139
+fGauss: 0.000000
+
+Bin Data: 
+Bin 3
+Interval: 0.078377  -  0.078554
+Center: 0.078465
+Nk: 37.000000
+Fk: 0.234177
+fk: 1323.035114
+sigmafk: 217.505633
+fGauss: 0.000000
+
+Bin Data: 
+Bin 4
+Interval: 0.078554  -  0.078731
+Center: 0.078642
+Nk: 39.000000
+Fk: 0.246835
+fk: 1394.550526
+sigmafk: 223.306801
+fGauss: 0.000000
+
+Bin Data: 
+Bin 5
+Interval: 0.078731  -  0.078908
+Center: 0.078819
+Nk: 20.000000
+Fk: 0.126582
+fk: 715.154116
+sigmafk: 159.913322
+fGauss: 0.000000
+
+Bin Data: 
+Bin 6
+Interval: 0.078908  -  0.079085
+Center: 0.078996
+Nk: 9.000000
+Fk: 0.056962
+fk: 321.819352
+sigmafk: 107.273117
+fGauss: 0.000000
+
+Bin Data: 
+Bin 7
+Interval: 0.079085  -  0.079262
+Center: 0.079173
+Nk: 6.000000
+Fk: 0.037975
+fk: 214.546235
+sigmafk: 87.588134
+fGauss: 0.000000
+
+Bin Data: 
+Bin 8
+Interval: 0.079262  -  0.079439
+Center: 0.079350
+Nk: 0.000000
+Fk: 0.000000
+fk: 0.000000
+sigmafk: 0.000000
+fGauss: 0.000000
+

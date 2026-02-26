@@ -1,0 +1,21 @@
+Analisi dati per led bianco:
+Valori per F: 0.911000 ± 0.011000
+
+Valori per N: 5.000000 ± 1.000000
+
+Valori per Lambda zero: 576.495376 ± 6.960976
+
+Valori per LC: 720.619220 ± 152.825064
+
+Valori per Delta lambda: 73.403836 ± 17.339743
+
+Analisi dati per led bianco con filtro verde:
+Valori per F: 0.870000 ± 0.032000
+
+Valori per N: 42.000000 ± 6.000000
+
+Valori per Lambda zero: 550.549920 ± 20.250112
+
+Valori per LC: 5780.774160 ± 1038.451056
+
+Valori per Delta lambda: 8.345269 ± 2.113039
