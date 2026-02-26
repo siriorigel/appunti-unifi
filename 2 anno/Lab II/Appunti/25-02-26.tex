@@ -1,0 +1,240 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{circuitikz}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di lab II}
+\author{Tommaso Miliani}
+\date{25-02-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Legge di Ohm e calcolo della velocità di deriva}
+La legge di Gauss in forma locale prende la forma di 
+\begin{gather*}
+    \vv{J} = \sigma_c \vv{R}  
+\end{gather*}
+Ossia vale punto per punto nel conduttore. Sia $\vv{J}$ che $\vv{E}$ sono Sia
+funzione dello spazio che del tempo. Il termine $\sigma_d$ è chiamato \textbf{conducibilità 
+elettrica}. Equivalentemente si può scrivere la legge di Ohm nella 
+seguente maniera
+\begin{align}
+    \vv{E} = \frac{1}{\sigma_c} \vv{J}  = \rho_r \vv{J} 
+\end{align}
+dove $\rho_r$ prende il nome di \textbf{resistività elettrica}.
+\begin{example}[Calcolo della velocità di deriva]
+    Ponendo di avere una corrente di un ampere che passa attraverso un filo di raggio
+    un millimetro. Dunque la sezione $S = \pi r^{2} = \pi$ mm$^{2}$. Dunque la corrente
+    \begin{gather*}
+        I = 1 \ A = n q \cdot v_d \cdot S  \ \Longrightarrow \ v_d = 2.5 \cdot 10^{-5} \frac{m}{s}
+    \end{gather*} 
+\end{example}
+Tramite le relazioni descritte si vuole determinare le leggi di Kirchhoff e le leggi di Ohm. Per poter 
+arrivare alla legge di Ohm si deve introdurre il concetto di potenziale.
+\subsection{Il potenziale elettrico}
+La carica in fisica si conserva sempre: sia $S$ una superficie chiusa all'interno della quale 
+vi è una carica $Q(t)$ che varia nel tempo di una quantità $-dQ$. Necessariamente questa deve essere uscita 
+dalla superficie. Questa variazione è espressa dal flusso attraverso questa superficie che ha 
+causato la variazione di carica
+\begin{gather*}
+    -dQ = \int_{S} \vv{J} \cdot \vv{dS} \ dt   
+\end{gather*}
+Posso dunque dividere per $dt$ ottenendo la derivata totale 
+\begin{gather*}
+    -\frac{dQ(t)}{dt} = \int_{S} \vv{J} \cdot \vv{dS}   
+\end{gather*}
+Non si sa come la densità di carica sia distribuita, ma è possibile ricavare 
+\begin{gather*}
+    Q(t) = \int_{V} \rho(x, y, z, t) \ dx \ dy \ dz  
+\end{gather*}
+Derivando ora sia a destra che a sinistra, si ottiene 
+\begin{gather*}
+    \frac{dQ(t)}{dt} = \int_{V} \frac{\partial\rho(x, y, z, t)}{\partial t} \ dx \ dy \ dz
+\end{gather*}
+Utilizzando ora il teorema della divergenza, si può uguagliare le espressioni trovate ottenendo 
+la seguente espressione 
+\begin{gather*}
+    -\int_{V} \frac{\partial \rho}{\partial t} \ dV = \int_{S} \vv{J} \cdot \vv{dS} = \int_{V} \vv{\nabla} \cdot \vv{J} \ dV   
+\end{gather*}
+È possibile definire questa relazione per qualsiasi volume o superficie, dunque in questa situazione 
+necessariamente gli integranda devono essere equivalenti:
+\begin{gather*}
+    - \frac{\partial \rho}{\partial t} = \vv{\nabla} \cdot \vv{J}   
+\end{gather*}
+Ottenendo l'\textbf{equazione di continuità}:
+\begin{align}
+    \vv{\nabla} \cdot \vv{J} + \frac{\partial \rho}{\partial t} = 0   
+\end{align}
+In condizioni stazionarie $\vv{J}$ è solenoidale e dunque la sua divergenza 
+è nulla (poiché la derivata parziale rispetto al tempo è nulla nell'equazione), dunque
+vuol dire che (usando il teorema di divergenza al contrario):
+\begin{gather*}
+    \int_{S} \vv{J} \cdot \vv{dS} = 0   
+\end{gather*} 
+Su una qualsiasi superficie chiusa tanta corrente entra tanta ne deve uscire. 
+
+\section{Leggi di Kirchhoff}
+\subsection{Prima legge Kirchhoff}
+La prima legge di Kirchhoff afferma che la somma algebrica delle correnti uscenti da un nodo 
+è nulla:
+\begin{align}
+    \int_{S} \vv{J} \cdot \vv{n} dS = 0  
+\end{align}
+Un \textbf{nodo} è un punto di incontro tra due o più conduttori 
+nel quale fluiscono un certo numero di correnti. La normale in questione 
+in ogni conduttore è sempre uscente per convenzione. 
+
+\subsection{Seconda legge di Kirchhoff}
+In un circuito si definiscono i rami, le maglie e un insieme di maglie prende il 
+nome di \textbf{rete}. Un \textbf{ramo} è il conduttore che 
+unisce due particolari nodi. Una \textbf{maglia} è una successione chiusa
+di rami. Questa legge è legata alla conservatività del campo: ossia il fatto che
+e dunque l'integrale su di una linea chiusa 
+del campo è nullo.  
+\begin{align}
+    \vv{\nabla} \times \vv{E} = 0
+\end{align}
+
+\section{Il potenziale elettrostatico e la terza legge di Kirchhoff}
+Il \textbf{potenziale elettrostatico} si definisce nella seguente maniera. 
+Il campo elettrico in un dato punto nello spazio è dato dalla seguente
+\begin{gather*}
+    \vv{E}(\vv{r} ) = \frac{Q}{4\pi\epsilon_0} \frac{1}{r^{2}}\hat{r}  
+\end{gather*}
+Presa una carica di prova $Q$ che compie un certo percorso lungo la linea $\gamma$. Il 
+lavoro del campo elettrico lungo $\gamma$ è dato dalla seguente
+\begin{gather*}
+    L_{\gamma} = \int_{\gamma} \vv{F} \cdot \vv{dl} \qquad \vv{dl} = dr\hat{r} +rd\theta \hat{\theta} + r\sin\theta \hat{\phi}d\phi   
+\end{gather*} 
+Dunque sopravvive solo il primo termine:
+\begin{gather*}
+    \int q\vv{E} \cdot \vv{dl} = \frac{qQ}{4\pi\epsilon_0} \int_{r_A}^{r_B} \frac{1}{r^{2}} \hat{r} \cdot \hat{r} \ dr  = - \frac{qQ}{4\pi\epsilon_0}\frac{1}{r}   
+\end{gather*}
+Dunque il lavoro su $\gamma$ è equivalente alla seguente:
+\begin{gather*}
+    L_{\gamma} = - \frac{qQ}{4\pi\epsilon_0}\left(\frac{1}{r_A} - \frac{1}{r_B}\right)
+\end{gather*}
+Dunque si vede che c'è una dipendenza dal lavoro di $\frac{1}{r}$. Si definisce il 
+potenziale del campo come 
+\begin{gather*}
+    \lim_{q \to 0} \frac{U}{q} = \boxed{V(r) = \frac{Q}{4\pi\epsilon_0} \frac{1}{r} + \text{const}} 
+\end{gather*}
+Il potenziale è sempre definito a meno di una costante poiché non esiste un potenziale 
+assoluto ma si definiscono le differenze di potenziale. Dunque la differenza di potenziale 
+in questo caso sarà dato dalla seguente espressione
+\begin{gather*}
+    V_A - V_B = \int_{A}^{B} \vv{E} \cdot \vv{dl}   
+\end{gather*}
+Dunque questo è l'effetto della presenza di un campo nello spazio circostante. Dunque ciò che si misura è
+sempre l'effetto dell'integrale. Il potenziale ha come unità di misura 
+\begin{gather*}
+    [V] = \frac{[U]}{[q]} = \frac{J}{C} = V \ (\text{Volt})
+\end{gather*}
+Dunque su di una linea chiusa si ha che
+\begin{gather*}
+    \oint \vv{E} \cdot \vv{dl} = 0  
+\end{gather*}
+Dunque
+\begin{gather*}
+    \sum_{k} \Delta V_k = 0 
+\end{gather*}
+in condizioni stazionarie, ottenendo la \textbf{legge delle maglie}, ossia la terza legge di Kirchhoff. 
+
+\section{La resistenza}
+Si è gi definita la resistività a livello locale:
+\begin{gather*}
+    \vv{E} = \rho_R \cdot \vv{J}  
+\end{gather*}
+che ha dimensioni 
+\begin{gather*}
+    [\rho_R] = \left[\frac{N}{C} \frac{m^{2}}{A}\right] = \left[\frac{Jm}{CA}\right] = \left[V\frac{m}{A}\right] = [\Omega \cdot m]
+\end{gather*}
+La resistività si misura dunque in $\Omega \cdot m$ "Ohm per metro" e cambia radicalmente 
+tra materiale e materiale. Si riportano i valori di resistività di alcuni materiali:
+\begin{gather*}
+    \begin{tabular}{l | c | c | c }
+        Materiale & Ferro & Rame & Ceramica \\
+        \hline
+        Resistività & $10 \cdot 10^{-8}$ & $1.7 \cdot 10^{-8}$ & $10^{16}$
+    \end{tabular}
+\end{gather*}
+Nella corrente ad alta tensione si potrebbe pensare che la corrente passi solamente nei fli, 
+tuttavia, dato che i fili sono sorretti in qualche modo, e la corrente sceglie sempre 
+il percorso di minor resistenza, anche se il materiale che attacca al nodo è isolante
+è possibile che possa comunque passare corrente se si riesce a dare una differenza di potenziale
+grande vicino al traliccio.  \\ \noindent
+I fulmini cadono poiché si è creata una zona di minore resistenza tra la nuvola e il terreno. Generalmente 
+la differenza di potenziale dell'atmosfera è 200 Volt per metro, dunque se la corrente trova un percorso a minor resistenza
+allora essa passa indisturbata.  \\ \noindent
+Si arriva dunque alla legge di Ohm prendendo un conduttore a sezione
+costante tra $A$ e $B$, dunque posso valutare
+\begin{gather*}
+    \int_{A}^{B} \vv{E} \cdot \vv{dl} = V_A - V_B = \int_{A}^{B} \rho_R \vv{J} \cdot \vv{dl} = \int_{A}^{B} \rho_R \frac{\vv{J}S }{S} \hat{n} \cdot dl 
+\end{gather*}
+Si era definita la corrente che passa all'interno della sezione come
+\begin{gather*}
+    \vv{J} \cdot S \hat{n} = I  
+\end{gather*}
+che è valida solo a livello locale poiché, così come per i fluidi, 
+la corrente scorre più velocemente al centro della sezione, mentre ai 
+bordi la velocità è nulla.
+Dunque si esprime la differenza di potenziale come segue:
+\begin{gather*}
+    V_A - V_B = I \int_{A}^{B} \frac{\rho_R}{S} \ dl 
+\end{gather*}
+Il termine integrato si indica con $R$ ed ha come dimensioni $\Omega$, dunque si ottiene la seguente equazione
+\begin{align}
+     \Delta V = IR
+\end{align}
+Ottenendo dunque la legge di Ohm. Un oggetto che ha la proprietà di creare resistenza
+prende il nome di \textbf{resistore} e si indica così:
+
+
+
+
+\end{document}

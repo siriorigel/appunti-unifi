@@ -1,0 +1,171 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Meccanica}
+\author{Tommaso Miliani}
+\date{26-02-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Parametrizzazione e curve regolari}
+L'idea è sceglier  un tempo $t$ ed un istante successivo $\Delta t$ per ottenere da una
+qualsiasi curva $\vv{r}(t)$ il vettore differenza tra i vettori posizioni $\vv{r}(t + \Delta t)$
+e $\vv{r}(t)$:  
+\begin{gather*}
+    \vv{r}(t + \Delta t) - \vv{r}(t)   
+\end{gather*} 
+Dunque si può ottenere il rapporto incrementale tra le due posizioni:
+\begin{gather*}
+    \frac{d\vv{r} }{dt} = \lim_{\Delta t \to 0} \frac{\vv{r}(t + \Delta t) - \vv{r}(t) }{\Delta t}
+\end{gather*}
+Quando questo limite esiste (se si da sufficiente regolarità alle funzioni 
+basta che siano $C^{1}$). Si nota che 
+\begin{gather*}
+    \lim_{\Delta t \to 0} = \frac{\hat{i}\left(r_x( t+ \Delta t) - r_x (t)\right) + \hat{j} \left(r_y (t + \Delta t) - r_y (t)\right) + \hat{k} \left(r_z(\Delta t + t) - r_z (t)\right)   }{\Delta t}
+\end{gather*}
+Se le funzioni sono regolari, allora si può ottenere 
+\begin{gather*}
+    \frac{d\vv{r} }{dt} = \hat{i}\frac{dx}{dt} + \hat{j} \frac{dy}{dt} + \hat{k} \frac{dz}{dt}   
+\end{gather*}
+Per ricordare che è una derivata rispetto al tempo si usa $\dot{x}, \dots$. L'altra grande protagonista 
+della fisica è l'accelerazione:
+\begin{gather*}
+    \vv{a} =  \frac{d^{2}\vv{r} }{dt^{2}} = \hat{x}\ddot{x} + \hat{j}\ddot{y} + \hat{k}\ddot{z}   
+\end{gather*}
+Si dice che una curva $\vv{r}(t)$ si dice \textbf{regolare} se è regolare 
+come funzione matematica ossia se $\vv{r}(t) \in (C^{1}(\mathbb{R}))^{3}$. Inoltre 
+si vuole anche che 
+\begin{gather*}
+    \left| \frac{d\vv{r} }{dt} \right|  \neq 0
+\end{gather*}  
+Esiste dunque una differenza tra regolarità geometrica e regolarità analitica. Ovviamente
+dire che il modulo si annulla vuol dire che tutte le componenti si annullano. Una proprietà che 
+tornerà comoda è la seguente:
+\begin{gather*}
+    \hat{u}(t) \text{ versore} 
+\end{gather*}
+Che può variare nel tempo e nella direzione, ha modulo costante, ma se $t$ cambia si orienta 
+in direzione diversa. Vale dunque la seguente semplice proprietà: 
+\begin{gather*}
+    \left< \frac{d\hat{u} }{dt}, \hat{u}  \right> = 0 
+\end{gather*}
+Inoltre
+\begin{gather*}
+    \left| \hat{u}  \right|^2 = 1 
+\end{gather*}
+Si ricorda poi il legame tra modulo e prodotto scalare
+\begin{gather*}
+    \left< \hat{u}, \hat{u}   \right> = \left| \hat{u}  \right|  ^{2} = 1
+\end{gather*}
+Se si deriva questa espressione:
+\begin{gather*}
+    0 = \frac{d}{dt}\left< \hat{u}, \hat{u}   \right> = \left< \frac{d\hat{u} }{dt}, \hat{u}  \right> + \left< \hat{u}, \frac{d\hat{u} }{t}  \right> = 2\left< \frac{d\hat{u} }{dt}, \hat{u}  \right>    
+\end{gather*}
+poiché vale la regola di Leibniz,
+\begin{example}[Esempio veloce]
+
+\end{example}
+Data una curva regolare 
+\begin{gather*}
+    \vv{r}(t) = \hat{i}t^{2} + t^{3}\hat{y}   
+\end{gather*}
+La parabola viene definita a partire da questo parametro:
+\begin{gather*}
+    \begin{array}{l}
+        x(t) = t^{2} \ \Longrightarrow \ t = \pm \sqrt{x}  \\
+        y(t) = t^{3} = x^{\frac{3}{2}} = \pm x^{\frac{3}{2}}
+    \end{array}
+\end{gather*}
+Per vedere se è regolare devo valutare la derivata:
+\begin{gather*}
+    \frac{dr}{dt} = 2t\hat{i} + 3t^{2}\hat{j}  
+\end{gather*}
+Devo vedere se il vettore che definisce la curva non si annulla:
+\begin{gather*}
+    \left| \frac{d\vv{r} }{dt} \right|^2 = 4t^{2} + 9t^{4} 
+\end{gather*}
+Dunque costituisce una mappa lineare $y = x^{2}  +x^{3}$.  Andando a 
+creare una cuspide in $x = 0$. 
+
+\begin{theorem}
+    La regolarità di una curva non dipende dalla parametrizzazione. 
+\end{theorem}
+\begin{proof}
+    Presa una curva con parametrizzazione $r(t)$:
+    \begin{gather*}
+        t(t_1) \to r_1(t_1) = r(t(t_1))
+    \end{gather*}
+    Applicando la derivazine della funzione composta:
+    \begin{gather*}
+        \frac{d\vv{r_1} }{dt_1} = \left| \frac{d\vv{r} }{dt} \right|  \left| \frac{dt}{dt_1} \right| 
+    \end{gather*}
+    Se la parametrizzazione è regolare, allora 
+    \begin{gather*}
+        \left| \vv{t_1}  \right|  = \left| \vv{t}  \right| 
+    \end{gather*}
+    Dunque per definizione di regolarità mi permette di definire che 
+    la regolarità della curva non dipende dalla parametrizzazione ed è 
+    una proprietà intrinseca della curva perché la parametrizzazione è solo
+    un modo per descrivere la curva.
+\end{proof}
+
+\section{Lunghezza di una curva}
+Si può procedere adesso a definire la lunghezza di una curva (regolare).
+Il metodo intuitivo per costruire una curva è spezzettare la curva in 
+piccoli pezzi dritti (poiché so determinarne la lunghezza con la 
+norma euclidea). Dunque la lunghezza della spezzata è la somma dei pezzi: 
+\begin{gather*}
+    l(r(t_A), r(t_B)) =  \int_{t_A}^{t_B}\left| \frac{dr}{dt} \right|   \ dt 
+\end{gather*}
+Ossia integrando il modulo del versore tangente: dunque si ottiene 
+la seguente espressione
+
+
+
+\end{document}

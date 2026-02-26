@@ -1,0 +1,336 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Metodi}
+\author{Tommaso Miliani}
+\date{25-02-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Introduzione al corso}
+\begin{itemize}
+    \item Prof: Panico 
+    \item Risorse per lo studio: Dispense del corso (complete, vengono aggiornate periodicamente, quelle con * non sono necessarie
+    per passare e non sono richieste), la grande maggioranza delle dimostrazioni 
+    non saranno richieste all'orale. Eserciziario del corso con tutti i compiti degli anni passati.
+    \item Esame: scritto (3 ore con 3 esercizi, uno per parte del corso)
+    + orale che consiste in una discussione di argomenti (in modo più pratico) e 
+    di alcune dimostrazioni. La validità dello scritto è illimitata. 
+\end{itemize}
+Si studia un estensione di geometria negli spazi vettoriali 
+infiniti ed è necessaria per studiare meccanica quantistica. 
+Si divide in tre parti 
+\begin{enumerate}
+    \item Analisi complessa: estensione del concetto di funzione, serie e integrale sul piano complesso
+    \item Analisi armonica: sviluppo delle funzioni complesse in serie di seni e coseni
+    e trasformate integrali (Fourier e Laplace), ossia l'estensione continua dei seni e coseni.
+    \item Spazi di Hilbert: generalizzazione degli spazi vettoriali a dimensione infinita. 
+\end{enumerate}
+
+
+
+\section{Introduzione all'analisi complessa}
+\subsection{Richiami dei numeri complessi e notazioni}
+Tutta l'analisi complessa si basa sull'utilizzo dei numeri complessi. I numeri complessi
+sono un estensione del campo reale: questa estensione è ottenuta mediante il seguente numero 
+\begin{align}
+    i^{2} = -1 
+\end{align}
+che prende il nome di \textbf{unità immaginaria}, che serve per estendere i numeri reali al
+campo dei complessi. Un generico numero complesso $z$ si scrive in questa maniera
+\begin{align}
+    z = x + iy \qquad x, y \in \mathbb{R}
+\end{align}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{La rappresentazione di un generico numero complesso $z = x + iy$}
+    \begin{tikzpicture}[scale=1.2]
+        \draw[->](-1, 0) -- (2, 0) node[at end, below] {$Re(z)$};
+        \draw[->](0, -2) -- (0, 2) node[at end, left] {$Im(z)$};
+        \draw[dashed](1, 0) -- (1, 1) node[at start, below] {$x$};
+        \draw[dashed](0, 1) -- (1, 1) node[at start, left] {$y$};
+        \draw[->, thick](0, 0) -- (1, 1) node[midway, above] {$\left| z \right|$ };
+        \filldraw(1, 1) circle (1pt) node[anchor = west] {$z = x + iy$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Generalmente valgono anche le stesse proprietà dei numeri reali, ricordando sempre 
+che $i^{2} = -1$. All'interno dei numeri complessi esiste un sottogruppo che corrisponde esattamente 
+ai numeri reali (se $y = 0$), dunque $\mathbb{R} \subset \mathbb{C}$. La rappresentazione 
+dei numeri complessi avviene sul \textbf{piano complesso}, dunque $\mathbb{C} \cong \mathbb{R} \times \mathbb{R}$,
+dunque ad ogni numero complesso corrisponde un punto sul piano complesso con ascissa $x$ e
+ordinata $y$ per un complesso generico $z = z + iy$. \\ \noindent
+Ai numeri complessi si associa il \textbf{norma, modulo, o valore assoluto}, che non è nient'altro 
+che la lunghezza in figura 
+\begin{align}
+    \left| z \right| = \sqrt{x^{2} + y^{2}} \in \mathbb{R}_+  
+\end{align}
+Si definisce l'operazione di \textbf{coniugazione complessa}, come l'operazione 
+che manda 
+\begin{align}
+    z \to z^{\star} \ (o \ \overline{z} ) = x - iy
+\end{align}
+Dunque la coniugazione complessa cambia il segno della parte immaginaria, mantenendo 
+inalterata la parte reale che ha le seguenti proprietà:
+\begin{itemize}
+    \item $\left| z \right|^{2} = z \cdot z^{\star} = z^{\star}z = \left| z^{\star} \right|^{2}$
+    \item $(z^{\star})^{\star} = z$.
+    \item $\frac{1}{z} = \frac{z^{\star}}{z^{\star}z} = \frac{z^{\star}}{\left| z \right|^{2} }$ 
+\end{itemize}
+Un'altra rappresentazione molto utile dei complessi sono le \textbf{coordinate polari}: esse permettono 
+di rappresentare un numero complesso identificandolo mediante il suo modulo e l'angolo rispetto 
+all'asse reale.
+\begin{align}
+    z = x + iy = r(\cos\phi + i\sin\phi)
+\end{align}
+Se $r = 0$, l'angolo non è ben definito. Tuttavia, scritto in questa maniera, 
+si può prendere qualsiasi valore di $\phi$, così si limita ad una sola volta la copertura 
+del piano complesso con $\phi \in [0, \alpha + 2\pi)$. Dove $r = \left| z \right|$ e l'angolo 
+è anche chiamato \textbf{argomento di $z$}. La rappresentazione polare permette di 
+esprimere in modo semplice il prodotto di numeri complessi, dunque 
+l'insieme dei complessi contiene naturalmente il prodotto tra numeri complessi:
+\begin{gather*}
+    z_1 \cdot z_2 = r_1 r_2 (\cos(\phi_1 + \phi_2) + i\sin(\phi_1 + \phi_2)) \quad z_1, z_2 \in \mathbb{C}
+\end{gather*}
+Si definiscono anche le potenze di numeri complessi:
+\begin{gather*}
+    z^{n} = r^{n}(\cos (n\phi) + i \sin(n\phi)) \qquad n \in \mathbb{Z}
+\end{gather*}
+L'estrazione di radici permette di ricavare tutte le soluzioni della seguente equazione
+\begin{gather*}
+    z^{\frac{1}{n}} \ \Longrightarrow \ w^{n} = z
+\end{gather*}
+Ossia tutti gli $w$ che risolvono tale equazione. Dunque si utilizza la notazione polare:
+\begin{gather*}
+    w = \rho(cos\theta + i\sin\theta) \qquad z =r^{n}(\cos(n\phi) + i\sin(n\phi))
+\end{gather*}
+La radice quadrata del modulo è ovvio, dunque $\rho = r^{\frac{1}{n}}$. Per identificare 
+gli angoli dei vari numeri complessi, si potrebbe pensare a $n\theta = \phi$, tuttavia
+sto perdendo la periodicità dell'angolo, per tenere conto di questo si ottiene che
+\begin{gather*}
+    n\theta = \phi + 2\pi \ \Longrightarrow \ \theta = \frac{\phi}{n} + \frac{2\pi k}{n}
+\end{gather*}
+Le soluzioni distinte per teta sono infinite, tuttavia le devo identificare e dunque 
+devo scegliere $k \in [0, n - 1]$. Le radici di un numero complesso descrivono 
+poligoni inscritti in un certo di raggio $\rho$.
+Le radici di un numero complesso qualsiasi si ottengono moltiplicando una delle radici 
+per l'insieme delle radici dell'unità. Questo perché le radici di un complesso 
+qualsiasi sono la rotazione e la dilatazione di un dato poligono formato dalle radici 
+dell'unità (facilmente dimostrabile). 
+
+\subsection{Topologia e metrica di $\mathbb{C}$}
+Una \textbf{topologia} è un insieme di intorni di un punto che si considera. Si introduce il
+concetto di \textbf{convergenza} su $\mathbb{C}$, estendendo il concetto di 
+convergenza su $\mathbb{R}$. Visto che gli elementi dei complessi sono elementi di 
+$\mathbb{R}^{2}$, dunque si considerano i limiti della parte reale e della parte immaginaria,
+se questi esistono, allora esistono anche su $\mathbb{C}$. Una successione di numeri complessi 
+$\{z_n\}$ convergono se converge sia la parte reale che quella immaginaria:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \lim_{n \to \infty } Re(z_n) = Re(z) \\
+        \lim_{n \to \infty } Im(z_n) = Im(z)   
+    \end{array}\right.
+\end{gather*}
+Equivalentemente 
+\begin{gather*}
+    \lim_{n \to \infty } \left| z_n - z \right| = 0  
+\end{gather*}
+Si possono vedere con due topologie differenti: la prima utilizza topologie 
+rettangolari mentre la seconda utilizza le palle aperte e dunque sono equivalenti.
+Dunque $\mathbb{C}$ è uno spazio metrico con la \textbf{distanza} definita dal modulo della 
+differenza tra due numeri complesso $z_1$ e $z_2$:
+\begin{gather*}
+    d(z_1, z_2) = \left| z_1 - z_2 \right| 
+\end{gather*}
+Data questa distanza si definiscono gli insieme degli intorni di quel punto, 
+ossia le palle aperte di quel punto. Dunque gli intorni di $z$ sono le collezioni di 
+palle aperte con raggio $r = \left| z \right|$:
+\begin{gather*}
+    z : B(z, r)
+\end{gather*} 
+Se $z_n$ è di Cauchy, anche $x_n$ e $y_n$ sono di Cauchy.
+Dunque $\mathbb{C}$ è uno \textbf{spazio completo}, ossia ogni successione di Cauchy ha limite.
+Si può introdurre la \textbf{norma} per $\mathbb{C}$, in quanto sussiste l'isomorfismo
+con $\mathbb{R}^{2}$, e dunque è uno spazio normato con 
+\begin{align}
+    \left\lVert z \right\rVert  = \left| z \right| 
+\end{align}
+Ossia la norma naturale su $\mathbb{R}^{2}$. Dunque anche $\mathbb{C}$ è uno spazio di Banach. 
+Con $\mathbb{C}$ non esiste un ordinamento naturale dei numeri: l'isomorfismo con $\mathbb{R}^{2}$
+non permette di mantenere questo ordinamento. Le uniche disuguaglianze che si possono fare
+tra complessi coinvolgono il modulo. 
+
+\section{Serie su $\mathbb{C}$}
+Su $\mathbb{R}$ una serie di potenze converge in un dato intervallo. Si definiscono 
+le successioni su $\mathbb{C}$ così come si è fatto per $\mathbb{R}$; si dice che una 
+serie converge quando la successione delle somme parziali converge. 
+\begin{definition}[Serie di potenze]
+    Data una successione $\{z_n\}_{n \in \mathbb{N}} \in \mathbb{C}$, e si considerano 
+    le \textbf{ridotte parziali} 
+    \begin{gather*}
+        \sum_{n = 0}^{N} z_n = S_N  
+    \end{gather*}
+    Se converge la successione delle ridotte parziali, allora si dice che la
+    serie è convergente:
+    \begin{gather*}
+        \lim_{n \to \infty }S_N = S = \lim_{N \to \infty } \sum_{n = 0}^{N} z_n = \sum_{n = 0}^{\infty } z_n   
+    \end{gather*}
+\end{definition} \noindent
+Così come su $\mathbb{R}$, per essere convergente esiste una condizione 
+necessaria su $z_n$. Su $\mathbb{R}$ $z_n$ deve essere infinitesimo, dunque 
+la successione dei moduli deve essere infinitesima.
+\begin{theorem}[Condizione necessaria per la convergenza]
+        La condizione necessaria ma non sufficiente per la convergenza è che
+        $\left| z_n \right|$ sia una successione infinitesima:
+        \begin{gather*}
+            \lim_{n \to \infty } \left| z_n \right|   = 0
+        \end{gather*} 
+\end{theorem} \noindent
+Si possono utilizzare dei criteri molto simili a quelli che si utilizzano
+su $\mathbb{R}$, che si applicano alla successione dei moduli per ottenere 
+la convergenza della serie. 
+\begin{theorem}[criterio del rapporto]
+    La serie $\sum_{n} z_n$ è convergente se 
+    \begin{gather*}
+        \exists \ p\  : \ 0 \leq p < 1, \ \overline{n} \in \mathbb{N}  \ : \ \left| \frac{z_{n + 1}}{z_{n}} \right| \leq p \quad \forall n \geq \overline{n} 
+    \end{gather*} 
+\end{theorem}
+Il secondo criterio di convergenza è 
+\begin{theorem}[Criterio delle radici ]
+        La serie $\sum_{n} z_n$ è convergente se 
+    \begin{gather*}
+        \exists \ p\  : \ 0 \leq p < 1, \ \overline{n} \in \mathbb{N}  \ : \ \left| z_n \right|^{\frac{1}{n}}  \leq p \quad \forall n \geq \overline{n} 
+    \end{gather*} 
+\end{theorem}
+
+\begin{definition}[Convergenza assoluta]
+    La serie $\sum_{n} z_n$ converge assolutamente se 
+    $\sum_{n} \left| z_n \right|$ converge. 
+\end{definition}
+
+\begin{theorem}[Conv assoluta $\ \Longrightarrow \ $ con standard]
+    La convergenza assoluta implica la convergenza standard
+\end{theorem} \noindent
+
+\begin{theorem}[Criterio del confronto]
+    Se una successione $\{z_n\}_{n \in \mathbb{N}}$ complessa è maggiorata in \textbf{modulo} 
+    da una successione $\{a_n\}_{n \in \mathbb{N}}$ di numeri reali non negativi, la cui 
+    serie associata converge, allora anche la successione complessa converge, e dunque 
+    converge anche assolutamente. 
+\end{theorem}
+
+\section{Serie di potenze}
+Sono delle potenze, così come sono state definite in $\mathbb{R}$, centrata 
+in un qualsiasi punto di $\mathbb{C}$ :
+\begin{align}
+    \sum_{n = 0}^{\infty } a_n(z - z_0)^{n} \qquad
+    \begin{array}{l}
+        a_n \in \mathbb{C} \\
+        z, z_0 \in \mathbb{C}
+    \end{array} 
+\end{align}
+La potenza 0 è sempre interpretata come l'identità in una serie (ossia il caso banale).
+Il caso in cui $z_0 = 0$ è il caso più semplice in quanto le conclusioni che si hanno per questo caso 
+valgono anche per il caso in cui si trasli di un qualsiasi numero complesso $z_0$. Dunque
+\begin{gather*}
+    \sum_{n = 0}^{n} a_n z^{n} 
+\end{gather*} 
+Si definisce ora l'\textbf{insieme di convergenza}:
+\begin{definition}
+    L'insieme di convergenza è dato dall'insieme degli $\mathbb{C}_a \equiv \{z\} \in \mathbb{C}$
+    tali per cui la somma $\sum_{n } a_n z^{n}$ converge. La notazione $\mathbb{C}_a$
+    ci ricorda che ogni serie ha un insieme di convergenza ben definito e diverso da ogni altra 
+    serie. 
+\end{definition}
+Si dimostra adesso il lemma di Abel che caratterizza l'insieme di convergenza di una serie.
+\begin{lemma}[Lemma di Abel]
+    Sia $w \in \mathbb{C}$ tale che $a_nw^{n}$ sia limitata. Allora $\forall z \in \mathbb{C}$ tale 
+    che $\left| z \right| < \left| w \right|$, allora la serie $\sum_{n} a_nz^{n}$ converge 
+    assolutamente   
+\end{lemma}
+\begin{proof}
+    Si utilizza il teorema del confronto costruendo una serie convergente a partire 
+    dalla serie $a_nw^{n}$. Si ha che
+    \begin{gather*}
+        \left| a_n w^{n} \right| \leq M  
+    \end{gather*}
+    si può vedere
+    \begin{align*}
+        \left| a_nz^{n} \right| &= \left| a_n w^{n} \frac{z^{n}}{w^{n}} \right|  \\
+        &= \left| a_nw^{n} \right| \left| \frac{z}{w} \right|^{n} \leq M \left| \frac{z}{w} \right|^{n}    
+    \end{align*}
+    Dato che la serie sulla destra è convergente, allora anche quella a sinistra della 
+    disuguaglianza è convergente assolutamente poiché si è maggiorato i moduli. Dunque converge in tutto il 
+    cerchio aperto costruito a partire dal modulo di $w$, ossia sulla palla aperta $B(0, \left| w \right| )$. 
+\end{proof} \noindent
+Dato che si è parlato di convergenza su di un cerchio, si definisce il \textbf{raggio di convergenza}
+\begin{definition}
+    In una serie, il raggio di convergenza è definito come $\sup\{\left| z \right| : z \in \mathbb{C}_a \}$,
+    ossia l'insieme dei moduli tali per cui si ha convergenza. Ovviamente è un numero reale e non negativo (che può essere
+    anche zero in determinati casi).
+\end{definition} \noindent
+L'insieme di convergenza sarà un cerchio con raggio definito 
+    il raggio di convergenza. Dal lemma di Abel si ha che l'interno del cerchio si ha convergenza assoluta, dunque
+    l'interno del cerchio fa parte dei punti di convergenza. Sul bordo del cerchio dipende dalla serie (tipicamente
+    se è presente convergenza, essa non è assoluta). In generale la palla aperta di raggio $r_a$ è nel raggio di convergenza e esso 
+    è incluso nella palla chiusa di raggio $r_a$.  Si vede, dal Lemma di Abbel, che 
+    ciò che sta fuori dal cerchio i termini divergono. 
+Se si trova un punto in cui i moduli sono limitati, quello è il bordo del cerchio. Il risultato 
+caratterizza gli insiemi di convergenza:
+\begin{theorem}
+    L'insieme di convergenza $\mathbb{C}_a$ contiene il cerchio aperto $B(0, R_a)$ ed è 
+    contenuto nel cerchio chiuso $B(0, R_a)$. Sulla frontiera non si sa esattamente 
+    cosa accade. 
+\end{theorem} \noindent
+Questo risultato ci dice che se si volesse trovare il raggio di convergenza, si potrebbe studiare 
+la serie dei moduli (ossia una serie sui reali). Si estrae dunque il raggio di convergenza che
+è applicabile su $\mathbb{C}$. 
+
+
+
+\end{document}
