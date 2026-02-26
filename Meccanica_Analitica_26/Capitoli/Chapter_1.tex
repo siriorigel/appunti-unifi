@@ -1,4 +1,4 @@
-\section{Vettori in $\mathbb{R}^3$}
+\section{Vettori in $\mathbb{R}^3$}\label{sec:1_vettori}
 Se vogliamo descrivere un punto nello spazio, è necessario definire cos'è lo spazio:
 
 Prendiamo una terna destrorsa di assi cartesiani $\Rightarrow$ Descrivo $\mathbb{R}^3$.
@@ -295,82 +295,4 @@ Il modulo di $\vec{M_O}$ rappresenta l'area del parallelogramma generato da $(P-
 \end{equation*}
 dove $\alpha$ è l'angolo compreso tra i due vettori.
 
-La distanza $d=|P-O|\sin(\alpha)$ è la distanza tra il polo $O$ e la retta su cui è applicato il vettore $\vec v$ ed è detta \textbf{braccio} del momento.
-
-\subsection{Geometria elementare}
-\begin{figure}[h!]
-    \begin{center}
-    \begin{tikzpicture}[scale=3]
-    
-    % Colori
-    \definecolor{colA}{RGB}{200,40,40}      % rosso
-    \definecolor{colB}{RGB}{40,90,200}      % blu
-    \definecolor{colC}{RGB}{40,150,70}      % verde
-    
-    % Vertici
-    \coordinate (A) at (0,0);
-    \coordinate (B) at (2,0);
-    \coordinate (C) at (0.8,1.4);
-    
-    % Lati colorati
-    \draw[thick, colC] (A) -- (B); % lato c
-    \draw[thick, colB] (A) -- (C); % lato b
-    \draw[thick, colA] (B) -- (C); % lato a
-    
-    % Vertici
-    \node[below left] at (A) {$A$};
-    \node[below right] at (B) {$B$};
-    \node[above] at (C) {$C$};
-    
-    % Etichette lati
-    \node[below, colC] at ($(A)!0.5!(B)$) {$c$};
-    \node[left, colB] at ($(A)!0.5!(C)$) {$b$};
-    \node[right, colA] at ($(B)!0.5!(C)$) {$a$};
-    
-    % Angolo alpha (in A)
-    \draw[colA, thick] (A) ++(0.35,0) arc (0:60:0.35);
-    \node[colA] at ($(A)+(0.55,0.25)$) {$\alpha$};
-    
-    % Angolo beta (in B)
-    \draw[colB, thick] (B) ++(-0.44,0) arc (180:120:0.35);
-    \node[colB] at ($(B)+(-0.55,0.25)$) {$\beta$};
-    
-    % Angolo gamma (in C)
-    \draw[colC, thick] (C) ++(-0.15,-0.25) arc (-120:-60:0.35);
-    \node[colC] at ($(C)+(0,-0.45)$) {$\gamma$};
-    
-    \end{tikzpicture}
-    \caption{Triangolo generico con i lati $a$, $b$ e $c$ e gli angoli $\alpha$, $\beta$ e $\gamma$.}
-    \label{fig:triangolo-carnot}
-    \end{center}
-\end{figure}
-
-Con riferimento alla Figura (\ref{fig:triangolo-carnot}), possiamo enunciare i seguenti teoremi:
-\begin{theorem}[Teorema di Carnot]
-    In un triangolo con lati $a$, $b$ e $c$ e angoli opposti $\alpha$, $\beta$ e $\gamma$, vale la seguente relazione:
-    \begin{equation*}
-        a^2 = b^2 + c^2 - 2bc \cos(\alpha)
-    \end{equation*}
-\end{theorem}
-
-\begin{theorem}[Teorema dei seni]
-    In un triangolo con lati $a$, $b$ e $c$ e angoli opposti $\alpha$, $\beta$ e $\gamma$, vale la seguente relazione:
-    \begin{equation*}
-        \frac{a}{\sin(\alpha)} = \frac{b}{\sin(\beta)} = \frac{c}{\sin(\gamma)}
-    \end{equation*}
-\end{theorem}
-
-È utile anche riportare alcuni teoremi della geometria del piano:
-
-\begin{theorem}[Lunghezza di un arco di circonferenza]
-    La lunghezza $s$ di un arco di circonferenza di raggio $r$ e angolo al centro $\theta$ (in radianti) è data da:
-    \begin{equation*}
-        s = r \theta
-    \end{equation*}
-\end{theorem}
-
-Si riportano anche le formule di addizione per seno e coseno, che saranno utili in seguito:
-\begin{align*}
-    \sin(\alpha + \beta) &= \sin(\alpha)\cos(\beta) + \cos(\alpha)\sin(\beta) \\
-    \cos(\alpha + \beta) &= \cos(\alpha)\cos(\beta) - \sin(\alpha)\sin(\beta)
-\end{align*}
+La distanza $d=|P-O|\sin(\alpha)$ è la distanza tra il polo $O$ e la retta su cui è applicato il vettore $\vec v$ ed è detta \textbf{
