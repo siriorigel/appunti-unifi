@@ -15,6 +15,7 @@
 *.vrb
 *.xdv
 *.pdfsync
+*.ind
 
 # --- File di compilazione aggiuntivi ---
 *.dvi
