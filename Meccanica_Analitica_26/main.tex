@@ -1,0 +1,237 @@
+\documentclass{article}
+
+% --- Pacchetti di base ---
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz, pgfplots}
+\usepackage{tikz-3dplot}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{imakeidx}
+\usepackage{stackengine}
+\usepackage{scalerel}
+\usepackage{multicol} % Per colonne multiple
+\usepackage{lettrine}
+\usepackage{longtable}
+\usepackage{array}
+
+\makeindex
+
+\usetikzlibrary{positioning}
+\pgfplotsset{compat=1.18}
+
+\numberwithin{equation}{section}
+
+% --- Impostazioni di layout ---
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+\pagestyle{fancy}
+\setlength{\headheight}{14pt} % per evitare warning
+
+\fancyhf{}
+
+% --- Intestazioni ---
+\fancyhead[RO]{\rightmark}  % sottosezione (pagina dispari, in alto a destra)
+\fancyhead[LE]{\leftmark}   % sezione (pagina pari, in alto a sinistra)
+\fancyhead[RE]{\thepage}    % numero di pagina (pagina pari, in alto a destra)
+\fancyhead[LO]{\thepage}    % numero di pagina (pagina dispari, in alto a sinistra)
+
+% --- Piè di pagina ---
+\fancyfoot[LE]{Meccanica Analitica}   % pagina pari, in basso a sinistra
+\fancyfoot[RO]{Meccanica Analitica}   % pagina dispari, in basso a sinistra
+\fancyfoot[RE]{2025--2026}          % pagina pari, in basso a destra
+\fancyfoot[LO]{2025--2026}          % pagina dispari, in basso a destra
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\newcommand\dangersign[1][2ex]{%
+    \renewcommand\stacktype{L}%
+    \scaleto{\stackon[1.3pt]{\color{red}$\triangle$}{\tiny !}}{#1}%
+}
+
+% --- Colori sobri per i bordi ---
+\colorlet{TheoremFrame}{blue!60!black}
+\colorlet{PropositionFrame}{orange!50!black}
+\colorlet{DefinitionFrame}{green!50!black}
+\colorlet{ExampleFrame}{red!60!black}
+\colorlet{ProofFrame}{cyan!50!black}
+\colorlet{ObservationFrame}{gray!60!black}
+\colorlet{AxiomFrame}{purple!50!black}
+\colorlet{PropertyFrame}{teal!70!black}
+\colorlet{CorollaryFrame}{violet!60!black}
+\colorlet{CriterionFrame}{brown!70!black}
+\colorlet{LemmaFrame}{cyan!70!black}
+\definecolor{somma}{RGB}{0,160,255}
+\definecolor{prodotto}{RGB}{160,32,240}
+\definecolor{quoziente}{RGB}{255,220,0}
+\definecolor{ocra}{RGB}{218,165,32}
+
+% --- Righe orizzontali per il frontespizio ---
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+
+% --- Stili e ambienti (moderni, sobri, NON spezzabili) ---
+\declaretheoremstyle[name=Teorema,]{thmsty}
+\declaretheorem[style=thmsty, numberwithin=section]{theorem}
+\tcolorboxenvironment{theorem}{colback=white,colframe=TheoremFrame,coltitle=TheoremFrame,fonttitle=\bfseries,title=Teorema,breakable}
+
+\declaretheoremstyle[name=Proposizione,]{prosty}
+\declaretheorem[style=prosty, numberwithin=section]{proposition}
+\tcolorboxenvironment{proposition}{colback=white,colframe=PropositionFrame,coltitle=PropositionFrame,fonttitle=\bfseries,title=Proposizione,breakable}
+
+\declaretheoremstyle[name=Definizione,]{defsty}
+\declaretheorem[style=defsty, numberwithin=section]{definition}
+\tcolorboxenvironment{definition}{colback=white,colframe=DefinitionFrame,coltitle=DefinitionFrame,fonttitle=\bfseries,title=Definizione,breakable}
+
+\declaretheoremstyle[name=Esempio,]{expsty}
+\declaretheorem[style=expsty, numberwithin=section]{example}
+\tcolorboxenvironment{example}{colback=white,colframe=ExampleFrame,coltitle=ExampleFrame,fonttitle=\bfseries,title=Esempio,breakable}
+
+\declaretheoremstyle[name=Osservazione,]{obssty}
+\declaretheorem[style=obssty, numberwithin=section]{observation}
+\tcolorboxenvironment{observation}{colback=white,colframe=ObservationFrame,coltitle=ObservationFrame,fonttitle=\bfseries,title=Osservazione,breakable}
+
+\declaretheoremstyle[name=Dimostrazione,]{demsty}
+\declaretheorem[style=demsty, numberwithin=section]{dimostrazione}
+\tcolorboxenvironment{dimostrazione}{colback=white,colframe=ProofFrame,coltitle=ProofFrame,fonttitle=\bfseries,title=Dimostrazione,breakable}
+
+\declaretheoremstyle[name=Assioma,]{axsty}
+\declaretheorem[style=axsty, numberwithin=section]{axiom}
+\tcolorboxenvironment{axiom}{colback=white,colframe=AxiomFrame,coltitle=AxiomFrame,fonttitle=\bfseries,title=Assioma,breakable}
+
+\declaretheoremstyle[name=Proprietà,]{propsty}
+\declaretheorem[style=propsty, numberwithin=section]{property}
+\tcolorboxenvironment{property}{colback=white,colframe=PropertyFrame,coltitle=PropertyFrame,fonttitle=\bfseries,title=Proprietà,breakable}
+
+\declaretheoremstyle[name=Corollario,]{corsty}
+\declaretheorem[style=corsty, numberwithin=section]{corollary}
+\tcolorboxenvironment{corollary}{colback=white,colframe=CorollaryFrame,coltitle=CorollaryFrame,fonttitle=\bfseries,title=Corollario,breakable}
+
+\declaretheoremstyle[name=Criterio,]{criteriosty}
+\declaretheorem[style=criteriosty, numberwithin=section]{criterion}
+\tcolorboxenvironment{criterion}{colback=white,colframe=CriterionFrame,coltitle=CriterionFrame,fonttitle=\bfseries,title=Criterio,breakable}
+
+\declaretheoremstyle[name=Inciso]{incisosty}
+\declaretheorem[style=incisosty, numberwithin=section]{inciso}
+\tcolorboxenvironment{inciso}{colback=white,colframe=violet,coltitle=violet,fonttitle=\bfseries,title=Inciso,breakable}
+
+\declaretheoremstyle[name=Lemma,]{lemsty}
+\declaretheorem[style=lemsty, numberwithin=section]{lemma}
+\tcolorboxenvironment{lemma}{colback=white,colframe=LemmaFrame,coltitle=LemmaFrame,fonttitle=\bfseries,title=Lemma,breakable}
+
+\renewenvironment{proof}[1][Dimostrazione]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1.}]}{\hfill $\blacksquare$\end{trivlist}}
+
+\renewcommand{\labelenumi}{\Roman{enumi}.} 
+
+\setlength{\parskip}{6pt}   % oppure 0.5em
+\setlength{\parindent}{0pt}
+
+\titleclass{\subsubsubsection}{straight}[\subsubsection]
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\arabic{subsubsubsection}}
+\titleformat{\subsubsubsection}
+    {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+\titlespacing*{\subsubsubsection}{0pt}{1ex plus .1ex minus .2ex}{1ex plus .2ex}
+
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{5}{\z@}%
+    {-3.25ex\@plus -1ex \@minus -.2ex}%
+    {1.5ex \@plus .2ex}%
+    {\normalfont\normalsize\bfseries}}
+\makeatother
+
+% --- Per abilitare intestazioni diverse per pari/dispari ---
+\makeatletter
+\def\ps@fancy{%
+    \let\@oddhead\@fancyhead
+    \let\@evenhead\@fancyhead
+    \let\@oddfoot\@fancyfoot
+    \let\@evenfoot\@fancyfoot
+}
+\makeatother
+
+\makeatletter
+\newcommand{\lettergroup}[1]{\@idxalph{#1}}
+\renewenvironment{theindex}
+    {\clearpage
+        \begin{center}
+        {\LARGE\bfseries\color{black}\customindexname}
+        \end{center}\par
+        \begin{multicols*}{2}
+        \setlength{\columnseprule}{0pt}
+        \setlength{\columnsep}{1cm}
+        \raggedright
+        \def\@idxitem{\par\hangindent 20pt}
+        \def\subitem{\par\hangindent 30pt \hspace*{10pt}}
+        \def\subsubitem{\par\hangindent 40pt \hspace*{20pt}}
+        \def\indexspace{\vskip 1em}
+        \def\@idxlabel##1{\textbf{##1}\hfill}
+        \def\@idxalph##1{%
+        \par\vskip 1em%
+        {\Large\bfseries\color{blue!50!black}\lettrine[lines=1,loversize=0.15]{##1}{}}\nopagebreak\vskip 0.5em%
+        }
+        \let\item\@idxitem
+    }
+    {\end{multicols*}}
+\makeatother
+
+
+% ------------------------------------------------------------------------------
+\begin{document}
+
+% --- Frontespizio ---
+\title{ 
+    \vfill
+    \HRule{1.5pt} \\
+    \LARGE \textbf{\uppercase{Meccanica Analitica}} \\
+    \HRule{2.0pt} \\ [0.6cm]
+    \LARGE{Appunti}
+    \vfill
+}
+\date{}
+\author{\textbf{Tommaso Nardi} \\ 
+        Prof. Omar Morandi \\
+        Università degli Studi di Firenze \\
+        2025--2026 \\
+        Aggiornato al \today}
+
+\maketitle
+\thispagestyle{empty}
+\cleardoublepage
+
+
+% --- Indice ---
+\tableofcontents
+\newpage
+
+% --- Capitoli (contenuto incluso esternamente) ---
+
+
+\cleardoublepage
+
+
+\input{Capitoli/Chapter_1.tex}
+\cleardoublepage
+\input{Capitoli/Chapter_2.tex}
+
+\end{document}
+
