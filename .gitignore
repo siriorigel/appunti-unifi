@@ -1,5 +1,5 @@
-**/tikz/
-**/svg-inkscape/
+**/tikz
+**/svg-inkscape
 **/*.synctex.gz
 **/*.auxlock
 **/*.fls
