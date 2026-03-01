@@ -1,0 +1,342 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Metodi}
+\author{Tommaso Miliani}
+\date{27-02-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Esempi}
+\begin{theorem}[Calcolo del raggio di convergenza]
+    Il raggio di convergenza è dato da
+    \begin{align}
+        R_a = \frac{1}{\lim_{n \to \infty }  \sup  \sqrt[n]{\left| a_n \right| }} 
+    \end{align}
+\end{theorem}
+\begin{example}[Serie geometrica]
+    \begin{gather*}
+        \sum_{n =0 }^{\infty } z^{n} \qquad z \in \mathbb{C} 
+    \end{gather*}
+    Si è visto che il raggio di convergenza è esattamente 1. La somma
+    di questa serie si può calcolare attraverso le somme parziali:
+    \begin{gather*}
+        \sum_{n = 0}^{N} z^{n} = \frac{1 - z^{N + 1}}{1 - z} 
+    \end{gather*}
+    Se $\left| z \right| < 1$ nel limite con $n \to \infty $, si ottiene esattamente 
+    \begin{gather*}
+        \frac{1}{1 - z}
+    \end{gather*} 
+    Se invece si fosse sul bordo del cerchio di convergenza, i termini non sono 
+    infinitesimi in nessun punto della circonferenza: anche se è limitata, 
+    non converge perché i termini non sono limitati.
+\end{example}
+
+\begin{example}[Serie logaritmica]
+    \begin{gather*}
+        \sum_{n = 1}^{\infty } \frac{(-1)^{n - 1}}{n}z^{n} \qquad z 
+    \end{gather*}
+    Che si ottiene sviluppando il logaritmo. Si può far vedere che il raggio di 
+    convergenza non può essere maggiore di 1. Se il modulo è minore di 1, allora si 
+    maggiora con la serie geometrica. Altrimenti, se  $\left| z \right| > 1$, 
+    \begin{gather*}
+        \frac{\left| z \right|^{n} }{n} \to \infty 
+    \end{gather*} 
+    Dunque il raggio di convergenza è ancora 1. Nel caso in cui ci si trovasse sulla circonferenza, 
+    nel caso di $z = -1$ diverge, altrimenti, se $z = 1$, converge. La convergenza si ha in tutti i punti della circonferenza 
+    tranne per $-1$. 
+\end{example}
+
+\begin{example}[Serie dilogaritmica]
+    \begin{gather*}
+        \sum_{n = 1}^{\infty } \frac{1}{n^{2}}z^{n} 
+    \end{gather*}
+    COn gli stessi ragionamenti il raggio di convergenza è uno. Converge per raggio 
+    minore di 1 poiché è maggiorata da altre serie (come le altre due). Nel caso
+    in cui ci si trovi sul bordo, si può utilizzare il teorema del confronto
+    \begin{gather*}
+        \frac{1}{n^{2}}\left| z \right|^{n} = \frac{1}{n^{2}} 
+    \end{gather*}
+    Questo perché la serie $\frac{1}{n^{2}}$ converge a $\frac{\pi}{6}$.
+\end{example}
+
+\begin{example}[Serie esponenziale]
+    \begin{gather*}
+        \sum_{n = 0}^{\infty }\frac{1}{n!} z^{n} 
+    \end{gather*}
+    Questa serie definisce l'esponenziale di $z$, questa 
+    serie è $\infty $ poiché il fattoriale cresce sempre più velocemente 
+    di $z^{n}$, per qualunque valore. Il fattoriale compensa 
+    qualsiasi potenza che avrà $z$ e dunque tende rapidamente a zero 
+    per qualunque valore di $z$ ed è convergente su tutto il piano 
+    complesso (si utilizza per definire l'esponenziale complesso).
+\end{example}
+
+\begin{example}[Serie che non congerge mai, tranne che a zero]
+    \begin{gather*}
+        \sum_{n = 0}^{\infty } n!  z^{n} 
+    \end{gather*}
+    Converge solo per $z = 0$ per le considerazioni fatte prima. Il suo 
+    raggio di convergenza è zero. 
+\end{example} 
+
+\section{Serie di potenza come funzione di $z$}
+Fino ad ora si è visto il comportamento delle serie di potenze per un certo 
+valore di $z$. Adesso si vuole vedere le serie delle potenze dal punto di vista 
+funzionale. Una serie di potenze è una funzione di $z$ definita sul cerchio di convergenza 
+e dunque è possibile vederla come una serie di funzioni. Ci si vuole chiedere che
+tipo di convergenza si ha nello spazio di funzioni. Fino ad ora si è analizzata la 
+convergenza puntuale delle serie, mentre ora si vuole vedere come convergono se 
+sono interpretate come funzioni. 
+\begin{definition}[Norma infinito o sup-norma]
+    SI definisce la \textbf{norma infinito} come 
+    \begin{align}
+        \left\lVert f \right\rVert _{\infty } \equiv \sup\{\left| f(z) \right| : z \in X \}
+    \end{align}
+    Dove $X$ è il dominio di $f$. Se si limita il modulo, questo sup ha un valore 
+    ben definito (altrimenti infinito). Se si considera l'insieme di tutte le funzioni 
+    su un determinato dominio, essa non è mai definita, poiché esistono sempre funzioni 
+    che divergono anche quando il dominio è ben definito (sulla frontiera). IN generale, 
+    se non si restringe il dominio delle funzioni che si considerano, allora 
+    essa non è una buona definizione di norma poiché diventerà infinita. 
+\end{definition} \noindent
+Adesso è possibile introdurre il seguente criterio. 
+\begin{theorem}[Criterio della convergenza uniforme]
+    Essenzialmente questa è la convergenza in norma-infinito. Dato un insieme di funzioni 
+    \begin{align}
+        \{f_\infty \}_{n \in \mathbb{N}} : X \to \mathbb{C}
+    \end{align}
+    Questa successione converge \textbf{uniformemente} a $f$ finita se
+    \begin{gather*}
+        \forall \epsilon > 0 \exists n_\epsilon : \left\lVert f - f_\infty  \right\rVert _{\infty } \leq \epsilon \quad \forall n \geq n_\epsilon 
+    \end{gather*}
+    Ossia
+    \begin{gather*}
+        \lim_{n \to \infty } \left\lVert f - f_\infty  \right\rVert _{\infty } > 0  
+    \end{gather*}
+    $n_\epsilon$ non dipende da $z$, dunque per tutti i punti del dominio
+    si ha convergenza nella stessa maniera. Graficamente, tutte le funzioni 
+    stanno in una sorta di "intorno" della funzione $f$. L'ampiezza di questo intervallo
+    non dipende da $z$, garantendo la convergenza uniforme. Mentre per la convergenza
+    puntuale non è detto: per alcuni valori di $z$ posso andarci più velocemente 
+    o più lentamente di altri valori di $z$. Esistono dunque funzioni che 
+    convergono puntualmente ma non uniformemente.
+\end{theorem}
+
+\begin{corollary}
+    convergenza uniforme $\ \Longrightarrow \ $ convergenza puntuale. Non è vero
+     il contrario.
+\end{corollary}
+\noindent
+È possibile creare uno spazio di funzioni in cui la norma-infinito è una vera norma? 
+Sì se si restringe lo spazio alle funzioni limitate (su di un certo dominio $X$). 
+Lo spazio $B(x)$ delle funzioni limitate in modulo, è uno spazio normato, con norma 
+la norma-infinito. È facile vedere che questa norma è lineare e si annulla se e 
+solo se $f$ è nulla. L'unica proprietà non banale è la disuguaglianza triangolare.
+\begin{gather*}
+    \left| f(z) + g(z) \right| \leq \left| f(z) \right| + \left| g(z) \right|   
+\end{gather*}
+Ponendo il sup a destra e a sinistra, si ottiene 
+\begin{gather*}
+    \sup     \left| f(z) + g(z) \right| \leq  \sup\left(\left| f(z) \right| + \left| g(z) \right|  \right) \leq \sup \left| f \right| + \sup \left| g \right|  
+\end{gather*}
+DUnque 
+\begin{gather*}
+    \left\lVert f + g \right\rVert  _{\infty } \leq \left\lVert f \right\rVert _{\infty }  + \left\lVert g \right\rVert  _{\infty }
+\end{gather*}
+$B(x)$ è completo rispetto alla norma infinito, anche se la dimostrazione completa non è richiesta, 
+si può impostare la dimostrazione nel seguente modo: \\ \noindent
+Presa una $\{f_n\}$ di Cauchy, punto per punto si ottiene, se $\left\lVert f - f_\infty  \right\rVert  _{\infty } < \epsilon$, $n, m > N_\epsilon$. 
+Dunque punto per punto converge ad uno $z$ fissato
+\begin{gather*}
+    \left| f_n(z) - f_m(z) \right|  < \epsilon \ \Longrightarrow \ f_n(z) \to f(z)
+\end{gather*}
+Come si dimostra che converge anche uniformemente? Si Prende 
+\begin{gather*}
+    \lim_{m \to \infty } \left\lVert f_n - f_m \right\rVert   _{\infty } \to \left\lVert f_n - f \right\rVert _{\infty } < \epsilon
+\end{gather*}
+Per il passaggio precedente $f_m$ va a $f$, dato che questa è minore di  per la parte di prima, 
+allora converge anche uniformemente con $n > N_\epsilon$. 
+
+\subsection{Il sottospazio}
+Questo sottospazio ha le stesse proprietà di $B(x)$, che contiene funzioni limitate 
+e continue, ossia lo spazio $C_b(x)$. Esso è 
+\begin{itemize}
+    \item Spazio normato con la norma-infinito
+    \item Completo: non è equivalente alla completezza di $B(x)$;
+    infatti non dice solo che la successione di funzioni limitate e continue converge a
+    funzioni limitate, ma anche che le funzioni verso cui convergono sono anch'esse continue
+    se ottenute con il limite uniforme. 
+\end{itemize}
+Il limite uniforme permette di scambiare l'ordine delle funzioni limitate e continue: 
+prese un insieme di funzioni $\{f_n\} \in C_b(x)$, si può fare il limite che tende 
+all'infinito o ad un certo $z_0$. Questi due limiti si possono scambiare 
+\begin{gather*}
+    \lim_{n \to \infty } f_n(z) \to f(z) \\
+    \lim_{z \to z_0} f_n(z) = ?  
+\end{gather*}
+Se si suppone che esista il primo limite in modo uniforme, e che esistano i limiti
+\begin{gather*}
+    \lim_{z \to z_0} f_n(z)  = l_n < \infty  
+\end{gather*}
+Allora 
+\begin{gather*}
+    l = \lim_{n \to \infty } l_n  
+\end{gather*}
+Esiste limitato e, inoltre, 
+\begin{gather*}
+    l = \lim_{z \to z_0} f(z) 
+\end{gather*}
+In altre parole 
+\begin{gather*}
+    \lim_{z \to z_0} \left(\lim_{n \to \infty } f_n(z)\right)  = \lim_{n \to \infty } \left(\lim_{z \to z_0} f_n(z) \right) 
+\end{gather*}
+Quando si fanno questi limiti ci interessa porsi nell'intorno di $z_0$.
+\begin{example}
+    La funzione $f(x)  =\frac{1}{x}$, anche se non è limita, si può limitare 
+    il dominio ad un intervallo più piccolo in cui essa è limitata, in quanto non ci interessa 
+    il resto del dominino, dunque in un punto come $x = 1$ il limite esiste finito. 
+\end{example}
+
+\subsection{La convergenza totale}
+\begin{definition}[Convergenza totale]
+    Le serie di potenze
+    \begin{gather*}
+        \sum_{n} f_n 
+    \end{gather*}
+    Con $f_n$ limitate, convergono totalmente se
+    \begin{gather*}
+        \sum_{n } \left\lVert f_n \right\rVert   _{\infty }
+    \end{gather*}
+    Converge. 
+\end{definition}
+
+\begin{theorem}
+    Se $\sum_{n} f_n$ converge totalmente, allora essa converge 
+    uniformemente 
+\end{theorem}
+\begin{proof}
+    La dimostrazione non è richiesta all'esame. Si definisce la ridotta 
+    \begin{gather*}
+        S_N \equiv \sum_{n = 0}^{N} f_n 
+    \end{gather*}
+    Si introduce la ridotta della serie delle norme come 
+    \begin{gather*}
+        \sigma \equiv \sum_{n = 0}^{N } \left\lVert f_n \right\rVert _{\infty }  
+    \end{gather*}
+    DUnque 
+    \begin{gather*}
+        \left\lVert S_{N + p} - S_N \right\rVert _{\infty } = \left\lVert \sum_{n  = N + 1}^{N + p} f_n  \right\rVert _{\infty } \leq \sum_{n = N + 1}^{N + p} \left\lVert f_n \right\rVert   _{\infty } = \left| \sigma_{N + p} - \sigma_N \right| \to 0 
+    \end{gather*}
+    Si applica la disuguaglianza triangolare per trovare le 
+    maggiorazioni. Ottenendo dunque la convergenza uniforme . 
+\end{proof}
+
+\begin{example}[Funzione gradino]
+    UNa funzione gradino è una funzione del tipo 
+    \begin{gather*}
+        f_n = \left\{\begin{array}{l}
+            \frac{1}{n} \qquad n < x < n + 1 \\
+            0
+        \end{array}\right.
+    \end{gather*}
+    CIoè, essendo discontinua, è a gradini.
+    \begin{gather*}
+        \sum_{n = 1}^{\infty } f_n \to f 
+    \end{gather*}
+    Converge a $f$. Tuttavia, per verificare che converga uniformemente si esegue 
+    la differenza tra $f_n$ e la ridotta fino a $N$: in questo modo 
+    rimane tutti gli scalini da $N$ a $\infty $. Dunque il massimo del modulo della 
+    funzione sarà 
+    \begin{gather*}
+        \left\lVert \sum_{n = 1}^{N}  f_n - f\right\rVert _{\infty } = \frac{1}{N + 1}
+    \end{gather*}
+    Se si fa la differenza tra le somme parziali, e la $f$ finale converge, allora converge uniformemente. Tuttavia diverge assolutamente:
+    \begin{gather*}
+        \sum \left\lVert f_n \right\rVert _{\infty } = \sum \frac{1}{n} \to \infty 
+    \end{gather*}
+\end{example}
+
+\begin{theorem}
+    Presa una serie $\{f_A\} \in B(x)$. Se esiste una serie $C_n$ di numeri
+    reali positivi tali che 
+    \begin{gather*}
+        \sum C_n < \infty 
+    \end{gather*}
+    E tale che $\left\lVert f_n \right\rVert _{\infty } \leq C_n$, 
+    allora  $\sum f_n$ converge totalmente. 
+\end{theorem}
+
+\begin{theorem}
+    Una serie di potenze (quando vista come spazio di funzioni), all'interno 
+    del cerchio di convergenza ha convergenza totale in un raggio $r < R_a$. 
+\end{theorem}
+\begin{proof}
+    Si dimostra con il criterio del confronto. Presa una serie 
+    \begin{gather*}
+        \sum_{n} a_n z^{n} 
+    \end{gather*}
+    Con raggio di convergenza $R_a$. Si considera il disco $B(0, r]$ di raggio $r$. Si considera 
+    ogni 
+    \begin{gather*}
+        f_n(z) = a_n z^{n}
+    \end{gather*}
+    Che è definita come un monomio (ci si stringe al disco). Si sa che, 
+    se si prendesse $r = \left| z \right|$, la serie $\sum_{n} a_n r^{n} < \infty $
+    si ha convergenza puntuale (in particolar modo è anche assoluta con $\left| a_n \right|$ ):
+    $\sum \left| a_n \right|r^{n} < \infty $. Si valuta ora 
+    \begin{gather*}
+        \left\lVert f_n \right\rVert _{\infty } = \sup_{\left| z \right| \leq r } \left| f_n (z) \right| = \sup_{\left| z \right| \leq r } \left| a_n \right| \left| z \right|^{n} \leq \left| a_n \right| \left| r \right|^{n}    
+    \end{gather*} 
+    Si è maggiorato ogni norma infinito con un termine che è assolutamente convergente. Dunque anche la serie di funzioni 
+    a norma infinito converge con convergenza totale. 
+\end{proof}
+
+
+\end{document}

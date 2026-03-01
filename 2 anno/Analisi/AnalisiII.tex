@@ -777,4 +777,135 @@ e posso esprimerla (se le soluzioni sono $y_1$ e $y_2$)
 \end{theorem}
 
 
+
+
+\appendix
+\chapter{Risoluzione degli esercizi}
+\section{Equazioni differenziali di primo ordine}
+\subsection{Immediate}
+Le equazioni differenziali immediate sono quelle della tipologia
+\begin{gather*}
+    y'(x) = f(x)  \ \Longrightarrow \ y \int f(x) \ dx
+\end{gather*}
+
+\subsection{Variabili separate}
+Le equazioni differenziali a variabili separate sono quelle che possono essere risolte 
+separando $y$ da una parte e $x$ dall'altra e integrando:
+\begin{gather*}
+    y' = a(x) b(y) \ \Longrightarrow \ \int\frac{dy}{b(y)} = \int a(x) \ dx 
+\end{gather*}
+
+\subsection{Lineari}
+Le EDO lineari sono del tipo 
+\begin{gather*}
+    y' + a(x) y = f(x) 
+\end{gather*}
+Si risolvono nel seguente modo, posto $A(x) = \int a(x)  \ dx$: 
+\begin{gather*}
+    e^{A(x)}y' + a(x)e^{A(x)}y = e^{A(x)}f(x)  \\
+     \left(ye^{A(x)}\right)' = e^{A(x)}f(x) 
+\end{gather*}
+Si integra adesso da entrambe le parti 
+\begin{gather*}
+    y(x) = e^{-A(x)}\int e^{A(x)}f(x)  \ dx  
+\end{gather*}
+
+\subsection{Sostituzione}
+Se non fosse immediata, o presentasse dei termini $y^{n}$, si possono comunque 
+risolvere secondo i metodi illustrati semplicemente operando un opportuna sostituzione:
+\begin{gather*}
+    t = yf(x) 
+\end{gather*}
+Dunque 
+\begin{gather*}
+    y' = \left(tf(x) ^{-1}\right)' 
+\end{gather*}
+Si risolve ora la differenziale in funzione di $t$ e si sostituisce una 
+volta trovata la soluzione per $t(x)$ secondo i metodi visti prima. 
+
+\section{Equazioni differenziali di secondo ordine}
+\subsection{Soluzione generale di EDO II ordine}
+Un'equazione del tipo 
+\begin{gather*}
+    ay''(x) + by'(x) + cy(x) = 0 
+\end{gather*}
+Si risolve col polinomio caratteristico:
+\begin{gather*}
+    a\lambda^{2} + b\lambda + c
+\end{gather*}
+Adesso si hanno tre casi distinti
+\begin{gather*}
+    \begin{array}{l}
+        \text{Tipo di soluzioni} \\
+        \text{2 sol reali distinte} \\
+        \text{2 sol reali coincidenti} \\
+        \text{2 soluzioni complesse} 
+    \end{array}  \ \Longrightarrow \ 
+    \begin{array}{l}
+        \text{Soluzioni} \\
+        y(x) = c_1 e^{\lambda_1 x} + c_2e^{\lambda_2 x} \\
+        y(x) = c_1 e^{\lambda_1 x} + c_2xe^{\lambda_2 x} \\
+        y(x) = c_1e^{\alpha x}\cos(\beta x) + c_2e^{\alpha x}\sin(\beta x) 
+    \end{array} \ \Longrightarrow \ 
+    \begin{array}{l}
+        \text{Base} \\
+        \left< e^{\lambda_1 x}, e^{\lambda_2x} \right> \\
+        \left< e^{\lambda_1 x}, xe^{\lambda_2 x} \right> \\
+        \left< e^{\alpha x}\cos(\beta x), e^{\alpha x}\sin(\beta x) \right> 
+    \end{array}
+\end{gather*}
+Dunque le soluzioni generali sono la combinazione lineare della base 
+costituita dalle soluzioni.
+
+
+\subsection{Variabili costanti}
+Un'equazione del tipo
+\begin{gather*}
+    ay''(x) + by'(x) + c y(x) = f(x) 
+\end{gather*}
+Si cerca la soluzione omogenea $y_0(x)$ con il metodo precedente, dunque si calcola
+la soluzione particolare $y_p(x)$ della forma $c_1(x)y_1(x) + c_2y_2(x)$, in pratica la soluzione 
+totale risulterà traslata rispetto all'omogenea associata. Si risolve il sistema
+\begin{gather*}
+    \left\{\begin{array}{l}
+        c_1'(x) y_1(x) + c_2'(x) y_2(x) = 0 \\
+        c_1'(x)y_1'(x) + c_2'(x)y_2'(x) = f(x) 
+    \end{array}\right.
+\end{gather*}
+Si integra poi per trovare $c_1(x)$ e $c_2(x)$. Dunque si ottiene la soluzione generale come 
+\begin{gather*}
+    y(x) = y_0(x) + y_P(x)
+\end{gather*}
+Dove 
+\begin{gather*}
+    y_P(x) = c_1(x)y_1(x) + c_2(x)y_2(x)
+\end{gather*}
+Ossia la soluzione particolare trasla il sottospazio individuato dallo spazio
+delle soluzioni $y_0(x)$. 
+
+\subsection{Equazioni differenziali di secondo ordine per somiglianza}
+Permettono di trovare la soluzione generale alle equazioni differenziali di 
+secondo ordine. La soluzione si articola nella seguente maniera: data una 
+equazione del tipo
+\begin{gather*}
+    ay''(x) + by'(x) + cy(x) = P(x) \vee e^{\lambda x} \vee \sin(\mathcal{B}x) \vee \cos(\mathcal{B}x) \vee \sin^{m}(\mathcal{B}x) \cdot \cos^{n}(\mathcal{B}x)
+\end{gather*}
+Si risolve l'omogenea associata secondo il metodo generale. Una volta trovata la soluzione generale, 
+si considerano $P_1(x)$ e $P_2(x)$ due polinomi generici dello stesso grado di $P(x)$ 
+con coefficienti da determinare (nel caso in cui a destra ci sia un polinomio). 
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \lambda_{1, 2} \neq \Lambda \wedge  \beta = 0 \ \Longrightarrow \ y_P(x) = \overline{P}(x) \vee e^{\Lambda x} \\
+        \text{soluzioni distinte} \ \Longrightarrow \ y_P(x) = x\overline{P}(x) \wedge  xe^{\Lambda x} \\
+        \text{Soluzioni coincidenti} \ \Longrightarrow \ \lambda_1 = \lambda_2  = \Lambda \wedge  \beta = 0 \ \Longrightarrow \ y_P(x) = x^{2} \overline{P}(x) \vee x^{2}e^{\Lambda x} \\
+        \alpha \neq \Lambda \vee \beta \neq \mathcal{B} \ \Longrightarrow \ y_P(x) = e^{\Lambda x} \vee \left(\overline{P_1}(x) \cos(\mathcal{B}x) + \overline{P_2}(x) \sin(\mathcal{B}x) \right)  \\
+        \alpha = \Lambda \wedge \beta = \mathcal{B} \ \Longrightarrow \ y_P(x) = xe^{\Lambda x} \vee \left(\overline{P_1}(x) \cos(\mathcal{B}x) + \overline{P_2}(x) \sin(\mathcal{B}x) \right)
+    \end{array}\right.
+\end{gather*}
+Per determinare i polinomi $\overline{P_1}(x)$ e $\overline{P_2}(x)$ si determinano calcolando 
+$y'_P(x)$ e $y_P''(x)$ e si sostituiscono nell'equazione differenziale di 
+partenza. Si raccoglie i termini nei coseni e nei seni e si uguagliano ai coefficienti 
+del polinomio che moltiplica il seno o il coseno.   
+
+
 \end{document}

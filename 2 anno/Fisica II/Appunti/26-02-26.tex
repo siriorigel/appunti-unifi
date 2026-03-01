@@ -1,0 +1,431 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fisica II}
+\author{Tommaso Miliani}
+\date{26-02-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{\underline{Esempio}}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{La prima legge di Maxwell}
+Data una superficie $S$ chiusa, si fa l'integrale 
+\begin{gather*}
+    \int_{S}^{}  \vv{E} \cdot \hat{n} \ dS = \frac{Q_{int}}{\epsilon_0} 
+\end{gather*}
+Si integra su tutto il dominio dei punti che appartengono alla superficie $S$,
+una superficie però definisce anche un volume $\tau$, si può dunque 
+riscrivere l'integrale come 
+\begin{gather*}
+    \int_{\tau} \frac{\rho(\vv{r} )}{\epsilon_0} \ d\tau = \frac{Q_{int}}{\epsilon_0}
+\end{gather*}
+Si assume che all'interno del volume si possa definire una densità per volume 
+di carica (per ogni volumetto $d\tau$). Se c'è carica, allora
+\begin{gather*}
+    dQ = \rho\ d\tau
+\end{gather*}
+Se invece non c'è carica allora è nulla poiché la densità di carica è nulla (ovviamente).
+Secondo il teorema della divergenza (le condizioni valgono sempre), si ha che
+\begin{gather*}
+    \int_{S} \vv{E} \cdot \hat{n} \ dS = \int_{\tau} \vv{\nabla} \cdot \vv{E}  = \int_{\tau} \frac{\rho (\vv{r} )}{\epsilon_0} \ d\tau
+\end{gather*}
+SI può dire che $S$ è al bordo del volume $\tau$. Queste due uguaglianze dicono che si hanno due 
+integrali che si eguagliano (gli ultimi due) e queste relazioni valgono per qualunque volumetto $d\tau$ scelto 
+(perché vale per qualsiasi $dS$ scelto), questo porta a dire che la funzione integranda è 
+uguale:
+\begin{align}
+        \vv{\nabla} \cdot \vv{E} = \frac{\rho}{\epsilon_0}  
+\end{align}
+Ossia la \textbf{Prima equazione di Maxwell}. Comunque sono distribuite le cariche nell'universo,
+ola divergenza vale solo per la carica considerata localmente (in quanto è stata ricavata da considerazioni 
+locali).
+
+\subsection{Coordinate cilindriche e notazione di Einstein}
+In coordinate cartesiane l'equazione di Maxwell diventa
+\begin{gather*}
+    \frac{\partial E_x}{\partial x} + \frac{\partial E_y}{\partial y} + \frac{\partial E_z}{\partial z} = \frac{\rho}{\epsilon_0}   
+\end{gather*}
+Si utilizza in questo corso la notazione di Einstein per indicare la divergenza, i prodotti scalari e 
+prodotti vettoriali associando le coordinate spaziali a numeri: $x = 1$, $y = 2$, $z = 3$:
+\begin{gather*}
+    \sum_{i = 1}^{n} \frac{\partial E_i}{\partial i} = \frac{\rho}{\epsilon_0} \ \Longrightarrow \ \frac{\partial E_i}{\partial i} = \frac{\rho}{\epsilon_0}   
+\end{gather*}
+La somma è omessa per semplicità e velocità di scrittura (l'indice ripetuto per due quantità vettoriali diverse sottintende 
+la sommatoria).
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (2, 0) node[at end, below] {$\hat{y} $};
+        \draw[->](0, 0) -- (-1, -0.75) node[at end, left] {$\hat{x}$ };
+        \draw[->](0, 0) -- (0, 2.5) node[at end, left] {$\hat{z}$ };
+        \draw(0, 0) -- (1, -1);
+        \draw(1, -1) -- (1, 1);
+        \filldraw(1, 1) circle(1pt) node[anchor = west] {$P$};
+        \draw(1, 1) -- (0, 2);
+        \draw(-0.5, -0.375) arc (-130:-67:1) node[midway, below] {$\phi$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+\noindent
+Le coordinate cilindriche sono ricavate a partire da quelle cartesiane 
+nella seguente maniera: dato un punto $P$ sul piano cartesiano $P:(x, y)$, 
+si indica l'angolo che il vettore $P$ ha rispetto all'asse $x$ con $\phi$,
+dunque 
+\begin{gather*}
+    \begin{array}{l}
+        x = r\cos\phi \\
+        y = r\sin\phi
+    \end{array} \quad 
+    \begin{array}{l}
+        r = \sqrt{x^{2} + y^{2}} \\
+        \tan\phi = \frac{y}{x} 
+    \end{array}
+\end{gather*}
+In un sistema tridimensionale si associano comunque le coordinate $\phi$ ed $r$ nella 
+medesima maniera, tuttavia si utilizza la coordinata $z$ per ottenere l'altezza (come nel disegno):
+\begin{gather*}
+    \begin{array}{l}
+        x = r\cos\phi \\
+        y = r\sin\phi \\
+        z = z
+    \end{array}
+\end{gather*}
+Si devono introdurre ora i \textbf{versori curvilinei}:
+$\hat{r} $ e $\hat{\phi}$ descrive l'incremento angolare ed è normale a
+$\hat{r}$. Si ha allora che
+\begin{gather*}
+    \begin{array}{l}
+        \hat{r} = \hat{x}\cos\phi  + \hat{y}\sin\phi \\
+        \hat{\phi} = -\hat{x}\sin\phi + \hat{y}\cos\phi   \\
+        \hat{z} = \hat{z}  
+    \end{array}
+\end{gather*}
+Si può provare che rispettano le regole del prodotto scalare e
+del prodotto vettoriale. I versori polari, quando si sposta 
+il punto, cambiano direzione e dunque dipendono dal tempo. Questa è 
+una conseguenza dell'operatore nabla: le coordinate $x, y, z$ hanno le
+stesse unità di misura mentre le coordinate polari no, dunque si deve 
+considerare l'incremento di lunghezza quando ci si muove lungo lungo $\hat{\phi}$.
+In coordinate cartesiane si sarebbe scritto
+\begin{gather*}
+    \vv{dl} = dx \hat{x} + dy \hat{y}   
+\end{gather*} 
+In coordinate cilindriche, lo spostamento di un certo $\vv{dl}$ si esprime 
+come 
+\begin{gather*}
+    \vv{dl} = dr \hat{r} + rd\theta \hat{\theta}   
+\end{gather*}
+Quando si fa la divergenza si deriva per $\theta$ e si deve tenere conto
+del fatto che cambia anche la direzione di $\hat{\theta}$ quando ci si sposta. 
+\begin{example}[L'esempio del filo con le coordinate cilindriche]
+    L'esempio del filo infinito può essere espresso mediante le coordinate cilindriche:
+    \begin{gather*}
+        \vv{E}(r, \phi, z) = E_r(r, \phi, z)\hat{r} + E_\phi(r, \phi, z) \hat{\phi} + E_z(r, \phi, z) \hat{z}   
+    \end{gather*}
+    Dunque potrei, data l'invarianza traslazionale rispetto alla $z$ e 
+    la simmetria cilindrica, il campo non potrà dipendere né da $z$, né 
+    dall'angolo $\phi$ rispetto all'asse $\hat{x}$ dal quale 
+    lo vedo (invarianza rotazionale). Il campo non può essere 
+    diretto lungo l'asse $z$ poiché non può dipendere né se ci si 
+    sposta verso l'alto né se ci si sposta verso il basso: dunque
+    è impossibile avere una dipendenza da $z$ se c'è invarianza traslazionale, 
+    poiché altrimenti l'alto del filo ed il basso del filo sarebbero diversi tra loro,
+    anche se, per le ipotesi del problema, il filo è infinito e ha distribuzione omogenea e 
+    lineare di carica. Inoltre non può dipendere da $\phi$ poiché comunque lo si guardi 
+    il filo, per lo stesso ragionamento fatto per l'asse $z$, non cambia se $\phi = 0$°, 
+    $\phi = 90$°. Dunque il campo si esprime come 
+    \begin{gather*}
+        \vv{E}(x, \phi, z) = \frac{\lambda}{2\pi\epsilon_0r} \hat{r}  
+    \end{gather*}
+\end{example}
+
+\begin{example}
+    Supponendo di avere un filo infinito di spessore trascurabile e una densità lineare 
+    di carica ben definita $\lambda$. Si può utilizzare il teorema di Gauss 
+    per determinare il campo elettrico locale. Si può applicare il teorema di Gauss solo 
+    se si riesce a trovare un campo elettrico costante o nullo su quella superficie e, sfruttando
+    le simmetrie, si riduce la complessità del problema ad un solo grado di libertà. Se l'esercizio
+    è a simmetria cilindrica, l'unica variabile che deve trovare è solo la componente radiale del campo 
+    sapendo che dipende solo dalla distanza. A quel punto si deve trovare una superficie 
+    per cui si ha una relazione locale (le superfici sono dei cilindri concentrici al 
+    filo con altezza $h$ e raggio $r$). Il flusso attraverso questo cilindro è
+    \begin{gather*}
+        \Phi_{S}(\vv{E} ) = \Psi_{S_1}(\vv{E} ) + \Psi_{S_2}(\vv{E} ) +\Psi_{S_L}(\vv{E} )
+    \end{gather*}
+    Il primo contributo è zero poiché è ortogonale al campo, così come il secondo poiché le loro normali
+    sono lungo $\hat{r}$ e $\hat{r}$ mentre il terzo contributo ha la normale lungo $\hat{z}$. Dunque 
+    \begin{gather*}
+        \Phi_{S}(\vv{E}  ) = \int_{S_L} \vv{E} \cdot \hat{r} \ dS   
+    \end{gather*}   
+    QUesto integrale, per calcolarlo, si prende un elemento di superficie piccolo in modo tale che 
+    si possa risolvere l'integrale doppio:
+    \begin{gather*}
+        \int_{S} E_r(r) \ dS = \int_{z}^{z + h}\int_{0}^{2\pi}   E_r r\ d\theta \ dz = 2E(r)r\pi  h
+    \end{gather*}
+    Siccome $E(r)$ è costante, allora si poteva anche non fare l'integrale. 
+    L'altro pezzo del teorema di Gauss è 
+    \begin{gather*}
+        \frac{Q_{int}}{\epsilon_0} = \int_{z}^{z + h} \lambda \ dz' = \frac{\lambda h}{\epsilon_0}
+    \end{gather*}
+    La carica è ovviamente definita dalla densità di superficie del filo. Per il teorema di Gauss si equagliano 
+    \begin{gather*}
+        \frac{\lambda h}{\epsilon_0} = 2E(r)r\pi h
+    \end{gather*}
+    Dunque si ottiene 
+    \begin{gather*}
+        \vv{E} = \frac{\lambda}{2\pi\epsilon_0 r}\hat{r}  
+    \end{gather*}
+\end{example}
+
+\begin{example}[Il filo con sezione non nulla]
+    Nel caso in cui si avesse un filo infinito con sezione non 
+    nulla con raggio $R$ e densità di carica $\rho$, si deve anche determinare
+    i contributi dentro al filo. Invece di usare il principio di sovrapposizione 
+    direttamente porterebbe a grandi conti, dunque si utilizza Gauss in quanto si sfrutta 
+    la simmetria (anche in questo caso è invariante lungo la traslazione rispetto a $z$ e
+    rispetto alla rotazione intorno al filo). Dunque anche in questo caso il campo elettrico 
+    dipenderà solamente da $\hat{r}$:
+    \begin{gather*}
+        \vv{E}(r, \phi, z) = E_r(r)\hat{r}  
+    \end{gather*} 
+    Si deve però fare attenzione ad utilizzare il teorema di Gauss dentro e fuori dal filo
+    poiché hanno due contributi differenti e distinti. Utilizzando il teorema di Gauss:
+    \begin{gather*}
+        \int_{S} \vv{E} \cdot \hat{n} \ dS = \frac{1}{\epsilon_0} \int_{\tau} \rho(r) \ d\tau    
+    \end{gather*}
+    Nel teorema di Gauss $S = 2\tau$, nei fini pratici in questo problema, se il cilindro è più grande del filo
+    considerato, la $\rho$ è dentro al filo, dunque operativamente i due integrali sono diversi. Se invece il 
+    cilindro è esattamente quello del filo, allora la $\rho$ è su tutto il cilindro considerato. Per $r < R$
+    allora si ha che
+    \begin{gather*}
+        \int_{S} \vv{E} \cdot \hat{n} \ dS =   2E_r\pi r h = \frac{1}{\epsilon_0} \int_{\tau} \rho(r) \ d\tau = \frac{1}{\epsilon_0} \rho \pi r^{2} h
+    \end{gather*}
+    Ottenendo dunque 
+    \begin{gather*}
+        \vv{E} = \frac{\rho}{2\epsilon_0} r \hat{r}  
+    \end{gather*}
+    Dentro il filo il campo cresce linearmente fino al bordo del filo. $\rho$ non dipende 
+    più dal raggio del filo. \\
+    Nel caso in cui $r > R$ il primo integrale è uguale a quello prima, ma il 
+    secondo integrale si ferma a $R$, dunque conta solo il volume in cui c'è la carica dentro.
+    \begin{gather*}
+        2E_r\pi r h = \frac{1}{\epsilon_0}  \rho\pi R^{2} h
+    \end{gather*}
+    Ottenendo allora 
+    \begin{gather*}
+        \vv{E} = \frac{\rho R^{2}}{2\epsilon_0 r} \hat{r}  
+    \end{gather*}
+    Evidenziando dunque una dipendenza da $\frac{1}{r}$ quando si esce dal filo. 
+    Questo ragionamento è applicabile anche se $\rho(r)$ è una funzione del raggio
+    (ma non dipende da $\theta$ e dunque ha sempre simmetria cilindrica): va dunque 
+    fatto l'integrale. Un esempio è il caso in cui il filo abbia un foro concentrico 
+    (sempre cilindrico) al suo interno. In quel caso, se il raggio è $R_2$ e il raggio del buco $R_1$,
+    nel caso in cui $r < R_1$ il campo è nullo. \\ \noindent
+    Invece, se si considera $ R_1 < r < R_2$, la carica contenuta 
+    in questo volume è dato dalla seguente:
+    \begin{gather*}
+        2E_r\pi r h = \frac{\rho}{\epsilon_0} (\pi r^{2} - \pi R_1^{2}) h 
+    \end{gather*} 
+    Ossia si elimina il contributo del volume del buco. \\ \noindent
+    Se si prende ora $r > R_2$:
+    \begin{gather*}
+        2E_r\pi r h = \frac{\rho}{\epsilon_0} (\pi R_2^{2} - \pi R_1^{2})h
+    \end{gather*}
+    Dunque il grafico è zero fino a $R_1$, dopo va come un termine 
+    che cresce meno di un termine lineare e poi decade come $\frac{1}{r}$. 
+    Con il principio di sovrapposizione si deve considerare il segno 
+    della densità di carica, ottenendo che per il cilindro più interno si avrebbe 
+    sia un termine $\rho$ e $-\rho$, la soluzione che si è ricavato è dunque 
+    la somma delle soluzioni fino a $R_1$ poiché entrambi i campi crescono linearmente. Tra
+    $R_1$ e $R_2$ il termine negativo decresce come $\frac{1}{r}$ mentre l'altro cresce
+    come $r$. Quando si esce dal cilindro, invece, entrambi vanno come $\frac{1}{r}$.  
+\end{example} 
+
+\begin{example}[Filo pieno con densità $\rho$ risolto con Maxwell]
+    Nel caso di un filo con densità di carica $\rho$, si può ricavare con la divergenza 
+    il campo elettrico. Dato che $\rho(r)$, allora il problema è facilmente risolubile se 
+    si utilizza la divergenza in coordinate cilindriche. 
+    \begin{gather*}
+        \vv{\nabla} \cdot \vv{E} = \frac{\rho(r)}{\epsilon_0} \ \Longrightarrow \ \frac{1}{r} \frac{\partial rE_r}{\partial r} + \frac{1}{r} \frac{\partial E_\phi}{\partial \phi} + \frac{\partial E_z}{\partial z}     
+    \end{gather*}
+    Con questa formulazione, si è scomposto in coordinate cilindriche. DUnque non c'è componente $\phi$ e $z$
+    per via della simmetria del problema, dunque 
+    \begin{gather*}
+        \vv{\nabla} \cdot \vv{E} = \frac{1}{r} \frac{\partial rE_r}{\partial r}   
+    \end{gather*} 
+    Si divide dunque una regione dello spazio in cui $r < R$ e una regione in cui $r > R$. $r < R$:
+    \begin{gather*}
+        \int_{0}^{r} \frac{\partial rE_r}{\partial r} = \int_{0}^{r} \frac{\rho r}{r} \ dr ??? = \left.rE_r\right|_{0}^{r}  = \left.\frac{\rho}{\epsilon_0} \frac{r^{2}}{2}    \right|_{0}^{r} = rE_r(r) = \frac{\rho}{2\epsilon_0}r^{2}
+    \end{gather*}
+    Si ottiene allora che, dentro al filo
+    \begin{gather*}
+        \vv{E}(r) = \frac{\rho}{2\epsilon_0} r\hat{r}  
+    \end{gather*}
+    Per $r > R$:
+    \begin{gather*}
+        \frac{1}{r}\frac{\partial rE_r}{\partial r} = 0 
+    \end{gather*}
+    poiché fuori dal filo $\rho(r)  =0$. Integrando da entrambe le parti:
+    \begin{gather*}
+        rE_r = \text{const} \ \Longrightarrow \ E_r = \frac{c}{r}
+    \end{gather*}
+    Ossia una costante che non si conosce. Quello che si è scritto è che il campo è continuo 
+    rispetto ad una superficie data (ma non è sempre così: se sulla superficie esiste una densità
+    superficiale di carica allora non è continuo). Nel caso in cui $r = R$  si determina la costante come
+    \begin{gather*}
+        E(r) = \frac{\rho R}{2\epsilon_0} \qquad E_r(r) = \frac{c}{R} \ \Longrightarrow \ c = \frac{\rho R^{2}}{2\epsilon_0}
+    \end{gather*}
+    Se la funzione è continua vale l'ultima uguaglianza. Dunque si ottiene che, per $r > R$:
+    \begin{gather*}
+        \vv{E} = \frac{\rho R^{2}}{2\epsilon_0} \frac{1}{r}\hat{r}  
+    \end{gather*}
+    Se il filo perde spessore si può moltiplicare e divide per $\pi $ e si ottiene 
+    $\lambda = \rho \pi R^{2}$. 
+\end{example}
+
+\section{La densità superficiale di carica}
+Supponiamo di avere una lastra di materiale carica con densità di carica
+\begin{gather*}
+    \rho(x, y, z) = g(x, y) + f(z) 
+\end{gather*}
+Matematicamente la dipendenza tra $x, y$ fattorizza: la dipendenza 
+da $z$ cambia ma la forma funzionale rimane la stessa. Si suppone adesso
+che 
+\begin{gather*}
+    f(z) = \begin{array}{l}
+        \frac{1}{h} \qquad \left| z \right| < \frac{h}{2} \\
+        0 \qquad \left| z \right| > \frac{h}{2} 
+    \end{array}
+\end{gather*}
+La carica lungo $z$ è distribuita in modo uniforme dentro 
+la lastra. Dividendo la funzione per $\frac{h}{h}$, si chiama
+\begin{gather*}
+    \rho(x, y, z) = \sigma(x, y) \cdot \Theta(z) \qquad \sigma(x, y) = g(x, y) h
+\end{gather*}
+Se $h \to 0$ questa funzione tende verso l'infinito. Questa funzione $\Theta(z)$ è
+una funzione ben definita e dunque nell'intervallo $-\frac{h}{2}$ e $\frac{h}{2}$ 
+si può definire il seguente integrale:
+\begin{gather*}
+    \int_{-\frac{h}{2}}^{\frac{h}{2}} \Theta(z) \ dz = 1 
+\end{gather*}
+Questo integrale fa sempre uni qualunque sia $h$ perché si integra in un intervallo in cui la 
+funzione è sempre $\frac{1}{h}$, dunque è l'area del rettangolo $h \cdot \frac{1}{h}$. 
+Questo integrale include il caso in cui $h \to 0$. 
+Si definisce una distribuzione chiamata Delta di Dirak:
+\begin{gather*}
+    \delta(z) = \lim_{h \to 0}\Theta(z) 
+\end{gather*}
+È una funzione che è zero ovunque eccetto in un punto in cui vale 
+$\infty$. Si definisce questa funzione senza sapere come si costruisce. 
+Più in generale si può dare una definizione di funzione (o distribuzione)
+tale che
+\begin{gather*}
+    \delta(z) = \left\{\begin{array}{l}
+        \infty \qquad z = 0 \\
+        0 \qquad z \neq 0
+    \end{array}\right.
+\end{gather*}
+Questo infinito è un tipo di infinito integrabile tale per cui:
+\begin{gather*}
+    \int_{-1}^{1} \delta (z) \ dz = 1 
+\end{gather*}
+Questo perché gli infiniti hanno gerarchie e questo particolare infinito 
+è tale per cui è integrabile e si definisce un'altra proprietà:
+\begin{gather*}
+    \int_{-\infty }^{\infty } \eta(z) \delta (z - z_0)  \ dz 
+\end{gather*}
+Questa ha la proprietà tale per cui è uguale a $\eta(z_0)$. Queste tre proprietà
+definiscono in modo più generale la distribuzione delta di Dirak. Detto questo si studia
+la lastra sottile per vedere che, entro una certa approssimazione lo studio di 
+questa lastra non dipende dallo spessore della lastra. Se la carica è definita 
+su di un volume nullo, per far sì che la carica sia finita, l'integranda deve andare 
+all'infinito:
+\begin{gather*}
+    \rho = \sigma \Theta \ \Longrightarrow \ \sigma(x, y) \delta(z)
+\end{gather*} 
+Data
+\begin{gather*}
+    \vv{E} = \frac{1}{4\pi\epsilon_0} \int_{\tau} \frac{\rho(\vv{r'} )}{\left| r - r' \right|^{3} }(\vv{r} - \vv{r'}  ) \ d\tau  
+\end{gather*}
+Si trasforma in un integrale triplo (perché di volume):
+\begin{gather*}
+    \frac{1}{4\pi\epsilon_0} \int_{\tau} \frac{\sigma(x', y') \delta(z')(\vv{r} - \vv{r'}  )}{\left| \vv{r} -\vv{r'}   \right|^{3} } dx' dy' dz' 
+\end{gather*}
+L'integrale in $dz$ contiene una $\delta(z)$, per, per la proprietà della $\delta(z)$ 
+\begin{gather*}
+    = \frac{1}{4\pi\epsilon_0} \int_{S} \frac{\sigma(x', y')( \vv{r} - \vv{r'}  )}{\left| r - r' \right|^{3} }dx \ dy
+\end{gather*}
+Dunque, dato che
+\begin{gather*}
+    \left| \vv{r} - \vv{r'}   \right| = \sqrt{(x - x')^{2} + (y - y')^{2} + (z - z') ^{2}}  
+\end{gather*}
+Nell'ultimo integrale siamo solamente su di una superficie, per cui $z' = 0$. Dunque nell'integrale su $S$
+la stessa funzione diventa 
+\begin{gather*}
+        \left| \vv{r} - \vv{r'}   \right| = \sqrt{(x - x')^{2} + (y - y')^{2} + (z) ^{2}}  
+\end{gather*}
+Dunque è la distanza del punto del campo da un qualsiasi punto della sorgente che sta 
+sul piano $z = 0$. La lastra è dunque schiacciata a carica costante e dunque, 
+se l'integrale di volume rimane costante, aumenta la densità di carica, dunque se tende a zero 
+si utilizza il concetto di densità di superficie (il volume nullo mi dice che $\rho \to 0$, 
+e dunque si utilizza $\sigma$, ossia la densità di carica superficiale). La $\sigma$ può tendere a
+$\lambda = \rho \cdot \delta(z) \delta(x)$ (ossia si ottiene la densità di carica lineare per un filo schiacciando
+la terza dimensione). Il filo carico visto come $\rho$ è la stessa cosa della lastra schiacciata non più sun una sola dimensione,
+ma anche sull'altra:
+\begin{gather*}
+    \rho = \sigma(\delta z) \ \Longrightarrow \ \sigma = \lambda \delta (x) \qquad \rho = \lambda \delta(z) \delta(x)
+\end{gather*} 
+Se si schiacciasse anche la terza dimensione, si ottiene la carica puntiforme, ossia
+\begin{gather*}
+    \rho = q \delta(x) \delta (y)\delta(z) \equiv q\delta(\vv{r} )
+\end{gather*}
+
+
+
+\end{document}

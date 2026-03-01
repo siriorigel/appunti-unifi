@@ -1,0 +1,239 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Esercizi di fisica II}
+\author{Tommaso Miliani}
+\date{24-02-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Esercizi elettrostatica}
+\begin{example}[Esercizio 1 del compito dell'8/01/2007]
+    Quattro cariche che formano un quadrato di lato $L = 0.12$ m, le cui 
+    cariche sono $Q = 10^{-9}$ Coulomb. Calcolare il campo elettrico elettrico nel punto
+    $O$ e nel punto $M$. 
+    \begin{gather*}
+        \begin{tikzpicture}
+            \filldraw(-1, 1) circle (1pt) node[anchor = south] {D};
+            \filldraw(1, 1) circle (1pt) node[anchor = south] {C};
+            \filldraw(-1, -1) circle (1pt) node[anchor = north] {A};
+            \filldraw(1, -1) circle (1pt) node[anchor =north] {B};
+            \filldraw(0, 0) circle (1pt) node[anchor = south] {$O$};
+            \draw[dashed](-1, 1) -- (1, 1) -- (1, -1) -- (-1, -1) -- (-1, 1);
+            \draw[dashed](-1, 1) -- (1, -1);
+            \draw[dashed](1, 1) -- (-1, -1);
+            \filldraw(1, 0) circle (1pt) node[anchor = west] {M};
+            \draw[->, thick](0, 0) -- (0.5, 0.5);
+            \draw[->, thick](0, 0) -- (-0.5, 0.5);
+            \draw[->, thick](0, 0) -- (0.5, -0.5);
+            \draw[->, thick](0, 0) -- (-0.5, -0.5);
+        \end{tikzpicture}
+    \end{gather*}
+    Il campo elettrico nel punto O è ovviamente zero in quanto c'è una simmetria
+    intrinseca del sistema, infatti i campi
+    \begin{gather*}
+        E_A = - E_C \qquad E_B = - E_D \qquad E_A = E_B = E_C = E_D \ \Longrightarrow \ E(O) = 0
+    \end{gather*}
+    Adesso, nel punto $M$ il campo può essere schematizzato secondo il seguente sistema di riferimento:
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[->](0, -1.5) -- (0, 1.5) node[at end, left] {$y$};
+            \draw[->](0, 0) -- (3, 0) node[at end, below] {$x$};
+            \filldraw(0, 1) circle (1pt) node[anchor = east] {D};
+            \filldraw(2, 1) circle (1pt) node[anchor = south] {C};
+            \filldraw(0, -1) circle (1pt) node[anchor = east] {A};
+            \filldraw(2, -1) circle (1pt) node[anchor =north] {B};
+        \end{tikzpicture}
+    \end{gather*}
+    Così si ottengono i seguenti vettori posizione
+    \begin{gather*}
+        \vv{r_A} = \begin{pmatrix} 0\\
+        -\frac{L}{2} \end{pmatrix}  \qquad \vv{r_B} = \begin{pmatrix} L \\
+        -\frac{L}{2} \end{pmatrix} \qquad \vv{r_C} = \begin{pmatrix} L \\
+        \frac{L}{2} \end{pmatrix} \qquad \vv{r_D} = \begin{pmatrix} 0 \\
+        \frac{L}{2} \end{pmatrix} \qquad \vv{r_M} = \begin{pmatrix} L \\
+        0 \end{pmatrix}   
+    \end{gather*}
+    Dunque il vettore posizione in M è solo lungo l'asse $x$ per costruzione. Utilizzando 
+    il principio di sovrapposizione, si può determinare il campo elettrico nel punto M:
+    \begin{gather*}
+        \vv{E} (r_M) = E_A(r_A) +  E_B(r_B) + E_C(r_C) + E_D(r_D) 
+    \end{gather*}
+    Si trova
+    \begin{gather*}
+        \vv{E_A} = \frac{Q}{4\pi\epsilon_0} \frac{1}{\left| \vv{r_A} - \vv{r_M}   \right|^{2} } \frac{\vv{r_M} - \vv{r_A}  }{\left| \vv{r_M} - \vv{r_A}   \right| }  \qquad \vv{r_M} - \vv{r_A} = L\hat{x} + \frac{L}{2}\hat{y}    
+    \end{gather*}
+    Ottenendo
+    \begin{gather*}
+        \vv{E_A} = \frac{Q}{4\pi\epsilon_0} \frac{1}{\left(L\sqrt{\frac{5}{4}} \right)^{3}} \left(L \hat{x} + \frac{L}{2}\hat{y}  \right)
+    \end{gather*}
+    Si calcola ora il campo $\vv{E_B} $:
+    \begin{gather*}
+        \vv{E_B} = \frac{Q}{4\pi\epsilon_0} \frac{1}{\left| \vv{r_B} - \vv{r_M}   \right|^{2} } \frac{\vv{r_M} - \vv{r_B}  }{\left| \vv{r_M}  - \vv{r_B} \right| }  \qquad \vv{r_M} - \vv{r_B} = \frac{L}{2} \hat{y}   
+    \end{gather*}
+    Dunque 
+    \begin{gather*}
+        \vv{E_B} =  \frac{Q}{4\pi\epsilon_0} \frac{1}{\left(\frac{L}{2}\right)^{3}} 
+    \end{gather*}
+    Manca solamente i due campi elettrici in $D$ e $C$, data la simmetria del problema, le componenti
+    lungo l'asse $y$ saranno uguali in modulo ma con il segno contrario:
+    \begin{gather*}
+        \vv{E_C}  = - \vv{ E_B} \qquad \vv{E_D}  = \frac{Q}{4\pi\epsilon_0} \frac{1}{\left(L\sqrt{\frac{5}{4}} \right)^{3}} \left(L \hat{x} - \frac{L}{2}\hat{y}  \right)
+    \end{gather*}
+    Dunque il campo totale nel punto $M$ sarà data dalla seguente espressione
+    \begin{gather*}
+        \vv{E_M} =  \frac{Q}{2\pi\epsilon_0} \frac{1}{\left(L\sqrt{\frac{5}{4}} \right)^{3}} \left(L\hat{x}  \right)
+    \end{gather*}
+\end{example}
+
+    Prendendo un volume qualsiasi, è possibile applicare il principio di sovrapposizione su 
+    una distribuzione di carica continua:
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[->](0, 0) -- (1, 0) node[at end, below] {$y$};
+            \draw[->](0, 0) -- (0, 1) node[at end, left] {$z$};
+            \draw[->](0, 0) -- (-0.7, -0.5) node[at end, below] {$x$};
+        \end{tikzpicture}
+    \end{gather*}
+    Dunque, per una qualsiasi carica $dq = \rho(r' )dx$, dove $\rho$ è la densità di carica del volume. In generale
+    il campo elettrico sarà uguale a 
+    \begin{gather*}
+        \vv{E} = \int_{r'} \frac{dq(r')}{\left| \vv{r} - \vv{r'}   \right|^{3} }  (\vv{r} - \vv{r'}  ) \frac{1}{4\pi\epsilon_0}
+    \end{gather*}
+    Dove $\vv{r}$ è un generico punto nello spazio nel quale si vuole 
+    determinare il campo elettrico, mentre $\vv{r'}$ è il vettore posizione dell'infinitesimo di carica $dq$ 
+    rispetto al sistema di riferimento considerato 
+
+\begin{example}[]
+    Dato un filo infinito con distribuzione di carica lineare (e uniforme) $\rho_l$, si vuole determinare il 
+    campo elettrico in un punto generico dello spazio.
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[very thick, ->](0, -2) -- (0, 2) node[at end, left] {$z$};
+            \filldraw(2, 0) circle (1pt) node[anchor = south] {P};
+            \draw[->](0, 0) -- (3, 0) node[at end, above] {$ x$};
+            \draw(2, 0) -- (0, -1);
+        \end{tikzpicture}
+    \end{gather*}
+    Per motivi di simmetria, il campo elettrico in ogni punto $z$ è sempre uguale, 
+    inoltre, il problema è anche dotato di simmetria cilindrica secondo la quale 
+    non si perde la generalità del problema anche quando si ruota il filo. Si considera 
+    ora la generica carica alla posizione $z$ nello spazio che genera un campo elettrico 
+    rispetto al punto di riferimento $P$ giacente sull'asse $x$. 
+    \begin{gather*}
+        dq = \rho_l \ dz 
+    \end{gather*}
+    Data $R$ la distanza del punto $P$ dal filo, si ottiene l'ipotenusa nel disegno come 
+    \begin{gather*}
+        \left| r \right| = \frac{R}{\cos\phi} \qquad \phi : \quad z = R\tan\phi 
+    \end{gather*}
+    Si può ora determinare il campo elettrico 
+    \begin{gather*}
+        \vv{E} = \begin{pmatrix} E_x \\
+        E_z \end{pmatrix}   \qquad 
+        \begin{array}{l}
+            E_x = \left| E \right| \cos\phi \\
+            E_z = \left| E \right| \sin\phi   
+        \end{array}
+    \end{gather*}
+    Dove
+    \begin{gather*}
+        \left| E \right| = \frac{1}{4\pi\epsilon_0} \frac{\rho_l \ dz}{\left(\frac{R}{\cos\phi }\right)^{2}} =  \frac{1}{4\pi\epsilon_0} \frac{\rho_l\cos^{2}\phi \ dz }{R^{2}}
+    \end{gather*}
+    Dunque se si volesse determinare il campo lungo $z$ si dovrebbe integrare lungo tutto il filo:
+    \begin{gather*}
+        E_z^{TOT} = \int_{-\infty }^{\infty } \frac{\rho_l}{4\pi\epsilon_0} \frac{\cos^{2}\phi(z)}{R^{2}} \sin\phi(z) \ dz = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} = \frac{\rho_l}{4\pi\epsilon_0} \frac{1}{R}\sin\phi \ d\phi = 0 
+    \end{gather*} 
+    Per trovare la soluzione si esegue un cambio di variabile secondo la definizione di $z$:
+    \begin{gather*}
+        z = R\tan\phi \ \Longrightarrow \ dz = \frac{R}{\cos^{2}\phi} \ d\phi
+    \end{gather*}
+    Dunque il campo elettrico totale sul punto $P$ generico sarà solamente lungo l'asse $x$:
+    \begin{gather*}
+        E_x^{TOT} = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{\rho_l}{4\pi\epsilon_0} \frac{\cos^{3}\phi}{R^{2}} \frac{R}{r\cos^{2}\phi}  = \frac{\rho_l}{2\pi\epsilon_0 R}
+    \end{gather*}
+\end{example}
+
+\begin{example}[Campo elettrico generata da una spira circolare]
+    Si determina il campo elettrico generato da una spira di raggio $R$
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw(0, 0) ellipse (1.25 and 0.5);
+            \draw[->](0, -1) -- (0, 3) node[at end, left] {$x$};
+            \draw(0, 0) -- (1.25, 0) node[midway, above] {$R$};
+            \draw[dashed](1.25, 0) -- (0, 2.5) -- (-1.25, 0);
+            \draw(0, 1.5) arc(270:295:1) node[midway, below] {$\alpha$};
+        \end{tikzpicture}
+    \end{gather*}
+    Dato che la spira ha una distribuzione lineare di carica $\rho_l$, si può osservare che
+    il campo elettrico sarà distribuito solamente lungo l'asse $x$. A questo punto si può determinare 
+    il campo elettrico lungo $x$:
+    \begin{gather*}
+        dE_x = \frac{\rho_l dl}{4\pi\epsilon_0} \frac{1}{x^{2} + R^{2}} \cos\alpha 
+    \end{gather*}
+    Dunque il campo elettrico totale lungo l'asse $x$ sarà dato da
+    \begin{gather*}
+        E_x^{TOT} = \int_{SPIRA} dE_x = \frac{\rho_l \cos\alpha}{4\pi\epsilon_0 (x^{2} + R^{2})}\int_{SPIRA}  dl = \frac{\rho_l \cos\alpha}{2\epsilon_0} \frac{R}{x^{2} + R^{2}}
+    \end{gather*}
+    Per come è costruita la spira, il coseno dell'angolo 
+    \begin{gather*}
+        \cos\alpha = \frac{x}{\sqrt{x^{2} + R^{2}} }
+    \end{gather*}
+    Con questa sostituzione, ad una generica distanza $x$ dal centro della spira, il campo elettrico è dato 
+    dalla seguente espressione:
+    \begin{gather*}
+        E_x = \frac{\rho_l}{2\epsilon_0} \frac{xR}{(x^{2} + R^{2})^{\frac{3}{2}}}
+    \end{gather*}
+    Se $x >> R$ va come $x^{2}$, avendo un massimo a $\frac{R}{\sqrt{2} }$ ed un minimo
+    a $\frac{-R}{\sqrt{2} }$, con dipendenza lineare tra questi due punti. Inoltre, in zero, 
+    come ci si sarebbe aspettati, è zero. 
+\end{example}
+
+
+\end{document}

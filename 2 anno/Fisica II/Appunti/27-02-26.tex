@@ -1,0 +1,306 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Esercizi di Lab II}
+\author{Tommaso Miliani}
+\date{27-02-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Esercizi sul teorema di Gauss}
+Se la simmetria del problema è tale per cui 
+riduce la complessità del problema (identificando una superficie
+che ha lo stesso campo elettrico), il teorema di Gauss è molto 
+comodo per determinare il campo elettrico uscente; altrimenti
+si dovrebbe utilizzare la sovrapposizione.
+\begin{example}
+    Si considera una sfera di raggio $R$ con distribuzione uniforme e costante
+    di carica $\rho_0$: 
+    \begin{gather*}
+        \rho(x, y, z,) = \left\{\begin{array}{l}
+            \rho_0 \qquad r \leq R \\
+            0 \qquad r > R
+        \end{array}\right.
+    \end{gather*}
+    Questo problema, la cui raffigurazione è la seguente:
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw (0, 0) circle (1);
+            \draw[->](0, 0 ) -- (2, 0) node[at end, below] {$\hat{x} $};
+            \draw[->](0, 0) -- (0, 2) node[at end, left] {$\hat{y}$ };
+            \draw[->](0, 0) -- (-1.5, -1 ) node[at end, left] {$\hat{z}$ };
+            \draw[dashed, red](0, 0) circle (0.7);
+            \draw[red](0, 0) -- (-0.5, 0.5) node[midway, below] {$r$};
+        \end{tikzpicture}
+    \end{gather*}
+    Ha delle simmetrie evidenti. Il campo elettrico, ci si aspetta, che 
+    sia una funzione di $r, \theta, \phi$:
+    \begin{gather*}
+        \vv{E}(r, \theta, \phi) = E_r(r, \theta, \phi)\hat{r} + E_\theta(r, \theta, \phi)\hat{\theta} + E_\phi(r, \theta, \phi)\hat{\phi}    
+    \end{gather*}
+    Data la simmetria ci si aspetta che il campo possa solo dipendere dalla distanza dal centro. 
+    Dal punto di vista vettoriale ci si aspetta dunque che l'unica componente del campo
+    sia solo 
+    \begin{gather*}
+        \vv{E}(r) = E_r(r) \hat{r}  
+    \end{gather*}
+    Dunque il campo in ogni punto della sfera di raggio piccolo $r$ con $r\leq R$ ci si aspetta
+    che sia lo stesso da ogni direzione $\theta$ e $\phi$ lo si guardi. SI può allora determinare 
+    il flusso del campo come 
+    \begin{gather*}
+        \Phi(\vv{E} ) = \int \vv{E}(r) \cdot \hat{n} \ d\Omega = E(r) \int d\Omega = E(r) 4\pi r^{2}  
+    \end{gather*}
+    Il flusso, per il teorema di Gauss, è anche equivalente a
+    \begin{gather*}
+        \frac{1}{\epsilon_0} \int_{V} \rho(R) dV = \frac{\rho_0}{\epsilon_0} \int_{V} dV = \frac{\rho_0}{\epsilon_0} \frac{4}{3}\pi r^{3}
+    \end{gather*}
+    Ossia il volume della superficie rossa quando $r = R$. Dunque 
+    per il teorema di Gauss si possono eguagliare e ottenere:
+    \begin{gather*}
+        \frac{\rho_0}{\epsilon_0} \frac{4}{3}\pi r^{3} = E(r) 4\pi r^{2}
+    \end{gather*}
+    Risolvendo ora per $E(r)$ si ottiene 
+    \begin{gather*}
+        E(r) = \frac{1}{3}\frac{\rho_0}{\epsilon_0}r
+    \end{gather*}
+    Adesso, per il caso in cui $r > R$, vale il teorema di Gauss, per cui si ha che il 
+    flusso totale della sfera deve valere
+    \begin{gather*}
+        \Phi(E ) = E(r)4\pi r^{2} 
+    \end{gather*}
+    Quello che non cambia è la carica interna: infatti la carica rimane confinata dentro
+    la sfera di raggio $R$, dunque la carica totale in questo caso è esattamente funzione di $R$ (dunque
+    costante):
+    \begin{gather*}
+        \frac{Q_{int}}{\epsilon_0} = \int_{V} \frac{\rho(r)}{\epsilon_0} \ dV = \frac{1}{\epsilon_0} \int_{0}^{r} \rho(r) 4 \pi r^{2} \ dr' = \frac{1}{\epsilon_0} \int_{0}^{r} \rho(r')4\pi r^{'2} \ dr' = \frac{\rho_0}{\epsilon_0} \frac{4\pi}{3} R^{3}
+    \end{gather*}
+    Dunque il campo elettrico sarà dato da 
+    \begin{gather*}
+        E(r) 4\pi r^{2} = \frac{\rho_0}{\epsilon_0} \frac{4\pi}{3} R^{3} \ \Longrightarrow \ E(r) = \frac{1}{3} \frac{\rho_0}{\epsilon_0} \frac{R^{3}}{r^{2}}
+    \end{gather*}
+    Se si volesse plottare questa funzione 
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[->](0, 0) -- (5, 0) node[at end, below] {$\hat{x}$ };
+            \draw[->](0, 0) -- (0, 3) node[at end, left] {$\hat{y}$ };
+            \draw[domain=2:5] plot (\x, {(5 * 3 * 3 * 3) / (3 * 5.57 * \x * \x)});
+            \draw[domain=0:2] plot (\x, {\x});
+            \draw[dashed, cyan](2, 0) -- (2, 2) node[at start, below] {$R$};
+        \end{tikzpicture}
+    \end{gather*}
+\end{example}
+
+\begin{example}[Campo elettrico di un filo infinito]
+    Si considera un filo infinito con distribuzione di carica $\rho_L$ lineare
+    utilizzando il teorema di Gauss. 
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[thick, ->](0, 0) -- (0, 4) node[at end, above] {$\hat{z}$ };
+            \draw[red](-1, 0) -- (-1, 4);
+            \draw[red](1, 0) -- (1, 4);
+            \draw[red](0, 0) ellipse (1 and 0.3);
+            \draw[red](0, 4) ellipse (1 and 0.3);
+            \draw[red, <->](-1.25, 0) -- (-1.25, 4) node[midway, left] {$L$};
+            \draw[->](0, 2) -- (3, 0) node[at end, below] {$\hat{x}$ };
+        \end{tikzpicture}
+    \end{gather*}
+    Si cercano innanzitutto le simmetrie del problema: ossia la simmetria cilindrica in 
+    questo caso, per cui l'espressione del campo elettrico dipenderà solamente dal versore 
+    radiale:
+    \begin{gather*}
+        \vv{E} = E_r(r, \theta, z) = E_r(r, \theta, z) \hat{r} + E_\theta(r, \theta, z) \hat{\theta} + E_z(r, \theta, z) \hat{z} = E_r(r)    
+    \end{gather*}
+    Questo è verificabile con il principio di sovrapposizione (per $\theta$) e per
+    l'invarianza traslazionale (per $z$ in quanto il filo è infinito). Dunque si può trovare
+    il flusso del campo come 
+    \begin{gather*}
+        \Phi_r = \int_{\tau}^{} E_r(r) \hat{r} \cdot \hat{n} \ d\sigma   
+    \end{gather*}
+    Il contributo delle basi del cilindro è nullo poiché $\hat{n}$ e $\hat{r}$ sono 
+    perpendicolari, mentre il contributo sul lato non è nullo ed è dato da
+    \begin{gather*}
+        E(r)\int d\sigma = E(r) 2 \pi r L 
+    \end{gather*}
+    Dove $L$ è la lunghezza del cilindro e $r$ il raggio del cilindro. Per il teorema di Gauss deve equagliare a
+    \begin{gather*}
+        \frac{Q_{int}}{\epsilon_0} = \frac{L \rho_L}{\epsilon_0} = \Phi_r
+    \end{gather*}
+    Dunque si ottiene il campo elettrico come 
+    \begin{gather*}
+        E_r = \frac{1}{2\pi \epsilon_0} \frac{\rho_L}{r}
+    \end{gather*}
+\end{example}
+
+\begin{example}[Piano uniformemente carico]
+    Dato un piano uniformemente carico (infinito), con densità superficiale 
+    di carica $\sigma$, si vuole determinare il campo elettrico di questa superficie piana. 
+
+
+    Data la simmetria del problema, ci si aspetta che il campo elettrico 
+    sia diretto lungo l'asse $\hat{x}$ (verificabile dal fatto che il piano 
+    è infinito e dal principio di sovrapposizione). Consideriamo comunque il campo 
+    in funzione delle tre variabili cartesiane. Si deve determinare ora il flusso 
+    attraverso una superficie finita del piano, come un cilindro 
+    perpendicolare uscente dal piano. Le normali sul lato del cilindro sono 
+    espresse in coordinate polari, mentre quelle della base sono dirette lungo $x$.
+    \begin{gather*}
+        \Phi = \int_{\text{Base } 1}\vv{E} \cdot \hat{n} \ d\Sigma + \int_{\text{Base }2} + \int_{\text{Lato}}       
+    \end{gather*}  
+    Si sa che il lato ha dunque contributo zero, mentre il versore normale $\hat{n} = \hat{x}$ per 
+    entrambe le basi. DUnque 
+    \begin{gather*}
+        (1)  \quad \hat{n} = \hat{x} \quad \vv{E} = E\hat{x} \\
+        (2) \ \ \hat{n} = -\hat{x}  \ \ \vv{E}= -E\hat{x}       
+    \end{gather*}  
+    Il prodotto scalare dei due ha lo stesso segno e dunque i contributi si
+    sommano. Da qui si può considerare solo l'integrale sulla prima base:
+    \begin{gather*}
+        \Phi = 2\int d\Sigma = 2 E_x \ d\Sigma 
+    \end{gather*}
+    Dove $\Sigma$ è la superficie della base del cilindro considerato. Utilizzando il teorema di Gauss, si trova 
+    la carica 
+    \begin{gather*}
+        \frac{Q_{int}}{\epsilon_0} = d\Sigma \sigma \ \Longrightarrow \ E_x = \frac{\sigma}{2\epsilon_0}
+    \end{gather*}
+    Si otterrebbe lo stesso risultato se si avesse utilizzato il principio di sovrapposizione. 
+\end{example}
+
+\begin{example}[Esercizio 1 parziale 4/4/2014]
+    Data una sfera con densità di carica $\rho(r)$ è così definita:
+    \begin{gather*}
+        \rho(r) = \left\{\begin{array}{l}
+            \frac{2\rho_0 r}{R} - \rho_0 \quad r \leq R \\
+            0 \qquad \qquad \ \ r > R
+        \end{array}\right.
+    \end{gather*}
+    La carica è dunque negativa fino a $\frac{R}{2}$ e poi positiva fino a $R$. La carica 
+    totale tuttavia non è nulla: anche se la distribuzione di carica è lineare, bisogna considerare
+    la simmetria sferica del problema:
+
+
+    Calcolando la carica interna, 
+    \begin{gather*}
+        Q_{in} = \int_{0}^{R}\rho(r) \ dV = \int_{0}^{\infty } \rho(r) 4\pi r^2 \ dr 
+    \end{gather*}
+    Dunque si ottiene 
+    \begin{gather*}
+        \int_{0}^{R} \left(\frac{2\rho_0 r}{R} - \rho_0\right) 4\pi r^{2}\ dr = \int_{0}^{R} 4\pi r^{3} \frac{2\rho_0}{R} \ dr - 4\pi\rho_0 \int_{0}^{R} r^{2} \ dr 
+    \end{gather*}
+    Dunque si risolvono:
+    \begin{gather*}
+        Q_{in} = 2\pi\rho_0 R^{3} - \frac{4}{3} \pi R^{3} \rho_0  = \frac{2}{3}\pi\rho_0 R^{3}
+    \end{gather*}
+    Che è, come ci si aspettava, maggiore di zero. Se $r > R$:
+    \begin{gather*}
+        4\pi R^{2} E(r) = \frac{1}{\epsilon_0} \frac{2}{3}\pi\rho_0 R^{3} \ \Longrightarrow \ E(r) = \frac{1}{6\epsilon_0} \rho_0\frac{R^{3}}{r^{2}}
+    \end{gather*}
+    Se $r \leq R$, la carica interna va integrata da $0$ a $r$:
+    \begin{gather*}
+        4\pi r^{2} E(r) = \frac{1}{\epsilon_0} \int_{0}^{r} \rho_0(r) 4 \pi r^{'2} \ dr' = \frac{1}{\epsilon_0} \int_{0}^{r} \left(\frac{2\rho_0 r'}{R} - \rho_0\right) 4 \pi r^{'2} dr'  
+    \end{gather*}
+    Ora si risolve:
+    \begin{gather*}
+        \int_{0}^{r} \left(\frac{2\rho_0 r'}{R} - \rho_0\right) 4 \pi r^{'2} dr'  = \frac{2\pi \rho_0}{R} \int_{0}^{r} 4\pi r^{3} dr' - 4\pi \rho_0 \int_{0}^{r} r^{'2} \ dr' = \frac{2\rho_0}{R}\pi R^{4} - \frac{4}{3}\pi \rho_0 R^{3}  = 2\pi \rho_0  \left(\frac{r^{4}}{R} - \frac{2}{3}r^{3}\right)
+    \end{gather*}
+    Dunque si ottiene il campo elettrico come
+    \begin{gather*}
+        E(r) = \frac{\rho_0}{2\epsilon_0} \left(\frac{r^{2}}{R} - \frac{2}{3}r\right)
+    \end{gather*}
+\end{example}
+
+\begin{example}[Esercizio 1 totale 2 / 2 / 2014]
+    Si determini il campo elettrico di una sfera con distribuzione di carica 
+    \begin{gather*}
+        \rho_0 = \left\{\begin{array}{l}
+            0 \qquad r \leq R_1 \\
+            \rho_0 \quad R_1 < r \leq R_2 \\
+            0 \qquad r > R_2
+        \end{array}\right.
+    \end{gather*}
+    In questo esercizio il metodo più veloce è utilizzare il principio di sovrapposizione
+    in quanto questo è il tipico problema del guscio sferico: si esegue dunque 
+    la somma algebrica di una sfera carica positivamente ($E_1$) e il guscio interno carico
+    negativamente ($E_2$). 
+    \begin{gather*}
+        E = E_1 + E_2
+    \end{gather*}
+\end{example}
+
+\begin{example}[Sfera con guscio buco non concentrico]
+    Se la sfera avesse un buco non concentric, allora non si potrebbe 
+    applicare il principio di Gauss a causa dell'assenza di simmetrie. 
+    
+
+    Il campo elettrico nel generico punto $P$ interno alla sfera è 
+    indicato dalle coordinate
+    \begin{gather*}
+        \vv{P} = \vv{r} \qquad \left| \vv{r}  \right|   = \sqrt{a^{2} + r^{'2}} 
+    \end{gather*}
+    Il campo della sfera carica totale (cioè senza buco) è uguale a
+    \begin{gather*}
+        \vv{E_1} (r) = \frac{r}{3} \frac{\rho_0}{\epsilon_0}\hat{r} 
+    \end{gather*}
+    Per il buco, la carica è $-\frac{4}{3}\pi r^{'3} \rho_0$, dunque
+    \begin{gather*}
+        \vv{E_2}(r') = -\frac{\rho_0}{3\epsilon_0} r' \hat{r'} 
+    \end{gather*}
+    Si considera adesso $\vv{r} = \vv{r'} + \vv{a}$.    
+    Si può dunque scrivere che 
+    \begin{gather*}
+        \vv{E_1}(r)  = \frac{\rho_0}{3\epsilon_0} (\vv{r'} + \vv{a}  ) 
+    \end{gather*}
+    Facendo ora la somma 
+    \begin{gather*}
+        \vv{E} = \frac{\rho_0}{3\epsilon_0} \vv{a}  
+    \end{gather*}
+    Il campo è orientato nella direzione tra il centro della sfera grande e 
+    quello della sfera piccola. 
+\end{example}
+
+\end{document}
