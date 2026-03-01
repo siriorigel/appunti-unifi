@@ -1,0 +1,8 @@
+**/tikz
+**/Emily
+**/svg-inkscape
+**/*.synctex.gz
+**/*.auxlock
+**/*.fls
+**/*.toc
+**/safe-backup
