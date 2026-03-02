@@ -314,4 +314,212 @@ Ora definiamo la somma vettoriale:
         \end{gather*}
         allora la mia rel. è invertibile
     \end{proposition}
+
+    \section{26/02/26}
+    \begin{center}
+        \begin{tikzpicture}
+            %assi x y z
+            \draw[->] (0,0) -- (3,0) node[below] {$x$};
+            \draw[->] (0,0) -- (0,3) node[left] {$y$};
+            \draw[->] (0,0) -- (-1,-1) node[below] {$z$};
+            \node at (0,0)[below] {$O$};
+            \draw(-3,-2) -- (-1,-2);
+            \filldraw(-2,-2) circle (2pt) node[below] {$t$}; 
+            \filldraw(-1,-2) circle (2pt) node[below] {$t+ \Delta t$}; 
+            \draw[->] (0,0) -- (1,2) node[above] {$\vv{r}(t)$};
+            \draw[->] (0,0) -- (2,1) node[right] {$\vv{r}(t+ \Delta t)$};
+            \draw[->, orange] (1,2) -- (2,1) node[midway, right] {$\Delta \vv{r}(t + \Delta t) - \vv{r}(t)$};
+            %curva che collega i due punti
+            \draw[thick, dashed] (1,2) to [bend left=20] (2,1);
+            \draw[->] (2,1) -- (3,0.5) node[above] {$\frac{r(t + \Delta t) - r(t)}{\Delta}$};
+        \end{tikzpicture}
+    \end{center}
+    \begin{gather*}
+        \frac{d\vv{r}}{dt} = \lim_{\Delta \to 0} \frac{\vv{r}(t + \Delta) - \vv{r}(t)}{\Delta} = \lim_{\Delta \to 0} \frac{\widehat{i}[r_x(t + \Delta) - r_x(t)] + \widehat{j}[r_y(t + \Delta) - r_y(t)] + \widehat{k}[r_z(t + \Delta) - r_z(t)]}{\Delta}\\
+        -\frac{d \vv{r}}{dt} = \frac{d}{dt} [r_x(t) \widehat{i} + r_y(t) \widehat{j} + r_z(t) \widehat{k}] = \underbrace{\frac{dx}{dt}}_{\dot{x}} \widehat{i} + \underbrace{\frac{dy}{dt}}_{\dot{y}} \widehat{j} + \underbrace{\frac{dz}{dt}}_{\dot{z}} \widehat{k}
+    \end{gather*}
+    Un inciso importante è che:
+    \begin{gather*}
+        \vv{t} = \frac{d\vv{r}}{dt}\\
+        \vv{a} = \frac{d^2 \vv{r}}{dt^2} = \widehat{i} \dot{x} + \widehat{j} \dot{y} + \widehat{k} \dot{z}
+    \end{gather*}
+    \subsection{Curve regolari}
+    Una curva si dice regolare se:
+    \begin{gather*}
+        \underbrace{\frac{d\vv{r}}{dt}}_{|\vv{t}| \neq 0} \neq 0 \qquad \forall t
+    \end{gather*}
+    Prendiamo ora una curva $\vv{r}(t) \in (C^1 (\mathbb{R}))^3$ e verifico se sia regolare:
+    \begin{gather*}
+        \widehat{u}(t) \text{versore} \Rightarrow \left\langle \frac{d \widehat{u}}{dt} , \widehat{u} \right\rangle = 0\\
+        1 = |\widehat{u}|^2 = \left\langle \widehat{u} , \widehat{u} \right\rangle \underset{\text{derivo $d/dt$}}{\Rightarrow} \frac{d}{dt} 1 = 0 = \frac{d}{dt} \left\langle \widehat{u} , \widehat{u} \right\rangle = 2 \left\langle \frac{d\widehat{u}}{dt} , \widehat{u} \right\rangle
+    \end{gather*}
+    \subsection{esempi vari}
+\begin{example}
+        Prendiamo una curva semplice, una semicirconferenza
+        \begin{center}
+            \begin{tikzpicture}
+                \draw[->](-2,0) -- (3,0) node[below] {$x$};
+                \draw[->](0,0) -- (0,3) node[left] {$y$};
+                \draw[thick] (1,0) arc (0:180:1);
+                \draw(0,0) -- (0.7,0.7) node[at end, right] {$P$};
+                %\draw[dashed] (0.7,0) -- (0.7,0.7) node[at start, below]{$1$};
+                \draw (0.2,0) arc (0:45:0.2) node[above] {$\varphi(t)$};
+                \node at(0,0)[below] {$O$};
+                \node at(1,0)[below] {$R$};
+            \end{tikzpicture}
+        \end{center}
+        La curva è data da:
+        \begin{gather*}
+            \vv{r}(t) = R \cos(\varphi(t)) \widehat{i} + R \sin(\varphi(t)) \widehat{j}
+        \end{gather*}
+        Ora calcoliamo la velocità e l'accelerazione:
+        \begin{gather*}
+            \vv{t} = \frac{d\vv{r}}{dt} = - R \sin(\varphi(t)) \dot{\varphi}(t) \widehat{i} + R \cos(\varphi(t)) \dot{\varphi}(t) \widehat{j} = R \dot{\varphi}(t) [-\sin(\varphi(t)) \widehat{i} + \cos(\varphi(t)) \widehat{j}]\\
+            \vv{a} = \frac{d^2 \vv{r}}{dt^2} = R \ddot{\varphi}(t) [-\sin(\varphi(t)) \widehat{i} + \cos(\varphi(t)) \widehat{j}] + R \dot{\varphi}(t)^2 [-\cos(\varphi(t)) \widehat{i} - \sin(\varphi(t)) \widehat{j}]= \\
+            R \ddot(\varphi(t)) \widehat{t} - \dot{\varphi(t)}^2 \vv{r}(t)
+        \end{gather*}
+\end{example}
+\begin{example}
+    Prendiamo ora la curva $\vv{r}(t) = t \widehat{i} + t^2 \widehat{j}$, questa è una parabola:
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                axis lines=middle,
+                xlabel=$x$,
+                ylabel=$y$,
+                xmin=-3, xmax=3,
+                ymin=-1, ymax=3,
+            ]
+            \addplot[domain=-2.5:2.5, thick, red] {x^2};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+    Se esprimo i due parametri in funzione di $t$ ottengo:
+    \begin{gather*}
+        x(t) = t \qquad y(t) = t^2\\
+        \Rightarrow y = x^2
+    \end{gather*}
+    Ora mi chiedo se il vettore velocità è sempre diverso da zero:
+    \begin{gather*}
+        \vv{t} = \frac{d\vv{r}}{dt} = \widehat{i} + 2t \widehat{j}
+    \end{gather*}
+    Vediamo ora se la curva $\vv{r}(t) = t^2 \widehat{i} + t^3 \widehat{j}$ è regolare:
+    \begin{gather*}
+        x = t^2 \Rightarrow t = \pm \sqrt{x} \text{\underbar{se}} x \geq 0\\
+        y = t^3 = (\pm \sqrt{x})^3 = \pm x^{3/2}
+    \end{gather*}
+    Calcoliamo ora la derivata:
+    \begin{gather*}
+        \vv{t} = \frac{d\vv{r}}{dt} = 2t \widehat{i} + 3t^2 \widehat{j} = t (2 \widehat{i} + 3t \widehat{j})\\
+            |\vv{t}| = |t| \sqrt{4 + 9t^2}
+    \end{gather*}
+    La curva è regolare se $\vv{t} \neq 0$ per ogni $t$. Questo accade se e solo se:
+    \begin{gather*}
+        2t = 0 \text{ e } 3t^2 = 0 \Rightarrow t = 0
+    \end{gather*}
+    Quindi la curva non è regolare in $t=0$, poiché $\vv{t}(0) = 0$.
+\end{example}
+\begin{proposition}
+    La regolarità di una curva \underbar{non} dipende dalla parametrizzazione.
+    \begin{gather*}
+        r(t) \qquad t(t_1) \to r_1(t_1) = r(t(t_1))\\
+        \left\lvert \frac{d\vv{r_1}}{dt_1}\right\rvert  = \left\lvert \frac{d\vv{r}}{dt}\right\rvert  \cdot \left\lvert \frac{dt}{dt_1}\right\rvert \\
+        \left\lvert \vv{t_1} \right\rvert = \left\lvert \vv{t} \right\rvert  
+    \end{gather*}
+    Questo mi dice che la regolarità è una proprietà intrinseca della curva, e non dipende da come la descrivo.
+\end{proposition}
+\begin{definition}[Lunghezza di una curva regolare]
+    La lunghezza di una curva regolare è data da:
+    \begin{center}
+        \begin{tikzpicture}
+            \draw(0,0) -- (3,0) node[below] {$t$};
+            \draw(0.5,-0.2) -- (0.5, 0.2) node[ at start, below] {$0$};
+            \draw(1,-0.2) -- (1,0.2);
+            \draw(1.5,-0.2) -- (1.5,0.2);
+            \draw(2,-0.2) -- (2,0.2);
+            \draw(2.5,-0.2) -- (2.5,0.2);
+            \node at(2.5,-0.2)[below] {$1$};
+            %curva associata
+            \draw[cyan](-1,2) to [bend left=20] (2.5,1.5);
+            \draw[<-](-1,2) to [bend left=20] (0.5,0);
+            \draw[->](2.5,0) to [bend left=20] (2.5,1.5);
+            \filldraw(-1,2) circle (2pt) node[above] {$P_0$};
+            \filldraw (0.5,2.15) circle (2pt) node[above] {$P_1$};
+            \filldraw (1.5,1.95) circle (2pt) node[above] {$P_2$};
+            \filldraw (2.5,1.5) circle (2pt) node[above] {$P_n$};
+        \end{tikzpicture}
+    \end{center}
+    \begin{gather*}
+        \ell = \left( r(t_A) , r(t_B) \right) = \int_{t_A}^{t_B} \left\lvert \frac{d\vv{r}}{dt} \right\rvert dt
+    \end{gather*}
+\end{definition}
+\begin{example}
+    Prendiamo una curva generica e due parametrizzazioni di essa $r_1(t_1)$ e $r(t(t_1))$ e calcoliamone la lunghezza:
+    \begin{gather*}
+        \ell(A,B) = \int_{A}^{B} \left\lvert \frac{dr}{dt_1} \right\rvert dt_1 = \int_{t_1(A)}^{t_1(B)} \left\lvert \frac{dr}{dt} \cdot \frac{dt}{dt_1} \right\rvert dt_1 = \int_{t_1(A)}^{t_1(B)} \left\lvert \frac{dr}{dt} \right\rvert  \cdot \left\lvert \frac{dt}{\cancel{dt_1}} \right\rvert \cancel{dt_1} = \int_{t_A}^{t_B} \left\lvert \frac{dr}{dt} \right\rvert dt\\
+        \left\lvert \frac{d \vv{r_1}}{d t_1} \right\rvert = \left\lvert \frac{d \vv{r}}{dt} \right\rvert \left\lvert \frac{dt}{dt_1} \right\rvert  
+    \end{gather*}
+\end{example}
+
+\hfill\\
+\begin{proposition}
+    Vediamo che una curva regolare può essere parametrizzata rispetto a $t$ (il tempo):
+    \begin{gather*}
+        S(t) = \int_{0}^{t} \left\lvert \frac{dr}{dt} \right\rvert dt \to t = t(S)\\
+        \vv{r}(S) = \vv{r}(t(S)) 
+    \end{gather*}
+    In maniera più generale Ogni curva regolare ammette una parametrizzazione NATURALE.
+    \begin{center}
+        \begin{tikzpicture}
+            %assi t e S
+            \draw[->] (0,0) -- (3,0) node[below] {$t$};
+            \draw[->] (0,0) -- (0,3) node[left] {$S$};
+            \node at(0,0)[below] {$O$};
+            %curva generica
+            \draw[->][thick, cyan] (0.5,0) to [bend left=20] (2.5,1.5);
+        \end{tikzpicture}
+    \end{center}
+    Dimostriamolo velocemente:
+    \begin{gather*}
+        \left\lvert \frac{dS}{dt} \right\rvert = \left\lvert \frac{dr}{dt} \right\rvert > 0  
+    \end{gather*}
+    Quindi $S(t)$ è invertibile, e quindi $t(S)$ è ben definita.\\
+\end{proposition}
+\subsection{...}
+\begin{gather*}
+    \vv{r}(S) \Rightarrow \left\lvert \frac{d \vv{r}}{ds} \right\rvert = 1\\
+    \frac{d \vv{r}}{ds} = \frac{d}{dt} (\vv{r}(t(S))) = \frac{d \vv{r}}{dt} \frac{dt}{dS} 
+\end{gather*}
+Ora consideriamo che $y= f(x) \to x = f^{-1}(y)$ e quindi $\frac{df}{dx} = \frac{1}{\frac{df^{-1}}{dy}}$ e quindi:
+\begin{gather*}
+    \widehat{t} = \frac{d\vv{r}}{dS}
+\end{gather*}
+\begin{example}
+    Prendiamo un elicoide e vediamo se è regolare:
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->] (0,0) -- (3,0) node[below] {$x$};
+            \draw[->] (0,0) -- (0,3) node[left] {$y$};
+            \draw[->] (0,0) -- (-1,-1) node[below] {$z$};
+            \node at (0,0)[below] {$O$};
+            %elicoide
+            \draw[domain=0:6.28, samples=100, thick, cyan] plot ({cos(deg(\x))}, {sin(deg(\x))}, {\x/6.28});
+        \end{tikzpicture}
+    \end{center}
+    La curva è data da:
+    \begin{gather*}
+        \vv{r} = R (\cos(t) \widehat{i} + \sin(t) \widehat{j}) + a t \widehat{k}
+    \end{gather*}
+    Deriviamolo:
+    \begin{gather*}
+        \frac{d\vv{r}}{dt} = R (-\sin(t) \widehat{i} + \cos(t) \widehat{j}) + a \widehat{k}
+    \end{gather*}
+    Continuando:
+    \begin{gather*}
+        \left\lvert \frac{d\vv{r}}{dt} \right\rvert^2 = R^2 \underbrace{(\sin^2(t) + \cos^2(t))}_1 + a^2 = R^2 + a^2 > 0
+    \end{gather*}
+\end{example}
+
+
+
 \end{document}

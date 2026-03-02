@@ -168,7 +168,7 @@ Questo perchè $\mathbb{C} \simeq \mathbb{R} \times \mathbb{R}$ (dove $\simeq$ v
         \draw[->] (0.5,0) arc (0:63.4:0.5);
         \node at (0.8,0.2) {$\phi$};
         %arco che rappresenta il passaggio da z a 1/z
-        \draw[->] (1,2) arc (63.4:243.4:2.236);
+        \draw[<-, rotate = 180] (1,2) arc (63.4:243.4:2.236);
         \node at (1.5,-1) {$*$};
     \end{tikzpicture}
 \end{center}
@@ -364,6 +364,105 @@ Questo perchè $\mathbb{C} \simeq \mathbb{R} \times \mathbb{R}$ (dove $\simeq$ v
         \sum_{n=0}^{\infty} z^n = \frac{1}{1-z}
     \end{gather*}
     
+    \newpage
+    \section{27/02/26}
+    \begin{multicols}{2}
+        \begin{theorem}
+            L'insieme di convergenza $C_a \sum_{n=0}^{\infty} a_n z^n$ contiene il cerchio aperto $B(0, R_a[$ 
+            ed è contenuto nel cerchio chiuso $B(0, R_a]$.
+        \end{theorem}
+        \begin{tikzpicture}[scale = 0.5]
+            \draw[->] (-3,0) -- (3,0) node[right] {$\Re$};
+            \draw[->] (0,-3) -- (0,3) node[above] {$\Im$};
+            \filldraw[pattern = north east lines] (0,0) circle (2);
+            \node at (0.5,2.2) {$C_a$};
+            \draw[->] (2,-1) to [bend left] (0.5,0.5);
+            \node at (2,-1) [below] {Convergenza assoluta};
+            \draw[->] (2,2) to [bend right] (2,1);
+            \node at (2,2) [above] {Diverge, dipende dalla serie};
+        \end{tikzpicture}
+    \end{multicols}
 
+    \begin{theorem}
+        Il raggio di convergena è dato da $R_a = \frac{1}{\limsup_{n \to +\infty} \sqrt[n]{|a_n|}}$.
+    \end{theorem}
+    Richiamiamo alcune serie importanti che ci torneranno utili:
+    \begin{proposition}[Serie geometrica]
+        \begin{gather*}
+            \sum_{n=0}^{\infty} z^n = \frac{1}{1-z} \qquad |z| < 1\\
+            \sum_{n=0}^{\infty}z^n = \frac{1-z^{n+1}}{1-z} \qquad |z| = 1
+        \end{gather*}
+    \end{proposition}
+    \begin{proposition}[Serie logaritmica]
+        \begin{gather*}
+            \sum_{n=1}^{\infty} \frac{(-1)^{n-1}}{n} z^n \qquad R = 1\\
+            \begin{cases}
+                z = -1 \Rightarrow \text{diverge}\\
+                z = 1 \Rightarrow \text{converge}
+            \end{cases}
+        \end{gather*}
+    \end{proposition}
+    \begin{proposition}[Serie dilogaritmica]
+        \begin{gather*}
+            \sum_{n=1}^{\infty} \frac{z^n}{n^2} \qquad R = 1\\
+            \frac{1}{n^2} |z|^n = \frac{1}{n^2} \qquad \text{converge}
+        \end{gather*}
+    \end{proposition}
+    \begin{proposition}[Serie esponenziale]
+        \begin{gather*}
+            \sum_{n=0}^{\infty} \frac{z^n}{n!} = \exp(z) \qquad z \in \mathbb{C} \qquad \text{converge sempre} \Rightarrow R = +\infty\\
+            \sum_{n=0}^{\infty} z^n n! \qquad z \in \mathbb{C} \qquad \text{diverge sempre} \Rightarrow R = 0
+        \end{gather*}
+    \end{proposition}
+    \subsection{convergena uniforme su $\mathbb{C}$}
+    Tutto quello che abbiamo visto finora si incentrava sulla convergenza puntuale, ora passiamo a vedere la convergenza uniforme.
+    \begin{definition}
+        Norma-infinito o sup-norma di una funzione $f: A \to \mathbb{C}$ è data da:
+        \begin{gather*}
+            \left\lVert f \right\rVert _{\infty} \equiv \sup \left\{|f(z)| : z \in X\right\} 
+        \end{gather*}
+        Con $X$ dominio di $f$: $D(f)$.
+    \end{definition}
+    \begin{definition}[Convergenza uniforme]
+        $\left\{f_n\right\} _{n \in \mathbb{N}}$ converge uniformemente a $f$ \underbar{se}:\\
+        $\forall \varepsilon > 0 \quad \exists n_\varepsilon$ t.c.  $\left\lVert f-f_n \right\rVert_\infty \leq \varepsilon \quad \forall n \geq n_\varepsilon$ \\
+        $\left(\lim_{n \to \infty} \left\lVert f-f_n \right\rVert_\infty = 0\right) $
+    \end{definition}
+    Come su $\mathbb{R}$ si ha che conv. uniforme $\Rightarrow$ conv. puntuale, ma non viceversa.\\
 
+    \begin{proposition}
+        Lo spazio $B(X)$ delle funzioni limitate è uno spazio normato con norma $\left\lVert \cdot \right\rVert_\infty $.
+    \end{proposition}
+    \begin{proof}
+        \hfill\\
+        Dimostro solo la dis. triang. le altre prop. della norma sono banali:
+        \begin{gather*}
+            \left\lVert f + g \right\rVert_\infty \leq \left\lVert f \right\rVert_\infty + \left\lVert g \right\rVert_\infty\\
+            \sup \left\lvert f(z) + g(z) \right\rvert \leq sup \left\lvert f(z) \right\rvert + \sup \left\lvert g(z) \right\rvert \leq \sup \left\lvert f \right\rvert + \sup \left\lvert g \right\rvert      
+        \end{gather*}
+    \end{proof}
+    \begin{proposition}
+        Lo spazio $B(X)$ è uno spazio completo (rispetto a $\left\lVert \cdot \right\rVert_\infty $)
+    \end{proposition}
+    \begin{proof}
+        \hfill\\
+
+    \end{proof}
+    \begin{itemize}
+        \item Spazio $C_b(x)$ delle funzioni limitate e continue
+        \item $C_b(x)$ è uno spazio normato con $\left\lVert \cdot \right\rVert_\infty $
+        \item $C_b(X)$ è uno spazio completo
+    \end{itemize}
+    Considero $\left\{f_n\right\}  \in C_b(x)$, ho di conseguenza che:
+    \begin{gather*}
+        \lim_{n \to +\infty} f_n(z) = f(z) \\
+        \exists \lim_{z \to z_0} f_n(z) = f_n(z_0)\\
+    \end{gather*}
+    Ricapitolando:
+    $\ell = \lim_{n \to +\infty} \ell_n$ esiste e $\ell = \lim_{z \to z_0} f(z)$\\
+    $\lim_{z \to z_0} \left( \lim_{n \to \infty} \right) $
+    \begin{definition}[Convergenza totale]
+        Una serie $\sum_{n=0}^{\infty} f_n(z)$ converge totalmente su $X$ se $\sum_{n=0}^{\infty} \left\lVert f_n \right\rVert_\infty < +\infty$
+    \end{definition}
+    
 \end{document}

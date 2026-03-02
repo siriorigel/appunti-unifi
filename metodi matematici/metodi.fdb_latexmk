@@ -1,13 +1,13 @@
 # Fdb version 4
-["makeindex mecAnal.idx"] 1772108110.38234 "mecAnal.idx" "mecAnal.ind" "mecAnal" 1772108151.7693 0
-  "mecAnal.idx" 1772108149.68196 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex metodi.idx"] 1772187462.34352 "metodi.idx" "metodi.ind" "metodi" 1772190478.18705 0
+  "metodi.idx" 1772190477.17623 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
-  "mecAnal.ilg"
-  "mecAnal.ind"
+  "metodi.ilg"
+  "metodi.ind"
   (rewritten before read)
-["pdflatex"] 1772108147.22838 "/home/ale/Documents/programming/repo/meccanica analitica/mecAnal.tex" "mecAnal.pdf" "mecAnal" 1772108151.76959 0
+["pdflatex"] 1772190474.97953 "/home/ale/Documents/programming/repo/metodi matematici/metodi.tex" "metodi.pdf" "metodi" 1772190478.18733 0
   "/etc/texmf/web2c/texmf.cnf" 1757966406.34692 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/ale/Documents/programming/repo/meccanica analitica/mecAnal.tex" 1772108146.27696 22808 5a3d3b62fd02639ca672d99ec17e736c ""
+  "/home/ale/Documents/programming/repo/metodi matematici/metodi.tex" 1772190473.50823 21103 93ba614006d8e25ff6687a6674b2a1ac ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1136768653 1408 5937f58aa508ea2cea4901c07d10f5fe ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -35,6 +35,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
+  "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1136768653 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/esvect/vect10.tfm" 1238776476 372 07da2e555f4c8dac959d0bb59cacb4dc ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/esvect/vect5.tfm" 1238776476 372 28e18d88a38be26cb20dc1302f0fdc04 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/esvect/vect6.tfm" 1238776476 372 e6493454680b692175addf943602cee1 ""
@@ -52,14 +53,13 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1248133631 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb" 1248133631 35022 e40946b20bfdcd1099eafb2bcd9f25dd ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl8.pfb" 1248133631 34511 c5d016cdd12efddb2f17cb8e8b99e7ed ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb" 1248133631 32915 7bf7720c61a5b3a7ff25b0964421c9b6 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
-  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/latxfont/line10.pfb" 1248133631 11493 4f5ed183a47d3197cf8cd322325db6de ""
-  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1248133631 31764 459c573c03a4949a528c2cc7f557e217 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1248133631 37944 359e864bd06cde3b1cf57bb20757fb06 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
-  "/usr/share/texlive/texmf-dist/fonts/type1/public/esvect/vect10.pfb" 1238776476 18279 772052a8794705f886186d0ebf2af187 ""
-  "/usr/share/texlive/texmf-dist/fonts/type1/public/esvect/vect7.pfb" 1238776476 18366 28454ce1c421dd2bbc5d7c7addbe78c9 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb" 1248133631 35309 940e81a5b9e04201a07e8b33a3ae6e64 ""
   "/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/share/texlive/texmf-dist/tex/generic/babel-italian/italian.ldf" 1704400413 11324 231db2406347b14c88e42443ebaa8d26 ""
   "/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty" 1704662920 150008 7a05b0fdc0167c04e192003e780ab195 ""
@@ -255,12 +255,12 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1757966485.51747 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1757966769 8216388 f4b84a74f491ba33437f9e3f70a43fdb ""
-  "mecAnal.aux" 1772108151.47696 972 29d871c8775a2b43f9bdc45700d06c29 "pdflatex"
-  "mecAnal.ind" 1772108110.73596 0 d41d8cd98f00b204e9800998ecf8427e "makeindex mecAnal.idx"
-  "mecAnal.tex" 1772108146.27696 22808 5a3d3b62fd02639ca672d99ec17e736c ""
+  "metodi.aux" 1772190477.91523 1019 2c1e35a08d11bc02a564a85a578ae369 "pdflatex"
+  "metodi.ind" 1772187462.95017 0 d41d8cd98f00b204e9800998ecf8427e "makeindex metodi.idx"
+  "metodi.tex" 1772190473.50823 21103 93ba614006d8e25ff6687a6674b2a1ac ""
   (generated)
-  "mecAnal.aux"
-  "mecAnal.idx"
-  "mecAnal.log"
-  "mecAnal.pdf"
+  "metodi.aux"
+  "metodi.idx"
+  "metodi.log"
+  "metodi.pdf"
   (rewritten before read)

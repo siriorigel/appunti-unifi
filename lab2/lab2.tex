@@ -272,12 +272,12 @@ Se ho una superficie chiusa che racchiude il nodo $n$ considerando $\int_S \vv{J
         \draw(-1,-1) circle (3pt) node[below] {$S_3$};
         \draw(1,1) circle (3pt) node[above] {$S_1$};
         \draw(-1,1) circle (3pt) node[above] {$S_4$};
-        \draw(1,-1) circle (3pt) node[above] {$S_2$};
+        \draw(1,-1) circle (3pt) node[below] {$S_2$};
         %versori n uscenti
-        \draw[->, thick] (-1,-1) -- (-1.4,-1.4) node[above] {$\hat{n} \quad I_4$}; 
+        \draw[->, thick] (-1,-1) -- (-1.4,-1.4) node[below] {$\hat{n} \quad I_4$}; 
         \draw[->, thick] (1,1) -- (1.4,1.4) node[above] {$\hat{n} \quad I_2$}; 
         \draw[->, thick] (-1,1) -- (-1.4,1.4) node[above] {$\hat{n} \quad I_1$}; 
-        \draw[->, thick] (1,-1) -- (1.4,-1.4) node[above] {$\hat{n} \quad I_3$}; 
+        \draw[->, thick] (1,-1) -- (1.4,-1.4) node[below] {$\hat{n} \quad I_3$}; 
     \end{tikzpicture}
 \end{center}
 \begin{gather*}
@@ -327,8 +327,8 @@ rotore uguale a 0 vuol dire conservativo.
         \filldraw (2,1) circle (1pt) node[above] {$A$};
         \draw[->] (0,0) -- (1,-0.5) node[midway, below] {$\vv{r_B}$};
         \filldraw (1,-0.5) circle (1pt) node[below] {$B$};
-        \draw[->, thick] (2,1) to [bend left=20] (1,-0.5);
-        \node at(2,0.5) {$\Gamma$};
+        \draw[->, cyan] (2,1) to [bend left=20] (1,-0.5);
+        \node[cyan] at(2.1,0.5) {$\Gamma$};
         \node at(0,0) [left] {$O$};
     \end{tikzpicture}
 \end{center}
@@ -368,7 +368,7 @@ Ricordiamo che se abbiamo una curva chiusa $\Gamma$ allora:
     \oint_\Gamma \vv{E} \cdot \vv{dl} = \int_{A}^{B} \vv{E} \cdot \vv{dl} + \int_{B}^{C} \vv{E} \cdot \vv{dl} + \int_{C}^{D} \vv{E} \cdot \vv{dl} + \int_{D}^{A} \vv{E} \cdot \vv{dl} = 0\\
     (V_A - V_B) + (V_B - V_C) + (V_C - V_D) + (V_D - V_A) = 0
 \end{gather*}
-\subsection{parliamo dipiù della resistività}
+\subsection{parliamo un po' di più della resistività}
 Partendo da $\vv{E} \rho_R \vv{J}$ e considerando l'unità di misura della resistività:
 \begin{gather*}
     [\rho_R] = \left[\frac{N}{C} \frac{m^2}{A}\right]  = \qquad V = \frac{J}{C}\\
