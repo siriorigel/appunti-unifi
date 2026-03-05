@@ -204,3 +204,35 @@ Il modo più semplice per verificare se due parametrizzazioni di una curva sono 
         \vec a(t) = \ddot{x}\hat i + \ddot{y}\hat j + \ddot{z}\hat k
     \end{equation*}
 \end{definition}
+
+\begin{example}
+    Supponiamo di avere un punto materiale che si muove lungo una circonferenza di raggio $R$:
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[scale=1]
+        
+        % Assi
+        \draw[->, thick] (-1.5,0) -- (1.5,0) node[right] {$x$};
+        \draw[->, thick] (0,-1.5) -- (0,1.5) node[above] {$y$};
+        
+        % Semicirconferenza
+        \draw[blue, thick, domain=0:pi, smooth] plot ({cos(\x r)}, {sin(\x r)});
+        
+        % Punto iniziale e finale
+        \filldraw[red] (1,0) circle (2pt);
+        \filldraw[red] (0,1) circle (2pt);
+        
+        % Etichette
+        \node[red] at (1.2,-0.2) {$(1, 0)$};
+        \node[red] at (-0.2,1.2) {$(0, 1)$};
+        
+        \end{tikzpicture}
+    \end{figure}
+
+    La posizione del punto $P$ sulla circonferenza può essere descritta da una parametrizzazione del tipo:
+    \begin{equation*}
+        \vec r(t) = R\cos(\theta(t))\hat i + R\sin(\theta(t))\hat j + 0\hat k
+    \end{equation*}
+    dove $\theta(t)$ è l'angolo che il raggio vettore $\vec r(t)$ forma con l'asse $x$ al tempo $t$.
+\end{example}
