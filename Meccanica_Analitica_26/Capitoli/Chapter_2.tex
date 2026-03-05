@@ -115,12 +115,12 @@ La variabile $t$ è detta \textbf{ascissa curvilinea} o parametro d'arco, mentre
     
 \end{example}
 
-\begin{example}[Semicirconferenza]
+\begin{example}[Semicirconferenza]\label{ex:semicirconferenza}
     Una semicirconferenza nel piano $xy$ può essere rappresentata da:
     \begin{equation*}
-        \vec r(t) = \cos(t)\hat i + \sin(t)\hat j + 0\hat k
+        \vec r(\varphi) = \cos(\varphi)\hat i + \sin(\varphi)\hat j + 0\hat k
     \end{equation*}
-    con $t \in [0, \pi]$. In questo caso, il dominio $U$ è l'intervallo chiuso $[0, \pi]$, e l'immagine della curva è l'insieme dei punti $(\cos(t), \sin(t), 0)$ che formano una semicirconferenza nel piano $xy$.
+    con $\varphi \in [0, \pi]$. In questo caso, il dominio $U$ è l'intervallo chiuso $[0, \pi]$, e l'immagine della curva è l'insieme dei punti $(\cos(\varphi), \sin(\varphi), 0)$ che formano una semicirconferenza nel piano $xy$.
 
     \begin{figure}[H]
     \centering
@@ -153,4 +153,54 @@ La variabile $t$ è detta \textbf{ascissa curvilinea} o parametro d'arco, mentre
 
 \begin{definition}
     Supponiamo di avere due parametri $t_1$ e $t_2$ che vivono su $U_1$ e $U_2$. Se esiste una funzione $t_1(t_2): U_2 \to U_1$ che è biunivoca e tale che $\vec r_1(t_1) = \vec r_2(t_2(t_1))$ per ogni $t_1 \in U_1$, allora diciamo che le curve $\vec r_1$ e $\vec r_2$ sono \textbf{equivalenti} o \textbf{parametrizzazioni diverse della stessa curva}.
+\end{definition}
+
+Il modo più semplice per verificare se due parametrizzazioni di una curva sono equvalenti è quello di esprimere una delle due parametrizzazioni in funzione dell'altra $t_2(t_1)$ e verificare che la derivata di $t_2$ rispetto a $t_1$ sia diversa da zero nell'insieme di definizione della curva.
+
+\begin{example}
+    Riferendosi all'Esempio (\ref{ex:semicirconferenza}), determiniamo il cambio di variabile $t(\varphi)$ ed il suo inverso. Uguagliamo quindi le due espressioni con cui è rappresentata la semicirconferenza:
+    \begin{equation*}
+        \hat i t + \hat j \sqrt{1 - t^2} = \cos(\varphi)\hat i + \sin(\varphi)\hat j
+    \end{equation*}
+    da cui otteniamo due equazioni equivalenti: $t=\cos(\varphi)$ e $\sqrt{1 - t^2} = \sin(\varphi)$.
+    Abbiamo $\frac{dt}{d\varphi} = -\sin(\varphi)$. Nel dominio $\varphi \in (-\pi , \pi )$ si ha $\frac{dt}{d\varphi} \neq 0$, quindi le due parametrizzazioni sono equivalenti.
+\end{example}
+
+\begin{inciso}
+    Da un punto di vista matematico, due curve che differiscono solo per la parametrizzazione rappresentano lo stesso oggetto geometrico, ovvero la stessa curva nello spazio. La scelta della parametrizzazione è spesso una questione di convenienza o di semplicità, e non influisce sulle proprietà geometriche della curva stessa.
+
+    (Per curva si intende una classe di funzioni continue da un intervallo in $\mathbb{R}^3$).
+
+    Notiamo inoltre che se due curve hanno la stessa immagine, non è detto che possano essere collegate da una riparametrizzazione equivalente. 
+\end{inciso}
+
+\begin{definition}
+    Considero una generica traiettoria. Voglio descrivere l'incremento subito:
+    \begin{equation*}
+        \vec r(t+h)- \vec r(t)
+    \end{equation*}
+
+    Voglio mandare l'incremento a zero, ovvero $h \to 0$. Se esiste il limite definisco \textbf{velocità}:
+    \begin{equation*}
+        \lim_{h \to 0} \frac{\vec r(t+h)-\vec r(t)}{h} = \vec v(t) = \frac{d \vec r(t)}{dt}
+    \end{equation*}
+
+    Per calcolarlo, dapendo che $\vec r(t) = x(t)\hat i + y(t)\hat j + z(t)\hat k$, si ha:
+    \begin{equation*}
+        \vec v(t) = \frac{d \vec r(t)}{dt} = \frac{dx(t)}{dt}\hat i + \frac{dy(t)}{dt}\hat j + \frac{dz(t)}{dt}\hat k
+    \end{equation*}
+\end{definition}
+
+\textbf{\underline{N.B.}} Quando la variabile $t$ rappresenta il \textbf{TEMPO FISICO}, possiamo usare la notazione di Newton per indicare la derivata rispetto al tempo, ovvero $\dot{\vec r}(t)$ invece di $\frac{d \vec r(t)}{dt}$.
+
+\begin{definition}
+    Possiamo definire in maniera analoga l'\textbf{accelerazione} come il limite:
+    \begin{equation*}
+        \vec a(t) = \lim_{h \to 0} \frac{\vec v(t+h) - \vec v(t)}{h} = \frac{d \vec v(t)}{dt} = \frac{d^2 \vec r(t)}{dt^2}= \ddot{\vec r}
+    \end{equation*}
+
+    Analogamente otteniamo:
+    \begin{equation*}
+        \vec a(t) = \ddot{x}\hat i + \ddot{y}\hat j + \ddot{z}\hat k
+    \end{equation*}
 \end{definition}
