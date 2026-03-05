@@ -14,8 +14,11 @@
 \usepackage{pgfplots}
 \usepackage{tabularx}
 \usepackage{tikz}
+\usepackage[d]{esvect}
+\usepackage{svg}
 \usepackage{wrapfig}
 \usepackage{color}
+\usepackage{float}
 \definecolor{page}{rgb}{0.129,0.157,0.212}
 \pagecolor{page}
 \color{white}
@@ -24,6 +27,8 @@
 \usetikzlibrary{datavisualization}
 \usetikzlibrary{datavisualization.formats.functions}
 \usetikzlibrary{patterns}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikz/]
 \pgfplotsset{width=10cm,compat=1.9}
 
 \title{Appunti di Analisi 2}
@@ -74,8 +79,9 @@ di Gennaio.
 
 
 \chapter{Equazioni differenziali}
+\section{Equazioni differenziali del primo ordine}
 \begin{definition}[Equazioni differenziali]
-    Un'equazione differenziale è una equazione in cui l'incognita è una funzione 
+    Un'\textbf{equazione differenziale} è una equazione in cui l'incognita è una funzione 
     di una qualche variabile. L'incognita è dunque $y = f(x)$. Si dice che una equazione differenziale
     è ordinaria se dipende solo da una variabile; nel caso di equazioni differenziali
     che dipendono da più variabili prendono il nome di equazioni differenziali a
@@ -86,8 +92,6 @@ di Gennaio.
     \begin{gather*}
         y'' - y = 0 \qquad y' = 3e^{y}  \qquad y' = 4x + 8
     \end{gather*}
-    La soluzione della prima è $y = \sin x$ in quanto $y'' = -\sin x$ 
-    e dunque $\forall x \in \mathbb{R} \ 0 = 0$. 
 \end{example}
 
 \begin{definition}[Ordine]
@@ -106,12 +110,9 @@ di Gennaio.
     \begin{gather*}
         (y')^{2} + x^{3} = 0   \ \Longrightarrow \ y ' = \pm \sqrt{x^{3} } 
     \end{gather*}
-    Non riesco a ricavare una equazione del primo ordine del tipo $F(x, y, y')$. 
-    Quando riesco ad isolare da una parte la derivata più grande si riesce a semplificare
-    la risoluzione delle equazioni differenziali.
 \end{example}
 
-\section{Equazioni differenziali del primo ordine}
+\begin{definition}[Forma generael delle equazioni del primo ordine]
 La forma generale delle equazioni di primo ordine è del tipo
 \begin{align}
     y' = f(x, y)
@@ -119,7 +120,9 @@ La forma generale delle equazioni di primo ordine è del tipo
 Una soluzione per questa forma generale di equazioni differenziale è una
 funzione $y$ della variabile $x$ definita per $x \in \mathbb{A}$ (un qualche insieme)
 e tale che per ogni $x \in \mathbb{A}$ risulti che $(x, y(x))$ appartenente al dominio di
-$f(x, y)$ e inoltre la derivata di questa funzione calcolata in $x$ è uguale a $y'(x) = f(x, y(x))$.
+$f(x, y)$ e inoltre la derivata di questa funzione calcolata in $x$ è uguale a $y'(x) = f(x, y(x))$.    
+\end{definition}
+
 \begin{example}[Esempio più semplice]
     \begin{gather*}
         y' = g(x) 
@@ -127,21 +130,14 @@ $f(x, y)$ e inoltre la derivata di questa funzione calcolata in $x$ è uguale a 
     Dove $g(x) $ è una funzione continua appartenente ad un qualche insieme $\mathbb{A}$ 
     e quindi un'equazione di questo tipo equivale a trovare la primitiva di $g$. 
     Allora posso dire che $G(x) + c$ è soluzione dell'equazione differenziale, ossia la
-    primitiva di $g(x)$. 
-\end{example}
-\begin{example}[Esempio di prima con soluzione diversa]
-    Nell'equazione differenziale
+    primitiva di $g(x)$ secondo il \textbf{teorema fondamentale del calcolo integrale}:
     \begin{gather*}
-        y'' - y = 0
+        y(x) = y_0 + \int_{x_0}^{x} g(t) \ dt \qquad \forall x \in [a, b] 
     \end{gather*}
-    Anche il coseno è soluzione in quanto si otterrebbe $y = \cos x$. Si ottiene
-    allora che la seguente è anch'essa soluzione dell'equazione:
-    \begin{gather*}
-        C_1 \sin x + C_2 \cos x = 0
-    \end{gather*}
-    Generalmente l'equazione di $n$ ordine ha $n$ costanti $C_1, \dots, C_n$ che moltiplicano. 
 \end{example}
-\begin{example}
+
+\clearpage
+\begin{example}[Esempio di un'equazione differenziale con condizione]
     \begin{gather*}
         \left\{\begin{array}{l}
             y' = x^{2} \\
@@ -153,7 +149,12 @@ $f(x, y)$ e inoltre la derivata di questa funzione calcolata in $x$ è uguale a 
     \begin{gather*}
         \frac{1}{3}  + C = 2 \ \Longrightarrow \ C = \frac{5}{3}
     \end{gather*}
+    Dunque la soluzione è 
+    \begin{gather*}
+        y = \frac{x^{3}}{3} + \frac{5}{3}
+    \end{gather*}
 \end{example}
+
 \section{Il problema di Cauchy}
 Se in una equazione differenziale del primo ordine avessi una situazione del tipo
 \begin{gather*}
@@ -183,35 +184,31 @@ in forma normale
         y(x_0) = y_0
     \end{array}\right.
 \end{gather*}
-SI definiscono alcune ipotesi prima di procedere:
+Si definiscono alcune ipotesi prima di procedere:
 \begin{definition}[Punto interno ad un insieme]
-    \begin{gather*}
-        Se \ \mathbb{A} \subset \mathbb{R}^{2}, (x_0, y_0) \in \mathbb{A} 
-    \end{gather*}
-    Si dice che $(x_0, y_0)$ è interno all'insieme $\mathbb{A}$, se
-    esiste un cerchio di raggio positivo tale per cui il centro sia $(x_0, y_0)$ e sia contenuto
+    Un punto $(x_0, y_0)$ si dice \textbf+{interno} di un certo insieme $\mathbb{A}$ se,
+    dato $\mathbb{A} \subset \mathbb{R}^{2}$, se esiste un cerchio di raggio positivo tale per cui il centro sia $(x_0, y_0)$ e sia contenuto
     dentro all'insieme $\mathbb{A}$. Nel caso in cui $\mathbb{A} \subset \mathbb{R}^{3}$ allora diciamo che un punto
     $(x_0, y_0, z_0)$ è interno all'insieme $\mathbb{A}$ se esiste una sfera di raggio positivo tale per cui
     $(x_0, y_0, z_0)$ sia il centro e sia contenuto all'interno dell'insieme.
 \end{definition}
 \begin{theorem}[Teorema di Peano]
     Se la funzione $f(x, y)$ è una funzione definita e continua  in un qualche insieme
-    $\mathbb{A}$ e $(x_0, y_0) \in \mathbb{A}$, allora il problema di Cauchy ammette almeno una soluzione 
-    definita in un intorno di $x_0$.  
-\end{theorem}
-Da questo possiamo fare due considerazioni:
-\begin{enumerate}
-    \item La continuità di $f(x, y)$ è necessaria per l'esistenza di una soluzione:
-    \item La sola ipotesi di continuità non è garantisce che esista una sola soluzione
+    $\mathbb{A}$ e $(x_0, y_0) \in \mathbb{A}$, allora un problema di Cauchy di primo ordine 
+    normale ammette almeno una soluzione definita in un intorno di $x_0$ se valgono le seguenti:
+    \begin{enumerate}
+    \item La funzione $f(x, y)$ è continua e definita in un insieme $\mathbb{A} \subset \mathbb{R}^{2}$.
+    \item $(x_0, y_0) \in \mathbb{A}$ un punto interno ad $\mathbb{A}$.
 \end{enumerate}
-\begin{example}[differenziale risolta col problema dii Cauchy]
+\end{theorem}
+\begin{example}[differenziale risolta col problema di Cauchy]
     \begin{gather*}
         \left\{\begin{array}{l}
             y' = y^{2/3}  \\
             y(0) = 0
         \end{array}\right.
     \end{gather*}
-    Allora dato che $f(x, y) = y^{2/3}$ è definita continua sull'intervallo $\mathbb{R} \times \mathbb{R}$ e quindi
+    Dato che $f(x, y) = y^{2/3}$ è definita continua sull'intervallo $\mathbb{R} \times \mathbb{R}$ e quindi
     una funzione costante  $f(x) = 0$ ha valore zero in zero e derivata prima uguale a zero. Anche $y(x) = \frac{x^{3} }{27}$ è soluzione
     in quanto la derivata di questa funzione $y' = \frac{x^{2} }{9}$ ed è uguale a zero se calcolata in zero.  Questo problema di Cauchy
     ha allora due soluzioni distinte anche se in realtà ha soluzioni infinite:
@@ -227,9 +224,10 @@ Da questo possiamo fare due considerazioni:
 
 
 \section{I teoremi di esistenza di Cauchy}
-\begin{wrapfigure}{r}{0.35\textwidth}
+\subsection{Definizioni varie}
+\begin{wrapfigure}{r}{0.4\textwidth}
     \centering
-    \caption{}
+    \caption{Rappresentazione di funzione Lipschitziana}
     \begin{tikzpicture}
         \draw[->](-1, 0) -- (4, 0) node[at end, below] {$z$};
         \draw[->](0, -1) -- (0, 3) node[at end, left] {$g(z)$};
@@ -245,12 +243,12 @@ Da questo possiamo fare due considerazioni:
         \draw[<->](0.2, -0.7) -- (2.8, -0.7) node[midway, below] {$I$}; 
     \end{tikzpicture}    
 \end{wrapfigure}
-Per spiegare il teorema di esistenza e di unicità bisogna chiarire innanzitutto
-cosa è una funzione Lipschitziana.
+Per spiegare il teorema di esistenza e di unicità bisogna chiarire innanzitutto dare la
+definizione di \textbf{funzione Lipschitziana}.
 \begin{definition}[Funzione Lipschitziana]
     Presa una funzione definita come $g : I \to \mathbb{R}$, dove $I \subset \mathbb{R}$; posto
-    $[a, b] \subset I$, si dice allora che la funzione $g$ è Lipschitziana nell'intervallo $[a, b]$ se
-    $\exists L \in \mathbb{R} > 0$ tale che comunque si scelgano $a, b$ risulta che,
+    $[a, b] \subset I$, si dice che la funzione $g$ è Lipschitziana nell'intervallo $[a, b]$ se
+    $\exists L \in \mathbb{R} > 0$ tale che, comunque si scelgano $a, b$, risulta che
     per ogni coppia di numeri $z_1, z_2 \in [a, b]$, 
     \begin{align}
         g(z_1) - g(z_2) \leq L|z_1 - z_2|
@@ -261,10 +259,11 @@ cosa è una funzione Lipschitziana.
     \end{align}
     Ossia ogni funzione ha un certo valore massimo per la sua derivata
     prima. Una funzione non è Lipschitziana se presenta dei flessi a tangenti verticali o dei
-    punti di non derivabilità.
+    punti di non derivabilità. Questa condizione è più forte della sola derivabilità:
+    si chiede infatti che il rapporto incrementale della funzione resti sempre minore di una quantità finita e, dunque, la derivata non possa \textbf{esplodere}.
 \end{definition}
-Si può dare un esempio di una funzione che è Lipschitziana solo per un certo intervallo:
-\begin{example}[Esempio di una funzione potenza]
+
+\begin{example}[Esempio di una funzione Lipschitziana potenza]
     \begin{gather*}
         g(z) = z^{\alpha}, \alpha \in (0,  1) 
     \end{gather*}
@@ -274,14 +273,18 @@ Si può dare un esempio di una funzione che è Lipschitziana solo per un certo i
     incrementale diventa grande quanto si vuole. 
 \end{example}
 \begin{definition}[Derivate parziali]
-    Presa $f(x, y)$ definita nel punto $(x_0, y_0)$ all'interno del
-    dominio di $F$. Si ottiene allora che la derivata parziale rispetto 
-    alla $y$ 
+    Presa $f(x, y)$ definita nel punto $(x_0, y_0)$ all'interno del dominio di $f$.
+    Si può definire la derivata parziale rispetto alla variabile
+    $y$ come
     \begin{align}
-        \frac{\partial f}{\partial y}(x_0, y_0) = \lim_{h \to 0}   \frac{F(x_0, y_0 + h) - F(x_0, y_0)}{h}
+        \frac{\partial f}{\partial y}(x_0, y_0) = \lim_{h \to 0}   \frac{f(x_0, y_0 + h) - f(x_0, y_0)}{h}
     \end{align}
-    Ossia eseguo la derivata rispetto alla variabile considerata, considerando
-    come costanti tutte le variabili per cui non derivo.
+    Mentre la derivata parziale di $f(x, y)$ rispetto a $x$:
+    \begin{align}
+        \frac{\partial f}{\partial x}(x_0, y_0) = \lim_{h \to 0} \frac{f(x_0 + h, y_0) - f(x_0, y_0)}{h}  
+    \end{align}
+    Questo operatore permette di eseguire la derivata rispetto alla variabile considerata, considerando
+    come costanti tutte le variabili per cui si deriva.
 \end{definition}
 \begin{example}[Esempio pratico]
     \begin{gather*}
@@ -292,10 +295,11 @@ Si può dare un esempio di una funzione che è Lipschitziana solo per un certo i
 \end{example}
 
 
-
+\clearpage
+\subsection{Il teorema di esistenza di Cauchy}
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
-    \caption{}
+    \caption{Visualizzazione del teorema di Cauchy}
     \begin{tikzpicture}
         \draw[->](0, 0) -- (4, 0);
         \draw[->](0, 0) -- (0, 3);
@@ -305,16 +309,18 @@ Si può dare un esempio di una funzione che è Lipschitziana solo per un certo i
         \draw[|-|](0.2, 2) -- (-0.2, 2) node[at end, left] {$y_0$}; 
         \draw[|-|](0.2, 2.5) -- (-0.2, 2.5);
         \draw[|-|](0.2, 1.5) -- (-0.2, 1.5);
-        \filldraw (2, -0.5) node[anchor = north] {$I$};
-        \filldraw (-0.7, 2) node[anchor = east] {$J$};
+        \filldraw (2, 1.5) node[anchor = north] {$\mathbb{I}$};
+        \filldraw (1.5, 2) node[anchor = east] {$\mathbb{J}$};
         \draw[dashed](0.2, 2.5) -- (2.5, 2.5);
         \draw[dashed](0.2, 1.5) -- (2.5, 1.5);
         \draw[dashed](1.5, 0.2) -- (1.5, 2.5);
         \draw[dashed](2.5, 0.2) -- (2.5, 2.5);
+        \draw[thick](2.5, 2.5) -- (2.5, 1.5) -- (1.5, 1.5) -- (1.5, 2.5) -- (2.5, 2.5);
+        \filldraw(2, 2) circle (1pt) node[anchor = south]{$x_0, y_0$};
     \end{tikzpicture}    
 \end{wrapfigure}
 Possiamo ora introdurre il seguente teorema
-\begin{theorem}[Teorema di esistenza di Cauchy]
+\begin{theorem}[Teorema di Cauchy (esistenza ed unicità locale)]
     Si considera il problema di Cauchy per una differenziale di primo
     ordine 
     \begin{gather*}
@@ -323,97 +329,135 @@ Possiamo ora introdurre il seguente teorema
             y(x_0) = y_0
         \end{array}\right.
     \end{gather*}
-    Possiamo supporre allora che ogni $f(x, y)$ sia definita $\forall (x, y) \in I \times J$, ossia su di un
-    prodotto cartesiano tra due sottoinsiemi qualsiasi di $\mathbb{R}:I = (x - x_0, x + x_0)$ e $J = (y - y_0, y + y_0)$. 
+    Possiamo supporre allora che ogni $f(x, y)$ sia definita $\forall (x, y) \in \mathbb{I} \times \mathbb{J}$, ossia su di un
+    prodotto cartesiano tra due sottoinsiemi qualsiasi definiti nella 
+    seguente maniera:
+    \begin{align}
+        \mathbb{I} \times \mathbb{J} = \left\{(x, y) \in \mathbb{R} \times \mathbb{R}^{n} : \ \left| x - x_0 \right| \leq a, \ \left\lVert y - y_0 \right\rVert  \leq b \right\}
+    \end{align}
+    Dove $x_0 \in \mathbb{I} \subset \mathbb{R}$ e $y_0 \in \mathbb{J} \subset \mathbb{R}^{n}$. 
     Supponiamo allora le seguenti ipotesi:
     \begin{enumerate}
-        \item $f(x, y)$ è continua in $I \times J$;
-        \item $\exists$ costante $L > 0$ tale che la funzione $f(x, y)$ rispetta la definizione
-        di funzione Lipschitziana nell'intervallo $J \ \forall x \in I$, $\forall y_1, y_2 \in J$. 
-        \end{enumerate}
-    Allora esisterà $\delta > 0$ e esisterà una funzione $y(x)$ che risolve il sistema in una funzione definita
-    nell'insieme $(x_0 - \delta, x_0 + \delta)$. 
-\end{theorem}
-Per poter dimostrare questo teorema dovremmo allora introdurre prima dei lemmi
-che ci consentano di dimostrare il teorema
-\begin{proof}
-    \begin{lemma}[Equivalenza tra il teorema del calcolo integrale e la derivata della differenziale]
+        \item $f(x, y)$ è continua in $\mathbb{I} \times \mathbb{J}$;
+        \item E che sia Lipschitziana rispetto ad $y$ uniformemente per $x \in \mathbb{I}$,
+        ossia che $\exists$ costante $L > 0$ tale che:
+        \begin{gather*}
+            \left| f(x, y_1) - f(x, y_2) \right| \leq L\left| y_1 - y_2 \right|  
+        \end{gather*} 
+    \end{enumerate}
+    Allora esisterà un numero reale $\delta \in \mathbb{R}, \delta > 0$ e esisterà una ed una sola  funzione $y = y(x)$,
+    definita come $y :[x_0 - \delta, x_0 + \delta] \to \mathbb{R}^{n}$ che risolve il problema.
+\end{theorem} \noindent
+Attualmente non è possibile dimostrate questo teorema, ma si possono elencare dei teoremi utili
+per proseguire lo studio delle equazioni differenziali:
+\begin{lemma}[Formulazione integrale del problema di Cauchy]
         Sia $\delta > 0$ e supponiamo che siano valide le
-        ipotesi del teorema, allora le seguenti sono equivalenti
+        ipotesi del teorema, allora le seguenti sono equivalenti:
         \begin{enumerate}
-            \item $\exists y(x)$ derivabile in $[x_0 - \delta, x_0 + \delta]$ tale che 
-            $y'(x) = f(x, y(x)) \ \forall x \in [x_0 - \delta, x_0 + \delta], y(x_0) = y_0$.
-            \item $\exists y(x)$ funzione continua in $[x_0 - \delta, x_0 + \delta]$ tale che
+            \item $\exists \ y = y(x)$ derivabile in $[x_0 - \delta, x_0 + \delta]$ per cui
             \begin{gather*}
-                y(x) = y_0 + \int_{x_0}^{x}f(t, y(t)) \ dt, \qquad \forall x \in (x_0 - \delta, x_0 + \delta). 
+                y'(x) = f(x, y(x)) \quad \forall x \in [x_0 - \delta, x_0 + \delta] \quad y(x_0) = y_0
+            \end{gather*}
+            \item $\exists \ y = y(x)$ funzione continua in $[x_0 - \delta, x_0 + \delta]$ tale che
+            \begin{gather*}
+                y(x) = y_0 + \int_{x_0}^{x}f(t, y(t)) \ dt \quad \forall x \in [x_0 - \delta, x_0 + \delta]. 
             \end{gather*} 
         \end{enumerate}
     \end{lemma}
     \begin{proof}
-        Posso dimostrare questa attraverso il teorema del calcolo integrale:
-        se $g(z)$ è continua, allora posso scrivere che $g(z) = g(z_0) + \int_{z_0}^{z}g'(t) \ dt$. \\
-        $ 1 \ \Longrightarrow \ 2$ So che $y(x)$ è una funzione che soddisfa la prima definizione e allora $y'$ è continua e quindi dal teorema
-        fondamentale del calcolo integrale io so che
+        Utilizzando il teorema del calcolo integrale, se $g(z)$ è continua, allora posso scrivere che:
         \begin{gather*}
-            y(x) = y(x_0) + \int_{x_0}^{x}y'(t) \ dt
+            g(z) = g(z_0) + \int_{z_0}^{z}g'(t) \ dt
         \end{gather*}
-        Allora posso dire che, dato $y'(t) = f(t, y(t))$ , posso
-        sostituire nell'integrale e ottenere la tesi. \\
+        $ 1 \ \Longrightarrow \ 2$: Dato che $y(x)$ è una funzione che soddisfa la prima condizione,
+        allora $y'$ è continua e, dal teorema fondamentale del calcolo integrale, si ha che
+        \begin{gather*}
+            y(x) - y(x_0) = \int_{x_0}^{x}y'(t) \ dt
+        \end{gather*}
+        Essendo $y(x_0) = y_0$ si ottiene la tesi. \\
         $2 \ \Longrightarrow \ 1$: Sia $y$ una funzione che soddisfi la
-        seconda proposizione, allora posso utilizzare un'altra forma del teorema del
-        calcolo integrale per cui se $h$ è continua, allora la funzione $h(x)  \to z_0 + \int_{x_0}^{x} h(t) \ dt$ e quindi
-        se $h$ è continua e derivabile, la derivata di questa funzione è esattamente $h(x)$. Si ottiene che la funzione
+        seconda proposizione, allora tramite il teorema del
+        calcolo integrale, posta una funzione $h$ continua 
+        \begin{gather*}
+            h(x)  \to z_0 + \int_{x_0}^{x} h(t) \ dt
+        \end{gather*}
+        Quindi se $h$ è continua e derivabile, la derivata di questa funzione è esattamente $h(x)$. Si ottiene che la funzione
         all'interno della tesi dell'integrale è continua e quindi l'integrale è una funzione derivabile e la sua derivata
         è esattamente (con l'implicita formulazione che $y(x_0) = y_0$)
         \begin{gather*}
             y'(x) = f(x, y(x))
         \end{gather*}
-        Proprio come si voleva ottenere.
+        Proprio come si voleva ottenere (ovviamente $\forall x \in [x_0 - \delta, x_0 + \delta])$.
     \end{proof}
     \begin{lemma}[Se valgono queste considerazioni le ipotesi del teorema sono verificate]
-        Se $f$ è continua in un insieme $\mathbb{A}$, $(x_0, y_0)$ è interno all'insieme
-        e inoltre si ha che
+        Se, data una funzione $f$ definita su di un aperto $\mathbb{A}$, se $(x_0, y_0)$ 
+        è un punto interno di $\mathbb{A}$, se 
         \begin{enumerate}
-            \item $                \exists \frac{\partial f}{\partial y}(x, y)$.
-            \item $\frac{\partial f}{\partial y}(x, y)$ è continua 
+            \item $f$ è continua su $\mathbb{A}$
+            \item $\exists \frac{\partial f}{\partial y}(x, y)$ continua $\forall x \in \mathbb{A}$. 
         \end{enumerate}
-        $\forall (x, y) \in \mathbb{A}$ e allora le ipotesi di questo teorema sono
-        verificate. 
+        Allora le ipotesi di questo teorema di esistenza e di unicità di Cauchy sono verificate. 
     \end{lemma}
-    La dimostrazione è da finire nelle prossime lezioni.
-\end{proof}
-\begin{example}[Funzione non Lipschitziana]
+
+\subsection{Esistenza globale}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Visualizzazione di esistenza globale}
+    \begin{tikzpicture}
+        \filldraw[pattern=north west lines, pattern color = white](1, -1) -- (3, -1) -- (3, 3) -- (1, 3) -- (1, -1);
+        \draw[->](-1, 0) -- (4, 0) node[at end, below] {$x$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$y$};
+        \draw(1, -1) -- (1, 3);
+        \draw(3, -1) -- (3, 3);
+        \draw(-0.1, 1) -- (0.1, 1) node[at start, left] {$y_0$};
+        \filldraw(1.6, -0.1) -- (1.6, 0.1)  circle (1pt) node[anchor = north] {$x_0$};
+        \filldraw(1, 0) circle (1pt) node[anchor = north east] {$a$};
+        \filldraw(3, 0) circle(1pt) node[anchor = north west] {$b$};
+        \filldraw(1.6, 1) circle(1pt);
+    \end{tikzpicture}    
+\end{wrapfigure}
+I teoremi di esistenza locale mi dicono che è possibile trovare 
+delle soluzioni negli intorni di $x_0$ in quanto si è interessati solo
+alle soluzioni vicine a questo intorno. Il teorema di esistenza
+globale considero l'intero insieme di esistenza della funzione. 
+\begin{theorem}[Teorema di esistenza globale]
+    Consideriamo il problema di Cauchy del primo ordine
     \begin{gather*}
         \left\{\begin{array}{l}
-            y' = y^{\frac{2}{3}} \\
-            y(0) = 0 
+            y' = f(x, y) \\
+            y(x_0) = y_0
         \end{array}\right.
     \end{gather*}
-    Quindi dico che il mio $x_0$ e $y_0$ contengano l'origine, se io facessi il
-    grafico di $y^{\frac{2}{3}}$, allora si ottiene che questo grafico è una radice simmetrica rispetto
-    all'asse $y$ e per questo non è Lipschitziana nell'intorno di $0$: le immagini non comprendono
-    le ordinate negative. 
-\end{example}
+    \begin{enumerate}
+        \item $f(x, y)$ e $\frac{\partial f}{\partial y}(x, y)$ sono continue e definite
+        $\forall x \in [a, b]$, $\forall y \in \mathbb{R}$, con $[a,b] \subset \mathbb{R}$ e $y_0 \in \mathbb{R}$;
+        \item Esistono due valori positivi $h, k \in \mathbb{R}$ per cui risulta:
+        \begin{gather*}
+            |f(x, y)| \leq h + k|y(x)| \qquad \forall x \in [a, b], y \in \mathbb{R}
+        \end{gather*} 
+    \end{enumerate}
+    Allora la soluzione $y(x)$ è \textbf{unica} e \textbf{definita} su tutto $[a, b]$.
+\end{theorem}
+
 
 \section{Equazioni a variabile separata}
-Le equazioni di funzioni a più variabili prendono il nome di funzioni a variabili separabili, ossia
-della forma 
+Le equazioni di funzioni a più variabili prendono il nome di funzioni a \textbf{variabili separabili}
+se sono della forma 
 \begin{align}
     y' = a(x) b(y) \ \Longrightarrow \ y'(x) = a(x)b(y(x))
 \end{align}
-Dove $a(x)$ è continua in $I \subset \mathbb{R}$ e $b(y)$ è continua
-in $J \subset \mathbb{R}$. Posso trovare delle soluzioni per queste equazioni nella
-seguente maniera: se $\overline{y}$ è univoco tale che $b(\overline{y}) = 0$ allora
-la funzione $y(x) \equiv \overline{y}$ è soluzione. Se si suppone che
-$b(y) \neq 0$ allora posso dire che se due funzioni sono uguali il loro integrale sarà uguale:
+Dove $a(x)$ è continua in un insieme $\mathbb{I} \subset \mathbb{R}$ e $b(y)$ è continua
+in $\mathbb{J} \subset \mathbb{R}$. Si trovano delle soluzioni per queste equazioni ponendo 
+$\overline{y}$ in modo univoco tale che $b(\overline{y}) = 0$, allora $y(x) \equiv \overline{y}$ è soluzione.
+Se si suppone che $b(y) \neq 0$ allora si può dire che se due funzioni sono uguali il loro integrale sarà uguale:
 \begin{gather*}
     \frac{y'}{b(y)} = a(x) \ \Longrightarrow \ \frac{y'(x)}{b(y(x))} = a(x) \ \Longrightarrow \ \int\frac{y'(x)}{b(y(x))} \ dy = \int a(x) \ dx
 \end{gather*}
-Se ponessi ora $y = y(x)$ che soddisfano questa equazione
+Se ponessi ora $y = y(x)$ tali che soddisfano questa equazione
 \begin{gather*}
     \int \frac{dy}{b(y)} = \int a(x) \ dx
 \end{gather*}
-Se $B(y)$ è una primitiva, allora posso dire che 
+Se $B(y)$ è una primitiva allora
 \begin{gather*}
     B(y) = A(x) + c
 \end{gather*}
@@ -422,6 +466,8 @@ la quale è data proprio da:
 \begin{gather*}
     y(x) = B^{-1} (A(x) + c)
 \end{gather*}
+
+\clearpage
 \begin{example}[Esempio di separazione di variabili]
     \begin{gather*}
         \left\{\begin{array}{l}
@@ -433,82 +479,30 @@ la quale è data proprio da:
     \begin{gather*}
         \frac{dy}{dx} = \frac{1}{y} \ \Longrightarrow \ \int y \ dy = \int 1 \ dx \ \Longrightarrow \ \frac{y^{2} }{2} = x + c
     \end{gather*}
-    Dato che il quadrato non è sempre invertibile, devo stare attento alle soluzioni che
-    ottengo, in questo caso però mi va bene qualsiasi funzione inversa ed entrambre sono soluzioni
-    ma scelgo quella positiva
+    Dato che il quadrato non è sempre invertibile, si deve stare attenti alle soluzioni che
+    si ottengono, in questo caso però va bene qualsiasi funzione inversa ed entrambe sono soluzioni anche se
+    si sceglie quella positiva:
     \begin{gather*}
         y = \sqrt{2x + 2c} \ \Longrightarrow \ y = \sqrt{2x + 4} 
     \end{gather*}
 \end{example}
 \begin{example}[Altro Esempio]
     \begin{gather*}
-        y' = ay(1 - by), a, b > 0
+        y' = ay(1 - by) \qquad a, b > 0
     \end{gather*}
-    In questo caso ho delle soluzioni costanti che mi permettono di dire che
-    $y(x) \equiv 0$, $y(x) \equiv \frac{1}{b}$, allora posso passare all'integrale
-    separando le variabili e ottenere:
+    In questo caso si hanno delle soluzioni costanti che permettono di dire che
+    $y(x) \equiv 0$, $y(x) \equiv \frac{1}{b}$, allora si integra separando le variabili:
     \begin{gather*}
         \int \frac{dy}{y(1 - by)} = \int a \ dx \ \Longrightarrow \ \ln\left| \frac{y}{1 - by} \right| = ax + c \\
-        \ \Longrightarrow \ \left| \frac{y}{1 - by} \right| = e^{ax} \cdot  e^{c}    = e^{ax}c_0, c_0 \in \mathbb{R}  
+        \ \Longrightarrow \ \left| \frac{y}{1 - by} \right| = e^{ax} \cdot  e^{c}    = e^{ax}c_0 \qquad c_0 \in \mathbb{R}  
     \end{gather*}
-    Dato che $c_0$ è una costante sempre positiva, posso sostituirla con $c_1 \in \mathbb{R} > 0$: 
+    Dato che $c_0$ è una costante sempre positiva, può essere sostituita con $c_1 \in \mathbb{R} > 0$: 
     \begin{gather*}
         y = \frac{c_1e^{ax}  }{1 + bc_1e^{ax}  }
     \end{gather*}
 \end{example}
 
-\section{Equazioni omogenee}
-Sono delle equazioni del tipo
-\begin{gather*}
-    y' = f(x, y)
-\end{gather*}
-dove $f(x, y)$ è omogenea di grado $0$, ossia $\forall \lambda \in \mathbb{R} \ f(\lambda x, \lambda y) = f(x, y)$.
-\begin{example}[Questa funzione differenziale è omogenea]
-    \begin{gather*}
-        y' = \frac{2xy}{x^{2} + y^{2}  } \qquad f(\lambda x, \lambda y) = \frac{2(\lambda x)(\lambda y)}{(\lambda x)^{2} + (\lambda y)^{2}  } = f(x, y)
-    \end{gather*}
-\end{example}
-
-Queste equazioni possono essere riscritte attraverso una opportuna funzione per essere risolte:
-\begin{gather*}
-    y' = b\left(\frac{y}{x}\right)
-\end{gather*}
-Ossia posso trasformare la differenziale come funzione di $\frac{y}{x} = t$, quindi cambio varibile
-nel seguente modo:
-\begin{gather*}
-    z(x) = \frac{y(x)}{x} \ \Longrightarrow \ y(x) = xz(x) \ \Longrightarrow \ y'(x) = z + xz'
-\end{gather*}
-Adesso posso risolvere in funzione di $z$:
-\begin{gather*}
-    b(z) = z + xz' \ \Longrightarrow \ z' = \frac{b(z) - z}{x}
-\end{gather*}
-Coni passaggi all'indietro ottengo nuovamente $y(x) = xz(x)$.
-\begin{example}
-    \begin{gather*}
-        y' = \frac{x^{3} + y^{3}  }{xy^{2} }
-    \end{gather*}
-    Se io definisco $f(x, y)$ questo oggetto è facile
-    vedere che è omogenea. Posso ora mettere in evidenza la $x$ sopra
-    e dunque ottenere
-    \begin{gather*}
-        \frac{x^{3}(1 + \frac{y^{3} }{x^{3} }) }{x^{3}(\frac{y^{2} }{x^{2} } ) } = b\left(\frac{y}{x}\right) 
-    \end{gather*}
-    Ossia si ottiene una funzione in rapporto tra $y$ e $x$, allora posso dire che
-    \begin{gather*}
-        b(t) = \frac{1 + t^{3} }{t^{2} }
-    \end{gather*}
-    Allora, data la definizione di $z'$ si ottiene
-    \begin{gather*}
-        z' = \frac{\frac{1 + z^{3} }{z^{2} } - z}{x} \ \Longrightarrow \ z' = \frac{1}{z^{2} }\frac{1}{x}
-    \end{gather*}
-    Allora per separazione di variabili possiamo trovare la soluzione come
-    \begin{gather*}
-        \int z^{2} dz  = \int \frac{dx}{x}
-    \end{gather*}
-\end{example}
-
-\section{Esistenza locale ed esistenza globale}
-\begin{example}
+\begin{example}[Problema di Cauchy risolto con separazione]
     \begin{gather*}
         \left\{\begin{array}{l}
             y' = -2xy^{2}  \\
@@ -530,50 +524,60 @@ Coni passaggi all'indietro ottengo nuovamente $y(x) = xz(x)$.
         y = \frac{1}{x^{2} - 1}
     \end{gather*}
 \end{example}
-I teoremi di esistenza locale mi dicono che è possibile trovare 
-delle soluzioni negli intorni di $x_0$ in quanto sono interessato solo
-alle soluzioni vicine a questo intorno. Nei teoremi di esistenza globale invece
-io considero l'intero insieme di esistenza della funzione trovando delle soluzioni globali. 
-\begin{wrapfigure}{r}{0.4\textwidth}
-    \centering
-    \caption{Teorema di esistenza globale}
-    \begin{tikzpicture}
-        \draw[->](-1, 0) -- (4, 0) node[at end, below] {$x$};
-        \draw[->](0, -1) -- (0, 3) node[at end, left] {$y$};
-        \draw(1, -1) -- (1, 3);
-        \draw(3, -1) -- (3, 3);
-        \draw(-0.1, 1) -- (0.1, 1) node[at start, left] {$y_0$};
-        \filldraw(1.6, 0) circle (1pt) node[anchor = north] {$x_0$};
-        \filldraw(1, 0) circle (1pt) node[anchor = north east] {$a$};
-        \filldraw(3, 0) circle(1pt) node[anchor = north west] {$b$};
-        \filldraw(1.6, 1) circle(1pt);
-    \end{tikzpicture}    
-\end{wrapfigure}
-\begin{theorem}[Teorema di esistenza globale]
-    Consideriamo il problema di Cauchy del primo ordine
-    \begin{gather*}
-        \left\{\begin{array}{l}
-            y' = f(x, y) \\
-            y(x_0) = y_0
-        \end{array}\right.
-    \end{gather*}
-    \begin{enumerate}
-        \item $f(x, y)$ e $\frac{\partial f}{\partial y}(x, y)$ sono continue e definite
-        $\forall x \in [a, b]$, $y_0 \in \mathbb{R}$;
-        \item Esistano due valori positivi $h, k \in \mathbb{R}$ per cui risulta:
-        \begin{gather*}
-            |f(x, y)| \leq h + k|y| \qquad \forall x \in [a, b], y \in \mathbb{R}
-        \end{gather*} 
-    \end{enumerate}
-    Allora la soluzione è unica e definita su tutto $[a, b]$.
-\end{theorem}
-\begin{proof}
-    Non fatta in classe (si farà? boooh)
-\end{proof}
 
+\clearpage
+\section{Equazioni omogenee}
+Sono delle equazioni del tipo
+\begin{gather*}
+    y' = f(x, y)
+\end{gather*}
+dove $f(x, y)$ è omogenea di grado $0$, ossia $\forall \lambda \in \mathbb{R} \ f(\lambda x, \lambda y) = f(x, y)$.
+\begin{example}[Equazione differenziale è omogenea]
+    \begin{gather*}
+        y' = \frac{2xy}{x^{2} + y^{2}  } \qquad f(\lambda x, \lambda y) = \frac{2(\lambda x)(\lambda y)}{(\lambda x)^{2} + (\lambda y)^{2}  } = f(x, y)
+    \end{gather*}
+\end{example} \noindent
+Queste equazioni possono essere riscritte attraverso una opportuna funzione per essere risolte:
+\begin{gather*}
+    y' = b\left(\frac{y}{x}\right)
+\end{gather*}
+Ossia si trasforma la differenziale come funzione di $\frac{y}{x} = t$, quindi si cambia varibile
+nel seguente modo:
+\begin{gather*}
+    z(x) = \frac{y(x)}{x} \ \Longrightarrow \ y(x) = xz(x) \ \Longrightarrow \ y'(x) = z + xz'
+\end{gather*}
+Adesso si risolve in funzione di $z$:
+\begin{gather*}
+    b(z) = z + xz' \ \Longrightarrow \ z' = \frac{b(z) - z}{x}
+\end{gather*}
+Con i passaggi all'indietro ottengo nuovamente $y(x) = xz(x)$.
+\begin{example}[Esempio per sostituzione]
+    \begin{gather*}
+        y' = \frac{x^{3} + y^{3}  }{xy^{2} }
+    \end{gather*}
+    Definita $f(x, y)$, è facile vedere che questa differenziale sia omogenea.
+    Si mette dunque in evidenza la $x$ sopra ottenendo
+    \begin{gather*}
+        \frac{x^{3}(1 + \frac{y^{3} }{x^{3} }) }{x^{3}(\frac{y^{2} }{x^{2} } ) } = b\left(\frac{y}{x}\right) 
+    \end{gather*}
+    Ossia si ottiene una funzione in rapporto tra $y$ e $x$, allora si può esprimere
+    \begin{gather*}
+        b(t) = \frac{1 + t^{3} }{t^{2} }
+    \end{gather*}
+    Allora, data la definizione di $z'$ si ottiene
+    \begin{gather*}
+        z' = \frac{\frac{1 + z^{3} }{z^{2} } - z}{x} \ \Longrightarrow \ z' = \frac{1}{z^{2} }\frac{1}{x}
+    \end{gather*}
+    Allora per separazione di variabili possiamo trovare la soluzione come
+    \begin{gather*}
+        \int z^{2} dz  = \int \frac{dx}{x}
+    \end{gather*}
+\end{example}
+
+\clearpage
 \section{Sistemi di equazioni differenziali}
-Un sistema di equazioni differenziali è un sistema i cui membri sono vettori
-di funzioni:
+Come per le equazioni normali, anche le equazioni differenziali possono
+essere inserite in sistemi, nella forma:
 \begin{gather*}
     \left\{\begin{array}{l}
         y'_1 = f_1(x, y_1, \dots, y_n) \\
@@ -582,29 +586,37 @@ di funzioni:
         y'_n = f_n(x, y_1, \dots, y_n)
     \end{array}\right.
 \end{gather*}
-La soluzione del sistema è allora un vettore di funzioni (chiamata anche \textbf{funzione vettoriale}):
+Questo generico sistema di equazioni differenziale in forma normale è scritto come
+sistema differenziale del primo ordine, in forma normale. 
+L'incognita del sistema è allora un vettore di funzioni (chiamata anche \textbf{funzione vettoriale}):
 \begin{gather*}
-    \begin{pmatrix} y_1(x) \\
+    Y(x) = \begin{pmatrix} y_1(x) \\
     \vdots \\
-    y_n(x) \end{pmatrix} \  x \in I, \ I \subset \mathbb{R} : \\
+    y_n(x) \end{pmatrix} \  x \in \mathbb{I}, \ \mathbb{I} \subset \mathbb{R} :
     \left\{\begin{array}{l}
         y'_1 = f_1(x, y_1(x), \dots, y_n(x)) \\
         \vdots  \\
         y'_n = f_n(x, y_1(x), \dots, y_n(x)) 
     \end{array}\right.
 \end{gather*}
-Allora posso chiamare il vettore
+Chiamati i seguenti vettori
 \begin{gather*}
-    Y(x) = \begin{pmatrix} y_1(x) \\
-    \vdots \\
-    y_n(x) \end{pmatrix} \\
+        Y'(x) = \begin{pmatrix}
+        y_1'(x) \\
+        \vdots \\
+        y_n'(x)
+    \end{pmatrix} 
+    \quad 
+    F(x, Y) = \begin{pmatrix}
+        f_1 \\
+        \vdots \\
+        f_n
+    \end{pmatrix}
 \end{gather*}
-Tale che $Y'(x)$ contenga tutte le derivate, allora posso chiamare il
-vettore funzione come $F(x, Y) = Y'$, allora posso dire che i sistemi di equazioni
-differenziali sono tutti risolvibili allo stesso modo. Se si avesse invece delle condizioni
+Se si avesse invece delle condizioni
 per tutte le derivate fino alla $n - 1$ esima, allora saremmo in presenza di un
-sistema di equazioni differenziali di Cauchy. Questo vuol dire che la sua soluzione,
-tenuto conto delle considerazioni fatte fino ad ora
+sistema di equazioni differenziali di Cauchy, si potrebbero esprimere
+nella seguente formulazione
 \begin{gather*}
     \left\{\begin{array}{l}
         Y'(x) = F(x, Y) \\
@@ -612,9 +624,10 @@ tenuto conto delle considerazioni fatte fino ad ora
     \end{array}\right.
 \end{gather*}
 
+
 \begin{theorem}[Teorema 1]
-    Sia $D \subset \mathbb{R}^{n + 1}$ e sia $F : D \to \mathbb{R}^{n}$,una
-    funzione continua e sia $(x_0, y_0)$ un punto interno a $D$, allora 
+    Sia $\mathbb{D} \subset \mathbb{R}^{n + 1}$ e sia $F : \mathbb{D} \to \mathbb{R}^{n}$,una
+    funzione continua e sia $(x_0, y_0)$ un punto interno a $\mathbb{D}$, allora 
     il problema di Cauchy (sistema di equazioni differenziali) ha almeno una soluzione definita in un intorno  
     di $x_0$.
 \end{theorem}
@@ -624,26 +637,27 @@ tenuto conto delle considerazioni fatte fino ad ora
     \begin{gather*}
         \frac{\partial f_i}{\partial y_j} \qquad i, j \in \{1, \dots, n\} 
     \end{gather*}
-    Siano continue in $D$ , allora il problema di Cauchy con sistema di equazioni
+    Siano continue in $\mathbb{D}$ , allora il problema di Cauchy con sistema di equazioni
     differenziali ha una sola soluzione definita nell'intorno di $x_0$.
 \end{theorem}
 
 \begin{theorem}[Teorema 3]
-    Supponiamo che $f_i(x, y_1, \dots, y_n)$ sia definita per ogni $i = 1,\dots, n$,
+    Supponiamo vere le seguenti
+    \begin{itemize}
+        \item Supponiamo che $f_i(x, y_1, \dots, y_n)$ sia definita per ogni $i = 1,\dots, n$,
     $\forall x \in [a, b]$ e $\forall y_1, \dots, y_n \in \mathbb{R}$ si suppone anche che
     $f_i$ e la derivata parziale rispetto ad ogni $f_i$ rispetto a $y_j$ siano continue
-    $\forall y \in [a, b], y_1, \dots, y_n \in \mathbb{R}$. Si suppone anche che $\exists h, k  >0$ tali per cui
-    risulti 
-    \begin{align}
-        ||F(x, Y)|| \leq h + k ||Y||
-    \end{align} 
-    Con $||Y||$ si indica la norma e ogni soluzione dell'equazione $Y' = F(x , Y)$ 
-    è definita su tutto l'intervallo $[a, b]$.
+    $\forall y \in [a, b], y_1, \dots, y_n \in \mathbb{R}$.
+    \item Si suppone anche che $\exists h, k  >0$ tali per cui
+    risulti $||F(x, Y)|| \leq h + k ||Y||$. 
+    \end{itemize}
+    Allora, indicata con $||Y||$ la norma del vettore $Y$, ogni soluzione dell'equazione $Y' = F(x , Y)$ 
+    è \textbf{definita} $\forall x \in [a, b]$.
 \end{theorem}
 \begin{example}[Esempio fondamentale]
-    In un sistema di equazioni differenziali di ordine $n$, tale per cui
+    Date
     \begin{gather*}
-        \underset{\heartsuit}{y_1(x) \equiv y(x) \qquad y_2(x) \equiv y'(x)} \qquad y'' = 3xy + 7y' (\star) \\
+        \underset{\heartsuit}{\underline{y_1(x) \equiv y(x) \qquad y_2(x) \equiv y'(x)}} \qquad y'' = 3xy + 7y' (\star) \\
         \left\{\begin{array}{l}
             y_1' = y_2 \\
             y_2' = 3xy_1 + 7y_2 (\star \star)
@@ -662,18 +676,14 @@ tenuto conto delle considerazioni fatte fino ad ora
     \end{align}
     Se $f(x) $ è zero, allora prendono il nome di \textbf{omogenee}, altrimenti
     \textbf{complete}. Queste equazioni si chiamano lineari perché hanno la 
-    caratteristica che riprendono le funzioni lineari negli spazi vettoriali.
-\end{definition}
-\begin{gather*}
-    y' = a(x) y = f(x)   
-\end{gather*}
-Posso utilizzare la risoluzione vista prima per cui posso eseguire un cambio di variabile
-opportuno in modo tale da renderla omogenea
-\begin{gather*}
-    z' + a(x) z = 0
-\end{gather*}
-Se $z_1$ e $z_2$ sono soluzioni dell'omogenea, allora anche $\alpha z_1(x)+\beta z_2(x)$
-sono soluzioni.  Posso dimostrarlo nel seguente modo:
+    caratteristica che riprendono le funzioni lineari negli spazi vettoriali. 
+    Un'equazione lineare del primo ordine ha la seguente forma:
+    \begin{align}
+        y' + a(x) y = f(x)   
+    \end{align}
+\end{definition} \noindent
+Si può verificare prima di tutto che, se $z_1, z_2$ è soluzione di un equazione differenziale linare
+del primo ordine generica, allora anche la loro combinazione linare è soluzione:
 \begin{gather*}
     (\alpha z_1(x)+\beta z_2(x))' + a(x)(\alpha z_1(x)+\beta z_2(x)) = 0 \\
     \alpha(z_1' + a(x)z_1) + \beta(z_2' + a(x) z_2) = 0
@@ -681,13 +691,14 @@ sono soluzioni.  Posso dimostrarlo nel seguente modo:
 Dato che $z_1$ e $z_2$ sono soluzioni, allora è verificata.  \\
 Posso ora verificare che esistono soluzioni per l'equazione
 generica $z' + a(x)z = 0$. Sia $A(x)$ una primitiva finita senza le costanti 
-di $a(x)$ e quindi $A'(x) = a(x)$. Posso eseguire allora la seguente trasformazione: 
+di $a(x)$ e quindi $A'(x) = a(x)$. Si esegue la seguente trasformazione: 
 \begin{gather*}
     e^{A(x)}z' + a(x)e^{A(x)}z = 0 = (e^{A(x)}z)'     \\
     e^{A(x)}z = c \qquad c \in \mathbb{R} \qquad z = ce^{-A(x)}  
 \end{gather*}
-Esiste un modo più veloce per poter trovare le soluzioni, questo è dato dalla seguente 
-formulazione
+Per risolvere queste equazioni differenziali esiste anche un modo 
+più veloce, si integra $a(x)$ e si utilizza la regola 
+di derivazione del prodotto, moltiplicando per $e^{A(x)}$ entrambi i membri dell'uguaglianza:
 \begin{gather*}
     y'e^{A(x)} + a(x)e^{A(x)}y = f(x)e^{A(x)}    \\
     (ye^{A(x)} )' = f(x) e^{A(x)} 
@@ -697,14 +708,14 @@ si ottiene che
 \begin{gather*}
     ye^{A(x)} = F(x) + c
 \end{gather*}
+Allora 
 \begin{align}
     y = ce^{-A(x)} + e^{-A(x)}F(x)   
 \end{align}
 Si può anche utilizzare un secondo metodo per risolvere le equazioni 
-e si chiama \textbf{metodo della variazione delle costanti}.
-Penso che $c$ ora sia una funzione e non più una costante, allora dato che
-devo considerare una soluzione generale, allora devo considerare $c$ come
-funzione. Posso ottenere la derivata
+che prende il nome di \textbf{metodo della variazione delle costanti}.
+Posto che $c$ ora sia una funzione (di $x$) e non più una costante, si deve
+considerare una soluzione generale, derivando
 \begin{gather*}
     y' = C'e^{-A(x)} - Ce^{-A(x)}a  \\
     y' + a(x)y = f \ \Longrightarrow \ C' = f(x) e^{A(x)} 
@@ -738,44 +749,785 @@ $C = F(x) + d, d\in \mathbb{R}$, le soluzioni sono allora
     svolge il valore assoluto.
 \end{example}
 
-\section{Spazi di funzioni}
+\section{Spazi di funzioni e teorema di esistenza ed unicità globale}
+\subsection{Spazi di funzioni e proprietà}
 \begin{definition}[Spazi di funzioni]
-    Sia $I$ un intervallo su di $\mathbb{R}$ , allora definisco lo spazio delle
-    funzioni di da $I \to \mathbb{R}$ lo spazio vettoriale che
+    Sia $\mathbb{I} \subseteq \mathbb{R}$, si definisce \textbf{spazio di funzioni}
+    funzioni da $\mathbb{I} \to \mathbb{R}$ lo spazio vettoriale che
     contiene le funzioni con le seguenti proprietà:
     \begin{enumerate}
         \item $\alpha f(x)  + \beta g(x) $ appartiene allo spazio;
-        \item $f(x)  \equiv 0$.
     \end{enumerate}
-    All'interno di questo spazio vivono anche gli spazi:
+    All'interno di questo spazio vivono anche i seguenti sottospazi:
     \begin{itemize}
-        \item     $C^{0}(I)$, ossia l'insieme dello spazio delle funzioni continue su $I \to \mathbb{R}$;
-        \item $C^{1}(I)$ è l'insieme delle funzioni continue derivabili in ogni punto
-        la cui derivata è una funzione continua e $\forall x \in I$.
-        \item $\vdots$
-        \item $C^{(n)}$ è l'insieme delle derivate $n$ esime continue.    
+        \item $C^{0}(\mathbb{I})$, ossia l'insieme dello spazio delle funzioni continue su $\mathbb{I} \to \mathbb{R}$, sottoinsieme di $\mathbb{I}$:
+        \item $C^{1}(\mathbb{I})$ è l'insieme delle funzioni continue con derivata prima continua $\forall x \in \mathbb{I}$, sottoinsieme di $C^{0}(\mathbb{I})$.
     \end{itemize}
-\end{definition}
-Si possono ora risolvere le equazioni differenziali omogenee lineari
-di ordine $n$-esimo considerando la generica funzione
+    A cascata si definiscono anche tutti gli altri spazi nella medesima maniera fino a $C^{\infty }(\mathbb{I})$.
+\end{definition} \noindent
+La definizione di questo spazio di funzioni è utile per poter risolvere le equazioni
+differenziali lineari omogenee di ordine $n$-esimo considerando la generica funzione
 \begin{gather*}
-    y = C^{(n)}(I) 
+    y = C^{(n)}(\mathbb{I}) 
 \end{gather*}
-Posso definire l'operatore $E(y) : C^{(n)}(I) \to C^{(0)}(I)  $ come 
-l'operatore che trasforma le derivate $n$-esime continue in primitive 
-e posso esprimerla (se le soluzioni sono $y_1$ e $y_2$)
+\begin{definition}[Operatore $E$]
+L'operatore $E(y) : C^{(n)}(\mathbb{I}) \to C^{(0)}(\mathbb{I})  $ è
+l'operatore che trasforma le derivate $n$-esime continue in primitive.
+Se le soluzioni sono $y_1$ e $y_2$, si può vedere che è un operatore lineare
+ed omogeneo e costituisce dunque una applicazione lineare:
 \begin{gather*}
     E(\alpha y_1 + \beta y_2) = \alpha E(y_1) + \beta E(y_2)
 \end{gather*}
+L'operatore permette di ottenere una generica funzione a partire dalla sua 
+derivata $n-esima$. Questa funzione è diversa da quella che si è derivato per ottenere $y(x)$.
+\begin{align}
+    E(y(x)) = y^{(n)}(x) + a_{n - 1}(x)y^{(n - 1)}(x) + \dots + a_0(x) f(x)
+\end{align}
+\end{definition}
+
+
+\subsection{Il teorema di esistenza ed unicità globale}
+\begin{theorem}[Teorema di esistenza globale per soluzioni  di equazioni differenziali omogenee lineari]
+    Siano $f(x)$ e $a_i(x), i \in \{0, \dots, n - 1\}$ delle funzioni definite continue in $\mathbb{I} \subset \mathbb{R}$. \\
+    Sia $x_0$ interno ad $\mathbb{I}$. \\
+    Allora,per ogni scelta dei numeri $b_0, \dots, b_{n - 1}$ il seguente problema di Cauchy 
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            E(y) = f \\
+            y(x_0) = b_0 \\
+            y'(x_0) = b_1 \\
+            \vdots \\
+            y^{(n - 1)}(x_0) = b_{n - 1} 
+        \end{array}\right.
+    \end{gather*}
+    Presenta una sola soluzione definita in tutto $\mathbb{I}$. E' un teorema di esistenza
+    ed unicità globale poiché mi dice che se i coefficienti delle funzioni sono tutti
+    definiti nell'intervallo $\mathbb{I}$, allora la funzione non è solo definita nell'intorno $x_0$
+    ma anche su tutto $\mathbb{R}$.
+\end{theorem}
+\begin{proof}
+    La dimostrazione non fa parte del programma. 
+\end{proof}
+
+\begin{definition}[Funzioni linearmente indipendenti]
+    Due funzioni (nel contesto degli spazi di funzioni) sono linearmente
+    indipendenti se la loro combinazione lineare
+    \begin{gather*}
+        c_0z_0(x) + c_1z_1(x) = 0 \qquad \forall x \in \mathbb{I}
+    \end{gather*} 
+    con $c_0, c_1 \in \mathbb{R}$, è zero solo quando $c_0 = c_1 = 0$.  
+\end{definition}
+
+\clearpage
+\begin{theorem}[Teorema 1]
+    L'insieme delle soluzioni $V_0$ dell'equazione differenziale omogenea $E(y) = 0$,
+    è uno spazio vettoriale di dimensione $n$. 
+\end{theorem}
+\begin{proof}
+    Presa la funzione $y(x) \equiv 0$, essa costituisce una soluzione ovvia di $E(y) = 0$,
+    dunque per cui $E(y) = 0$ è un sottospazio di $E(C^{(n)(I)} )$. \\
+    Poste altrimenti $y_1, y_2$ due soluzioni dell'equazione differenziale omogena, ossia
+    tali che $E(y_1) = 0 = E(y_2)$, si vuole dimostrare che una qualsiasi 
+    combinazione lineare di queste due è soluzione anch'essa. 
+    Questo deriva dalla linearità dell'operatore e dal fatto che il ker 
+    dell'applicazione lineare è anch'esso uno spazio vettoriale. \\
+    Dimostro il teorema per $n$: si definiscono due funzioni $z_0(x)$ e $z_1(x)$
+    tali per cui $z_0(x)$ è soluzione del problema di Cauchy
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            E(y) = 0 \\
+            y(x_0) = 1 \\
+            y'(x_0) = 0
+        \end{array}\right.
+    \end{gather*} 
+    Mentre $z_1(x)$ è soluzione del problema
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            E(y) = 0 \\
+            y(x_0)  =0 \\
+            y'(x_0) = 1
+        \end{array}\right.
+    \end{gather*}
+    Voglio dimostrare che queste funzioni sono linearmente indipendenti e che generano
+    tutto lo spazio vettoriale. Ricordando la definizione di funzione
+    linearmente indipendente:
+    \begin{gather*}
+        c_0z_0(x) + c_1z_1(x) = 0
+    \end{gather*}
+    Chiamo allora $z(x)$ soluzione del problema di Cauchy che, per ipotesi è la funzione nulla, dunque
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            E(y) = 0 \\
+            y(x_0) = c_0 \\
+            y'(x_0) = c_1
+        \end{array}\right.
+    \end{gather*}
+    allora, dato che $z_1(x_0) = 0$, si ottiene che
+    \begin{gather*}
+        z(x_0) = c_0 z_0(x_0) + c_1z_1(x_0) \ \Longrightarrow \ z(x_0) = c_0 \\
+        z'(x_0) = c_0z_0'(x_0) + c_1z_1'(x_0) \ \Longrightarrow \ z'(x_0) = c_1
+    \end{gather*}
+    Per ipotesi ho che $z \equiv 0$ e quindi anche la sua derivata deve necessariamente essere zero,
+    ottenendo che $c_0$ e $c_1$ sono zero e quindi sono linearmente indipendenti. \\
+    Rimane da dimostrare che $z_0$ e $z_1$ generano tutto lo spazio delle soluzioni
+    dell'equazione differenziale omogenea di ordine due. Prendo allora una qualsiasi
+    soluzione dell'omogenea e faccio vedere che può essere scritta come
+    combinazione lineare di queste due funzioni. Sia allora $w(x) $ una soluzione
+    arbitraria di $E(y) = 0$. Voglio dimostrare che è possibile scegliere $c_0, c_1 \in \mathbb{R}$
+    tali che $w(x) \equiv  c_0z_0(x) + c_1z_1(x)$. Scelgo $c_0$ e $c_1$:
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            w(x_0) = c_0 \\
+            w'(x_0) = c_1
+        \end{array}\right.
+    \end{gather*}
+    Sia $w$ che $c_0z_0 + c_1z_1$ sono soluzioni del problema
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            E(y) = 0 \\
+            y(x_0) = c_0 \\
+            y'(x_0) = c_1
+        \end{array}\right.
+    \end{gather*}
+    Questo è vero perché $w$ è stato costruito in modo tale che sia soluzione
+    di questo problema di cauchy. La combinazione di due soluzioni dell'omogenea
+    è anch'essa soluzione:
+    \begin{gather*}
+        c_0z_0(x_0) + c_1z_1(x_0) = c_0 \\
+        c_0z_0'(x_0) + c_1z_1'(x_0) = c_1
+    \end{gather*}
+    E quindi questa combinazione lineare è effettivamente soluzione del 
+    problema di Cauchy. 
+\end{proof}
+
+\clearpage
+\subsection{Teorema di struttura delle soluzioni di una equazione differenziale}
+\begin{theorem}[Teorema di struttura delle soluzioni di una equazione differenziale]
+    L'integrale generale dell'equazione differenziale omogenea $E(y) = f$ si ottiene
+    sommando l'integrale generale dell'equazione differenziale omogenea ad una
+    soluzione particolare dell'equazione completa $E(y) = f$. Detta dunque
+    $y_P(x)$ la soluzione particolare di $E(y) = f$, allora l'insieme delle soluzioni è
+    \begin{align}
+        y(x) = V_0 + y_P(x)
+    \end{align}
+    Ossia il sottospazio affine delle soluzioni della differenziale omogenea.
+\end{theorem}
+\begin{proof}
+    Sia $y_1$ una soluzione di $E(y) = f$ e $y_0$ una soluzione di
+    $E(y) = 0$. Allora $y_1 + y_0$ è soluzione di $E(y) = f$. Infatti $E(y_0 + y_1) = f + 0 = f$.
+    Viceversa sia $y_2$ una qualsiasi soluzione dell'equazione differenziale
+    omogenea $E(y) = f$, per la linearità della funzione $E$ si ha che
+    $E(y_2 - y_1) = E(y_2) - E(y_1) = f - f = 0$. Allora $y_2 - y_1$ è uguale 
+    a $z_0$ per una certa soluzione dell'omogenea. Allora $y_2 = y_1 + z_0$. 
+\end{proof}
+\begin{corollary}
+    Questo teorema ha l'importante conseguenza che una qualsiasi differenziale lineare
+    può essere effettivamente risolta "a pezzi" spezzettando la funzione $f(x)$ in modo 
+    da essere più facile la sua risoluzione:
+    \begin{gather*}
+        E(y) = f(x)  + g(x) \ \Longrightarrow \ (E(y) = f(x))  + (E(y) = g(x)) 
+    \end{gather*}
+\end{corollary} \noindent 
+Per risolvere una equazione lineare di ordine $n$ si deve prima trovare $n$ soluzioni
+linearmente indipendenti dell'omogenea e trovare almeno una soluzione completa. Non c'è una strategia
+per trovare le soluzioni indipendenti eccetto nel caso in cui
+i coefficienti della differenziale sono tutte costanti e non funzioni di $x$. 
+
+\begin{definition}[polinomio caratteristico di una equazione differenziale lineare a coefficienti costanti]
+    In una equazione differenziale lineare a coefficienti costanti 
+    si associa ad ogni funzione $y^{(n)}$ un $\lambda$ elevato all'ordine (di derivazione) di
+    tale funzione:
+    \begin{gather*}
+        y^{(n)} + a_{n - 1}(x)y^{(n - 1)}+ \dots + a_0(x)y(x) = 0 \\
+       P(\lambda) = \lambda^{(n)} + a_{n -1}(x)\lambda^{(n - 1)} +\dots + a_1(x)\lambda + a_0(x)  
+    \end{gather*} 
+    questo prende il nome di \textbf{polinomio caratteristico} dell'equazione differenziale.
+\end{definition}
+
+
+\begin{theorem}[Utilizzare il polinomio caratteristico per trovare soluzioni]
+    Sia $\lambda \in \mathbb{R}$ (o anche $\in \mathbb{C}$) tale per cui
+    \begin{gather*}
+        y(x) = e^{\lambda x} 
+    \end{gather*}
+    questa è soluzione dell'equazione omogenea $\Longleftrightarrow \ E(\lambda) = 0$ $\Longleftrightarrow$ 
+    $\lambda$ è radice del polinomio caratteristico di una equazione differenziale.
+\end{theorem}
+\begin{proof}
+    La dimostrazione è facile in quanto basterà chiamare
+    \begin{gather*}
+        y(x) = e^{\lambda x} \\
+        y'(x) = \lambda e^{\lambda x} \\
+        \vdots \\
+        y^{(n)} = \lambda^{n}e^{\lambda x}     
+    \end{gather*}
+    Allora la funzione
+    \begin{gather*}
+        E(y) = (\lambda^{n} + a_{n - 1}(x)\lambda^{n - 1} + \dots + a_0(x)  )e^{\lambda x} = P(\lambda)e^{\lambda x}   
+    \end{gather*}
+    Dunque l'unico modo per cui si annulla è che $P(\lambda) = 0$, ossia $\lambda$ sia radice del polinomio caratteristico.
+\end{proof}
+\begin{corollary}[Indipendenza delle soluzioni]
+    Se $\lambda_1, \dots, \lambda_k$ esistono e sono soluzioni del polinomio caratteristico,
+    allora gli autospazi associati sono linearmente indipendenti tra loro, dunque 
+    $e^{\lambda_1 x}, \dots, e^{\lambda_k x}$ sono linearmente indipendenti e
+    generano lo spazio delle soluzioni di $E(y) = 0$. 
+\end{corollary} 
+
+\clearpage \noindent
+    Esiste una strategia generale nel caso in cui tutte le funzioni
+    $a_0,\dots, a_{n - 1}$ siano tutte costanti. L'equazione
+    differenziale prederà il nome di \textbf{equazioni differenziale
+    lineare a coefficienti costanti}. 
+\begin{example}[Utilizzo del polinomio caratteristico nel caso a coefficienti costanti]
+    Un esempio a coefficienti costanti è
+    \begin{gather*}
+        y'' -3y' +2 = 0
+    \end{gather*}
+    Considerando il polinomio caratteristico associato
+    \begin{gather*}
+        \lambda^{2} - 3\lambda + 2 = 0 
+    \end{gather*}
+    Le cui soluzioni sono
+    \begin{gather*}
+        (\lambda - 1)(\lambda - 2) = 0 
+    \end{gather*}
+    quindi $e^{2x}$ e $e^{x}$ sono soluzioni di $E(y) = 0$.   
+\end{example}
+
 \begin{theorem}
-    \begin{enumerate}
-        \item L'insieme $V_0$ delle soluzioni delle equazioni differenziali omogenee lineari è uno spazio
-        vettoriale di dimensione $n$;
-        \item L'insieme delle soluzioni delle equazioni differenziali lineari è 
-        l'insieme $\{y(x) + y_f(x) : y \in V_0\}$ con $y_f$ soluzione delle equazioni differenziali lineari.
-    \end{enumerate}
+    Sia $\lambda_0 \in \mathbb{R}$ o $\lambda_0 \in \mathbb{C}$ radice del polinomio caratteristico
+    con  molteplicità  $s$:
+    \begin{gather*}
+        P(\lambda) = (\lambda - \lambda_0)^{s}q(\lambda) 
+    \end{gather*}
+    Con $q(\lambda_0) \neq  0$. Allora $e^{\lambda_0 x}, xe^{\lambda_0 x}, \dots, x^{s - 1}e^{\lambda_0 x}$
+    sono tutte soluzioni linearmente indipendenti di $E(y) = 0$.     
 \end{theorem}
 
+\begin{example}[Esempio di soluzioni coincidenti]
+    Data la seguente
+    \begin{gather*}
+        y'' -2y' + y = 0 \ \Longrightarrow \ p(\lambda) = \lambda^{2} - \lambda + 1 = 0 
+    \end{gather*}
+    Le radici sono esattamente $(\lambda - 1)^{2} = 0$, per cui $\lambda_0 = 1$ è radice doppia dell'equazione
+    differenziale e quindi $e^{x}$ e $xe^{x}$ sono soluzioni di $E(y) = 0$.  
+\end{example}
+
+\begin{theorem}[Teorema delle soluzioni complesse]
+    Sia $\lambda_0 \in \mathbb{C}$, $\lambda = \alpha + i \beta$, con $\alpha, \beta \in \mathbb{R}$ radice del polinomio caratteristico 
+    con molteplicità $s$. Allora 
+    \begin{gather*}
+        e^{\alpha x} \cos\beta x \qquad e^{\alpha x}\sin\beta x \\
+        xe^{\alpha x}\cos\beta x \qquad xe^{\alpha x}\sin\beta x \\
+        \vdots \\
+        x^{s - 1}e^{\alpha x}\cos \beta x \qquad x^{s - 1}e^{\alpha x}\sin\beta x         
+    \end{gather*} 
+    Sono soluzioni di $E(y)= 0$ linearmente indipendenti e reali.
+    È possibile togliere il complesso in quanto, per ogni soluzione $\lambda = \alpha + i\beta$,
+    esiste anche la soluzione coniugata. Si posson quindi trovare combinazioni lineari che elimino 
+    le parti complesse e permettano di trovare solo soluzioni reali. 
+\end{theorem}
+
+\begin{example}[Esempio soluzioni complesse]
+    \begin{gather*}
+        y''' -2y'' +2y' = 0  \\
+        \lambda^{3} -2\lambda^{2} + 2\lambda = 0  
+    \end{gather*}
+    Allora le soluzioni sono 
+    \begin{gather*}
+        \lambda = 0 \qquad e^{0 x} = 1 \\ 
+        \lambda = 1 + i \qquad e^{x}\sin x \\
+        \lambda = 1 - i  \qquad e^{x}\cos x 
+    \end{gather*}
+\end{example} 
+\clearpage
+\subsection{Ulteriori metodi risolutivi per equazioni differenziali}
+Un ulteriore metodo risolutivo è il metodo di \textbf{somiglianza}. Se la struttura delle equazioni differenziali
+ha una struttura simile a una di queste:
+\begin{itemize}
+    \item Se $f$ è un polinomio
+    \item Se $f$ è un polinomio per $e^{\alpha x}$ 
+    \item Se $f = p_1(x) \sin\beta x + p_2(x)\cos\beta x$ . 
+    \item Se $f$ è a coefficienti costanti.
+\end{itemize}
+Esiste anche un altro metodo che prende il nome di \textbf{variazione delle costanti}.
+Bisogna innanzitutto avere delle soluzioni linearmente indipendenti dell'omogenea $E(y) = 0$ che si chiamano $y_1(x), y_2(x)$,
+per cui si cerca una soluzione nella forma
+\begin{gather*}
+    y(x) = c_1(x)y_1(x) + c_2(x)y_2(x)
+\end{gather*}
+Per trovare $c_1$ e $c_2$ si prendono 
+\begin{gather*}
+    y' = c_1' y_1 + c_1y_1' + c_2'y_2 + c_2 y_2' \\
+    = c_1' y_1 + c_2' y_2 + c_1 y_1' + c_2 y_2'
+\end{gather*}
+Imponendo che $c_1' y_1 + c_2' y_2$ sia uguale a zero (perché
+$y_1$ e $y_2$ devono essere soluzione dell'omogenea), facendo la 
+derivata seconda questo termine scompare. Dall'equazione della derivata seconda si ha
+\begin{gather*}
+    y'' + a_1(x)y' + a_0(x) = f(x)  \\
+    c_1'y_1' + c_2'y_2' = f
+\end{gather*}
+Alla fine si scelgono $c_1$ e $c_2$ che soddisfano il sistema 
+\begin{gather*}
+    \left\{\begin{array}{l}
+        c_1' y_1 + c_2' y_2 = 0 \\
+        c_1' y_1' + c_2' y_2' = f
+    \end{array}\right.
+\end{gather*}
+Se $c_1$ e $c_2$ sono linearmente indipendenti allora il determinante della matrice
+associata a questo sistema lineare è sempre
+diverso da zero e si trovano le espressioni di $c_1$ e $c_2$. Se si riuscisse a trovare
+una primitiva e a metterla nella forma di $y(x)$ si è trovata la soluzione. 
+
+\section{Studio qualitativo delle differenziali (in pausa)}
+
+
+
+\chapter{Spazi metrici e di Banach}
+\section{Spazi metrici}
+\begin{definition}[Spazio metrico]
+    Considerato un insieme $\mathbb{X}$, se su questo insieme è definita una
+applicazione lineare $d : \mathbb{X} \times \mathbb{X} \to [0 + \infty )$, ossia una funzione 
+che per qualsiasi coppia $(x, y) \in \mathbb{X}$ associa un numero reale finito $d(x, y) \geq 0$,
+allora dico che $d$ è una \textbf{distanza} (o \textbf{metrica}) su $\mathbb{X}$ se:
+\begin{align}
+    d(x, y) &= 0 \ \Longleftrightarrow \ x = y \qquad &\forall x, y \in \mathbb{X}\\
+    d(x, y) &= d(y, x)  \qquad &\forall x, y \in \mathbb{X}\\
+    d(x, y) &\leq d(x, z) + d(z, y) \qquad &\forall x, y, z \in \mathbb{X}
+\end{align}
+Non è necessario che ci sia una struttura algebrica
+definita per poter valere questa definizione (ossia non deve necessariamente esserci
+una operazione di somma o prodotto per scalari definita su $\mathbb{X}$).
+La terza proprietà prende il nome di \textbf{disuguaglianza triangolare}. Dunque se $d$ è
+una distanza per $\mathbb{X}$, allora $(\mathbb{X}, d)$ prende il nome di \textbf{spazio metrico}.
+\end{definition}
+
+\begin{example} [Esempio su $\mathbb{R}$]
+    Su $\mathbb{R}$ si può considerare la seguente funzione:
+    \begin{gather*}
+        d(x, y) = |x - y| 
+    \end{gather*} 
+    che prende il nome di \textbf{metrica euclidea}:
+\end{example} 
+
+\begin{example}[Metrica discreta]
+    Sia $\mathbb{X}$ un insieme e $d$ la funzione definita per $(x, y) \in \mathbb{X}$ come:
+    \begin{gather*}
+        d(x, y) = \left\{\begin{array}{l}
+            0 \qquad x = y \\
+            1 \qquad x \neq y
+        \end{array}\right.
+    \end{gather*} 
+    $d$ è una metrica e prende il nome di \textbf{metrica discreta}.
+\end{example}
+
+\begin{lemma}[Equivalenza delle metriche]
+    Posti $(\mathbb{X}, \alpha)$, $(\mathbb{X}, \beta)$ due spazi metrici con metriche
+    diverse $d_\alpha$ e $d:\beta$. Questi due spazi sono equivalenti se $\exists k_1, k_2 \in \mathbb{R}$ tale che
+    \begin{gather*}
+        k_1d_{\beta}(x, y) \leq d_{\alpha}(x, y) \leq k_2 d_{\beta}(x, y)
+    \end{gather*}
+\end{lemma}
+
+\begin{example}[Esempio di metrica su $\mathbb{R}^{n}$]
+    Prendendo come spazio vettoriale $\mathbb{R}^{n}$,
+    si può definire la \textbf{distanza euclidea} su $\mathbb{R}^{n}$ come
+    \begin{gather*}
+        ||v|| = \sqrt{\sum v_i^{2} } 
+    \end{gather*} 
+    Valgono le tre proprietà della metrica.
+\end{example}
+
+
+\clearpage
+\section{Spazi normati}
+Dato uno spazio vettoriale $V$, una \textbf{norma} su $V$ è una funzione che 
+ad ogni vettore $x \in V$ associa un numero reale $\left\lVert x \right\rVert \geq 0$ secondo le seguenti 
+condizioni:
+\begin{align*}
+    ||v|| &= 0 \ \Longleftrightarrow \ v = 0 &\forall v \in V\\
+    ||\lambda v || &= ||\lambda|| ||v|| &\forall \lambda \in \mathbb{R}, \  \forall v \in V \\
+    ||u + v|| &\leq ||u|| + ||v||  &\forall u, v \in V
+\end{align*}
+
+\begin{definition}[Spazio normato]
+    Se $V$ è uno spazio vettoriale con norma definita, allora
+    $(V, ||\cdot ||)$ prende il nome di \textbf{spazio normato}. 
+\end{definition}
+
+
+
+\begin{lemma}[Induzione di una metrica su di uno spazio vettoriale]
+    Sia $V$ uno spazio vettoriale normato, allora su di esso si può anche 
+    definire una metrica secondo la seguente definizione:
+    \begin{gather*}
+        d(u, v) = ||u - v|| \qquad \forall u, v \in V
+    \end{gather*}
+\end{lemma}
+
+
+\begin{lemma}[Equivalenza tra norme]
+    Sia $V$ uno spazio vettoriale con due norme diverse per $\alpha$
+    e per $\beta$. Esse sono equivalenti se esistono
+    $c_1, c_2 \in \mathbb{R}$ tali che:
+    \begin{gather*}
+        c_1||v||_{\beta} \leq ||v||_{\alpha} \leq c_2 ||v||_{\beta} \qquad \forall  v \in V
+    \end{gather*}
+\end{lemma}
+
+\begin{example}[Esempio importante di norma]
+    Due esempi importanti di spazi normati sono $\mathbb{R}^{n}$ e $C^{0}([a, b])$, ossia
+    l'insieme delle funzioni reali continue $f:[a, b] \to \mathbb{R}$ sull'intervallo chiuso 
+    e limitato $[a, b]$ con norma
+    \begin{align}
+        \left\lVert f \right\rVert _{C^{0}} = \sup \left\{\left| f(x)  \right| \ : x \in [a, b] \right\}
+    \end{align}
+    Per la continuità della funzione, l'estremo superiore è in realtà un massimo. La norma
+    su $C^{0}$ viene anche indicata con il simbolo $\left\lVert f \right\rVert _{\infty }$.  
+\end{example}
+
+\begin{definition}[Metrica tra due funzioni continue]
+    Poste $f, g \in C^{0}$ due funzioni reali continue, la loro distanza, o metrica, 
+    è data dalla seguente:
+    \begin{align}
+        d(f, g) = \sup\left\{\left| f(x) - g(x)  \right| : x \in [a, b] \right\}
+    \end{align}
+    Dunque risulta, per l'esempio precedente:
+    \begin{align}
+        d(f, g) \equiv \left\lVert f - g \right\rVert _{C^{0}} = \left\lVert f - g \right\rVert   _{\infty }
+    \end{align}
+\end{definition} \noindent
+Adesso si può parlare di spazio normato $\mathbb{R}^{n}$. 
+
+
+\subsection{Spazio normato $\mathbb{R}^{n}$}
+Si era già definita la metrica per lo spazio $\mathbb{R}^{n}$ per ogni elemento $x \in \mathbb{R}^{n}$  come:
+\begin{align}
+    \left\lVert x \right\rVert \equiv \left| x \right| \equiv d_n(x, 0) = \left(\sum_{i = 1}^{n} x_i^{2} \right)^{\frac{1}{2}}  
+\end{align}
+Più generalmente, per ogni $p \in [1, +\infty)$, si introduce la funzione
+\begin{align}
+    \left\lVert \cdot  \right\rVert _p : \mathbb{R}^{n} \to \mathbb{R}
+\end{align}
+Come la \textbf{norma} di $\mathbb{R}^{n}$:
+\begin{align}
+    \left\lVert x \right\rVert _p = \left(\sum_{i = 1}^{n} \left| x_i \right|^{p} \right)^{\frac{1}{p}}
+\end{align}
+Questa prende il nome di \textbf{norma $p$-esima}, che estende la norma 
+euclidea prendendo le potenze $p$-esime della norma euclidea e facendono la 
+radice $p$-esima. Si definisce, inoltre, per $p = + \infty $ 
+\begin{align}
+    \left\lVert x \right\rVert _{\infty } = \max  \{\left| x_i \right|, \ i = \{1, \dots, n\} \}
+\end{align}
+
+\begin{figure}[H]
+    \centering
+    \caption{Qui di seguito sono rappresentati gli intorni circolari aperti nel piano, di centro
+l'origine, rispetto ad alcune delle norme introdotte.}
+    \begin{tikzpicture}
+        \draw[->](-2, 0) -- (2, 0);
+        \draw[->](0, -2) -- (0, 2);
+        \draw(-1, 1) rectangle (1, -1);
+        \draw[->](3, 0) -- (7, 0);
+        \draw[->](5, -2) -- (5, 2);
+        \draw(5, 0) circle (1);
+        \draw[->](8, 0) -- (12, 0);
+        \draw[->](10, -2) -- (10, 2);
+        \draw[rotate around={45:(10, 0)}] (9, 1) rectangle (11, -1);
+        \node at (0, -3) {$\left\lVert x \right\rVert _{\infty } < 1$};
+        \node at (5, -3) {$\left\lVert x \right\rVert _{2} < 1$};
+        \node at (10, -3) {$\left\lVert x \right\rVert _{1} < 1$};
+    \end{tikzpicture}
+\end{figure}
+\begin{definition}[Intorni circolari (Palle)]
+    Dato uno spazio metrico $\mathbb{X}$, per ogni $x \in \mathbb{X}$ e per ogni $r > 0$ 
+    si chiama \textbf{palla} o \textbf{intorno circolare} di centro 
+    $x_0$ e raggio $r$, il seguente insieme
+    \begin{align}
+        B_r(x_0) = \{x \in \mathbb{X} : \ d(x, x_0) < r\}
+    \end{align}
+    Nel caso delle norme $p$-esime, si può definire le seguenti palle:
+    \begin{align}
+        B_p = \left\{x \in V  : ||x||_p \leq 1\right\}
+    \end{align}
+    Nel caso della norma euclidea, la palla unitaria è
+    la sfera centrata nell'origine. Nel disegno, quando $ 0 < p \leq 1$,
+    le palle di ordine minore di quella euclidea stanno dentro alla palla euclidea 
+    stessa. Il quadrato rappresenta il caso limite di $p \to \infty $. 
+\end{definition}
+
+
+
+\begin{theorem}[Equivalenza delle norme su $\mathbb{R}^{n}$]
+    $\forall p \in [1, +\infty]$, la funzione $\left\lVert \cdot  \right\rVert _p :\mathbb{R}^{n} \to \mathbb{R}$
+    è norma di $\mathbb{R}^{n}$. Dunque tutte le norme su $\mathbb{R}^{n}$ sono equivalenti.
+\end{theorem}
+
+\subsection{Gli spazi metrici infiniti}
+\begin{example}
+    Dato l'insieme $\mathbb{X} = C^{k}([a, b])$.
+\end{example}
+\begin{gather*}
+    X = C^{k}([a, b]) \qquad ||f|| _{C^{0} } = ||f||_{\infty} = \max |f(x) | \qquad f \in C^{0}([a, b]) : f[a, b] \to \mathbb{R} 
+\end{gather*}
+In questo caso la definizione che si ottiene da Weirestrass è una buona definizione e dunque la norma che induce
+\begin{gather*}
+    d_{C^{0} }(f, g) = d_{\infty }(f, g) = ||f - g||_{\infty } \\
+    d_{L^{1} }(f, g) = \int_{a}^{b} |f - g|\ dx 
+\end{gather*}
+Sono due metriche non equivalenti sullo stesso spazio. La distanza $L_1$ è la norma dell'integrale
+del valore assoluto. Sono entrambe indotte da una norma ma non sono equivalenti. Si possono
+infatti trovare delle successioni che mi permettano di dire che non sono equivalenti.
+Manca un teorema.
+
+\section{Spazio delle funzioni da $\mathbb{R}^{2}$ a $\mathbb{R}$ }
+Un intorno di un punto su di uno spazio è diverso dall'intorno di un punto di $\mathbb{R}$
+se io considerassi lo spazio di funzioni allora sarebbe ancora più complicato. Dobbiamo allora
+fare alcuni cenni sulla topologia partendo da uno spazio metrico
+generico $(X, d)$ e andiamo a definire cosa è uno intorno generico di un punto
+in uno spazio metrico generico. 
+\begin{definition}
+    Per $x_0 \in \mathbb{X}, R > 0$ un intorno aperto di centro $x_0$ di raggio $R$  è
+    \begin{gather*}
+        B_{R} = \left\{x \in X : d(x_0, x) < R\right\} = U(x_0, R)
+    \end{gather*}
+    Si definisce invece un intorno chiuso come 
+    \begin{gather*}
+        B_{R} = \left\{x \in X : d(x_0, x) \leq R\right\}
+    \end{gather*}
+\end{definition}
+\begin{definition}
+    $\mathbb{A} \leq \mathbb{X}$ è definito come insieme aperto se
+    $\forall a \in \mathbb{A}$ esiste un $R$ tale per cui
+    \begin{gather*}
+        U(x_0, R) \leq A
+    \end{gather*}
+\end{definition} 
+\begin{definition}
+    $\mathbb{D} \leq \mathbb{X}$ è un insieme chiuso se $X \backslash D$ è aperto.
+\end{definition}
+\begin{theorem}
+    SI hanno i seguenti casi a seguito della definizione:
+    \begin{itemize}
+        \item L'unione di insieme aperti(anche numerabili) è aperta;
+        \item L'intersezione finita di insiemi aperti (anc che numerabili) è aperta;
+        \item L'unione finita di insiemi chiusi (anche numerabili) è chiusa;
+        \item L'intersezione di insiemi chiusi (anche numerabili) è chiusi
+    \end{itemize}
+\end{theorem}
+\begin{definition}
+    $x_0 \in \mathbb{X}$ è un punto interno se $\exists R$ tale che
+    \begin{gather*}
+        U (x_0, R) \leq \mathbb{X} 
+    \end{gather*}
+\end{definition}
+\begin{theorem}[Teorema di Heine-Borel ]
+    Se $\mathbb{K} \subset \mathbb{R}^{N}$ è un insieme compatto 
+    allora è anche chiuso e limitato. 
+\end{theorem}
+
+\section{Le successioni su spazi metrici generali}
+\begin{definition}
+    Consideriamo una successione $\{x_k\} \leq \mathbb{X}$  è una stringa di numeri
+    che è definita all'interno di uno spazio metrico. La successione
+    converge ad un valore $x$ se il punto limite appartiene a $\mathbb{X}$ e se
+    \begin{gather*}
+        \lim_{k \to \infty } d(x_k, x) = 0 
+    \end{gather*}
+    E' una distanza che ha valore in $\mathbb{R}$ e questo
+    limite lo so fare.
+\end{definition}
+\begin{lemma}
+    Se $\exists$ il limite allora è unico.
+\end{lemma}
+\begin{lemma}
+    $d_{\alpha}, d_{\beta}$ sono metriche equivalenti su $\mathbb{X}$ 
+    \begin{gather*}
+        \{x_k\} \leq \mathbb{X}
+    \end{gather*}
+    Allora $x_k$ converge in $x$ rispetto alla metrica $d_{\alpha}$ così come
+    alla metrica $d_{\beta}$. Questo perché per il teorema visto sulle metriche,
+    posso mettere a panino le metriche di beta e alfa per cui se quella fuori va
+    a zero allora anche quella nel panino va a zero (così come nel teorema dei
+    carabinieri). Per questo su $\mathbb{R}^{N}$ si considera solo la metrica euclidea.  
+\end{lemma}
+
+\begin{definition}
+    Sia $\{x_k\} \leq \mathbb{X}$ una successione di Cauchy in $(\mathbb{X}, d)$ 
+    se $\forall \epsilon > 0$ allora esisterà un $N$ tale per cui
+    \begin{gather*}
+        d(x_k, x_m) < \epsilon \qquad \forall k, m > N
+    \end{gather*}
+\end{definition}
+\begin{observation}
+    Sia $x_k$ una successione di Cauchy, allora $x_k$ converge
+    sullo spazio metrico $(\mathbb{X}, d)$ su cui è definita. Non
+    è vero che se $x_k$ converge allora sia necessariamente di Cauchy.
+\end{observation}
+\begin{example}
+    Preso l'insieme $\mathbb{X} = C^{1}([a, b]) $ con la distanza $d$ la distanza
+    massima 
+    \begin{gather*}
+        x_k = \sqrt{x^{2} + \frac{1}{k} } x \in [0, 1]
+    \end{gather*} 
+    Preso questo spazio di funzioni definito in questo modo, dobbiamo
+    allora provare che la successione è di Cauchy. Fissato un $\epsilon$ cerco
+    un $R$ per determinare una distanza massima:
+    \begin{gather*}
+        d(x_k, x_m) = \max  |x_k - x_m| 
+    \end{gather*}
+    Ossia
+    \begin{gather*}
+        \max \left| \sqrt{x^{2} + \frac{1}{k} } - \sqrt{x^{2} + \frac{1}{m} }  \right| 
+    \end{gather*}
+    Allora posso dire che se prendessi $k$ e $m$ grandi
+    allora, fissato $\epsilon$ si ha la soluzione:
+    \begin{gather*}
+        \frac{x^{2}+ \frac{1}{k} - x^{2} - \frac{1}{m}  }{\sqrt{x^{2} + \frac{1}{k} } + \sqrt{x^{2} + \frac{1}{m} }  } = \frac{1}{\sqrt{k} } - \frac{1}{\sqrt{m} } < \epsilon
+    \end{gather*}
+\end{example}
+
+\section{Esempio pisel}
+
+\begin{example}
+    \begin{gather*}
+        X = C^{0}([-1, 1]) \qquad d = d_{L^{1} } \\
+        d(f, g) = \int_{-1}^{1}|f - g| \ dx \ \Longrightarrow \ \{x_k\} \leq X
+    \end{gather*}
+\end{example}
+
+\begin{definition}
+    Ogni successione di Cauchy convergente è detto spazio metrico
+    completo.
+\end{definition}
+
+\begin{definition}
+    Se si ha uno spazio normato che è completo come spazio metrico
+    rispetto alla metrica indotta dallo spazio normato è detto \textbf{Spazio di Banach}. 
+\end{definition}
+
+\begin{observation}
+    $C^{1}([a, b]); d_{C^{1} }$ non è completo. \\
+    $C^{0}([a, b]); d_{C^{1} }$ non è completo.  
+\end{observation}
+
+Alcune proprietà degli spazi di Banach
+\begin{observation}
+    Consideriamo uno spazio metrico ed una successione che converge in un
+    punto $x_0 \in \mathbb{X}$, allora posso dire che il punto limite
+    appartiene alla chiusura dell'insieme $Y$. Un sottoinsieme
+    $Y$ di $\mathbb{X}$ è chiuso se e solo se contiene i limiti di tutte le successioni
+    convergenti di $Y$. 
+\end{observation}
+
+\begin{observation}
+    Se $(\mathbb{X}, d)$ è uno spazio metrico completo ed un suo sottoinsieme
+    $B$ è chiuso allora $(B, d)$ è uno spazio metrico completo. 
+\end{observation}
+
+\begin{definition}
+    Prendiamo due spazi metrici ognuno con una sua distanza definita come
+    \begin{gather*}
+        (\mathbb{X}, d_{X}) \qquad (\mathbb{Y}, d_{Y}) \qquad f: \mathbb{X} \to \mathbb{Y}
+    \end{gather*}
+    \begin{itemize}
+        \item $f$ è continua in un punto $x_0 \in \mathbb{X}$ se $\forall \{x_k\} \subseteq \mathbb{X} : x_n \to x_0$
+    si ha che $\{f(x_n)\} \subseteq \mathbb{Y}$ converge a $f(x_0)$ in $(\mathbb{Y}, d_Y)$ .
+        \item $f$ è Lipszitchiana se $\exists L > 0$ tale che $d_Y(f(x), f(y)) \leq L d_X(x, y)$.
+        \item $f$ si dice \textbf{contrazione} se Lipszitchiana con $L < 1$. 
+    \end{itemize} 
+\end{definition}
+
+\begin{proof}
+    Dimostrazione che se una funzione è Lipszitchiana allora è anche
+    continua. \\
+    Sia $x_0 \in \mathbb{X}$ considero allora una successione $\{x_k\} \subseteq \mathbb{X}$ tale che
+    $x_n \to x_0 \in (\mathbb{X}, d)$ ossia $d(x_n, x_0) \in \mathbb{R} \to 0$. Considero allora 
+    \begin{gather*}
+        0 \leq d_Y(f(x_n), f(x_0)) \leq L d_X(x_n, x_0) \ \Longrightarrow \ d_Y(f(x_n), f(x_0)) \to 0
+    \end{gather*} 
+    Ossia
+    \begin{gather*}
+        f(x_n) \to f(x_0) \in (\mathbb{Y}, d_Y)
+    \end{gather*}
+    E quindi $f$ è continua in $x_0$. Se e solo se l'insieme è ordinato allora posso dire
+    che quest dimostrazione è valida. 
+\end{proof}
+
+\begin{theorem}[Teorema di contrazione]
+    Il teorema di contrazione (o Teorema di Banach-Caccioppoli) parte da uno spazio
+    metrico completo. Considerata $f$ una applicazione da $\mathbb{X}$ in sé stessa,
+    allora esiste ed è unico un punto $\overline{x} \in \mathbb{X}$ detto punto
+    fisso tale che $f(\overline{x} ) = \overline{x}$.   
+\end{theorem}
+\begin{proof}
+    La dimostrazione costruisce analiticamente il punto $\overline{x}$ andando a costruire
+    una successione di punti così definita:
+    \begin{gather*}
+        x_1 = f(x_0) \qquad x_2 = f(x_1) \dots
+    \end{gather*} 
+    L'elemento $k + 1$ esimo è l'immagine dell'elemento $k$ esimo. Posso
+    allora affermare che la successione $x_k$ è di Cauchy in $(\mathbb{X}, d)$
+    secondo la seguente dimostrazione: prima di tutto stimo la distanza tra
+    l'elemento $k +1$ e l'elemento $k$ esimo della successione. Per come è
+    stata definita la succession $x_{k + 1} = f(x_k) = f(x_{k - 1})$ ossia è come
+    scrivere la distanza tra $f(x_k)$ e $f(x_{k - 1})$ . Dato che
+    $f$ è una contrazione:
+    \begin{gather*}
+        d(f(x_k), f(x_{k - 1})) \leq Ld(x_k, x_{k - 1})
+    \end{gather*}
+    Date la definizione della successione, allora si ha che
+    \begin{gather*}
+        d(f(x_k), f(x_{k - 1})) \leq Ld(f(x_{k - 1}), f(x_{k - 2})) \leq L^{2}d(x_{k - 1}, x_{k - 2}) 
+    \end{gather*}
+    Se si procede applicando questo algoritmo recursivamente allora 
+    si otterrebbe che $\dots \leq L^{k}d(x_1, x_0) = L^{k} d(x_0, f(x_0))  $. IN questo modo
+    la funzione distanza dipende solo ed esclusivamente dal punto $x_0$. Adesso
+    voglio dimostrare che questa successione sia di Cauchy. Prendo $m > n$ con $m = n + p$
+    e quindi considero la distanza tra
+    \begin{gather*}
+        d(x_m, x_n) = d(x_{n + p}, x_n)
+    \end{gather*} 
+    Posso allora valutare la distanza di tutti gli elementi fino a $n + 1$ fino a
+    $n + p$; dato che posso valutare solo la distanza tra elementi consecutivi allora utilizzo
+    la disuguaglianza triangolare. 
+    \begin{gather*}
+        d(x_{n + p}, x_n) \leq d(x_{n + p}, x_{n + p -1}) + \dots + d(x_{n + 1}, x_n) \leq \\
+        d(x_0, f(x_0)) \left(L^{n + p - 1} + L^{n + p - 2}+ \dots + L^{n}   \right) = d(x_0, f(x_0)) \left(\frac{L^{n} - L^{n + p}  }{1 - L}\right) = \\
+        d(x_0, f(x_0)) L^{n}\frac{1 - L^{p} }{1 - L}  < d(x_0 f(x_0)) \frac{L^{n} }{1 - L} 
+    \end{gather*}
+    L'ultimo passaggio è valido in quanto $L < 1$ e dunque la frazione è minore di $\frac{1}{1 - L}$. 
+    Dato che la distanza mi tende a zero 
+    \begin{gather*}
+        \forall \epsilon > 0 \ \exists N : m, n > 0  \ \Longrightarrow \ d(x_m, x_n) < \epsilon 
+    \end{gather*}
+    E quindi la succession $\{x_k\}$ è di Cauchy. Non resta che dimostrare
+    la tesi del teorema. SI osserva che $f$ è una contrazione e dunque è
+    Lipszitchiana e dunque è continua. Allora
+    \begin{gather*}
+        f(x_k) \to f(\overline{x} )
+    \end{gather*}
+    Per definizione $f(x_k)$ è l'elemento $x_{k + 1}$ per definizione, ma $x_{k + 1}$ è
+    un elemento della successione e dunque converge verso $\overline{x}$. Dato che questa successione
+    ha ora due punti limite, per l'unicità del limite allora $\overline{x} = f(\overline{x} )$. Si dimostra ora che
+    è unico: ponendo che esistano $\overline{x}$ e $\overline{y}$ che mi validano il teorema.
+    Devo dimostrare allora che la distanza tra i due sia zero. Dato che sono
+    punti fissi allora devo valutare la distanza tra le loro immagini: dato che
+    $f$ è una contrazione, allora con $0 < L < 1$ l'oggetto è sicuramente minore
+    della distanza. Se la distanza è diversa da zero, allora posso dire
+    che 
+    \begin{gather*}
+        d(\overline{x}, \overline{y}  ) \leq d(f(\overline{x}, f(\overline{y})  )) \leq L d(\overline{x}, \overline{y}  )
+    \end{gather*}     
+    Avrei allora che la distanza tra due elemenit è minore o uguale della loro distnza e dunque
+    se $d(\overline{x}, \overline{y}  ) \neq 0$ sarebbe assurdo
+    $\ \Longrightarrow \ d(\overline{x}, \overline{y}  ) = 0$. 
+\end{proof}
+
+
+\chapter{Funzioni a due variabili}
 
 
 
@@ -906,6 +1658,19 @@ Per determinare i polinomi $\overline{P_1}(x)$ e $\overline{P_2}(x)$ si determin
 $y'_P(x)$ e $y_P''(x)$ e si sostituiscono nell'equazione differenziale di 
 partenza. Si raccoglie i termini nei coseni e nei seni e si uguagliano ai coefficienti 
 del polinomio che moltiplica il seno o il coseno.   
+
+\begin{example}[Esempio di risoluzione di differenziale di secondo grado]
+    Nell'equazione differenziale
+    \begin{gather*}
+        y'' - y = 0
+    \end{gather*}
+    Anche il coseno è soluzione in quanto si otterrebbe $y = \cos x$. Si ottiene
+    allora che la seguente è anch'essa soluzione dell'equazione:
+    \begin{gather*}
+        C_1 \sin x + C_2 \cos x = 0
+    \end{gather*}
+    Generalmente l'equazione di $n$ ordine ha $n$ costanti $C_1, \dots, C_n$ che moltiplicano. 
+\end{example}
 
 
 \end{document}

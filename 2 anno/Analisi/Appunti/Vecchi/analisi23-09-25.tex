@@ -1,0 +1,338 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti analisi }
+\author{Tommaso Miliani}
+\date{23-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Il teorema di esistenza ed unicità globale}
+\begin{theorem}[Teorema di esistenza globale per soluzioni  di equazioni differenziali omogenee lineari]
+    Sia $f(x), a_1(x), i = 0, \dots, n - 1$ funzioni continue in $I \subset \mathbb{R}$ e sia $x_0$ interno ad $I$, allora
+    per ogni scelta dei numeri $b_0, b_1, \dots, b_{n - 1}$ il problema di
+    Cauchy 
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            E(y) = f \\
+            y(x_0) = b_0 \\
+            y'(x_0) = b_1 \\
+            \vdots \\
+            y^{(n - 1)}(x_0) = b_{n - 1} 
+        \end{array}\right.
+    \end{gather*}
+    Allora ha una sola soluzione definita in tutto $I$. E' un problema di esistenza
+    ed unicità globale poiché mi dice che se i coefficienti della funzioni sono tutti
+    definiti nell'intervallo $I$, allora la funzione non è solo definita nell'intorno $x_0$
+    ma anche su tutto $\mathbb{R}$.
+\end{theorem}
+\begin{proof}
+    La dimostrazione non fa parte del programma. 
+\end{proof}
+
+\begin{definition}[Funzioni linearmente indipendenti]
+    Due funzioni (nel contesto degli spazi di funzioni) sono linearmente
+    indipendenti se $z_0$ e $z_1$ sono due funzioni linearmente indipendenti se
+    \begin{gather*}
+        c_0z_0(x) + c_1z_1(x) = 0 \qquad \forall x \in I
+    \end{gather*} 
+    con $c_0, c_1 \in \mathbb{R}$ solo quando $c_0 = c_1 = 0$.  
+\end{definition}
+\begin{theorem}[Teorema 1]
+    L'insieme delle soluzioni dell'equazione differenziale omogenea $E(y) = 0$,
+    è uno spazio vettoriale di dimensione $n$. 
+\end{theorem}
+\begin{proof}
+    Si può dimostrare che è uno spazio vettoriale in quanto la funzione
+    $y(x) \equiv 0$, ossia che è sempre uguale a zero ed è quindi sempre costante,
+    voglio dimostrare che $E(y) = 0$ è un sottospazio di $E(C^{(n)(I)} )$. L'equazione
+    $y(x) = 0$ soddisfa ovviamente $E(y) = 0$. \\
+    Se $y_1, y_2$ sono due soluzioni dell'equazione differenziale omogena, ossia
+    $E(y_1) = 0 = E(y_2)$, allora anche una qualsiasi combinazione lineare soddisfa 
+    l'equazione differenziale omogenea (deriva dalla linearità e dal fatto che il ker 
+    dell'applicazione lineare è anch'esso uno spazio vettoriale).
+    Dimostro il teorema per dimensione $=2$: definsico due funzioni $z_0(x)$ e $z_1(x)$. 
+    $z_0(x)$ è soluzione del probleema di Cauchy
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            E(y) = 0 \\
+            y(x_0) = 1 \\
+            y'(x_0) = 0
+        \end{array}\right.
+    \end{gather*} 
+    Mentre $z_1(x)$ è soluzione del problema
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            E(y) = 0 \\
+            y(x_0)  =0 \\
+            y'(x_0) = 1
+        \end{array}\right.
+    \end{gather*}
+    Voglio dimostrare che queste funzioni sono linearmente indipendti e che genraeno
+    tutto lo spazio vettoriale. Ricordando la definizione di funzione
+    linearmente indiependnte:
+    \begin{gather*}
+        c_0z_0(x) + c_1z_1(x) = 0
+    \end{gather*}
+    Chiamo allora $z(x)$ soluzione del problema di cauchy
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            E(y) = 0 \\
+            y(x_0) = c_0 \\
+            y'(x_0) = c_1
+        \end{array}\right.
+    \end{gather*}
+    allora, dato che $z_1(x_0) = 0$, si ottiene che
+    \begin{gather*}
+        z(x_0) = c_0 z_0(x_0) + c_1z_1(x_0) \ \Longrightarrow \ z(x_0) = c_0 \\
+        z'(x_0) = c_0z_0'(x_0) + c_1z_1'(x_0) \ \Longrightarrow \ z'(x_0) = c_1
+    \end{gather*}
+    Per ipotesi ho che $z \equiv 0$ e quindi anche la sua derivata deve necessariamente zero,
+    allora si ottiene che $c_0$ e $c_1$ sono zero e quindi sono linearmente indipendenti. \\
+    Rimane da dimostrare che $z_0$ e $z_1$ generano tutto lo spazio delle soluzioni
+    dell'equazione differenziale omogenea di ordine due. Prendo allora una qualsiasi
+    soluzione dell'omogenea e faccio vedere che può essere scritta come
+    combinazione lineare di queste due funzioni. Sia allora $w(x) $ una soluzione
+    arbitraria di $E(y) = 0$. Voglio dimostrare che è possibile scegliere $c_0, c_1 \in \mathbb{R}$
+    tali che $w(x) \equiv  c_0z_0(x) + c_1z_1(x)$. Scelgo $c_0$ e $c_1$:
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            w(x_0) = c_0 \\
+            w'(x_0) = c_1
+        \end{array}\right.
+    \end{gather*}
+    Sia $w$ che $c_0z_0 + c_1z_1$ sono soluzioni del problema
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            E(y) = 0 \\
+            y(x_0) = c_0 \\
+            y'(x_0) = c_1
+        \end{array}\right.
+    \end{gather*}
+    Questo è vero perché $w$ è stato costruito in modo tale che sia soluzione
+    di questo problema di cauchy. La combinazione di due soluzioni dell'omogenea
+    è anch'essa soluzione:
+    \begin{gather*}
+        c_0z_0(x_0) + c_1z_1(x_0) = c_0 \\
+        c_0z_0'(x_0) + c_1z_1'(x_0) = c_1
+    \end{gather*}
+    E quindi questa combinazione lineare è effettivamente soluzione del 
+    problema di Cauchy. 
+\end{proof}
+
+\begin{theorem}[Teorema di struttura delle funzioni]
+    L'integrale generale dell'equazione differenziale omogenea $E(y) = f$ si ottiene
+    sommando l'integrale generale dell'equazione differenziale omogenea ad una
+    soluzione particolare dell'equazione completa $E(y) = f$.
+\end{theorem}
+\begin{proof}
+    Sia $y_1$ una soluzione di $E(y) = f$ e $y_0$ una soluzione di
+    $E(y) = 0$. Allora $y_1 + y_0$ è soluzione di $E(y) = f$. Infatti $E(y_0 + y_1) = f + 0 = f$.
+    Viceversa sia $y_2$ una qualsiasi soluzione dell'equazione differenziale
+    omogenea $E(y) = f$, per la linearità della funzione $E$ si ha che
+    $E(y_2 - y_1) = E(y_2) - E(y_1) = f - f = 0$. Allora $y_2 - y_1$ è uguale 
+    a $z_0$ per una certa soluzione dell'omogenea. Allora $y_2 = y_1 + z_0$. 
+\end{proof}
+
+Per risolvere una equazione lineare di ordine $n$ devo prima trovare $n$ soluzioni
+linearmente indipendenti dell'omogenea e troavare almeno una soluzione completa. Non c'è una strategia
+per trovare le soluzioni indipendenti eccetto nel caso in cui
+i coefficienti della differenziale sono tutte costanti e non funzioni di $x$. 
+
+\begin{definition}[polinomio caratteristico di una equazione differenziale lineare a coefficienti costanti]
+    In una equazione differenziale lineare a coefficienti costanti 
+    posso associare ad ogni funzione $y^{(n)}$ associo un $\lambda$ elevato alla potenza della
+    funzione:
+    \begin{gather*}
+        p(\lambda) = \lambda^{(n)} + \dots + a_1\lambda + a_0  
+    \end{gather*} 
+    questo prende il nome di polinomio caratteristico.
+\end{definition}
+
+
+\begin{theorem}[Utilizzare il polinomio caratteristico per troavare solzioni]
+    Sia $\lambda \in \mathbb{R}$ (o anche $\in \mathbb{C}$) tale per cui
+    \begin{gather*}
+        y(x) = e^{\lambda x} 
+    \end{gather*}
+    è soluzione dell'equazione omogenea se e solo se $E(\lambda) = 0$ se e solo se 
+    $\lambda$ è radice del polinomio caratteristico di una equazione differenziale.
+\end{theorem}
+\begin{proof}
+    La dimostrazione è facile in quanto basterà chiamare
+    \begin{gather*}
+        y(x) = e^{\lambda x} \\
+        y'(x) = \lambda e^{\lambda x} \\
+        \vdots \\
+        y^{(n)} = \lambda^{n}e^{\lambda x}     
+    \end{gather*}
+    Allora la funzione
+    \begin{gather*}
+        E(y) = (\lambda^{n} + a_{n - 1}\lambda^{n - 1} + \dots + a_0  )e^{\lambda x} \ \Longrightarrow \ p(x)e^{\lambda x}   
+    \end{gather*}
+    Allora posso trovare le soluzioni del polinomio caratteristico e dunque questa funzione
+    ha come sole soluzioni proprio  quando $p(\lambda) = 0$. 
+\end{proof}
+\begin{corollary}
+    Se $\lambda_1, \dots, \lambda_k$ esistono e sono linearmente indipendenti, allora
+    $e^{\lambda_1 x}, \dots, e^{\lambda_k x}$ sono linearmente indipendenti e
+    generano lo spazio delle soluzioni di $E(y) = 0$ per questo tipo particolare di 
+    equazioni differenziali. 
+\end{corollary}
+
+\begin{example}[Utilizzo del polinomio caratteristico]
+    Esiste una strategia generale per la $(1)$ nel caso in cui tutte le funzioni
+    $a_0,\dots, a_{n - 1}$ siano tutte costanti. Allora la mia equazione
+    differenziale prederà il nome di \textbf{equazioni differenziale
+    lineare a coefficienti costanti}. Ad esempio 
+    \begin{gather*}
+        y'' -3y' +2 = 0
+    \end{gather*}
+    Se parto dall'equazione generale associo il polinomio caratteristico:
+    in questo caso il polinomio caratteristico è dato da
+    \begin{gather*}
+        \lambda^{2} - 3\lambda + 2 = 0 
+    \end{gather*}
+    Allora si ottengono le soluzioni del polinomio caratteristico come
+    \begin{gather*}
+        (\lambda - 1)(\lambda - 2) = 0 
+    \end{gather*}
+    quindi $e^{2x}$ e $e^{x}$ sono allora soluzioni di $E(y) = 0$.   
+\end{example}
+
+\begin{theorem}
+    Sia $\lambda \in \mathbb{R}$ o $\lambda \in \mathbb{C}$ radice di molteplicità
+    $s$ del polinomio caratteristico $p(\lambda)$  ossia
+    \begin{gather*}
+        p(\lambda) = (\lambda - \lambda_0)^{s}q(\lambda) 
+    \end{gather*}
+    Con $q(\lambda_0) \neq  0$. Allora $e^{\lambda_0 x}, xe^{\lambda_0 x}, \dots, x^{s - 1}e^{\lambda_0 x}$
+    sono tutte soluzioni linearmente indipendenti di $E(y) = 0$.     
+\end{theorem}
+
+\begin{example}
+    \begin{gather*}
+        y'' -2y' + y = 0 \ \Longrightarrow \ p(\lambda) = \lambda^{2} - \lambda + 1 = 0 
+    \end{gather*}
+    Le radici sono esattamente $(\lambda - 1)^{2} = 0$, per cui $\lambda_0 = 1$ è radice doppia dell'equazione
+    differenziale e quindi $e^{x}$ e $xe^{x}$ sono soluzioni di $E(y) = 0$.  
+\end{example}
+
+\begin{theorem}
+    Sia $\lambda = \alpha + i \beta$ sono radici di molteplicità $s$ del
+    polinomio caratteristico. Allora 
+    \begin{gather*}
+        e^{\alpha x} \cos\beta x \qquad e^{\alpha x}\sin\beta x \\
+        xe^{\alpha x}\cos\beta x \qquad xe^{\alpha x}\sin\beta x \\
+        \vdots \\
+        x^{s - 1}e^{\alpha x}\cos \beta x \qquad x^{s - 1}e^{\alpha x}\sin\beta x         
+    \end{gather*} 
+    Posso togliere il complesso in quanto per ogni soluzione $\lambda = \alpha + i\beta$ 
+    esiste anche la soluzione coniugata. Posso  quindi trovare combinazioni lineari che mi elimino 
+    le parti complesse e mi facciano trovare solo soluzioni reali. 
+    Sono soluzioni linearmente indipendenti di $E(y) = 0$.
+\end{theorem}
+
+\begin{example}
+    \begin{gather*}
+        y''' -2y'' +2y' = 0  \\
+        \lambda^{3} -2\lambda^{2} + 2\lambda = 0  
+    \end{gather*}
+    Allora le soluzioni sono 
+    \begin{gather*}
+        \lambda = 0 \qquad e^{0 x} = 1 \\ 
+        \lambda = 1 + i \qquad e^{x}\sin x \\
+        \lambda = 1 - i  \qquad e^{x}\cos x 
+    \end{gather*}
+\end{example}
+
+Altri metodi risolutivi per travare delle soluzioni a delle equazioni differenziali.
+Si chiama metodo di \textbf{simiglianza} se la struttura delle equazioni differenziali
+ha una struttura simile a una di queste:
+\begin{itemize}
+    \item Se $f$ è un polinomio
+    \item Se $f$ è un polinomio per $e^{\alpha x}$ 
+    \item Se $f = p_1(x) \sin\beta x + p_2(x)\cos\beta x$ . 
+\end{itemize}
+E se l'equazione p a coefficienti costanti. Il metodo generale
+si applica anche alle equazioni non a coefficienti costanti 
+(solo per il secondo ordine). Si può risolvere con il metodo
+della variazione delle costanti. Bisogna innannzitutto avere delle
+soluzioni linearmente indipendenti dell'omogenea $E$  che chiamo $y_1(x), y_2(x)$,
+cerco una soluzione della  forma
+\begin{gather*}
+    y(x) = c_1(x)y_1(x) + c_2(x)y_2(x)
+\end{gather*}
+Come devo scegliere $c_1$ e $c_2$?
+Posso  prendere
+\begin{gather*}
+    y' = c_1' y_1 + c_1y_1' + c_2'y_2 + c_2 y_2' \\
+    = c_1' y_1 + c_2' y_2 + c_1 y_1' + c_2 y_2'
+\end{gather*}
+Impongo che $c_1' y_1 + c_2' y_2$ sia uguale a zero perché
+$y_1$ e $y_2$ siano soluzione dell'omogenea, allora facendo 
+la derivata seconda quel termine scompare e devo solo derivare gli altri termini.
+Dall'equazione della derivata seconda ho
+\begin{gather*}
+    y'' + a_1(x)y' + a_0(x) = f(x)  \\
+    c_1'y_1' + c_2'y_2' = f
+\end{gather*}
+Alla fine posso scegliere $c_1$ e $c_2$ che soddisfano il sistema 
+\begin{gather*}
+    \left\{\begin{array}{l}
+        c_1' y_1 + c_2' y_2 = 0 \\
+        c_1' y_1' + c_2' y_2' = f
+    \end{array}\right.
+\end{gather*}
+Se $c_1$ e $c_2$ sono linearmente indipendenti allora il determinenat è sempre
+diverso da zero e trovo le espresioni di $c_1$ e $c_2$ . Se riesco a trovare
+una primitiva allora se le metto nella forma di $y(x)$ ho trovato una soluzione. 
+
+
+
+\end{document}

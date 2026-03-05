@@ -1,0 +1,266 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Lab II}
+\author{Tommaso Miliani}
+\date{02-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{La terza equazione di Maxwell}
+La seconda equazione di Maxwell era la divergenza di $\vv{E}$. Adesso, 
+considerando una carica puntiforme $q$ in un sistema di riferimento,
+in modo tale che non disturbi il campo elettrico,
+si va a ricavare la terza equazione di Maxwell.  Supponendo 
+che questa carica venga spostata da un punto $A$ ad un punto 
+$B$ e si vuole determinare il lavoro del campo elettrico durante questo 
+spostamento (su $\gamma$):
+\begin{gather*}
+    L_{\vv{F_E} } = \int_{\gamma} \vv{F_E} \cdot \vv{dl}   
+\end{gather*}
+Adesso la forza elettrica per la carica è
+\begin{gather*}
+    \vv{F_E} = \frac{Q}{4\pi\epsilon_0} \frac{\hat{r} }{r^{2}} 
+\end{gather*}
+Ossia $\hat{r}$ è il versore del raggio vettore che indica la carica $q$.
+In coordinate sferiche, si può esprimere la carica come 
+\begin{gather*}
+    \vv{dl}  = dr\hat{r} + rd\theta \hat{\theta} + r\sin\theta d\phi \hat{\phi}   
+\end{gather*} 
+Dunque si ottiene 
+\begin{gather*}
+    \int_{\gamma} \vv{F_E}(dr\hat{r} + rd\theta \hat{\theta} + r\sin\theta d\phi \hat{\phi})    = \int_{\gamma} q\frac{Q}{4\pi\epsilon_0} \frac{1}{r^{2}}dr = \int_{r_A}^{r_B} q\frac{Q}{4\pi\epsilon_0} \frac{1}{r^{2}}dr 
+\end{gather*}
+Come si ci aspettava, non c'è lavoro per le direzioni $\hat{\theta}$ e $\hat{\phi}  $
+in quanto il loro prodotto scalare con il campo è nullo. Quello che conta dunque, 
+è solo l'incremento lungo $\hat{r}$. Questo ci dice che 
+la forza elettrica è una forza conservativa e che, ad una certa distanza $r$ 
+dall'origine del campo elettrico, se ci si muove lungo la sfera identificata da
+questo raggio $r$, il campo non compie nessun lavoro. Il risultato dell'integrale è 
+\begin{gather*}
+    -q\frac{Q}{4\pi\epsilon_0} \left(\frac{1}{r_B} - \frac{1}{r_A}\right) = -\Delta U
+\end{gather*}
+Si definisce, con il risultato di questo integrale, il potenziale elettrico. Si può 
+anche staccarci dalla definizione meccanica data fino ad ora e introdurre il vero potenziale 
+elettrico come
+\begin{align}
+    \Delta V = \lim_{q  \to 0} \frac{\Delta U}{q} = \frac{Q}{4\pi\epsilon_0} \left(\frac{1}{r_B} - \frac{1}{r_A}\right)
+\end{align}
+Tornando all'integrale, 
+\begin{gather*}
+    \Delta V = \lim_{q \to 0} -\int_{\gamma} \frac{\vv{F_E} }{q}  \cdot \vv{dl} \equiv -\int_{\gamma} \vv{E} \cdot \vv{dl}   
+\end{gather*}
+Per una carica puntiforme dunque si è dimostrato che il lavoro non dipende dal percorso scelto. Si utilizza
+ora il principio di sovrapposizione per determinare che accade per una certa distribuzione 
+di carica. DAto che anche l'integrale è un operatore lineare, è dunque possibile ottenere 
+una somma di integrali e dunque rimane dimostrato che tutti i campi elettrostatici sono 
+\textbf{conservativi}. Il concetto che la forza è conservativa, si estende al campo
+vettoriale. Dunque questa è la terza equazione di Maxwell per la forma integrale: 
+\begin{align}
+    V(r_B) - V(r_A) = -\oint_{r_A}^{r_B} \vv{E} \cdot \vv{dl}  \Longleftrightarrow \oint_{\gamma} \vv{E} \cdot \vv{dl} = 0  
+\end{align}
+Ed è indipendente da $\gamma$. L'importante è che si vada da $r_A$ a $r_B$. Un modo più diretto per 
+esprimerlo è prendere due punti $A$ e $B$ e utilizzare due linee $\gamma$ da $A$ a $B$
+ed una linea $\gamma'$ da $B$ ad $A$. Quello che si ottiene è che la circuitazione di $\vv{E}$ è nulla:
+dunque il campo è conservativo. 
+
+\subsection{Legare il campo elettrico al potenziale elettrico}
+Partendo da un punto $A$ e andando verso un punto $A'$ che è posto a $dx, dy, dz$ di distanza
+da $A$ lungo una curva $d\gamma$. SI ottiene che lo spostamento infinitesimo  mi permette di definire 
+\begin{gather*}
+    dV = V(A') - V(A) = -\vv{E}\cdot \vv{dl}  =  -(E_x dx + E_y dy + E_z dz) 
+\end{gather*}
+SI può inoltre esprimere $dV$ secondo le derivate parziali:
+\begin{gather*}
+    dV = \frac{\partial V}{\partial x} dx + \frac{\partial V}{\partial y}dy + \frac{\partial V}{\partial z}dz 
+\end{gather*}
+Nel caso in cui questa sia una funzione buona e si possa esprimere il potenziale. Uguagliando queste due quantità, e che valgono 
+per qualsiasi $\vv{dl}$ si scelga, si ha che
+\begin{gather*}
+    E_x = -\frac{\partial V}{\partial x}  \qquad E_y = - \frac{\partial V}{\partial y}  \qquad E_z = - \frac{\partial V}{\partial z} \\
+    \ \Longrightarrow \ \vv{E} = -\vv{\nabla}V     
+\end{gather*} 
+Dunque, a partire dalla circuitazione del campo elettrico, si può determinare il 
+campo conosciuto il potenziale e che, noto il potenziale, il campo è univocamente definito.
+Si deve ora trovare l'equazione di Maxwell in forma locale (ossia con il teorema 
+di Stokes si deve trovare il rotore):
+\begin{gather*}
+    \oint \vv{E} \cdot \vv{dl} \Longleftrightarrow   \int_{S} \vv{\nabla} \times \vv{E} \cdot \hat{n} dS  = 0
+\end{gather*}
+Ossia il flusso del campo attraverso una superficie che 
+si appoggia alla curva $\gamma$ è equivalente alla circuitazione 
+del campo elettrico lungo quella curva. Questa è vera se $\vv{\nabla} \times \vv{E} = 0$. 
+Ossia la \textbf{Terza equazione di Maxwell}, che deriva dalla conservatività 
+della forza elettrostatica e dunque del campo elettrostatico. Si dice anche che il 
+campo elettrostatico è \textbf{irrotazionale}. Dunque si dimostra che è 
+uguale al suo gradiente del potenziale:
+\begin{gather*}
+    \vv{E} = -\vv{\nabla} \Longleftrightarrow    \vv{\nabla} \times \vv{E} =  0  
+\end{gather*}
+Supponendo di voler trovare
+\begin{gather*}
+    (\vv{\nabla} \times \vv{E}  )_1 = \frac{\partial E_3}{\partial 2}  + \frac{\partial E_2}{\partial 3} \\
+\end{gather*}
+Si vede intanto che il rotore di questo è nullo:
+\begin{gather*}
+    (\vv{\nabla} \times \vv{\nabla} V  )_1 = \frac{\partial (\vv{\nabla}V )_3}{\partial 2} + \frac{\partial (\vv{\nabla}V )_2}{\partial 3} = 0
+\end{gather*}
+SI dimostra anche per le altre componenti. \\ \noindent
+SI definisce il rotore di $\vv{E}$ come il tensore di Ricci:
+\begin{gather*}
+    (\vv{\nabla} \times \vv{E}  )_i = \epsilon_{i, j, k} \frac{\partial E_k}{\partial x_j} 
+\end{gather*} 
+DOve si sottintende il simbolo della sommatoria. Questo tensore è una matrice tridimensionale $3x3x3$
+e gode delle seguenti proprietà:
+\begin{itemize}
+    \item $\epsilon_{i, j, k} = 0 \Longleftrightarrow i = j, j = k, k = i$
+    \item $\epsilon_{i, j, k } = 1 \Longleftrightarrow $ (1, 2, 3) sono ordinati in modo ciclico, 
+    così come (3, 1, 2) o (2, 3, 1). Dunque se si fa una permutazione ciclica di una di queste, 
+    il valore di questo tensore è 1.
+    \item $\epsilon_{i, j, k} = -1 \Longleftrightarrow$ se si esegue una permutazione 
+    non ciclica (tipo 2, 1 , 3).
+\end{itemize}
+Se si volesse calcolare il rotore per il primo termine posso fissare $i = 1$, dunque fisso $j = 2, 3$. Se
+$j = 2$, $k = 3$, se $j = 3$, $k = 2$. Dunque di questa sommatoria a nove indici, in realtà solo due termini sono
+non nulli, ossia quelli esplicitati al rotore
+
+Dato che il potenziale è definito a meno di una costante, si impone che 
+il potenziale all'infinito sia nullo. Dunque posso esprimere che
+\begin{gather*}
+    V(r) = \frac{Q}{4\pi\epsilon_0} \frac{1}{r}
+\end{gather*}
+Che riprende il concetto di messa a terra: infatti la Terra è talmente grande e talmente 
+tanto carica che si può considerare che abbia potenziale nullo per qualsiasi esperimento 
+che si compie su di essa. Se ci fosse una densità di carica in un volume $\tau$, si otterrebbe
+un integrale di volume
+\begin{gather*}
+    V(r) = \int_{\tau} \frac{\rho(r')}{4\pi\epsilon_0} \frac{1}{\left| \vv{r} - \vv{r'}   \right| } d\tau  
+\end{gather*}
+Ogni contributo dell'integrale del potenziale ad una certa distanza $\vv{r}$ dalla carica in posizione $\vv{r'}$. Per un filo 
+indefinito (o un piano) carico questa relazione non vale perché non si riesce a mettere
+zero come potenziale all'infinito. Se il piano o il filo non sono infinti
+invece vale. Dato che si è espresso il campo elettrico come
+\begin{gather*}
+    \vv{E}(r) = \frac{1}{4\pi\epsilon_0} \int_{\tau}^{}  \rho(\vv{r} ) \frac{(\vv{r} - \vv{r'} )}{\left| \vv{r} - \vv{r'}   \right| }d\tau  
+\end{gather*}  
+A partire da questa si definisce
+\begin{gather*}
+    \vv{\nabla}V = -\vv{E}  
+\end{gather*}
+
+\section{Equazione di Poisson}
+Data la terza equazione di Maxwell, si prende la prima equazione:
+\begin{gather*}
+    \vv{\nabla} \cdot (-\vv{\nabla}V ) = \frac{\rho}{\epsilon_0}  
+\end{gather*} 
+Quando si fa la divergenza di un campo vettoriale, si scrive
+\begin{gather*}
+    \vv{\nabla} \cdot \vv{E} = \frac{\partial E_i}{\partial x_i} = -\frac{\partial }{\partial x_i} \left(- \frac{\partial V}{\partial x_i} \right) = -\frac{\partial ^{2}}{\partial x_i^{2} }V = - \frac{\partial }{\partial x_i} \frac{\partial }{\partial x_i} V  
+\end{gather*}
+In questa equazione, dato che compare l'indice $i$, allora si sta sommando per tutti gli $i = 1, 2, 3$. Dunque si arriva ad 
+utilizzare il laplaciano per determinare l'\textbf{equazione di Poisson}:
+\begin{align}
+    \vv{\nabla} \cdot (-\vv{\nabla}V ) = \frac{\rho}{\epsilon_0} \Longleftrightarrow \nabla^{2}V = - \frac{\rho}{\epsilon_0} 
+\end{align}
+Dunque questa equazione riassume tutta l'elettrostatica e si può scrivere un'equazione 
+per un campo scalare per calcolare il campo elettrico (vettoriale). Il prezzo da pagare
+è che l'equazione scalare è di secondo grado. In linea di principio, qualunque problema 
+elettrostatico si risolve mediante questa equazione (locale).
+\begin{theorem}[Teorema di unicità (Da rivedere)]
+    Supponendo di avere un volume $\tau$ nell'universo e, dentro questo 
+    volume, si conosce la distribuzione di carica (dunque l'equazione di Poisson). 
+    Il campo elettrico in questo volume è unico se si conoscono le 
+    \textbf{boundary conditions}: ossia si devono conoscere le condizioni 
+    sulla superficie S che è il bordo di $\tau$. La condizione di Diriclet mi dice che,
+    se si conosce il potenziale su tutti i bordi della superficie, allora il potenziale è noto.
+    Quella di ??? dice che, se si conosce il gradiente normale (ossia il campo elettrico 
+    normale alla superficie), allora si conosce il potenziale.
+\end{theorem}
+\begin{proof}
+    La dimostrazione avviene per assurdo: supponendo che non siano vere le due soluzioni del teorema, 
+    ossia una soluzione $V_1(\vv{r} )$ e $V_2(\vv{r} )$ che soddisfano le ipotesi del problema, mentre o 
+    sul bordo sono uguali punto per punto o si conosce il campo sulla superficie ma all'interno sono diversi. \\
+    Si considera $U\vv{\nabla}U$, e si calcola la divergenza
+    \begin{gather*}
+        \vv{\nabla} \cdot (U\vv{\nabla}U) = \frac{\partial }{\partial x_i} \left(U \frac{\partial }{\partial x_i} U\right) = \left(\frac{\partial }{\partial x_i}U \right) \left(\frac{\partial }{\partial x_i}U \right) + U \frac{\partial }{\partial x_i}\frac{\partial }{\partial x_i}U  
+    \end{gather*}
+    Dunque ottengo il gradiente di $U$ al quadrato (ossia il modulo quadro del vettore 
+    gradiente di $U$):
+    \begin{gather*}
+        \left| \vv{\nabla} U  \right|^{2} + U \nabla^{2}U  = \left| \vv{\nabla}U  \right|^{2} 
+    \end{gather*}
+    Dunque la divergenza di questo campo è pari al modulo quadro del campo stesso. Con questa divergenza
+    si può ora fare l'integrale su $\tau$ di
+    \begin{gather*}
+        \int_{\tau} \vv{\nabla}(U \vv{\nabla}U ) d\tau = \int_{S} \left(U \vv{\nabla}U \cdot dS \right)   
+    \end{gather*}
+    Nella prima condizione questo integrale fa zero perché so che il ?? COn la seconda condizione 
+    invece si sa che il prodotto scalare va calcolato sui punti della superficie $S$ e dunque boooh. 
+    \begin{gather*}
+        \int_{S}^{} (V_1 - V_2) (\vv{\nabla} \cdot V_1 \hat{n} - \vv{\nabla}V_2 \hat{n}    ) dS 
+    \end{gather*}
+    Si è trovato allora che 
+    \begin{gather*}
+        \int_{}^{}\left| \vv{\nabla} U  \right|^{2} \ d\tau = 0  
+    \end{gather*}
+    Dunque il gradiente è uguale a zero per tutti i punti del volume perché è tutta nulla:
+    l'integrale di una funzione positiva ha integrale nullo se e solo se è nulla. Infatti la funzione 
+    potenziale è definita positiva, dunque per tutti i punti del volume il gradiente
+    di $U$ è zero.
+    Per ogni punto si è trovato che
+    \begin{gather*}
+        \vv{\nabla}V_1 = \vv{\nabla}V_2  
+    \end{gather*}
+    Per un fisico il teorema è dimostrato poiché si è visto che il 
+    campo è uguale. Tuttavia non è detto che il potenziale sia unico, infatti se
+    $\vv{\nabla} U = 0$ allora è costante in tutti i punti di $\tau$. 
+\end{proof}
+
+
+\end{document}

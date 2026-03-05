@@ -1,0 +1,187 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Lab II}
+\author{Tommaso Miliani}
+\date{04-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Prima esperienza}
+Si è schematizzato quello che accade all'interno del generaetore
+con $\vv{E_l}$. All'equilibrio se non si muovono cariche, allora
+$\vv{E_l} = - \vv{E_S}$. Si è definita la $fem$ come 
+\begin{gather*}
+    fem = \int_{B}^{A} \vv{E_l} \cdot \vv{dl}   = \int_{B}^{A} -\vv{E_S} \cdot \vv{dl} = \int_{A}^{B} \vv{E_S} \cdot \vv{dl}     
+\end{gather*}   
+Si sa fare solo all'equilibrio poiché il campo $\vv{E_S}$ è equivalente a quello 
+non conservativo $\vv{E_l}$. Dato che è conservativo $\vv{E_S}$, allora integrale si può
+eguagliare ad un potenziale. DUnque si definisce operativamente
+\begin{gather*}
+    fem = f = \epsilon = \left.(V_A - V_B)_m \right|_{i = 0 }
+\end{gather*}
+Sperimentalemente si può misurare la differenza di potenziale e si trova che, 
+in funzione della corrente, il grafico non è costante ma alla corrente 
+massima la tensione crolla. QUesto si spiega perché la corrente che passa fuori dal
+circuito deve anche passare all'interno del generatore, essendo esso stesso 
+un conduttore, avrà una certa resistenza. Per spiegare dunque questo andamento, 
+si può rappresentare la caduta di potenziale come il valore di resistenza finito (anche
+se piccola) del generatore stesso. Ecco come, in tutti gli altri casi, 
+a circuito chiuso, la corrente $i$ che passa non è infinita e la differenza di potenziale
+ai cavi sarà uguale alla 
+\begin{gather*}
+    (V_A - V_B)_m = fem - ir
+\end{gather*}
+Questo vale fino a che non ci si avvicina alla corrente  $i_{max}$ erogabile 
+dal generatore. 
+\paragraph{Metodo Potenziometrico} \mbox{} \\
+Si possono realizzare circuiti con due maglie prendendo un generatore stabile con 
+un partitore di tenisoni a cui attacco un amperometro con resistenza e e generatore extra incognito.
+Il circuito della prima maglia permette di variare in maniera continua la tensione 
+ad uno dei capi. Se nel divisore di tensione si riesce a tarare il rapporto giusto di resistenze, allora
+attraverso la maglia che contiene l'amperometro non passerà più corrente. Questo 
+prende il nome di \textbf{metodo potenziometrico}. Questa misura non si può effettuare 
+da sola, infatti la misura in laboratorio sarà composta da due step:
+\begin{enumerate}
+    \item  La prima parte della misura è di taratura: indipendentemente dalla
+    fem del primo generatore, conosciuto il rapporto di tensione nel divisore, si utilizza
+    un generatore di tensione ideale $\epsilon_R$ e $r_R$, da regolare in modo tale che l'amperometro segni zero.
+    Questa taratura dipenderà dal rapporto nel divisore di tensione. 
+    \item Si collega poi ad un secondo circuito con resistenza
+    e fem ignota e, tramite la misura tra il rapporto $r_R$ e $r_x$ nei 
+    due divisori di tensioni si riesce a trovare il rapporto tra $\epsilon_R$ e $\epsilon_x$
+\end{enumerate}
+Questi sistemi riescono a determinare la tensione e la resistenza con una precisione 
+fino a
+\begin{gather*}
+    \frac{\Delta V}{V} \sim 10^{-9} \qquad \frac{\Delta R}{R} \sim 10^{-9}
+\end{gather*}
+
+\clearpage
+\section{Risoluzione di esercizi}
+I campi non conservativi non compaiono all'interno della legge delle 
+maglie di Kirkhoff. A partire dall'equazione locale (che vale
+punto per punto per un circuito):
+\begin{gather*}
+    \vv{E} = \rho_R \cdot  \vv{J}  
+\end{gather*}
+In realtà in ogni punto del circuito, anche se vale punto per punto, non è 
+detto che tutti i punti siano alla stessa tensione e alla stessa resistenza.
+Si può però pensare che in un certo punto del circuito ci sia della
+resistenza concentrata. Come si può esprimere l'integrale tra $A$ e $B$:
+\begin{gather*}
+    \int_{A}^{B} \vv{E} \cdot \vv{dl} = \int_{A}^{B} \rho_R \vv{J} \cdot \vv{dl}      
+\end{gather*}
+questo campo $\vv{E}$ è la somma dei campi del generatore più il campo elettrostatico
+conservativo che compare a causa dell'accumulo di carica:
+\begin{gather*}
+    \vv{E} = \vv{E_e} + \vv{E_s} \ \Longrightarrow \ \int_{A}^{B} \vv{E_S} \cdot \vv{dl} + \int_{A}^{B} \vv{E_e} \cdot \vv{dl} = \int_{A}^{B} \rho_R \vv{J} \cdot \vv{dl}             
+\end{gather*} 
+CI sarà sicuramente una parte conservativa di campo ed una non conservativa. Tutti i campi
+conservativi sono riassunti in $\vv{E_S}$. Facendo la somma lungo il percorso specificato, 
+l'integrale sarà dunque la differenza di potenziale tra i due punti (per definizione) 
+\begin{gather*}
+    V_A - V_B + \int_{-}^{+} \vv{E_{e1}} \cdot \vv{dl} + \int_{+}^{-} \vv{E_e} \cdot \vv{dl} = \int_{A}^{B} \rho_R \vv{J} \cdot \vv{dl}  = R_1 i_1 + R_2 i_2 + R_3 i_3 
+\end{gather*} 
+Il primo integrale da $f_1$ ed il secondo $-f_2$ il segno di $f_2$ è dovuto al segno di percorrenza
+scelta di $\vv{J}$ per utilizzare la legge delle maglie. Dunque la legge di Ohm generalizzata in un ramo è 
+\begin{gather*}
+    V_A - V_B + \sum_{i} f_i = \sum_{k } iR_k
+\end{gather*} 
+
+\begin{example}[Risoluzione di un circuito con due metodi differenti]
+    Se si volesse trovare la corrente $i_3$ che scorre lungo il ramo che 
+    contiene la resistenza $R_3$:
+
+    Si può applicare le leggi di Kirckhoff ai nodi e alle due maglie 
+    per risolvere il circuito e trovare la corrente incognita. Un'altra 
+    metodologia è utilizzare il principio di sovrapposizione:
+    in un circuito con generatori che spingono la corrente nel circuito, si possono considerare
+    la sovrapposizione degli effetti dei due generatori:
+    \begin{gather*}
+        i_3 = C_1 \epsilon_1 + C_2 \epsilon_2 = i_3' + i_3''
+    \end{gather*}
+    Il primo contributo è quando $\epsilon_2$ è cortocircuitato e 
+    il secondo è quando $\epsilon_1$ viene cortocircuitato. Cortocircuitando 
+    il secondo generatore, esso verrà tolto dal suo ramo corrispondente, ora si 
+    risolve trovando con la legge dei nodi al nodo $N$ si ha che
+    \begin{gather*}
+        i_1 = i_2 + i_3'
+    \end{gather*}
+    Calcolando la resistenza totale (come due resistenze in parallelo in serie con una terza)
+    adesso, si può trovare la corrente $i_1$ come
+    \begin{gather*}
+        R_T = R_1 + \frac{R_2R_3}{R_2 + R_3} \ \Longrightarrow \ i_1 = \frac{\epsilon_1}{R_T}
+    \end{gather*}
+    Di nuovo, secondo le leggi di Kirckhoff, la corrente si divide in maniera inversamente 
+    proporzionale nei circuiti:
+    \begin{gather*}
+        i_2 R_2 = i_3' R_3 \ \Longrightarrow \ \frac{i_3'}{i_2} = \frac{R_2}{R_3} 
+    \end{gather*}
+    Dato che
+    \begin{gather*}
+        i_2 = \frac{R_3}{R_2 + R_3} i_1 \qquad i_3' = \frac{R_2}{R_2 + R_3} i_1 
+    \end{gather*}
+    Allora 
+    \begin{gather*}
+        i_3' = \frac{R_2}{R_1R_2 + R_1 R_3 + R_2R_3}\epsilon_1
+    \end{gather*}
+    Si può applicare lo stesso procedimento per trovare $i_3''$:
+    \begin{gather*}
+        i_3'' = -\frac{R_1}{R_1R_2 + R_1 R_3 + R_2 R_3} \epsilon_2
+    \end{gather*}
+    Ottenendo allora 
+    \begin{gather*}
+        i_3 = \frac{R_2 \epsilon_1 - R_1 \epsilon_2}{R_1R_2 + R_2 R_3+ R_1 R_3}
+    \end{gather*}
+\end{example}
+
+
+
+\end{document}

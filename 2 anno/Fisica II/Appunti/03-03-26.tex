@@ -1,0 +1,312 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Esercizi di Fisica II}
+\author{Tommaso Miliani}
+\date{03-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Ripasso breve}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \filldraw(0, 0) circle (1pt) node[anchor = north]{$Q$};
+        \draw[->](0, 0) -- (3, 0);
+        \draw[->](0, 0) -- (0, 3);
+        \draw[->](0, 0) -- (-1.5, -1);
+        \filldraw(2, 1) circle (1pt); 
+        \draw[dashed](0, 0) -- (2, 1);
+        \draw(0, 1) arc (90:30:1) node[midway, above] {$\theta$};
+        \draw[dashed] (0, 0) -- (2, -1);
+        \draw(1, 0) arc (0:-30:1) node[midway, right] {$\phi$};
+        \draw(1.5, 1.5) .. controls (2, 0.7) and (2.2, 1.2) .. (2.75, 1);
+        \draw[dashed](2, -1) -- (2, 1);
+        \filldraw(1.5, 1.5) circle (1pt) node[anchor = south] {$A$};
+        \filldraw(2.75, 1) circle (1pt) node[anchor = south] {$B$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Presa una carica nell'origine ed una che si sposta 
+da un punto $B$ ad un punto $A$. Il lavoro della forza
+elettrostatica è dato dal
+\begin{gather*}
+    W = \int_{B}^{A} \vv{F} \cdot \vv{dl}  = \int_{B}^{A} \frac{qQ}{4\pi\epsilon_0} \frac{1}{r^{2}} \hat{r}(dr \hat{r} + rd\theta \hat{\theta} + r\sin\theta d\phi \hat{\phi}   )     
+\end{gather*} 
+DUnque si ottiene che
+\begin{gather*}
+    U = \frac{qQ}{4\pi\epsilon_0} \frac{1}{r} = \int_{B}^{A} \frac{qQ}{4\pi\epsilon_0} \frac{1}{r^{2}} dr = U_B - U_A 
+\end{gather*}
+Dunque il potenziale associato (in Volt):
+\begin{gather*}
+    V = \lim_{q \to 0} \frac{U}{q} \ \Longrightarrow \ \vv{E} = -\vv{\nabla} V  
+\end{gather*}
+Segue che, la circuitazione su di una curva chiusa
+\begin{gather*}
+    \oint \vv{E} \cdot \vv{dl} = V(0) - V(0) = 0  
+\end{gather*}
+Si può usare il teorema di Stokes che lega la circuitazione al rotore:
+\begin{gather*}
+    \int_{\Sigma} \vv{\nabla} \times \vv{E} = 0   \ \Longrightarrow \ \vv{\nabla} \times \vv{E} = 0  
+\end{gather*}
+
+\section{Esercizi}
+\begin{example}[Potenziale associato ad una distribuzione di carica sferica]
+    Data la seguente situazione fisica con
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[thick](0, 0) circle (1);
+            \draw[->](0, 0) -- (2, 0);
+            \draw[->](0, 0) -- (0, 2);
+            \draw[->](0, 0) -- (-1.5, -1);
+            \draw(0, 0) circle (0.75);
+            \draw(0, 0) circle (1.5);
+            \node at (0, -0.4) {$r \leq R$};
+            \node at (1.5, 1.5) {$r > R$};
+        \end{tikzpicture} \qquad \rho(r) = \left\{\begin{array}{l}
+            \rho r \leq R \\
+            0 \quad r > R
+        \end{array}\right.
+    \end{gather*}
+    Nel caso in cui $r \leq R$ si ha che
+    \begin{gather*}
+        4\pi R^{2}E(r) = \frac{1}{\epsilon_0} \int_{0}^{r} 4\pi r'^{2} \rho dr' 
+    \end{gather*}
+    Da cui segue che il campo elettrico è 
+    \begin{gather*}
+        E(r) = \frac{1}{\epsilon_0}\frac{\rho r}{3}
+    \end{gather*}
+    Se invece $r > R$:
+    \begin{gather*}
+        4\pi R^{2}E(r) = \frac{1}{\epsilon_0} \frac{4}{3}\pi \rho R^{3} =
+    \end{gather*}
+    Si può determinare il potenziale per $r > R$:
+    \begin{gather*}
+        V(r) - V(\infty ) = \int_{r}^{\infty } \vv{E} \cdot \vv{dl} = \int_{r}^{\infty } dr' \frac{Q}{4\pi\epsilon_0r'^{2}} = \frac{Q}{4\pi\epsilon_0 r}   
+    \end{gather*}
+    Ossia la stessa relazione utilizzata per il potenziale $U$. Implicitamente il 
+    potenziale è sempre definito a meno di una costante, mentre la quantità definita in modo
+    fisico è il campo elettrico. In questo caso la costante che si assume è che il 
+    potenziale elettrico sia nullo all'infinito.  \\
+    Per $r \leq R$:
+    \begin{gather*}
+        V(r) = V(r) - V(R) = \int_{r}^{R} \frac{1}{\epsilon_0} \frac{\rho r'}{3} dr' = \frac{1}{\epsilon_0} \frac{\rho}{3} \int_{r}^{R} r' dr' = \frac{\rho}{3\epsilon_0} \left(\frac{R^{2}}{2} - \frac{r^{2}}{2}\right) 
+    \end{gather*}
+    Questa è la differenza di potenziale. Dato che si vuole sapere $V(R)$, esso si calcola
+    sapendo che, per la continuità del potenziale, è uguale a quanto trovato per $r >R$: 
+    \begin{gather*}
+        V(R) = \frac{Q}{4\pi\epsilon_0 R} \ \Longrightarrow \ V(r) = \frac{Q}{8\pi\epsilon_0} \frac{1}{R}\left(3 - \frac{r^{2}}{2}\right)
+    \end{gather*}
+    SI poteva anche utilizzare l'equazione di Poisson ed integrare la seguente:
+    \begin{gather*}
+        \vv{\nabla}\vv{E} = \frac{\rho}{\epsilon_0} \ \Longrightarrow \ \nabla^{2}V = - \frac{\rho}{\epsilon_0}  
+    \end{gather*}
+\end{example}
+
+\begin{example}[Esercizio 1 compito 8/1/2014]
+    Considerando una distribuzione di cariche con simmetria sferica tale per cui 
+    il campo elettrico
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw[->](0, 0) -- (3, 0) node[at end, below] {$r$};
+            \draw[->](0, 0) -- (0, 2) node[at end, left] {$E_r$};
+            \draw(0, 0) .. controls ( 1, 0.5) .. (1.5, 1.5) .. controls (1.75, 0.75) and (2, 0.5) .. (3, 0.3);
+        \end{tikzpicture} \qquad E(r) = \left\{\begin{array}{l}
+            \alpha r^{2} \quad r < R \\
+            \beta \frac{1}{r^{2}} \quad r \geq R
+        \end{array}\right.
+    \end{gather*} 
+    Con $\alpha = 9 \cdot 10^{7} \frac{V}{m}$, $\beta = 4.5 \cdot 10^{3} Vm$ e $R = 0.1 m$. Si determini 
+    $\rho(r)$, $Q_{T}$ e $V(r)$. \\
+    Utilizzando il teorema di Gauss sulla superficie della sfera, si può considerare
+    un piccolo cilindro sulla superficie ed calcolare il campo uscente dalla sfera. 
+    Calcolando il flusso infinitesimo associato a questa superficie si ha che gli unici 
+    contributi sono dati solo dalle basi del cilindro considerato:
+    \begin{gather*}
+        d\Phi = -dr^{2} d\sigma + \frac{\beta}{r^{2}}d\sigma = \frac{dQ}{\epsilon_0}
+    \end{gather*}
+    Dove $d\sigma$ è la superficie infinitesima considerata. Calcolando il limite di questa
+    espressione quando l'altezza del cilindro ($h \to 0$), allora 
+    \begin{gather*}
+        d\Phi = -\alpha R^{2} d\sigma + \frac{\beta}{R^{2}} d\sigma = \frac{1}{\epsilon_0} \rho_S(R) \cdot d\sigma
+    \end{gather*}
+    Dove $\rho_S(r)$ è la distribuzione di carica superficiale che giustifica
+    la discontinuità del campo sulla superficie della sfera, mentre $r$ diventa $R$ quando 
+    ci si avvicina alla superficie:
+    \begin{gather*}
+        \rho_S(R) = \epsilon_0 \left(-\alpha R^{2} + \frac{\beta}{R^{2}}\right) = -3.98 \cdot 10^{-6} \frac{C}{m^{2}}
+    \end{gather*}
+    Dunque si è dimostrata la discontinuità nella distribuzione di carica (se fosse stata derivabile in $R$ si poteva
+    utilizzare la prima equazione di Maxwell). Si determina ora la distribuzione di carica all'interno della sfera ($r < R$)
+    utilizzando la prima di Maxwell:
+    \begin{gather*}
+        \vv{\nabla}\vv{E} = \frac{\rho}{\epsilon_0} = \left(\frac{1}{r^{2}} \frac{d}{dr} \left(r^{2} \hat{r} \cdot  \vv{E}  \right) + \frac{1}{r\sin\theta } \frac{d}{d\theta} \left(\vv{E} \cdot \hat{r} \sin\theta  \right) + \frac{1}{r\sin\theta} \frac{d}{d\phi} \left(\vv{E} \cdot \hat{\phi}  \right)\right)  
+    \end{gather*}
+    Dove si è calcolato la divergenza in coordinate sferiche,d unque l'unico contributo che sopravvive è
+    \begin{gather*}
+        \vv{E}(r, \theta, \phi) = E(r) \hat{r} \ \Longrightarrow \ \frac{1}{r^{2}} \frac{d}{dr} \left(r^{2} \alpha r^{2} \right) = \frac{1}{r^{2}} 4\alpha r^{3} = 4\alpha r  = \frac{\rho}{ \epsilon_0} \ \Longrightarrow \ \rho(r) = 4\alpha\epsilon_0 R
+    \end{gather*}
+    Per $r > R$:
+    \begin{gather*}
+        \frac{1}{r^{2}} \frac{d}{dr} \left(\beta\right) = 0  \ \Longrightarrow \ \rho(r) = 0
+    \end{gather*}
+    Come volevasi dimostrare. La distribuzione di carica totale si può dunque riassumere secondo 
+    \begin{gather*}
+        \rho(r) = \left\{\begin{array}{l}
+            4\alpha \epsilon_0 r \qquad \qquad \ \  r < R \\
+            \rho_S(r) \delta(r - R) \quad r \geq R
+        \end{array}\right.
+    \end{gather*}
+    Dove $\delta(r - R)$ è il delta di Dirak che vale uno solo se $r = R$, la quale mi permette di 
+    far equivalere (dimensionalmente), quella sopra a quella sotto poiché la delta di dirak 
+    fornisce come unità di misura (quando integrata) $\frac{1}{m}$.\\
+    Si può determinare ora la carica totale come 
+    \begin{align*}
+        Q_T &= \int_{0}^{+\infty } \rho(r) 4\pi r^{2} dr = 4\pi \int_{0}^{R} 4\alpha \epsilon_0 r^{3} \ dr + \int_{R}^{+ \infty } 4\pi r^{2} \rho_S \delta (r - R)  = \\
+         &= 4\pi \alpha \epsilon_0 R^{4} +  \rho_S 4\pi R^{2} = 4\pi R^{2} (\alpha \epsilon_0 R^{2} + \rho_S) = 5.00 \cdot 10^{-7} C
+    \end{align*}
+    Ora si determina il potenziale sfruttando la simmetria del problema. Lavorando con 
+    $r < R$ e ricordando che
+    \begin{gather*}
+        \vv{E} = -\vv{\nabla}V = - \frac{\partial V}{\partial R}
+    \end{gather*}
+    Ossia
+    \begin{gather*}
+        -\frac{\partial V}{\partial R} = \alpha r^{2}  \ \Longrightarrow \ V(r) = - \frac{1}{3}\alpha R^{3} + \text{const}
+    \end{gather*}
+    Per $r \geq R$: 
+    \begin{gather*}
+        - \frac{\partial V}{\partial r} = \frac{\beta}{r^{2}} \ \Longrightarrow \ V(r) = \frac{\beta}{r} + \text{const}' 
+    \end{gather*}
+    Per determinare le costanti, la prima condizione è che $V(\infty ) = 0$, ossia implica che const' sia zero. Mentre 
+    per la seconda condizione si deve lavorare sulla continuità del potenziale imponendo che
+    il potenziale sia continuo:
+    \begin{gather*}
+        -\frac{1}{3} \alpha R^{3} + \text{const} = \frac{\beta}{R} \ \Longrightarrow \ \text{const} = \frac{\beta}{R} + \frac{1}{3}\alpha R^{3} 
+    \end{gather*}
+    Dunque
+    \begin{gather*}
+        V(r) = \left\{\begin{array}{l}
+            \frac{1}{3}\alpha (R^{3} - r^{3}) + \frac{\beta}{r} \ \quad r < R \\
+            \frac{\beta }{r} \qquad \qquad \qquad \qquad r \geq R 
+        \end{array}\right.
+    \end{gather*}
+\end{example}
+
+\begin{example}[Esercizio 1 20/2/2012]
+    Si considera un sistema 
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw(0, 0) circle (1);
+            \draw[->](0, 0) -- (2, 0) node[at end, below] {$x$};
+            \draw[->](0, 0) -- (0, 5) node[at end, left] {$z$};
+            \draw[->](0, 0) -- (-1.5, -1) node[at end, left] {$y$};
+            \filldraw(0, 0) circle (1pt) node[anchor = north] {$O$};
+            \draw(0, 0) -- (0.7, 0.7) node[midway, below] {$R$};
+            \draw(0, 0.5) arc (90:45:0.5) node[midway, above] {$\theta$};
+            \draw[cyan](0, 0.7) ellipse (0.7 and 0.1);
+            \draw(0.7, 0.7) -- (0, 4) node[midway, above] {$r$};
+            \filldraw(0, 4) circle (1pt);
+        \end{tikzpicture} \qquad \sigma_S = \sigma_0 \cos\theta
+    \end{gather*}
+    Dove $\theta$ è l'angolo con l'asse $z$ che forma il generico vettore appartenente 
+    alla sfera. Si deve calcolare il camp ed il potenziale quando $z >> R$ e $z = x = y = 0 $.  \\
+    Si utilizza il principio di sovrapposizione imponendo che questa 
+    sfera si equivalente ad una sfera formata da tante spire con raggio $0 < r \leq R$
+    e con distribuzione di carica lineare che dipende dalla spira che si sta considerando.
+    Considerando solo una spira, che ha 
+    \begin{gather*}
+        z = R\cos\theta \quad R_S = R\sin \theta
+    \end{gather*}
+    Con distribuzione lineare di carica
+    \begin{gather*}
+        \rho_l = \sigma(\theta)dL = \sigma_0\cos\theta \ dL
+    \end{gather*}
+    Dove $d\rho$ è un piccolo pezzo di spira. L'infinitesimo di carica è dunque dato come
+    \begin{gather*}
+        dQ = \sigma_0\cos\theta \ dL R_S \ d\theta
+    \end{gather*}
+    Se si calcolasse il potenziale in un determinato punto 
+    \begin{gather*}
+        dV(z, \theta) = \frac{dQ}{4\pi \epsilon_0}\frac{1}{r} \qquad r= \sqrt{ (z - R\cos\theta)^{2} + R^{2}\sin^{2}\theta}
+    \end{gather*}
+    Dunque 
+    \begin{gather*}
+        dV(z, \theta) = \frac{\sigma_0 \cos\theta \ dL R \ d\theta}{4\pi \epsilon_0} \frac{1}{\sqrt{(z - R\cos\theta)^{2} + (R\sin\theta)^{2}} }
+    \end{gather*}
+    Dunque si deve integrare
+    \begin{gather*}
+        V(z) = \int_{0}^{\pi} d\theta \int_{}^{} dL \ dV = \int_{0}^{\pi} d\theta \ 2\pi R \sin\theta \cdot \frac{\sigma_0 \cos\theta R}{4\pi\epsilon_0} \frac{1}{\sqrt{(z - R\cos\theta)^{2} + (R\sin\theta)^{2}} }
+    \end{gather*}
+    Dunque viene
+    \begin{gather*}
+        V(z) = \frac{\sigma_0 R^{2}}{2\epsilon_0} \int_{0}^{\pi} \frac{\sin\theta \cos\theta \ d\theta}{\sqrt{(z - R\cos\theta)^{2} + (R\sin\theta)^{2}} }
+    \end{gather*}
+    L'integrale, anche se molto brutto, si può calcolare nel limite in cui $z >>R $ imposto dal problema, 
+    portando ad una risoluzione abbastanza immediata utilizzando gli sviluppi di Taylor
+    \begin{gather*}
+        \int_{0}^{\pi} \frac{\sin\theta\cos\theta d\theta}{\left(z^{2} + R^{2} - 2zR\cos\theta\right)^{\frac{1}{2}}} = \int_{0}^{\pi} \frac{\sin\theta\cos\theta  \ d\theta}{z\left(1 + \left(\frac{R}{z}\right)^{2} - 2\frac{R}{z} \cos\theta \right)^{\frac{1}{2}}}  = \\
+        \int_{0}^{\pi} \frac{\sin\theta \cos\theta \ d\theta}{z\left(1 + \epsilon^{2} -2\epsilon\cos\theta\right)^{\frac{1}{2}}}   
+    \end{gather*}
+    Con lo sviluppo di Taylor si osserva che non ci si può fermare al primo ordine
+    \begin{gather*}
+        \approx \frac{1}{z\left(1 - 2\cos\theta \epsilon\right)} \approx \frac{1}{z} \left(1 + \cos\theta \frac{R}{z}\right)
+    \end{gather*}
+    Ottenendo allora 
+    \begin{gather*}
+        V(z, \theta) = \frac{\sigma_0 R^{2}}{2\epsilon_0 z^{2}}\int_{0}^{\pi} \cos^{2}\theta \sin\theta \ d\theta = - \frac{\sigma_0 R^{3}}{3\epsilon_0  z^{2}}
+    \end{gather*}
+    Da qui il campo elettrico sarà dato come
+    \begin{gather*}
+        \vv{E} (z) = -\frac{\partial V}{\partial z} = \frac{2}{3} \frac{\sigma_0 R^{3}}{3\epsilon_0 z^{3}}  
+    \end{gather*}
+    (dice di riprovare il conto perché non gli torna ODIO I NEGRIIIIII).
+\end{example}
+
+
+\end{document}

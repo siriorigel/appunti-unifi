@@ -1,0 +1,192 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\title{Appunti di analisi}
+\author{Tommaso Miliani}
+\date{01-10-25}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+
+\maketitle
+
+\section{Esempio pisel}
+
+\begin{example}
+    \begin{gather*}
+        X = C^{0}([-1, 1]) \qquad d = d_{L^{1} } \\
+        d(f, g) = \int_{-1}^{1}|f - g| \ dx \ \Longrightarrow \ \{x_k\} \leq X
+    \end{gather*}
+\end{example}
+
+\begin{definition}
+    Ogni successione di Cauchy convergente è detto spazio metrico
+    completo.
+\end{definition}
+
+\begin{definition}
+    Se si ha uno spazio normato che è completo come spazio metrico
+    rispetto alla metrica indotta dallo spazio normato è detto \textbf{Spazio di Banach}. 
+\end{definition}
+
+\begin{observation}
+    $C^{1}([a, b]); d_{C^{1} }$ non è completo. \\
+    $C^{0}([a, b]); d_{C^{1} }$ non è completo.  
+\end{observation}
+
+Alcune proprietà degli spazi di Banach
+\begin{observation}
+    Consideriamo uno spazio metrico ed una successione che converge in un
+    punto $x_0 \in \mathbb{X}$, allora posso dire che il punto limite
+    appartiene alla chiusura dell'insieme $Y$. Un sottoinsieme
+    $Y$ di $\mathbb{X}$ è chiuso se e solo se contiene i limiti di tutte le successioni
+    convergenti di $Y$. 
+\end{observation}
+
+\begin{observation}
+    Se $(\mathbb{X}, d)$ è uno spazio metrico completo ed un suo sottoinsieme
+    $B$ è chiuso allora $(B, d)$ è uno spazio metrico completo. 
+\end{observation}
+
+\begin{definition}
+    Prendiamo due spazi metrici ognuno con una sua distanza definita come
+    \begin{gather*}
+        (\mathbb{X}, d_{X}) \qquad (\mathbb{Y}, d_{Y}) \qquad f: \mathbb{X} \to \mathbb{Y}
+    \end{gather*}
+    \begin{itemize}
+        \item $f$ è continua in un punto $x_0 \in \mathbb{X}$ se $\forall \{x_k\} \subseteq \mathbb{X} : x_n \to x_0$
+    si ha che $\{f(x_n)\} \subseteq \mathbb{Y}$ converge a $f(x_0)$ in $(\mathbb{Y}, d_Y)$ .
+        \item $f$ è Lipszitchiana se $\exists L > 0$ tale che $d_Y(f(x), f(y)) \leq L d_X(x, y)$.
+        \item $f$ si dice \textbf{contrazione} se Lipszitchiana con $L < 1$. 
+    \end{itemize} 
+\end{definition}
+
+\begin{proof}
+    Dimostrazione che se una funzione è Lipszitchiana allora è anche
+    continua. \\
+    Sia $x_0 \in \mathbb{X}$ considero allora una successione $\{x_k\} \subseteq \mathbb{X}$ tale che
+    $x_n \to x_0 \in (\mathbb{X}, d)$ ossia $d(x_n, x_0) \in \mathbb{R} \to 0$. Considero allora 
+    \begin{gather*}
+        0 \leq d_Y(f(x_n), f(x_0)) \leq L d_X(x_n, x_0) \ \Longrightarrow \ d_Y(f(x_n), f(x_0)) \to 0
+    \end{gather*} 
+    Ossia
+    \begin{gather*}
+        f(x_n) \to f(x_0) \in (\mathbb{Y}, d_Y)
+    \end{gather*}
+    E quindi $f$ è continua in $x_0$. Se e solo se l'insieme è ordinato allora posso dire
+    che quest dimostrazione è valida. 
+\end{proof}
+
+\begin{theorem}[Teorema di contrazione]
+    Il teorema di contrazione (o Teorema di Banach-Caccioppoli) parte da uno spazio
+    metrico completo. Considerata $f$ una applicazione da $\mathbb{X}$ in sé stessa,
+    allora esiste ed è unico un punto $\overline{x} \in \mathbb{X}$ detto punto
+    fisso tale che $f(\overline{x} ) = \overline{x}$.   
+\end{theorem}
+\begin{proof}
+    La dimostrazione costruisce analiticamente il punto $\overline{x}$ andando a costruire
+    una successione di punti così definita:
+    \begin{gather*}
+        x_1 = f(x_0) \qquad x_2 = f(x_1) \dots
+    \end{gather*} 
+    L'elemento $k + 1$ esimo è l'immagine dell'elemento $k$ esimo. Posso
+    allora affermare che la successione $x_k$ è di Cauchy in $(\mathbb{X}, d)$
+    secondo la seguente dimostrazione: prima di tutto stimo la distanza tra
+    l'elemento $k +1$ e l'elemento $k$ esimo della successione. Per come è
+    stata definita la succession $x_{k + 1} = f(x_k) = f(x_{k - 1})$ ossia è come
+    scrivere la distanza tra $f(x_k)$ e $f(x_{k - 1})$ . Dato che
+    $f$ è una contrazione:
+    \begin{gather*}
+        d(f(x_k), f(x_{k - 1})) \leq Ld(x_k, x_{k - 1})
+    \end{gather*}
+    Date la definizione della successione, allora si ha che
+    \begin{gather*}
+        d(f(x_k), f(x_{k - 1})) \leq Ld(f(x_{k - 1}), f(x_{k - 2})) \leq L^{2}d(x_{k - 1}, x_{k - 2}) 
+    \end{gather*}
+    Se si procede applicando questo algoritmo recursivamente allora 
+    si otterrebbe che $\dots \leq L^{k}d(x_1, x_0) = L^{k} d(x_0, f(x_0))  $. IN questo modo
+    la funzione distanza dipende solo ed esclusivamente dal punto $x_0$. Adesso
+    voglio dimostrare che questa successione sia di Cauchy. Prendo $m > n$ con $m = n + p$
+    e quindi considero la distanza tra
+    \begin{gather*}
+        d(x_m, x_n) = d(x_{n + p}, x_n)
+    \end{gather*} 
+    Posso allora valutare la distanza di tutti gli elementi fino a $n + 1$ fino a
+    $n + p$; dato che posso valutare solo la distanza tra elementi consecutivi allora utilizzo
+    la disuguaglianza triangolare. 
+    \begin{gather*}
+        d(x_{n + p}, x_n) \leq d(x_{n + p}, x_{n + p -1}) + \dots + d(x_{n + 1}, x_n) \leq \\
+        d(x_0, f(x_0)) \left(L^{n + p - 1} + L^{n + p - 2}+ \dots + L^{n}   \right) = d(x_0, f(x_0)) \left(\frac{L^{n} - L^{n + p}  }{1 - L}\right) = \\
+        d(x_0, f(x_0)) L^{n}\frac{1 - L^{p} }{1 - L}  < d(x_0 f(x_0)) \frac{L^{n} }{1 - L} 
+    \end{gather*}
+    L'ultimo passaggio è valido in quanto $L < 1$ e dunque la frazione è minore di $\frac{1}{1 - L}$. 
+    Dato che la distanza mi tende a zero 
+    \begin{gather*}
+        \forall \epsilon > 0 \ \exists N : m, n > 0  \ \Longrightarrow \ d(x_m, x_n) < \epsilon 
+    \end{gather*}
+    E quindi la succession $\{x_k\}$ è di Cauchy. Non resta che dimostrare
+    la tesi del teorema. SI osserva che $f$ è una contrazione e dunque è
+    Lipszitchiana e dunque è continua. Allora
+    \begin{gather*}
+        f(x_k) \to f(\overline{x} )
+    \end{gather*}
+    Per definizione $f(x_k)$ è l'elemento $x_{k + 1}$ per definizione, ma $x_{k + 1}$ è
+    un elemento della successione e dunque converge verso $\overline{x}$. Dato che questa successione
+    ha ora due punti limite, per l'unicità del limite allora $\overline{x} = f(\overline{x} )$. Si dimostra ora che
+    è unico: ponendo che esistano $\overline{x}$ e $\overline{y}$ che mi validano il teorema.
+    Devo dimostrare allora che la distanza tra i due sia zero. Dato che sono
+    punti fissi allora devo valutare la distanza tra le loro immagini: dato che
+    $f$ è una contrazione, allora con $0 < L < 1$ l'oggetto è sicuramente minore
+    della distanza. Se la distanza è diversa da zero, allora posso dire
+    che 
+    \begin{gather*}
+        d(\overline{x}, \overline{y}  ) \leq d(f(\overline{x}, f(\overline{y})  )) \leq L d(\overline{x}, \overline{y}  )
+    \end{gather*}     
+    Avrei allora che la distanza tra due elemenit è minore o uguale della loro distnza e dunque
+    se $d(\overline{x}, \overline{y}  ) \neq 0$ sarebbe assurdo
+    $\ \Longrightarrow \ d(\overline{x}, \overline{y}  ) = 0$. 
+\end{proof}
+
+\end{document}

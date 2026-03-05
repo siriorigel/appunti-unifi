@@ -1,0 +1,232 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Lab II}
+\author{Tommaso Miliani}
+\date{02-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Forza elettromotrice: definizione e misura}
+Il \textbf{multimetro} è un oggetto che è in grado di misurare differenze di potenziali, 
+correnti o resistenza di un dato circuito. Si deve capire ora come è definita la 
+\textbf{forza elettromotrice} ($fem$). Il simbolo circuitale di questi oggetti è 
+il seguente:
+
+Un \textbf{generatore di forza elettromotrice} deve mantenere costante
+la corrente che passa in un dato circuito (e dunque mantenere la 
+differenza di potenziale costante in un certo circuito), mantenendo una 
+zona più carica positivamente ed una più carica negativamente. Il generatore stesso
+è un conduttore e dunque la corrente che fluisce nel circuito deve allo stesso modo fluire all'interno del
+generatore. All'interno del generatore è presente dunque un campo elettrico $\vv{E_s}$ (conservativo), 
+dato dal fatto che ci sono delle cariche in più o delle cariche in meno, dunque 
+su tutto il circuito si ha che
+\begin{gather*}
+    \int_{\gamma} \vv{E} \cdot \vv{dl} = 0   
+\end{gather*} 
+Questo è quello che succede se si ha una lamina a facce piane e parallele
+con distribuzione di carica $\sigma_+$ da una parte e $\sigma_-$ dall'altra,
+allora il campo elettrico esterno è zero ma non vuol dire che non sia presente 
+(infatti è l'integrale di linea che è zero ma il campo all'esterno è presente).
+Esiste anche un campo $\vv{E_l}$:
+\begin{gather*}
+    \oint \vv{E_S} \cdot \vv{dl} + \vv{E_l} \cdot \vv{dl} = \int_{B}^{A} \vv{E_l} \cdot \vv{dl} \neq 0       
+\end{gather*} 
+Dove $\vv{E_l}$ è il campo elettrico interno al generatore di tensione. Il fatto che il 
+campo interno al generatore sia non conservativo, non è preoccupante: queste forze ci devono essere per poter generare tensione
+nel circuito. Si definisce allora questo campo non conservativo come 
+\begin{align}
+    \oint_{B}^{A}\vv{E_l} \cdot \vv{dl} = fem  
+\end{align} 
+La \textbf{fem} è definita come l'energia per unità di carica spesa 
+dal generatore per mantenere la situazione di non equilibrio di un 
+circuito all'interno del quale scorrono delle cariche.
+
+Il fatto che la corrente scorra all'interno del generatore, potrà mai 
+questo essere un oggetto che riesce sempre a portare le cariche 
+senza resistenza? Ogni generatore ha una resistenza interna e la prima 
+esperienza sta nella misura di una fem incognita e della sua resistenza 
+interna. Sperimentalmente si osserva che, preso un generatore di fem e una resistenza
+in un circuito aperto da $A$ a $B$. Se non circola corrente, è 
+ovvio che viene mantenuta la differenza tra la parte carica positivamente e quella
+negativamente, ed è anche ovvio che la fem è uguale alla differenza di potenziale tra 
+il punto $A$ ed il punto $B$:
+\begin{gather*}
+    i = 0 \ \Longrightarrow \  fem = V_A - V_B
+\end{gather*} 
+Quello che si osserva in funzione della corrente è che, se si collegano 
+i due punti $A$ e $B$ (dunque si chiude il circuito), essa decresce linearmente a causa di quella resistenza $r$ 
+fino a che non decresce completamente. DUnque 
+\begin{gather*}
+    \Delta V = V_A - V_B = fem - ri
+\end{gather*}
+Dunque la corrente sale fino a che non arriva ad un valore massimo, oltre la quale il 
+generatore non riesce più ad andare e inizia a scaldarsi fino a che ad un certo punto
+non smette di mandare cariche (o esplode). Dunque ogni generatore inizialmente si comporta 
+come un generatore di tensione, poi come un generatore di corrente. Il prodotto tra $I$ e $V$ è 
+la potenza erogata dal generatore. 
+
+\section{Misurare}
+Il voltmetro, strumento che serve per misurare la tensione, ha una resistenza 
+interna molto grande che viene messa in parallelo al circuito e misura la
+differenza di potenziale tra il punto $A$ ed il punto $B$. Dunque, per la legge di Ohm
+\begin{gather*}
+    \Delta V = V_A - V_B = iR
+\end{gather*}
+Sapendo che il multimetro in dotazione ha $R = 11.1 M\Omega$, la corrente $i$ si determina a partire dalla 
+relazione vista prima per la fem (legge sperimentale):
+\begin{gather*}
+    iR = fem - ri \ \Longrightarrow \ V_A - V_B = fem - ri
+\end{gather*} 
+Dunque
+\begin{gather*}
+    i = \frac{fem}{r + R}
+\end{gather*}
+TUttavia la differenza di potenziale è uguale alla caduta di potenziale di $iR$
+perché è la resistenza più grossa, dunque
+\begin{gather*}
+    iR = \frac{fem R}{R + r} = V_A - V_B
+\end{gather*}
+Ossia
+\begin{gather*}
+    V_A - V_B  \approx fem \ \text{ se } R >> r
+\end{gather*}
+Le resistenze in serie sono equivalenti alla somma delle due resistenze, dunque
+\begin{gather*}
+    R_T = R_1 + R_2
+\end{gather*}
+Per un collegamento in parallelo invece, date due resistenze in serie
+$R_1$ e $R_2$, la differenza di potenziale tra i due nodi prima del gruppo di resistenze
+sarà uguale a 
+\begin{gather*}
+    \Delta V = i_1 R_1 = i_2 R_2
+\end{gather*}
+poiché tutti i punti devono essere allo stesso potenziale, dunque posso esprimere 
+la somma in uscita come 
+\begin{gather*}
+    i_1 + i_2 = i \ \Longrightarrow \ i_1 = \frac{\Delta V}{R_1} , i_2 = \frac{\Delta V}{R_2}
+\end{gather*}
+Allora posso esprimere
+\begin{gather*}
+    \Delta V = i \frac{R_1 R_2}{R_1 + R_2}
+\end{gather*}
+Dunque
+\begin{gather*}
+    \frac{1}{R_T} = \frac{1}{R_1} + \frac{1}{R_2}
+\end{gather*}
+
+\subsection{Partitori di tensione}
+La \textbf{legge del partitore di tensione} è una legge che permette di 
+ottenere il rapporto tra la tensione in ingresso ed in uscita da un gruppo di resistenze.
+Per un circuito in cui ci sono delle correnti in serie, si utilizza la seguente
+\begin{gather*}
+    V_A - V_C = \Delta V \qquad V_A - V_C = iR_1 + iR_2
+\end{gather*}
+Mentre
+\begin{gather*}
+    V_B - V_C = iR_2
+\end{gather*}
+Allora posso ricavare la corrente in uscita in funzione della corrente in entrata.
+\begin{gather*}
+    V_B - V_C = \Delta V_O = \frac{V_A - V_C}{R_1 + R_2} \cdot R_2
+\end{gather*}
+Dunque si ottiene la regola del partitore di tensioni
+\begin{align}
+    \Delta V_{o} = \Delta V_i \frac{R_2}{R_1 + R_2}
+\end{align}
+
+
+\section{Esperienza number One}
+Gli obiettivi dell'esperienza sono i seguenti
+\begin{itemize}
+    \item Misurare $V_1$ con un voltmetro
+    \item Misurare $V_2$ con due voltmetri.
+\end{itemize}
+Si vuole determinare, dato $V_1$ e $V_2$, 
+la $fem$ del circuito. Si utilizza dunque la regola 
+del partitore su di un circuito che presenta due resistenze in parallelo 
+in serie con una resistenza (che è quella del generatore). Si possono considerare
+le resistenze in parallelo come se fossero una sola di 
+resistenza
+\begin{gather*}
+    R_T = \frac{R}{2}
+\end{gather*}
+Infatti
+\begin{gather*}
+    V_2 = \frac{\frac{R}{2}}{\frac{R}{2} + R_x} \epsilon_x
+\end{gather*}
+In quanto sono uguali. DUnque voglio determinare la resistenza interna del generatore 
+non attraverso la definizione operativa ma attraverso 
+\begin{gather*}
+    \left\{\begin{array}{l}
+        (R + 2R_x) V_2 = R \epsilon_x \\
+        (R + R_x)V_1 = R\epsilon_x
+    \end{array}\right.
+\end{gather*}
+Ottenendo allora 
+\begin{gather*}
+    R_x = R\left(\frac{V_2 - V_1}{V_1 - 2V_2}\right)
+\end{gather*}
+E
+\begin{gather*}
+    \epsilon_x = \frac{V_1(V_1 - 2V_2) + V_2V_1 - V_1^{2}}{V_1 - 2V_2}
+\end{gather*}
+Le incertezze degli strumetni sono
+\begin{itemize}
+    \item Multimetro FLuke 114: 0.5\% + 2 digit sulla tensione
+    \item Multimetro Fluke 114 da $10k\Omega \sim 40 M\Omega$ è 1.5\% + 2 digit. 
+\end{itemize}
+Dove le percentuali sono gli errori relativi sulle misure (tutte) effettuate, 
+che derivano dalla linearità dello strumento, mentre i "digit" dipendono 
+dal digitalizzatore (ossia il convertitore dal segnale analogico al digitale), 
+dunque sono le incertezze assolute sull'ultima cifra mostrata (di 2). 
+
+
+
+\end{document}

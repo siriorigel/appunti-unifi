@@ -1,0 +1,434 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Metodi}
+\author{Tommaso Miliani}
+\date{04-02-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Operazioni elementari sulle serie di potenze}
+La prima è la \textbf{somma di due serie di potenze}: ossia la somma termine a termine
+\begin{gather*}
+    f_a = \sum a_n z^{n} \qquad f_b = \sum b_nz^{n}
+\end{gather*}
+Allora 
+\begin{gather*}
+    (f_a + f_b)(z) = f_a(z) + f_b(z) \ \Longrightarrow \ \sum (a_n + b_n)z^{n}
+\end{gather*}
+Questa uguaglianza vale nell'intersezione dei domini di convergenza. Preso $z \in C_1 \cap C_2$, 
+allora questa uguaglianza vale se $C_1$ è il dominio di convergenza di $f_a$ e $C_2$ quello 
+di $f_b$. Questo dominio è $\geq$ del dominio di convergenza più piccolo.
+Si definisce anche il prodotto per uno scalare:
+\begin{gather*}
+    \lambda f(z) = \lambda f(z)
+\end{gather*}
+Dunque
+\begin{gather*}
+    \sum \lambda a_n z^{n}
+\end{gather*}
+Il raggio di convergenza di questa serie è lo stesso a meno che $\lambda = 0$, altrimenti 
+il raggio di convergenza è infinito. Si può anche definire il prodotto tra due serie:
+\begin{gather*}
+    (f_a \cdot f_b) (z) = f_a(z) \cdot f_b(z) 
+\end{gather*}
+Con $z \in C_1 \cap C_2$. I coefficienti di questa serie prodotto non sono 
+semplicemente il prodotto dei coefficienti. I nuovi coefficienti $c_n$ sono 
+\begin{gather*}
+    c_n = \sum_{k = 0}^{n}a_kb_{n - k} 
+\end{gather*}
+Nella serie originale infatti si ha che
+\begin{gather*}
+    a_k z^{k} b_{n - k} b_{n - k} z^{n - k} = a_k b_{n - k}z^{n}
+\end{gather*}
+Essenzialmente si riordinano i termini della serie.  Si può anche vedere
+come
+\begin{gather*}
+    \sum_{l = 0}^{\infty } a_l z^{l} \left(\sum_{m = 0}^{} \right) 
+\end{gather*}
+È come si si organizzasse le serie in una matrice e si ottenesse la traccia
+delle sottomatrici. 
+\begin{example} [Esempio di applicazione del prodotto]
+    Si vuole dimostrare
+    \begin{gather*}
+        \sin(2x) = 2\sin x \cos x
+    \end{gather*}
+    utilizzando la formula di prodotto e lo sviluppo in serie. Si 
+    sviluppa il secondo termine:
+    \begin{gather*}
+        2\left(\sum_{n = 1}^{\infty } \frac{(-1)^{n} x^{2n + 1}}{(2n + 1)!} \right) \left(\sum_{m = 1}^{\infty } \frac{(-1)^{m}x^{2m}}{2m!} \right)
+    \end{gather*}
+    Dato che compaiono potenze dispari e pari, quando si fanno i prodotti verranno solamente 
+    delle potenze dispari, dunque, chiamato $C_{2k + 1}$ come i termini dispari:
+    \begin{gather*}
+        C_{2k + 1} = 2\sum_{n + m = k}^{} \frac{(-1)^{n}}{(2n + 1) !} \frac{(-1)^{m}}{2m!} 
+    \end{gather*}
+    Si moltiplica e divide per dei fattoriali:
+    \begin{gather*}
+        = \frac{2(-1)^{k}}{(2k + 1) !} \sum_{m + n = k} \frac{(2k + 1)!}{(2n + 1)!(2m)!} \ \Longrightarrow \ \frac{(2k + 1)!}{(2n + 1)! (2m)!} = \begin{pmatrix} 2k + 1 \\
+        2n + 1 \end{pmatrix} =  \begin{pmatrix} 2k + 1  \\
+        2m\end{pmatrix} 
+    \end{gather*}
+    Ottenendo lo sviluppo del binomio, si può ora semplificare
+    \begin{gather*}
+        \frac{(-1)^{k}}{(2k + 1)!} \left(\sum_{n = 0}^{k} \begin{pmatrix} 2k + 1 \\
+        2n + 1 \end{pmatrix} + \sum_{m = 0}^{k} \begin{pmatrix} 2k + 1\\
+        2m \end{pmatrix}  \right)
+    \end{gather*}
+    Questa uguaglianza è come se si sommassero i coefficienti del binomio su tutti gli indici da
+    zero a $2k + 1$ dato che si sta sommando sia dagli indici pari che dagli indici dispari
+    \begin{gather*}
+        \sum_{i = 0}^{2k + 1} \begin{pmatrix} 2k + 1 \\
+        i \end{pmatrix}  = 2^{2k + 1}
+    \end{gather*}
+    L'ultima uguaglianza si può dimostrare semplicemente visualizzandola come l'espansione del seguente:
+    \begin{gather*}
+        (1 + 1)^{2k + 1}
+    \end{gather*}
+    In altre parole 
+    \begin{gather*}
+        (a + b)^{N} = \sum_{k = 0}^{N} a^{k}b^{N - k} \begin{pmatrix} N \\
+        k \end{pmatrix} 
+    \end{gather*}
+    A questo punto diventa
+    \begin{gather*}
+        \frac{(-1)^{k} 2^{2k + 1}}{(2k + 1)!} = C_{2k + 1}
+    \end{gather*}
+    Ossia l'espansione in serie del prodotto tra seno e conseno.
+\end{example}
+
+\subsection{Derivazione delle serie}
+Ricordando che siamo su $\mathbb{C}$, si deve dunque estendere la definizone di 
+derivata al caso di funzione complessa. La derivata complessa è più forte della derivata a
+reale.
+\begin{definition}[Derivazione]
+    Supponendo di avere una funzione $f : \mathbb{D} \to \mathbb{C}$ tale per cui $z \in \mathbb{D}$ sia punto di 
+    accumulazione. La derivata complessa di $f$ è dunque definita come 
+    \begin{align}
+        f'(z) \equiv \lim_{w \to z} \frac{f(w) - f(z)}{w - z} \qquad w \in \mathbb{D} 
+    \end{align}
+    Quando si è su $\mathbb{C}$ questo limite si può fare da qualunque direzione si voglia. L'importante 
+    è che questo limite esista per tutte le direzioni prese e che sia uguale per tutte le direzioni. 
+\end{definition}
+\begin{theorem}[Derivabilità $\ \Longrightarrow \ $ continuità]
+    Come per le funzioni su $\mathbb{R}$, se $f$ è derivabile in $z$, allora è continua in $z$. 
+\end{theorem} \noindent
+Proprietà delle derivate dei polinomi complessi:
+\begin{align*}
+    &\frac{d}{dx}(z^{n}) = nz^{n - 1} \quad n \geq 1 \\
+    &\frac{d}{dz}1 = 0
+\end{align*}
+Con $n \in \mathbb{Z}$ e $z \in \mathbb{C}$. Si potrà poi estendere anche al caso in cui $n \in \mathbb{C}$.
+Dato che si sta facendo la derivata di una serie di potenza, si farà termine a termine 
+e ci si chiede quale sarà il raggio di convergenza della serie derivata.
+\begin{theorem}[Il raggio di convergenza derivato è uguale a quello di partenza]
+    Il raggio di convergenza della serie derivata è uguale al raggio di convergenza della serie 
+    iniziale.
+\end{theorem}
+\begin{proof}
+    Utilizzando il criterio del confronto, imponendo che sia $\leq$ e $\geq$. Chiamati 
+    $R_a'$ e $R_a$ i raggi di convergenza della serie derivata e di quella iniziale. \\
+    $R_a' \leq R_a$. Preso un numero $z \in \mathbb{C}$ : $\left| z \right| < R_a'$. La
+    serie delle derivate è 
+    \begin{gather*}
+        f' = \sum_{n = 1}^{\infty } na_n z^{n - 1} \qquad f = \sum_{n = 0}^{\infty }a_nz^{n}  
+    \end{gather*} 
+    Si vuole allora maggiorare:
+    \begin{gather*}
+        \left| a_n z^{n} \right| = \left| z \right| \left| a_n z^{n - 1} \right| \leq n \left| a_n z^{n - 1} \right| \qquad \text{se } n \geq \left| z \right|     
+    \end{gather*}
+    Per qualunque $z$ si può trovare un $n$ sufficientemente grande tale per cui vale
+    l'ultima uguaglianza per tutti gli $n$ che vengono dopo. Dunque se converge questa serie maggiorata
+    con i termini della serie derivata, allora convergerà anche quella di partenza e quella derivata e 
+    si è dimostrato che $R_a' \leq R_a$.  \\
+    $R_a' \geq R_a$. Preso sempre $\left| z \right| < R_a$, si prende allora un punto in cui 
+    si sa che la serie originale converge. Esiste dunque 
+    \begin{gather*}
+        \exists \ w : \left| z \right| < \left| w \right| < R_a  
+    \end{gather*} 
+    Si può dunque scrivere
+    \begin{gather*}
+        \left| na_nz^{n - 1} \right| = n\left| a_n \right| \left| w \right|^{n - 1}\left| \frac{z}{w} \right|    ^{n -1}
+    \end{gather*}
+    Si può dunque ottenere, riorganizzando i termini
+    \begin{gather*}
+        = \left(\frac{n}{\left| w \right| } \left| \frac{z}{w} \right|^{n - 1} \right)\left| a_n w^{n} \right| 
+    \end{gather*}
+    Ci si è ricondotti ad una uguaglianza in cui ci sono i termini della serie originaria semplicemente 
+    espressa con il termine di convergenza $w$. I termini dentro la parentesi sono 
+    una serie geometrica che è minore stretto di uno per come è stato scelto $w$. Dunque 
+    quella roba è sicuramente limitata: per $n \to \infty$ tende a zero. Si è dunque 
+    dimostrato che i termini della serie derivata sono maggiorati dai termini della serie 
+    iniziali da un $w$ dentro al raggio di convergenza. Allora convergono entrambe e 
+    si è dimostrato che $R_a \leq R_a'$. 
+\end{proof}
+
+\begin{theorem}[Teorema di derivazione termine a termine]
+    Data 
+    \begin{gather*}
+        f(z) = \sum_{n }^{} a_n z^{n}
+    \end{gather*}
+    Allora 
+    \begin{gather*}
+        f'(z) = \sum_{n }^{} na_n z^{n - 1}
+    \end{gather*}
+    Dunque si definisce la derivata della serie di potenze come 
+    la somma delle derivate dei singoli elementi che è equivalente a fare la derivata della funzione somma.
+    Così come per le funzioni reali, anche per queste funzioni 
+    \begin{gather*}
+        f(0) = 0 \qquad f'(0) = a_1 \qquad f''(0) = 2a_2 \qquad f'''(0) = 3! a_3
+    \end{gather*}
+    Dunque in generale
+    \begin{gather*}
+        f^{(n)}(0) = n!a_n \ \Longrightarrow \ a_n = \frac{1}{n!}f^{(n)}( 0)
+    \end{gather*}
+    Che non è altro che l'espansione di Taylor in serie
+    \begin{gather*}
+        f(z) = \sum_{n = 0}^{\infty } \frac{f^{(n)}(0)}{n!}z^{n}
+    \end{gather*}
+    Ossia la generalizzazione su $\mathbb{C}$ di quello che si è già visto su 
+    $\mathbb{R}$. 
+\end{theorem}\noindent
+Supponendo di avere $f(z) = \sum_{z }^{} a_n z^{n}$ e $f(z) = \sum_{z} b_n z^{n}$ 
+su di un certo dominio non banale $C_a$. Si può concludere che se $R_a > 0$ allora $a_n = b_n$. 
+Basta dunque conoscere $f$ in un cerchio arbitrariamente piccolo intorno all'origine, che basta per determinare 
+tutte le derivate vicino allo zero, dunque si conosce $a_n$. Questo non vale se $R_a = 0 $. 
+Se ci si avvicina al bordo radialmente, la funzione è continua ma non è detto che lo sia 
+se si procede tangenzialmente al bordo (teorema di Abbel).
+
+\begin{theorem}[Teorema di integrazione termine a termine]
+    Avendo la solita serie di potenze con raggio di convergenza $0 < R_a \leq + \infty$:
+    \begin{gather*}
+        \sum_{n }^{} a_n z^{n}
+    \end{gather*}
+    Si vuole adesso definire, integrando termine a termine, 
+    \begin{gather*}
+        c_0 + \sum_{n = 0}^{\infty } \frac{a_n}{n + 1}z^{n + 1}  
+    \end{gather*}
+    L'integrale è dunque definito a meno di una costante quando 
+    si integra termine a termine. Per questo si è riassunto $c_0$ come 
+    il punto di inizio di integrazione che riassume tutte le costanti.
+    Il raggio di convergenza è lo stesso di quella di partenza poiché, derivando,
+    si torna al teorema di prima. La derivata in senso complesso è la funzione iniziale e 
+    hanno anche una primitiva.
+\end{theorem}
+\begin{example}[Serie logaritmo]
+\begin{gather*}
+    \sum (-1)^{n}z^{n} = \frac{1}{1 + z}  \\
+    c + \sum_{n = 0}^{\infty } (-1)^{z} \frac{z^{n + 1}}{n + 1} = c + \sum_{m = 1}^{\infty } (-1)^{m + 1} \frac{z^{m}}{m} = c + \log(1 + z) 
+\end{gather*}
+\end{example}
+
+
+\section{Definire funzioni con le serie di espansione}
+Tramite le serie si vuole definire una delle funzioni più importanti 
+per l'analisi complessa, armonica e spazi di Hilbert ed è la 
+\textbf{funzione esponenziale}. Questa funzione ha la peculiarità che
+la sua derivata ed il suo integrale sono la funzione stessa. questa definisce 
+anche il seno ed il coseno, così come il logaritmo (inversa dell'esponenziale).
+\begin{definition}[Funzione esponenziale]
+    Si definisce in maniera formale la funzione epsonenziale utilizzando
+    le equazioni differenziali:
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            f' = f \\
+            f(0) = 1
+        \end{array}\right.
+    \end{gather*}
+    La soluzione unica di questa equazione differenziale è $f = \exp(x)$. 
+    Si può scrivere anche sui complessi con la derivata complessa e
+    dunque la soluzione sui complessi sarà $\exp (z)$, $z \in \mathbb{C}$.
+\end{definition}
+A partire da questa definizione non si riesce a calcolare (con un
+certo grado di approssimazione) la funzione esponenziale, dovrei utilizzare
+delle serie
+\begin{definition}[Funzione esponenziale per serie]
+    Scrivendo in forma generica una serie
+    \begin{gather*}
+        \exp(z) = \sum_{n}^{} a_nz^{n} = 1 + a_1 z+ \dots
+    \end{gather*}
+    Si può dunque utilizzare l'espansione in serie per risolvere le 
+    equazioni differenziali:
+    \begin{gather*}
+        \exp'(z) = \sum_{n }^{} na_nz^{n - 1} = a_1 + 2a_2 z + 3a_3 z^{2} + \dots + na_nz^{n - 1}
+    \end{gather*}
+    uguagliando le due, si può ottenere
+    \begin{gather*}
+        a_1 = 1 \qquad a_2 = \frac{a_1}{2} \qquad a_3 = \frac{a_2}{3} \quad\dots\quad a_n = \frac{1}{n!}
+    \end{gather*}
+    Quindi la serie che si è trovato è
+    \begin{gather*}
+        \exp(z) = \sum_{n = 0}^{\infty } \frac{1}{n!}z^{n}
+    \end{gather*}
+    Questa serie ha raggio di convergenza $R = \infty$, dunque converge su tutto $\mathbb{C}$ 
+    ed è una buona definizione dell'esponenziale. Un'altra notazione che si utilizza è
+    \begin{gather*}
+        \exp(z) = e^{z}
+    \end{gather*}
+\end{definition} \noindent
+Su $\mathbb{C}$ valgono le stesse proprietà che valgono su $\mathbb{R}$:
+\begin{enumerate}
+    \item $e^{w}\cdot e^{z} = e^{w + z}$, $\forall w, z \in \mathbb{C}$.
+    \item $e^{-z} = (e^{z})^{-1}$ ; 
+    \item $e^{z^{\star}} = (e^{z})^{\star}$;
+    \item $\left| e^{z} \right| = \left| e^{x + iy} \right| = \left| e^{z} e^{z^{\star}} \right|^{\frac{1}{2}} = e^{x}$. 
+    \item $\left| e^{iy} \right| = 1$.    
+\end{enumerate}
+Si potrebbe dimostrare la prima con il prodotto in serie, oppure attraverso
+le equazioni differenziali:
+\begin{gather*}
+    \frac{d}{dz}(e^{w} \cdot e^{z}) = e^{w}\cdot e^{z} = \frac{d}{dz}(e^{w + z})
+\end{gather*}
+Quando $z = 0$ sono $e^{w} = e^{w}$. Un'altra conseguenza 
+diretta di questa formula è la seconda:
+\begin{gather*}
+    e^{-z}e^{z} = e^{0} = 1
+\end{gather*}
+Così come sui reali, anche nei complessi non si azzera mai e dunque 
+\begin{gather*}
+    Im\left(e^{z}\right) = \mathbb{C} - \{0\}
+\end{gather*}
+
+\section{Definizione di funzioni trigonometriche tramite l'esponenziale}
+Dato $e^{z}$, se $z = x + iy$, se $x = 0$, allora 
+si ottiene che il modulo di $e^{z}$ è $\left| e^{iy} \right|$.
+Si vuole ora trovare la derivata di questa funzione per vedere
+come varia:
+\begin{gather*}
+    \frac{d}{dy}e^{iy} = ie^{iy} \ \Longrightarrow \ \left| \frac{de^{iy}}{dy} \right| = 0
+\end{gather*} 
+Al variare di $y$ $e^{iy}$ si sposta di velocità costante $1$ sul cerchio unitario 
+nel verso antiorario poiché se $y = 0$, la direzione è $i$. Dato che 
+non si annulla mai, al variare di $y$ ci si avvolge infinite volte intorno al cerchio 
+percorrendo un arco pari a $y$ in radianti. Dunque
+\begin{gather*}
+    e^{iy} = e^{i(y + 2\pi k)} \quad k \in \mathbb{Z}
+\end{gather*}
+Se si volesse una definizione più precisa di $\pi$, si può definire come 
+\begin{gather*}
+    e^{i\pi} = - 1
+\end{gather*}
+Ossia $\pi$ è il valore minimo di $y > 0$ tale che vale quella sopra. Questa si dimostra
+\begin{gather*}
+    e^{2\pi i} = e^{i \pi} e^{i\pi } = (-1)^{2} = 1
+\end{gather*}
+Dunque aggiungendo $2\pi k $ all'esponenziale, esso rimane uguale. Si è dunque 
+scoperta la struttura dell'esponenziale sul piano complesso: esso è periodico con 
+periodo $2\pi i$. Qualunque $z$ si prenda, l'esponenziale è periodico su fasce di 
+ampiezza $i$. In geometria si definsice seno e coseno come la proiezione lungo $x$
+e la proiezione lungo $y$ di un punto su di una circonferenza. 
+\begin{definition}[Seno e coseno]
+    SI definisce seno e coseno come la proiezione della parte immaginaria e reale dell'esponenziale
+    \begin{align}
+        e^{iy} = \cos y + i\sin y
+    \end{align}
+    Se si considera $e^{iy}$ e $e^{iy}$, si può ricavare il seno ed il 
+    coseno come combinazione di esponenziali
+    \begin{align}
+        \cos y = \frac{e^{iy} + e^{-iy}}{2}
+    \end{align}
+    ed il seno 
+    \begin{align}
+        \sin y = \frac{e^{iy} - e^{-iy}}{2i}
+    \end{align}
+    Da queste si vede che il coseno è pari ed il seno dispari. Tramite queste si ricavano 
+    le espansioni in serie del seno e del coseno. Quello fatto fino ad ora è per $y$ reale, 
+    si può anche definire, dato $z \in \mathbb{C}$, 
+    \begin{align}
+        \cos z = \frac{e^{iz} + e^{-iz}}{2} 
+    \end{align}
+    e 
+    \begin{align}
+        \sin z = \frac{e^{iz} - e^{-iz}}{2i}
+    \end{align}
+    Sono dunque le estensioni in $\mathbb{C}$ del seno e del coseno e 
+    coincidono con le definizioni su $\mathbb{R}$ e a partire da queste 
+    si possono anche fare le serie partendo dalla serie esponenziale $e^{iz}$. La 
+    serie del coseno contiene solo potenze pari, mentre quelle del seno le 
+    potenze dispari. 
+\end{definition} \noindent
+Partendo dalla serie
+\begin{gather*}
+    e^{iz} = \sum_{k = 0}^{\infty } (-1)^{k} \frac{z^{2k}}{(2k)!} + i \sum_{k = 0}^{\infty } (-1)^{k} \frac{z^{2k + 1}}{(2k + 1)!}  
+\end{gather*}
+Si è separato i termini pari ed i termini dispari. Dunque si è ottenuto gli sviluppi per
+il coseno ed il seno portando $i^{2k}$ e $i^{2k + 1}$ rispettivamente davanti a tutte e due
+(per questo compare $i$ solo per il seno). La serie per il coseno sarà
+\begin{gather*}
+    \cos z = \sum_{k = 0}^{\infty } (-1)^{k} \frac{z^{2k}}{(2k)!}  
+\end{gather*}
+Mentre quella per il seno 
+\begin{gather*}
+    \sin z = \sum_{k = 0}^{\infty } (-1)^{k} \frac{z^{2k + 1}}{(2k + 1)!} 
+\end{gather*}
+$ i$ scompare perché si divide per $2i$. 
+\begin{definition}[Derivate di seno e coseno]
+    Attraverso le regole di derivazione per serie si possono anche 
+    dimsotrare le regole di derivazione anche su $\mathbb{C}$: 
+    \begin{align}
+        \frac{d}{dz} \cos z &= - \sin z \\
+        \frac{d}{dz} \sin z &= \cos z
+    \end{align}
+\end{definition} \noindent
+Se si calcolasse
+\begin{align*}
+    \cos iy &= \cosh y \\
+    \sin iy &= i \sinh y
+\end{align*}
+Si può ricavare anche 
+\begin{gather*}
+    \cos(\alpha \pm \beta ) \\
+    \sin(\alpha \pm \beta )
+\end{gather*}
+E lo stesso per i numeri complessi. Si nota che l'esponenziale complesso,
+permette di ottenere i punti sulla circonferenza di raggio 1 in funzione 
+dell'angolo $\theta$. Si può estrarre dunque le radici n-esime attraverso l'esponenziale.
+ 
+
+\end{document}
