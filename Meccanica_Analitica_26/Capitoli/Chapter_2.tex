@@ -389,3 +389,176 @@ Sembrerebbe quindi che le curve non regolari siano quelle che hanno "problemi di
 \end{proof}
 
 Tutte le proprietà che non dipendono dalla parametrizzazione sono dette \textbf{intrinseche} alla curva (la regolarità è intrinseca).
+
+\subsection{Lunghezza di una curva}
+Prendiamo una curva $r(t)$ regolare. Siano due punti su essa $A=r(t_A)$ e $B=r(t_B)$.
+
+\begin{figure}[ht!]
+    \centering
+    \begin{tikzpicture}[scale=1]
+
+    % funzione
+    \def\f(#1){2 + 0.8*sin(1.2*#1 r) - 0.5*cos(2*#1 r)}
+
+    % derivata
+    \def\df(#1){0.96*cos(1.2*#1 r) + 1.0*sin(2*#1 r)}
+
+    % intervallo
+    \def\xa{0.8}
+    \def\xb{3.2}
+    \def\n{15}
+
+    % lunghezza delle sbarrette
+    \def\L{0.15}
+
+    % Assi
+    \draw[->] (-0.5,0) -- (4.5,0) node[right] {$y$}; 
+    \draw[->] (0,-0.5) -- (0,4.5) node[left] {$z$};
+    \draw[->] (0.2,0.2) -- (-0.5,-0.5) node[above] {$x$};
+
+    % Curva
+    \draw[thick, blue, domain=0:4, smooth] plot (\x, {\f(\x)});
+
+    % punti A e B
+    \coordinate (A) at (\xa,{\f(\xa)});
+    \coordinate (B) at (\xb,{\f(\xb)});
+
+    \filldraw[red] (A) circle (2pt) node[left] {$A$};
+    \filldraw[red] (B) circle (2pt) node[above] {$B$};
+
+    % sbarrette perpendicolari
+    \foreach \i in {0,...,15}{
+
+        \pgfmathsetmacro{\x}{\xa + (\xb-\xa)*\i/\n}
+        \pgfmathsetmacro{\y}{\f(\x)}
+        \pgfmathsetmacro{\m}{\df(\x)}
+
+        % vettore normale
+        \pgfmathsetmacro{\nx}{-\m}
+        \pgfmathsetmacro{\ny}{1}
+
+        % normalizzazione
+        \pgfmathsetmacro{\norm}{sqrt(\nx*\nx+\ny*\ny)}
+
+        \pgfmathsetmacro{\dx}{\L*\nx/\norm}
+        \pgfmathsetmacro{\dy}{\L*\ny/\norm}
+
+        \draw[thick, orange] (\x-\dx,\y-\dy) -- (\x+\dx,\y+\dy);
+
+    }
+
+    \end{tikzpicture}
+\end{figure}
+
+Dall'analisi sappiamo che:
+\begin{equation*}
+    l(r(t_a), r(t_b)) = \int_{t_a}^{t_b} \left| \frac{d \vec r}{dt} \right| dt
+\end{equation*}
+
+Per ricavarla suddivido il mio intervallo in tanti punti di spessore $\Delta = \frac{1}{n}$ 
+
+Voglio adesso approssimare la curva con la poligonale inscritta
+
+\begin{figure}[ht!]
+    \centering
+    \begin{tikzpicture}[scale=1]
+
+    % funzione
+    \def\f(#1){2 + 0.8*sin(1.2*#1 r) - 0.5*cos(2*#1 r)}
+
+    % derivata
+    \def\df(#1){0.96*cos(1.2*#1 r) + 1.0*sin(2*#1 r)}
+
+    % intervallo
+    \def\xa{0.8}
+    \def\xb{3.2}
+    \def\n{15}
+
+    % lunghezza delle sbarrette
+    \def\L{0.15}
+
+    % Assi
+    \draw[->] (-0.5,0) -- (4.5,0) node[right] {$y$}; 
+    \draw[->] (0,-0.5) -- (0,4.5) node[left] {$z$};
+    \draw[->] (0.2,0.2) -- (-0.5,-0.5) node[above] {$x$};
+
+    % curva
+    \draw[thick, blue, domain=0:4, smooth] plot (\x, {\f(\x)});
+
+    % punti A e B
+    \coordinate (A) at (\xa,{\f(\xa)});
+    \coordinate (B) at (\xb,{\f(\xb)});
+
+    \filldraw[red] (A) circle (2pt) node[left] {$A$};
+    \filldraw[red] (B) circle (2pt) node[above] {$B$};
+
+    % poligonale inscritta
+    \foreach \i in {0,...,14}{
+
+        % punto i
+        \pgfmathsetmacro{\xA}{\xa + (\xb-\xa)*\i/\n}
+        \pgfmathsetmacro{\yA}{\f(\xA)}
+
+        % punto i+1
+        \pgfmathsetmacro{\xB}{\xa + (\xb-\xa)*(\i+1)/\n}
+        \pgfmathsetmacro{\yB}{\f(\xB)}
+
+        % segmento della poligonale
+        \draw[thick, red] (\xA,\yA) -- (\xB,\yB);
+    }
+
+    % sbarrette perpendicolari
+    \foreach \i in {0,...,15}{
+
+        \pgfmathsetmacro{\x}{\xa + (\xb-\xa)*\i/\n}
+        \pgfmathsetmacro{\y}{\f(\x)}
+        \pgfmathsetmacro{\m}{\df(\x)}
+
+        % vettore normale
+        \pgfmathsetmacro{\nx}{-\m}
+        \pgfmathsetmacro{\ny}{1}
+
+        % normalizzazione
+        \pgfmathsetmacro{\norm}{sqrt(\nx*\nx+\ny*\ny)}
+
+        \pgfmathsetmacro{\dx}{\L*\nx/\norm}
+        \pgfmathsetmacro{\dy}{\L*\ny/\norm}
+
+        \draw[thick, orange] (\x-\dx,\y-\dy) -- (\x+\dx,\y+\dy);
+
+    }
+
+    \foreach \i in {0,...,14}{
+        \pgfmathsetmacro{\x}{\xa + (\xb-\xa)*\i/\n}
+        \pgfmathsetmacro{\xB}{\xa + (\xb-\xa)*(\i+1)/\n}
+        \pgfmathsetmacro{\y}{\f(\x)}
+
+        \draw[thick, cyan!40!gray] (\x,\y) -- (\x,0);
+    }
+
+    \draw[thick, cyan!40!gray] (\xb,{\f(\xb)}) -- (\xb,0);
+    \draw[thick, green!40!gray] (\xb,0) -- ({\xb-0.16},0) node[below] {$\Delta$};
+
+    \end{tikzpicture}
+\end{figure}
+
+\begin{align*}
+l &\simeq \sum_{i=0}^{N-1} \left|\vec r(t_i+\Delta) - \vec r(t_i)\right| \\[4pt]
+    &\text{Poiché }\Delta \text{ è piccolo, sviluppo } \vec r(t_i+\Delta) \text{ in Taylor} \\[4pt]
+    &\simeq \sum_{i=0}^{N-1}
+    \left|
+    \vec r(t_i) +
+    \Delta \left.\frac{d\vec r}{dt}\right|_{t_i}
+    + o(\Delta)
+    - \vec r(t_i)
+    \right| \\[4pt]
+    &\simeq \sum_{i=0}^{N-1}
+    \left|
+    \left.\frac{d\vec r}{dt}\right|_{t_i}
+    \right| \Delta
+\end{align*}
+
+Prendendo il limite per $\Delta \to 0$ ottengo:
+\begin{equation*}
+    l = \int_{t_a}^{t_b} \left| \frac{d\vec r}{dt} \right| dt
+\end{equation*}
