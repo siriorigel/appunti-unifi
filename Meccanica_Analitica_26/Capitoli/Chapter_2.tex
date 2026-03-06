@@ -287,3 +287,105 @@ Il modo più semplice per verificare se due parametrizzazioni di una curva sono 
     \end{equation*}
     da cui si ottiene la tesi.
 \end{proof}
+
+\begin{definition}
+    Una curva $r(t) : U \subset \mathbb{R} \to \mathbb{R}^3$ è definita \textbf{regolare} se la sua velocità $\vec v(t) = \frac{d \vec r(t)}{dt} \neq 0$  per ogni $t \in U$ (i.e. $r(t)\in C^1(U)$). 
+\end{definition}
+
+Questo significa che il vettore $\vec v$ ha almeno una componente \underline{non nulla} sempre!
+
+\begin{example}
+    Data la curva:
+    \begin{equation*}
+        r(t)= t^2 \hat i + t^3 \hat j
+    \end{equation*}
+    Voglio verificare se la curva è regolare. Calcolo la velocità:
+    \begin{equation*}
+        \vec v(t) = \frac{d \vec r(t)}{dt} = 2t \hat i + 3t^2 \hat j=t(2\hat i + 3t \hat j)
+    \end{equation*}
+    Calcolo il modulo della velocità:
+    \begin{equation*}
+        |\vec v(t)| = |t| \sqrt{4 + 9t^2}
+    \end{equation*}
+
+    La curva è quindi regolare in tutti gli intervalli che non contentono $t=0$. In $t=0$ la curva non è regolare poiché la velocità è nulla.
+
+    Per visualizzare meglio la curva, possiamo tracciare il grafico di $r(t)$ sostitutendo $t^2=x \Rightarrow t=\pm\sqrt{x}=\pm x^{\frac{1}{2}} \Rightarrow y=\pm x^{\frac{3}{2}}$. Ottengo quindi:
+    \begin{equation*}
+        r=x \hat i \pm x^{\frac{3}{2}} \hat j
+    \end{equation*}
+
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[scale=1]
+        
+        % Assi
+        \draw[->] (-0.5,0) -- (2.5,0) node[right] {$x$}; 
+        \draw[->] (0,-2.5) -- (0,2.5) node[left] {$y$};
+        
+        % Curva
+        \draw[thick, blue, domain=0:2, smooth] plot (\x, {(\x)^(3/2)}) node[above] {$x^{3/2}$};
+        \draw[thick, blue, domain=0:2, smooth] plot (\x, {-1*(\x)^(3/2)}) node[below] {$ -x^{3/2}$};
+
+        % Versori assi
+        \draw[->, thick, orange] (0,0) -- (1,0) node[below] {$\hat i$};
+        \draw[->, thick, orange] (0,0) -- (0,1) node[left] {$\hat j$};
+
+        \end{tikzpicture}
+    \end{figure}
+
+\end{example}
+
+Sembrerebbe quindi che le curve non regolari siano quelle che hanno "problemi di derivabilità", ma in realtà non è sempre così\dots
+
+\begin{example}
+    Consideriamo la curva definita da:
+    \begin{equation*}
+        r(t)=t^3 \hat i + t^6 \hat j
+    \end{equation*}
+
+    Chiamo $x=t^3 \Rightarrow r=x \hat i + x^2 \hat j$. Posso quindi visualizzare la curva tracciando il grafico di $r(t)$ considerando che $y(x)=x^2$.:
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[scale=1]
+        % Assi
+        \draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$}; 
+        \draw[->] (0,-0.5) -- (0,2.5) node[left] {$y$};
+
+        % Curva
+        \draw[thick, blue, domain=-1.5:1.5, smooth] plot (\x, {(\x)^2}) node[above] {$x^2$};
+        \end{tikzpicture}
+    \end{figure}
+
+    Ottengo quindi una parabola, che è una curva regolare. Tuttavia, se calcolo la velocità:
+    \begin{equation*}
+        \vec v(t) = \frac{d \vec r(t)}{dt} = 3t^2 \hat i + 6t^5 \hat j= t^2(3\hat i + 6t^3 \hat j)
+    \end{equation*}
+    e il modulo della velocità:
+    \begin{equation*}
+        |\vec v(t)| = 3t^2 \sqrt{1 + 4t^6}
+    \end{equation*}
+    La curva non è regolare in $t=0$ poiché la velocità è nulla.
+\end{example}
+
+\begin{theorem}\label{th:regolarita_equivalente}
+    La regolarità di una curva \textbf{NON} dipende dalla parametrizzazione scelta per due curve equivalenti
+\end{theorem}
+
+\begin{proof}
+    Considero una curva $r(t)$ regolare.
+
+    Supponiamo di avere una riparametrizzazione $t(t_1)$ derivabile e invertibile, tale che $\frac{dt}{dt_1} \neq 0$
+
+    Chiamo $\vec r_1(t_1) = \vec r(t(t_1))$. Cerco:
+    \begin{equation*}
+        \frac{d \vec r_1}{dt_1}=\frac{d \vec r}{dt}\cdot \frac{dt}{dt_1}
+    \end{equation*}
+
+    Prendendo i moduli, ottengo:
+    \begin{equation*}
+        \left| \frac{d \vec r_1}{dt_1} \right| = \left| \frac{d \vec r}{dt} \right| \cdot \left| \frac{dt}{dt_1} \right| \neq 0
+    \end{equation*}
+\end{proof}
+
+Tutte le proprietà che non dipendono dalla parametrizzazione sono dette \textbf{intrinseche} alla curva (la regolarità è intrinseca).
