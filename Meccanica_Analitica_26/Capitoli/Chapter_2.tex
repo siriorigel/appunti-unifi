@@ -211,28 +211,79 @@ Il modo più semplice per verificare se due parametrizzazioni di una curva sono 
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[scale=1]
+
+        \def\R{2} % Raggio della circonferenza
+        \def\theta{45} % Angolo di posizione del punto P in gradi
+        \def\vlen{1.5} % Lunghezza del vettore velocità
         
         % Assi
-        \draw[->, thick] (-1.5,0) -- (1.5,0) node[right] {$x$};
-        \draw[->, thick] (0,-1.5) -- (0,1.5) node[above] {$y$};
+        \draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$}; 
+        \draw[->] (0,-2.5) -- (0,2.5) node[left] {$y$};
         
-        % Semicirconferenza
-        \draw[blue, thick, domain=0:pi, smooth] plot ({cos(\x r)}, {sin(\x r)});
-        
-        % Punto iniziale e finale
-        \filldraw[red] (1,0) circle (2pt);
-        \filldraw[red] (0,1) circle (2pt);
-        
-        % Etichette
-        \node[red] at (1.2,-0.2) {$(1, 0)$};
-        \node[red] at (-0.2,1.2) {$(0, 1)$};
-        
+        %Circonferenza
+        \draw[thick] (0,0) circle (\R);
+
+        % Punto P sulla circonferenza
+        \coordinate (P) at ({\R*cos(\theta)},{\R*sin(\theta)}); 
+        \filldraw[blue] (P) circle (2pt) node[above right] {$P(t)$};
+
+        %Vettore r(t)
+        \draw[->, thick, red] (0,0) -- (P) node[midway, above left] {$\vec r(t)$};
+
+        %Vettore v(t)
+        \draw[->, thick, cyan!40!gray] (P) -- ++({\vlen*(-sin(\theta))},{\vlen*cos(\theta)}) node[above] {$\vec v(t)$};
+
+        % Angolo theta 
+        \draw[->, thick, green!60!black] (0.6,0) arc (0:\theta:0.6); 
+        \node[green!60!black] at (0.9,0.35) {$\varphi(t)$};
+
+        % Versore tangente
+        \draw[->, thick, orange] (P) -- ++({-sin(\theta)},{cos(\theta)}) node[below] {$\hat{t}$};
+
         \end{tikzpicture}
     \end{figure}
 
     La posizione del punto $P$ sulla circonferenza può essere descritta da una parametrizzazione del tipo:
     \begin{equation*}
-        \vec r(t) = R\cos(\theta(t))\hat i + R\sin(\theta(t))\hat j + 0\hat k
+        \vec r(t) = R(\cos(\varphi)\hat i + \sin(\varphi)\hat j)
     \end{equation*}
-    dove $\theta(t)$ è l'angolo che il raggio vettore $\vec r(t)$ forma con l'asse $x$ al tempo $t$.
+    dove $\varphi$ è l'angolo che il raggio vettore $\vec r(t)$ forma con l'asse $x$ al tempo $t$.
+
+    La velocità del punto $P$ la otteniamo derivando la posizione rispetto al tempo:
+    \begin{align*}
+        \vec v(t) = \frac{d \vec r(t)}{dt} &= R(-\sin(\varphi)\dot{\varphi}\hat i + \cos(\varphi)\dot{\varphi}\hat j) \\
+        &= R\dot{\varphi}(-\sin(\varphi)\hat i + \cos(\varphi)\hat j)
+    \end{align*}
+
+    Analogamente, l'accelerazione si ottiene derivando la velocità rispetto al tempo:
+    \begin{align*}
+        \vec a(t) = \frac{d \vec v(t)}{dt} &= R\ddot{\varphi}(-\sin(\varphi)\hat i + \cos(\varphi)\hat j) + R\dot{\varphi}^2(-\cos(\varphi)\hat i - \sin(\varphi)\hat j) \\
+        &= R\ddot{\varphi}(-\sin(\varphi)\hat i + \cos(\varphi)\hat j) - R\dot{\varphi}^2(\cos(\varphi)\hat i + \sin(\varphi)\hat j)
+    \end{align*}
+
+    Se supponiamo $\vec v \perp \vec r$, allora $\hat t=\frac{\vec{v}}{|\vec{v}|}=-\sin(\varphi)\hat i + \cos(\varphi)\hat j$
+
+    Possiamo quindi esprimere la velocità e l'accelerazione in termini del versore tangente $\hat t$:
+    \begin{equation*}
+        \vec v(t) = R\dot{\varphi}\hat t
+    \end{equation*}
+    \begin{equation*}
+        \vec a(t) = R\ddot{\varphi}\hat t - R\dot{\varphi}^2 \hat r
+    \end{equation*}
 \end{example}
+
+\begin{proposition}
+    Se considero un versore $\hat u (t)$ che si può muovere su una sfera di raggio unitario, allora:
+    \begin{equation*}
+        \left< \hat u(t), \frac{d \hat u (t)}{dt} \right> = 0
+    \end{equation*}
+\end{proposition}
+
+\begin{proof}
+    Dato che si tratta di un versore, si ha $|\hat u(t)|^2=\left< \hat u(t), \hat u(t) \right> = 1$.
+    Posso quindi derivare rispetto al tempo:
+    \begin{equation*}
+        \frac{d}{dt} \left< \hat u(t), \hat u(t) \right> = \left< \frac{d \hat u (t)}{dt}, \hat u(t) \right> + \left< \hat u(t), \frac{d \hat u (t)}{dt} \right> = 2\left< \hat u(t), \frac{d \hat u (t)}{dt} \right> = 0
+    \end{equation*}
+    da cui si ottiene la tesi.
+\end{proof}
