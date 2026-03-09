@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.15)  2 MAR 2026 11:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.15)  9 MAR 2026 10:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -614,7 +614,52 @@ File: upzd.fd 2001/06/04 font definitions for U/pzd.
 LaTeX Font Info:    Trying to load font information for U+psy on input line 64.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/upsy.fd
 File: upsy.fd 2001/06/04 font definitions for U/psy.
-)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
+)) (/usr/share/texlive/texmf-dist/tex/latex/circuitikz/circuitikz.sty
+Package: circuitikz 2023/12/09{} The CircuiTikz circuit drawing package version 1.6.6
+ (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowinset=\dimen318
+\pgfarrowlength=\dimen319
+\pgfarrowwidth=\dimen320
+\pgfarrowlinewidth=\dimen321
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarybending.code.tex
+File: tikzlibrarybending.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulebending.code.tex
+File: pgfmodulebending.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulenonlineartransformations.code.tex
+File: pgfmodulenonlineartransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgftransformnonlinearflatness=\dimen322
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibrarycurvilinear.code.tex
+File: pgflibrarycurvilinear.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@curvilinear@time@a=\dimen323
+\pgf@curvilinear@length@a=\dimen324
+\pgf@curvilinear@length@b=\dimen325
+\pgf@curvilinear@length@c=\dimen326
+\pgf@curvilinear@length@d=\dimen327
+)
+\pgf@arrows@the@rigidity=\dimen328
+)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfpu.code.tex) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcirc.defines.tex
+\pgf@circ@count@a=\count338
+\pgf@circ@count@b=\count339
+\pgf@circ@count@c=\count340
+\pgf@circ@res@up=\dimen329
+\pgf@circ@res@down=\dimen330
+\pgf@circ@res@zero=\dimen331
+\pgf@circ@res@left=\dimen332
+\pgf@circ@res@right=\dimen333
+\pgf@circ@res@other=\dimen334
+\pgf@circ@res@step=\dimen335
+\pgf@circ@res@temp=\dimen336
+\pgf@circ@Rlen=\dimen337
+\pgf@circ@scaled@Rlen=\dimen338
+\pgfstartlinewidth=\dimen339
+) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircutils.tex
+\ctikz@scratchbox=\box117
+) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircpath.tex) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircshapes.tex) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircmonopoles.tex) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircbipoles.tex) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcirctripoles.tex
+\pgf@circ@res@count=\count341
+) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircquadpoles.tex) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircmultipoles.tex) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcirclabel.tex) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircvoltage.tex
+\pgfcirc@labelshift=\dimen340
+) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcirccurrent.tex) (/usr/share/texlive/texmf-dist/tex/generic/circuitikz/pgfcircflow.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypatterns.code.tex
 File: tikzlibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.code.tex
 File: pgflibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
@@ -630,17 +675,17 @@ File: tikzlibrarytikzmark.code.tex 2022/08/24 v1.15 TikZ library for marking pos
 Package: expl3 2024-01-22 L3 programming layer (loader) 
  (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count338
-\l__pdf_internal_box=\box117
+\l__color_backend_stack_int=\count342
+\l__pdf_internal_box=\box118
 )) (/usr/share/texlive/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
 Package: l3keys2e 2023-10-10 LaTeX2e option processing using LaTeX3 keys
 ) (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2023-10-10 L3 Experimental document command parser
 )
-\l__sn_x_dim=\dimen318
-\l__sn_y_dim=\dimen319
-\l__sn_xa_dim=\dimen320
-\l__sn_ya_dim=\dimen321
+\l__sn_x_dim=\dimen341
+\l__sn_y_dim=\dimen342
+\l__sn_xa_dim=\dimen343
+\l__sn_ya_dim=\dimen344
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
 File: tikzlibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.geometric.code.tex
@@ -650,18 +695,18 @@ File: tikzlibrarydatavisualization.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduledatavisualization.code.tex
 File: pgfmoduledatavisualization.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleoo.code.tex
-\pgfoo@objectcount=\count339
-\pgfoothis@count=\count340
+\pgfoo@objectcount=\count343
+\pgfoothis@count=\count344
 \pgfoo@toks=\toks54
 )
-\pgf@lib@dv@cache@count=\count341
-\pgf@lib@dv@cache@count=\count342
+\pgf@lib@dv@cache@count=\count345
+\pgf@lib@dv@cache@count=\count346
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarybackgrounds.code.tex
 File: tikzlibrarybackgrounds.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@layerbox@background=\box118
-\pgf@layerboxsaved@background=\box119
+\pgf@layerbox@background=\box119
+\pgf@layerboxsaved@background=\box120
 )
-\tikzdvvisualizercounter=\count343
+\tikzdvvisualizercounter=\count347
 ) (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/datavisualization/tikzlibrarydatavisualization.formats.functions.code.tex
 File: tikzlibrarydatavisualization.formats.functions.code.tex 2023-01-15 v3.1.10 (3.1.10)
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/datavisualization/pgflibrarydatavisualization.formats.functions.code.tex
@@ -669,32 +714,32 @@ File: pgflibrarydatavisualization.formats.functions.code.tex 2023-01-15 v3.1.10 
 )) (./lab2.aux)
 \openout1 = `lab2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count344
-\scratchdimen=\dimen322
-\scratchbox=\box120
-\nofMPsegments=\count345
-\nofMParguments=\count346
+\scratchcounter=\count348
+\scratchdimen=\dimen345
+\scratchbox=\box121
+\nofMPsegments=\count349
+\nofMParguments=\count350
 \everyMPshowfont=\toks55
-\MPscratchCnt=\count347
-\MPscratchDim=\dimen323
-\MPnumerator=\count348
-\makeMPintoPDFobject=\count349
+\MPscratchCnt=\count351
+\MPscratchDim=\dimen346
+\MPnumerator=\count352
+\makeMPintoPDFobject=\count353
 \everyMPtoPDFconversion=\toks56
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -737,114 +782,156 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \it@ocap on input line 107.
-LaTeX Info: Redefining \it@ccap on input line 107.
+LaTeX Info: Redefining \it@ocap on input line 108.
+LaTeX Info: Redefining \it@ccap on input line 108.
 
 File italian.ldf warning: 
 italian.ldf    With OT1 encoding guillemets are poorly faked
 italian.ldf    Use T1 encoding
 italian.ldf    or specify a font with command \CaporaliFrom
 italian.ldf    See the documentation concerning the babel-italian typesetting
-italian.ldf    on input line 107.
+italian.ldf    on input line 108.
 
 Package pgfplots notification 'compat/show suggested version=true': you might benefit from \pgfplotsset{compat=1.18} (current compat level: 1.9).
 
-\c@definition=\count350
-\c@theorem=\count351
-\c@lemma=\count352
-\c@observation=\count353
-\c@corollary=\count354
-\c@example=\count355
-\c@problem=\count356
-\c@solution=\count357
-\c@proposition=\count358
-LaTeX Font Info:    Trying to load font information for U+msa on input line 131.
+\c@definition=\count354
+\c@theorem=\count355
+\c@lemma=\count356
+\c@observation=\count357
+\c@corollary=\count358
+\c@example=\count359
+\c@problem=\count360
+\c@solution=\count361
+\c@proposition=\count362
+LaTeX Font Info:    Trying to load font information for U+msa on input line 132.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 131.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 132.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+esvect on input line 131.
+LaTeX Font Info:    Trying to load font information for U+esvect on input line 132.
  (/usr/share/texlive/texmf-dist/tex/latex/esvect/uesvect.fd
 File: uesvect.fd 
 )
-Underfull \hbox (badness 10000) in paragraph at lines 149--158
+Underfull \hbox (badness 10000) in paragraph at lines 150--159
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 180--183
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 184--186
+Underfull \hbox (badness 10000) in paragraph at lines 181--184
 
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 191--193
+Underfull \hbox (badness 10000) in paragraph at lines 188--192
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 211--216
+Underfull \hbox (badness 10000) in paragraph at lines 198--200
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 222--225
+Underfull \hbox (badness 10000) in paragraph at lines 203--207
 
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 241--243
-
- []
-
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 313--315
-
- []
-
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 376--383
+Underfull \hbox (badness 10000) in paragraph at lines 222--227
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 376--383
+Underfull \hbox (badness 10000) in paragraph at lines 234--238
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 403--405
+Underfull \hbox (badness 10000) in paragraph at lines 254--256
 
  []
 
-[5] (./lab2.aux)
+[3] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 349--351
+
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 400--402
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 432--439
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 432--439
+
+ []
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 463--467
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 468--470
+
+ []
+
+[7]
+\absfshift=\dimen347
+
+Underfull \hbox (badness 10000) in paragraph at lines 533--536
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 552--555
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 581--582
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 583--584
+
+ []
+
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 655--657
+
+ []
+
+[10] [11] [12] (./lab2.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 31343 strings out of 474222
- 798212 string characters out of 5748733
- 1957975 words of memory out of 5000000
- 53038 multiletter control sequences out of 15000+600000
- 567485 words of font info for 76 fonts, out of 8000000 for 9000
+ 49457 strings out of 474222
+ 1349859 string characters out of 5748733
+ 2123666 words of memory out of 5000000
+ 71083 multiletter control sequences out of 15000+600000
+ 569474 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,22n,107p,763b,697s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/esvect/vect10.pfb>
-Output written on lab2.pdf (5 pages, 213459 bytes).
+ 99i,27n,107p,763b,1057s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/esvect/vect10.pfb>
+Output written on lab2.pdf (12 pages, 264648 bytes).
 PDF statistics:
- 113 PDF objects out of 1000 (max. 8388607)
- 69 compressed objects within 1 object stream
+ 142 PDF objects out of 1000 (max. 8388607)
+ 88 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 17 words of extra memory for PDF output out of 10000 (max. 10000000)
 

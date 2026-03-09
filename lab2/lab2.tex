@@ -28,6 +28,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{pgfplots}
 \usepackage{pifont}
+\usepackage{circuitikz}
 \usetikzlibrary{patterns}
 \makeindex
 %\usepackage{animate}
@@ -169,35 +170,45 @@ Supponiamo di avere un conduttore e abbiamo degli ioni (+) che sono posti ad una
             \draw[->, thick] (5,-0.5) -- (5.5,-0.5);
     \end{tikzpicture}
 \end{center}
-Se prendiamo un cavo di rame con una densità di $d=9 g/cm^3$, e quindi $63,5 g/mol$
+Se prendiamo un cavo di rame con una densità di $d=9 g/cm^3$, e quindi $63,5 g/mol$, avremo una "densità di elettroni su $cm^3$" di:
 \begin{gather*}
-    n = \frac{N_A \cdot d}{M} = 8.5 \times 10^{22} atomi/cm^3
+    n = \frac{N_A \cdot d}{M} = 8.5 \times 10^{22} el/cm^3
 \end{gather*}
 Questo vuol dire che in un $\mu m$ cubo di rame ci sono circa $10^{11}$ elettroni liberi.\\
 Ora si capisce bene il concetto di densità di carica che è:
 \begin{gather*}
     \rho = n \cdot e
 \end{gather*}
-Ovvero la quantità di carica per unità di volume.\\
+Ovvero la quantità di carica per unità di volume, poichè si ricorda che $e$ è la carica di un elettrone e $n$ il numero di elettroni liberi per unità di volume.\\
 Questo non è sempre vero perchè non tutti gli elettroni sono liberi, ma è una buona approssimazione.\\
 \subsection{cos'è una carica}
-Se ho un campo elettrico con una carica all'interno, questo campo applicherà una forza alla mia carica e quest'ultima avrà una certa accelerazione, quindi si ha che la carica dipende anche dal tempo?\\
-Questo melo spiega la legge di Ohm che mi dice che mi dice che la corrente è proporzionale alla tensione, e quindi se la tensione è costante allora la corrente è costante, e quindi la carica che passa in un certo intervallo di tempo è costante.\\
+Considero una carica $q$ in un campo elettrico $\vv{E}$, questa carica subisce una forza data da:
+\begin{gather*}
+    \vv{F} = q \vv{E}
+\end{gather*}
+Se ho un campo elettrico con una carica all'interno, questo campo applicherà una forza alla mia carica e quest'ultima subirà una certa accelerazione, quindi si potrebbe naturnalmente pensare che la velocità della carica dipenda anche dal tempo.\\
+Questo dilemma viene risolto dalla legge di Ohm, che mi dice che la corrente è proporzionale alla tensione, e quindi se la tensione è costante allora la corrente è costante, e quindi la carica che passa in un certo intervallo di tempo è costante.\\
+Infatti gli elettroni non sono completamente liberi di muoversi ma sbattendo tra loro subiscono una certa frizione, meglio detta \textbf{resistenza} così facendo la velocità si stabilizza dopo una certa quantità di tempo, e quindi si ha una velocità media che è costante.\\
 \begin{example}
-    Prendiamo un gas  a una temperatura $T$, avremo che $\frac{1}{2} m v_t^2 = \frac{3}{2} k_B T$ è una relazione che ci dice che la velocità termica è proporzionale alla temperatura, e quindi se la temperatura è alta allora la velocità termica è alta, e quindi gli elettroni si muovono più velocemente, e quindi la corrente è più alta.\\
-    Se infatti la calcoliamo otteniamo:
+    Prendiamo un gas a una temperatura $T$ costituito di elettroni, avremo che $\frac{1}{2} m v_t^2 = \frac{3}{2} k_B T$ è una relazione che ci dice che la velocità termica è proporzionale alla temperatura, e quindi se la temperatura è alta allora la velocità termica è alta.\\
+    Questa velocità termica mi dice la velocità a cui gli elettroni si muovono mediamente ad una certa temperatura, costantemente accelerando e decelerando urtando tra di loro (è comodo immaginarlo come un elettrone che vibra si muove molto velocemente ma non si sposta nel materiale più di tanto).\\
+    Calcolando questa velocità termica per una temperatura di $300 K$ (temp. ambiente) ottengo:
     \begin{gather*}
         v_t = \sqrt{\frac{3 k_B T}{m}} = \sqrt{\frac{3 k_b T}{n_e}} = \sqrt{\frac{\cancel{3} 1,3810^{-23} T/k \cancel{3}00 k}{\cancel{9},1 10 ^{-31}}kg} = 1,16 \times 10^5 m/s
     \end{gather*}
     Ricordiamo che il moto degli elettroni in un metallo è quantistico ma classicamente possiamo dire che da un moto di agitazione termica di velocità di centinaia di km/s (la stessa velocità a cui viaggiano gli atomi nell'aria), quindi la corrente viaggia più o meno alla stessa velocità?\\ 
 \end{example}
 
-\subsection{urti nel campo elettrico}
-Consideriamo ora che gli elettroni che si muovono in un corpo, considero i loro urti in un intervallo generale $\Delta t$ avrò quindi che la variazione della velocità avrà un'accelerazione:
+\subsection{Velodita di deriva}
+Consideriamo gli elettroni all'equilibrio termodinamico e quindi con velocità termica $v_t$ ma moto medio nullo (stanno vibrando ma non si stanno spostando).\\
+Ora ci applichiamo un campo elettrico e voglio trovare una relazione che mi descriva come si muovono gli elettroni in un materiale, generalmente in un conduttore.\\
+Consideriamo ora che gli elettroni che si muovono in un corpo, considero i loro urti elastici in un intervallo generale $\Delta t$ e in questo intervallo avrò una certa velocità $\Delta v$ sto quindi considerando un'accelerazione.\\
+In sintesi ho un elettrone fermo che subisce una forza da parte del campo elettrico, e quindi subisce un'accelerazione, e dopo un certo intervallo di tempo $\Delta t$ subisce un urto elastico e quindi si ferma e ne fa partire un'altro, questo processo continua a ripetersi continuamente.\\
 \begin{gather*}
     \Delta \vec{v} = \vec{a} \Delta t = \frac{\vec{F}}{m} \Delta t = \frac{-e \vec{E}}{m} \Delta t\\
     \Delta \vec{v} = -\frac{e \vec{E}}{m} \Delta t
 \end{gather*}
+Con $\Delta t = \frac{\Delta l}{v_t}$ Con $\Delta l$ che è il cammino medio in quell'intervallo di tempo, con questo possiamo calcolare la velocità di deriva $v_d$ che è la velocità media degli elettroni in un conduttore, e quindi:
 \begin{gather*}
     \vec{v_d} =-\frac{e \vec{E}}{2m} \Delta t
 \end{gather*}
@@ -212,18 +223,20 @@ Si parlerà dell'equazione di continuità che deriva dal principio di conservazi
 E si arriverà alla prima legge di kirkhoff.\\
 \hfil\\
 Prendiamo un elettrone in concizioni stazionarie (che non vuol dire che la corrente è stazionaria che vuol dire che $\vec{E} = 0$ cosa che comunque considereremo per parte di questo corso).\\
-Ora definiamo:
+Ora definiamo la densità di corrente $\vec{J}$ come la quantità di carica che passa attraverso una superficie $S$ per unità di tempo (il flusso di un campo su una superficie), e quindi la corrente è data da:
 \begin{gather*}
     I = \int_S \vec{J} \cdot \vec{dS} = \int_S \vec{J} \widehat{n} dS
 \end{gather*}
-Cos'è $J$?
+Dove $\vv{J}$ è proprio la densità di corrente, e $\widehat{n}$ è il versore normale alla superficie $S$.\\
+Possiamo anche osservare che la corrente è data da $I = n q v_d S$, e quindi possiamo scrivere la densità di corrente come:
 \begin{gather*}
-    \vec{J} = n q \vec{v_d} \propto \vec{E}
+    \vec{J} = n q \cdot \vec{v_d} \propto \vec{E}
 \end{gather*}
-Da questo si vede che vale sempre che $\vec{J} \parallel \vec{E}$ indipendentemente dalla carica.\\
-$\vec{J}$ è una densità di corrente, e si misura in $A/m^2$.\\
+Da questo si vede che vale sempre che $\vec{J} \parallel \vec{E}$ indipendentemente dalla carica, per convenzione si dice che la corrente si "muove" dal polo positivo 
+a quello negativo ma di fatto sono gli elettroni che agitandosi generano la corrente.\\
+$\vec{J}$ è una densità di corrente, e si misura in $A/m^2$, come mostrato dall'equazione dimensionale seguente.\\
 \begin{gather*}
-    [J] = \frac{C}{s \cdot m^3} \frac{m}{s} = \frac{A}{m^2} 
+    [J] = \frac{C}{m^3} \frac{m}{s} = \frac{A}{m^2} 
 \end{gather*}
 \section{25/02/26}
 La scorsa lezione abbiamo detto che possiamo avere delle cariche $n \sim 9 \times 10^{22} \text{ atomi/cm}^3$, che possono avere una certa densità di carica $\rho$\\
@@ -240,22 +253,45 @@ Altro aspetto importante è che la legge di ohm si può riscrivere come:
     \vv{E} = \rho_c \vv{J}
 \end{gather*}
 Dove $\rho_c$ è la resistività elettrica, che è l'inverso della conducibilità ovvero $\rho_c = \frac{1}{\sigma_c}$.\\
-\subsection{calcoliamo $v_d$}
-Prendiamo un cavo con una sezione di raggio $r = 1mm$ e $I = 1A$.\\
-Di conseguenza avremo la sezione $S = \pi r^2 = \pi (1mm)^2$\\
-Ora passando a $I$
+\begin{example}[Calcolo della velocità di deriva]
+    Ponendo di avere una corrente di un ampere che passa attraverso un filo di raggio
+    un millimetro. Dunque la sezione $S = \pi r^{2} = \pi$ mm$^{2}$. Dunque la corrente è:
+    \begin{gather*}
+        I = 1 \ A = n q \cdot v_d \cdot S  \ \Longrightarrow \ v_d = 2.5 \cdot 10^{-5} \frac{m}{s}
+    \end{gather*} 
+\end{example}
+\subsection{Dal potenziale elettrico alla prima legge di Kirchhoff}
+In fisica la carica si conserva sempre, noi abbiamo definito la corrente la carica su unità di tempo $I = \frac{dQ}{dt}$.\\
+Ora prendiamo una carica (uscente quindi con segno negativo) $Q$ che attraversa una superficie chiusa $S$.
+Se considero la carica che esce come $-Q(t)$ in base al tempo quindi in un tempo $dt$ avrò una diminuzione della carica:
 \begin{gather*}
-    I = 1A = n \ q \ v_d \ S =\\ 
-    %\frac{1 \cancel{C}/s}{9 \times 10^{22} el/cm^\cancel{3} \cdot 1.6 \times 10^{-19} \cancel{C} \cdot \pi (10^{-1})^2 \cancel{cm}^2} = 7 \times 10^{-5} m/s
+    -dQ(t) = \int_S \vv{J} \cdot \vv{dS} dt
 \end{gather*}
 \begin{gather*}
-    -dQ = \int_S \vv{J} \cdot \vv{dS} \\
+    I = \frac{dQ(t)}{dt} = \int_S \vv{J} \cdot \vv{dS}
+\end{gather*}
+Considero che la corrente è uscente, quindi $I = -\frac{dQ(t)}{dt}$ e quindi:
+\begin{gather*}
     -\frac{dQ(t)}{dt} = \int_S \vv{J} \cdot \vv{dS}
-    -\frac{dQ(t)}{dt} = -\int_V \frac{\partial \rho(x,y,z,t)}{\partial t} dx dy dz\\
 \end{gather*}
-Usando il teorema della divergenza ottengo:
+Ora si applica il teorema della divergenza che ci dice che l'integrale di un campo vettoriale su una superficie chiusa è uguale all'integrale della divergenza di quel campo vettoriale su tutto il volume racchiuso da quella superficie, e quindi:  
 \begin{gather*}
-    -\int_V \frac{\partial \rho}{\partial t} dV = \int_S \vv{J} \vv{dS} = \int_V \vv{\nabla} \vv{J} dV\\
+    -\frac{dQ(t)}{dt} = \int_S \vv{J} \cdot \vv{dS}\\
+    -\frac{dQ(t)}{dt} = \int_V \vv{\nabla} \cdot \vv{J} dV\\
+\end{gather*}
+Se calcoliamo la divergenza abbiamo che $\vv{\nabla} \cdot \vv{J} = \frac{\partial J_x}{\partial x} + \frac{\partial J_y}{\partial y} + \frac{\partial J_z}{\partial z}$, ricordando però che $\vv{J} = n q \vv{v_d}$, quindi se se consideriamo $n$ e $q$ costanti e che $\vv{v_d}$ è costante nel tempo, allora la divergenza è nulla, poichè stiamo considerando la derivata rispetto al tempo di ogni termine che è costante nel tempo, e quindi:
+\begin{gather*}
+    \vv{J} = n q \vv{v_d} \Rightarrow \vv{\nabla} \cdot \vv{J} = n q \vv{\nabla} \cdot \vv{v_d}\\
+    \vv{\nabla} \cdot \vv{J} = nq\frac{\partial v_d}{\partial x} + nq\frac{\partial v_d}{\partial y} + nq\frac{\partial v_d}{\partial z} = 0
+\end{gather*}
+Ma $\vv{v_d} = \begin{pmatrix}
+    \frac{d r_x}{dt}\\
+    \frac{d r_y}{dt}\\
+    \frac{d r_z}{dt}
+\end{pmatrix}$ e quindi se considero che $\frac{d r_x}{dt}$ è costante nel tempo, allora $\frac{\partial v_d}{\partial x} = 0$ e così per gli altri due termini, e quindi:
+\begin{gather*}
+    -\frac{dQ(t)}{dt} = \int_V \frac{\partial \rho(x,y,z,t)}{\partial t} dx dy dz\\
+    -\int_V \frac{\partial \rho}{\partial t} dV = \int_S \vv{J} \cdot \vv{dS} = \int_V \vv{\nabla} \cdot \vv{J} dV\\
     -\frac{\partial \rho}{\partial t} = \vv{\nabla} \cdot \vv{J} \Rightarrow \boxed{\vv{\nabla} \cdot \vv{J} + \cancel{\frac{\partial \rho}{\partial t}} = 0}\\
     \Rightarrow \boxed{\vv{\nabla} \cdot \vv{J} = 0} \Rightarrow \boxed{\int_{S_\text{chiusa}} \vv{J} \cdot \vv{dS} = 0}
 \end{gather*}
@@ -281,7 +317,7 @@ Se ho una superficie chiusa che racchiude il nodo $n$ considerando $\int_S \vv{J
     \end{tikzpicture}
 \end{center}
 \begin{gather*}
-    \sum_{i=1}^n I_i = 0
+    \sum_{i=1}^n I_i = 0\\
     I_1 + I_2 + I_3 + I_4 = 0
 \end{gather*}
 \subsection{Maglie e rami}
@@ -312,12 +348,13 @@ Se ho una superficie chiusa che racchiude il nodo $n$ considerando $\int_S \vv{J
 \end{center}
 Un ramo è un conduttore che collega due nodi, una maglia è un percorso chiuso che non contiene altri nodi al suo interno.\\
 Più maglie formano una rete.\\
-\subsection{Seconda legge di Kirchhoff e il potenziale}
-rotore uguale a 0 vuol dire conservativo.
+\subsection{Il potenziale elettrostatico}
+Se in un campo il rotore è uguale a 0 vuol dire che è conservativo, nel nostro caso il rotore è proprio:
 \begin{gather*}
     \vv{\nabla} \land \vv{E} = 0
 \end{gather*}
-\begin{center}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \begin{center}
     \begin{tikzpicture}
         %assi
         \draw[->] (0,0) -- (3,0) node[below] {$x$};
@@ -332,19 +369,37 @@ rotore uguale a 0 vuol dire conservativo.
         \node at(0,0) [left] {$O$};
     \end{tikzpicture}
 \end{center}
+\end{wrapfigure}
+Consideriamo una carica $Q$ posta in $O$, e vogliamo calcolare quanto lavoro fa il campo elettrico generato da $Q$ su una carica di prova $q$ che si muove da $A$ a $B$ lungo un percorso $\Gamma$.\\
+Il campo elettrico generato da $Q$ sarà dato da:
 \begin{gather*}
-    \vv{E}(\vv{r}) = \frac{Q}{4 \pi \epsilon_0 r^2} \hat{r}\\
-    \mathcal{L}_{AB}^\Gamma = \int_\Gamma \vv{F} \vv{dl} = \int q \vv{E} \vv{dl} = \frac{qQ}{4 \pi \epsilon_0} \int_{r_a}^{r_b}  \frac{1}{r^2} \overset{\overset{1}{||}}{\widehat{r} \widehat{r}} dr = \int \frac{1}{r^2} dt = -\frac{1}{r}
+    \vv{E}(\vv{r}) = \frac{Q}{4 \pi \varepsilon_0 r^2} \hat{r}
+\end{gather*}
+Il lavoro che fa il campo elettrico su $q$ è dato da:
+\begin{gather*}
+    \mathcal{L}_{AB}^\Gamma = \int_\Gamma \vv{F} \vv{dl} = \int_\Gamma q \vv{E} \vv{dl} = \frac{qQ}{4 \pi \varepsilon_0} \int_{r_a}^{r_b}  \frac{1}{r^2} \overbrace{\widehat{r} \widehat{r}}^{=1} dr =\\
+    \int_{r_a}^{r_b} \frac{1}{r^2} dr = -\frac{1}{r}\Big|_{r_a}^{r_b} = -\frac{1}{r_b} + \frac{1}{r_a}
 \end{gather*}
 \begin{gather*}
-    \mathcal{L}_{AB}^\Gamma = \frac{qQ}{4 \pi \epsilon_0} \left( -\frac{1}{r_b} + \frac{1}{r_a} \right)
+    \mathcal{L}_{AB}^\Gamma = \frac{qQ}{4 \pi \varepsilon_0} \left( -\frac{1}{r_b} + \frac{1}{r_a} \right)
 \end{gather*}
-Quest'ultimo è il principio di conservatività del campo (1a legge di Kirchhoff)\\
-Continuando otteniamo:
+Quest'ultimo è il principio di conservatività del campo (1a legge di Kirchhoff).\\
+Cerchiamo ora di definire il potenziale elettrico. \\
+Per farlo possiamo considerare il lavoro che fa il campo elettrico sulla carica $q$, questa carica è quella di cui calcoliamo il lavoro generato da $Q$, ma siccome a sua volta ha una carica 
+che potrebbe influenzare il campo elettrico generato da $Q$, dobbiamo normalizzare $U(r)$ per $q$ ($\frac{U}{q}$) e consideriamo $q$ come infinitesima così da non influenzare 
+il campo elettrico circostante. Così facendo possiamo misurare quanto lavoro farebbe il campo in un determinato punto:
 \begin{gather*}
-    \lim_{q \to 0} \frac{U}{q} = \boxed{V(r) = \frac{Q}{4 \pi \epsilon_0} \frac{1}{r} + cost.}\\
+    U(r) = \frac{q \ Q}{4 \pi \varepsilon_0} \frac{1}{r} \Rightarrow \lim_{q \to 0} \frac{U}{q} = \boxed{V(r) = \frac{Q}{4 \pi \varepsilon_0} \frac{1}{r} + cost.}\\
+\end{gather*}
+Abbiamo ottenuto il potenziale del campo, di fatto su una carica puntiforme, in un punto $P$ ben definito a una distanza $r$ dalla sorgente $Q$.$V(r)$ rappresenta così quanto lavoro farebbe una carica in ogni punto, se ad una distanza $r$ il potenziale vale $10 V$ allora una carica di $1 C$ farebbe un lavoro di $10 J$.\\
+Da notare che quì abbiamo riesplcitato la costante di integrazione, nei casi precedenti la avevamo omessa perchè rappresenta il fatto che il potenziale è definito a meno di una costante arbitraria, di solito si usa come riferimento della carica di prova l'infinito, e quindi si pone $V(\infty) = 0$ e quindi $cost. = 0$. 
+Ma quando abbiamo fatto il limite e dividiamo per $q$ che tende a 0 dobbiamo esplicitarla poichè altrimenti $U$ schizzerebbe all'infinito.\\
+Possiamo ora calcolare il lavoro tra due punti $A$ e $B$ del campo $\vv{E}$ lungo un percorso generico e calcolare quella che si chiama differenza di potenziale:
+\begin{gather*}
     V_A - V_B = \int_{A}^{B} \vv{E} \cdot \vv{dl}
 \end{gather*}
+Con la differenza di potenziale che è proprio $V_A - V_B $ e si misura in volt $\frac{J}{C}$ ovvero lavoro su unità di carica.\\
+\subsection{Seconda legge di Kirchhoff}
 Ricordiamo che se abbiamo una curva chiusa $\Gamma$ allora:
 \begin{gather*}
     \oint_\Gamma \vv{E} \cdot \vv{dl} = 0
@@ -364,15 +419,16 @@ Ricordiamo che se abbiamo una curva chiusa $\Gamma$ allora:
         \node at(0,-1.4)[below] {$\Gamma$}; 
     \end{tikzpicture}
 \end{center}
+Poichè se calcoliamo il lavoro su una curva chiusa otteniamo 0, allora se consideriamo la curva chiusa $\Gamma$ che passa per i punti $A$, $B$, $C$ e $D$, avremo che:
 \begin{gather*}
     \oint_\Gamma \vv{E} \cdot \vv{dl} = \int_{A}^{B} \vv{E} \cdot \vv{dl} + \int_{B}^{C} \vv{E} \cdot \vv{dl} + \int_{C}^{D} \vv{E} \cdot \vv{dl} + \int_{D}^{A} \vv{E} \cdot \vv{dl} = 0\\
     (V_A - V_B) + (V_B - V_C) + (V_C - V_D) + (V_D - V_A) = 0
 \end{gather*}
 \subsection{parliamo un po' di più della resistività}
-Partendo da $\vv{E} \rho_R \vv{J}$ e considerando l'unità di misura della resistività:
+Partendo da $\vv{E} = \rho_R \vv{J}$ e considerando l'unità di misura della resistività:
 \begin{gather*}
-    [\rho_R] = \left[\frac{N}{C} \frac{m^2}{A}\right]  = \qquad V = \frac{J}{C}\\
-    \left[ \frac{J m}{C A} \right] = \left[ V \frac{m}{A} \right] = \left[ \Omega m\right]   
+    [\rho_R] = \left[\frac{N}{C} \frac{m^2}{A}\right] \\
+    \left[ \frac{J \ m}{C \ A} \right] = \left[ V \frac{m}{A} \right] = \left[ \Omega m\right]   
 \end{gather*}
 Prendiamo l'esempio del traliccio dell'alta tensione, dove alcune mucche morivano, questo succede perchè anche se ovviamente il cavo è la parte che fa meno resistenza e il traliccio ha un punto di materiale isolante, comunque una parte 
 della corrente passa attraverso il traliccio e quindi una piccola parte della corrente passa attraverso il traliccio, questo accadeva con le mucche per via dei passi molto lunghi, quindi 
@@ -380,7 +436,7 @@ facevano si di avere una differenza di potenziale tra le due zampe, e quindi una
 \hfill\\
 Altra cosa è il fatto che la differenza di potenziale tra il terreno e le nuvole e circa $200 V$ per $m$, noi non prendiamo la scossa perchè fungiamo da conduttori, ma quando si accumula sulle nuvole comunque da qualche parte devono 
 scaricarsi, e quindi quando si accumula una certa quantità di carica sulle nuvole, questa si scarica attraverso un fulmine\\
-\subsection{Conduttore a sezione costante}
+\subsection{La resistenza elettrica}
 \begin{gather*}
     \vv{E} = \rho_R \vv{J}
 \end{gather*}
@@ -389,36 +445,325 @@ scaricarsi, e quindi quando si accumula una certa quantità di carica sulle nuvo
         %cilindro
         \draw (-1,0) -- (1,0);
         \draw (-1,1) -- (1,1);
-        \draw (-1,0.5) ellipse (0.3 and 0.5) node[above] {$S$};
-        \draw (1,0.5) ellipse (0.3 and 0.5) node[above] {$S$};
+        \draw[pattern = north east lines] (-1,0.5) ellipse (0.3 and 0.5) node[above] {$S$};
+        \draw[pattern = north east lines] (1,0.5) ellipse (0.3 and 0.5) node[above] {$S$};
         \node at(0,1) [above] {$\ell$};
-        \draw[thin] (-1,0.5) -- (1,0.5);
+        \draw[thin] (-1,0.5) -- (1,0.5) node[at start, below]{\small{$A$}} node[at end, below]{\small{$B$}};
+        \filldraw (-1,0.5) circle (1pt);
+        \filldraw (1,0.5) circle (1pt);
         \draw[->] (1.1,0.5) -- (1.5,0.5) node[above] {$\widehat{n}$};
     \end{tikzpicture}
 \end{center}
+Considero un conduttore di sezione $S$ (che consideriamo relativamente piccola a $\ell$) e di lunghezza $\ell$, con una resistività elettrica $\rho_R$ e con una corrente $I$ che lo attraversa, e voglio calcolare la differenza di potenziale tra i due capi del conduttore, ovvero $V_A - V_B$.\\
+Consideriamo che localmente $\vv{E} = \rho_R \vv{J}$ e siccome  $S$ è molto piccola rispetto a $\ell$ allora possiamo considerare $E$ e $J$ costanti lungo il conduttore, svolgendo i conti:
 \begin{gather*}
-    \int_{A}^{B} \vv{E} \cdot \vv{dl} = V_A - V_B = \int_{A}^{B} \rho_R \vv{J} \cdot \vv{dl} = \int_{A}^{B} \rho_R \frac{\vv{J} S}{S} \cdot \widehat{n} dl=\\
-    I \underbrace{\int_{A}^{B} \frac{\rho_R}{S} dl}_{R} = I \frac{\rho_R \ell}{S} = I R
+    \int_{A}^{B} \vv{E} \cdot \vv{dl} = V_A - V_B = \int_{A}^{B} \rho_R \vv{J} \cdot \vv{dl} = \int_{A}^{B} \rho_R \frac{\vv{J} S}{S} \cdot \widehat{n} dl \qquad \text{qui $\vv{J}$ e $S$ si considerano $\simeq$ cost.}\\
+    \Rightarrow I \underbrace{\int_{A}^{B} \frac{\rho_R}{S} dl}_{R} = I \frac{\rho_R \ell}{S} = I R\\
     \Delta V = I R
 \end{gather*}
 Quindi $R = \frac{\rho_R \ell}{S}$ è la resistenza elettrica, che è una proprietà del conduttore, e si misura in $\Omega$.\\
+Dalla legge di ohm $R = \frac{V}{I}$ possiamo pensare alla resistenza come alla differenza di potenziale su unità di corrente, e quindi se $I$ è la quantità di carica che passa in un certo intervallo di tempo, allora $R$ è la differenza di potenziale su unità di carica che passa in un certo intervallo di tempo.\\
+In alternativa possiamo pensare che siccome $V = \frac{J}{C}$ ovvero lavoro su unità di carica, allora $R$ è il lavoro su unità di carica su unità di corrente, quindi $R$ è il lavoro su unità di carica su unità di carica su unità di tempo, quindi $R$ è il lavoro su unità di carica al secondo, e quindi $R$ è la potenza per unità di carica.\\
 \subsection{applicazione delle resistenze}
+Abbiamo in primo luogo che la differenza di potenziale $\Delta V$ è presente solo se, ovviamente c'è corrente, e se non c'è resistenza nulla ($R \neq 0$). Quindi abbiamo 
+che se $R = 0$ allora $\Delta V = 0$ e quindi non c'è differenza di potenziale, e se $I = 0$ allora $\Delta V = 0$ e quindi non c'è differenza di potenziale.\\
 \begin{center}
     \begin{tikzpicture}
-        \draw(-2,0) -- (-0.5,0);
-        \draw(0.5,0) -- (2,0);
-        %resistenza
-        \draw (-0.5,0) -- (-0.3,-0.5);
-        \draw (-0.3,-0.5) -- (-0.1,0.5);
-        \draw (-0.1,0.5) -- (0.1,-0.5);
-        \draw (0.1,-0.5) -- (0.3,0.5);
-        \draw (0.3,0.5) -- (0.5,0);
-        \node at(0,0.5) [above] {$R$};
+        \draw(0,0) to[short,R, l=$R$] (2,0);
+        \filldraw(0,0) circle(1pt) node[below] {\small{$A$}};
+        \filldraw(0.4,0) circle(1pt) node[below] {\small{$B$}};
+        \filldraw(1.6,0) circle(1pt) node[above] {\small{$C$}};
+        \filldraw(2,0) circle(1pt) node[above] {\small{$D$}};
     \end{tikzpicture}
 \end{center}
-\subsection{esercizio extra}
-Prendiamo un filo di rame $(Cu)$ lunghezza $\ell = 1m$ e raggio rella sezione $r = 1mm$, calcoliamo $R$:
+Ad esempio in questa illustrazione abbiamo che tra i punti $B$ e $C$ c'è una resistenza $R$, quindi se tra $B$ e $C$  c'è corrente allora  c'è differenza di potenziale, ma tra i punti $A$ e $B$ e tra i punti $C$ e $D$ non c'è resistenza, quindi se tra questi punti non c'è differenza di potenziale indipendentemente dal passaggio di corrente.\\
+Per calcolare la resistenza di un conduttore possiamo usare la formula $R = \frac{\rho_R \ell}{S}$, e quindi se vogliamo calcolare la resistenza di un filo di rame, dobbiamo conoscere la resistività del rame $\rho_{Cu}$ che è circa $1.7 \times 10^{-8} \Omega m$, e poi dobbiamo conoscere la lunghezza del filo $\ell$ prendiamo ad esempio $1 m$ e la sezione del filo $S$ prendiamo ad es $10^{-3} m^2$ ovvero $1mm$.
 \begin{gather*}
     R = \frac{1,7 \times 10^{-8} \Omega \cancel{m} 1 \cancel{m}}{\pi ( 10^{-3} \cancel{m})^2}
+\end{gather*}
+
+\section{2/3/26}
+\subsection{Generatori di forza elettro motrice}
+Un generatore di potenziale è un dispositivo che fornisce una differenza di potenziale costante tra i suoi terminali, indipendentemente dalla corrente che lo attraversa.\\
+Cerchiamo di capire come si misura la forza elettromotrice (f.e.m.) di un generatore di potenziale.\\
+Il generatore ideale viene rappresentato in un circuito in questo modo:
+\begin{center}
+    \begin{tikzpicture}
+        \draw (0,0) to [battery1, invert, l=$\pm$,] (0,2);
+            \draw (0,2) to [short] (2,2);
+            \draw (2,2) to [short] (2,0);
+            \draw (2,0) to [short] (0,0);
+            \draw[->](1.5,1.8) -- (1.5,0.2) node[right, midway] {$i$};
+            \draw[->](2.5,1.8) -- (2.5,0.2) node[right, midway] {$\vv{E}_s$};
+    \end{tikzpicture}
+\end{center}
+    Per ora non studiamo nel dettaglio come funziona ci limitiamo a considerare che tra il $+$ e il $-$ del generatore c'è una forza che separa le cariche e che va contro il campo elettrostatico $\vv{E}_s$, e questa forza è rappresentata proprio da un altro campo elettrico che chiameremo $\vv{E}_e$, che scopriremo essere proprio la forza elettromotrice, se consideriamo solo il campo elettrostatico sulla curva chiusa $\Gamma$ che rappresenta il nostro circuito, allora avremo che:
+    \begin{gather*}
+        \oint_\Gamma \vv{E}_s \cdot \vv{dl} =  0
+    \end{gather*}
+    Poichè questo campo è conservativo. Ora consideriamo la somma dei campi $\vv{E}_e$ ed $\vv{E}_s$, 
+    \par
+    \begin{wrapfigure}{r}{0.4\textwidth}
+            \begin{tikzpicture}
+                \draw (0,0) to [generic, invert, l=$\pm$,] (0,1);
+                \draw (0,0) to[short] (0,-0.5);
+                \draw (0,1) to[short] (0,1.5);
+                \draw (0,-0.5) to[short] (2,-0.5);
+                \draw (0,1.5) to[short] (2,1.5);
+                \draw (2,1.5) to[short, f=$i$] (2,-0.5);
+                \draw[<-] (-1,0) -- (-1,1) node[left, at start] {$\vv{E}_e$};
+                \node at(1,1) [above] {$\Gamma$};
+                \filldraw(0,-0.1) circle (1pt) node[left] {$B$};
+                \filldraw(0,1.1) circle (1pt) node[left] {$A$};
+                \draw[->] (0.1,0.2) -- (0.1,0.8) node[left, midway] {$i$};
+                \draw[->] (0.5,0.1) -- (0.5,1) node[right, midway] {$\vv{E}_s$};
+            \end{tikzpicture}
+    \end{wrapfigure}\noindent
+    Ci interesserà più avanti scoprire queste forze interne al generatore, per il momento però ricordiamo solo che esistono.\\
+    La curva chiusa $\Gamma$ rappresenta il mio circuito, ma se consideriamo solo il pezzo che attraversa il generatore di potenziale, allora avremo:
+    \begin{gather*}
+        \oint_\Gamma \vv{E} \cdot \vv{dl} = \\
+        \int_{A}^{B} \vv{E}_e \cdot \vv{dl} + \int_{B}^{A} \vv{E}_s \cdot \vv{dl} = 0
+    \end{gather*}
+    Questo perchè il campo $\vv{E}_e$ è conservativo se considerato all'interno del generatore, di fatto abbiamo dei vettori dritti che spostano le cariche da - a +, e non abbiamo rotazioni interne, stessa cosa ovviamente per $\vv{E}_s$.\\
+    Se consideriamo però tutta la curva $\Gamma$ abbiamo che $\vv{E}_e$ non è più presente fuori dal generatore quindi ho che compiuta una rotazione sulla curva ho dell'energia che non mi è stata restituita. So però che il campo $\vv{E}_s$ è conservativo anche su 
+    tutta la curva e quindi posso considerarlo nullo quando vedo la somma dei due, così facendo posso trovare che quella che è la forza elettromotrice del generatore è quella generata dal campo $\vv{E}_e$ che è in contrapposizione con il campo $\vv{E}_s$ e quindi:
+    \begin{gather*}
+        \underbrace{\oint_\Gamma \vv{E}_s \cdot \vv{dl}}_{= 0 \text{\small{ perchè conservativo}}} + \vv{E}_e \cdot \vv{dl} = \boxed{\int_{A}^{B} \vv{E}_e \cdot \vv{dl} \neq 0} := \text{f.e.m.}
+    \end{gather*}
+    Questa è la definizione operativa di forza elettromotrice, ovvero la differenza di potenziale che si misura ai capi del generatore quando non c'è corrente che lo attraversa, altrimenti infulenzerebbe il campo all'interno del generatore.\\
+    Di fatto questo è un campo non conservativo, perchè stiamo considerando si un campo di vettori "dritti" ma su una curva più grande di dove lui è definito facendo si che il rotore sia non nullo.\\
+    \subsection{Generatore reale schematizzato}
+    Di fatto un generatore nella realtà non riesce a separare le cariche senza disperdere nessuna energia, quindi in realtà un generatore di potenziale è sempre accompagnato da una resistenza interna, che è la resistenza che si oppone al passaggio della corrente all'interno del generatore stesso.\\
+    Possiamo quindi schematizzare un generatore di potenziale reale in questo modo:
+    \begin{center}
+        \begin{tikzpicture}
+            \draw (0,0) to [battery1, invert, l=$\mathcal{E}_x f_x \quad \pm$,] (0,2);
+            \draw (0,2) to [short] (2,2);
+            \draw (2,2) to [R, l=$r_x \quad \rho_x$] (2,0);
+            \filldraw(2,0) circle (2pt) node [below] {$A$};
+            \filldraw(0,0) circle (2pt) node [below] {$B$};
+        \end{tikzpicture}
+    \end{center}
+    Con $\mathcal{E}_x$ che rappresenta la forza elettromotrice del generatore, $f_x$ che è il modulo del campo che precedentemente abbiamo chiamato $\vv{E}_s$ e rappresenta la forza del campo per unità di carica quindi se si vuole l'efficienza del generatore, $r_x$ che rappresenta la resistenza interna del generatore e $\rho_x$ che rappresenta la resistività elettrica associata alla resistenza.\\
+    Schematizzando così il nostro generatore abbiamo in questo caso che $i=0$ e quindi possiamo definire la f.e.m. come proprio la differenza di potenziale ai capi del circuito senza passaggio di corrente.
+    \begin{gather*}
+        f.e.m. = V_A - V_B
+    \end{gather*}
+    Da quì si puo capire come misurare la f.e.m. sperimentalmente sfruttando il fatto che guardando l'andamento della corrente fino ad un certo punto è circa lineare 
+    ma da un certo punto in poi diventa non lineare, e quindi si può sfruttare questo punto di non linearità per misurare la f.e.m. del generatore.\\
+    \begin{center}
+        \begin{tikzpicture}
+            %assi x y
+            \draw[->] (0,0) -- (3,0) node[below] {$i$};
+            \draw[->] (0,0) -- (0,3) node[left] {$V_A-V_B$};
+            %linea
+            \draw[thick] (0,2) -- (2,0.5) node[midway, above] {$r$} node[at start, left]{$f$};
+            \draw[thick, cyan] (2,0.5) to[bend left = 10] (2.5,0);
+            \node at(2.5,0) [below] {$i_m$};
+        \end{tikzpicture}
+    \end{center}
+    Sfruttando la relazione precedente e integrando ciò che abbiamo detto finora si puo dire:
+    \begin{gather*}
+        \Delta V = V_A - V_B = f_\text{em} - r_i
+    \end{gather*}
+    Ovvero la differenza di potenziale che si misura ai capi del generatore è data dalla forza elettromotrice meno la caduta di potenziale dovuta alla resistenza interna.\\
+    Visualizzandolo in un'altro modo:
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->] (0,0) -- (3,0) node[below] {$i$};
+            \draw[->] (0,0) -- (0,3) node[left] {$V$};
+            \draw[thick] (0,2) -- (2,2) -- (2,0);
+            \node at(1,1) {$W$};
+            \draw (0,2) ..controls(2,2).. (2,0);
+        \end{tikzpicture}
+    \end{center}
+    E la differenza è proprio la forza elettromotrice, che è l'area del rettangolo $W$.\\
+    \subsection{misurazione della f.e.m.}
+    Iniziamo col misurare con un Voltmetro la differenza di potenziale ai capi del generatore, e otteniamo un certo valore $V$.\\
+    \begin{center}
+        \begin{tikzpicture}
+            \draw (0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,2);
+            \draw (0,2) to [short] (2,2);
+            \draw (2,2) to [R, l=$r_x \quad \rho_x$] (2,0);
+            \filldraw(2,0) circle (2pt) node [below] {$A$};
+            \filldraw(0,0) circle (2pt) node [below] {$B$};
+            %voltmetro
+            \draw(2,0) to[R, l=$r_x \quad$] (0,0);
+            \draw[->] (1.5,0.5) -- (0.5,0.5) node[above, midway] {$R$};
+            \draw(2,0) -- (2,-1);
+            \draw(0,0) -- (0,-1);
+            \draw(2,-1) to [short, voltmeter] (0,-1);
+        \end{tikzpicture}
+    \end{center}
+    \begin{gather*}
+        \Delta V = V_A - V_B = i R = \mathcal{E} - \rho i\
+    \end{gather*}
+    Se aggiungomo una resistenza $R$ in serie al generatore, allora la corrente che passa attraverso il circuito è data da:
+    \begin{gather*}
+        \mathcal{E} = \frac{R}{R + \rho} \underset{R \ll r}{\simeq} \mathcal{E}
+    \end{gather*}
+    Avro:
+    \begin{center}
+        da sistemare
+        \begin{tikzpicture}
+            \draw (0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,2);
+            \draw (0,2) to [short] (2,2);
+            \draw (2,2) to [R, l=$r_x \quad \rho_x$] (2,0);
+            \filldraw(2,0) circle (2pt) node [below] {$A$};
+            \filldraw(0,0) circle (2pt) node [below] {$B$};
+            %resistenza in parallelo
+            \draw(2,2) to[R, l=$R$] (4,2);
+            \draw(4,2) to [short] (4,0);
+            \draw(4,0) to [short] (2,0);
+        \end{tikzpicture}
+    \end{center}
+    \subsection{Collegamenti in serie}
+    \begin{center}
+        
+    \end{center}
+    \begin{gather*}
+        \Delta V = i_1
+    \end{gather*}
+    \subsection{legge del partitore di tensione}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw (0,0) to[R, l=$R_1$] (0,2) to[R, l=$R_2$] (0,4);
+            \filldraw (0,0) circle (2pt) node [below] {$A$};
+            \filldraw (0,2) circle (2pt) node [left] {$B$};
+            \filldraw (0,4) circle (2pt) node [above] {$C$};
+        \end{tikzpicture}
+    \end{center}
+
+\section{474/26}
+\subsection{ESPI}
+\begin{center}
+    \begin{tikzpicture}
+        \draw (0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,2);
+        \filldraw(0,2) circle (2pt) node [below] {$A$};
+        \filldraw(0,0) circle (2pt) node [below] {$B$};
+    \end{tikzpicture}
+\end{center}
+Sappiamo che all'equilibrio si ha:
+\begin{gather*}
+    \vv{E}_e = -\vv{E}'_s
+\end{gather*}
+La f.e.m. è data da:
+\begin{gather*}
+    fem = \int_{A}^{B} \vv{E}_e \cdot \vv{dl} = \int_{A}^{B} -\vv{E}'_s \cdot \vv{dl}\\
+    = \int_{A}^{B} \vv{E}'_s \cdot \vv{dl} = V_A-V_B
+\end{gather*}
+Di conseguenza possiamo avere la definizione operativa di f.e.m. come la differenza di potenziale che si misura ai capi del generatore quando non c'è corrente che lo attraversa.\\
+\begin{gather*}
+    fem = f = \mathcal{E} = (V_A - V_B)_\text{misurata} \vert_{i=0}
+\end{gather*}
+E si misura in volt $[V]$.\\
+In generale se abbiamo una situazione di questo tipo:
+\begin{center}
+    \begin{tikzpicture}
+        \draw (0,0) to [battery1, invert, l=$f\quad \pm$,] (0,2);
+        \draw (0,2) to [short] (2,2);
+        \draw (2,2) to [R, l=$r$] (2,0);
+        \filldraw(2,0) circle (2pt) node [below] {$A$};
+        \filldraw(0,0) circle (2pt) node [below] {$B$};
+        \draw(2,0) to [short] (0,0);
+        \draw[->] (1.5,1.8) -- (1.5,0.2) node[right, midway] {$i$};
+    \end{tikzpicture}
+    \begin{tikzpicture}
+            %assi x y
+            \draw[->] (0,0) -- (3,0) node[below] {$i$};
+            \draw[->] (0,0) -- (0,3) node[left] {$V_A-V_B$};
+            %linea
+            \draw[dashed] (0,2) -- (2.5,2);
+            \draw[thick] (0,2) -- (2,0.5) node[midway, above] {$r$} node[at start, left]{$f$};
+            \draw[thick, cyan] (2,0.5) to[bend left = 10] (2.5,0);
+            \node at(2.5,0) [below] {$i_m$};
+    \end{tikzpicture}
+\end{center}
+Il potenziale tra $A$ e $B$ è dato da:
+\begin{gather*}
+    (V_A - V_B) = f - r i\\
+    = \mathcal{E} -i \rho
+\end{gather*}
+\begin{example}
+    Prendiamo ora i seguenti circuiti:
+    \begin{center}
+        \begin{tikzpicture}
+            \draw (0,0) to [battery1, invert, l=$f\quad \pm$,] (0,2);
+            \draw (0,2) to [short] (2,2);
+            \draw (2,2) to [R, l=$r$] (2,0);
+            \filldraw(2,0) circle (2pt) node [below, right] {$A$};
+            \filldraw(0,0) circle (2pt) node [below, left] {$B$};
+            \draw(2,0) to [short, R, l=$R$] (0,0);
+            \draw[->] (1.5,1.8) -- (1.5,0.2) node[right, midway] {$i$};
+            \draw(0,0) to [short] (0,-2);
+            \draw(0,-2) to [short, voltmeter] (2,-2);
+            \draw(2,-2) to [short] (2,0);
+        \end{tikzpicture}
+        \begin{tikzpicture}
+            \draw (0,0) to [battery1, invert, l=$f\quad \pm$,] (0,2);
+            \draw (0,2) to [short] (2,2);
+            \draw (2,2) to [R, l=$r$] (2,0);
+            \filldraw(2,0) circle (2pt) node [below, right] {$A$};
+            \filldraw(0,0) circle (2pt) node [below, left] {$B$};
+            \draw(2,0) to [short, R, l=$R$] (0,0);
+            \draw[->] (1.5,1.8) -- (1.5,0.2) node[right, midway] {$i$};
+            \draw(0,0) to [short] (0,-2);
+            \draw(0,-2) to [short, voltmeter] (2,-2);
+            \draw(2,-2) to [short] (2,0);
+            \draw(2,-2) to (2,-4);
+            \draw(0,-2) to (0,-4);
+            \draw(2,-4) to [short, R, l=$R$] (0,-4);
+            \draw(2,-4) to [short] (2,-6);
+            \draw(0,-4) to [short] (0,-6);
+            \draw(0,-6) to [short, voltmeter] (2,-6);
+        \end{tikzpicture}
+    \end{center}
+    Da qui l'altra volta eravamo arrivati a ricavare dal primo circuito:
+    \begin{gather*}
+        (V_A - V_B)_1 = V_1
+    \end{gather*}
+    e dal secondo circuito:
+    \begin{gather*}
+        (V_A - V_B)_2 = V_2
+    \end{gather*}
+    Questo metodo 
+\end{example}
+\subsection{richiamo leggi kirchoff e leggi nodi}
+Legge dei nodi:
+\begin{gather*}
+    \sum_k i_k = 0 \qquad \nabla \cdot \vv{J} = 0\\
+    \int_S \vv{J} \cdot \vv{dS} = 0
+\end{gather*}
+Legge delle maglie:
+\begin{gather*}
+    \sum_k \Delta V_k = 0 \qquad \nabla \land \vv{E} = 0\\
+    \oint_\Gamma \vv{E} \cdot \vv{dl} = 0
+\end{gather*}
+Ricordiamo che noi schematizziamo i circuiti come se le resistenze fossero puntiformi, ma la legge che vale punto per punto di fatto è:
+\begin{gather*}
+    \vv{E}(\vv{r}) = \rho \vv{J}(\vv{r})
+\end{gather*}
+\subsection{legge di ohm generalizzata}
+Prendiamo il circuito:\\
+Abbiamo che:
+\begin{gather*}
+    \int_{A}^{B} \vv{E} \cdot \vv{dl} = \int_{A}^{B} \rho_R \vv{J} \cdot \vv{dl}
+\end{gather*}
+Ricordando che $\vv{E} = \vv{E}_e + \vv{E}_s$ in cui $\vv{E}_e$ è la parte del campo elettrico conservativo e $\vv{E}_s$ è la parte del campo elettrico non conservativo, allora possiamo scrivere:
+\begin{gather*}
+    \int_{A}^{B} \vv{E}_e \cdot \vv{dl} + \int_{A}^{B} \vv{E}_s \cdot \vv{dl} = \int_{A}^{B} \rho_R \vv{J} \cdot \vv{dl}
+\end{gather*}
+Ora considero che la parte del campo elettrico conservativo è proprio la differenza di potenziale tra il punto $A$ e il punto $B$, e che il campo non conservativo lo posso dividere nei seguenti:
+\begin{gather*}
+    (V_A - V_B) +  \int_{-}^{+} \vv{E}_1 \cdot \vv{dl} + \int_{+}^{-} \vv{E}_2 \cdot \vv{dl} = \int_{A}^{B} \rho_R \vv{J} \cdot \vv{dl}
+\end{gather*}
+Ora ho che $\int_{-}^{+} \vv{E}_1 \cdot \vv{dl} = f_1$ e $\int_{+}^{-} \vv{E}_2 \cdot \vv{dl} = -f_2$, in più le resistenze che ho: $R_1$, $R_2$, $R_3$ le posso sommare in base alla loro corrente, quindi posso scrivere:
+\begin{gather*}
+    (V_A - V_B) + f_1 - f_2 = R_1 i_1 + R_2 i_2 + R_3 i_3 = (R_1 + R_2 + R_3)i
+\end{gather*}
+\subsection{Seconda legge di kirckoff applicata alla maglia}
+\begin{gather*}
+    \sum_\text{maglia} f = (\sum_\text{maglia} R i)
 \end{gather*}
 \end{document}
