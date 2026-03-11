@@ -1,0 +1,280 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{circuitikz}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Lab II}
+\author{Tommaso Miliani}
+\date{11-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Punchlines}
+\begin{itemize}
+    \item Porca Miseria
+    \item Siamo del Gatto
+    \item A questo punto possiamo mangiare la foglia
+    \item Porca miseria!
+    \item Poverino questo generatore
+    \item Questo *BAM BAM* multimetro misura tutto
+    \item La molla dopo un po' smolla
+    \item Quello del pi greco era grullo
+    \item Avete mangiato la foglia
+\end{itemize}
+
+\section{Misurazioni di corrente: il galvanometro}
+Il Galvanometro è lo strumento che permette di eseguire 
+misure di corrente e tensione. Per poter misurare la corrente,
+si prende una spira di area $S$ ed un circuito: sottoponendo la spira ad un campo 
+magnetico esterno, in cui circola della corrente $i$, può essere descritta dal 
+vettore momento magnetico come 
+\begin{gather*}
+    \vv{m} = iS\hat{n}  
+\end{gather*} 
+Dove $\hat{n}$ è il versore normale uscente dal circuito. Se si ponesse un 
+campo magnetico sulla spira, essa sentirà un momento torcente di
+\begin{gather*}
+    \vv{M} = \vv{m} \times \vv{B}   
+\end{gather*} 
+La spira inizia dunque a roteare proporzionalemente alla corrente stessa. 
+Se ci si mettesse una molla tale per cui si possa avere un momento meccanico 
+sullo stesso asse lungo il momento magnetico
+\begin{gather*}
+    \vv{M_M} = -k\phi \hat{k}  
+\end{gather*}
+Si ha dunque uno strumento che dà una risposta proporzionale all'aumento di corrente.
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{circuitikz}
+        \draw(0, 0) to [short, *-] (0, -1)
+        to [R, l_=$\rho_G$] (0, -2) 
+        to [short] (0, -2.5)
+        to [rmeter, l_=$G$] (0, -3.5)
+        to [short, -*] (0, -4);
+    \end{circuitikz} 
+\end{wrapfigure}
+Allora si può misurare la corrente come 
+\begin{gather*}
+    i = k_R \phi 
+\end{gather*}
+Dove $k_R$ è una costante che determina la precisione del galvanometro che può arrivare
+ad una precisione di $10^{-6}$ Ampere su radianti. Con un sistema di leva ottica, alla fine la 
+sensibilità di questo oggetto può anche arrivare a $100$ nanoAmpere per divisione, dove la divisione è
+la divisione della scala graduata. 
+Generalmente questo strumento ha una resistenza molto bassa e permette dunque
+di poter misurare tutto in un circuito. Attualmente i valori di riferimento per cui si 
+definisce la corrente sono definiti su standard quantistici. La curva di taratura ideale 
+dello strumento si determina con l'incertezza sia sulla lettura che sul
+valore effettivamente misurato, dove $\frac{1}{k_R}$ è il coefficiente della
+curva di taratura (retta):
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (3, 0) node[at end, below] {$i$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$\phi$};
+        \draw(0, 0) -- (3, 3) node[at end, right] {$\frac{1}{k_R}$};
+        \draw[|-|](0.5, 0.7) -- (0.5, 0.3);
+        \draw[|-|](0.3, 0.5) -- (0.7, 0.5);
+        \draw[|-|](1.5, 1.7) -- (1.5, 1.3);
+        \draw[|-|](1.3, 1.5) -- (1.7, 1.5);
+        \draw[|-|](2.5, 2.7) -- (2.5, 2.3);
+        \draw[|-|](2.3, 2.5) -- (2.7, 2.5);
+    \end{tikzpicture}
+\end{gather*}
+Anche negli strumenti digitali il concetto è lo stesso poiché l'errore
+di lettura può essere dato dal numero di bit del sistema digitale
+(sull'ultima cifra, o anche le ultime due) le cifre ballano. \\
+È ovvio che il Galvanometro abbia una resistenza interna molto piccola. Se infatti si prendesse
+un circuito qualunque con un generatore ed una resistenza e ci si attaccasse un galvanometro,
+si dovrebbe considerare le due correnti
+\begin{gather*}
+    i = \frac{\epsilon}{\rho} \qquad i_m = \frac{\epsilon}{\rho + \rho_G}
+\end{gather*}
+Che sono ovviamente diverse, saranno simili se e solo se $\rho_G << \rho$.
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{circuitikz}
+        \draw(0, 0) to [short, *-] (1, 0);
+        \draw(1, 0) to [short, ] (1, 1)
+        to [R, l_=$\rho_G$] (2.5, 1) 
+        to [rmeter, l_=$\rho_G$] (4, 1)
+        to [short] (4, 1) to [short] (4, 0);
+        \draw(1, 0) to [short] (1, -1)
+        to [R, l_= $\frac{\rho_G}{9}$] (4, -1)
+        to [short] (4, -1) 
+        to[short] (4, 0);
+        \draw(4, 0) to [short, -*] (5, 0);
+    \end{circuitikz}    
+\end{wrapfigure}
+Nei casi in cui $\rho_G$ non sia sufficientemente piccola (o nei casi in cui la corrente è 
+talmente grande che si arriverebbe a fondo scala) si utilizza il teorema dell'"asciugacapelli 
+in bagno coi piedi bagnati": la corrente passa sempre dove vuole e dove c'è meno corrente.
+Sostanzialmente si utilizza lo \textbf{shunt} di corrente: in parallelo al galvanometro 
+si prende una resistenza più piccola di $\rho_G$. 
+\begin{gather*}
+    \rho = \frac{\rho_G}{9} \qquad I = i_S + i_G
+\end{gather*}
+Allora si avrà che la corrente che passa nello shunt e nel galvanometro è
+\begin{gather*}
+    \frac{i_G}{i_S} = \frac{\rho_G}{9\rho_G} = \frac{1}{9}
+\end{gather*}
+Allora la sommad delle due correnti:
+\begin{gather*}
+    9i_G + i_G = I = 10 i_G \ \Longrightarrow \ \boxed{i_G = \frac{1}{10}I}
+\end{gather*}
+In generale lo shunt è come affettare un blocco, perdendo però sensibilità. Ponendo questo circuito 
+nel circuito del quale si vuole misurare la corrente, la resistenza equivalente del circuito è
+\begin{gather*}
+    R_T = \frac{\rho_G \frac{\rho_G}{9}}{\rho_G + \frac{\rho_G}{9}}  =\frac{\rho_G}{10} 
+\end{gather*}
+Questo va bene perché qualsiasi effetto sistematico si sia introdotto con il galvanometro è ridotto di un 
+fattore 10:
+\begin{gather*}
+    i_m = \frac{\epsilon}{\rho + \frac{\rho}{10}} \sim i
+\end{gather*}
+
+\section{Divisore di tensione}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Potenziometro}
+    \begin{tikzpicture}
+        
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il divisore di tensione è un oggetto che divide la tensione in ingresso 
+con il rapporto impostato dalle manopole su di esso. Un modo per realizzare un 
+divisore di tensione è quello di realizzare un \textbf{potenziometro}: esso è un contatto strisciante
+che permette di modulare la fem in ingresso secondo la seguente relazione
+\begin{gather*}
+    \frac{l\rho}{S} = R
+\end{gather*}
+Per avere un fattore di un millesimo, $R(l(\phi))$ dovrebbe essere $\frac{1}{1000}R$, 
+altrimenti si può prendere 1000 resistenze tutte uguale, tuttavia ci deve essere un modo 
+più furbo per poter realizzare un divisore di tensione.
+La linearità è uguale a
+\begin{gather*}
+    x \% \text{tensione in ingresso}
+\end{gather*}
+Ogni manopola ha una divisione che è uguale alla tensione 
+in ingresso per quella in uscita:
+\begin{gather*}
+    v_{out} = rV
+\end{gather*}
+Allora l'errore di linearità è
+\begin{gather*}
+    \frac{\Delta v}{v} = \frac{\text{linearità} \cdot V}{v} = \frac{\text{linearità} \%}{r}
+\end{gather*}
+In laboratorio si ha una linearità di $20$ parti per milione ed un errore di linearità pari a
+\begin{gather*}
+    \frac{\Delta v}{v} = 40 \ ppm \approx 4 \cdot 10^{-6}
+\end{gather*} 
+
+\subsection{Realizzare un divisione di tensione}
+Il divisore di tensione Kelvin-Varley è un divisore di tensione che presenta 
+delle tensioni in ingresso ed in uscita con rapporto di divisone $r$ con divisone 
+3 decadi (ossia 3 sole manopole che si possono girare). 
+\begin{gather*}
+    \begin{circuitikz}
+        \draw(0, 0) to [short] (1, 0);
+    \end{circuitikz}
+\end{gather*}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Divisore di tensione}
+    \begin{circuitikz}
+        
+    \end{circuitikz}    
+\end{wrapfigure} \noindent
+A partire da $H$, si utilizzano un certo numero di resistenze e si arriva ad $L$ 
+con una serie di resistenze (11 da 1Kilo $\Omega$); a partire dalla prima resistenza (che non si conta perché 
+è molto piccola e serve solo a contrastare la resistenza del conduttore). Queste 11 resistenze tutte 
+uguali sono messe in modo tale che la manopola 1 possa prendere sia la posizione $i$ che la posizione $i + 2$ esima.
+Dopo la posizione $i$ e $i + 2$ si pone un altro circuito con 11 resistenze
+scelte in modo tale che siano un quinto di quelle precedenti (200 $\Omega$), si prende di nuovo una manopola
+che seleziona $j$ e $j + 2$ e fa passare la corrente lungo un circuito con 10 resistenze
+che abbiano un quinto della resistenza della decade precedente (40 $\Omega$). L'ultima decade 
+ha un solo cursore e seleziona una resistenza $k$ in modo tale che la corrente arrivi ad $h$. Dalla resistenza
+zero prima della prima decade, essa arriva ad $l$. \\
+La resistenza in ingresso è la stessa in uscita a prescindere da tutti i cursori infatti,
+indipendentemente dal selettore, il divisore è fatto in modo che si abbiano sempre
+in parallelo due resistenze uguali, dunque la resistenza che è in parallelo alla 
+prima decade è $200\Omega$ per 10, la quale è esattamente la resistenza 
+compresa tra i due selettori della priam decade. Allora la resistenza
+tra $h$ e $l$ è data da 2$k\Omega$ in parallelo a $2k\Omega$ è $1k\Omega$, 
+la quale è in serie con le altre 9 resistenze, dunque la resistenza totale è sempre $10 k\Omega$
+indipendentemente dal selettore.  \\
+Si vuole adesso trovare la differenza tra uscita ed entrata:
+\begin{gather*}
+    v_h - v_l = f(V_H - V_L) \ \Longrightarrow \ v_h - v_l = v_h - v_F + v_F - v_D + v_D - v_l
+\end{gather*}
+In modo da valutare le tre differenze di potenziale a destra. 
+\begin{gather*}
+    v_D - v_l = \frac{i \cdot 1k\Omega}{10 k\Omega} (V_H - V_L) = \frac{i}{10} (V_H - V_L)
+\end{gather*}
+Dove $i$ è l'indice di selettore della prima decade. 
+\begin{gather*}
+    v_F - v_D = \frac{j}{100}(V_H - V_L) \qquad v_h - v_F = \frac{k}{1000} (V_H - V_L)
+\end{gather*}
+Allora se si impostasse una decade su 5, l'altra su 3, e l'ultima su 2, la tensione in uscita è
+moltiplicata per $0.532$. Si dimostrano ora le altre due. Per la seconda, indipendentemente 
+dal selettore la resistenza totale tra $F$ e $V$ sarà sempre $10 \cdot 200\Omega$, allora,
+rispetto alla tensione in ingresso
+\begin{gather*}
+    v_F - v_D = \frac{j \cdot 200\Omega}{10 \cdot 200 \Omega} (V_C - V_D)
+\end{gather*}
+Dove $(V_C - V_D)$ si lega a $(V_H - V_L)$ nella seguente maniera:
+\begin{gather*}
+    V_C - V_D = \frac{1}{10}(V_H - V_L) \ \Longrightarrow \ v_F - v_D = \frac{j}{100}(V_H - V_L) 
+\end{gather*}
+Lo stesso conto si fa per l'ultimo.
+
+
+\end{document}

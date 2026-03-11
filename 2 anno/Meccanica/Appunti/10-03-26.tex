@@ -1,0 +1,319 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di MEccanica}
+\author{Tommaso Miliani}
+\date{10-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Curve parametriche}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, 0) arc (120:60:1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Data una parametrizzazione $\vv{r}(t)$, si definisce il \textbf{vettore curvatura} 
+come
+\begin{gather*}
+    \vv{k} = \frac{d\hat{t}  }{ds}  \qquad \hat{t} = \frac{d\vv{r} }{ds} 
+\end{gather*}
+Si chiama \textbf{curvatura} il modulo di tale vettore. Si osserva come 
+il vettore tangente ed il vettore curvatura siano due vettori ortogonali tra di loro (infatti 
+la derivata di un versore è ortogonale al versore di partenza).
+\begin{example}[Calcolo della curvatura di un cerchio]
+    Preso un cerchio di raggio $R$
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw(-1, 0) arc (180:0:1);
+            \draw[->](-1.5, 0) -- (1.5, 0); 
+            \draw[->](0, 0) -- (0, 1.5) node[at end, left] {$\hat{y}$ };
+            \draw(0, 0) -- (0.84, 0.5) node[midway, above] {$R$};
+            \filldraw(0, 0) node[anchor = north] {$O$};
+            \filldraw(0.84, 0.5) node[anchor = west] {$A$};
+        \end{tikzpicture}
+    \end{gather*}
+    SI può esprimere, con la parametrizzazione circolare, gli angoli sul cerchio come 
+    \begin{gather*}
+        \vv{r}(\phi)  = (A - O) = R(\cos\phi \hat{x} + \sin\phi \hat{y}  )
+    \end{gather*}
+    Si può allora ottenere 
+    \begin{gather*}
+        s(\phi) = \int_{0}^{\phi} \left| \frac{d\vv{r} }{d\phi}  \right| \ \phi  \qquad \frac{d\vv{r} }{ds} =  R(-\sin\phi \hat{x} + \hat{j} \cos\phi  ) 
+    \end{gather*}
+    Allora l'integrale diventa
+    \begin{gather*}
+        s(\phi) = \int_{0}^{\phi} R \ d\phi = R\int_{0}^{\phi} d\phi = R\phi  
+    \end{gather*}
+    Per esprimere $R$ in funzione di $s$: 
+    \begin{gather*}
+        \phi = \frac{S}{R} \ \Longrightarrow \ \vv{r}(S) = R(\hat{x} \cos\frac{S}{R} + \hat{y} \sin\frac{S}{R}  ) 
+    \end{gather*}
+    Per ottenere la curvatura, si esegue la derivata seconda di $\vv{r}$ (ossia
+    di quello che si è appena trovato):
+    \begin{align*}
+        \frac{d\vv{r} }{dS} &= R\left(-\hat{i}\sin\left(\frac{S}{R}\right) \frac{1}{R} + \hat{y} \cos\left(\frac{S}{R}\right) \frac{1}{R}  \right) \\
+        \frac{d\vv{r} }{dS^{2}} &= -\hat{x}\cos\left(\frac{S}{R}\right) \frac{1}{R} + -\hat{y}\sin\left(\frac{S}{R} \right) \frac{1}{R}    = - \frac{\vv{r}(S) }{R^{2}}
+    \end{align*} 
+    Allora si ottiene la curvatura come 
+    \begin{gather*}
+        k = \left| \frac{d^{2}\vv{r} }{dS^{2}} \right|  = \frac{1}{R}
+    \end{gather*}
+\end{example}
+
+\begin{theorem}
+    Sia $r(t)$ una curva in $C^{2}(\mathbb{R})$ una curva regolare con parametro $t \in \mathbb{R}$. Si ha che
+    \begin{gather*}
+        \frac{d^{2}r}{dS^{2}} = \left(\frac{d^{2}r}{dt^{2}} - \frac{\left< \frac{d^{2}r}{dS^{2}}, \frac{d^{2}r}{dt^{2}} \right> }{\left| \frac{d^{2}r}{dt^{2}} \right|^{2} } \frac{dr}{dt}\right) \frac{1}{\left| \frac{dr}{dt} \right|^{2} }
+    \end{gather*}
+    E la \textbf{curvatura}:
+    \begin{gather*}
+        k = \frac{\left| \frac{d\vv{r} }{dt} \right| \wedge \frac{d^{2}r}{dt^{2}} }{\left| \frac{dr}{dt} \right|^{3} }
+    \end{gather*}
+\end{theorem}
+\begin{proof}
+    Si esprimere la derivata della funzione composta come
+    \begin{gather*}
+        \frac{d\vv{r} }{dS} = \frac{d\vv{r} }{dt} \frac{dt}{dS} = \frac{1}{\left|  \frac{d\vv{r} }{dt}\right| } \frac{d\vv{r} }{dt} \\
+        \frac{d^{2}r}{dS^{2}} = \frac{d}{dS} \frac{dr}{dS} = \frac{d}{dS} \left(\dot{r} \left| \dot{r}  \right|^{-1}  \right) = \frac{d}{dt} \left(\dot{r} \left| \dot{r}  \right|^{-1}  \right) \frac{dt}{dS} = \frac{1}{\left| \dot{r}  \right| } \frac{d}{dt} (\dot{r} \left| \dot{r}  \right| ^{-1}  )
+    \end{gather*}
+    DUnque
+    \begin{gather*}
+        \frac{1}{\left| \dot{r}  \right| } \left(\ddot{r} \left| \dot{r}  \right| ^{-1} + \dot{r} \frac{d}{dt}(\left| \dot{r}  \right| ^{-1} )   \right)
+    \end{gather*}
+    L'ultima derivata diventa:
+    \begin{gather*}
+        \frac{d}{dt}(\left| \dot{r}  \right| ^{-1} ) = \frac{d}{dt} (\left< \dot{r}, \dot{r}   \right> ^{-1/2} ) = - \frac{1}{2} \left< \dot{r}, \dot{r}   \right>^{-3/2} \frac{d}{dt}\left< \dot{r}, \dot{r}   \right> = -\frac{1}{2}  \left< \dot{r}, \dot{r}   \right>^{-3/2} (\left< \ddot{r}, \dot{r}   \right> + \left< \dot{r}, \ddot{r }   \right>  ) = -\left< \dot{r}, \ddot{r}   \right> \left| \dot{r}  \right|^{-3} 
+    \end{gather*}
+    Allora 
+    \begin{gather*}
+        \frac{d^{2}r}{dS^{2}}\frac{1}{\left| \dot{r}  \right| } \left(\ddot{r} \left| \dot{r}  \right| ^{-1}  - \dot{r} \frac{\left< \dot{r}, \ddot{r}   \right> }{\left| \dot{r}  \right|^3 }  \right) = \frac{1}{\left| \dot{r}  \right|^2 } \left(\ddot{r} + \dot{r} \frac{\left< \dot{r}, \ddot{r}   \right> }{\left| \dot{r}  \right|^2 }  \right)
+    \end{gather*}
+    Adesso si esegue il prodotto vettoriale a con l'espressione appena trovata
+    rispetto al vettore $\frac{d\vv{r} }{dS}$:
+    \begin{gather*}
+        \frac{d^{2}r}{ds^{2}} \wedge \frac{d\vv{r} }{ds} = \frac{1}{\left| \dot{r}  \right|^{3} }\left(\ddot{r} \wedge \dot{r}  - \frac{\left< \dot{r}, \ddot{r}   \right>}{\left| \dot{r}  \right| } \dot{r} \wedge \dot{r}   \right)
+    \end{gather*}
+    Si deve dimostrare che questa espressione sia esattamente la curvatura. Dunque si calcola il modulo 
+    dell'espressione ottenuta ora:
+    \begin{gather*}
+        \sin\left(\frac{d^{2}r}{ds^{2}} \angle \frac{dr}{ds}\right) \left| \frac{d^{2}r}{ds^{2}} \right| \left| \frac{dr}{ds} \right|  
+    \end{gather*}
+    Il primo modulo corrisponde al modulo del vettore curvatura ed il secondo è uno, dunque l'angolo tra i due è
+    90 e allora il modulo è esattamente il modulo del vettore curvatura.
+\end{proof}
+
+\begin{example}
+    Data una funzione regolare $f(x)  : \mathbb{R} \to \mathbb{R}$ che sia derivabile 
+    in tutto il suo dominio (è una curva piana).
+    \begin{gather*}
+        y = f(x) \qquad \vv{r}(x) = x\hat{x} + f(x) \hat{y}   
+    \end{gather*}
+    Si vuole determinare la curvatura di questa funzione:
+    \begin{gather*}
+        \frac{d\vv{r} }{dx} = \hat{x} + f'(x) \hat{y} \qquad \left| \frac{dr}{dx} \right| = \sqrt{1 + (f'(x))^{2}}    
+    \end{gather*}
+    La curva è regolare se è $C^{1}$ poiché l'argomento della radice è sempre positivo. La derivata seconda
+    \begin{gather*}
+        \frac{d^{2}\vv{r} }{dx^{2}} = f''(x)\hat{y} 
+    \end{gather*} 
+    Dunque la curvatura:
+    \begin{gather*}
+        k = \frac{1}{(1 + (f'(x))^{2})^{1/2}} \left| (\hat{x} + \hat{y}f(x)   ) \wedge   f''(x) \hat{y} \right|  = \frac{\left| f'(x) \right| }{(1 + (f'(x))^{2})^{1/2}}
+    \end{gather*}
+\end{example}
+
+\begin{example}
+    Determinare il vettoe
+    re tangente e la curva tangente al piano $r(1)$:
+    \begin{gather*}
+        \vv{r}(t) = (1 + t)\hat{x} - t^{2} \hat{j} + (1 + t^{3}) \hat{z} \qquad \vv{r}(1) = 2\hat{x} - \hat{y} + 2\hat{z}       
+    \end{gather*}
+    La retta tangente sarà data da:
+    \begin{gather*}
+        \vv{v}  = \vv{r}(1) + \alpha \frac{d\vv{r} }{dt} 
+    \end{gather*}
+    La quale va calcolata in $t = 1$:
+    \begin{gather*}
+        \frac{d\vv{r} }{dt} = \hat{x} - 2t\hat{y}   + 2t^{2}\hat{z} = \hat{x} - 2\hat{y} + 2\hat{z}   
+    \end{gather*}
+    Questo mi permette di ottenere la retta:
+    \begin{gather*}
+        \vv{v} =  (2\hat{x} - \hat{y} + 2\hat{z }   ) + \alpha (\hat{x} - 2\hat{y} + 2\hat{z}   )
+    \end{gather*}
+    Il vettore tangente è anche il vettore perpendicolare al piano considerato 
+\end{example}
+
+\section{Superfici in $\mathbb{R}^{3}$}
+Si studiano le proprietà fondamentali delle superfici in $\mathbb{R}^{3}$ che ci consentono di 
+studiare le \textbf{ipersuperfici}. Una superficie è una deformazione continua e 
+regolare di un pezzo di piano. Ci sono vari modi per poter definire le superfici, ma noi la si vede
+come una mappa lineare. Preso un $\mathbb{U} \subset \mathbb{R}^{2}$:
+\begin{align}
+    \phi : \mathbb{R}^{2} \to \mathbb{R}^{3}
+\end{align}
+Quindi si definisce la \textbf{superficie} $\Sigma \equiv I_m(\phi(\mathbb{U}))$. Se si volesse 
+scrivere $\phi$ in maniera esplicita, si potrebbe scrivere
+\begin{align}
+    \vv{\phi}(u_1, u_2) = \begin{pmatrix} x(u_1, u_2)  \\
+    y(u_1, u_2) \\
+    z(u_1, u_2) \end{pmatrix}   = \hat{x} x(u_1, u_2) + \hat{y} y(u_1, u_2) + \hat{z} z(u_1, u_2)   
+\end{align} 
+Si chiede inoltre che $\vv{\phi} \in C^{1}(\mathbb{U})$, in modo tale che le i-esime 
+componenti siano delle funzioni continue e derivabili. A differenza delle curve le superfici è molto difficile (il 
+passaggio da uno a due parametri è il più difficile). Per poter studiare la superficie si studiano le curve 
+che compongono la superficie: studiando le proprietà delle curve si possono ricavare 
+le proprietà della curva stessa. Preso un punto $A$ nello spazio dei parametri, 
+esso corrisponderà ad un certo punto $B$ secondo la mappa $\phi$. L'idea è dunque costrutire delle
+curve semplici che passino per $B$ (la curva più semplice è l'immagine di un vettore parallelo all'asse $x$).  \\
+Si costruisce una curva orizzontale che passa per il punto $A$ che prende il nome 
+di $\gamma(t)$ la quale è, formalmente, 
+\begin{gather*}
+    \gamma(t) = (A - O) + \hat{x}t = \begin{pmatrix} u_1 + t \\
+    u_2 \end{pmatrix} 
+\end{gather*}
+La cui curva corrispondente sulla superficie è
+\begin{gather*}
+    r(\gamma(t)) = \vv{r} (u_1 + t, u_2)  
+\end{gather*}
+Dunque, dipendendo da un solo parametro, si può ottenere la tangente a questa curva:
+\begin{gather*}
+    \frac{d\vv{r} }{dt} = \lim_{t \to 0} \frac{\vv{r}(u_1 + t, u_2) - \vv{r}(u_1 , u_2)  }{t} = \frac{\partial \vv{r} }{\partial u_1}   = \hat{x} \frac{\partial x}{\partial u_1} + \hat{y} \frac{\partial y}{\partial u_1} + \hat{z}\frac{\partial z}{\partial u_1}      
+\end{gather*}
+Ossia la derivata direzionale della funzione rispetto a $u_1$.  Si ottengono
+allora i \textbf{vettori coordinati} (o \textbf{vettori coordinate}):
+\begin{gather*}
+    \frac{\partial \vv{r} }{\partial u_1} \quad \frac{\partial \vv{r} }{\partial u_2}  
+\end{gather*}
+Che in generale non sono né ortogonali né paralleli tra loro ma possono essere vettori generici 
+di cui non si conosce bene la relazione tra loro. 
+Si vuole ora studiare il piano generato dallo span
+di $\vv{a}, \vv{b} \in \mathbb{R}^{3}$, con $\alpha, \beta \in \mathbb{R}$ si generano i seguenti vettori:
+\begin{gather*}
+    v = \alpha\vv{a} + \beta\vv{b} 
+\end{gather*}  
+Dunque una superficie può essere scritta come 
+\begin{gather*}
+    \vv{r}= u_1 \vv{a} + u_2 \vv{b}   + (x_0 \hat{x} + y_0 \hat{j} + z_0 \hat{z}   )
+\end{gather*}
+Ossia il piano che si ottiene traslato rispetto all'origine:
+\begin{gather*}
+    (P_0 - O) = x_0 \hat{x} + y_0 \hat{y} + z_0 \hat{z}   
+\end{gather*}
+Allora 
+\begin{gather*}
+    \frac{\partial \vv{r} }{\partial u_1 } = \vv{a} \qquad \frac{\partial \vv{r} }{\partial u_2} = \vv{b}    
+\end{gather*}
+
+\begin{example}[Vettori coordinati di una superficie seferica]
+    Presa una sfera di raggio $R$:
+    \begin{gather*}
+        \begin{tikzpicture}
+            \draw(0, 0) circle (1);
+        \end{tikzpicture}
+    \end{gather*}
+    Utilizzando le coordinate sferiche, si prende un generico vettore
+    parametrizzato secondo le coordinate sferiche, in modo tale che 
+    le parametrizzazioni siano $\phi \in [0, 2\pi]$, $\theta \in [0, \pi]$.
+    Preso un punto qualsiasi si hanno due possibilità: ci si può muovere o a 
+    $\theta$ costante o a $\phi$ costante. 
+    \begin{gather*}
+        x = R\sin\theta \cos\phi \\
+        y = R \sin\theta \sin\phi  \\
+        z = R\sin\theta 
+    \end{gather*}
+    Derivando rispetto a $\theta$:
+    \begin{gather*}
+        \frac{\partial \vv{r} }{\partial \theta} = R\left(\hat{x}\cos\theta \cos\phi + \hat{y}\cos\theta\sin\phi - \hat{z}\sin\theta   \right) 
+    \end{gather*}
+    Mentre la derivata rispetto a $\phi$:
+    \begin{gather*}
+        \frac{\partial \vv{r} }{\partial \phi} = R\left(-\sin\theta \sin\phi \hat{x} + \sin\theta \cos\phi \hat{y}  \right) 
+    \end{gather*}
+    I due vettori risultano ortogonali tra loro (come volevasi vedere). 
+\end{example}
+
+\section{Piano tangente (ad una superficie)}
+Il piano tangente è il prototipo di uno \textbf{spazio tangente}, 
+ossia spazi vettoriali tangenti ad altri spazi vettoriali. Il piano tangente è, 
+come lo spazio vettoriale che continene tutti i vettori tangenti ad una data superficie passanti
+per un determinato punto. Se la curva è arbitraria allora sto considerando tutti i vettori 
+che hanno questa caratteristica. 
+\begin{align}
+    \mathcal{T}_{r_0} (\Sigma) = \{ \vv{v} \in \mathbb{R}^{3} : \exists t_0 \in \mathbb{R} \ : \ \vv{\phi}(t) : \mathbb{R} \to \Sigma  \ t.c. \ v = \frac{d\vv{r}(t_0) }{dt} \ e \ \vv{r} (t_0) = r_0\}
+\end{align}
+Che non è scontato che sia spazio vettoriale.\\
+Sia $\Sigma = Im(\phi(\mathbb{U}))$ tale che $\phi :\mathbb{U} \subset \mathbb{R}^{2} \to \mathbb{R}^{3}$ e $\phi \in C^{1}(\mathbb{U})$. $\phi$ è 
+la \textbf{parametrizzazione} della superficie e si definisce \textbf{regolare} se $\phi \in C^{1}(\mathbb{U})$ e 
+\begin{gather*}
+    \frac{\partial \vv{\phi} }{\partial u_1} \qquad \frac{\partial \vv{\phi} }{\partial u_2}  
+\end{gather*}
+Sono linearmente indipendenti. Allora questa prende il nome di \textbf{parametrizzazione regolare}. Si dirà, 
+inoltre, che $\Sigma$ è regolare se ammette parametrizzazione regolare. 
+
+\begin{theorem}
+    I vettori coordinati della parametrizzazione sono linearmente indipendenti se 
+    la Jacobiana di $\phi$ ha rango massimo (2). Si ricorda che la matrice Jacobiana è
+    la matrice che 
+    \begin{gather*}
+        D_{u_1, u_2}\phi  = \begin{pmatrix}
+            \dfrac{\partial \phi_x}{\partial u_1} & \dfrac{\partial \phi_x}{\partial u_2} \\
+             \dfrac{\partial \phi_y}{\partial u_1} & \dfrac{\partial \phi_y}{\partial u_2} \\
+            \dfrac{\partial \phi_z}{\partial u_1} & \dfrac{\partial \phi_z}{\partial u_2} \\
+        \end{pmatrix} = \begin{pmatrix}
+            \frac{\partial \vv{\phi} }{\partial u_1} & \frac{\partial \vv{\phi} }{\partial u_2}  
+        \end{pmatrix}
+    \end{gather*}
+    Ossia la matriche che ha come colonne le derivate delle componenti di $\phi$ rispetto ai 
+    parametri.
+\end{theorem}
+
+\end{document}

@@ -1125,7 +1125,7 @@ una distanza per $\mathbb{X}$, allora $(\mathbb{X}, d)$ prende il nome di \textb
 
 \begin{lemma}[Equivalenza delle metriche]
     Posti $(\mathbb{X}, \alpha)$, $(\mathbb{X}, \beta)$ due spazi metrici con metriche
-    diverse $d_\alpha$ e $d:\beta$. Questi due spazi sono equivalenti se $\exists k_1, k_2 \in \mathbb{R}$ tale che
+    diverse $d_\alpha$ e $d_\beta$. Questi due spazi sono equivalenti se $\exists k_1, k_2 \in \mathbb{R}$ tale che
     \begin{gather*}
         k_1d_{\beta}(x, y) \leq d_{\alpha}(x, y) \leq k_2 d_{\beta}(x, y)
     \end{gather*}
@@ -1258,21 +1258,18 @@ l'origine, rispetto ad alcune delle norme introdotte.}
     stessa. Il quadrato rappresenta il caso limite di $p \to \infty $. 
 \end{definition}
 
-
-
 \begin{theorem}[Equivalenza delle norme su $\mathbb{R}^{n}$]
     $\forall p \in [1, +\infty]$, la funzione $\left\lVert \cdot  \right\rVert _p :\mathbb{R}^{n} \to \mathbb{R}$
     è norma di $\mathbb{R}^{n}$. Dunque tutte le norme su $\mathbb{R}^{n}$ sono equivalenti.
 \end{theorem}
 
-\subsection{Gli spazi metrici infiniti}
-\begin{example}
+\begin{example}[Esempio di equivalenza di metriche]
     Dato l'insieme $\mathbb{X} = C^{k}([a, b])$.
 \end{example}
 \begin{gather*}
-    X = C^{k}([a, b]) \qquad ||f|| _{C^{0} } = ||f||_{\infty} = \max |f(x) | \qquad f \in C^{0}([a, b]) : f[a, b] \to \mathbb{R} 
+    ||f|| _{C^{0} } = ||f||_{\infty} = \max |f(x) | \qquad f \in C^{0}([a, b]) : f[a, b] \to \mathbb{R} 
 \end{gather*}
-In questo caso la definizione che si ottiene da Weirestrass è una buona definizione e dunque la norma che induce
+$f$ continua in $[a, b]$. In questo caso la definizione che si ottiene da Weirestrass è una buona definizione e dunque la norma che induce
 \begin{gather*}
     d_{C^{0} }(f, g) = d_{\infty }(f, g) = ||f - g||_{\infty } \\
     d_{L^{1} }(f, g) = \int_{a}^{b} |f - g|\ dx 
@@ -1280,86 +1277,85 @@ In questo caso la definizione che si ottiene da Weirestrass è una buona definiz
 Sono due metriche non equivalenti sullo stesso spazio. La distanza $L_1$ è la norma dell'integrale
 del valore assoluto. Sono entrambe indotte da una norma ma non sono equivalenti. Si possono
 infatti trovare delle successioni che mi permettano di dire che non sono equivalenti.
-Manca un teorema.
 
-\section{Spazio delle funzioni da $\mathbb{R}^{2}$ a $\mathbb{R}$ }
-Un intorno di un punto su di uno spazio è diverso dall'intorno di un punto di $\mathbb{R}$
-se io considerassi lo spazio di funzioni allora sarebbe ancora più complicato. Dobbiamo allora
-fare alcuni cenni sulla topologia partendo da uno spazio metrico
-generico $(X, d)$ e andiamo a definire cosa è uno intorno generico di un punto
-in uno spazio metrico generico. 
-\begin{definition}
-    Per $x_0 \in \mathbb{X}, R > 0$ un intorno aperto di centro $x_0$ di raggio $R$  è
-    \begin{gather*}
-        B_{R} = \left\{x \in X : d(x_0, x) < R\right\} = U(x_0, R)
-    \end{gather*}
-    Si definisce invece un intorno chiuso come 
-    \begin{gather*}
-        B_{R} = \left\{x \in X : d(x_0, x) \leq R\right\}
-    \end{gather*}
+\section{Insiemi aperti e intorni generici}
+Si definisce ora, a partire da un generico spazio metrico $(\mathbb{X}, d)$, cosa si intende
+per \textbf{intorno generico} di un punto (a partire dalla definizione di Palle).
+\begin{definition}[Intorni generici in spazi metrici]
+    Dato ($\mathbb{X}, d$) uno spazio metrico generico. Per $x_0 \in \mathbb{X}$ e $r > 0, r \in \mathbb{R}$,
+    si definisce \textbf{intorno aperto} di centro $x_0$ e di raggio $r$ il seguente insieme
+    \begin{align}
+        B_r= \left\{x \in \mathbb{X} :\  d(x_0, x) < r\right\} = U(x_0, R)
+    \end{align}
+    Si definisce invece un \textbf{intorno chiuso} il seguente insieme: 
+    \begin{align}
+        B_r= \left\{x \in \mathbb{X} :\  d(x_0, x) \leq r\right\}
+    \end{align}
 \end{definition}
-\begin{definition}
-    $\mathbb{A} \leq \mathbb{X}$ è definito come insieme aperto se
-    $\forall a \in \mathbb{A}$ esiste un $R$ tale per cui
-    \begin{gather*}
-        U(x_0, R) \leq A
-    \end{gather*}
-\end{definition} 
-\begin{definition}
-    $\mathbb{D} \leq \mathbb{X}$ è un insieme chiuso se $X \backslash D$ è aperto.
+\begin{definition}[Insiemi aperti e chiusi]
+    Considerato il seguente insieme $\mathbb{A} \subseteq  \mathbb{X}$, esso prende il nome di 
+    \textbf{insieme aperto} se, $\forall a \in \mathbb{A}$, $\exists \ r$ tale che
+    \begin{align}
+        U(x_0, r) \subseteq  A
+    \end{align}
+    Invece, considerato $\mathbb{D} \subseteq \mathbb{X}$, esso si definisce \textbf{insieme chiuso} se $\mathbb{X} \backslash \mathbb{D}$ è un insieme aperto. 
 \end{definition}
-\begin{theorem}
-    SI hanno i seguenti casi a seguito della definizione:
+\begin{theorem}[Conseguenze della definizione di aperti e chiusi]
+    Si hanno i seguenti casi a seguito della definizione:
     \begin{itemize}
-        \item L'unione di insieme aperti(anche numerabili) è aperta;
-        \item L'intersezione finita di insiemi aperti (anc che numerabili) è aperta;
+        \item L'unione di insieme aperti (anche numerabili) è aperta;
+        \item L'intersezione finita di insiemi aperti (anche numerabili) è aperta;
         \item L'unione finita di insiemi chiusi (anche numerabili) è chiusa;
         \item L'intersezione di insiemi chiusi (anche numerabili) è chiusi
     \end{itemize}
 \end{theorem}
-\begin{definition}
-    $x_0 \in \mathbb{X}$ è un punto interno se $\exists R$ tale che
+
+\begin{definition}[Punto interno]
+    Dato un insieme $\mathbb{X}$, un punto $x_0 \in \mathbb{X}$ prende il nome di \textbf{interno} se $\exists r$ tale che
     \begin{gather*}
-        U (x_0, R) \leq \mathbb{X} 
+        U (x_0, r) \subseteq \mathbb{X} 
     \end{gather*}
 \end{definition}
 \begin{theorem}[Teorema di Heine-Borel ]
-    Se $\mathbb{K} \subset \mathbb{R}^{N}$ è un insieme compatto 
+    Se $\mathbb{K} \subset \mathbb{R}^{n}$ è un insieme compatto 
     allora è anche chiuso e limitato. 
 \end{theorem}
+\begin{proof}
+\end{proof}
 
-\section{Le successioni su spazi metrici generali}
-\begin{definition}
-    Consideriamo una successione $\{x_k\} \leq \mathbb{X}$  è una stringa di numeri
-    che è definita all'interno di uno spazio metrico. La successione
+\section{Le successioni su spazi metrici generali, gli spazi di Banach}
+\subsection{Successioni su spazi metrici}
+Per poter dimostrare e capire meglio le definizioni degli spazi metrici, si introducono le 
+successioni sugli spazi metrici.    
+\begin{definition}[Successioni]
+    Consideriamo una successione $\{x_k\} \subseteq \mathbb{X}$: $x_k \to x$ secondo la 
+    metrica $d$: essa è una stringa di numeri
+    definita all'interno di uno spazio metrico. La successione
     converge ad un valore $x$ se il punto limite appartiene a $\mathbb{X}$ e se
     \begin{gather*}
         \lim_{k \to \infty } d(x_k, x) = 0 
     \end{gather*}
-    E' una distanza che ha valore in $\mathbb{R}$ e questo
-    limite lo so fare.
+    E' una distanza che ha valore in $\mathbb{R}$ e questo limite esiste. Nel caso in cui questo limite
+    esiste, allora è anche \textbf{unico}.
 \end{definition}
 \begin{lemma}
-    Se $\exists$ il limite allora è unico.
-\end{lemma}
-\begin{lemma}
-    $d_{\alpha}, d_{\beta}$ sono metriche equivalenti su $\mathbb{X}$ 
-    \begin{gather*}
+    Se $d_{\alpha}, d_{\beta}$ sono metriche equivalenti su $\mathbb{X}$, allora
+    \begin{align}
         \{x_k\} \leq \mathbb{X}
-    \end{gather*}
-    Allora $x_k$ converge in $x$ rispetto alla metrica $d_{\alpha}$ così come
-    alla metrica $d_{\beta}$. Questo perché per il teorema visto sulle metriche,
-    posso mettere a panino le metriche di beta e alfa per cui se quella fuori va
-    a zero allora anche quella nel panino va a zero (così come nel teorema dei
-    carabinieri). Per questo su $\mathbb{R}^{N}$ si considera solo la metrica euclidea.  
+    \end{align}
+    Ossia $x_k$ converge in $x$ rispetto alla metrica $d_{\alpha}$ e anche rispetto alla metrica $d_{\beta}$.
+    Questa è una diretta conseguenza del teorema dell'equivalenza sugli spazi metrici: si può essenzialemente
+    chiudere la successione tra le due metriche e se quella fuori va a zero, allora 
+    anche quella dentro (così come nel teorema dei carabinieri). Per questo su $\mathbb{R}^{n}$ si considera solo la metrica euclidea.  
 \end{lemma}
 
-\begin{definition}
-    Sia $\{x_k\} \leq \mathbb{X}$ una successione di Cauchy in $(\mathbb{X}, d)$ 
-    se $\forall \epsilon > 0$ allora esisterà un $N$ tale per cui
+\begin{definition}[Successione di Cauchy su uno spazio metrico]
+    Sia ($\mathbb{X}, d)$ uno spazio metrico e $x_k$ una successione; allora
+    essa si dice \textbf{successione di Cauchy} in $(\mathbb{X}, d)$:
     \begin{gather*}
-        d(x_k, x_m) < \epsilon \qquad \forall k, m > N
+        d(x_k, x_m) = \max \left|  x_k - x_m \right| 
     \end{gather*}
+    Dove $k, m \in \mathbb{N}$ e $x \in [0, 1]$. 
 \end{definition}
 \begin{observation}
     Sia $x_k$ una successione di Cauchy, allora $x_k$ converge
@@ -1368,12 +1364,11 @@ in uno spazio metrico generico.
 \end{observation}
 \begin{example}
     Preso l'insieme $\mathbb{X} = C^{1}([a, b]) $ con la distanza $d$ la distanza
-    massima 
+    massima $d = d_{C^{0}}$:
     \begin{gather*}
-        x_k = \sqrt{x^{2} + \frac{1}{k} } x \in [0, 1]
+        x_k = \sqrt{x^{2} + \frac{1}{k} } \qquad x \in [0, 1]
     \end{gather*} 
-    Preso questo spazio di funzioni definito in questo modo, dobbiamo
-    allora provare che la successione è di Cauchy. Fissato un $\epsilon$ cerco
+    Preso questa successione, si deve provare che sia di Cauchy. Fissato un $\epsilon$ si cerca
     un $R$ per determinare una distanza massima:
     \begin{gather*}
         d(x_k, x_m) = \max  |x_k - x_m| 
@@ -1382,38 +1377,37 @@ in uno spazio metrico generico.
     \begin{gather*}
         \max \left| \sqrt{x^{2} + \frac{1}{k} } - \sqrt{x^{2} + \frac{1}{m} }  \right| 
     \end{gather*}
-    Allora posso dire che se prendessi $k$ e $m$ grandi
-    allora, fissato $\epsilon$ si ha la soluzione:
+    Allora si può vedere come, se prendessi $k$ e $m$ grandi, allora fissato $\epsilon$ si ha la soluzione:
     \begin{gather*}
         \frac{x^{2}+ \frac{1}{k} - x^{2} - \frac{1}{m}  }{\sqrt{x^{2} + \frac{1}{k} } + \sqrt{x^{2} + \frac{1}{m} }  } = \frac{1}{\sqrt{k} } - \frac{1}{\sqrt{m} } < \epsilon
     \end{gather*}
 \end{example}
 
-\section{Esempio pisel}
+\subsection{Spazi di Banach}
 
-\begin{example}
-    \begin{gather*}
-        X = C^{0}([-1, 1]) \qquad d = d_{L^{1} } \\
-        d(f, g) = \int_{-1}^{1}|f - g| \ dx \ \Longrightarrow \ \{x_k\} \leq X
-    \end{gather*}
-\end{example}
-
-\begin{definition}
-    Ogni successione di Cauchy convergente è detto spazio metrico
-    completo.
+\begin{definition}[Spazio metrico completo]
+    Lo spazio metrico $(\mathbb{X}, d)$ prende il nome di \textbf{completo} se ogni
+    successione di Cauchy è convergente.
 \end{definition}
 
-\begin{definition}
-    Se si ha uno spazio normato che è completo come spazio metrico
-    rispetto alla metrica indotta dallo spazio normato è detto \textbf{Spazio di Banach}. 
+\begin{definition}[Spazio di Banach]
+    Se $V$ è uno spazio normato con norma $\left\lVert \cdot  \right\rVert _{V}$, se
+    esso è anche completo come spazio metrico rispetto alla distanza 
+    \begin{gather*}
+        d(x, y) = \left\lVert x - y \right\rVert _{V}
+    \end{gather*} 
+    Indotta dalla norma $\left\lVert \cdot  \right\rVert  _{V}$, allora
+    si dice che $V$ è uno \textbf{Spazio di Banach}. 
 \end{definition}
 
 \begin{observation}
-    $C^{1}([a, b]); d_{C^{1} }$ non è completo. \\
-    $C^{0}([a, b]); d_{C^{1} }$ non è completo.  
-\end{observation}
-
-Alcune proprietà degli spazi di Banach
+    Lo spazio $C^{1}([a, b])$ con norma $\left\lVert \cdot  \right\rVert _{C^{1}}$ è completo. \\
+    Lo spazio $C^{0}([a, b])$ con norma $\left\lVert \cdot  \right\rVert _{C^{\infty }}$  è completo.  \\
+    Lo spazio $C^{1}([a, b])$ con norma $\left\lVert  \cdot \right\rVert _{\infty }$ non è completo.  \\
+    Lo spazio $C^{1}([a, b])$ con norma $\left\lVert \cdot  \right\rVert _{C^{0}}$ non è completo. \\
+    Lo spazio $C^{0}([a, b])$ con norma $\left\lVert \cdot  \right\rVert _{C^{1}}$ non è completo.
+\end{observation} \noindent
+Si elencano qui alcune proprietà degli spazi di Banach:
 \begin{observation}
     Consideriamo uno spazio metrico ed una successione che converge in un
     punto $x_0 \in \mathbb{X}$, allora posso dire che il punto limite
@@ -1423,76 +1417,79 @@ Alcune proprietà degli spazi di Banach
 \end{observation}
 
 \begin{observation}
-    Se $(\mathbb{X}, d)$ è uno spazio metrico completo ed un suo sottoinsieme
-    $B$ è chiuso allora $(B, d)$ è uno spazio metrico completo. 
+    Se $(\mathbb{X}, d)$ è uno spazio metrico completo e
+    $\mathbb{B} \subset \mathbb{X}$ è chiuso allora $(\mathbb{B}, d)$ è uno spazio metrico completo. 
 \end{observation}
 
-\begin{definition}
-    Prendiamo due spazi metrici ognuno con una sua distanza definita come
+\begin{definition}[Funzione Lipschitziana, contrazione]
+    Prendiamo due spazi metrici ognuno con una sua distanza definita ed una funzione:
     \begin{gather*}
-        (\mathbb{X}, d_{X}) \qquad (\mathbb{Y}, d_{Y}) \qquad f: \mathbb{X} \to \mathbb{Y}
+        (\mathbb{X}, d_{\mathbb{X}}) \qquad (\mathbb{Y}, d_{\mathbb{Y}}) \qquad f: \mathbb{X} \to \mathbb{Y}
     \end{gather*}
+    Allora si dirà che:
     \begin{itemize}
+        \item $f$ è \textbf{Lipschitziana} se $\exists L > 0$ tale che: 
+        \begin{align}
+            d_\mathbb{Y}(f(x), f(y)) \leq L d_\mathbb{X}(x, y) \qquad \forall x, y \in \mathbb{X}
+        \end{align}
+        Si vede che, se $f$ è Lipschitziana, allora è anche continua in $\mathbb{X}$.
         \item $f$ è continua in un punto $x_0 \in \mathbb{X}$ se $\forall \{x_k\} \subseteq \mathbb{X} : x_n \to x_0$
-    si ha che $\{f(x_n)\} \subseteq \mathbb{Y}$ converge a $f(x_0)$ in $(\mathbb{Y}, d_Y)$ .
-        \item $f$ è Lipszitchiana se $\exists L > 0$ tale che $d_Y(f(x), f(y)) \leq L d_X(x, y)$.
-        \item $f$ si dice \textbf{contrazione} se Lipszitchiana con $L < 1$. 
+        si ha che $\{f(x_n)\} \subseteq \mathbb{Y}$ converge a $f(x_0)$ nello spazio metrico $(\mathbb{Y}, d_\mathbb{Y})$.
+        \item $f$ si dice \textbf{contrazione} se è una funzione Lipschitziana con $L < 1$. 
     \end{itemize} 
 \end{definition}
-
 \begin{proof}
-    Dimostrazione che se una funzione è Lipszitchiana allora è anche
+    Si dimostra ora che se una funzione è Lipschitziana, allora è anche
     continua. \\
-    Sia $x_0 \in \mathbb{X}$ considero allora una successione $\{x_k\} \subseteq \mathbb{X}$ tale che
-    $x_n \to x_0 \in (\mathbb{X}, d)$ ossia $d(x_n, x_0) \in \mathbb{R} \to 0$. Considero allora 
+    Sia $x_0 \in \mathbb{X}$. Si considera una successione $\{x_k\} \subseteq \mathbb{X}$ tale che
+    $x_n \to x_0 \in (\mathbb{X}, d)$ ossia $d(x_n, x_0) \in \mathbb{R} \to 0$. Si considera allora la seguente 
+    disuguaglianza 
     \begin{gather*}
-        0 \leq d_Y(f(x_n), f(x_0)) \leq L d_X(x_n, x_0) \ \Longrightarrow \ d_Y(f(x_n), f(x_0)) \to 0
+        0 \leq d_\mathbb{Y}(f(x_n), f(x_0)) \leq L d_\mathbb{X}(x_n, x_0) \ \Longrightarrow \ d_\mathbb{Y}(f(x_n), f(x_0)) \to 0
     \end{gather*} 
     Ossia
     \begin{gather*}
-        f(x_n) \to f(x_0) \in (\mathbb{Y}, d_Y)
+        f(x_n) \to f(x_0) \in (\mathbb{Y}, d_\mathbb{Y})
     \end{gather*}
-    E quindi $f$ è continua in $x_0$. Se e solo se l'insieme è ordinato allora posso dire
-    che quest dimostrazione è valida. 
+    E quindi $f$ è continua in $x_0$. Che vale se e solo se l'insieme è ordinato. 
 \end{proof}
 
 \begin{theorem}[Teorema di contrazione]
     Il teorema di contrazione (o Teorema di Banach-Caccioppoli) parte da uno spazio
     metrico completo. Considerata $f$ una applicazione da $\mathbb{X}$ in sé stessa,
-    allora esiste ed è unico un punto $\overline{x} \in \mathbb{X}$ detto punto
-    fisso tale che $f(\overline{x} ) = \overline{x}$.   
+    allora esiste ed è unico un punto $\overline{x} \in \mathbb{X}$ detto \textbf{punto
+    fisso}, tale che $f(\overline{x} ) = \overline{x}$.   
 \end{theorem}
 \begin{proof}
     La dimostrazione costruisce analiticamente il punto $\overline{x}$ andando a costruire
-    una successione di punti così definita:
+    una successione di punti $x_k$ così definita:
     \begin{gather*}
-        x_1 = f(x_0) \qquad x_2 = f(x_1) \dots
+        x_1 = f(x_0), \ \dots \ x_{k + 1} = f(x_k), \ \dots
     \end{gather*} 
-    L'elemento $k + 1$ esimo è l'immagine dell'elemento $k$ esimo. Posso
-    allora affermare che la successione $x_k$ è di Cauchy in $(\mathbb{X}, d)$
-    secondo la seguente dimostrazione: prima di tutto stimo la distanza tra
+    L'elemento $k + 1$ esimo è l'immagine dell'elemento $k$ esimo. Si può dimostrare
+    come $x_k$ sia di Cauchy in $(\mathbb{X}, d)$: si stima la distanza tra
     l'elemento $k +1$ e l'elemento $k$ esimo della successione. Per come è
-    stata definita la succession $x_{k + 1} = f(x_k) = f(x_{k - 1})$ ossia è come
-    scrivere la distanza tra $f(x_k)$ e $f(x_{k - 1})$ . Dato che
-    $f$ è una contrazione:
+    stata definita la successione
+    \begin{gather*}
+        d(x_{k + 1}, x_k) = d(f(x_k ), f(x_{k - 1})) \leq Ld(x_k, x_{k - 1})
+    \end{gather*}
+    Dato che è una contrazione, allora la distanza fra le immagini minore della distanza tra due 
+    punti e dunque vale quello che si è scritto:
     \begin{gather*}
         d(f(x_k), f(x_{k - 1})) \leq Ld(x_k, x_{k - 1})
     \end{gather*}
-    Date la definizione della successione, allora si ha che
+    Data la definizione della successione, allora 
     \begin{gather*}
-        d(f(x_k), f(x_{k - 1})) \leq Ld(f(x_{k - 1}), f(x_{k - 2})) \leq L^{2}d(x_{k - 1}, x_{k - 2}) 
+        d(f(x_k), f(x_{k - 1})) = Ld(f(x_{k - 1}), f(x_{k - 2})) \leq L^{2}d(x_{k - 1}, x_{k - 2}) \leq \dots \leq L^{k} d(x_1, x_0)= L^{k}(x_0, f(x_0)) 
     \end{gather*}
-    Se si procede applicando questo algoritmo recursivamente allora 
-    si otterrebbe che $\dots \leq L^{k}d(x_1, x_0) = L^{k} d(x_0, f(x_0))  $. IN questo modo
-    la funzione distanza dipende solo ed esclusivamente dal punto $x_0$. Adesso
-    voglio dimostrare che questa successione sia di Cauchy. Prendo $m > n$ con $m = n + p$
-    e quindi considero la distanza tra
+    Così la funzione distanza dipende solo ed esclusivamente dal punto $x_0$. Adesso
+    si vuole dimostrare che questa successione sia di Cauchy. Prendo $m > n$ con $m = n + p$:
     \begin{gather*}
         d(x_m, x_n) = d(x_{n + p}, x_n)
     \end{gather*} 
-    Posso allora valutare la distanza di tutti gli elementi fino a $n + 1$ fino a
-    $n + p$; dato che posso valutare solo la distanza tra elementi consecutivi allora utilizzo
-    la disuguaglianza triangolare. 
+    Si valuta la distanza di tutti gli elementi fino a $n + 1$ e fino a $n + p$.
+    Allora, dato che si può valutare la distanza tra elementi consecutivi, si utilizza la 
+    disuguaglianza triangolare: 
     \begin{gather*}
         d(x_{n + p}, x_n) \leq d(x_{n + p}, x_{n + p -1}) + \dots + d(x_{n + 1}, x_n) \leq \\
         d(x_0, f(x_0)) \left(L^{n + p - 1} + L^{n + p - 2}+ \dots + L^{n}   \right) = d(x_0, f(x_0)) \left(\frac{L^{n} - L^{n + p}  }{1 - L}\right) = \\
@@ -1501,11 +1498,11 @@ Alcune proprietà degli spazi di Banach
     L'ultimo passaggio è valido in quanto $L < 1$ e dunque la frazione è minore di $\frac{1}{1 - L}$. 
     Dato che la distanza mi tende a zero 
     \begin{gather*}
-        \forall \epsilon > 0 \ \exists N : m, n > 0  \ \Longrightarrow \ d(x_m, x_n) < \epsilon 
+        \forall \epsilon > 0 \ \exists N : m, n > N  \ \Longrightarrow \ d(x_m, x_n) < \epsilon 
     \end{gather*}
     E quindi la succession $\{x_k\}$ è di Cauchy. Non resta che dimostrare
-    la tesi del teorema. SI osserva che $f$ è una contrazione e dunque è
-    Lipszitchiana e dunque è continua. Allora
+    la tesi del teorema. Si osserva che $f$ è una contrazione e dunque è
+    Lipschitziana e dunque è continua. Allora
     \begin{gather*}
         f(x_k) \to f(\overline{x} )
     \end{gather*}
@@ -1521,13 +1518,192 @@ Alcune proprietà degli spazi di Banach
     \begin{gather*}
         d(\overline{x}, \overline{y}  ) \leq d(f(\overline{x}, f(\overline{y})  )) \leq L d(\overline{x}, \overline{y}  )
     \end{gather*}     
-    Avrei allora che la distanza tra due elemenit è minore o uguale della loro distnza e dunque
+    Avrei allora che la distanza tra due elementi è minore o uguale della loro distnza e dunque
     se $d(\overline{x}, \overline{y}  ) \neq 0$ sarebbe assurdo
     $\ \Longrightarrow \ d(\overline{x}, \overline{y}  ) = 0$. 
 \end{proof}
 
+\section{Dimostrazione teorema di esistenza ed unicità di Cauchy locale}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (5, 0) node[at end, below] {$x$};
+        \draw[->](0, 0) -- (0, 3) node[at end, left] {$y$};
+        \draw(0.5, 0.1) -- (0.5, -0.1) node[at end, below] {$x_0 - a$};
+        \draw(4.5, 0.1) -- (4.5, -0.1) node[at end, below] {$x_0 + a$};
+        \draw(1.5, 0.1) -- (1.5, -0.1) node[at end, below] {$x_0 - \delta$};
+        \draw(3.5, 0.1) -- (3.5, -0.1) node[at end, below] {$x_0 + \delta$};
+        \draw(2.5, 0.1) -- (2.5, -0.1) node[at end, below] {$x_0$};
+        \draw(0.1, 0.5) -- (-0.1, 0.5) node[at end, left] {$y_0 - b$};
+        \draw(0.1, 2.5) -- (-0.1, 2.5) node[at end, left] {$y_0 + b$};
+        \draw(0.1, 1.5) -- (-0.1, 1.5) node[at end, left] {$y_0$};
+        \filldraw(2.5, 1.5) circle (1pt);
+        \draw[red] (0.5, 0.5) rectangle (4.5, 2.5); 
+        \draw[cyan](1.5, 0.5) rectangle (3.5, 2.5);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si dimostra il teorema di esistenza ed unicità di Cauchy Locale:
+\begin{theorem}[Teorema di esistenza ed unicità locale di Cauchy]
+    Si consideri il problema di Cauchy
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            y' = f(x, y) \\
+            y(x_0) = y_0 
+        \end{array}\right. \qquad 
+        \begin{array}{l}
+            f: \mathbb{I} \times \mathbb{J} \to \mathbb{R} \\
+            f \in C^{0}(\mathbb{I} \times \mathbb{J}) \\
+            f \text{ lineare in } y
+        \end{array}
+    \end{gather*}
+    Con $\mathbb{I} = [x_0 - a, x_0 + a]$ e $\mathbb{J} = [y_0 - b, y_0 + b]$. Allora 
+    $\exists L > 0:$
+    \begin{gather*}
+        \left| f(x, y_1)  - f(x, y_2)\right| \leq L\left| y_1 - y_2 \right|
+    \end{gather*}
+    $\forall x \in \mathbb{I}$ e $\forall y_1, y_2 \in \mathbb{J}$. \\
+    Allora $\exists \delta > 0, \exists! y = y(x) : y :\mathbb{I}_\delta \to \mathbb{R}$, dove
+    $\mathbb{I}_\delta = [x_0 - \delta, x_0 + \delta]$, allora
+    \begin{itemize}
+        \item $y$ derivaile in $\mathbb{I}_\delta$ $\Longleftrightarrow$ $y \in C^{0}(\mathbb{I}_\delta)$;
+        \item $y$ risolve il problema di Cauchy in $\mathbb{I}_\delta$ $\Longleftrightarrow $ $y(x) = y_0 + \int_{x_0}^{x} f(t, y(t))\ dt$, $\forall x \in \mathbb{I}_\delta$. 
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+    Definito $M = \max \left| f(x, y) \right|$ nell'insieme $\mathbb{I} \times \mathbb{J}$ e $\delta < \min\{a, \frac{b}{M}, \frac{1}{L}\}$.
+    Se si definisce $B$ come l'insieme delle funzioni continue $C^{0}$ tali che hanno la norma
+    del sup della differenza:
+    \begin{gather*}
+        \mathbb{B} = \{u(x) \in C^{0}(\mathbb{I}_\delta) : ||u - y_0||_{C^{0} (\mathbb{I}_\delta) } \leq b\}
+    \end{gather*} 
+    Si osserva che $\mathbb{B}$ è sottoinsieme dell'insieme $C^{0}$ e dunque è una palla chiusa e allora
+    $(\mathbb{B}, || \cdot ||_{C^{0} })$ è uno spazio di Banach perché è un sottoinsieme chiuso dello
+    spazio normato completo $(C^{0}(\mathbb{I}_\delta),||\cdot ||_{C^{0} } )$. Si definisce
+    \begin{gather*}
+        F : \mathbb{B} \to C^{0}(\mathbb{I}_\delta) \qquad F(u) = z \qquad z(x) = y_0 + \int_{x_0}^{x} f(t, u(t))dt \qquad \forall x \in \mathbb{I}_\delta 
+    \end{gather*}
+    Vogliamo provare ora che  $Im \ F \subseteq \mathbb{B}$: infatti, applicando la definizione di
+    $F$, e posto $u \in \mathbb{B}$, si può dire che $F(u) \in C^{0}(\mathbb{I}_\delta)$, infatti:
+    \begin{gather*}
+        |F(u) - y_0| = |z(x) - y_0| \leq \left| \int_{x_0}^{x} \left| f(t, u(t)) \right| \ dt  \right|  
+    \end{gather*}
+    Si osserva che $\forall x \in \mathbb{I}_\delta$ si ha che $t \in [x_0, x] \subseteq \mathbb{I}$, con $u(t) \in \mathbb{J}$:
+    \begin{gather*}
+        ||u - y_0||_{C^{0} } \leq b  \ \Longrightarrow \ \left| u(x) - y_0 \right| \leq b \qquad \forall x \in \mathbb{I}_\delta 
+    \end{gather*}
+    Allora si ha che
+    \begin{gather*}
+        (t, u(t)) \in \mathbb{I} \times \mathbb{J} \ \Longrightarrow \ |f(t, u(t))| \leq M \leq M|x_0 - x| \leq M \delta \qquad x \in \mathbb{I}_\delta
+    \end{gather*}
+    Dato che avevo scelto $\delta$ più piccolo sicuramente di $\frac{b}{M}$, allora posso dire che
+    quella espressione è $\leq b$: ho dimostrato allora che $\forall x \in \mathbb{I}_\delta$ $f(u, u(t)) \leq b$ anche se non mi basta
+    per dire che le immagini sono contenute in $\mathbb{B}$. Quindi posso dire che
+    \begin{gather*}
+        \max  |F(u) - y_0| \leq b \ \Longrightarrow \ ||F(u) - y_0||_{C^{0}} \leq b \ \Longrightarrow \ F(u) \subseteq \mathbb{B}
+    \end{gather*} 
+    L'idea è dimostrare ora che questa funzione $F$ ha un punto fisso attraverso il
+    teorema delle contrazioni: si considera ora il valore assoluto tra le funzioni:
+    \begin{gather*}
+        |F(y_1) - F(y_2)| \leq \left| \int_{x_0}^{x}\left|f(t, y_1(t))  - f(t, y_2(t))\right| \ dt\right| 
+    \end{gather*}
+    Posso allora maggiorare l'integrale seconodo la definizione di funzione Lipszitchiana poiché
+    valgono le ipotesi del teorema:
+    \begin{gather*}
+        \leq L|x - x_0| \ ||y_1 - y_2||_{C^{0}(\mathbb{I}_\delta) } \leq L\delta ||y_1 - y_2||_{C^{0}(\mathbb{I}_\delta) }
+    \end{gather*}
+    Quindi posso dire che l'immagine di
+    \begin{gather*}
+        ||F(y_1) - F(y_2)||_{C^{0}(\mathbb{I}_\delta) } = \max \left| F(y_1) - F(y_2) \right| \leq L\delta ||y_1 - y_2||_{C^{0}(\mathbb{I}_\delta) } 
+    \end{gather*}
+    allora per definizione, dato che delta è stato preso più piccolo di $M$, ho dimostrato che
+    è Lipszitchiana e quindi anche una contrazione. 
+    Allora posso dire che
+    \begin{gather*}
+        F: \mathbb{B} \to \mathbb{B}, (\mathbb{B}, ||\cdot ||_{C^{0}(\mathbb{I}_\delta) })
+    \end{gather*}
+    UNo spazio completo e con $F$ contrazione rispetto a $||\cdot ||_{C^{0}(\mathbb{I}_\delta) }$ allora per il teorema
+    delle contrazioni esiste una unica soluzione del problema di Cauchy nella forma integrale:
+    \begin{gather*}
+        y = y(x) : F(y) = y \ \Longrightarrow \ y(x) = y_0 + \int_{x_0}^{x}f(t, y(t))\ dt
+    \end{gather*}
+    Cioè $y$ risolve il teorema di Cauchy integrale.
+\end{proof}
+
+
 
 \chapter{Funzioni a due variabili}
+In questo corso ci si concentra solo sulle funzioni a due variabili anche
+se i procedimenti da applicare nel caso di più variabili sono gli stessi per
+le funzioni a due variabili. Nel caso di funzioni a due variabili cambiano
+molto le proprietà delle funzioni ed i loro teoremi rispetto alle loro
+controparti ad una variabile sola.  
+\section{Prime definizioni}
+\begin{definition}[Insieme aperto in $\mathbb{R }^{2}$]
+    Si definisce $\mathbb{A} \subseteq \mathbb{R}^{2}$ un 
+    \textbf{aperto} se  $\forall (x_0, y_0) \in \mathbb{A}, \  \exists R > 0$ tale che
+\begin{gather*}
+    B_R (x_0, y_0) = \{(x, y) \in \mathbb{R}^{2} : ||(x, y) - (x_0, y_0)||_{\epsilon} < R \} \subseteq  \mathbb{A}
+\end{gather*}
+\end{definition}
+\begin{definition}[Insieme chiuso in $\mathbb{R}^{2}$]
+    Posto $\mathbb{E} \subseteq \mathbb{R}^{2}$ 
+    dove $\overline{E}$ è il più più piccolo chiuso in $\supseteq E$ (ossia la chiusura di $E$)
+    e dove $ \dot{E}$ è il più grande aperto $\subseteq E$ ( interno). 
+\end{definition}
+\begin{definition}[Dominio su $\mathbb{R}^{2}$ ]
+    $D$ è un dominio se $D = \overline{A}$ con $A$ insieme aperto e
+    \begin{gather*}
+        D =\dot{D} \cup \ni D
+    \end{gather*} 
+\end{definition}
+I grafici di una funzione a più variabili si chiama \textbf{superficie}. 
+\begin{example}[esercizio tipo in una funzione a due variabili]
+    \begin{gather*}
+        f(x, y) = \ln(1 - x^{2} - y^{2}  )
+    \end{gather*}
+    \begin{itemize}
+        \item Determinare il dominio naturale
+        \item Descrivere le linee di livello 
+        \item Trovare $\min/\max $ di $f$ su di un insieme $Q$
+        \begin{gather*}
+            Q = \{|x| \leq \frac{1}{2}, |y| \leq \frac{1}{2}\}
+        \end{gather*}
+    \end{itemize}
+    Il dominio naturale della funzion sarà dato da:
+    \begin{gather*}
+        D = \{(x, y) \in \mathbb{R}^{2} : 1 - x^{2} - y^{2} > 0   \} \ \Longrightarrow \  D= \{(x ,y) \in \mathbb{R}^{2} : x^{2} + y^{2} < 1   \}
+    \end{gather*}
+    Ossia la circonferenza di raggio uno centrata sull'origine.
+\end{example}
+POsso ora definire le linee di livello come
+\begin{gather*}
+    f(x, y) = t = \ln(1 - x^{2} - y^{2}  ) \ \Longrightarrow \ e^{t} = 1 - x^{2} - y^{2}.   
+\end{gather*}
+OSsia
+\begin{gather*}
+    \left\{\begin{array}{l}
+        (x, y) \in D \\
+        x^{2} + y^{2} = 1 - e^{t}   
+    \end{array}\right.
+\end{gather*}
+\begin{itemize}
+    \item $t > 0 \ \Longrightarrow \ U_t = \emptyset$;
+    \item $t = 0 \ \Longrightarrow \ U_t = \{(0, 0)\}$;
+    \item $t < 0 \ \Longrightarrow \ U_t$ è una circonferenza di raggio $R = \sqrt{1 - e^{t} }$. 
+\end{itemize}
+Nel limite in cui $t$ tende a meno infinito allora si ottiene la circonferenza di
+raggio $1$ e quindi $U_t$ coinciderà con l'insieme del
+$\ni D$. Si possono trovare ora il minimo ed il massimo della funzione nell'insieme $Q$ 
+
+\section{Limiti di funzioni in due variabili}
+I limiti in due funzioni funzionano in maniera simile ai limiti in una variaabile 
+\begin{align}
+    \lim_{(x, y) \to (x_0, y_0)}f(x, y) = L  
+\end{align}
+Per cui la metrica
+\begin{gather*}
+    ||(x, y) - (x_0, y_0)|| \to 0 \Longleftrightarrow |f(x_0), L | \to 0
+\end{gather*}
 
 
 

@@ -1,0 +1,394 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fisica II}
+\author{Tommaso Miliani}
+\date{09-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Conduttore in statica}
+Per noi i conduttori sono dei materiali in cui esistono un numero illimitato
+di cariche che comporta che la forza tra le cariche sia nulla: il campo interno ad un conduttore,
+qualsiasi forma abbia, è nullo. Questo vuol dire anche che il conduttore è un 
+volume equipotenziale: se il potenziale variasse, allora si avrebbe campo. All'interno 
+del quale la densità di carica è nulla: le cariche positive sono fisse mentre quelle 
+negative sono libere di muoversi, facendo sì che per ogni volumetto 
+la carica totale sia nulla, anche se sulla superficie esiste una certa densità di carica.
+\section{Capacità di un conduttore}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il conduttore sferico}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (1);
+        \draw(0, 0) -- (0.5, 0.83) node[midway, left] {$R$};
+        \node at (0.7, -1) {$Q$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Considerata una sfera conduttrice sulla cui superficie esterna si ha 
+un eccesso di carica positiva (per cui si può estrarre degli elettroni 
+dal conduttore). Se il problema è a simmetria sferica $\sigma$ non dipende
+né da $\phi$ né da $\theta$, dunque per una sfera di raggio $R$: 
+\begin{gather*}
+    \sigma = \frac{Q}{4\pi R^{2}}
+\end{gather*}
+Allora il campo elettrico della sfera, data la simmetria del problema:
+\begin{gather*}
+    \vv{E}(r, \theta, \phi) = E_r(r) \hat{r} \ \Longrightarrow \ E_r = \left\{\begin{array}{l}
+        0 \qquad\quad r < R \\
+        \dfrac{q}{4\pi\epsilon_0 r^{2}} \ r > R
+    \end{array}\right.
+\end{gather*}
+Sulla superficie della sfera il campo elettrico è discontinuo, sulla superficie di 
+un conduttore di qualunque forama si torna al teorema di Coulomb per cui 
+\begin{gather*}
+    E_r = \frac{\sigma}{\epsilon_0} \qquad r = R
+\end{gather*}
+Per poter arrivare al concetto di Capacità di deve osservare il potenziale del conduttore 
+all'infinito. In generale si può esprimere il potenziale come 
+\begin{gather*}
+    V(\infty ) - V(R) = -\int_{R}^{\infty } \vv{E} \cdot \vv{dr} = -\frac{Q}{4\pi\epsilon_0} \int_{R}^{\infty } \frac{1}{r^{2}} dr = -\frac{Q}{4\pi\epsilon_0} \frac{1}{R}
+\end{gather*}
+Utilizzando la convenzione secondo la quale $V(\infty ) = 0$, si ottiene che il potenziale 
+della sfera è esattamente dato da
+\begin{align}
+    V(R) = \frac{Q}{4\pi\epsilon_0 R} \equiv \frac{Q}{\mathcal{C}} \ \Longrightarrow \ \mathcal{C} = 4\pi\epsilon_0 R
+\end{align}
+La cui unità di misura è "Farad", ossia Coulomb su metro.
+\begin{example}
+    Una sfera metallica di raggio un metro ha una 
+capacità di $10^{-10}$ F, per cui se la si portasse a $10^{2}$ V, essa avrebbe solo $10^{-8}$ Coulomb. Nonostante
+non sia molta carica, si avrebbe una forza pari a
+\begin{gather*}
+    F = \frac{1}{4\pi\epsilon_0} \frac{q^{2}}{R^{2}} = 10^{-2} N
+\end{gather*}
+Ossia una forza molto piccola. I metalli non hanno una grande capacità: il problema è accumulare tanta 
+carica su di un dispositivo in modo tale che non abbia una differenza di potenziale troppo alto.
+\end{example} 
+
+\section{Gli accumulatori di carica: i condensatori}
+\subsection{Condensatori sferici}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{Il condensatore sferico con la sfera esterna messa a terra.}
+    \begin{tikzpicture}
+        \draw(0, 0) circle (1);
+        \draw(0, 0) circle (1.45);
+        \draw(0, 0) circle (1.5);
+        \draw(0, 0) -- (1, 0) node[midway, above] {$R_1$};
+        \draw(0, 0) -- (0, 1.5) node[midway, right] {$R_2$};
+        \node at (0, -1.2) {$Q$};
+        \node at (1.3, 1.3) {$-Q$}; 
+        \draw(1.5, 0) -- (1.7, 0) -- (1.7, -1);
+        \draw(1.6, -1) -- (1.8, -1);
+        \draw(1.6, -1.1) -- (1.8, -1.1);
+        \draw(1.6, -1.2) -- (1.8, -1.2);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Si deve poter trovare un dispositivo che permetta di accumulare su di esso tanta carica 
+ma che non abbia una differenza di potenziale troppo grande. Per poter aumentare la capacità 
+di un oggetto che accumula carica è diminuire l'area dell'integrale del campo elettrico
+del dispositivo. Un modo per farlo è potare lo zero del campo molto vicino alla superficie della sfera.
+Per farlo si potrebbe mettere un'altra sfera intorno alla sfera iniziale 
+di raggio $R_2 > R$ anche se si dovrebbe portarla a potenziale nullo (per esempio caricandola con $-Q$). 
+Si sfrutta dunque il principio dell'\textbf{induzione elettrostatica}: dal punto di vista tecnico non ci si preoccupa 
+di trovare un altro generaetore di carica e di potrare la sfera esterna a carica $-Q$, ma si effettua la 
+\textbf{messa a terra}: dentro alla sfera esterna si ha campo non nullo e degli elettroni
+fluiscano dalla Terra per annullare il campo generato dalla sfera interna. Il fenomeno dell'induzione elettrostatica 
+dice che la sfera esterna e la Terra hanno lo stesso potenziale (neutre). In questo modo le cariche esterna eguagliano 
+in modulo quelle interne: il campo elettrico si ha dunque solo all'esterno per il teorema di 
+Gauss e si è realizzato un \textbf{condensatore}. Le due sfere prendono il nome di \textbf{armature} 
+del condensatore e presenta. Allora il pontenziale diventa 
+\begin{gather*}
+    V(R_2) - V(R_1) = - \int_{R_1}^{R_2} E dr = - \frac{Q}{4\pi\epsilon_0} \left(\frac{1}{R_1} - \frac{1}{R_2}\right) 
+\end{gather*}
+Il valore specifico di una o l'altra armatura non è rilevante ma si può solo determinare la differenza di pontenziale 
+tra di esse. Nel condensatore si può dunque scrivere
+\begin{gather*}
+    \Delta V = \frac{Q}{\mathcal{C}} \ \Longrightarrow \ \mathcal{C} = \frac{4\pi\epsilon_0}{R_2 - R_1}(R_1R_2) 
+\end{gather*}
+Nel limite in cui $R_1, R_2 >> R_2 - R_1$, (ossia nel limite di una piccola separazione tra le sfere),
+si può chiamare $R_2 - R_1 = \delta$.  Dunque 
+\begin{gather*}
+    \mathcal{C} = 4\pi\epsilon_0R\frac{R}{\delta}
+\end{gather*}
+
+\subsection{Il condensatore a facce piane}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw(0, -2) -- (0, 2) node[at end, left] {$Q$};
+        \draw(2, -2) -- (2, 2) node[at end, above] {$V = 0$};
+    \end{tikzpicture}    
+\end{wrapfigure}
+Utilizzare un condensatore sferico è inutilizzabile a livello pratico (anche
+se è perfetto poiché permette di ottenere l'\textbf{induzione completa}) 
+poiché si devono collegare entrambe le sfere del condensatore per poter usare la sua 
+carica. Supponendo di avere due piani infiniti sui quali uno c'è carica $Q$, mentre l'altro 
+è messo a masssa. Il teorema di unicità mi permette di definire il potenziale 
+della faccia messa a terra (è nullo). Applicando Poisson si dimostra che il potenziale 
+sulla faccia messa a terra è nulla (nel limite in cui i piani siano infiniti). Se i piani sono 
+infiniti però si ha \textbf{induzione completa} e dunque il potenziale fuori dai 
+piani è nullo. La carica che risiede sul piano messo a terra è esattamente $-Q$. \\
+Il campo elettrico del primo piano che si trova a $x = 0$ è dato da
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (5, 0);
+        \draw(0, -1) -- (2.5, -1) -- (2.5, 1) -- (5, 1);
+        \node at (-0.5, -1) {$-\dfrac{\sigma}{2\epsilon_0}$};
+        \node at (5.3, 1) {$\dfrac{\sigma}{2\epsilon_0}$};
+    \end{tikzpicture}
+\end{gather*}
+Il secondo piano ha un campo che invece è dato da
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw(0, 0) -- (5, 0);
+        \draw(0, 1) -- (2.5, 1) -- (2.5, -1) -- (5, -1);
+        \node at (5.5, -1) {$-\dfrac{\sigma}{2\epsilon_0}$};
+        \node at (-0.5, 1) {$\dfrac{\sigma}{2\epsilon_0}$};
+    \end{tikzpicture}
+\end{gather*} 
+Sommando i due campi si ha che
+\begin{align*}
+        x > d \ \Longrightarrow& \ E = 0 \\
+        x < 0 \ \Longrightarrow& \ E = 0 \\
+        0 < x < d \ \Longrightarrow& \ E = \frac{\sigma}{\epsilon_0}
+\end{align*}
+La differenza di potenziale invece è data dalla seguente
+\begin{gather*}
+    \Delta V = \frac{\sigma}{\epsilon_0} d = \frac{Q}{\epsilon_0 S} d = \frac{Q}{\mathcal{C}} \ \Longrightarrow \ \mathcal{C} = \frac{\epsilon_0 S}{d}
+\end{gather*}
+
+\section{Schermo elettrostatico}
+Supponendo di avere un conduttore con forma qualunque e supponendo di avere delle
+cariche all'esterno. Quello che si sa dei conduttori è che la carica si distribuisce
+sulla superficie e, all'equilibrio si deve avere che il campo interno è nullo. La
+$\sigma$ che si distribuisce sul conduttore non sarà la stessa ed il suo integrale
+è nullo poiché il conduttore è neutro e dunque prende il nome di \textbf{condizione di neutralità 
+del conduttore}. Supponendo ora che il conduttore abbia una cavita all'interno di esso,
+le stessa cariche esterne, sulla superficie esterne si distribuiscono le cariche 
+con una certa distribuzione $\sigma$ in modo tale da avere carica nulla. All'interno 
+della cavità invece, non avendo cariche $\rho = 0$, $\nabla^{2} V = 0$ e inoltre, il bordo 
+della cavità, essendo metallico ed essendo in statica, avrò un potenziale ben definito e costante. 
+Utilizzando il teorema di unicità, si può dire che  il potenziale (soddisfacendo 
+la condizione di Poisson) ha espressione:
+\begin{gather*}
+    V(r) = V_S
+\end{gather*}
+Questo vuol dire due cose: la cavità è \textbf{schermata} dai campi esterni a prescindere
+dalla carica esterna al conduttore. La seconda cosa è che sulla superficie interna 
+della cavità si ha $\sigma' = 0$ poiché il campo è continuo e uguale a zero e, per il teorema 
+di Coulomb, sulla superficie del metallo esterno è nullo, allora in ogni punto del metallo 
+non c'è carica e dunque non c'è accumulo di carica sulla superficie esterna. In condizioni statiche quello che è dentro
+al metallo non è influenzato dalla carica circostante.
+
+\subsection{Conduttore sferico cavo}
+Considerando una cavità all'interno di un conduttore sferico e, ponendo una carica dentro la cavità, 
+si sa che sulla superficie interna esiste una $\sigma$ che annulla il campo elettrico fuori 
+dalla cavità: dunque il campo dentro al conduttore è $\vv{E} = 0$. Sulla superficie interna ,
+l'integrale su $\sigma$ è 
+\begin{gather*}
+    \int_{S_{I}}^{} \sigma \ dS = -Q
+\end{gather*}
+poiché si prende una superficie di Gauss che continene tutta la cavità 
+ma non esce dal metallo, per il teorema di Gauss, dato che il campo è nullo dentro al conduttore,
+allora il flusso è nullo. Se il flusso è nullo, allora la carica che contiene la sueprficie di Gauss è nulla, 
+dunque l'integrale della carica superficiale della cavità deve essere necessariamente $-Q$ 
+per far sì che si bilanci la carica dentro la cavità $Q$ per soddisfare Gauss.
+Sulla superficie esterna del conduttore si devono valutare due condizioni:
+\begin{enumerate}
+    \item \textbf{Isolato}: se il conduttore è isolato (e dunque anche neutro), 
+    allora sulla superficie esterno si deve avere $\sigma'$ il cui integrale è opposto 
+    a quello di $\sigma$ in modo che la carica sia nulla:
+    \begin{gather*}
+        \int_{S_{I}}^{} \sigma \ dS + \int_{S_{E}}^{}  \sigma' \ dS = 0 \ \Longrightarrow \ \int_{S_{E}}^{} \sigma' \ dS = -Q
+    \end{gather*}
+    Sulla superficie esterna c'è allora una carica $Q$ che è opposta a quello che è presente 
+    sulla superficie interna. Se si facesse Gauss allora il campo è radiale e sulla sfera
+    si avrebbe 
+    \begin{gather*}
+        V = \frac{Q}{4\pi\epsilon_0} \frac{1}{r} \ \Longrightarrow \ \sigma' = \frac{Q}{4\pi R^{2}}
+    \end{gather*}
+    L'unica informazione che si ha del conduttore è che il campo esterno è generato dalla 
+    superficie esterna e dipende dalla carica interna $Q$. 
+    \item \textbf{Sfera a massa}: si porta dunque la sfera al potenziale nullo. Per le equazioni di Poisson 
+    non si ha potenziale esterno, dunque non si ha campo e allora non si ha $\sigma$ sulla superficie esterna: allora 
+    il conduttore si è caricato e non è più neturo. 
+\end{enumerate}
+
+\subsection{Avvicinare le facce di un condensatore}
+Nel conduttore a a facce piane e parallele, se ci si mette molto vicino ad una 
+delle armature, allora vale l'approssimazione del piano infinto fino a che non si arriva veramente ad una distanza
+dal bordo di una distanza comparabile a $\delta$ (ossia la distanza tra i due piani). Lo stesso vale se si prendono due 
+piani e li si mettano molto vicini tra loro in modo tale che l'approssimazione di piano infinito
+vale per entrambi i piani fino a che non ci si avvicina troppo al bordo. Per calcolare la Capacità 
+si può considerare come se un condensatore avesse facce finite: questa approssimazione può 
+essere utilizzato per determinare la capacità di un condensatore finito.
+
+\subsection{Condensatori in serie}
+Se si ponesse due condensatori $C_1$ e $C_2$ in serie tra loro, l'armatura
+due del primo condensatore è allo stesso potenziale dell'armatura uno del secondo condensatore.
+La domanda è capire che capacità ha questo sistema di condensatori 
+se sono all'interno di un circuito con differenza di potenziale $\Delta V$.
+\begin{gather*}
+    Q_1 = \mathcal{C}_1 \Delta V_1 \qquad Q_2 = \mathcal{C}_2 \Delta V_2
+\end{gather*}
+Per cui $\Delta V = \Delta V_1 + \Delta V_2$. Se si immaginasse che le due facce allo stesso 
+potenziale fossero una lastra isolata (e quindi neutra) con un determinato potenziale, allora si otterrebbe 
+che $Q_1 = Q_2$, allora
+\begin{gather*}
+    Q = \mathcal{C}_T \Delta V = \mathcal{C}_T (\Delta V_1 + \Delta V_2)
+\end{gather*}
+Si sa anche che 
+\begin{gather*}
+    Q = \mathcal{C}_1 \Delta V_1 = \mathcal{C}_2 \Delta V_2
+\end{gather*}
+Dunque la capacità totale sarà
+\begin{gather*}
+    \mathcal{C}_T = \left(\frac{1}{\mathcal{C}_1} + \frac{1}{\mathcal{C}_2}\right)^{-1}
+\end{gather*}
+
+\subsection{Condensatore in parallelo}
+Nei condensatori in parallelo, il vincolo è che $\Delta V_1 = \Delta V_2 = \Delta V$, allora 
+le facce opposte dei condensatori hanno stesso potenziale, anche se non è più vero che
+$Q_1 = Q_2$, ma la carica totale è la somma delle cariche
+\begin{gather*}
+    Q_T = Q_1 + Q_2 = \mathcal{C}_1\Delta V + \mathcal{C}_2 \Delta V \ \Longrightarrow \ \mathcal{C}_T = C_1 + C_2
+\end{gather*}
+
+\subsection{Problema del buco}
+    Se si prendesse una carica e la si ponesse su di una sfera conduttrice di raggio $R$, 
+    su ogni elemento $dS$ corrisponde una carica $dQ = \sigma \ dS$. Su ogni elemento di carica
+    esiste una forza che spinge le cariche in avanti che si vuole calcolare. Questa forza 
+    \begin{gather*}
+        \vv{F_{dS}} = dQ \vv{E} 
+    \end{gather*}
+    Per il teorema di Coulomb si ha che
+    \begin{gather*}
+        dQ \vv{E} = \sigma dS \frac{\sigma}{\epsilon_0} \hat{u}  = \frac{\sigma^{2}}{\epsilon_0} dS \hat{u} 
+    \end{gather*}
+    l si ottiene una forza di pressione
+    \begin{gather*}
+        P = \frac{\left| F_u \right| }{dS} = \frac{\sigma^{2}}{\sigma}
+    \end{gather*}
+    Il problema è che al denominatore ci dovrebbe essere un due: questo perché la forza che risente
+    ogni carica sul conduttore non può fare forza su di essa. Si deve valutare il campo su $dS$ di 
+    tutto il resto della sfera:
+    \begin{gather*}
+        S = ds + \Sigma
+    \end{gather*}
+    Dove $\Sigma$ è la sfera senza il piccolo pezzo $dS$ (poiché $dS$ non genera forza su sé stesso). Il campo 
+    generato dalla superficie
+    \begin{gather*}
+        \vv{E_S} = \frac{\sigma}{\epsilon_0}\hat{r} = \vv{E_{dS}} + \vv{E_\Sigma}   
+    \end{gather*}
+    Dove
+    \begin{gather*}
+        E_{dS} = \left\{\begin{array}{l}
+            -\dfrac{\sigma}{2\epsilon_0} \hat{r} \quad r = R^{-} \\
+            \dfrac{\sigma}{2\epsilon_0}\hat{r} \qquad r = R^{+}  
+        \end{array}\right. \qquad E_S = \left\{\begin{array}{l}
+            0 \qquad\quad r = R^{-} \\
+            \dfrac{\sigma}{\epsilon_0 }\hat{r} \quad r = R^{+} 
+        \end{array}\right.
+    \end{gather*}
+    Allora
+    \begin{gather*}
+        \vv{E}_\Sigma = \left\{\begin{array}{l}
+            \dfrac{\sigma}{2\epsilon_0} \qquad r = R^{-} \\
+            \dfrac{\sigma}{2\epsilon_0} \qquad r = R^{+}
+        \end{array}\right. 
+    \end{gather*}
+    Il campo della sfera $\Sigma$ non è continuo, ma in un punto molto vicino al 
+    buco è continuo. Quindi per la forza si deve scrivere che 
+    \begin{gather*}
+        \vv{F} = dQ\vv{E_\Sigma}  
+    \end{gather*}
+    Gli elettroni non possono dunque attraversare il buco poiché costituisce un vincolo
+    geometrico (in realtà è quanto-meccanico). Quindi  pressione finale è 
+    \begin{align}
+        P = \frac{\sigma^{2}}{2\epsilon_0}
+    \end{align}
+    Poiché $\vv{E_\Sigma}$ presenta il due al denominatore. 
+
+\subsection{Problema della carica immagine}
+Preso un piano infinito messo a massa ed una carica $q$ posta a distanza $d$ dal piano.
+Si deve dunque calcolare il campo elettrico in tutte le regioni dello spazio e la carica superficiale.
+Se si dividesse lo spazio in regione destra e sinistra (II e I ), si vuole determinare 
+il campo elettrico in entrambe le regioni. Il campo per I è nullo poiché si potrebbe vedere il piano infinto come 
+    se fosse una sfera infinita (dunque se la sfera è a terra la carica interna è nulla).
+    In questo caso, se il piano è messo a massa, per schermare il piano 
+    si deve avere una carica negativa che viene dalla terra per bilanciare la carica nella regione II. 
+    Per poter determinare il campo si risolve un secondo problema nel quale il piano a terra presenta due 
+cariche $-q$ e $q$ a distanza $d$. Per verificare che questi due problemi diano la stessa 
+soluzione si sfrutta il teorema di unicità: l'equazione di Poisson mi permette di dire che 
+$\rho_1 = \rho_2$ ossia la $\rho$ dei due problemi. Sul piano che taglia le due cariche,
+il potenziale che generano le cariche è
+\begin{gather*}
+    V_q = \frac{q}{4\pi\epsilon_0} \frac{1}{r}  \qquad V_{-q} = -\frac{q}{4\pi\epsilon_0} \frac{1}{r}
+\end{gather*}
+In tutti i punti del piano i potenziali si equilibrano e dunque il potenziale è nullo.
+Allora nel primo problema $V_{II}(\infty ) = 0$. La densità di carica è indotta in modo tale che 
+nella parte I il campo sia nulla. 
+QUesto problema prende il nome di problema della carica 
+immagine perché il metallo è come se fosse uno specchio (posso mettere nella regione 
+che si è risolta (la I) una carica (o più cariche) specchiata rispetto a $q$). Il campo sarà dunque 
+la somma dei campi delle cariche. Per determinare invece $\sigma$ sul piano, si sa che 
+\begin{gather*}
+    E(x = 0^{+}) = \frac{\sigma}{\epsilon_0} \hat{x} 
+\end{gather*}
+Nel "problema immagine",si pu determinare il campo sulla superficie, dunque il campo 
+$E(x = 0^{+})$ si può scrivere come il campo di due cariche uniformi 
+\begin{gather*}
+    E(x = 0^{+}) = \frac{q}{4\pi\epsilon_0} \frac{d\hat{x} + r \hat{r}  }{(d + r^{2})^{3/2}} - \frac{q}{4\pi\epsilon_0} \frac{-d\hat{x} - r\hat r  }{(d^{2} + r^{4})^{3/2}} = -\frac{2qd}{4\pi\epsilon_0 (d^{2} + r^{2})^{3/2}}
+\end{gather*}
+
+
+\end{document}

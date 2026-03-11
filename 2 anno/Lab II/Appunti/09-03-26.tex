@@ -1,0 +1,130 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\usepackage{circuitikz}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Lab II}
+\author{Tommaso Miliani}
+\date{09-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Esercizio}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{circuitikz}
+        \draw
+        (0,0) to [short, *-] (6,0)
+        to [V, l_=$\mathrm{j}{\omega}_m \underline{\psi}^s_R$] (6,2) 
+        to [R, l_=$R_R$] (6,4) 
+        to [short, i_=$\underline{i}^s_R$] (5,4) 
+        (0,0) to [open, v^>=$\underline{u}^s_s$] (0,4) 
+        to [short, *- ,i=$\underline{i}^s_s$] (1,4) 
+        to [R, l=$R_s$] (3,4)
+        to [L, l=$L_{\sigma}$] (5,4) 
+        to [short, i_=$\underline{i}^s_M$] (5,3) 
+        to [L, l_=$L_M$] (5,0); 
+    \end{circuitikz} 
+\end{wrapfigure}
+Il metodo delle correnti di maglia permettono di risolvere completamente il circuitop
+con un set minimo di equazioni per ciascuna maglia. Per ogni maglia si definisce una corrente 
+di maglia con un certo senso in modo da trovare una matrice $n \times n$ come sistema lineare.
+\begin{gather*}
+    \left\{\begin{array}{l}
+    \epsilon_1 + \epsilon_2 = I_1 R_1 + (I_1 + I_2) R_2  \\
+    -\epsilon_2 = I_2 R_3 + I_2 R_2 - I_1 R_2 
+    \end{array}\right. \qquad I_2 = i_3
+\end{gather*}
+Si può anche riscrivere, in forma matriciale:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \epsilon_1 + \epsilon_2 = (R_1 + R_2) I_1 + (-R_2) I_2 \\
+        -\epsilon_2 = (-R_2)I_1 + (R_2 + R_3) I_2
+    \end{array}\right. \ \Longrightarrow \ \\
+    \begin{pmatrix}
+        R_1 + R_2 & -R_2 \\
+        -R_2 & R_2 + R_3
+    \end{pmatrix} \begin{pmatrix}
+        I_1 \\
+        I_2
+    \end{pmatrix} = \begin{pmatrix}
+        \epsilon_1 + \epsilon_2  \\
+        - \epsilon_2 
+    \end{pmatrix} \\
+    \ \Longrightarrow \ \epsilon_{i, 1} = R_{i, j} I_{j, 1}
+\end{gather*}
+L'ultimo termine è il prodotto tra matrici semplificato. Questo metodo è generale e 
+la soluzione utilizza il metodo di Cramer:
+\begin{gather*}
+    I_2 = i_3 = 
+\end{gather*}
+
+PEzzo mancante
+
+\section{Teorema di Thevenin}
+Il \textbf{teorema di Thevenin} mi dice che ogni qualsiavoglia 
+rete è equivalente ad un genratore di $fem$ equivalente $\epsilon_{TH}$ e 
+una resistenza equivalente $R_{TH}$: dunque qualsiasi rete è schematizzabile 
+come se fosse solamente un generatore reale con resistenza interna. 
+Si introduce un Esempio della trasformazione triangolo stella. 
+Si dimostra ora il teorema: \\
+La resistenza totale è quella
+equivalente se tutti i generatoria sono cortocircuitati. $\epsilon_{TH}$ + la differenza di potenziale 
+tra $A$ e $B$ se $i = 0$. Se si cortocircuita tutto il circuito si ottiene una corrente
+$I_{cc}$ di cortocircuito. Allora 
+\begin{align}
+    R_{TH} = \frac{\epsilon_{TH}}{I_{cc}}
+\end{align}
+Si costruisce una rete aggiuntiva (ossia a cui si aggiunge un generatore reale), 
+la soluzione per $I_n$ è il rapporto tra i determinanti, dunque si deve sostituire,
+all'ultima colonna, la colonna dei termini noti:
+ali
+
+
+\end{document}

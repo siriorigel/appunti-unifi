@@ -1,0 +1,362 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Metodi}
+\author{Tommaso Miliani}
+\date{11-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Funzioni derivabili in senso complesso (olomorfe)}
+Si può riscrivere l'identità di Cauchy-Riemann come
+\begin{gather*}
+    \partial x f = \partial x u + i \partial x v \\
+    \partial y f = \partial y u + i \partial y v
+\end{gather*}
+Per cui
+\begin{gather*}
+    0 = \partial x u - \partial y v + (\partial x v + \partial y u)
+\end{gather*}
+Queste due parti (sia la reale che l'immaginaria) devono essere zero, 
+ottenendo una forma equivalente dell'identità:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \partial x u = \partial y v \\
+        \partial x v = - \partial y u
+    \end{array}\right.
+\end{gather*}
+Che prende il nome di identità di Cauchy-Riemann in forma reale.
+
+\begin{theorem}
+    Se $f$ è una funzione complessa e derivabile in $z = x + iy$ senso complesso, 
+    allora valgono le identità di Cauchy-Riemann. \\
+    Se valgono le identità di Cauchy-Riemann in un certo punto e
+    $u$ e $v$ sono continue in $z = x + iy$, allora $f = u + iv$ è
+    derivabile in senso complesso in $z$. 
+\end{theorem}
+
+\begin{definition}[Operatore di Cauchy-Riemann]
+    Preso un numero complesso $z = x + iy$, si può considerare $\overline{z} = z^{\star} = x - iy$.
+    Queste due variabili devono essere interpretate come indipendenti  
+    \begin{gather*}
+        \left\{\begin{array}{l}
+            z = x + iy \\
+            \overline{z} = x + iy 
+        \end{array}\right. \ \Longrightarrow \ \left\{\begin{array}{l}
+            x = \dfrac{1}{2}(z + \overline{z} ) \\
+            y = \dfrac{1}{2i}(z - \overline{z} )
+        \end{array}\right.
+    \end{gather*}
+    Formalmente si interpretano come indipendenti: se si avesse una funzione $F(x, y)$, essa
+    sarebbe scrivibile come $\mathcal{F}(z, \overline{z} )$, scrivendo $x$ e $y$
+    come visto sopra. Si introducono due operatori differenziali
+    \begin{align}
+        \partial z &= \frac{\partial}{\partial z} = \frac{1}{2}(\partial x - i\partial y) \\
+        \partial \overline{z} &= \frac{\partial }{\partial \overline{z} } = \frac{1}{2} (\partial x + i \partial y)  
+    \end{align}
+    Che prendono il nome di \textbf{operatori di Cauchy-Riemann}. Qualsiasi funzione olomorfa soddisfa
+    la seguente condizione
+    \begin{align}
+        \partial \overline{z} f(z, \overline{z} ) = \frac{1}{2}(\partial f + i \partial y f) = 0 
+    \end{align}
+    Se questo vale, $f$ non è più funzione di $\overline{z}$ ma solo di $z$. Analogamente se
+    $\partial z f(z, \overline{z}) = 0$, $f$ diventa funzione solo di $\overline{z}$ e prende il 
+    nome di \textbf{funzione anti-olomorfa} per cui valgono tutte le proprietà delle funzioni 
+    olomorfe se si trasforma $\overline{z}$ in $z$. È una scrittura che 
+    mima un cambio di variabile ma non è assolutamente un cambio di variabile. 
+\end{definition}
+
+\section{Derivabilità su di un aperto}
+\begin{definition}
+    Presa una funzione $f$ definita su di un aperto con $\mathbb{A}$ un aperto su $\mathbb{C}$. $f$ è dunque 
+    olomorfa se è derivabile in senso complesso e $f'$ è continua. Si definisce
+    $H(\mathbb{A})$ come l'insieme delle funzioni olomorfe sull'aperto $\mathbb{A}$. 
+\end{definition} \noindent
+SI è già visto come la derivata in senso complesso dei polinomi sia 
+la stessa della derivata reale. In realtà tutte le regole rimangono uguali se la funzione è
+olomorfa:
+\begin{itemize}
+    \item $(f + g)' = f' + g'$
+    \item $(fg)' = f'g + fg'$
+    \item $\left(\dfrac{f}{g}\right)' = (f'g - fg') / g^{2}  $
+    \item $ \left(f(g(z))\right)' = (f \circ g)' = (f' \circ g) g'$
+    \item $(f^{-1})^{-1} = \dfrac{1}{f' \circ f^{-1}}$
+\end{itemize}
+Le funzioni $u$ e $v$ che si ottengono a partire dalle parti reali e immaginarie,
+hanno delle proprietà interessanti se si utilizza l'identità di Cauchu-Riemann:
+\begin{gather*}
+    f = u + iv \\
+    \partial^{2}x u = \partial x \partial y v = \partial y \partial x v = - \partial ^{2}y u
+\end{gather*}
+Lo scambio dell'ordine della derivata si può fare perché si utilizza il teorema di Schwartz 
+(si scambiano se esistono e se sono continue). Allora 
+\begin{gather*}
+    (\partial^{2} x + \partial^{2}y)u = \Delta u = 0 
+\end{gather*}
+Dunque $u$ è una \textbf{funzione armonica}. Si fa lo stesso per $v$:
+\begin{gather*}
+    (\partial^{2}x + \partial^{2} y) v = \Delta v = 0
+\end{gather*}
+Le due funzioni sono \textbf{coniugate} l'una rispetto all'altra perché
+sono legate dall'identità di Cauchy-Riemann, lo stesso vale per le 
+funzioni anti-olomorfe. Inoltre
+\begin{gather*}
+    \Delta = 4\partial z\partial \overline{z} = 4\partial \overline{z} \partial z  
+\end{gather*}
+Dove $\Delta$ è il \textbf{operatore Laplaciano}.
+
+\section{Integrazione di funzioni complesse}
+L'integrale di una funzione complessa sfrutta un integrale di linea 
+poiché si può interpretare $\mathbb{C}$ come spazio bidimensionale: 
+si può dunque integrare sul cammino di entrambe le variabili. Si definisce
+\begin{gather*}
+    u(x) = f(x) \ dx 
+\end{gather*}
+Se si volesse integrare questa funzione da $\gamma : [a, b] \to \mathbb{R}$:
+\begin{gather*}
+    \int_{\gamma} = \int_{\overline{a} }^{\overline{b} }  f(x) \ dx = \int_{a}^{b} f(\gamma(t)) \gamma'(t) \ dt 
+\end{gather*}
+Se siamo in $n$ dimensioni si utilizza solo l'ultimo integrale per cui 
+$\gamma : [a, b] \to \mathbb{R}^{n}$. Su $\mathbb{C}$ si vuole fare lo stesso, 
+ma interpretando $\gamma$ come se fosse un cammino che va dal reale al complesso.
+
+\begin{definition}
+    Sia $\gamma : [a, b] \to \mathbb{A} \subset \mathbb{C}$ e $f : \mathbb{A} \to \mathbb{C}$, con $\mathbb{A}$
+    un aperto. Allora si definisce l'integrale
+    \begin{align}
+        \int_{\gamma} f(z) \ dz = \int_{a}^{b} f(\gamma(t))\gamma'(t) \ dt
+    \end{align}
+    Come l'integrale di cammino su $\mathbb{C}$ (ed è orientato).
+    In questo caso $f$ è una uno-forma su $\mathbb{C}$ o una uno-forma su $\mathbb{R}^{2}$.
+    DUnque 
+    \begin{gather*}
+        \int_{\gamma}f = -\int_{-\gamma } f
+    \end{gather*}
+\end{definition}
+
+\begin{example}
+    Preso $\gamma: [0, 1]$ che manda $t \to z_1 + (z_2 - z_1)t $, che è 
+    un segmento che va da $z_1$ a $z_2$:
+    \begin{gather*}
+        \int_{\gamma} 1 \ dz = \int_{0}^{1} (z_2 - z_1) \ dt = z_2 - z_1 \\
+        \int_{\gamma} z \ dx = \int_{0}^{1} (z_1 +(z_2 - z_1) t) (z_2 - z_1) \ dt = z_1(z_2 - z_1)t + \frac{1}{2}(z_2 - z_1)^{2}    
+    \end{gather*}
+\end{example}
+
+\begin{example}
+    Preso un cerchio ri raggio $r$ attorno all'origine:
+
+    Il cammino $\gamma : [0, 2\pi]$ e manda $\theta \to z_0 + re^{i\theta}$. Si vuole fare
+    \begin{gather*}
+        \oint_{\gamma} (z - z_0)^{n} \ dz 
+    \end{gather*}
+    lungo $\gamma$. Allora 
+    \begin{gather*}
+        \int_{0}^{2pi} ((z_0 + re^{i\theta}) - z_0)^{n} \frac{1}{d\theta}(z_0 + re^{i\theta})\ d\theta = \int_{0}^{2\pi} r^{n} e^{i\theta} re^{i\theta}i\ d\theta = ir^{n + 1}\int_{0}^{2\pi} e^{i(n + 1)1\theta} \ d\theta    
+    \end{gather*}
+    Se $n = -1$ fa $2\pi i$, altrimenti fa zero. Infatti il risultato è $2\pi i \delta_{n - 1}M$, dove $M$ indica il numero di 
+    avvolgimenti che compie la curva intorno a $z_0$. 
+\end{example}
+
+
+\begin{theorem}[Teorema di Cauchy]
+    Presa $f$ una funzione olomorfa su $\mathbb{A}$ un aperto semplicemente
+    connesso (ogni curva può essere deformato con continuità fino ad arrivare ad un punto), 
+    per ogni $\gamma \subset \mathbb{A}$, 
+    \begin{align}
+        \oint_{\gamma} f(z) \ dz = 0 
+    \end{align}
+    Dunque si ha integrale nullo su di un cammino. 
+\end{theorem}
+\begin{proof}
+    \begin{gather*}
+        \oint _{\gamma} f(z ) \ dz = \oint _\gamma (u + iv)(dx + i dy)
+    \end{gather*}
+    In questo modo posso ottenere un normale integrale di linea su $\mathbb{C}$:
+    \begin{gather*}
+        \oint_{\gamma}^{} (u dx - v dy)  + \oint_\gamma  (v\ dx + u\ dy)
+    \end{gather*}
+    Dunque sono due integrali da $\mathbb{R}^{2}$ ad $\mathbb{R}$. Con il teorema di Gauss-Green
+    si ottiene che 
+    \begin{gather*}
+        \oint_{\gamma = \partial \Gamma} u dx - u dy = \int\int_{\Gamma} (-\partial x v - \partial y u) \ dx \ dy  = 0
+    \end{gather*}
+    Dove $\Gamma \subset \mathbb{A}$ ed è la porzione del dominio racchiusa da $\gamma$, dunque
+    $\gamma$ è la frontiera di $\Gamma$. 
+    \begin{gather*}
+        \oint _{\gamma = \partial \Gamma} (v \ dx + u dy ) = \int \int_\Gamma (\partial x u - \partial y v) dx dy = 0 
+    \end{gather*}
+\end{proof}
+
+\begin{example}[Esempio di applicazione su di un dominio non nullomotopo]
+    L'integrale sul circuito che circonda $z_0$:
+    \begin{gather*}
+        \oint_\gamma \frac{1}{z - z_0} = 2\pi i
+    \end{gather*}
+    Il dominio che circonda $z_0$ non è nullomotopo in quanto 
+    non è semplicemente connesso dunque l'intergrale non fa zero. Se invece
+    si facesse lo stesso integrale su di un circuito che non circondi $z_0$, allora può fare zero. 
+\end{example}
+
+\begin{theorem}
+    Sia $f$ olomorfa su di un insieme $\mathbb{A}$. Se $\beta, \gamma$ sono circuiti 
+    \textbf{omotopi} su $\mathbb{A}$, allora 
+    \begin{align}
+        \oint_{\beta} f = \oint_\gamma  f
+    \end{align}
+    Connettendono i due circuiti, anche se ci fosse un buco nel mezzo, si ottiene un circuito nullomotopo, infatti
+    \begin{align}
+        \oint_\beta f +\oint_{-\gamma}f = 0
+    \end{align}
+\end{theorem}
+
+\begin{theorem}
+    Posti $\beta$ e $\gamma$ dei cammini omotopi in un aperto $\mathbb{A}$ con 
+    stessa origine e stessa estremità finale, e presa una funzione
+    $f$ olomorfa allora 
+    \begin{align}
+        \int_{\beta} f = \int_{\gamma} f  
+    \end{align}
+\end{theorem}
+\begin{proof}
+    \begin{gather*}
+        0 = \int_{\beta}^{} f - \int_{\gamma}^{} f = \int_{\beta}^{} f + \int_{-\gamma}^{}   f
+    \end{gather*}
+    Dato che $\beta$ e $\gamma$ sono omotopi, allora la somma dei due circuiti è nullomotopa, 
+    per il teorema di Cauchy allora 
+    \begin{gather*}
+        \int_{\beta - \gamma}^{} f = 0 
+    \end{gather*}
+    Ossia la tesi. 
+\end{proof}
+
+\begin{definition}[Primitiva di una funzione]
+    Sia $F$ una funzione olomorfa su di un aperto $\mathbb{A}$, si definisce 
+    $F$ la \textbf{primitiva} di $f$ su $\mathbb{C}$ se
+    \begin{align}
+        F'(z) = f(z) \qquad \forall z \in \mathbb{A}
+    \end{align}
+\end{definition}
+
+\begin{theorem}[Teorema della primitiva]
+    Sia $f : \mathbb{A} \to \mathbb{C}$ continua sull'aperto $\mathbb{A}$. Allora
+    le seguenti affermazioni sono equivalenti:
+    \begin{enumerate}
+        \item $f$ ammette primitiva
+        \item Se $\beta, \gamma$ sono cammini omotopi $ \subset \mathbb{A}$ 
+        con le stesse estremità, allora 
+        \begin{align}
+            \int_{\beta}f = \int_{\gamma}^{} f  
+        \end{align}
+        \item $\forall \gamma \subset  \mathbb{A}$ si ha che 
+        \begin{align}
+            \oint_\gamma f = 0 
+        \end{align}
+    \end{enumerate}
+    Si dimostra solo che $1 \ \Longrightarrow \ 2$.
+\end{theorem}
+\begin{proof}
+    Si assume che esista $F' = f$, con $F \in H(\mathbb{A})$, allora
+    per definizione si ha che $\gamma : [a, b] \to \mathbb{C}$:
+    \begin{gather*}
+        \int_{\gamma}^{} f dz = \int_{a}^{b}  F'(\gamma(t))\gamma'(t) \ dt = \int_{a}^{b} (F \circ \gamma)' (t) \ dt  
+    \end{gather*}
+    Dato che è la derivata composta, 
+    \begin{gather*}
+        = F(\gamma(b)) - F(\gamma(a))
+    \end{gather*}
+    Ossia la differenza tra il punto iniziale e quello finale. 
+\end{proof}
+
+\begin{definition}[Lunghezza del cammino]
+    Posta $\gamma$ una curva su di un aperto generico, la lunghezza del cammino 
+    è data dalla seguente:
+    \begin{align}
+        L_\gamma \equiv \int_{a}^{b} \left| \gamma'(t) \right| \ dt  
+    \end{align}
+\end{definition}
+Si introduce ora il seguente teorema:
+\begin{theorem}[Disuguaglianza di Darboux]
+    \begin{align}
+        \left| \int_{\gamma} f \ dz  \right| \leq \sup_{\gamma} \left| f \right| L_\gamma   
+    \end{align}
+\end{theorem}
+\begin{proof}
+    L'integrale di una funzione reale a valori complessi è 
+    \begin{gather*}
+        \left| \int_{a}^{b} g(t) \ dt  \right| \leq \int_{a}^{b} \left| g(t) \right| \ dt    
+    \end{gather*}
+    Questo vale anche se la funzione integranda ha valori complessi (ossia se $g(t) \in \mathbb{C}$).
+    \begin{gather*}
+        \left| \int_{\gamma}^{} f \right| = \left| \int_{a}^{b} f(\gamma(t)) \gamma'(t)   \ dt \right| \leq  \int_{a}^{b} \left| f(\gamma(t)) \right| \left| \gamma'(t) \right|  dt \leq \sup_{\gamma}\left| f \right| \int_{a}^{b} \left| \gamma'(t) \right| \ dt = \sup_{\gamma}\left| f \right| L_\gamma    
+    \end{gather*}
+\end{proof}
+
+
+\section{Funzioni analitiche su $\mathbb{C}$}
+\begin{theorem}[formulaintegreale di Cauchy]
+    Sia $f \in H(\mathbb{A})$ sull'aperto $\mathbb{A}$. SIa $z \in \mathbb{A}$ e 
+    sia $\gamma$ un circuito nullomotopo su $\mathbb{A}$ che circonda $z$ una volta
+    sola in verso positivo. Allora
+    \begin{align}
+        f(z) = \frac{1}{2\pi i} \int_{\gamma} \frac{f(w)}{w - z} dw 
+    \end{align}
+    Questo teorema mi permette, conoscendo la funzione sul bordo del circuit, di conoscere la funzione in tutti i punti 
+    interni del circuito.
+\end{theorem}
+\begin{proof}
+    Dimostrazione sulle dispense (da fare!) 
+\end{proof}
+
+
+
+
+
+
+\end{document}

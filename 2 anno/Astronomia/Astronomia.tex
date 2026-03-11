@@ -749,7 +749,7 @@ sia la tipologia di telescopio, ognuno di essi presenta i seguenti parametri:
     \item \textbf{Scala spaziale}: Lega le dimensioni angolari a misure spaziali al piano focale. La \textbf{Plate scale} è data come
     segue:
     \begin{gather*}
-        Ps [arcsec/mm] = \frac{206265}{f} \ (mm)
+        Ps [arcsec/mm] = \frac{206265"}{f \ (mm)}
     \end{gather*}
     Infatti, quando si osserva il cielo, si osserva una proiezione di una porzione
     del cielo sul piano dell'immagine. Questa grandezza lega le dimensioni degli angoli reali a quella
@@ -760,13 +760,13 @@ sia la tipologia di telescopio, ognuno di essi presenta i seguenti parametri:
     Si può convertire questa a arcosecondi definiti come
     $1 \ rad = 180 \cdot  3600 \ arcsec$. Si può dunque esprimere l'angolo in radiante e quindi il plate scale come
     \begin{gather*}
-        \theta \approx \frac{D}{f} \cdot  180 \cdot  3600 \ \Longrightarrow \ \theta = \frac{180\cdot 3600}{F}
+        \theta \approx \frac{D}{f} \cdot  180 \cdot  3600 \ \Longrightarrow \ \theta = \frac{180\cdot 3600}{N}
     \end{gather*}
     \item \textbf{Potere risolutivo}: E' l'angolo minimo al di sotto del quale il telescopio non riesce a distinguere 
     tra due sorgenti puntiformi ad una data lunghezza d'onda. Questo si può ricavare dal limite di diffrazione
     fatto nel corso di ottica, secondo l'equazione di Rayleigh, legata all'apertura del telescopio:
     \begin{gather*}
-        \theta_r \approx 1.22 \  \frac{\lambda}{D}\text{°} \quad \quad \theta_r \approx 2.5 \cdot  10^{5} \frac{\lambda}{D} '' 
+        \theta_r \approx 1.22 \  \frac{\lambda}{D}[\ \text{rad} \ ] \quad \quad \theta_r \approx 2.5 \cdot  10^{5} \frac{\lambda}{D} [\ ''\ ]
     \end{gather*}
 \end{itemize}
 
@@ -1732,8 +1732,9 @@ piccoli con aperture dell'ordine di $0.1 \ m$:
 \begin{gather*}
     \Delta \theta_S = \Delta\theta_D = 1.22 \frac{\lambda}{D}
 \end{gather*}
-Si definisce il \textbf{parametro di Fried} che definisce, in funzione
-della lunghezza d'onda, l'apertura del telescopio al limite dell'angolo di diffrazione:
+Il \textbf{parametro di Fried} definisce, in funzione
+della lunghezza d'onda, di quanto la turbolenza atmosferica limiti
+la risoluzione del telescopio (o di un sistema ottico):
 \begin{align}
     1.22 \frac{\lambda}{\Delta \theta_S} = r_0
 \end{align}
@@ -1757,7 +1758,7 @@ che vengono fuori dalla relazione
 \begin{gather*}
     n = \frac{P}{kT} \qquad T = 300 \ K, P = 10^{5} \ Pa
 \end{gather*}
-Per una stella con luminosità $L_{\lambda_0}$ ad una certa distanza $r$, la luminosità scenderà 
+Per una stella con luminosità $L_{\lambda_0}$, ad una certa distanza $r$ la luminosità scenderà 
 ad un valore $L_\lambda$ e a distanza $r + dr$ ad un valore $L_\lambda - dL_\lambda$ a
 causa dell'assorbimento (isotropo). Si ha allora che
 \begin{gather*}
@@ -1774,7 +1775,7 @@ stella in funzione dello spessore ottico come
 \end{align}
 Integrando ora la luminosità dalla sorgente all'osservatore si ottiene la diminuzione di luminosità:
 \begin{align}
-    \int_{L_{0}}^{L_\lambda} \frac{dL_\lambda'}{L_\lambda'} = - \int_{0}^{\tau_\lambda} d \tau_\lambda ' \ \Longrightarrow \ L_\lambda = L_{0} e^{-\tau_\lambda}  
+    \int_{L_{\lambda_0}}^{L_\lambda} \frac{dL_\lambda'}{L_\lambda'} = - \int_{0}^{\tau_\lambda} d \tau_\lambda ' \ \Longrightarrow \ L_\lambda = L_{\lambda_0} e^{-\tau_\lambda}  
 \end{align}
 Il flusso alla superficie della stella è dato da
 \begin{gather*}
@@ -1782,7 +1783,7 @@ Il flusso alla superficie della stella è dato da
 \end{gather*}
 Mentre il flusso ad una profondità ottica $r$ sarà:
 \begin{gather*}
-    f_\lambda = \frac{L_\lambda}{4\pi r^{2}} \ \Longrightarrow \ f_\lambda = F_0 \frac{R_\star^{2}}{r^{2}}e^{-\tau_\lambda}
+    f_\lambda = \frac{L_\lambda}{4\pi r^{2}} \ \Longrightarrow \ f_\lambda = F_{\lambda_0} \frac{R_\star^{2}}{r^{2}}e^{-\tau_\lambda}
 \end{gather*}
 Per determinare la magnitudine assoluta, si ricava il flusso a 10 pc senza estinzione interstellare:
 \begin{gather*}
@@ -1891,10 +1892,12 @@ rilasciando indietro lo stesso pacchetto di energia $\gamma$ che li ha
 investiti, tornando dunque allo stato fondamentale. \\ \noindent
 Il primo postulato di Bohr afferma che l'elettrone si può muovere 
 attorno al nucleo solo in determinate orbite circolari stabili senza 
-emettere energia sottoforma di radiazione elettromagnetica. Il
-secondo postulato di Bohr afferma che l'elettrone può saltare da un orbita 
+emettere energia sottoforma di radiazione elettromagnetica. 
+Il secondo postulato di Bohr afferma che un orbita è possibile se e solo se
+il momento angolare dell'elettrone è un multiplo intero della costante $\hbar$.
+Il terzo postulato di Bohr afferma che l'elettrone può saltare da un orbita 
 all'altra; durante questa transizione l'atomo assorbe o emette un fotone di energia 
-pari alla differenza tra i livelli energetici.
+pari alla differenza tra i livelli energetici. 
 \begin{gather*}
     h\nu = E_{n_2} - E_{n_1}
 \end{gather*} 
@@ -2040,7 +2043,7 @@ frequenze o delle lunghezza d'onda secondo la seguente:
 \end{align}
 Risolvendo il primo integrale
 \begin{gather*}
-    \int_{0}^{\infty }B_\nu(T) \ d\nu = \frac{2h}{c}\int_{0}^{\infty }\frac{\nu^{3}}{\exp\left(\frac{h\nu}{kT}\right) - 1} d\nu \quad x = \frac{h\nu}{kT} \ \Longrightarrow \ B(T) = \frac{2hk^{4}T^{4}}{c^{2}h^{4}} \int_{0}^{\infty } \frac{x^{3}}{e^{x} - 1} \ dx  = \frac{2k^{4}}{c^{2}h^{3}} \frac{\pi^{4}}{15}T^{4}
+    \int_{0}^{\infty }B_\nu(T) \ d\nu = \frac{2h}{c^{2}}\int_{0}^{\infty }\frac{\nu^{3}}{\exp\left(\frac{h\nu}{kT}\right) - 1} d\nu \quad x = \frac{h\nu}{kT} \ \Longrightarrow \ B(T) = \frac{2hk^{4}T^{4}}{c^{2}h^{4}} \int_{0}^{\infty } \frac{x^{3}}{e^{x} - 1} \ dx  = \frac{2k^{4}}{c^{2}h^{3}} \frac{\pi^{4}}{15}T^{4}
 \end{gather*}
 Dunque, chiamando 
 \begin{gather*}
@@ -2108,7 +2111,7 @@ e la planckiana può essere scritta in quella che viene anche chiamata \textbf{a
 \end{gather*}
 e la planckiana può essere scritta nella forma definita come \textbf{approssimazione di Rayleigh-Jeans}:
 \begin{align}
-    B_\lambda(T) \approx \frac{2c^{2}kT}{\lambda^{4}}
+    B_\lambda(T) \approx \frac{2ckT}{\lambda^{4}}
 \end{align}
 L'approssimazione di Rayleigh, tuttavia, è l'unica prevista dalla fisica classica. Il problema di 
 questa approssimazione è che, quando $\lambda$ tende a zero, la radiazione luminosa 
@@ -2541,7 +2544,7 @@ sensibili alla polvere interstellare, così come le bande J, H, K).
 \begin{gather*}
     M_\lambda = a_\lambda \log P + b_\lambda
 \end{gather*}
-Dove $a_\lambda$ e $b_l\lambda$ sono i parametri ricavati dalle Cefeidi locali tramite 
+Dove $a_\lambda$ e $b_\lambda$ sono i parametri ricavati dalle Cefeidi locali tramite 
 satelliti come Gaia o LMC. Attraverso la misurazione di $P$ si ottiene $M_\lambda$. Per
 trovare sia $P$ che $m_\lambda$ si seguono i seguenti passaggi:
 \begin{itemize}
@@ -2638,7 +2641,7 @@ Da qui si ottiene la \textbf{Legge di Hubble}:
 \end{align}
 Dunque l'effetto Doppler 
 \begin{align}
-    \frac{\Delta \lambda}{\lambda_{em}} = \frac{v}{c} = z
+    \frac{\Delta \lambda}{\lambda_{em}} = \frac{\nu}{c} = z
 \end{align}
 Adesso, dividendo per la velocità della luce i due membri della legge di Hubble si ottiene la relazione
 che lega la distanza al redshift:
@@ -2660,8 +2663,8 @@ come il Sole, sono meno del 50 \% del totale dei sistemi mentre i sistemi costit
 da almeno due stelle costituiscono la maggioranza e, solitamente, hanno una struttura gerarchica: 
 una centrale attorno alla quale orbita una coppia di stelle oppure due coppie di stelle. Un esempio 
 è Castore e Polluce, Castore è un sistema multiplo di almeno 6 stelle e Polluce è una stella singola, 
-così come Mizar e Alcor, le quali sono delle binarie visuali (Mizar è un sistema multiplo di 4 stelle).
-Ai tempi dei romani, chi riusciva a distinguere, veniva arruolato nell'esercito romano
+così come Mizar e Alcor, le quali sono delle binarie visuali (Mizar è un sistema multiplo di 4 stelle),
+ai tempi dei romani chi riusciva a distinguerle veniva arruolato nell'esercito romano
 come arciere.
 
 \section{Le binari visuali}
@@ -2740,7 +2743,7 @@ Dato che il semiasse maggiore è la somma dei semiasse $a_1$ e $a_2$, e che vale
 \begin{gather*}
     M_1 r_{1, apo} = M_2 r_{2, apo} \qquad M_1 r_{1, per} = M_2 r_{2, per}
 \end{gather*}
-e che
+inoltre vale anche $a = \frac{r_{per} + r_{apo}}{2}$, e che
 \begin{gather*}
     \frac{M_1}{M_2} = \frac{r_2}{r_1} = \text{const}
 \end{gather*}
@@ -2750,6 +2753,11 @@ Questo rapporto deve valere anche per i semiassi maggiori, dunque si ha la
 \end{gather*}
 
 \subsection{I nodi}
+\begin{wrapfigure}{r}{0.35\textwidth}
+    \centering
+    \caption{Come trovare i nodi}
+    \includegraphics[width=0.35\textwidth]{nodi.png}
+\end{wrapfigure}
 L'orbita della stella secondaria è un'ellisse chiusa. Muovendosi lungo la sua orbita, essa attraversa il piano 
 del cielo in due punti specifici che, per definizione, si trovano sulla linea dei Nodi e dunque prendono il nome 
 di \textbf{Nodi}:
@@ -2784,12 +2792,11 @@ descrivono l'orbita:
     la direzione del Nodo Ascendente. 
 \end{enumerate}
 
-\clearpage
 \section{Binarie spettroscopiche}
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{wrapfigure}{r}{0.45\textwidth}
     \centering
     \caption{Velocità radiale delle stelle binarie}
-    \includegraphics[width=0.5\textwidth]{binarie-spettroscopiche.png}
+    \includegraphics[width=0.45\textwidth]{binarie-spettroscopiche.png}
 \end{wrapfigure}
 Quando le binarie visuali sono troppo vicine per poter essere distinte, anche dai telescopi 
 ottici più potenti del mondo, l'unico modo per poter distinguere tali stelle è 
@@ -2874,7 +2881,7 @@ I parametri che si possono ricavare dalla curva di luce sono i seguenti:
 \chapter{Esopianeti}
 \section{Sistemi planetari}
 La nostra Galassia contiene $10^{11}$ stelle e circa $10^{9} \sim 10^{10}$ stelle 
-potrebbero far parte di un sistema planetario.
+potrebbero avere un sistema planetario.
 Un sistema planetario consiste di diversi oggetti di natura non stellare in orbita attorno ad una stella o ad un sistema stellare.
 Dato che la \textbf{fascia abitabile} (ossia il range di orbite che 
 supporta acqua liquida e atmosfera a temperature simili a quelle della Terra)
@@ -2902,14 +2909,11 @@ solamente 7 non sono classificati.
 \section{Tecniche di rilevamento degli esopianeti}
 Esistono 4 tipologie principali di rilevamento per gli esopianeti:
 \begin{itemize}
-    \item \textbf{Astrometria}: rilevamento dello spostamento della stella sul piano del cielo causato dal moto orbitale
-    indotto dal pianeta, efficiente per sistemi in cui il pianeta è grande quasi quanto la stella in orbite 
+    \item \textbf{Astrometria}: misura dello spostamento della stella sul piano del cielo causato dal moto orbitale del pianeta, efficiente per sistemi in cui il pianeta è grande quasi quanto la stella in orbite 
     molto grandi. Il difetto di questo metodo è che, in questi sistemi, il pianeta richiede un tempo molto lungo per completare la sua orbita.
-    \item \textbf{Doppler shift}: questo metodo utilizza l'effetto Doppler nella stella del sistema indotta dall'attrazione
-    gravitazionale del pianeta, dipendendo dalle velocità radiali: l'entità
-    dell'effetto Doppler permette di definire la massa del pianeta. Questo metodo 
-    è efficiente se i pianeti sono massicci ed orbitano vicino alla stella. (Nel caso del Sole e di Giove, 
-    il loro centro di massa giace poco fuori dal volume del Sole).
+    \item \textbf{Doppler shift}: questo metodo sfrutta l'effetto Doppler osservato nella stella, causato dall'attrazione gravitazionale esercitata da un pianeta.
+    Misurando le variazioni della velocità radiale, è possibile determinare la massa del pianeta stesso. L'efficacia del metodo è massima per pianeti massicci che
+    orbitano a breve distanza dalla stella (ad esempio, il centro di massa del sistema Sole-Giove si trova appena fuori dal raggio solare).
     \item \textbf{Transit}: tecnica basata sul monitoraggio della diminuzione di luminosità quando 
     il pianeta passa davanti alla stella formando dunque una curva di luce. La diminuzione della luminosità della stella
     permette la determinazione del diametro del pianeta.  Quando il pianeta transita davanti alla stella,
