@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.15)  17 NOV 2025 18:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.9.15)  10 MAR 2026 20:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/home/ale/Documents/programming/latex/analisi 2/theory.tex"
-(/home/ale/Documents/programming/latex/analisi 2/theory.tex
+**"/home/ale/Documents/programming/repo/analisi 2/theory.tex"
+(/home/ale/Documents/programming/repo/analisi 2/theory.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -679,20 +679,20 @@ Writing index file theory.idx
 (./theory.aux)
 \openout1 = `theory.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count345
@@ -747,15 +747,15 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \it@ocap on input line 90.
-LaTeX Info: Redefining \it@ccap on input line 90.
+LaTeX Info: Redefining \it@ocap on input line 118.
+LaTeX Info: Redefining \it@ccap on input line 118.
 
 File italian.ldf warning: 
 italian.ldf    With OT1 encoding guillemets are poorly faked
 italian.ldf    Use T1 encoding
 italian.ldf    or specify a font with command \CaporaliFrom
 italian.ldf    See the documentation concerning the babel-italian typesetting
-italian.ldf    on input line 90.
+italian.ldf    on input line 118.
 
 Package pgfplots notification 'compat/show suggested version=true': you might benefit from \pgfplotsset{compat=1.18} (current compat level: 1.9).
 
@@ -768,15 +768,16 @@ Package pgfplots notification 'compat/show suggested version=true': you might be
 \c@problem=\count357
 \c@solution=\count358
 \c@proposition=\count359
-LaTeX Font Info:    Trying to load font information for U+msa on input line 114.
+\c@inciso=\count360
+LaTeX Font Info:    Trying to load font information for U+msa on input line 142.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 114.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 142.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+esvect on input line 114.
+LaTeX Font Info:    Trying to load font information for U+esvect on input line 142.
  (/usr/share/texlive/texmf-dist/tex/latex/esvect/uesvect.fd
 File: uesvect.fd 
 ) (./theory.toc)
@@ -785,196 +786,265 @@ File: uesvect.fd
 
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 134--136
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [2] [3] [4]
+Missing character: There is no ; in font nullfont!
+[5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 437--438
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--155
+Underfull \hbox (badness 10000) in paragraph at lines 439--440
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 523--525
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 532--536
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--161
+Underfull \hbox (badness 10000) in paragraph at lines 562--563
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 162--164
+LaTeX Warning: Command \textcircled invalid in math mode on input line 584.
 
- []
 
-NOTE: coordinate (2Y3.0e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.9393951e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.8787903e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.8181854e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.7575806e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.6969757e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.6363708e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.575766e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.5151611e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.4545563e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.3939514e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.3333466e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.2727417e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.2121368e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.151532e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.0909271e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.0303223e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.9697174e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.9091125e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.8485077e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.7879028e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.727298e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.6666931e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.6060883e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.5454834e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.4848785e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.4242737e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.3636688e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.303064e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.2424591e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.1818542e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.1212494e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.0606445e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.0000397e0],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y9.394348e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y8.7882991e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y8.1822502e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y7.5762013e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y6.9701524e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y6.3641035e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y5.7580547e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y5.1520058e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y4.5459569e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y3.939908e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y3.3338591e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.7278102e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y2.1217613e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y1.5157124e-1],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y9.096635e-2],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
-NOTE: coordinate (2Y3.036145e-2],3Y0.0e0]) has been dropped because it is unbounded (in y). (see also unbounded coords=jump). 
+LaTeX Warning: Command \textcircled invalid in math mode on input line 584.
 
-Overfull \hbox (142.94409pt too wide) in paragraph at lines 173--217
-[] | [] 
+
+LaTeX Warning: Command \textcircled invalid in math mode on input line 584.
+
+
+LaTeX Warning: Command \textcircled invalid in math mode on input line 584.
+
+[9]
+Overfull \hbox (25.00003pt too wide) in paragraph at lines 634--637
+[] 
  []
 
 
-Overfull \vbox (32.22388pt too high) has occurred while \output is active []
+Overfull \hbox (25.00003pt too wide) in paragraph at lines 651--654
+[] 
+ []
 
-
-Overfull \vbox (32.22388pt too high) has occurred while \output is active []
-
- [2{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 244--245
+[10] [11]
+Underfull \hbox (badness 10000) in paragraph at lines 703--708
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 274--275
+Underfull \hbox (badness 10000) in paragraph at lines 703--708
 
  []
 
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 289.
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/sl' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 289.
+[12] [13]
+Underfull \hbox (badness 10000) in paragraph at lines 748--750
 
+ []
 
-LaTeX Warning: The counter will not be printed.
-             The label is: \space  on input line 292.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 288--292
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 779--780
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 288--292
-
- []
-
-[3]
-Overfull \hbox (40.18924pt too wide) in paragraph at lines 294--295
-[]$\OML/cmm/m/it/10 C[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 I\OT1/cmr/m/n/10 ) = \OMS/cmsy/m/n/10 f[]g$ 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 303--304
+Underfull \hbox (badness 10000) in paragraph at lines 794--799
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 331--335
-
- []
-
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 344--346
+Underfull \hbox (badness 10000) in paragraph at lines 803--805
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 349--356
+Underfull \hbox (badness 10000) in paragraph at lines 803--805
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 359--363
+Underfull \hbox (badness 10000) in paragraph at lines 807--810
+
+ []
+
+[15] [16]
+Underfull \hbox (badness 10000) in paragraph at lines 857--859
+
+ []
+
+[17]
+Underfull \hbox (badness 10000) in paragraph at lines 890--893
+
+ []
+
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 975--977
+
+ []
+
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 984--988
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 383--396
+Underfull \hbox (badness 10000) in paragraph at lines 988--991
+
+ []
+
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 1002--1005
+
+ []
+
+[21]
+Underfull \hbox (badness 10000) in paragraph at lines 1035--1038
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 383--396
-
- []
-
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 436--440
+Underfull \hbox (badness 10000) in paragraph at lines 1062--1065
 
  []
 
 
-LaTeX Warning: The counter will not be printed.
-             The label is: \space  on input line 445.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 460--464
+Underfull \hbox (badness 10000) in paragraph at lines 1070--1072
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 466--468
+Underfull \hbox (badness 10000) in paragraph at lines 1073--1074
 
  []
 
-[6] (./theory.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 1075--1076
+
+ []
+
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1084
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1085--1086
+
+ []
+
+[23] [24] [25]
+Underfull \hbox (badness 10000) in paragraph at lines 1174--1176
+
+ []
+
+[26]
+Underfull \hbox (badness 10000) in paragraph at lines 1204--1206
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1207--1208
+
+ []
+
+Missing character: There is no ; in font nullfont!
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 1279--1282
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1294--1296
+
+ []
+
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 1313--1314
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1318--1319
+
+ []
+
+[29]
+Underfull \hbox (badness 10000) in paragraph at lines 1383--1388
+
+ []
+
+[30]
+Underfull \hbox (badness 10000) in paragraph at lines 1479--1481
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1492--1494
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1495--1497
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1509--1515
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1519--1520
+
+ []
+
+[31]
+Underfull \hbox (badness 10000) in paragraph at lines 1569--1572
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1573--1579
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1579--1580
+
+ []
+
+[32]
+Underfull \hbox (badness 10000) in paragraph at lines 1582--1589
+
+ []
+
+[33] (./theory.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 32049 strings out of 474222
- 813693 string characters out of 5748733
- 1945975 words of memory out of 5000000
- 53719 multiletter control sequences out of 15000+600000
- 569945 words of font info for 83 fonts, out of 8000000 for 9000
+ 32279 strings out of 474222
+ 818600 string characters out of 5748733
+ 4270496 words of memory out of 5000000
+ 53941 multiletter control sequences out of 15000+600000
+ 573651 words of font info for 96 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,28n,107p,773b,2047s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbl1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on theory.pdf (6 pages, 223137 bytes).
+ 99i,19n,107p,772b,2497s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbl1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfsl1000.pfb>
+Output written on theory.pdf (33 pages, 608564 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
- 78 compressed objects within 1 object stream
+ 265 PDF objects out of 1000 (max. 8388607)
+ 168 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

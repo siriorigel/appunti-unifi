@@ -15,7 +15,6 @@
 \usepackage{pgfplots}
 \usepackage{tabularx}
 \usepackage{tikz-3dplot}
-\usepackage{wrapfig}
 \usepackage{color}
 \usepackage{multicol}
 \usepackage{arydshln}
@@ -37,6 +36,8 @@
 \usetikzlibrary{tikzmark}
 \newcommand{\TikzNCbar}[4][10pt]{
 \tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\fem}{f_\text{em}}
 
 \graphicspath{ {images/} }
 
@@ -550,8 +551,10 @@ Il generatore ideale viene rappresentato in un circuito in questo modo:
     \begin{gather*}
         f.e.m. = V_A - V_B
     \end{gather*}
-    Da quì si puo capire come misurare la f.e.m. sperimentalmente sfruttando il fatto che guardando l'andamento della corrente fino ad un certo punto è circa lineare 
-    ma da un certo punto in poi diventa non lineare, e quindi si può sfruttare questo punto di non linearità per misurare la f.e.m. del generatore.\\
+    Ovviamente a noi del passaggio di corrente serve per misurare questa grandezza, quindi come possiamo fare?\\
+    Per misurare la f.e.m. sperimentalmente sfrutteremo l'andamento della corrente, fino ad un certo punto è circa lineare 
+    ma da un certo punto in poi diventa non lineare, questo punto in cui si ha un salto alla non linearità, può essere sfruttato per misurare la f.e.m. del generatore.\\
+    Possiamo visualizzare questo andamento in questo modo:
     \begin{center}
         \begin{tikzpicture}
             %assi x y
@@ -565,77 +568,195 @@ Il generatore ideale viene rappresentato in un circuito in questo modo:
     \end{center}
     Sfruttando la relazione precedente e integrando ciò che abbiamo detto finora si puo dire:
     \begin{gather*}
-        \Delta V = V_A - V_B = f_\text{em} - r_i
+        \Delta V = V_A - V_B = f_\text{em} - r i
     \end{gather*}
     Ovvero la differenza di potenziale che si misura ai capi del generatore è data dalla forza elettromotrice meno la caduta di potenziale dovuta alla resistenza interna.\\
-    Visualizzandolo in un'altro modo:
+    Questo torna con la situazione precedente perchè quando la corrente è molto piccola, la caduta di potenziale dovuta alla resistenza interna è trascurabile, e quindi $V_A - V_B \simeq f_\text{em}$, ma quando la corrente aumenta, la caduta di potenziale dovuta alla resistenza interna diventa significativa, e quindi $V_A - V_B$ diminuisce.\\
+    Questo ci dice anche che all'aumentare della corrente l'effetto della resistenza sale fino ad un valore massimo che è dove la differenza di potenziale non è più in grado di tenerlo, questo è praticamente il limite del generatore ed è dove comincia a surriscaldarsi, e proprio per questo si ha il salto alla non linearità.\\
+    \par
+    \begin{wrapfigure}{r}{0.4\textwidth}
     \begin{center}
-        \begin{tikzpicture}
+    \begin{tikzpicture}
+            %assi x y
             \draw[->] (0,0) -- (3,0) node[below] {$i$};
-            \draw[->] (0,0) -- (0,3) node[left] {$V$};
-            \draw[thick] (0,2) -- (2,2) -- (2,0);
-            \node at(1,1) {$W$};
-            \draw (0,2) ..controls(2,2).. (2,0);
+            \draw[->] (0,0) -- (0,3) node[left] {$V_A-V_B$};
+            %linea
+            \draw[thick] (0,2) -- (2,0.5) node[midway, above] {$r$} node[at start, left]{$f$};
+            \draw[thick, cyan] (2,0.5) to[bend left = 10] (2.5,0);
+            \node at(2.5,0) [below] {$i_m$};
+            \draw[dashed] (0,2.5) -- (2.5,2.5);
+            \draw[dashed] (2.5,0) -- (2.5,2.5); 
+            \node[orange] at(2.5,2.5)[above right] {$W$};
+            \draw[orange] (0,2.5) ..controls(2.5,2.5).. (2.5,0);
         \end{tikzpicture}
     \end{center}
-    E la differenza è proprio la forza elettromotrice, che è l'area del rettangolo $W$.\\
+    \end{wrapfigure}\noindent
+    Posso visualizzarla anche in un'altro modo.\\
+    Considero la potenza $W = V i$ la corrente aumenta e la tensione diminuisce, e posso rappresentare la potenza come l'area del rettangolo che si forma tra l'asse delle correnti e l'asse delle tensioni, ad un certo punto la corrente non sarà più lineare quindi avrò non un rettangolo perfetto ma un rettangolo con una curva, questa discrepanza tra la curva e l'eventuale "rettangolo ideale" mi rappresenta la potenza dissipata a causa della resistenza interna.
+    \hfill\\\hfill\\\hfill\\\hfill\\
     \subsection{misurazione della f.e.m.}
     Iniziamo col misurare con un Voltmetro la differenza di potenziale ai capi del generatore, e otteniamo un certo valore $V$.\\
+    \par
+    \begin{wrapfigure}{l}{0.4\textwidth}
+        \begin{center}
+            \begin{tikzpicture}
+                \draw (0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,2);
+                \draw (0,2) to [short] (2,2);
+                \draw (2,2) to [R, l=$r_x \quad \rho_x$] (2,0);
+                \filldraw(2,0) circle (2pt) node [below] {$A$};
+                \filldraw(0,0) circle (2pt) node [below] {$B$};
+                %voltmetro
+                \draw(2,0) to[R, l=$r_x \quad$] (0,0);
+                \draw[->] (1.5,0.5) -- (0.5,0.5) node[above, midway] {$R$};
+                \draw(2,0) -- (2,-1);
+                \draw(0,0) -- (0,-1);
+                \draw(2,-1) to [short, voltmeter] (0,-1);
+            \end{tikzpicture}
+        \end{center}
+    \end{wrapfigure}
+    \noindent
+    Sappiamo che la differenza di potenziale è data sia dalla legge di ohm che dalla relazione con la forza elettromotrice che abbiamo visto prima, quindi avremo che:
+    \begin{gather*}
+        \Delta V = V_A - V_B = i R = \mathcal{E} - r i
+    \end{gather*}
+    Se consideriamo quindi una resistenza $R$ in serie alla resistenza interna $r$ del generatore, e risolviamo l'espressione precedente per $i$ troviamo:
+    \begin{gather*}
+        i = \frac{f_\text{em}}{(R + r)}
+    \end{gather*}
+    Con la $f_\text{em}$ che ricordiamo la indichiamo proprio con $\E$, in più il fatto che le resistenze si sommino torna poichè sono in serie. Ora ricordando 
+    che $V_A - V_B = R I$ e dalla relazione che abbiamo appena scritto possiamo eguagliare questo a:\\
+    \begin{gather*}
+        R I = \E \frac{R}{R + r} \simeq \E \qquad \text{se $R \gg r$ e $I=0$}
+    \end{gather*}
+    \subsection{Collegamenti in serie e parallelo}
+    Siccome lo abbiamo accennato formalizziamo per bene cosa vuol dire mettere due resistenze in serie e anche cosa vuol dire mettere due resistenze in parallelo.\\
+    Per prima cosa ricordiamo che i seguenti circuiti sono equivalenti:
     \begin{center}
-        \begin{tikzpicture}
-            \draw (0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,2);
-            \draw (0,2) to [short] (2,2);
-            \draw (2,2) to [R, l=$r_x \quad \rho_x$] (2,0);
-            \filldraw(2,0) circle (2pt) node [below] {$A$};
-            \filldraw(0,0) circle (2pt) node [below] {$B$};
-            %voltmetro
-            \draw(2,0) to[R, l=$r_x \quad$] (0,0);
-            \draw[->] (1.5,0.5) -- (0.5,0.5) node[above, midway] {$R$};
-            \draw(2,0) -- (2,-1);
-            \draw(0,0) -- (0,-1);
-            \draw(2,-1) to [short, voltmeter] (0,-1);
+        \begin{tikzpicture}[scale = 0.8, transform shape]
+            \begin{scope}[yshift= 1.2cm]
+                \draw (0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,2);
+                \draw (0,2) to [R, l=$R_1$] (2,2);
+                \draw (2,2) to [R, l=$R_2$] (2,0);
+                \draw (0,0) to[short] (2,0);
+            \end{scope}
+            \node at(2.7,2) [right] {\huge{$\equiv$}};
+            \begin{scope}[xshift=5cm]
+                \draw (0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,4);
+                \draw (0,4) to [short] (2,4);
+                \draw (2,4) to [R, l=$R_1$] (2,2);
+                \draw (2,2) to [R, l=$R_2$] (2,0);
+                \draw (0,0) to[short] (2,0);   
+            \end{scope}        
         \end{tikzpicture}
     \end{center}
+    \par
+    \begin{wrapfigure}{r}{0.4\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=0.7, transform shape]
+                \draw (0,0) to[R, l=$R_1$] (0,2) to[R, l=$R_2$] (0,4);
+                \node at(0.5,2) [right] {\huge{$\equiv$}};
+                \draw (2,0) to[R, l=$R_\text{eq}$] (2,4);
+                \node at(4.5,2) {Collegamento in serie};
+            \end{tikzpicture}
+            \hfill\\
+        \begin{tikzpicture}[scale=0.7, transform shape]
+                \draw(0,0) to[short] (2,0);
+                \draw(0,0) to[R, l=$R_1$] (0,2);
+                \draw(2,0) to[R, l=$R_2$] (2,2);
+                \draw(0,2) to[short] (2,2);
+                \draw(1,0) to[short, f=$i$] (1,-0.5);
+                \draw(1,2) to[short] (1,2.5);
+                \filldraw(1,0) circle (1pt) node[below left] {$n$};
+                \filldraw(1,2) circle (1pt) node[above left] {$n$};
+                \node at(4.5,1) {Collegamento in parallelo};
+            \end{tikzpicture}
+    \end{wrapfigure}
+    \noindent
+    In generale due resistenze sono in serie se sono attraversate dalla stessa corrente, e quindi se sono in serie allora la differenza di potenziale totale è data dalla somma delle differenze di potenziale ai capi di ogni resistenza:
     \begin{gather*}
-        \Delta V = V_A - V_B = i R = \mathcal{E} - \rho i\
+        R_\text{eq} = R_1 + R_2
     \end{gather*}
-    Se aggiungomo una resistenza $R$ in serie al generatore, allora la corrente che passa attraverso il circuito è data da:
+    Due resistenze sono in parallelo se sono sottoposte alla stessa differenza di potenziale, e quindi se sono in parallelo allora la corrente totale che attraversa le resistenze è data dalla somma delle correnti che attraversano ogni resistenza:
     \begin{gather*}
-        \mathcal{E} = \frac{R}{R + \rho} \underset{R \ll r}{\simeq} \mathcal{E}
+        \Delta V = i_1 R_1 = i_2 R_2\\
+        i = i_1 + i_2 \\
+        i_1 = \frac{\Delta V}{R_1} \qquad i_2 = \frac{\Delta V}{R_2} \\
+        i = \frac{\Delta V}{R_1} + \frac{\Delta V}{R_2} = \Delta V \left( \frac{1}{R_1} + \frac{1}{R_2} \right) = \frac{\Delta V}{R_\text{eq}} \\
+        \Rightarrow R_\text{eq} = \frac{1}{\frac{1}{R_1} + \frac{1}{R_2}} = \frac{R_1 R_2}{R_1 + R_2}
     \end{gather*}
-    Avro:
-    \begin{center}
-        da sistemare
-        \begin{tikzpicture}
-            \draw (0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,2);
-            \draw (0,2) to [short] (2,2);
-            \draw (2,2) to [R, l=$r_x \quad \rho_x$] (2,0);
-            \filldraw(2,0) circle (2pt) node [below] {$A$};
-            \filldraw(0,0) circle (2pt) node [below] {$B$};
-            %resistenza in parallelo
-            \draw(2,2) to[R, l=$R$] (4,2);
-            \draw(4,2) to [short] (4,0);
-            \draw(4,0) to [short] (2,0);
-        \end{tikzpicture}
-    \end{center}
-    \subsection{Collegamenti in serie}
-    \begin{center}
-        
-    \end{center}
-    \begin{gather*}
-        \Delta V = i_1
-    \end{gather*}
+    \newpage
     \subsection{legge del partitore di tensione}
-    \begin{center}
+    \begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
         \begin{tikzpicture}
-            \draw (0,0) to[R, l=$R_1$] (0,2) to[R, l=$R_2$] (0,4);
+            \draw (0,0) to[R, l=$R_1$] (0,2) to[R, l=$R_2$, f=$i$] (0,4);
             \filldraw (0,0) circle (2pt) node [below] {$A$};
             \filldraw (0,2) circle (2pt) node [left] {$B$};
             \filldraw (0,4) circle (2pt) node [above] {$C$};
         \end{tikzpicture}
-    \end{center}
-
-\section{474/26}
+    \end{wrapfigure}
+    La legge del partitore di tensione dice che se abbiamo due resistenze in serie, allora la differenza di potenziale totale è data dalla somma delle differenze di potenziale ai capi di ogni resistenza, e quindi se vogliamo calcolare la differenza di potenziale ai capi di una resistenza.
+    \begin{gather*}
+        V_B - V_C = \Delta V_\text{out}\\
+        V_A - V_C = \Delta V \qquad V_A - V_C = iR_1 + iR_2 \\
+        \Rightarrow V_A - V_C = i (R_1 + R_2) \\
+    \end{gather*}
+    e quindi anche:
+    \begin{gather*}
+        V_A - V_C = \Delta V_\text{in} \\
+        V_B - V_C = i R_2\\
+    \end{gather*}
+    Esplicitiamo $i$ dalla prima equazione e sostituiamolo nella seconda:
+    \begin{gather*}
+        V_B - V_C = \frac{V_A - V_C}{R_1 + R_2} R_2 = \Delta V_\text{in} \frac{R_2}{R_1 + R_2}
+    \end{gather*}
+    Siccome $V_B - V_C = \Delta V_0$
+    \begin{gather*}
+        \Delta V_\text{out} = \Delta V_\text{in} \frac{R_2}{R_1 + R_2}
+    \end{gather*}
+    \subsection{Misurazione fem}
+    \begin{wrapfigure}{l}{0.4\textwidth}
+            \begin{tikzpicture}
+                \draw (0,0) to [battery1, invert, l=$\E_x\quad \pm$,] (0,2);
+                \draw (0,2) to [short, f=$i$] (2,2);
+                \draw (2,2) to [R, l=$\rho_x$] (2,0);
+                \filldraw(2,0) circle (2pt) node [below, right] {$A$};
+                \filldraw(0,0) circle (2pt) node [below, left] {$B$};
+                \draw(2,0) to [short, R, l=$R$, f=$i$] (0,0);
+                \draw(0,0) to [short] (0,-2);
+                \draw(0,-2) to [short, voltmeter] (2,-2);
+                \draw(2,-2) to [short] (2,0);
+                \draw(2,-2) to (2,-4);
+                \draw(0,-2) to (0,-4);
+                \draw(2,-4) to [short, R, l=$R$] (0,-4);
+                \draw(2,-4) to [short] (2,-6);
+                \draw(0,-4) to [short] (0,-6);
+                \draw(0,-6) to [short, voltmeter] (2,-6);
+        \end{tikzpicture}
+    \end{wrapfigure}
+    Questo sarà il circuito che utilizzeremo anche nella prima esperienza e serve per la prima parte ad avere una buona stima della f.e.m. che vogliamo misurare.\\
+    Il nostro scopo è ricavare le incognite $\E_x$ ed $\rho_x$, che ricordiamo essere rispettivamente la forza elettromotrice del generatore e la sua resistenza interna.\\
+    Per ricavarle effettuiamo due misurazioni, sul circuito illustrato, e posizioniamo delle resistenze in modo da ottenere il seguente sistema.
+    \begin{gather*}
+        \begin{cases}
+            (R + 2\rho_x) V_2 = R \E_x\\
+            (R + \rho_x) V_1 = R \E_x
+        \end{cases}
+    \end{gather*}
+    Dove $V_1$ e $V_2$ sono le due misurazioni che otteniamo dai voltmetri, e $R$ è la resistenza che abbiamo posizionato.\\
+    Risolvendo il sistema troviamo:
+    \begin{gather*}
+        \E_x = \frac{(R + 2\rho_x) V_2}{R} = \frac{(R + \rho_x) V_1}{R} \\
+        \Rightarrow (R + 2\rho_x) V_2 = (R + \rho_x) V_1 \\
+        \Rightarrow R (V_2 - V_1) = \rho_x (V_1 - 2 V_2) \\
+        \Rightarrow \rho_x = R \frac{V_2 - V_1}{V_1 - 2 V_2}
+    \end{gather*}
+    E sostituiendo $\rho_x$ in una delle due equazioni del sistema troviamo:
+    \begin{gather*}
+        \E_x = \frac{V_1 V_2}{2V_2 -V_1}
+    \end{gather*}
+\newpage
+\section{4/4/26}
 \subsection{ESPI}
 \begin{center}
     \begin{tikzpicture}
@@ -766,4 +887,348 @@ Ora ho che $\int_{-}^{+} \vv{E}_1 \cdot \vv{dl} = f_1$ e $\int_{+}^{-} \vv{E}_2 
 \begin{gather*}
     \sum_\text{maglia} f = (\sum_\text{maglia} R i)
 \end{gather*}
+\newpage
+\section{9/3/26}
+La scorsa volta abbiamo impostato il seguente esercizio:
+\begin{center}
+    \begin{tikzpicture}
+        \draw (0,0) to [battery1, invert, l=$\mathcal{E}_1\quad \pm$,] (0,2);
+        \draw (0,2) to [short] (2,2);
+        \draw (2,0) to [battery1, invert, l=$\mathcal{E}_2 \quad \pm$] (2,1);
+        \draw (2,1) to[ R, l=$R_2$] (2,2);
+        \draw(2,0) to [short] (0,0);
+        \draw(2,0) to[short] (4,0);
+        \draw(2,2) to[short] (4,2);
+    \end{tikzpicture}
+\end{center}
+Procediamo a risolverlo con il metoodo delle maglie che abbiamo introdotto la scorsa volta, consideriamo le correnti di maglia $I_1$ e $I_2$.
+\begin{gather*}
+    \begin{cases}
+        \mathcal{E}_1 + \mathcal{E}_2 = I_1 R_1 + (I_1 - I_2) R_2\\
+        -\mathcal{E}_2 = I_2 R_3 + (I_2 - I_1) R_2
+    \end{cases}\\
+    \begin{cases}
+        \mathcal{E}_1 + \mathcal{E}_2 = I_1 (R_1 + R_2) - I_2 R_2\\
+        -\mathcal{E}_2 = I_2 (R_2 + R_3) - I_1 R_2
+    \end{cases}
+\end{gather*}
+Da quì possiamo sviluppare il prblema in forma matriciale:
+\begin{gather*}
+    \begin{pmatrix}
+        \mathcal{E}_1 + \mathcal{E}_2\\
+        -\mathcal{E}_2
+    \end{pmatrix} = \underbrace{\begin{pmatrix}
+        R_1 + R_2 & -R_2\\
+        -R_2 & R_2 + R_3
+    \end{pmatrix}}_{R_{kl}} \cdot
+    \underbrace{\begin{pmatrix}
+        I_1\\
+        I_2
+    \end{pmatrix}}_{I_e}
+\end{gather*}
+Da qui otteniamo che $\mathcal{E}_k = R_{kl} I_e$. Quindi una matrice $2\times2$ per una matrice $2\times1$:\\
+Questo è un sistema lineare ed è risolvibile con il metodo di Cramer, e quindi otteniamo:
+\begin{gather*}
+    i_3 = I_2 = \frac{\left\lvert \begin{matrix}
+        R_1 + R_2 & \mathcal{E}_1 + \mathcal{E}_2\\
+        -R_2 & -\mathcal{E}_2
+    \end{matrix} \right\rvert }{\left\lvert \begin{matrix}
+        R_1 + R_2 & -R_2\\
+        -R_2 & R_2 + R_3
+    \end{matrix} \right\rvert }
+    \Rightarrow I_1 = \frac{\left\lvert \begin{matrix}
+        \mathcal{E}_1 + \mathcal{E}_2 & -R_2\\
+        -\mathcal{E}_2 & R_2 + R_3
+    \end{matrix} \right\rvert }{\left\lvert \begin{matrix}
+        R_1 + R_2 & -R_2\\
+        -R_2 & R_2 + R_3
+    \end{matrix} \right\rvert }
+\end{gather*}
+Svolgendo i conti dei determinanti arriviamo alll'esmpressione:
+\begin{gather*}
+    I_2 = \frac{-\mathcal{E}_2(R_1 + R_2) + (\mathcal{E}_1 + \mathcal{E}_2)R_2}{(R_1 + R_2)(R_2 + R_3) - R_2^2}\\
+    = \frac{-\mathcal{E}_2 R_1 - \cancel{\mathcal{E}_2 R_2} + \mathcal{E}_1 R_2 + \cancel{\mathcal{E}_2 R_2}}{R_1 R_2 + R_1 R_3 + \cancel{R_2^2} + R_2 R_3 - \cancel{R_2^2}}\\
+    I_2 = i_3 = \frac{-\mathcal{E}_2 R_1 + \mathcal{E}_1 R_2}{S}
+\end{gather*}
+Consideriamo ora di lavorare non con due maglie ma con $n$ maglie, e quindi con $n$ correnti di maglia, e quindi con $n$ equazioni, in questo caso avremo che:
+\begin{gather*}
+    R_{kl} = \begin{pmatrix}
+        R_{11} & R_{12} & \dots & R_{1n}\\
+        R_{21} & R_{22} & \dots & R_{2n}\\
+        \vdots & \vdots & \ddots & \vdots\\
+        R_{n1} & R_{n2} & \dots & R_{nn}
+    \end{pmatrix}
+\end{gather*}
+Cerco ora la corrente $I_k$:
+\begin{gather*}
+    I_k = \frac{\left\lvert \begin{matrix}
+        R_{11} & \dots & R_{1k-1} & \mathcal{E}_1 + \mathcal{E}_2 + \dots + \mathcal{E}_n & R_{1k+1} & \dots & R_{1n}\\
+        R_{21} & \dots & R_{2k-1} & \mathcal{E}_1 + \mathcal{E}_2 + \dots + \mathcal{E}_n & R_{2k+1} & \dots & R_{2n}\\
+        \vdots &  & \vdots & \vdots & \vdots &  & \vdots\\
+        R_{n1} & \dots & R_{nk-1} & \mathcal{E}_1 + \mathcal{E}_2 + \dots + \mathcal{E}_n & R_{nk+1} & \dots & R_{nn}
+    \end{matrix} \right\rvert }{\left\lVert R_{kl}\right\rVert }
+\end{gather*}
+Stiamo usando la notazione di $\left\lVert \cdot \right\rVert$ che rappresenta il determinante della matrice.\\
+Questa matrice la posso riscrivere come somma di contributi: poichè dalla relazione che avevamo trovato prima che aveva da due maglie, se estendiamo quella formula per $I_k$ troviamo:
+\begin{gather*}
+    I_k = \mathcal{E}_1 \frac{\left\lVert M_{k1} \right\rVert }{\left\lVert R_{kl}\right\rVert } + \dots + \mathcal{E}_n \frac{\left\lVert M_{kn} \right\rVert }{\left\lVert R_{kl} \right\rVert }
+\end{gather*}
+Si trova che $I_k = \mathcal{E}_k \frac{\left\lVert M_{kk} \right\rVert }{\left\lVert R_{kl} \right\rVert } = \frac{\mathcal{E}_k}{R_T}$ quindi si è trovato che dipende da una resistenza che possiamo esplicitare in questo modo:
+\begin{gather*}
+    R_T = \frac{\left\lVert R_{kl} \right\rVert }{\left\lVert M_{kk} \right\rVert }
+\end{gather*}
+\subsection{Theverinin}
+Ci diche che una rete lineare vista da due terminali $A$ e $B$ è equivalente ad un generatore di potenziale reale.
+\begin{center}
+    \begin{tikzpicture}
+        \draw(-0.5,0) rectangle (2,2);
+        \node at(0.5,0.5){\small{LINEARE}};
+        \node at(0.8,1.5){\small{RETE}};
+        \draw (1.5,0.5) -- (2.5,0.5) node[below] {$A$};
+        \draw (1.5,1.5) -- (2.5,1.5) node[above] {$B$};\
+        \filldraw (2.5,0.5) circle (2pt);
+        \filldraw (2.5,1.5) circle (2pt);
+    \end{tikzpicture}
+        \begin{gather*}
+            \equiv
+        \end{gather*}
+    \begin{tikzpicture}
+        \draw (0,0) to [battery1, invert, l=$\mathcal{E}_\text{th}\quad \pm$,] (0,2);
+        \draw (0,2) to[R, l=$R_\text{th}$] (2,2);
+        \draw (0,0) to[short] (2,0);
+        \filldraw(2,0) circle (2pt) node [below] {$A$};
+        \filldraw(2,2) circle (2pt) node [above] {$B$};
+    \end{tikzpicture}
+\end{center}
+\begin{example}
+    Vediamo un caso applicativo di questa tecnica, prendiamo il seguente circuito:
+    \begin{center}
+        \begin{tikzpicture}
+            \draw (0,0) to [battery1, invert, l=$\mathcal{E}_1\quad \pm$,] (0,4);
+            \draw(0,4) to [short] (3,4);
+            \draw(0,0) to[short] (3,0);
+            \filldraw (3,4) circle (2pt) node [above] {$A$};
+            \filldraw (3,0) circle (2pt) node [above] {$B$};
+            \draw (3,4) to[R, l=$R_1$, invert] (1.5,2);
+            \draw (3,4) to[R, l=$R_2$] (4.5,2);
+            \draw (1.5,2) to[R, l=$R_5$] (4.5,2);
+            \draw (4.5,2) to[R, l=$R_3$] (3,0);
+            \draw (1.5,2) to[R, l=$R_4$] (3,0);
+        \end{tikzpicture}
+    \end{center}
+    Il punto $A$ $B$ in base alle resistenze abbiamo che:
+\begin{gather*}
+    R_A + R_B = R_{AB} \parallel (R_{AC} + R_{BC}) = \frac{R_{AB}(R_{AC} + R_{BC})}{\Sigma}\\
+    R_A + R_C = R_{AC} \parallel (R_{AB} + R_{BC}) = \frac{R_{AC}(R_{AB} + R_{BC})}{\Sigma}\\
+    R_B + R_C = R_{BC} \parallel (R_{AB} + R_{AC}) = \frac{R_{BC}(R_{AB} + R_{AC})}{\Sigma}
+\end{gather*}
+Quindi:
+\begin{gather*}
+    R_A + R_B + 2R_C = \frac{R_{AC}(\cancel{R_{AB} + R_{BC}})}{\mathcal{E}} + \frac{R_{BC}(\cancel{R_{AB} + R_{AC}})}{\mathcal{E}} + \frac{R_{AB}(\cancel{R_{AC} + R_{BC}})}{\mathcal{E}}
+\end{gather*}
+\end{example}
+Incentriamoci ora sulla dimostrazione del teorema di Thevenin.\\
+    \begin{center}
+        \begin{tikzpicture}
+            \draw (0,0) to [battery1, invert, l=$\mathcal{E}_\text{th}\quad \pm$,] (0,2);
+            \draw (0,2) to[R, l=$R_\text{th}$] (2,2);
+            \draw (0,0) to[short] (2,0);
+            \filldraw(2,0) circle (2pt) node [below] {$A$};
+            \filldraw(2,2) circle (2pt) node [above] {$B$};
+        \end{tikzpicture}
+    \end{center}
+Ricordiamo che:
+\begin{gather*}
+    \mathcal{E}_{th} = V_A - V_B |_{i=0}\\
+    R_{th} = \text{Resistenza eq. quando TUTTI i gen. cortocircuitano}
+\end{gather*}
+Quindi per riscriverlo in formula ho:
+\begin{gather*}
+    R_{th} = \frac{\mathcal{E}_{th}}{I_{cc}}
+\end{gather*}
+
+\section{11/3/26}
+\subsection{galvanometro}
+È lo strumento base con cui si fanno le varie misure in laboratorio.\\
+Di base è un misuratore di corrente, o meglio è un misuratore 
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) rectangle (2,2);
+        \draw[->] (0,1) -- (0,1.1) node[left] {$i$};
+        \draw[->] (2,1) -- (2,0.9) node[right] {$i$};
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        \draw(0,0) -- (4,0) -- (4,2) -- (3,2) -- (3,1.5) -- (3.5,1.5) -- (3.5,0.5) -- (0.5,0.5) -- (0.5,1.5) -- (1,1.5) -- (1,2) -- (0,2) -- (0,0);
+        \node at(0.8,1.8) {$N$};
+        \node at(3.5,1.8) {$S$};
+        \filldraw (2,1.8) circle (2pt);
+        \draw (1,1.5) arc (180:0:1);
+        \begin{scope}[rotate = 30, shift={(2,1.8)}]
+            \draw(-0.5,0) -- (0.5,0);
+            \draw(0,0) -- (0,2);
+        \end{scope}
+    \end{tikzpicture}
+\end{center}
+Può essere descritta da un vettore $\vv{m} = i S \widehat{n}$, dove $i$ è la corrente che attraversa il galvanometro, $S$ è l'area della spira del galvanometro, e $\widehat{n}$ è un versore perpendicolare alla spira.\\
+\begin{gather*}
+\begin{cases}
+        \vv{M} = \vv{m} \land \vv{B}\\
+        \vv{M}_M = -k \varphi \widehat{k}
+\end{cases}
+\end{gather*}
+E rileva la corrente con una scala che è proporzionale alla corrente che attraversa il galvanometro, descritta da questa formula:
+\begin{gather*}
+    i = k_r \varphi
+\end{gather*}
+Dove $k_r = 10^{-6} \frac{A}{rad}$ che è $\sim < 1000 n A/div$ ed è la costante di proporzionalità del galvanometro, e $\varphi$ è l'angolo di rotazione della spira del galvanometro.\\
+Su un circuito si rappresenta così:
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[R, l=$\rho_G$] (0,1) to[short, f=$i$] (0,2) to[rmeter, l = $G$] (0,3);
+    \end{tikzpicture}
+\end{center}
+\subsection{-}
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,2);
+        \draw (0,2) to[R, l=$\rho$] (2,2);
+        \draw(2,2) [short, f=$i$] to (2,0);
+        \draw(2,0) to [short] (0,0);
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        \draw(0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,2);
+        \draw (0,2) to[R, l=$\rho$] (2,2);
+        \draw(2,2) to [R, l=$\rho_G$] (2,0);
+        \draw(2,0) to [rmeter, l=$G$] (0,0);
+    \end{tikzpicture}
+\end{center}
+Da qui:
+\begin{gather*}
+    i = \frac{\mathcal{E}}{\rho}\\
+    i_m = \frac{\mathcal{E}}{\rho+ \rho_G} \sim i
+\end{gather*}
+La approssimazione finale vale solo se $\rho_G \ll \rho$
+\subsection{Momento magnetico}
+Usiamo quello che si chiama uno Shunt
+\begin{center}
+    \begin{tikzpicture}
+        \draw(-1,1) to[short, f=$i$] (0,1);
+        \draw(0,0) to[short] (0,2);
+        \draw (0,2) to[R, l=$\rho$, f=$i_G$] (2,2) to[rmeter, l=$G$] (4,2);
+        \draw(4,2) to [short] (4,0);
+        \draw(4,1) to [short, f=$i$] (5,1);
+        \draw(0,0) to [R, l=$\rho_G/G$, f=$i_s$] (4,0);
+    \end{tikzpicture}
+\end{center}
+A questo punto abbiamo che $i = i_G + i_s$, e quindi:
+\begin{gather*}
+    \frac{i_G}{i_s} = \frac{\rho_G/G}{\rho} = \frac{1}{g}\\
+    g_{iG} + i_G = i = 10 i_G
+\end{gather*}
+Da quest'ultima ottengo:
+\begin{gather*}
+    \boxed{i_G = \frac{1}{10} i}
+\end{gather*}
+Quindi perdo una sensibilità di un fattore 10, ma riesco a misurare correnti più grandi, e quindi a misurare f.e.m. più grandi.\\
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,2);
+        \draw (0,2) to[R, l=$\rho$] (2,2);
+        \draw(2,2) [short, f=$i$] to (2,0);
+        \draw(2,0) to [short] (0,0);
+    \end{tikzpicture}
+\end{center}
+Da qui posso calcolare la resistenza equivalente:
+\begin{gather*}
+    R_t = \frac{\rho_G \rho_G / G}{\rho_G + \rho_G / G} = \frac{\rho_G /cancel{G}}{\frac{1 + G}{\cancel{G}}} = \frac{\rho_G}{10}
+\end{gather*}
+
+\subsection{specifica di linearità}
+Ogni divisore di tensione ha una specifica di linearità che è definita come:
+\begin{gather*}
+    \text{linearità } = \times \% \text{ della tensioni in ingresso } V
+\end{gather*}
+
+\begin{gather*}
+    DIV \to r < 1
+\end{gather*}
+Ovvero $V_\text{out} = r V_\text{IN}$
+\begin{gather*}
+    \frac{\Delta V}{v} = \frac{\overset{x \%}{\text{linearità }}}{v} = \frac{lin \%}{r}
+\end{gather*}
+Un esempio di un divisre con $20 ppm$, $r=0.5$:
+\begin{gather*}
+    \frac{\Delta V}{V} = \frac{20 ppm}{0.5} = 40 ppm = 4 \times 10^{-5}
+\end{gather*}
+\subsection{robo di kelvin-varley}
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) rectangle (2,4);
+        \draw(-1,3) -- (0.5,3) node[right] {$H$};
+        \draw(-1,1) -- (0.5,1) node[right] {$L$};
+        \filldraw(0.5,3) circle(2pt);
+        \filldraw(0.5,1) circle(2pt);
+        \draw(1.5,3) -- (3,3) node[at start, left] {$h$};
+        \draw(1.5,1) -- (3,1) node[at start, left] {$l$};
+        \filldraw(1.5,3) circle(2pt);
+        \filldraw(1.5,1) circle(2pt);
+        \node at(1,2) {$\boxed{r}$};
+        \node at(-1,2) {$V$};
+        \node at(3,2) {$v$};
+    \end{tikzpicture}\hfill\\
+    \begin{tikzpicture}
+        \filldraw(-1,0) circle (2pt) node [below] {$L$};
+        \filldraw(-1,10.6) circle (2pt) node [above] {$H$};
+        \filldraw(1,0) circle (2pt) node [left] {$0$};
+        \filldraw(1,2) circle (2pt) node [left] {$1$};
+        \filldraw(1,3.96) circle (2pt) node [left] {$2$};
+        \filldraw(1,4.6) circle (2pt) node [left] {$8$};
+        \filldraw(1,6.6) circle (2pt) node [left] {$9$};
+        \filldraw(1,8.6) circle (2pt) node [left] {$10$};
+        \draw(-1,0) to[short] (1,0);
+        \draw(1,0) to[R] (1,2) to[R] (1,4);
+        \node at(1,4) [above]{$\vdots$};
+        \draw(1,4.6) to[R] (1,6.6) to[R] (1,8.6) to[R, l=$11 \times 1 K \Omega$] (1,10.6) to[short] (0,10.6);
+        \draw[<-] (1,8.6) to (3,8.6) node[above, at start] {$i+2$};
+        \draw[<-] (1,6.6) to (3,6.6) node[above, at start] {$i$};
+        \filldraw(2,8.6) circle (2pt);
+        \filldraw(2,6.6) circle (2pt);
+        \draw(1.5,5.6) rectangle (2.5,9.6);
+    \end{tikzpicture}
+\end{center}
+\begin{gather*}
+    v_n - v_l = \overbrace{v_h - v_f}*3 + \overbrace{v_f - v_D}^2 + \overbrace{d_D - v_l}^1
+\end{gather*}
+\begin{center}
+    altra img
+\end{center}
+\begin{gather*}
+    v_D - v_l = \frac{i \cancel{k\Omega}}{\cancel{10 k \Omega}} (V_H - V_L) = \frac{i}{10} (V_H - V_L)
+\end{gather*}
+Di conseguenza calcolando il punto 2 e 3:
+\begin{gather*}
+    1: \quad \frac{i}{10} (V_H - V_L)\\
+    2: \quad \frac{j}{100} (V_H - V_L)\\
+    3: \quad \frac{k}{1000} (V_H - V_L)
+\end{gather*}
+\begin{center}
+    altra img
+\end{center}
+\begin{gather*}
+    v_f - v_D = \frac{j 200 \Omega}{ 2 K \Omega} (V_C - V_D) = \frac{j}{10} (V_C - V_D)
+\end{gather*}
+\begin{center}
+    alter 2 img camadonna
+\end{center}
+\begin{gather*}
+    V_H - V_L = I \cdot 10 R = I 10 k \Omega\\
+    I 1 k \Omega = V_C - V_D\\
+    V_C - V_D = \frac{1}{10} (V_H - V_L)
+\end{gather*}
+Da questo so che:
+\begin{gather*}
+    v_f - v_D = \frac{J}{100} (V_H - V_L)
+\end{gather*}
+
+
 \end{document}

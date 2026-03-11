@@ -35,6 +35,34 @@
 \newcommand{\TikzNCbar}[4][10pt]{
 \tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
 
+\newcommand\X{\mathbb{X}}
+\newcommand\U{\mathbb{U}}
+\newcommand\R{\mathbb{R}}
+\newcommand\norma{\left\lVert\cdot\right\rVert}
+\newcommand\V{\mathbb{V}}
+\newcommand\C{\mathbb{C}}
+\newcommand\B{\mathbb{B}}
+\newcommand\A{\mathbb{A}}
+\newcommand\D{\mathbb{D}}
+\newcommand\K{\mathbb{K}}
+\newcommand\Y{\mathbb{Y}}
+\newcommand\I{\mathbb{I}}
+\newcommand\J{\mathbb{J}}
+\newcommand\E{\mathbb{E}}
+\newcommand\de{\partial}
+
+%patata
+\def\potatoshape{
+  (1,0) (2,1.5) (1.6,3) (0.3,2.7) (-0.4,1.2)
+}
+\newcommand{\potato}[3][draw=white]{
+  \begin{scope}[shift={#2}, scale=#3]
+    \draw[#1]
+      plot [smooth cycle, tension=1]
+      coordinates {\potatoshape};
+  \end{scope}
+}
+
 \graphicspath{ {images/} }
 
 \definecolor{redish}{rgb}{255, 0, 30}
@@ -109,98 +137,124 @@
 \newtheorem{problem}{Problema}[section]
 \newtheorem{solution}{Soluzione}[section]
 \newtheorem{proposition}{Proposizione}[section]
-
+\newtheorem{inciso}{Inciso}[section]
 
 \maketitle
 
 \tableofcontents
+
 \newpage
-%EDO
-\section{Equazioni differenziali ordinarie}
-\begin{definition}[Forme normali di EDO]
-    Esempi di forma normale:
-    \begin{align*}
-        y' = f(x, y)
-        \\y'' = f(x, y, y')
-    \end{align*}
-    Forma normale canonica, in generale si definisce una eq. in forma normale se posso isolare la derivata n-esima e quindi ricondurmi alla forma seguente:
-    \begin{align*}
-        y^{(n)} = f(x, y, y', ...\ , y^{(n-1)})
-    \end{align*}
-\end{definition}
-\begin{center}
-    \fbox{L'ordine di un'eq. differenziale è il grado della derivata del grado più alto che compare nell'eq.}
-\end{center}
-\hfil\\
-%pb di cauchy
-\begin{proposition}[Prob. di Cauchy per eq. di 1° grado]
-\textbf{EDO 1° ordine}
-\begin{align*}
-    \begin{cases}
-        y' = f(x,y) \qquad x_0,y_0\text{\emph{ sono assegnati}}\\
-        y(x_0) = y_0
-    \end{cases}
-\end{align*}
-\\\textbf{EDO 2° ordine}
-\begin{align*}
-    \begin{cases}
-        y'' = f(x,y,y') \qquad x_0,y_0,y_1\text{\emph{ sono assegnati}}\\
-        y(x_0) = y_0\\
-        y'(x_0) = y_1
-    \end{cases}
-\end{align*}
-\end{proposition}
-\hfill\\
-%teorema di peano
-\begin{theorem}[th. di Peano]
-    \underbar{Se} $f(x,y)$ è definita e continua in un insieme $A$\\
-    \underbar{e} $(x_0, y_0)$ è un punto interno ad $A$\\
-    \underbar{allora} il Pb. di Caucy \fbox{*} ammette \textbf{almeno} una soluzione definita in un intorno di $x_0$
-    \\\\La continuità di $f(x, y)$ è necessaria per l'$\exists$ di una soluzione
-    \\La sola hp. di continuità \textbf{NON} garantisce che esista \textbf{solo} una soluzione
-\end{theorem}
-\hfill\\
-%funz liptschitziane
-\subsection{liptschitzianità}
-\begin{definition}[Funzioni Lipschitziane]
-    $g: \mathbb{I} \to \mathbb{R}$
-    \\Sia $[a,b] \subset \mathbb{I}$
-    \\Si dice che la funzione è Lipschitziana in $[a,b]$ 
-    \\\underline{se} $\exists L\in\mathbb{R} >0$ t.c. $\forall z_1 z_2 \in [a,b]$ \fbox{$ |\frac{g(z_1) - g(z_2)}{z_1 -z_2}| \leq L$} $\quad \Longleftrightarrow  \quad \ $\fbox{$-L \leq \frac{g(z_1) - g(z_2)}{z_1 - z_2} \leq L$}
-\end{definition}
-%esempi grafici funz. lipschitziane
-\begin{multicols}{2}
-    \noindent
-\begin{tikzpicture}
-    \begin{axis}[
-    axis lines=middle, 
-    xlabel={$z$},      
-    ylabel={$g(z)$},      
-    xmin=-1, xmax=3,   
-    ymin=-2, ymax=5,  
-    xtick=\empty,
-    ytick=\empty,
-    width = 8cm,
-    height = 7cm
-]
-\addplot[
-    domain=-3:3,      
-    samples=100,       
-    smooth,           
-    blue              
-] {x^(1/2)}; 
 
-\node at (250,430) {$g(z) = z^\alpha \quad \alpha\in(0,1)$};
-\node at (120,200) {[};
-\node at (120,170) {a};
-\node at (220,200) {]};
-\node at (220,170) {b};
-\end{axis}
+\section{Introduzione}
+    Le \textbf{equazioni differenziali} sono equazioni in cui l'incognita è una \textbf{funzione}. Mostriamone qualcuna per esempio:
+    \begin{itemize}
+        \item $y'=3 e^y$
+        \item $y''=4x+8$
+        \item $y''+y=0$
+    \end{itemize}
+    Vado ora a \textbf{definire} una serie di oggetti che userò.
 
-\end{tikzpicture}
-\columnbreak
-\tab
-\begin{tikzpicture}
+    \begin{definition}[Equazione differenziale ordinaria (EDO)]
+        Si dice "\textbf{equazione differenziale ordinaria}" un'equazione le cui incognite sono \textbf{funzioni di una variabile}. \\
+        Nel caso ci siamo \textbf{più variabili}, parlo di equazioni differenziali "\textbf{a derivate parziali}" (EDP). 
+    \end{definition}
+
+    \section{Soluzione di un'equazione differenziale}
+    Sia la mia equazione differenziale \textbf{ordinaria} $y'=f(x,y)$, definita $\forall x\in \A \subseteq \R^2$.\\
+    Definisco $y(x)$ \textbf{soluzione} dell'EDO se, $\forall x\in \A$, vale che:
+    \begin{gather*}
+        y'(x) = f\left(x,y(x)\right)
+    \end{gather*}
+    con $\left(x,y(x)\right)$ appartenente al \textbf{dominio} di $f$.\\
+    Può succedere che una EDO abbia \textbf{infinite soluzioni}
+
+    \begin{definition}[\textbf{Grado di una EDO}]
+        Definisco "\textbf{grado}" dell'equazione il \textbf{massimo ordine di derivazione} che si trova al suo interno
+    \end{definition}
+
+    \section{Problemi di Cauchy}
+    \subsection{1° ordine}
+    Definisco \textbf{problema di Cauchy} un problema così posto: 
+    \begin{gather*}
+        \begin{cases}
+            y'=f(x,y) \\
+            f(x_0)=y_0
+        \end{cases}
+    \end{gather*}
+    dove $x_0$ e $y_0$ sono \textbf{numeri assegnati}.
+
+    \subsection{Ordini superiori}
+    Per l'ordine \textbf{successivo al primo} i problemi di Cauchy sono definiti in maniera seguente:
+    \begin{gather*}
+        \begin{cases}
+            y''=f(x,y) \\
+            y'(x_0)=y^* _0 \\
+            y(x_0) = y_0
+        \end{cases}
+    \end{gather*}
+    \textbf{NOTA:} E' importante che $x_0$ sia \textbf{unico}. Inoltre $x_0$, $y^*_0$ e $y_0$ sono \textbf{numeri assegnati}.
+
+    \begin{definition}[\textbf{EDO normale}]
+        Una EDO si dice \textbf{normale} se è possibile \textbf{isolare} la derivata di \textbf{ordine massimo} dal resto dell'equazione
+    \end{definition}
+    Ne faccio un \textbf{esempio}:
+    \begin{gather*}
+            \left(y'\right)^2=-x^3 \rightarrow \text{Provo a \textbf{isolare}} \ y' \\
+    \end{gather*}
+    Ma ottengo \textbf{2 equazioni}:
+    \begin{itemize}
+        \item $y'=+\sqrt{-x^3}$
+        \item $y'=-\sqrt{-x^3}$
+    \end{itemize}
+    Dal momento che non ho una \textbf{soluzione univoca}, questa equazione \textbf{non è esprimibile} in \textbf{forma normale}
+
+    \newpage
+    \noindent Ho osservato che, in generale, un'equazione differenziale può avere \textbf{infinite soluzioni}, ossia esistono \textbf{infinite funzioni}
+    che la risolvono. Il \textbf{problema di Cauchy} è uno strumento che, ponendo una \textbf{specifica condizione aggiuntiva} sulla soluzione,
+    permette di trovare una soluzione \textbf{più specifica}. Nulla però ci dice se, in generale, questa soluzione \textbf{possa effettivamente 
+    esistere} o, addirittura, possa essere \textbf{unica}. \\
+    Sull'\textbf{esistenza delle soluzioni} c'è però un \textbf{importante risultato teorico}. 
+
+
+
+    \begin{theorem}[\textbf{Teorema di esistenza delle soluzioni (Peano)}]
+        Dato un poblema di Cauchy per equazioni di \textbf{1° ordine} scritto in \textbf{forma normale}:
+        \[\begin{cases}
+            y'=f(x,y) \\
+            y(x_0)=y_0
+        \end{cases}\]
+        Sia:
+        \begin{itemize}
+            \item $f(x,y)$ \textbf{definita} e \textbf{continua} in un insieme $\A\subseteq \R^2$
+            \item $(x_0,y_0)$ un \textbf{punto interno} ad $\A$, allora:
+        \end{itemize}
+
+        Il \textbf{problema di Cauchy} per l'\textbf{equazione di 1° ordine} in \textbf{forma normale} ammette 
+        \textbf{almeno una soluzione} in un \textbf{intorno di $(x_0,y_0)$}
+    \end{theorem}
+
+    \noindent Si può osservare che la \textbf{sola ipotesi} di \textbf{continuità} non garantisce che la soluzione sia \textbf{unica}. 
+    Inoltre, è proprio la \textbf{continuità} di $f(x,y)$ che è \textbf{necessaria} per l'\textbf{esistenza} della soluzione.\\
+    Fornisco un esempio di un \textbf{problema di Cauchy} che ammette \textbf{2 soluzioni}:
+    \[\begin{cases}
+        y'=y^{\frac{2}{3}} \\
+        y(0)=0
+    \end{cases}\]
+    Posso osservare che:\begin{itemize}
+        \item La funzione $y\equiv 0$ \textbf{è soluzione}. 
+        \item La funzione $y(x)=\frac{x^3}{27}$ \textbf{è soluzione}.
+    \end{itemize}
+    Per proseguire, ho bisogno di definire un \textbf{particolare tipo di funzioni} di cui mi servirò. 
+    \begin{inciso}[Funzione di \textbf{Lipshitz}]
+    Sia $g:\ [a,b]\to\R$, con $[a,b]\subseteq\R$. \\
+    Dico che $g$ è una \textbf{funzione di Lipshitz}, o \textbf{funzione Lipshitziana}, in $[a,b]$ se
+    $\forall z_1,z_2\in [a,b]$ risulta che:
+    \[\exists L\in\R, \ L>0 \ t.c. \left|\frac{g(z_1)-g(z_2)}{z_1-z_2}\right| \leq L\]
+    Posso anche scrivere questa condizione come:
+    \[-L\leq \frac{g(z_1)-g(z_2)}{z_1-z_2} \leq L\]
+
+    \begin{multicols}{2}
+    \begin{tikzpicture}
         \draw[->](-1, 0) -- (4, 0) node[at end, below] {$z$};
         \draw[->](0, -1) -- (0, 3) node[at end, left] {$g(z)$};
         \draw(0, 0) .. controls (1, 2) and (1.5, 1) .. (2, 1);
@@ -214,251 +268,1325 @@
         \draw[dashed](2, 0) -- (2, 1) node[at start, below] {$z_2$};
         \draw[<->](0.2, -0.7) -- (2.8, -0.7) node[midway, below] {$I$}; 
     \end{tikzpicture}
-\end{multicols}
-\hfill\\
-Se in un intervallo due numeri $z_1, z_2$ calcolati in una funzione $f$ arbitrariamente vicini formano una come corda tra di loro con un coefficente angolare finito.
-\begin{proof}[(servono due lemmi)]
-    \hfil\\
-    \underbar{\textbf{1° passo :}}
-    \begin{lemma}
-    Supponiamo valide le ipotesi del th. precedente
-    \\\underbar{Sia} $\delta > 0$ le seguenti affermazioni sono equivalenti.
-    \end{lemma}
-    %derivate parziali
-    \begin{definition}[derivate parziali]
-    \underbar{Sia} $f(x,y) , (x_0, y_0)$ interno al dominio di $F$
-    \begin{align*}
-        \frac{\partial f}{\partial y}(x_0, y_0) = \lim_{x_0\to0}\frac{f(x_0, y_0 + h)}{f(x_0, y_0)}
-    \end{align*}
-    \end{definition}
-    *punto chiave*
-    \begin{lemma}    
-    \underbar{Se} $f$ è continua in un insieme $A$ , $(x_0, y_0 )$ è interno ad $A$ e inoltre
-    \begin{enumerate}[i)]    
-    \item$\exists \frac{\partial f}{\partial y} (x,y)$
-    \item$\frac{\partial f}{\partial y} (x,y)$ è continua $\forall (x,y) \in A$ Allora le hp del th. precedente sono verificate
-    \end{enumerate}
-    \end{lemma}
-\end{proof}
-%eq omogenee
-\hfil\\
-\begin{definition}
-    Equazioni Omogenee
-    \\$y' = y(x,y)$ dove $f(x,y)$ è "omogenea di grado 0"
-    \\\emph{cioè} $\forall \lambda \in \mathbb{R} \forall(x,y) f(\lambda x, \lambda y) = f(x,y)$
-    \\Prendiamo l'eq:
-\begin{align*}
-    y' = \frac{2xy}{x^2+y^2} \qquad f(x,y) \frac{2xy}{x^2+y^2}
-\end{align*}
-Un equazione di questo tipo può essere riscritta come:
-\begin{align*}
-    y' = b(y/x)
-\end{align*}
-\end{definition}
-%th di ex globale
-\begin{theorem}[di $\exists$ globale]
-    Consideriamo il Pb. \fbox{*}
-    $\begin{cases}
-        y' = f(x,y)\\
-        y(x_0) = y_0\\
-    \end{cases}$
-    \\\underbar{se}:
-    \begin{enumerate}[i)]
-        \item $f(x,y)$ e $\frac{\partial f}{\partial y}(x,y)$ sono definite e continue $\forall x \in [a,b], y \in \mathbb{R}$ dove $x_0 \in (a,b)$
-        \item Esistono due numeri positivi, $h , k$ per cui risulti \fbox{$|f(x,y)| \le h + k|y|$}
-    \end{enumerate}
-\end{theorem}
-\subsection{EDO di ordine n}
-%EDO ordine n
-\begin{proposition}
-    EDO di ordine $n$\\
-    \begin{gather*}
-        \begin{cases}
-          y^{(n)} = f(x, y, y', y'', ... \ ,y^{(n-1)})\\
-          y(x_0) = y_0\\
-          y'(x_0) = y_1\\
-          \vdots\\
-          y^{(n-1)}(x_0) = y_n\\
-        \end{cases}
-    \end{gather*}
-\end{proposition}
-\subsection{spazi di funzioni}
-%spazi di funzionni
-\begin{definition}[Spazi di funzioni]
-    $I$ è un intervallo in $\mathbb{R}$\\
-    si considerano \{\underbar{insieme delle funzioni} $: I \to \mathbb{R}$\}, chiamiamo questo sistema \fbox{*}\\
-    prendiamo $f,g \in $ \fbox{*} e \fbox{$\alpha f(x) + \beta g(x)$} $\in $ \fbox{*} \tab con $f(x) \equiv 0$\\\\
-    e si considera \{\underbar{insieme delle funzioni} $: I \to \mathbb{R}$\} come spazio vettoriale\\
-    \begin{enumerate}[ ]
-        \item $C^0(I) = \{ \text{insieme delle funzioni \underbar{continue}} : \to \mathbb{R}\}$
-        \item $C^1(I) = \{ \text{insieme delle funzioni \underbar{continue}, derivabili in ogni $x \in I$ e la cui derivata è una funzione continua $\forall x \in I$}\}$
-        \item .
-        \item .
-        \item .
-        \item $C^{n}(I)$
-    \end{enumerate}
-\end{definition}
-
-    \begin{theorem}[Soluzioni di EDO lineari]
-        \hfil\\
-        \begin{enumerate}[i)]
-            \item L'insieme $V_0$ delle soluzioni di \fbox{2} è uno spazio vettoriale di dimensione n
-            \item L'insieme delle soluzioni di \fbox{1} è
-            \hookbox{\begin{gather*}
-                \begin{cases}
-                    y(x) +y_f(x) : y \in V_0 \text{ e } y_f \text{ è soluzione di \fbox{1}}
-                \end{cases}
-            \end{gather*}}
-        \end{enumerate}
-    \end{theorem}
-    \begin{gather*}
-        \\\text{\fbox{$y^{n} a_{n-1}(x) y^{(n-1)} + \dots + a_1(x) y'+ a_0(x)y = f(x)$}} \ \ \text{\fbox{1}}\\
-        a_0, a_1, \dots , a_{n-1}\text{supponiamo che siano definite e continue in } I \subset \mathbb{R}\\
-        y \in C^{n}(I)\\
-        E(y):C^{n}(I)\to C^0(I)\\
-        E(y) = y^{(n)}(x) + a_{(n-1)}(x)y^{(n-1)}(x) + \dots \ + a_0(x)y()\\
-        E( \alpha y_1 + \beta y_2) = \alpha E(y_1) + \beta E(y_2)\\
-        \text{\fbox{$y^{(n)}+a_{(n-1)}(x)y^{(n-1)} + ... \ + a_0(x)y(x) = 0$}} \ \ \text{\fbox{2}}\\
-    \end{gather*}
-\begin{proposition}[Funzioni $C^1$ e $C^2$]
-    \begin{gather*} 
-    C^0(I) = \{\text{ \underbar{insieme di funzioni continue}:} I \to \mathbb{R}\}\\
-    C^1(I) = \{\text{ \underbar{insieme di funzioni continue e derivabili con derivata continua in}}: I \to \mathbb{R}\}\\
-\end{gather*}
-\end{proposition}
-%th di ex globale
-\begin{theorem}[$\exists !$ globale per soluzione di EDO lineari]
-        \underbar{Siano} $f(x), a_i(x) \quad i = 0, ... \ , n-1$ funzioni continue in $I$\\
-        \underbar{Sia} $x_0$ interno ad $I$ \\
-        \underbar{Allora } $\forall$ scelta dei numeri \\
-        $b_0, b_1, ... \ , b_{n-1}$ il prob. di Cauchy: \\
-    \begin{gather*}
-        \begin{cases}
-            E(y) = f\\
-            y(x_0) = b_0\\
-            y'(x_0) = b_1\\
-            \vdots\\
-            y^{(n-1)}(x_0) = b_{n-1}\\
-        \end{cases}
-        \text{Ha una sola soluzione definita in tetto } I
-    \end{gather*}
-    (no dim)\\
-\end{theorem}
-%l'insieme delle soluzioni è uno spazio vettoriale di dim n
-\begin{theorem}
-    L'insieme delle soluzioni dell'EDO omogenea $E(y)= 0$ è uno spazio vettoriale di dimensione n.\\
-    \fbox{*} è spazio vettoriale. \\
-    La funzione $y(x) \eqq 0$ soddisfa l'eq $E(y) = 0$ ovviamente.\\
-    \underbar{Se} $y_1$ e $y_2$ sono due soluzioni dell'omogenea, cioè\\
-    $E(y_1) = 0$ e $E(y_2) = 0$\\
-    e $\alpha , \beta \in \mathbb{R}$ \underbar{allora}\\
-    $E(\alpha y_1 + \beta y_2) = \alpha E(y_1) + \beta E(y_2) = \alpha 0 + \beta 0 = 0$\\ 
-\end{theorem}
-%dim
-\begin{proof}
-    \hfil\\
-    Dimostro il teorema quando $n=2$\\
-    Def. le due funzioni $z_0(x)$ e $z_1(x)$ nel modo:\\
-    \begin{multicols}{2}
-        \noindent
-    \begin{gather*}
-       z_0 \text{è sol. del pb.}\\
-       \begin{cases}
-        E(y) = 0\\
-        y(x_0) = 1\\
-        y'(x_0) = 0\\
-       \end{cases}
-    \end{gather*}
-    \begin{gather*}
-       z_1 \text{è sol. del pb.}\\
-       \begin{cases}
-        E(y) = 0\\
-        y(x_0) = 0\\
-        y'(x_0) = 1\\
-       \end{cases}
-    \end{gather*}
-        \columnbreak
+    \columnbreak
+    \hfill\\
+    \noindent
+    In pratica, la \textbf{Lipshitzianità} è una condizione \textbf{più forte} della \textbf{derivabilità} della funzione. 
+    Sto chiedendo infatti che il \textbf{rapporto incrementale} della funzione resti sempre \textbf{minore di una quantità finita}
+    e, dunque, \textbf{la derivata non possa esplodere} (essendo il \textbf{limite} del rapporto incrementale stesso).\\
+    A livello \textbf{geometrico}, posso affermare che una funzione Lipshitziana non può avere \textbf{asintoti verticali}, dal
+    momento che in essi la derivata \textbf{tende a $\pm\infty$}.
     \end{multicols}
-    
-    Richiamo cosa vuol dire nel contesto degli spazi di funzioni cosa buol dire linearmente indipendenti\\
-    $z_0$ e $z_1$ sono lin. indipendenti \underbar{se}\\
-    $C_0 z_0(x) + c_1 z(x) = 0 \forall x \in I$\\
-    dove $c_0, c_1$ sono costanti, avviene solo quando $c_0 = c_1 = 0.$\\
-    \\\underbar{Siano} $c_0, c_1 \in \mathbb{R}$ : $c_0 z_0(x0 + c_1 z_1(x) \eqq 0 \forall x \in \mathbb{R})$\\
-    chiamo: $z(x) $ è sol. di $z(x_0) = c_0 z_0(x_0) + c_1 z_1(x_0) = c_0 \quad \text{dove } c_0 z_0(x_0) = 1 \ \text{e } c_1 z_1(x_0) = 0$\\
-    $z'(x_0) = c_0 z_0'(x_0) + c_1 z_1'(x_0) \quad \ \text{dove } c_0 z_0'(x_0)=0 \ \text{e } c_1 z_1'(x_0)= 1$\\
-    \underbar{Ma} per l'ipotesi $z \eqq 0$ quindi $z(x_0) = 0$ \underbar{Ma anche} $z' \equiv 0 $ e $z'(x_0) = 0$\\
-    Rimane da dimostrare che $z_0 e z_1$ generano tutto lo spazio delle soluzioni dell'omogenea.\\
-    \underbar{Sia} $w(x)$ una sol. arbitraria di $E(y) = 0$.\\
-    Voglio dumostrare che è probabile scegliere $c_0, c_1 \in \mathbb{R}$\\
-    \underbar{t.c.} $w(x) \equiv c_0 z_0(x) + c_1 z_1(x)$\\
-    Scelgo $c_0$ e $c_1$:\\
+    \end{inciso}
 
-    \fbox{
-    $c_0 = w(x_0)$\\
-    $c_1 = w'(x_0)$\\
-    }
-    Sia $w$ che $c_0 z_0 + c_1 z_1$ sono soluzioni di:\\
-    $
-    \begin{cases}
-        E(y) = 0\\
-        y(x_0) = c_0\\
-        y'(x_0) = c_1\\
-    \end{cases}
-    $
-    \begin{gather*}
-        c_0 z_0 (x_0) + c_1 z_1 (x_0) = c_0 \qquad \text{ dove } \ c_0 z_0 (x_0)= 1 \text{e} \ c_1 z_1 (x_0) = 0\\
-        c_0 z_0' (x_0) + c_1 z_1' (x_0) = c_0 \qquad \\
-    \end{gather*}
-\end{proof}
-%integrale generale dell'equazione completa
+    \subsection{Unicità delle soluzioni}
+    Il \textbf{teorema di Peano} ci ha fornito informazioni sull'\textbf{esistenza delle soluzioni}, ma ancora 
+    rimane il problema concreto dell'\textbf{unicità} di esse. Ho bisogno infatti di un risultato che mi permetta
+    di trovare \textbf{soluzioni uniche} al problema. \\
+    Posso finalmente enunciare un \textbf{risultato utilissimo} per l'\textbf{unicità delle soluzioni}. 
+
+    \begin{theorem}[\textbf{Esistenza e unicità di Cauchy}]
+        Considero il seguente \textbf{problema di Cauchy}:
+        \[\begin{cases}
+            y'=f\left(x,y(x)\right) \\
+            y(x_0)=y_0
+        \end{cases}\]
+        Sia $f(x)$ \textbf{definita} e \textbf{continua} sul \textbf{rettangolo} $\I\times\J$, con:
+        \begin{itemize}
+            \item $\I=(x_0-a,x_0+a)$
+            \item $\J=(y_0-b,y_0+b)$
+        \end{itemize}
+        con $a$ e $b$ \textbf{costanti positive}.\\
+        Suppongo inoltre che $\exists L\in\R, \ L>0$ t.c. $\forall y_1,y_2\in\J$ vale:
+        \[\left|f(x_0,y_1)-f(x_0,y_2)\right|\leq L \left|y_1-y_2\right|\]
+        In pratica, se \textbf{fisso $x$} e la funzione è \textbf{Lipshitziana} per $y$. Allora:
+        \begin{center}
+            $\exists\delta >0$ e $\exists !$ funzione $y(x)$ definita su $(x_0 - \delta,x_0 + \delta)$ che \textbf{risolve il problema}.
+        \end{center}
+    \end{theorem}
+
+    \noindent Posso \textbf{visualizzare graficamente} la situazione:
+    \begin{center}
+        \begin{tikzpicture}[scale=0.5]
+            \draw[->] (0,-1)--(0,6) node[at end,above] {$y$};
+            \draw[->] (-1,0)--(8,0) node[at end,right] {$x$};
+            \draw (1,1)--(7,1);
+            \draw (1,1)--(1,5);
+            \draw (1,5)--(7,5);
+            \draw (7,1)--(7,5);
+            \draw[<->] (1,5.5)--(7,5.5) node[midway,above] {$\I$};
+            \draw[<->] (7.5,1)--(7.5,5) node[midway,right] {$\J$};
+            \filldraw(4,3) circle (3pt) node[right] {\tiny $(x_0,y_0)$};
+            \draw[dashed] (4,3)--(4,0) node[at end,below] {\tiny $x_0$};
+            \draw[dashed] (4,3)--(0,3) node[at end,left] {\tiny $y_0$};
+            \draw[dashed] (1,1) -- (1,0) node[at end,below] {\tiny $x_0-a$};
+            \draw[dashed] (7,1) -- (7,0) node[at end,below] {\tiny $x_0+a$};
+            \draw[dashed] (1,1) -- (0,1) node[at end,left] {\tiny $y_0-b$};
+            \draw[dashed] (1,5) -- (0,5) node[at end,left] {\tiny $y_0+b$};
+        \end{tikzpicture}
+    \end{center}
+
+    \noindent Non possiedo ancora gli \textbf{strumenti necessari} per la dimostrazione, ma posso dare un paio di \textbf{lemmi utili}.
+
+    \begin{lemma}[\textbf{Teorema fondamentale del calcolo integrale}]
+        Lo \textbf{richiamo}, perchè tornerà utile per un \textbf{lemma successivo}:
+        \begin{itemize}
+            \item Sia $g'(z)$ \textbf{continua}, allora $\exists g$ t.c.
+            \[g(z) = g(z_0) + \int_{z_0}^{z} g'(t) \ dt\]
+            \item Se $h$ è \textbf{continua}, allora:
+            \[H(x) = h(x_0) + \int_{x_0}^{x} h(t)\ dt\]
+            è \textbf{derivabile}, e la sua derivata è $h$.
+        \end{itemize}
+    \end{lemma}
+
+    \begin{lemma}
+        Sia $\delta>0$. Le seguenti affermazioni sono \textbf{equivalenti}:
+        \begin{enumerate}
+            \item $\exists y(x)$ \textbf{derivabile} in $[x_0-\delta,x_0+\delta]$ t.c.
+            \[y'(x) = f\left(x,y(x)\right) \ \forall x \in [x_0-\delta,x_0+\delta] \ \text{e} \ y(x_0)=y_0\]
+
+            \item $\exists y(x)$ \textbf{continua} in $[x_0-\delta,x_0+\delta]$ t.c.
+            \begin{gather*}
+                y(x) = y(x_0) + \int_{x_0}^{x} f\left(t,y(t)\right) \ dt
+            \end{gather*}
+        \end{enumerate}
+
+            \hfil\\\noindent
+            Voglio dimostrare che queste affermazioni si \textbf{co-implicano}.
+            \begin{proof}[\textbf{\textcircled{1} $\Rightarrow$ \textcircled{2}}]
+                Prendo $y(x)$ e ci applico il \textbf{Teorema fondamentale del calcolo integrale}:
+                \[y(x) = y(x_0) + \int_{x_0}^{x} y'\left(t,y(t)\right) \ dt\]
+                Ma so che $y'(x) = f\left(x,y(x)\right)$,e dunque ottengo
+                \[y(x) = y(x_0) + \int_{x_0}^{x} f\left(t,y(t)\right) \ dt\]
+                \rightline{\textit{Dimostrato}}
+            \end{proof}
+            \begin{proof}[\textbf{\textcircled{2} $\Rightarrow$ \textcircled{1}}]
+                Sia $y(x)$ una funzione che soddisfa \textcircled{2}. Per il \textbf{Teorema fondamentale del calcolo integrale}
+                posso dire:
+            \begin{gather*}
+                y(x) = y(x_0) + \int_{x_0}^{x} y'\left(t,y(t)\right) \ dt \ \text{con:} \ y'(x) = f\left(x,y(x)\right)\\
+                y(x) = y(x_0) + \int_{x_0}^{x} f\left(t,y(t)\right) \ dt
+            \end{gather*}
+                Poichè $y$ è continua, lo è anche $f$ (perchè $y$ è \textbf{composizione di funzioni continue}). Per il 
+                \textbf{Teorema fondamentale del calcolo integrale}, $y$ è \textbf{derivabile}, e la sua derivata è 
+                $y'(x) = f\left(x,y(x)\right)$.\\
+                Se prendo $x=x_0$, ho $y(x_0) = y_0$.\\
+                \rightline{\textit{Dimostrato}}
+            \end{proof}
+    \end{lemma}
+    \noindent
+    Introduco ora lo strumento delle \textbf{derivate parziali}, che mi tornerà \textbf{molto utile} in seguito. \\
+    Supponiamo di avere una funzione $f$ definita su un certo insieme, a cui $(x_0,y_0)$ è un punto \textbf{interno}:
+    \begin{center}
+        \begin{tikzpicture}[scale=0.8]
+            \draw[->] (-1,0)--(5,0) node[at end,right]{$x$};
+            \draw[->] (0,-1)--(0,5) node[at end,above]{$y$};
+            \potato{(1,1)}{1};
+            \filldraw(2,3) circle (2pt);
+            \node at(3.2,4){\tiny$f(x,y)$};
+            \draw[dashed] (2,3)--(2,0) node[at end,below]{\tiny$x_0$};
+            \draw[dashed] (2,3)--(0,3) node[at end,left]{\tiny$y_0$};
+        \end{tikzpicture}
+    \end{center}
+    \begin{definition}[\textbf{Derivata parziale}]
+        Definisco la \textbf{derivata parziale} di $f$ rispetto a $y$ nel punto $(x_0,y_0)$:
+        \[\lim_{h\to 0} \frac{f(x_0,y_0+h) - f(x_0,y_0)}{h}\]
+    \end{definition}
+    \newpage
+    \begin{proposition}
+        Se:
+        \begin{itemize}
+            \item $f$ è \textbf{continua} in un insieme $\A$.
+            \item $(x_0,y_0)$ è un \textbf{punto interno} ad $\A$. 
+            \item $\exists \frac{\de f}{\de y} (x,y)$ \textbf{continua} $\forall x\in\A$, allora:
+        \end{itemize}
+        Le ipotesi del \textbf{Teorema di esistenza e unicità di Cauchy} sono \textbf{verificate}.\\
+        Questo anche perchè si ha la derivabilità rispetto a $y$ e, dunque, si implica la \textbf{Lipshitzianità} di $f$ rispetto a $y$.
+    \end{proposition}
+
+    \subsection{EDO Omogenea}
+    Un equazione nella forma:
+    \[y'(x) = f\left(x,y(x)\right)\]
+    è detta \textbf{omogenea di grado zero}. Vale che:
+    \[\forall\lambda\in\R \quad f\left(\lambda x,\lambda y(x)\right)=f\left(x,y(x)\right)\]
+
+    \newpage
+
+    \section{Esistenza globale}
+    Finora ho lavorato con l'\textbf{esistenza locale delle soluzioni}, ossia mi interessava che esse fossero definite
+    in un \textbf{intorno} di un \textbf{punto specifico}.\\
+    Posso però chiedermi se un \textbf{problema di Cauchy} ammetta \textbf{soluzioni globali}, definite cioè sullo
+    \textbf{stesso dominio} dell'equazione differenziale che voglio risolvere. \\
+    Prendo ad esempio il seguente \textbf{problema di Cauchy}:
+    \[\begin{cases}
+        y'(x) = -2xy^2 \\
+        y(0) = -1
+    \end{cases} \quad \longrightarrow f\left(x,y(x)\right) = -2xy^2\]
+    Osservo che $f$ è \textbf{definita} e \textbf{continua} $\forall(x,y)\in\R^2$. Controllo la \textbf{derivata parziale}:
+    \[\frac{\de f\left(x,y(x)\right)}{\de y} = -4xy\]
+    è \textbf{definita} e \textbf{continua} $\forall(x,y)\in\R^2$. \\
+    Per il \textbf{teorema di esistenza e unicità di Cauchy}, $\exists!$ funzione $y(x)$ in un \textbf{intorno} del punto
+    $(0,-1)$ che \textbf{risolve il problema}. \\
+    Usando il metodo della \textbf{separazione delle variabili} e imponendo la \textbf{condizione} data dal problema,
+    trovo la \textbf{soluzione}:
+    \[y(x) = \frac{1}{x^2-1}\]
+    Osservo che, mentre $f$ è definita su tutto $\R^2$, la soluzione \textbf{non esiste} per $x=1$ e $x=-1$. \\
+    Non è \textbf{detto} che le soluzioni di una EDO:
+    \begin{itemize}
+        \item \textbf{Esistano}.
+        \item Abbiano lo \textbf{stesso dominio} del problema che risolvono.\\
+    \end{itemize}
+    Posso finalmente dare un \textbf{risulato teorico imporante} sull'\textbf{esistenza globale} delle soluzioni. \\
+    \begin{theorem}[\textbf{Teorema di esistenza globale}]
+        Considero il \textbf{problema di Cauchy}:
+        \[\begin{cases}
+            y'(x) = f\left(x,y(x)\right) \\
+            y(x_0) = y_0
+        \end{cases}\]
+        \underbar{Se}:
+        \begin{itemize}
+            \item $f$ e $\frac{\de f}{\de y}$ sono \textbf{definite} e \textbf{continue} $\forall x\in[a,b]$ e $\forall y\in\R$ 
+            con $[a,b]\subseteq\R$.
+            \item Esistono $h,k\in\R, \ h,k>0$ t.c.
+            $\left|f\left(x,y(x)\right)\right| \leq h+k\left|y(x)\right|$
+        \end{itemize}
+        \underbar{allora}:\\
+        La soluzione $y(x)$ è \textbf{unica} e \textbf{definita} $\forall x\in[a,b]$.
+    \end{theorem}
+
+    \newpage
+
+    \section{Sistemi di equazioni differenziali}
+    Come per le \textbf{equazioni normali}, anche le \textbf{equazioni differenziali} possono essere inserite in \textbf{sistemi}, nella forma:
+    \[\begin{cases}
+        y'_1 (x) = f_1\left(x,y_1(x),y_2(x),\ldots,y_N(x)\right)\\
+        y'_2 (x) = f_2\left(x,y_1(x),y_2(x),\ldots,y_N(x)\right)\\
+        \quad\vdots \\
+        y'_N (x) = f_N\left(x,y_1(x),y_2(x),\ldots,y_N(x)\right)
+    \end{cases}\]
+    Una soluzione è un \textbf{vettore di funzioni} $y_1(x),y_2(x),\ldots,y_N(x)$ t.c. \textbf{tutte le equazioni}
+    sono \textbf{soddisfatte}.\\
+    E' un ragionamento \textbf{simile} a quello delle \textbf{equazioni normali}, anche se ha una \textbf{scrittura complicata}. \\
+    Per \textbf{semplicità} posso ragionare in \textbf{termini vettoriali}. Chiamo:
+    \begin{itemize}
+        \item $Y(x) = \left(y_1(x),y_2(x),\ldots,y_N(x)\right)$
+        \item $Y'(x) = \left(y_1'(x),y_2'(x),\ldots,y_N'(x)\right)$
+        \item $F(x,Y) = \left(f_1,f_2,\ldots,f_N\right)$
+    \end{itemize}
+    Grazie a questa forma posso trattare \textbf{problemi di Cauchy con i sistemi}:
+    \[\begin{cases}
+        Y'(x) = F(x,Y(x)) \\
+        Y(x_0) = Y_0
+    \end{cases} \quad \text{dove} \ x_0 \ \text{è lo stesso per tutte le condizioni}\]
+    Per semplicità, chiamo \textcircled{$*$} questo problema.\\
+    Nella trattazione dei \textbf{problemi di Cauchy} ci sono alcuni \textbf{teoremi utili}.
+
+    \begin{theorem}
+        Sia:
+        \begin{itemize}
+            \item $\D\subseteq\R^{n+1}$
+            \item $F: \ \D\to\R^n$
+            \item $(x_0,y_0)$ un \textbf{punto interno} a $\D$, allora:
+        \end{itemize}
+        Il problema \textcircled{$*$} ammette \textbf{almeno una soluzione} in un intorno di $x_0$.
+    \end{theorem}
+
+    \begin{theorem}
+        Nelle ipotesi del \textbf{Teorema 5.1}, suppongo anche:
+        \[\frac{\de f_i}{\de y_j} \quad\text{con} \ \begin{matrix}
+            i=1,\dots,N\\
+            j=1,\dots,N
+        \end{matrix} \ \text{continue su} \ \D \ \text{, allora:}\]
+        Il problema \textcircled{$*$} ammette un'\textbf{unica soluzione} in un intorno di $x_0$. 
+    \end{theorem}
+
+    \begin{theorem}
+        Supponiamo che:
+        \begin{itemize}
+            \item Ogni funzione $f_i \left(x,y_1(x),y_2(x),\dots,y_N(x)\right)$ e $\frac{\de f_i}{\de y_j}$
+            con $i,j=1,\dots,N$ è \textbf{definita} e \textbf{continua} $\forall x\in[a,b]$ e $\forall y_1,y_2,\dots,y_N\in\R$
+            $[a,b]\subseteq\R$
+            \item $\exists h,k\in\R$, con $h,k>0$, t.c. $\left\lVert F(x,Y)\right\rVert  \leq h+k \left\lVert Y(x)\right\rVert$, allora:
+        \end{itemize}
+        Ogni soluzione per l'equazione $Y'(x) = F(x,Y(x))$ è \textbf{definita} $\forall x\in[a,b]$
+    \end{theorem}
+    \fbox{\tiny\textbf{NOTA:} Il simbolo $\left\lVert\vec{v}\right\rVert $, per un vettore generico, indica la \textbf{norma} di tale vettore}
+
+    \subsection{Equazioni differenziali di ordine n}
+    E' un'implicazione dei casi \textbf{visti in precedenza}. Scrivo un'EDO di \textbf{ordine n} in \textbf{forma normale}:
+    \[\begin{cases}
+        y^{(n)}(x) = f\left(x,y',y'',\dots,y^{(n-1)}\right) \\
+        y(x_0) = y_0 \\
+        y'(x_0) = y_1 \\
+        \quad\vdots \\
+        y^{(n-1)}(x_0) = y_n
+    \end{cases}\]
+    Ricordo che $x_0$ deve essere lo \textbf{stesso} per tutte le condizioni. \\
+    
+    \noindent Ogni \textbf{problema di Cauchy} per equazioni di \textbf{ordine n} può essere \textbf{trasformato}
+    in un \textbf{sistema di n equazioni} di \textbf{grado 1}.
+
+    \newpage
+
+    \section{Spazi di funzioni}
+    Gli \textbf{spazi di funzioni} sono strumenti \textbf{utili} per lo studio delle \textbf{soluzioni} delle equazioni differenziali. \\\\
+    \noindent Sia $\I\subseteq\R$.\\
+    Prendo l'\textbf{insieme delle funzioni} definite $\I\to\R$. Esso è uno \textbf{spazio vettoriale} su $\R$. 
+    Posso studiare alcuni suoi \textbf{sottoinsiemi}:
+    \begin{itemize}
+        \item $C^0(\I)$: E' l'insieme delle funzioni \textbf{continue} $\I\to\R$. E' un \textbf{sottoinsieme} del precedente. 
+        \item $C^1(\I)$: E' l'insieme delle funzioni \textbf{continue} con \textbf{derivata prima} sempre \textbf{esistente} e \textbf{continua}. 
+        E' un \textbf{sottoinsieme} di $C^0(\I)$.
+        \item $C^2(\I)$: E' l'insieme delle funzioni \textbf{continue} con \textbf{derivata seconda} sempre \textbf{esistente} e \textbf{continua}. 
+        E' un \textbf{sottoinsieme} di $C^1(\I)$.
+    \end{itemize}
+    A \textbf{cascata}, posso definire gli insiemi $C^3, \ C^4,\dots,C^n$ fino a $C^{\infty}$.
+
+    \begin{definition}[\textbf{Operatore E}]
+        Definisco un \textbf{operatore} che sarà \textbf{utile} per altri teoremi e anche per riscrivere le equazioni differenziali in modo più \textbf{compatto}.\\
+        $E: \ C^n(\I)\to C^0(\I)$\\
+        $E\left(y(x)\right) = y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x)$\\
+        E è un \textbf{operatore lineare}.
+    \end{definition}
+        \noindent Considero ora la \textbf{seguente equazione}:
+        \[y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x) = f(x) \]
+        Supponiamo che $a_0, \ a_1, \dots, \ a_{(n-1)}$ siano \textbf{definite} e \textbf{continue} su $\I$, allora:
+        \begin{itemize}
+            \item $y\in C^n(\I)$
+            \item $E\left(y(x)\right) = y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x)$
+        \end{itemize}
+        Questa è un'\textbf{applicazione lineare continua}:
+        \[E\left(\alpha y_1 + \beta y_2\right) = \alpha E(y_1) + \beta E(y_2)\]
+        Posso dare ora una serie di \textbf{risultati teorici utili} riguardo agli spazi di funzioni.
+
+        \begin{theorem}[\textbf{Esistenza e unicità globale per soluzioni di EDO lineari}]\hfil\\
+            \begin{itemize}
+                \item Siano $a_0, \ a_1,\dots, \ a_{(n-1)}$ \textbf{definite} e \textbf{continue} su $\I$. 
+                \item Sia $x_0$ \textbf{interno} a $\I$. Allora:
+            \end{itemize}
+            $\forall b_0, \ b_1,\dots, \ b_{(n-1)}$ il problema di Cauchy:
+            \[\begin{cases}
+                E(y) = f(x) \\
+                y(x_0) = b_0 \\
+                y'(x_0) = b_1 \\
+                \quad\vdots \\
+                y^{(n-1)}(x_0) = b_{(n-1)}
+            \end{cases}\]
+            Ammette un'\textbf{unica soluzione} definita su \textbf{tutto $\I$}. \\
+            Non procediamo con la \textbf{dimostrazione}.
+        \end{theorem}
+
+        \begin{theorem}
+            Date:
+            \begin{gather*}
+                \textcircled{1} \quad y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x) = 0\\
+                \textcircled{2} \ \ y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x) = f(x)
+            \end{gather*}
+            Allora:
+            \begin{itemize}
+                \item L'insieme $V_0$ delle soluzioni di \textcircled{1} è uno \textbf{spazio vettoriale} di \textbf{dimensione n}. 
+                \item Detta $y_p(x)$ una \textbf{soluzione particolare} di \textcircled{2}, l'insieme delle soluzioni di \textcircled{2} è:
+                \[y(x) = V_0 + y_p(x)\]
+            \end{itemize}
+            Dimostro che l'insieme $V_0$ delle soluzioni di \textcircled{1} è uno \textbf{spazio vettoriale} di \textbf{dimensione n}. 
+
+            \begin{proof}
+                Dimostro che il mio insieme è uno \textbf{spazio vettoriale}:\\
+                Prendo $y(x)\equiv 0$, che ovviamente soddisfa $E(y) = 0$. \\
+                Siano $y_1$ e $y_2$ soluzioni dell'\textbf{omogenea}. Ho:
+                \begin{itemize}
+                    \item $E(y_1) = 0$
+                    \item $E(y_2) = 0$
+                \end{itemize}
+                Poichè $E$ è \textbf{lineare}, prendo $\alpha,\beta\in\R$ e ottengo:
+                \[E(\alpha y_1 + \beta y_2) = \alpha E(y_1) + \beta E(y_2) =\]
+                \[\quad\quad = \alpha\cdot 0 + \beta\cdot 0 = 0 \ \forall \alpha,\beta\in\R\]
+                \rightline{\textit{Dimostrato}}
+            \end{proof}
+
+            \begin{proof}
+                Dimostro ora che tale spazio ha \textbf{dimensione n}:\\
+                Prendo $z_0(x)$ e $z_1(x)$, una \textbf{base} del mio spazio. Voglio dimostrare che $z_1$ e $z_2$ 
+                sono \textbf{linearmente indipendenti} e \textbf{generatori}:\\
+                So che:
+                \begin{itemize}
+                    \item $z_0(x)$ risolve \textbf{questo problema}:
+                    \[\begin{cases}
+                        E(y) = 0\\
+                        y(x_0)=1\\
+                        y'(x_0)=0
+                    \end{cases}\]
+                    \item $z_1(x)$ risolve \textbf{questo problema}:
+                    \[\begin{cases}
+                        E(y) = 0\\
+                        y(x_0)=0\\
+                        y'(x_0)=1
+                    \end{cases}\]
+                \end{itemize}
+                \begin{enumerate}
+                    \item Per dimostrare che sono \textbf{linearmente indipendenti}, voglio che:
+                    \[c_0 \ z_0(x) + c_1 \ z_1(x) = 0 \ \text{solo se} \ c_0=c_1=0 \ \forall x\in\I\]
+                    Ma per come ho costruito i pb. di cauchy ho che $z_0'(x_0) = 1$ e $z_1'(x_0) = 1$ e che $z_0(x_0) = 1$ e $z_1(x_0) = 0$\\
+                    Quindi ho:
+                    \begin{gather*}
+                        c_0 \ \overbrace{z_0(x_0)}^1 + c_1 \ \overbrace{z_1(x_0)}^0 = 0 \ \to \ c_0 = 0\\
+                        c_0 \ \overbrace{z_0'(x_0)}^1 + c_1 \ \overbrace{z_1'(x_0)}^1 = 0 \ \to \ c_1 = 0
+                    \end{gather*}
+                    ho trovato che $z_0$ e $z_1$ sono \textbf{linearmente indipendenti}.\\
+                    \rightline{\textit{Dimostrato}}
+
+                    \item Per dimostare che \textbf{generano}, voglio dimostrare che posso scegliere $c_0,c_1\in\R$ t.c., data
+                    $w(x)$ soluzione di $E(y) = 0$, vale che:
+                    \[w(x) = c_0 \ z_0(x) + c_1 \ z_1(x)\]
+                    Scelgo:
+                    \begin{itemize}
+                        \item $c_0 = w(x_0)$
+                        \item $c_1 = w'(x_0)$
+                    \end{itemize}
+                    Prendo il \textbf{seguente problema}:
+                    \[\begin{cases}
+                        E(y) = 0\\
+                        y(x_0) = c_0\\
+                        y'(x_0) = c_1
+                    \end{cases}\]
+                    Sia $w$ che $c_0 \ z_0(x) + c_1 \ z_1(x)$ sono \textbf{soluzioni} e per il \textbf{th. di unicità} queste \textbf{coincidono}.\\
+                    \rightline{\textit{Dimostrato}}
+                \end{enumerate}
+            \end{proof}
+        \end{theorem}
+
+    \newpage
+
+    \section{Soluzione delle EDO}
+
+    Do ora una serie di \textbf{teoremi utili} per la risoluzione delle \textbf{equazioni omogenee}.
+
+    \begin{theorem}[\textbf{Integrali generali}]
+        L'\textbf{interale generale} dell'equazione $E(y) = f$ si ottiene \textbf{sommando}:
+        \begin{itemize}
+            \item L'\textbf{integrale generale} dell'\textbf{omogenea}. 
+            \item Una \textbf{soluzione particolare} dell'equazione $E(y) = f$
+        \end{itemize}
+
+        \begin{proof}
+            \underbar{Sia}:
+            \begin{itemize}
+                \item $y_1$ una soluzione di $E(y) = f$
+                \item $y_0$ una soluzione di $E(y) = 0$
+            \end{itemize}
+            Calcolo $E(y_1+y_0)$:
+            \[E(y_1+y_0) = E(y_1) + E(y_0) = f+0=f\]\\
+            \underbar{Sia} $y_2$ un'\textbf{altra soluzione} di $E(y) = f$.\\
+            Calcolo $E(y_2-y_1)$:
+            \[E(y_2-y_1) = E(y_2) - E(y_1) = f-f = 0 = E(y_0)\]\\
+            Ho osservato che:
+            \[\begin{matrix}
+                y_1+y_0=y_2\\
+                y_2-y_1=y_0
+            \end{matrix} \quad\longrightarrow\quad y_2=y_1+y_0\]
+            \rightline{\textit{Dimostrato}}
+        \end{proof}
+    \end{theorem}
+
+    \begin{definition}[\textbf{Polinomio caratteristico}]
+        Data una \textbf{EDO omogenea}, ci associo il \textbf{polinomio caratteristico}:
+        \[y^{(n)} + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x)y(x) = 0\]
+        \[P(\lambda) = \lambda^n + a_{(n-1)}(x) \ \lambda^{n-1} + \cdots + a_1(x) \ \lambda + a_0(x)\]
+    \end{definition}
+
+    \begin{theorem}[\textbf{Risoluzione}]
+        \underbar{Sia} $\lambda\in\R$ (o $\lambda\in\C$). \underbar{Allora} la funzione:
+        \[y_0(x) = e^{\lambda x}\]
+        è \textbf{soluzione dell'omogenea} \underbar{se e solo se} $\lambda$ è una \textbf{radice} del \textbf{polinomio caratteristico}.
+
+        \begin{proof}
+            $y(x) = e^{\lambda x} \ \to$ scrivo le \textbf{derivate}:\\
+            $y'(x) = \lambda \ e^{\lambda x}$\\
+            $\vdots$\\
+            $y^{(n)}(x) = \lambda^n e^{\lambda x}$\\\\
+            Ottengo:\\
+            \[E(y) = \lambda^ne^{\lambda x} + a_{(n-1)}(x) \ e^{\lambda x}\lambda^{n-1} + \cdots + a_1(x) \ e^{\lambda x}\lambda + a_0(x) \ e^{\lambda x} = \]
+            \[=e^{\lambda x}\left(\lambda^n + a_{(n-1)}(x) \ \lambda^{n-1} + \cdots + a_1(x) \ \lambda + a_0(x)\right) =\]
+            \[=P(\lambda) \ e^{\lambda}\]
+            Ottengo $P(\lambda) \ e^{\lambda x}=0$ se e solo se $P(\lambda) = 0$\\
+            \rightline{\textit{Dimostrato}}
+        \end{proof}
+    \end{theorem}
+
+    \begin{theorem}[\textbf{Risoluzione}]
+        Sia $\lambda_0\in\R$ (o $\lambda_0\in\C$) una \textbf{radice} di \textbf{moleplicità $s$} del polinomio, ossia:
+        \[P(\lambda) = \left(\lambda-\lambda_0\right)^{s-1}q(\lambda) \ \text{con} \ q(\lambda_0)\ne 0\]
+        Allora:
+        $e^{\lambda_0x}, \ x \ e^{\lambda_0x},\dots, \ x^{s-1}e^{\lambda_0x}$ sono \textbf{soluzioni linearmente indipendenti} di $E(y) = 0$
+    \end{theorem}
+
+    \begin{theorem}[\textbf{Soluzioni complesse}]
+        Sia $\lambda_0\in\C$, ossia $\lambda_0 = \alpha + i\beta$m con $\alpha,\beta\in\R$, una \textbf{radice} di \textbf{moleplicità $s$} del polinomio. 
+        Allora:
+        \[e^{\alpha x}\cos(\beta x), \ e^{\alpha x}\sin(\beta x)\]
+        \[x \ e^{\alpha x}\cos(\beta x), \ x \ e^{\alpha x}\sin(\beta x)\]
+        \[\vdots\] 
+        \[x^{s-1}e^{\alpha x}\cos(\beta x), \ x^{s-1}e^{\alpha x}\sin(\beta x)\]
+        Sono soluzioni \textbf{linearmente indipendenti} e \textbf{reali} di $E(y) = 0$
+    \end{theorem}
+    
+\newpage
+
+\section{Spazi metrici}
+Dato un insieme $\X$ e una funzione $d: \ \X\times\X\to\R$, $d$ è una \textbf{metrica} su $\X$ se:
+\begin{itemize}
+    \item $\forall x,y\in\X$ vale $d(x,y) \geq 0$ (e vale $d(x,y) = 0 \Longleftrightarrow x=y$).
+    \item $\forall x,y\in\X$ vale $d(x,y)=d(y,x)$.
+    \item $\forall x,y,z\in\X$ vale $d(x,z) \leq d(x,y) + d(y,z)$
+\end{itemize}
+Si definisce l'insieme $(\X,d)$ uno "\textbf{spazio metrico}".
+
+\subsection{Esempio}
+Prendo $\X=\R \ \rightarrow \ d(x,y) = |x-y|$
+
+\subsection{Esempio - Distanza euclidea}
+Prendo $\displaystyle \X=\R^n \ \rightarrow \ d(x,y) = \sqrt{\sum_{i=0}^{n} |x_i-y_i|^2}$\\
+Tale distanza è detta "\textbf{distanza euclidea}".\\
+
+\noindent Per avere a che fare con uno \textbf{spazio metrico} non ho bisogno di lavorare con insiemi che hanno una
+\textbf{struttura algebrica} (non devo definire \textbf{operazioni} al loro interno).\\
+Se però applico tale definizione ad uno \textbf{spazio vettoriale} posso definire una \textbf{norma}. 
+
+\newpage
+
+\section{Spazi normati}
+Sia $\V$ uno \textbf{spazio vettoriale}. $\norma: \ \V\to\R$ è una "\textbf{norma}" su $\V$ se:
+\begin{itemize}
+    \item $\forall v\in\V$ vale $\left\lVert v\right\rVert \geq 0$ (e vale $\left\lVert v\right\rVert =0 \Longleftrightarrow v=0_\V$)
+    \item $\forall v\in\V$ vale $\left\lVert \lambda v\right\rVert = \lambda \left\lVert v\right\rVert  \ \forall \lambda\in\R$
+    \item $\forall\mu,\nu\in\V$ vale che $\left\lVert \mu+\nu\right\rVert \leq \left\lVert \mu\right\rVert + \left\lVert \nu\right\rVert $
+\end{itemize}
+Si definisce l'insieme $(\V,\norma)$ uno "\textbf{spazio normato}".
+
+\subsection{Esempio}
+Prendo $\displaystyle \V=\R^n \rightarrow \left\lVert v\right\rVert_\varepsilon = \sqrt{\sum_{i=0}^{n} v_i^2}$
+
+\begin{proposition}
+    Lo spazio normato $(\V,\norma)$ \textbf{induce una metrica} su $\V$:
+    \[d(\mu,\nu)=\left\lVert \mu-\nu\right\rVert \ \text{con} \ \mu,\nu\in\V\]
+\end{proposition}
+\noindent Metriche e norme possono godere di una \textbf{particolare proprietà} detta "\textbf{equivalenza}".
+
+\begin{definition}[\textbf{Metriche equivalenti}]
+    Siano $(\X,d_\alpha), \ (\X,d_\beta)$ \textbf{spazi metrici}. $d_\alpha$ e $d_\beta$ si dicono "\textbf{metriche equivalenti}" se:
+    \[\exists k_1,k_2\in\R \ t.c. \ k_1 \ d_\alpha(x,y) \leq d_\beta(x,y) \leq k_2 \ d_\alpha(x,y) \quad \text{con} \ x,y\in\X\]
+\end{definition}
+\noindent Ovvero le distanze sono proporzionali fra loro, e differiscono solo di due costanti.\\
+\begin{definition}[\textbf{Norme equivalenti}]
+    Siano $(\V,\norma_\alpha)$ e $(\V,\norma_\beta)$ \textbf{spazi normati}. $\norma_\alpha$ e $\norma_\beta$ si dicono \textbf{norme equivalenti} se:
+    \[\exists c_1,c_2\in\R_i \ t.c. \ c_1 \left\lVert v\right\rVert_\alpha \leq \left\lVert v\right\rVert_\beta \leq c_2 \left\lVert v\right\rVert_\alpha \quad \text{con} \ v\in\V\]
+\end{definition}
+
+
+\subsection{Norme su $\R^n$}
+    Sia $p$ una \textbf{norma}:
+    \[\left\lVert x\right\rVert_p = \sqrt{\sum_{i=0}^{n} |x_i|^p} \]
+
 \begin{theorem}
-    L'integrale generale dell'equazione \fbox{$E(y) = f$}\\
-    si ottiene sommando l'integrale generale dell'equazione omogenea ad una soluzione particolare dell'equazione completa\\
-    $E(y) = f$.
+    Tutte le \textbf{norme} su $p$ sono \textbf{equivalenti}
 \end{theorem}
-%dim
-\begin{proof}
-    \hfil\\
-    \underbar{Sia} $y_1$ una soluzione di $E(y) = f$\\
-    \underbar{e} $y_0$ una soluzione di $E(y) = 0$\\
-    \underbar{Allora} $y_1 + y_0$ è soluzione di:\\
-    $E(y) = f$ infatti\\
-    $E(y_1 + y_0) = E(y_1) + E(y_0) = f + 0 = f$\\
-    Viceversa \underbar{sia} $y_2$ una qualsiasi soluzione di $E(y) = f$\\
-    \underbar{Allora}:\\
-    $E(y_2) y_1 = E(y_2) - E(y_1) = f - f = 0$\\
-    Quindi $y_2 - y_1 = z_0$ per una certa soluzione dell'omogenea.\\
-    \underbar{Allora}: $y_2 = y_1 + z_0$\\
-\end{proof}
-%th per sol. eq. omogenea
+
+\noindent Finora ci siamo limitati a considerare spazi a \textbf{dimensione finita}, ma possiamo studiare \textbf{metriche} e \textbf{norme} anche su 
+spazi a \textbf{dimensione infinita}.\\
+Per fare ciò introduciamo il concetto di \textbf{distanza tra funzioni}.\\\\
+Prendo, ad esempio, $\X = C^0\left([a,b]\right)$.\\
+Posso definire la \textbf{norma} $\left\lVert f\right\rVert_{\C^0}$, con $f\in C^0\left([a,b]\right)$:
+\[\left\lVert f\right\rVert_{\C^0} = \left\lVert f\right\rVert_{\infty} = \max_{[a,b]} |f(x)|\]
+Posso definire la \textbf{metrica} $d_{\C^0}$, con $f,g\in C^0\left([a,b]\right)$:
+\[d_{\C^0}(f,g) = d_\infty (f,g) = \left\lVert f-g\right\rVert_\infty \]
+Posso definire, ad esempio, un'\textbf{altra metrica} $d_{\mathbb{L}^1}$, la \textbf{distanza integrale}:
+\[d_{\mathbb{L}^1} (f,g) = \int_{a}^{b} |f-g| \ dx\]
+$d_{\C^0}$ e $d_{\mathbb{L}^1}$ sono entrambe \textbf{metriche} su $\C^0$, ma non sono \textbf{equivalenti}.\\\\
+
+\noindent In questi \textbf{spazi di funzioni} posso definire gli \textbf{intorni}, che prendono il nome di "\textbf{palle}":
+\[\B_\varepsilon = \left\{g\in\C\left([a,b]\right): \ \left\lVert f-g\right\rVert < \varepsilon \right\}\]
+\textbf{Geometricamente}, una palla è un intorno della \textbf{dimensione del suo insieme} si può pensare come un elemento appartenente all'insieme che stiamo considerando che costituisce un \textbf{ragio fissato} attorno all'elemento che stiamo considerando.\\\\
+Posso definire la \textbf{norma} $C^k\left([a,b]\right)$. Prendo $\X\in\C^k\left([a,b]\right)$:
+\[d_{\C^k} (f,g) = \sum_{i=0}^{k} d_{\C^0} \left(f^{(i)} - g^{(i)}\right) = \sum_{i=0}^{k} \max_{x\in[a,b]} \left|f^{(i)} - g^{(i)}\right|\]
+
+\newpage
+
+\section{Accenni di topologia}
+Diamo ora una serie di \textbf{definizioni utili} sulla \textbf{topologia degli spazi metrici}. 
+
+\begin{definition}[\textbf{Intorno}]
+    Sia $x_0\in\X$. Un intorno di centro $x_0$ e raggio $R$ è:
+    \begin{itemize}
+        \item $\B_R = \left\{x\in\X: \ d(x_0,x) < R\right\} = \mathcal{U}_{(x_0,R)} \ \rightarrow$ E' \textbf{aperto}.
+        \item $\overline{\B_R} = \left\{x\in\X: \ d(x_0,x) \leq R\right\} \rightarrow$ E' \textbf{chiuso}.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[\textbf{Intorno aperto}]
+    L'intorno $\A\subseteq\X$ è \textbf{aperto} se $\forall a\in\A \ \exists R_a$ t.c.:
+    \[\mathcal{U}_{(a,R_a)} \subseteq \A\]
+\end{definition}
+
+\begin{definition}[\textbf{Intorno chiuso}]
+    L'intorno $\D\subseteq\X$ è \textbf{chiuso} se il suo \textbf{complementare} $\X\backslash\D$ è \textbf{aperto}.
+\end{definition}
+
+\begin{observation}\noindent
+    \begin{itemize}
+        \item L'\textbf{unione} di \textbf{aperti} è \textbf{aperta}.
+        \item L'\textbf{intersezione finita} di \textbf{aperti} è \textbf{aperta}.
+        \item L'\textbf{unione finita} di \textbf{chiusi} è \textbf{chiusa}.
+        \item L'\textbf{intersezione} di \textbf{chiusi} è \textbf{chiusa}.
+    \end{itemize}
+\end{observation}
+
+\begin{definition}[\textbf{Punto interno}]
+    $x_0\in\X$ è \textbf{interno} a $\X$ se $\exists R$ t.c. $\mathcal{U}_{(x_0,R)}\subseteq\X$
+\end{definition}
+\hfill\\
+\noindent
+In seguito tratteremo \textbf{insiemi compatti}. La loro definizione è \textbf{complicata}, ma noi ci accontentiamo 
+di un \textbf{teorema caratterizzante}. 
+
+\begin{theorem}[\textbf{Heine-Borel}]
+    Sia $\K\subseteq\R^n$. 
+    \begin{center}
+        $\K$ è \textbf{compatto} $\Longleftrightarrow$ $\K$ è \textbf{chiuso e limitato}
+    \end{center}
+\end{theorem}
+\noindent
+Come già detto questa è una condizione leggermente più forte della compattezza, ma è sufficiente per noi.\\
+\newpage
+
+\section{Successioni di spazi metrici}
+Sia $(\X,d)$ uno \textbf{spazio metrico}. \\
+Posso definire una \textbf{successione} $\left\{x_k\right\}\subseteq\X$ t.c. $k \in \mathbb{N}$
+
+\begin{definition}[\textbf{Convergenza}]
+    Sia $\{x_k\}\subseteq\X$. Dico che $\{x_k\}$ \textbf{converge} a $x_0\in\X$ rispetto alla metrica $d$ se:
+    \[\lim_{k\to\infty} d(x_k,x_0) = 0\]
+\end{definition}
+
+\begin{observation}
+    Se tale limite \textbf{esiste}, allora è \textbf{unico}.
+\end{observation}
+
+\begin{observation}
+    Siano $d_\alpha$ e $d_\beta$ metriche \textbf{equivalenti} su $\X$ e $\{x_k\}\subseteq\X$:
+    \begin{center}
+        $\{x_k\}$ \textbf{converge} in $\X$ rispetto alla metrica $d_\alpha$\\
+        $\Updownarrow$\\
+        $\{x_k\}$ \textbf{converge} in $\X$ rispetto alla metrica $d_\beta$\\
+    \end{center}
+\end{observation}
+
+\begin{definition}[\textbf{Successione di Cauchy}]
+    $\{x_k\}\subseteq\X$ è una \textbf{successione di Cauchy} se:
+    \[\forall \varepsilon>0 \ \exists N: \ d(x_k,x_m) <\varepsilon \ \forall k,m > N\]
+\end{definition}
+
+\noindent E' ora il momento di dare alcuni \textbf{risultati teorici importanti} riguardo alle successioni negli spazi metrici. 
 \begin{theorem}
-    \underbar{Sia} $\lambda \in \mathbb{R}$ ( o anche $\lambda \in \mathbb{C}$).\\
-    La funzione: $y(x) = e^{\lambda x}$\\
-    è soluzione dell'equazione omogenea $E(y) = 0$ $\Leftrightarrow$ $\lambda$ è radice del polinomio caratteristico\\
-    cioè se $P(\lambda) = 0$\\
-\end{theorem}
-%dim
-\begin{proof}
-    \hfil\\
-    Chiamo
-    \begin{enumerate}[ ]
-        \item $y(x) = e^{\lambda x}$
-        \item $y'(x) = \lambda e^{\lambda x}$
-        \item $y''(x) = \lambda^2 e^{\lambda x}$
-        \item .
-        \item .
-        \item .
-        \item $y^n(x) = \lambda^n e^{\lambda x}$
+    Sia $(\X,d)$ \textbf{spazio metrico}. Sia $\{x_k\}\subseteq\X$ t.c. $\{x_k\}\overset{d}{\longrightarrow}x_0\in\X$. Allora: \\
+    $\{x_k\}$ è \textbf{successione di Cauchy} rispetto alla metrica $d$. \\\\
+    Dimostro che il \textbf{vice-versa non vale}. 
+
+    \begin{proof}
+    Prendo $x_k = \sqrt{x^2 - \frac{1}{k}}$ per $x\in[0,1]$:
+    \begin{enumerate}
+        \item Dimostro che \textbf{è di Cauchy}.
+        \item Dimostro che \textbf{converge in $\C^0$} rispetto a $d_{\C^0}$.
+        \item Dimostro che \textbf{non converge in $\C^1$} rispetto a $d_{\C^0}$.
     \end{enumerate}
-    \begin{gather*}
-        E(y) = \lambda^n e^{\lambda x} + a_{n-1} \lambda^{n-1} e^{\lambda x} + ... + a_1\lambda e^{\lambda x } + a_0 e^{\lambda x}\\
-        = (\lambda^n + a_{n-1}\lambda^{n-1}+ ... \ + a_0)e^{\lambda x}\\
-        P(\lambda) e^{\lambda x} = 0 \ \Leftrightarrow P(\lambda) = 0\\
-    \end{gather*}
+    \rightline{\textit{Dimostrato}}
+    \end{proof}
+\end{theorem}
+
+\newpage
+
+\noindent Individuiamo adesso alcuni \textbf{spazi metrici o normati} che godono di \textbf{particolari caratteristiche}.
+
+\begin{definition}[\textbf{Spazio metrico completo}]
+    Uno \textbf{spazio metrico} $(\X,d)$ è detto "\textbf{completo}" se $\forall\{x_n\}\subseteq\X$ \textbf{succcessione di Cauchy}
+    si ha che:
+    \begin{center}
+        $\{x_n\}$ \textbf{converge} rispetto alla metrica $d$
+    \end{center}
+\end{definition}
+
+\begin{definition}[\textbf{Spazio di Banach}]
+    $(\X,\norma)$ spazio \textbf{normato} è detto "\textbf{di Banach}" se $\X$ è \textbf{completo} rispetto alla metrica indotta da $\norma$
+\end{definition}
+
+\begin{observation}
+    Studiamo le proprietà di alcuni \textbf{spazi noti}: 
+    \begin{itemize}
+        \item $\left(\C^1([a,b]),d_{\C^0}\right)$ non è \textbf{completo}.
+        \item $\left(\C^0([a,b]),d_{\mathbb{L}^1}\right)$ non è \textbf{completo}.
+    \end{itemize}
+\end{observation}
+
+\begin{observation}
+    Sia $(\X,d)$ \textbf{spazio metrico}. Sia $\{x_n\}\subseteq \Y\subseteq \X\overset{d}{\longrightarrow}x_0\in\overline{\Y}$,
+    dove $\overline{\Y}$ è la \textbf{chiusura} di $\Y$. Allora:
+    \begin{center}
+        $\Y$ è \textbf{chiuso} $\Leftrightarrow$ Contiene \textbf{tutte le successioni convergenti} di $\Y$
+    \end{center}
+In pratica se ho una successione appartenente all'insieme che converge su un punto del bordo di questo insieme, ma il bordo non fa parte dell'insieme, allora l'insieme non è chiuso.
+\end{observation}
+
+
+\begin{observation}
+    Sia $(\X,d)$ \textbf{spazio metrico completo}. Sia $\B\subseteq\X$ \textbf{chiuso}. Allora:
+    \begin{center}
+        $(\B,d)$ è uno \textbf{spazio metrico completo}
+    \end{center}
+\end{observation}
+
+\noindent Posso ora introdurre un \textbf{particolare di tipo di funzioni}, molto utile nello studio degli spazi metrici. 
+
+\subsection{Contrazioni}
+Siano $(\X,dx)$ e $(\Y,dy)$ \textbf{spazi metrici}. Sia $f: \ \X\to\Y$:
+\begin{itemize}
+    \item $f$ è \textbf{continua} in $x_0\in\X$ se $\forall \{x_n\}\in\X$, $x_n\to x_0$, si ha che $\{f(x_n)\}\subseteq\Y$
+    \textbf{converge} a $f(x_0)$ in $(\Y,dy)$.
+    \item $f$ è \textbf{Lipshitziana} se $\exists L>0$ t.c.:
+    \[d_y\left(f(x),f(y)\right) \leq L\cdot d_x(x,y) \quad \forall x,y\in\X\]
+    \item $f$ è \textbf{contrazione} se è \textbf{Lipshitziana} con $L< 1$.
+\end{itemize}
+
+\begin{proposition}[\textbf{Lipshitzianità e continuità}]
+    La \textbf{Lipshitziantà} implica la \textbf{continuità}.
+
+    \begin{proof}\hfill\\
+        Sia $x_0\in\X$. Sia $\{x_n\}\overset{d}{\longrightarrow}x_0$. Allora $d(x_n,x_0)\to0$.\\
+        Poichè $f$ è \textbf{Lipshitziana}, $\exists L$ t.c.
+        \[0\leq d_y\left(f(x_n),f(x_0)\right) \leq L\cdot d_x(x_n,x_0) \quad\text{con} \ d_x(x_n,x_0)\to0\]
+        Ottengo:
+        \[d_y\left(f(x_n),f(x_0)\right)\to 0\quad \text{quindi:}\]
+        \[f(x_n)\to f(x_0)\]
+        $f$ è \textbf{continua} in $x_0$.\\
+    \end{proof}
+\end{proposition}
+
+Diamo ora un risultato teorico importante, il \textbf{Teorema delle contrazioni}.
+
+\begin{theorem}[\textbf{Teorema delle Contrazioni}]
+    E' anche detto \textbf{Teorema di Banach-Caccioppoli}.\\\\
+    \noindent Sia $(\X,d)$ uno \textbf{spazio metrico completo}. Sia $f: \ \X\to\X$ \textbf{contrazione}. Allora:
+    \[\exists! \ \text{punto fisso t.c.} \ f(\overline{x}) = \overline{x}\]
+
+    \begin{proof}\hfill\\
+        Prendo $x_0\in\X$. Costruisco una \textbf{successione} $\{x_k\}$ t.c.: 
+        \[x_1 = f(x_0)\]
+        \[x_2 = f(x_1)\]
+        \[\vdots\]
+        \[x_{k+1} = f(x_k)\]
+        Si può dimostrare che $\{x_k\}$ è \textbf{successione di Cauchy} in $(\X,d)$.\\\\
+        Voglio dimostare che $\exists\overline{x}$ punto \textbf{fisso} t.c. $\overline{x} = f(\overline{x})$.\\
+        Poichè $\{x_k\}$ è di Cauchy in $(\X,d)$ ho:
+        \[\overline{x} = \lim_{k\to\infty} x_k \quad\text{in} \ (\X,d)\]
+        quindi $\overline{x}$ è punto \textbf{fisso}.\\\\
+        Poichè $f$ è \textbf{contrazione}, essa è \textbf{Lipshitziana}, e dunque \textbf{continua}.
+        \[\lim_{k\to\infty} f(x_k) = f(\overline{x}) = x_{k+1} = \overline{x}\]
+        Ho ottenuto:
+        \[f(\overline{x}) = \overline{x}\]
+        \rightline{\textit{Dimostrato}}
+
+        \newpage
+        
+        \noindent Dimostro ora che $\overline{x}$ è \textbf{unico}.\\
+        Supponiamo che esistano $\overline{x} = f(\overline{x})$ e $\overline{y} = f(\overline{y})$.
+        \[d(\overline{x},\overline{y}) = d\left(f(\overline{x}),f(\overline{y})\right) \leq L\cdot d(\overline{x},\overline{y})\to 0 \quad\text{con} \ L\in(0,1)\]
+        Avrei:
+        \[d(\overline{x},\overline{y}) \leq d(\overline{x},\overline{y})\]
+        Ma ciò è \textbf{assurdo} se $\overline{x}\ne \overline{y}$\\\\
+        Dunque:
+        \[d(\overline{x},\overline{y}) = 0 \Rightarrow \overline{x} = \overline{y}\]
+        \rightline{\textit{Dimostrato}}
+    \end{proof}
+\end{theorem}
+
+\newpage
+
+\section{Teorema di esistenza e unicità di Cauchy}
+Grazie alle nozioni acquisite con lo studio degli \textbf{spazi metrici e normati}, abbiamo finalmente gli strumenti
+per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \textbf{equazioni differenziali}.
+
+\begin{theorem}[\textbf{Esistenza e unicità di Cauchy}]
+    Considero il seguente \textbf{problema di Cauchy}:
+    \[\begin{cases}
+        y'=f\left(x,y(x)\right) \\
+        y(x_0)=y_0
+    \end{cases}\]
+    Sia $f(x)$ \textbf{definita} e \textbf{continua} sul \textbf{rettangolo} $\I\times\J$, con:
+    \begin{itemize}
+        \item $\I=(x_0-a,x_0+a)$
+        \item $\J=(y_0-b,y_0+b)$
+    \end{itemize}
+    con $a$ e $b$ \textbf{costanti positive}.\\
+    Suppongo inoltre che $\exists L\in\R, \ L>0$ t.c. $\forall y_1,y_2\in\J$ vale:
+    \[\left|f(x_0,y_1)-f(x_0,y_2)\right|\leq L \left|y_1-y_2\right|\]
+    In pratica, se \textbf{fisso $x$}, la funzione è \textbf{Lipshitziana} per $y$. Allora:
+    \begin{center}
+        $\exists\delta >0$ e $\exists !$ funzione $y(x)$ definita su $(x_0 - \delta,x_0 + \delta)$ che \textbf{risolve il problema}.
+    \end{center}
+
+    \begin{proof}\hfill\\
+        Uso la \textbf{formulazione integrale}. \\\\
+        \noindent Poichè $f$ è \textbf{continua} su $\I\times\J$, per \textbf{Weierstrass} posso dire:
+        \[\exists M = \max_{x\in\I\times\J} \left|f\left(x,y(x)\right)\right|\]
+        Scelgo $\delta < \min\left\{a; \ \frac{b}{M}; \ \frac{1}{L}\right\}$ con $\I_{\delta} = \left[x_0-\delta,x_0+\delta\right]$
+
+        \begin{center}
+            \begin{tikzpicture}[scale=0.5]
+                \draw[->] (-1,0)--(16,0) node[at end,right] {$x$};
+                \draw[->] (0,-1)--(0,8) node[at end,above] {$y$};
+                \draw (1,1)--(15,1);
+                \draw(1,7)--(15,7) node[midway,above] {$\I$};
+                \draw(1,1)--(1,7);
+                \draw (15,1)--(15,7) node[midway,right] {$\J$};
+                \draw[red] (3,1)--(3,7);
+                \draw[red] (13,1)--(13,7);
+                \filldraw(8,4) circle (2pt) node[right] {\tiny$(x_0,y_0)$};
+                \draw (1,0.1)--(1,-0.1) node[at end,below] {\tiny$x_0-a$};
+                \draw (3,0.1)--(3,-0.1) node[at end,below] {\tiny\textcolor{red}{$x_0-\delta$}};
+                \draw (8,0.1)--(8,-0.1) node[at end,below] {\tiny$x_0$};
+                \draw (13,0.1)--(13,-0.1) node[at end,below] {\tiny\textcolor{red}{$x_0+\delta$}};
+                \draw (15,0.1)--(15,-0.1) node[at end,below] {\tiny$x_0+a$};
+                \draw (0.1,1)--(-0.1,1) node[at end,left] {\tiny$y_0-b$};
+                \draw (0.1,4)--(-0.1,4) node[at end,left] {\tiny$y_0$};
+                \draw (0.1,7)--(-0.1,7) node[at end,left] {\tiny$y_0+b$};
+            \end{tikzpicture}
+        \end{center}
+        \noindent
+        Prendo $\B = \left\{u(x)\in \C^0 \left([x_0-\delta,x_0+\delta]\right): \ \left\lVert u-y_0\right\rVert_{\C^0(\I_\delta)} \leq b \right\}$\\\\
+        Osservo che:
+        \begin{itemize}
+            \item $\B$ è \textbf{palla chiusa}.
+            \item $(\B,\norma_{\C^0})$ è \textbf{spazio di Banach} perchè è \textbf{sottoinsieme} di $\left(\C^0(\I_\delta),\norma_{\C^0}\right)$, che è \textbf{completo}. 
+        \end{itemize}
+
+        \noindent Definisco l'\textbf{operatore} F:\\
+        $F: \ \B\to\C^0(\I_\delta)$, $F(u) = z$ con $z(x) = y_0 + \int_{x_0}^{x} f\left(t,u(t)\right) dt$ $\forall x\in\I_\delta$\\
+
+        \noindent Voglio dimostrare che $\operatorname{Im}(F)\subseteq\B$.\\
+
+        \noindent Sia $u\in\B$, allora $F(u)\in\C^0(\I_\delta)$. Inoltre:\\
+        \[\left|F(u) - y_0\right| = \left|z-y_0\right| = \left|\int_{x_0}^{x} f\left(t,y(t)\right) dt\right|\]
+        $\forall x\in\I_\delta$, $t\in[x_0,x]\subseteq\I$.\\
+        $u(t)\in\J$ perchè $u\in\B$, quindi $\left\lVert u-y_0\right\rVert_{\C^0} \leq b$, cioè:
+        \[\left|u(x) - y_0\right| \leq b \quad\forall x\in\I_\delta\]
+        dunque $\left(t,u(t)\right)\in\I\times\J \Rightarrow \left|f\left(t,u(t)\right)\right|\leq M = \max$
+        \[\left|\int_{x_0}^{x} f\left(t,u(t)\right) \ dt\right| < M \left|x_0-x\right| \leq M \delta \leq b \ \text{per come ho scelto} \ \delta\]
+        \[\Rightarrow\max_{x\in\I_\delta} \left|F(u) - y_0\right| \leq b\]
+        cioè $\left\lVert F(u) - y_0\right\rVert_{\C^0} \leq b \Rightarrow F(u)\in\B$\\
+
+        \noindent Poichè $F(u)\in\B$, ho $F: \ \B\to\B$.\\
+
+        \noindent Voglio dimostare che $F$ ha un \textbf{punto fisso} t.c. $F(\overline{y}) = \overline{y}$. 
+        Mi basta dimostare che $F$ è \textbf{contrazione} rispetto ad una \textbf{metrica indotta da} $\norma_{\C^0}$.\\
+        Mi basta dimostare che $F$ è \textbf{Lipshitziana} con $L<1$.
+        \begin{gather*}
+            \left|F(y_1) - F(y_2)\right| \leq \left|\int_{x_0}^{x} f\left(t,y_1(t)\right) - f\left(t,y_2(t)\right) \ dt\right| \leq\\
+            \leq L \underbrace{|x-x_0|}_{\int_{x_0}^x 1 dx} \  \underbrace{\left\lVert y_1-y_2\right\rVert_{\C^0(\I_\delta)}}_{\leq |y_1(t)-y_2(t)|} \leq \\
+            \leq L\delta \ \left\lVert y_1-y_2\right\rVert_{\C^0(\I_\delta)} \leq 1
+        \end{gather*}
+        Poichè $L\delta < 1$ per come ho scelto $\delta$ ovvero $< \frac{1}{L}$.\\ 
+        Ho ottenuto:
+        \[L<1\]
+        Ho visto che $F$ è \textbf{contrazione} rispetto a $\norma_{\C^0}$.
+        
+        \newpage
+        \noindent $\exists!\overline{y}$ t.c. $F(\overline{y}) = \overline{y}$, cioè esiste una \textbf{soluzione} $\overline{y}$ del problema di Cauchy.\\
+         $\overline{y}$ è l'unica soluzione del problema di Cauchy.\\
+         Infatti, se $u$ è un'altra soluzione del problema di Cauchy, allora $F(u) = u$.\\
+         Ma $F$ è contrazione, quindi $u = \overline{y}$.\\
+         Dunque $u$ è l'unica soluzione del problema di Cauchy.\\
+          Ho ottenuto:
+        \[y(x) = y_0 + \int_{x_0}^{x} f\left(t,u(t)\right) \ dt \quad\forall x\in\I\]
+        che \textbf{risolve il problema di Cauchy} ed è \textbf{unica}.\\
+        \rightline{\textit{Dimostrato}}
+    \end{proof}
+\end{theorem}
+    \newpage
+
+    \section{Introduzione}
+    Noi tratteremo le funzioni perlopiù nel caso di \textbf{2 variabili}, ma queste nozioni valgono 
+    anche per \textbf{funzioni a più di 2 variabili}.
+
+    \section{Topologia}
+    Diamo ora una serie di \textbf{definizioni topologiche utili}.
+
+    \begin{definition}[\textbf{Insieme aperto}]
+        Sia $\A\subseteq\R^2$. Dico che $\A$ è \textbf{aperto} se $\forall (x_0,y_0)\in\A \ \exists R>0$ t.c. :
+        \[\B_R(x_0,y_0) = \left\{(x,y)\in\R^2: \ \left\lVert (x,y) - (x_0,y_0)\right\rVert_\varepsilon < R \right\} \subseteq \A\]
+    \end{definition}
+    \noindent Noi useremo sempre le \textbf{palle di Euclide}.
+
+    \begin{definition}[\textbf{Insieme chiuso}]
+        Sia $\E\subseteq\R^2$. Dico che:
+        \begin{itemize}
+            \item $\overline{\E}$ è il \textbf{più piccolo chiuso} che \textbf{contiene} $\E$ (chiusura di $\E$).
+            \item $\mathring{\E}$ è il \textbf{più grande aperto} che \textbf{è contenuto} in $\E$. 
+        \end{itemize}
+    \end{definition}
+
+    \begin{definition}[\textbf{Dominio}]
+        Dico che $\D$ è un "\textbf{dominio}" se $\D=\overline{\A}$ con $\A$ \textbf{aperto}:
+        \[ \D = \mathring{\D} \cup \de\D \]
+    \end{definition}
+    \noindent In pratica, sto dicendo che $\D$ è composto dal suo \textbf{interno} e dalla sua \textbf{frontiera}.
+
+    \begin{definition}[\textbf{Grafico}]
+        Sia $f: \ \D\to\R$. Il suo \textbf{grafico} è:
+        \[\left\{(x,y,z)\in\R^3: \ (x,y)\in\D, \ z=f(x,y)\right\}\]
+    \end{definition}
+
+    \begin{definition}[\textbf{Linee di livello}]
+        Definisco le \textbf{linee di livello}:
+        \[\U_t = \left\{(x,y)\in\D: \ f(x,y) = t\right\} \quad\text{con:} \ t\in\R\]
+    \end{definition}
+    \noindent E' esattamente l'equivalente delle \textbf{linee di livello} delle \textbf{carte goegrafiche}.
+
     \begin{observation}
-        \underbar{se} $\lambda_1,\lambda_2, ... , \lambda_k $ sono dumeri distinti \\ 
-        \underbar{allora} $e^{\lambda x},e^{\lambda_2 x}, ... \ , e^{\lambda_k x},$ sono linearmente indipendenti.\\
+    Sono particolarità delle linee di livello:
+        \begin{itemize}
+            \item $\displaystyle \max\left\{t: \ \U_t\neq \emptyset\right\} = \max_{(x,y)\in\D} f(x,y)$
+            \item $\displaystyle \min\left\{t: \ \U_t\neq \emptyset \right\} = \min_{(x,y)\in\D} f(x,y)$
+        \end{itemize}
     \end{observation}
-\end{proof}
+
+    \begin{definition}[\textbf{Dominio naturale}]
+        E' il \textbf{maggiore insieme possibile} dove ha senso \textbf{scrivere la funzione}.
+    \end{definition}
+
+    \noindent Posso iniziare a studiare i \textbf{limiti} delle funzioni a due variabili.
+
+    \newpage
+
+    \section{Limiti}
+
+    Sia $\D \subseteq \R^2$, sia $f: \ \D\to\R$, sia $(x_0,y_0)\in\D$.\\
+    Per:
+    \[\lim_{(x,y)\to(0,0)} f(x,y) = L\]
+    intendo dire che:
+    \[\left\lVert (x,y) - (x_0,y_0)\right\rVert \to 0\]
+    Cioè $\forall\{v_n\}\subseteq\R^2: \ v_n\to P_0 = (x_0,y_0), \ v_n\ne P_0 \Longrightarrow f(v_n)\to L$\\
+    \[f(v_n) = f\left((v_n)_1;(v_n)_2\right)\]
+    \[v_n = \left((v_n)_1;(v_n)_2\right)\]
+    Posso dunque dare la \textbf{definizione}:
+    \[\forall\varepsilon > 0 \ \exists\delta >0 \ \text{t.c. se} \ (x,y)\in\B_\delta^{(x_0,y_0)}\backslash \left\{(x_0,y_0)\right\} \Longrightarrow \left|f(x,y) - L\right| < \varepsilon\]
+
+    \begin{definition}[\textbf{Funzione continua}]
+        Sia $\D \subseteq \R^2$, sia $f: \ \D\to\R$, sia $(x_0,y_0)\in\D$.\\
+        Dico che $f$ è \textbf{continua} in $P_0 = (x_0,y_0)$ se:\\
+        $\forall\{v_n\}\subseteq\D: \ v_n\to P_0$ si ha che $f(v_n)\to f(P_0)$, cioè:
+        \[\left\lVert (x,y) - (x_0,y_0)\right\rVert\to 0 \Longrightarrow \left|f(x,y) - f(x_0,y_0)\right|\to 0\]
+        e dunque:
+        \[\lim_{(x,y)\to(x_0,y_0)} f(x,y) = f(x_0,y_0)\]
+    \end{definition}
+
+    \noindent Ci sono alcuni \textbf{teoremi molto utili}, già studiati nel caso di \textbf{una variabile}, che \textbf{continuano a valere} anche per le funzioni a \textbf{due variabili}.
+
+    \subsection{Teoremi utili per funzioni a due variabili}
+    I loro enunciati, come già detto, sono \textbf{validi} anche per funzioni di \textbf{due variabili}:
+    \begin{itemize}
+        \item Teorema di \textbf{Weierstrass}.
+        \item Teorema di \textbf{Cantor}.
+        \item Teorema dei \textbf{valori intermedi}.
+    \end{itemize}
+    Posso iniziare a estendere al caso di due variabili reali anche il concetto di \textbf{derivazione}.
+
+    \newpage
+
+    \section{Derivate}
+    Il concetto di \textbf{derivazione} per funzioni a due variabili è \textbf{più complicato} di quello per una variabile singola.
+    Il problema di fondo è che il punto, stavolta, non è vincolato a muoversi su una \textbf{traiettoria curvilinea}.\\
+
+    \noindent Sia $\A\subseteq\R^2$ \textbf{aperto}, $f: \ \A\to\R$, $(x_0,y_0)\in\A$, $z=f(x,y)$:\\ 
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->] (-1,0)--(6,0) node[at end,right]{$x$};
+            \draw[->] (0,-1)--(0,5) node[at end,above]{$y$};
+            \potato{(1.5,0.5)}{1.3};
+            \node at(5,3){$f(x,y)$};
+            \draw[red] (3,5)--(3,0) node[at end,below]{\small sez. trasversale per $x$};
+            \draw[blue] (5,2)--(0,2) node[at end,left]{\small sez. trasversale per $y$};
+        \end{tikzpicture}
+    \end{center}
+    \begin{itemize}
+        \item Fisso $y=y_0$, studio la "\textbf{sezione trasversale}" di $f$ rispetto a $x$.\\
+        Ho $\nu(x) = f(x,y_0)$.
+        \item Fisso $x=x_0$, studio la "\textbf{sezione trasversale}" di $f$ rispetto a $y$.\\
+        Ho $\upsilon(y) = f(x_0,y)$.
+    \end{itemize}
+
+    \noindent Poichè $\nu$ e $\upsilon$ sono due funzioni di \textbf{una variabile}, posso studiare i loro \textbf{rapporti incrementali}:
+    \begin{itemize}
+        \item Studio $\nu$:
+        \[\lim_{h\to 0} \frac{\nu(x_0 + h) - \nu(x_0)}{h} = \lim_{h\to 0} \frac{f(x_0 + h,y_0) - f(x_0,y_0)}{h} = \frac{\de f(x_0,y_0)}{\de x} = f_x (x_0,y_0)\]
+        \item Studio $\upsilon$:
+        \[\lim_{k\to 0} \frac{\upsilon(y_0 + k) - \upsilon(y_0)}{k} = \lim_{k\to 0} \frac{f(x_0,y_0 + k) - f(x_0,y_0)}{k} = \frac{\de f(x_0,y_0)}{\de y} = f_y (x_0,y_0)\]
+    \end{itemize}
+
+    \noindent Questo oggetto è un \textbf{vettore}. 
+    \begin{definition}[\textbf{Gradiente}]
+        Definisco il \textbf{gradiente} come vettore delle \textbf{derivate parziali} di $f$ in ogni punto. E' un \textbf{operatore} così composto:
+        \[\nabla f(x_0,y_0) = \begin{pmatrix}
+            \frac{\de f(x_0,y_0)}{\de x} \\ \frac{\de f(x_0,y_0)}{\de y}
+        \end{pmatrix}\]
+    \end{definition}
+
+    \noindent\textbf{\underline{Osservazione}}\\
+    \textbf{Polinomi}, \textbf{esponenziali}, \textbf{logaritmi} e, in generale, \textbf{funzioni elementari}, sono \textbf{sempre derivabili} nel loro dominio \textbf{naturale}.\\
+    Valgono le \textbf{regole di derivazione} definite per funzioni di \textbf{una variabile} e l'\textbf{algebra delle derivate}. \\
+    Ricordiamo che stiamo lavorando negli \textbf{aperti}.
+
+    \subsection{Derivate di ordine successivo}
+
+    Come accadeva nel caso di \textbf{una variabile}, per studiare le \textbf{derivate di ordine successivo} devo \textbf{derivare la derivata}. \\
+    Poichè ho \textbf{due derivate}, devo \textbf{derivare due volte}:
+    \begin{itemize}
+        \item $\displaystyle f_{xx}(x,y) = \frac{\de^2 f}{\de x^2} (x,y) = \frac{\de}{\de x}\left(\frac{\de f(x,y)}{\de x}\right)$
+        \item $\displaystyle f_{yx}(x,y) =\frac{\de^2 f}{\de y \ \de x} (x,y) = \frac{\de}{\de y}\left(\frac{\de f(x,y)}{\de x}\right)$
+        \item $\displaystyle f_{xy}(x,y) =\frac{\de^2 f}{\de x \ \de y} (x,y) = \frac{\de}{\de x}\left(\frac{\de f(x,y)}{\de y}\right)$
+        \item $\displaystyle f_{yy}(x,y) =\frac{\de^2 f}{\de y^2} (x,y) = \frac{\de}{\de y}\left(\frac{\de f(x,y)}{\de y}\right)$
+    \end{itemize}
+
+    \begin{definition}[\textbf{Matrice Hessiana}]
+        Definisco "\textbf{matrice Hessiana}" la matrice così composta:
+        \[\nabla^2 f(x,y) = \begin{pmatrix}
+            f_{xx}(x,y) & f_{xy}(x,y) \\
+            f_{yx}(x,y) & f_{yy}(x,y)
+        \end{pmatrix}\]
+    \end{definition}
+
+    \begin{definition}[\textbf{Laplaciano}]
+        Definisco "\textbf{Laplaciano}" la \textbf{traccia} della matrice Hessiana.
+    \end{definition}
+
+    \noindent Sotto \textbf{determinate ipotesi}, le \textbf{derivate miste} $f_{xy}$ e $f_{yx}$ sono \textbf{uguali}.
+
+    \begin{theorem}[\textbf{Teorema di Schwartz}]
+        Sia $\A\subseteq\R^2$ \textbf{aperto}, $(x_0,y_0)\in\A$, $f: \ \A\to\R$ \textbf{due volte derivabile}. Se $f_{xy}$ e $f_{yx}$ sono \textbf{continue}, allora:
+        \begin{center}
+            $f_{xy}$ e $f_{yx}$ sono \textbf{uguali}
+        \end{center}
+        In pratica, se $f\in\C^2(\A)$, allora $\nabla^2f(x,y)$ è \textbf{simmetrica}.
+    \end{theorem}
+
+    \noindent Ci sono però delle \textbf{differenze sostanziali} tra i concetti di \textbf{derivabilità in una variabile} e in \textbf{due variabili}. 
+    La \textbf{derivabilità}, infatti, non ha più un legame così forte con il \textbf{piano tangente} alla funzione nel punto. 
+    A conferma di ciò, osserviamo che \textbf{la derivabilità non implica la continuità}.\\
+
+    \noindent \textbf{\underline{Esempio}}\\
+    Prendo tale funzione:
+    \[f(x,y) = \begin{cases}
+        \frac{xy}{x^2+y^2} & \text{se} \ (x,y) \ne (0,0) \\
+        0 & \text{se} \ (x,y) = (0,0)
+    \end{cases}\]
+    Si può facilmente osservare che:
+    \[\nabla f(0,0) = \begin{pmatrix}
+        0 \\ 0
+    \end{pmatrix}\]
+    Ma si può inoltre notare che:
+    \[\nexists \lim_{(x,y)\to (0,0)} \frac{xy}{x^2+y^2}\]
+    e dunque la funzione \textbf{non è continua} in $(0,0)$.\\
+
+    \noindent Ho osservato una funzione \textbf{derivabile} ma \textbf{non continua}. Posso facilmente osservare che in tale punto non sarebbe possibile
+    definire un \textbf{piano tangente} alla funzione. 
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[domain=-1:1,y domain=-1:1,samples=70]
+            \addplot3[surf]{x*y/((x*x)+(y*y))};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+
+    \noindent Posso introdurre il concetto di \textbf{differenziabilità}.
+
+    \newpage
+
+    \section{Differenziabilità}
+
+    E' un'\textbf{estensione} del concetto di \textbf{derivabilità} per \textbf{funzioni a due variabili}.\\
+
+    \noindent Sia $\A\subseteq\R^2$ \textbf{aperto}, $f: \ \A\to\R$, $f$ \textbf{derivabile} in $(x_0,y_0)\in\A$. Dico che $f$ è "\textbf{differenziabile}" in $(x_0,y_0)$ se:
+    \[\lim_{(h,k)\to(0,0)} \frac{f(x_0+h,y_0+k) - f(x_0,y_0) - \langle \nabla f(x_0,y_0);(h,k)\rangle}{\sqrt{h^2+k^2}} = 0\]
+
+    \hfill\\
+    \begin{observation}
+        La \textbf{differenziabilità} implica la \textbf{continuità}.
+    \end{observation}
+    \begin{proof}\hfill\\
+        Calcolo:
+        \[\lim_{(x,y)\to(x_0,y_0)} f(x,y) = \lim_{(x,y)\to(x_0,y_0)} f(x_0,y_0) - \left\langle \nabla f(x_0,y_0); \begin{matrix}
+            x-x_0 \\ y-y_0
+        \end{matrix}\right\rangle + o \left(\left\lVert  \begin{matrix} x-x_0 \\ y-y_0 \end{matrix}\right\rVert \right)  \]
+        Per la \textbf{disuguaglianza di Cauchy-Schwartz} posso dire:
+        \[\left\langle \nabla f(x_0,y_0); \begin{matrix}
+            x-x_0 \\ y-y_0
+        \end{matrix}\right\rangle \leq \left|\nabla f(x_0,y_0)\right| \ \left\lVert  \begin{matrix} x-x_0 \\ y-y_0 \end{matrix}\right\rVert \to 0\]
+        Inoltre, per definizione:
+        \[o \left(\left\lVert  \begin{matrix} x-x_0 \\ y-y_0 \end{matrix}\right\rVert\right) \to 0\]
+        Dunque ho ottenuto:
+        \[\lim_{(x,y)\to(x_0,y_0)} f(x,y) = \lim_{(x,y)\to(x_0,y_0)} f(x_0,y_0)\]
+    \end{proof}
+
+    \begin{theorem}[\textbf{Teorema del Differenziale}]
+        \underbar{Sia} $\A\subseteq\R^2$ \textbf{aperto}, $f: \ \A\to\R$, $(x_0,y_0)\in\A$, $f\in\C^1$ in un intorno di $(x_0,y_0)$, \underbar{allora}:
+        \begin{center}
+            $f$ è \textbf{differenziabile}
+        \end{center}
+    \end{theorem}
+    \begin{proof}
+        Studio $f$ lievemente incrementata, quindi il termine $f(x_0 + h,y_0 + k) - f(x_0,y_0)$:
+        \[f(x_0 + h,y_0 + k) - f(x_0,y_0) \textcolor{cyan}{+f(x_0,y_0+k) - f(x_0,y_0+k)}\]
+        Posso definire \textbf{due funzioni ausiliare}:
+        \begin{itemize}
+            \item $f(x_0 + h,y_0 + k) - f(x_0,y_0+k) = \textcolor{cyan}{\nu (x_0+h) - \nu(x_0)}$
+            \item $f(x_0,y_0 + k) - f(x_0,y_0) = \textcolor{cyan}{\upsilon (y_0+k) - \upsilon(y_0)}$
+        \end{itemize}
+        Per il \textbf{teorema di Lagrange} posso dire:
+        \begin{itemize}
+            \item $\exists x_1 \in [x_0,x_0+h]$ t.c. $h \ \nu'(x_1) = \nu (x_0+h) - \nu(x_0)$
+            \item $\exists y_1 \in [y_0,y_0+k]$ t.c. $k \ \upsilon'(y_1) = \upsilon (y_0+k) - \upsilon(x_0)$
+        \end{itemize}
+        Utilizzando la \textbf{definizione}, dimostro che $f$ è \textbf{differenziabile}:
+        \[\left|\frac{f(x_0 + h,y_0 + k) - f(x_0,y_0) - \left\langle \nabla f(x_0,y_0);(h,k)\right\rangle }{\sqrt{h^2+k^2}}\right|=\]
+        \[=\left|\frac{h \ f_x(x_1,y_0+k)+k \ f_y(x_0,y_1) - h \ f_x(x_0,y_0) - k \ f_y(x_0,y_0)}{\sqrt{h^2+k^2}}\right|\]
+        Poichè voglio dimostrare che questo oggetto \textbf{tende a zero}, \textbf{maggioro}:
+        \[\leq \frac{|h|}{\sqrt{h^2+k^2}} \left|f_x(x_1,y_0+k) - f_x(x_0,y_0)\right| + \frac{|k|}{\sqrt{h^2+k^2}} \left|f_y(x_0,y_1) - f_y(x_0,y_0)\right| \leq\]
+        \[\leq \left|f_x(x_1,y_0+k) - f_x(x_0,y_0)\right| + \left|f_y(x_0,y_1) - f_y(x_0,y_0)\right|\]
+        Faccio tendere $(h,k)\to(0,0)$:
+        \begin{itemize}
+            \item $x_1\in[x_0,x_0+h] \Longrightarrow x_1\to x_0$
+            \item $y_1\in[y_0,y_0+k] \Longrightarrow y_1\to y_0$
+        \end{itemize}
+        Ottengo dunque:
+        \begin{itemize}
+            \item $\displaystyle \lim_{h\to 0} f_x(x_1,y_0+k) = f_x(x_0,y_0)$
+            \item $\displaystyle \lim_{k\to 0} f_y(x_0,y_1) = f_y(x_0,y_0)$
+        \end{itemize}
+        \[\left|f_x(x_1,y_0+k) - f_x(x_0,y_0)\right| + \left|f_y(x_0,y_1) - f_y(x_0,y_0)\right|\to 0\]
+        Quindi $f$ è \textbf{differenziabile}.
+    \end{proof}
+    \begin{definition}[\textbf{Differenziale}]
+        Sia $f$ \textbf{differenziabile}. Chiamo \textbf{differenziale di} $f \ df$:
+        \[df = \left\langle \nabla f(x_0,y_0);\begin{pmatrix}
+            x-x_0 \\ y-y_0
+        \end{pmatrix}\right\rangle \]
+    \end{definition}
+
+    \subsection{Piano tangente}
+    Se $f$ è \textbf{differenziabile}, posso \textbf{approssimarla al 1° ordine} ad una funzione \textbf{affine}, ossia un \textbf{piano}, 
+    nell'intorno di un punto, in cui tale piano sarà \textbf{tangente al grafico} di $f$.\\
+    Fisso il punto $(x_0,y_0)$ sulla superficie. Voglio scrivere il piano tangente a $f$ in $(x_0,y_0)$ in \textbf{forma parametrica}.\\
+    Sia $M_{y_0}$ la \textbf{retta tangente} al grafico della \textbf{sezione trasversale} $\nu(x) = f(x,y_0)$ in $(x_0,y_0)$.\\
+    Sia $M_{x_0}$ la \textbf{retta tangente} al grafico della \textbf{sezione trasversale} $\upsilon(y) = f(x_0,y)$ in $(x_0,y_0)$.\\
+
+    \noindent Chiamo $P$ il punto $\left(x_0,y_0,f(x_0,y_0)\right)$
+
+    \[M_{y_0} = \begin{cases}
+        z = f(x_0,y_0) + f_x(x_0,y_0)(x-x_0) \\
+        y=y_0
+    \end{cases}\]
+    \[M_{x_0} = \begin{cases}
+        z = f(x_0,y_0) + f_y(x_0,y_0)(y-y_0) \\
+        x=x_0
+    \end{cases}\]
+    Posso scriverli in \textbf{forma parametrica}:
+    \[M_{y_0} = \begin{pmatrix}
+        x-x_0 \\ y-y_0 \\ z-z_0
+    \end{pmatrix} = \begin{pmatrix}
+        1 \\ 0 \\ f_x(x_0y_0)
+    \end{pmatrix} t \quad\forall t\in\R\]
+    \[M_{x_0} = \begin{pmatrix}
+        x-x_0 \\ y-y_0 \\ z-z_0
+    \end{pmatrix} = \begin{pmatrix}
+        0 \\ 1 \\ f_y(x_0y_0)
+    \end{pmatrix} s \quad\forall s\in\R\]
+    Poichè questi termini indicano piani \textbf{passanti per l'origine}, devo \textbf{traslarli} per farli passare da $z=z_0$. \\
+    Ottengo dunque il \textbf{piano tangente} $\Pi$:
+    \[\Pi = \begin{pmatrix}
+        1 \\ 0 \\ f_x(x_0y_0)
+    \end{pmatrix}t \ + \begin{pmatrix}
+        0 \\ 1 \\ f_y(x_0y_0)
+    \end{pmatrix}s \ - \begin{pmatrix}
+        x_0 \\ y_0 \\ z_0
+    \end{pmatrix}\quad\forall t,s\in\R\]
+    Posso anche passare in \textbf{forma cartesiana}, scrivendo il piano come il \textbf{differenziale} a cui viene sommato $z_0$:
+    \[\Pi = \left\{z: \ z = \left\langle \nabla f(x_0,y_0); \ \begin{pmatrix}
+        x-x_0 \\ y-y_0
+    \end{pmatrix}\right\rangle + z_0\right\}\]
+
+    \newpage
+
+    \subsection{Derivate direzionali}
+    \begin{center}
+    \begin{tikzpicture}
+    \begin{axis}[
+        view={110}{25}, % Angolazione della camera
+        xlabel=$x$, ylabel=$y$, zlabel=$z$,
+        axis lines=center,
+        colormap/viridis,
+        ticks=none,
+        enlargelimits=0.1,
+        view={140}{30}
+    ]
+
+    % 1. Rappresentazione della superficie z = f(x,y)
+    \addplot3[
+        surf,
+        shader=flat,
+        samples=25,
+        domain=-2:2,
+        y domain=-2:2,
+        opacity=0.6
+    ] {exp(-(x^2 + y^2))}; % Una gaussiana come esempio
+
+    % 2. Punto sulla superficie P(x0, y0, f(x0, y0))
+    \coordinate (P) at (axis cs:0.5, 0.5, {exp(-(0.5^2 + 0.5^2))});
+    \fill[red] (P) circle (2pt) node[right, black] {$P$};
+
+    % 3. Proiezione sul piano xy (il vettore direzione v)
+    \draw[blue, thick, ->] (axis cs:0.5, 0.5, 0) -- (axis cs:1.2, 0.8, 0) 
+        node[right] {$\vec{v}$};
+    \fill[black] (axis cs:0.5, 0.5, 0) circle (1.5pt) node[below left] {$(x_0, y_0)$};
+
+    % 4. Piano "tagliato" nella direzione di v
+    % Disegniamo una linea sulla superficie che segue la direzione v
+    \addplot3[
+        red,
+        very thick,
+        samples=20,
+        samples y=0,
+        domain=-1:1.5
+    ] (
+        {0.5 + x*0.7}, % x(t) = x0 + t*vx
+        {0.5 + x*0.3}, % y(t) = y0 + t*vy
+        {exp(-((0.5 + x*0.7)^2 + (0.5 + x*0.3)^2))}
+    );
+
+    % 5. Retta tangente (Rappresentazione della derivata direzionale)
+    \draw[dashed, black, thick] (axis cs:-0.2, 0.2, 0.9) -- (axis cs:1.2, 0.8, 0.4)
+        node[above right] {Retta tangente};
+
+    \end{axis}
+    \end{tikzpicture}
+    \end{center}
+    Finora ho osservato le \textbf{sezioni trasversali} della funzione, ma posso studiare sezioni di $f$ lungo
+    una \textbf{direzione qualsiasi}. \\
+
+    \noindent Indico una \textbf{direzione fissa} $\underline{\nu} = \begin{pmatrix}
+        \nu_1 \\ \nu_2
+    \end{pmatrix}$, che è un \textbf{versore} ($|\nu|=1$).\\ 
+    Posso scrivere la \textbf{sezione} di $f$ lungo la direzione $\underline{\nu}$ passante per il punto $P_0 = (x_0,y_0)$
+    \[z = f(\underline{\nu} t + P_0) = \omega(t)\]
+    Osservo che $t$ è l'\textbf{unica variabile}. 
+    \[\begin{pmatrix}
+        x(t) \\ y(t)
+    \end{pmatrix} = \underline{\nu} t + P_0 = \begin{pmatrix}
+        \nu_1 t + x_0 \\ \nu_2 t + y_0
+    \end{pmatrix}\quad\forall t\in\R\]
+    Posso passare alla \textbf{derivata}.\\
+
+    \noindent Definisco la "\textbf{derivata direzionale} di $f$ lungo la direzione $\underline{\nu}$ in $P_0$" la 
+    derivata di $\omega(t)$ calcolata in $t=0$.\\
+    \[\frac{\de f}{\de \underline{\nu}}(P_0) = \lim_{h\to 0} \frac{\omega(h) - \omega(0)}{h} = \lim_{h\to 0} \frac{f(\underline{\nu}h + P_0) - f(P_0)}{h}\]
+    \hfill\\
+    \noindent\textbf{\underline{Osservazione}}
+    \begin{itemize}
+        \item $\displaystyle \underline{\nu} = \begin{pmatrix}
+            1 \\ 0
+        \end{pmatrix} \Longrightarrow \frac{\de f}{\de \underline{\nu}} = f_x$
+        \item $\displaystyle \underline{\nu} = \begin{pmatrix}
+            0 \\ 1
+        \end{pmatrix} \Longrightarrow \frac{\de f}{\de \underline{\nu}} = f_y$
+    \end{itemize}
+
+    \hfill\\
+    \noindent Posso inoltre scrivere le direzioni usando un \textbf{angolo}:\\
+    Sia $\displaystyle\underline{\nu} = \begin{pmatrix}
+        \cos(\theta) \\ \sin(\theta)
+    \end{pmatrix} \longrightarrow$ Per $\theta\in[0,2\pi]$ esploro \textbf{tutte le direzioni} lungo la \textbf{circonferenza di raggio unitario},
+    che per comodità chiamerò $\$'$.\\
+
+    \noindent Posso finalmente dare un \textbf{risultato teorico importante} che riguarda le \textbf{derivate direzionali}.
+
+    \begin{theorem}[\textbf{Formula del gradiente}]
+        Sia $\A\subseteq\R^2$ \textbf{aperto}, $f: \ \A\to\R$, $P_0\in\A$, $f$ \textbf{differenziabile} in $P_0$. Allora:\\
+        \[\forall\underline{\nu}\in\$' \quad \exists\frac{\de f}{\de\underline{\nu}}(P_0)\\\]  
+        E vale che:
+        \begin{gather*}
+        \frac{\de f}{\de\underline{\nu}}(P_0) = \left\langle \nabla f(P_0);\underline{\nu}\right\rangle 
+        \end{gather*}
+    \end{theorem}
+    \newpage
+    \noindent\textbf{\underline{Corollario (direzione di massima pendenza)}}\\
+    Vale sotto le \textbf{stesse ipotesi},del th. precedente, e afferma:
+    \begin{itemize}
+        \item $\nabla f(P_0)$ indica la \textbf{direzione} e il \textbf{verso di massima pendenza} di $f$ in $P_0$.
+        \item $-\nabla f(P_0)$ indica la \textbf{direzione} e il \textbf{verso di minima pendenza} di $f$ in $P_0$.
+        \item $\displaystyle\forall\underline{\nu}\in\$', \ \underline{\nu} \ \bot \ \nabla f (P_0) \ \Rightarrow \ \frac{\de f}{\de\underline{\nu}}(P_0) = 0$
+    \end{itemize}
+    \begin{proof}[Dimostrazione del corollario]
+        \begin{gather*}
+            \left\lvert \frac{\de f(x_0)}{d\underline{\nu}} \right\rvert = \left\lvert \left\langle \nabla f(x_0), \underline{\nu} \right\rangle \right\rvert  = \nabla f(x_0) \cdot \underline{\nu} = 1  
+        \end{gather*}
+        Questo perchè $\underline{\nu}$ è un versore. Il prodotto scalare tra i due è $\left\lvert \nabla f(x_0) \right\rvert \cdot \left\lvert \underline{\nu} \right\rvert \cdot \cos(\theta)$ con $\theta$ che è l'angolo compreso, e la pendenza, ovvero il coseno, è massima quando $\theta = 0$, ovvero quando $\underline{\nu} \parallel \nabla f(x_0)$.\\
+        In particolare se il verso è concorde si ha:
+        \begin{gather*}
+            \frac{\de f(x_0)}{\de \underline{\nu}} = \left\lvert \nabla f(x_0) \right\rvert
+        \end{gather*}
+        E se il verso è discorde si ha:
+        \begin{gather*}
+            \frac{\de f(x_0)}{\de \underline{\nu}} = -\left\lvert \nabla f(x_0) \right\rvert
+        \end{gather*}
+    \end{proof}
+\subsection{funzioni composte}
+        $I=(a,b) \subseteq \mathbb{R}$
+        \begin{definition}
+            $\underline{x}(t):I \to \mathbb{R}^3(o \mathbb{R}^2)$ è una curva parametrica\\
+            \underbar{se} $\underline{x}(t) = \begin{pmatrix} x(t) \\ y(t) \\ z(t) \end{pmatrix} \qquad x,y,z:I \to \mathbb{R}$,\\
+            $x,y,z$ derivabili in $I$ $ \dot{\underline{x}}(t) = \begin{pmatrix} \dot{x} \\ \dot{y} \\ \dot{z} \end{pmatrix}, |\dot{\underbar{x}}(t)| \neq 0 \quad \forall t \in I $
+        \end{definition}
+        \begin{definition}
+            Funzione composta\\
+$            F(t) = f(\underline{x}(t)) = f(x(t),y(t))\\
+            f:A \to \mathbb{R} \quad \mathring{A} \subseteq \mathbb{R}^2\\
+            \underline{x}(t) \text{curva piana} \qquad \underline{x}(t):I \to A$
+        \end{definition}
+        \begin{theorem}[di derivazione delle funzioni composte]
+            $I=(a,b)$\\
+            $\underline{x}(t):I \to \mathring{A} \subseteq \mathbb{R}^2, \underline{x}$ derivabile in $\underset{\in I}{t_0},f:A \to \mathbb{R}$\\
+            $f$ differenziabile in $\underline{x}(t_0) = (x_0,y_0)$\\
+            \underline{Allora} $F(t) = f(\underline{x}(t)) = f(x(t),y(t))$ è derivabile in $t_0 \in I$ e $F'(t_0) = \left\langle \nabla f(\underline{x}(t_0));\underline{\dot{x}}(t_0)\right\rangle $
+        \end{theorem}
+
+        \begin{proof}
+            \hfil\\
+            chiamo $t = t_0 \in I$, in generale considero $t$ un punto fisso ma generico\\
+            Possiamo indicare con $\underline{x}$ un punto nello spazio ad un certo istante $\underline{x}(t)$ ed $\underline{y}$ un punto nello spazio ad un istante successivo $\underline{x}(t+h)$, tutti i punti considerati sono in $I$\\
+            \begin{itemize}
+                \item f differenziabile $\Rightarrow f(\underline{y}) = f(\underline{x}) + \left\langle \nabla f (\underline{x}); \underline{y}- \underline{x} \right\rangle + o(\left\lvert \underline{y} - \underline{x} \right\rvert) \quad \text{per } \underline{y} \to \underline{x}$\\
+                \underline{sia} $\underline{x} = \underline{x}(t) \qquad \underline{y} = \underline{x}(t+h), \quad t+h \in I$\\
+                Di fatto con $\underline{y} \to \underline{x}$ si intende calcolare la funzione in un punto molto vicino a $\underline{x}(t)$. E in questo punto possiamo approssimare la funzione con il suo piano tangente, proprio perchè la funzione è differenziabile. Continuando possiamo sostituire
+                con le identità che abbiamo appena definito per ottenere:\\
+                \textcolor{green}{\fbox{\textcolor{white}{$f(\underline{x}(t+h))-f(\underline{x}(t)) = \left\langle \nabla f(\underline{x}(t));\underline{x}(t+h)-\underline{x}t \right\rangle +o(\left\lvert \underline{x} (t+h) -\underline{x}(t)\right\rvert ) \quad\text{per } h \to 0 $ }}}  \textcolor{green}{\fbox{*}}\\
+                Finora ho usato solo $f$, prendiamo una funzione generica $F$ che è la composizione di $f$ con una curva $\underline{x}(t)$, e ne studio la derivata.\\
+                \item $\text{\fbox{$\underset{\text{\fbox{*}}}{\frac{F(t+h)-F(t)}{h}}$}} = \frac{f(\underline{x}(t+h))-f(\underline{x}(y))}{h} \overset{\text{\textcolor{green}{\fbox{*}}}}{=} \textcolor{orange}{\text{\fbox{\textcolor{white}{$\underset{\textcolor{orange}{\text{\fbox{I}}}}{\frac{\left\langle \nabla f(\underline{x}(t));\underline{x}(t+h)\right\rangle }{h}}$}}}} + \textcolor{magenta}{\text{\fbox{$\textcolor{white}{\underset{\text{\textcolor{magenta}{\fbox{II}}}}{\frac{o(\left\lvert \underline{x}(t+h) -\underline{x}(t)\right\rvert )}{h}}}$}}}$ \\
+                \item passo a $\lim_{h \to 0}$ Voglio dimostrare che $\exists \lim_{h \to 0} \text{\fbox{*}} \ , \ \lim_{h \to 0} \text{\textcolor{magenta}{\fbox{II}}} = 0 \ , \ \text{\textcolor{orange}{\fbox{I}}} = \left\langle \nabla f(\underline{x}(t));\underline{\dot{x}}(t) \right\rangle $
+            \end{itemize}
+            \bulletout \ \textcolor{orange}{\fbox{$I$}} $\lim_{h \to 0} \left\langle \nabla f(\underline{x}(t));\frac{\underline{x}(t+h)}{h}\right\rangle$\\
+            $=\lim_{h \to 0} f_x(\underline{x}(t)) \underset{\to \dot{x}(t)}{\text{\fbox{$(\frac{ x(t+h)-x(t)}{h})$}}} + f_y(\underline{x}(t))\underset{\to \dot{y}(t)}{\text{\fbox{$\frac{(y(t+h)-y(t))}{h}$}}}$\\
+            $= f_x(\underline{x}(t)) \dot{x}(t)+f_y(\underline{x}(t))\dot{y}(t)$\\
+            $=\left\langle \nabla f(\underline{x}(t));\underline{\dot{x}}(t)\right\rangle \qquad \cmark$\\\\
+            \bulletout \ \textcolor{magenta}{\fbox{$II$}} $\lim_{h \to 0} \left\lvert  \text{\textcolor{magenta}{\fbox{$II$}}} \right\rvert  = \lim_{h \to 0} \underset{\to 0}{\left\lvert \frac{o( (\underline{x}(t+h)-\underline{x}(t) ) )}{ \left\lvert \underline{x}(t+h)-\underline{x}(t) \right\rvert  }\right\rvert} \underbrace{\frac{\left\lvert \underline{x}(t+h)-\underline{x}(t)\right\rvert }{\left\lvert h \right\rvert }}_{\lim \exists \text{ finito per \fbox{**}}} = 0$\\
+            \fbox{**}: $ \ \lim_{h \to 0} \sqrt{\underbrace{\frac{(x(t+h)-x(t))^2}{h^2}}_{\underset{\to (\dot{x}(t))^2}{(\frac{x(t+h)-x(t)}{h})^2}} + \underset{\to (\dot{y}(t))^2}{\frac{(y(t+h)-y(t))^2}{h^2}} } = \sqrt{\dot{x}^2(t)+\dot{y}^2(t)} = |\underline{\dot{x}}(t)|$\\
+            \bulletout di conseguenza:$ \ \Rightarrow \exists \underset{F'(t)}{\lim_{h \to 0}\frac{F(t+h)-F(t)}{h}} = \left\langle \nabla f(\underline{x}(t)), \dot{x}(t) \right\rangle $
+        \end{proof}
+
+    
 \end{document}

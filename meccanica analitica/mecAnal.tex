@@ -520,6 +520,71 @@ Ora consideriamo che $y= f(x) \to x = f^{-1}(y)$ e quindi $\frac{df}{dx} = \frac
     \end{gather*}
 \end{example}
 
+\section{10/3/26}
+La scorsa lezione abbiamo visto le particolarità delle curve regolari\\
+Possiamo descrivere il versore tangente di una curva regolare come:
+\begin{gather*}
+    \widehat{t} = \frac{d\vv{r}}{ds} = \frac{d\vv{r}}{dt} \cdot \frac{dt}{ds} = \frac{\vv{t}}{\left\lvert \vv{t} \right\rvert}
+\end{gather*}
+In più si può definire la curvatura di una curva regolare come:
+\begin{gather*}
+    \text{curvatura }  :=  \frac{d^2\vv{r}}{ds^2} = \frac{d\widehat{t}}{ds}\\
+    \kappa = \left\lvert \frac{d^2r}{ds^2} \right\rvert
+\end{gather*}
+\begin{example}
+    Calcoliamo la curvatura di una circonferenza di raggio $R$:
+    \begin{center}
+        \begin{tikzpicture}
+            %assi xy
+            \draw[->] (-2,0) -- (3,0) node[below] {$x$};
+            \draw[->] (0,0) -- (0,3) node[left] {$y$};
+            \node at(0,0)[below] {$O$};
+            %circonferenza
+            \draw[thick, cyan] (1,0) arc (0:360:1);
+            \draw[->] (1,0) arc (0:45:1) node[above, at start] {$\varphi$};
+            \draw[->] (0,0) -- (0.7,0.7) node[at end, right] {$A$};
+        \end{tikzpicture}
+    \end{center}
+    \begin{gather*}
+        \vv{r} = (A - O) = R (\widehat{i} \cos(\varphi) + \widehat{j} \sin(\varphi))\\
+        \frac{d\vv{r}}{d\varphi} = R (-\widehat{i} \sin(\varphi) + \widehat{j} \cos(\varphi))\\
+        \left\lvert \frac{d\vv{r}}{d \varphi} \right\rvert = R \sqrt{\sin^2(\varphi) + \cos^2(\varphi)} = R\\
+        S(\varphi) = \int_{0}^{\varphi} \underbrace{\left\lvert \frac{d\vv{r}}{d\varphi} \right\rvert}_{R} d\varphi = \int_{0}^{\varphi} R d\varphi = R \varphi\\
+    \end{gather*}
+    Da qui:
+    \begin{gather*}
+        \varphi = \frac{S}{R} \Rightarrow \vv{r}(S) = R (\widehat{i} \cos(\frac{S}{R}) + \widehat{j} \sin(\frac{S}{R}))\\
+        \frac{d\vv{r}}{dS} = \cancel{R} (-\widehat{i} \sin(\frac{S}{R}) \frac{1}{\cancel{R}}+ \widehat{j} \cos(\frac{S}{R}) \frac{1}{\cancel{R}})\\
+    \end{gather*}
+    $R$ si semplifica come deve e ora calcoliamo la derivata seconda:
+    \begin{gather*}
+        \frac{d^2 \vv{r}}{dS^2} = -\widehat{i} \cos(\frac{S}{R}) \frac{1}{R} - \widehat{j} \sin(\frac{S}{R}) \frac{1}{R} = -\frac{\vv{r}(S)}{R^2}
+    \end{gather*}
+    Quindi per la curvatura:
+    \begin{gather*}
+        \kappa = \left\lvert \frac{d^2 \vv{r}}{dS^2} \right\rvert = \frac{1}{R}
+    \end{gather*}
+    Abbiamo trovato che il raggio di curvatura di una circonferenza è l'inverso del raggio della circonferenza stessa.\\
+    Infatti il raggio della curvatura è anche detto raggio osculatore, e rappresenta il raggio della circonferenza che meglio approssima la curva in un punto.
+\end{example}
+\begin{theorem}
+    \underbar{Sia} $r(t) \in C^2(\mathbb{R})$, una curva regolare con parametro $t \in \mathbb{R}$.\\
+    \underbar{allora} si ha:
+    \begin{gather*}
+        \frac{d^2}{ds^2} = \left( \frac{d^2r}{dt^2} - \frac{\left\langle \frac{d^2r}{dt^2} \cdot \frac{dr}{dt} \right\rangle }{\left\lvert \frac{dr}{dt} \right\rvert^2 } \frac{dr}{dt}\right) \frac{1}{\left\lvert \frac{dx}{dt} \right\rvert^2 }
+    \end{gather*}
+    La curvatura è data da:
+    \begin{gather*}
+        \kappa = \frac{\left\lvert \frac{dr}{dt} \land \frac{d^2r}{dt^2}\right\rvert }{\left\lvert \frac{dr}{dt} \right\rvert^3 }
+    \end{gather*}
+\end{theorem}
+\begin{proof}
+    \hfill\\
+    \begin{gather*}
+        \frac{d\vv{r}}{ds} = \frac{d\vv{r}}{dt} \cdot \frac{dt}{ds} = \frac{d\vv{r}}{dt} \cdot \frac{1}{\left\lvert \frac{dr}{dt} \right\rvert } = \frac{1}{\left\lvert \dot{r} \right\rvert } \\
+    \end{gather*}
+\end{proof}
+
 
 
 \end{document}
