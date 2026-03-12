@@ -527,6 +527,7 @@ Il generatore ideale viene rappresentato in un circuito in questo modo:
         \int_{A}^{B} \vv{E}_e \cdot \vv{dl} + \int_{B}^{A} \vv{E}_s \cdot \vv{dl} = 0
     \end{gather*}
     Questo perchè il campo $\vv{E}_e$ è conservativo se considerato all'interno del generatore, di fatto abbiamo dei vettori dritti che spostano le cariche da - a +, e non abbiamo rotazioni interne, stessa cosa ovviamente per $\vv{E}_s$.\\
+    Di fatto se consideriamo solo il pezzo che attraversa il generatore, il pezzo del campo $\vv{E}_s$ all'interno lo chiameremo spesso $\vv{E}_s'$ però si ricorda essere di fatto lo stesso campo.\\
     Se consideriamo però tutta la curva $\Gamma$ abbiamo che $\vv{E}_e$ non è più presente fuori dal generatore quindi ho che compiuta una rotazione sulla curva ho dell'energia che non mi è stata restituita. So però che il campo $\vv{E}_s$ è conservativo anche su 
     tutta la curva e quindi posso considerarlo nullo quando vedo la somma dei due, così facendo posso trovare che quella che è la forza elettromotrice del generatore è quella generata dal campo $\vv{E}_e$ che è in contrapposizione con il campo $\vv{E}_s$ e quindi:
     \begin{gather*}
@@ -610,7 +611,7 @@ Il generatore ideale viene rappresentato in un circuito in questo modo:
                 \draw[->] (1.5,0.5) -- (0.5,0.5) node[above, midway] {$R$};
                 \draw(2,0) -- (2,-1);
                 \draw(0,0) -- (0,-1);
-                \draw(2,-1) to [short, voltmeter] (0,-1);
+                \draw(0,-1) to [short, voltmeter] (2,-1);
             \end{tikzpicture}
         \end{center}
     \end{wrapfigure}
@@ -755,31 +756,56 @@ Il generatore ideale viene rappresentato in un circuito in questo modo:
     \begin{gather*}
         \E_x = \frac{V_1 V_2}{2V_2 -V_1}
     \end{gather*}
-\newpage
-\section{4/4/26}
-\subsection{ESPI}
-\begin{center}
+    \hfill\\\hfill\\
+    \subsection{un tipo di multimetro}
+    Caratteristiche generali del multimetro fluke 114:
+        \begin{enumerate}[1)]
+            \item in DC V / DC mV $\qquad 0,5\% + 2$ digit. (sull'ultima misurata)
+            \item $10 k \Omega - 40 M \Omega \qquad 1,5\% + 2$ digit. (sull'ultima misurata)
+        \end{enumerate}
+        \begin{example}
+            \begin{gather*}
+                R= 11,09 M\Omega\\
+                \Delta R = 1,5 \% \cdot 11,09 M \Omega + 0,02 M \Omega \sim 0,17 M \Omega + 0,02 M \Omega\\
+                R = (11,09 \pm 0,17) M \Omega
+            \end{gather*}
+        \end{example}
+\newpage\noindent
+\section{4/3/26}
+\subsection{Prima esperienza}
+\begin{wrapfigure}{r}{0.4\textwidth}
     \begin{tikzpicture}
-        \draw (0,0) to [battery1, invert, l=$\mathcal{E}\quad \pm$,] (0,2);
-        \filldraw(0,2) circle (2pt) node [below] {$A$};
-        \filldraw(0,0) circle (2pt) node [below] {$B$};
+        \draw (0,0) to [generic, invert, l=$\E \quad \pm$] (0,1);
+        \draw (0,0) to[short] (0,-0.5);
+        \draw (0,1) to[short] (0,1.5);
+        \draw (0,-0.5) to[short] (2,-0.5);
+        \draw (0,1.5) to[short] (2,1.5);
+        \draw (2,1.5) to[short, f=$i$] (2,-0.5);
+        \draw[<-] (-1,0) -- (-1,1) node[left, at start] {$\vv{E}_e$};
+        \node at(1,1) [above] {$\Gamma$};
+        \filldraw(0,-0.1) circle (1pt) node[left] {$B$};
+        \filldraw(0,1.1) circle (1pt) node[left] {$A$};
+        \draw[->] (0.1,0.2) -- (0.1,0.8) node[left, midway] {$i$};
+        \draw[->] (0.5,0.1) -- (0.5,1) node[right, midway] {$\vv{E}_s'$};
     \end{tikzpicture}
-\end{center}
+    \end{wrapfigure}\noindent
 Sappiamo che all'equilibrio si ha:
 \begin{gather*}
     \vv{E}_e = -\vv{E}'_s
 \end{gather*}
-La f.e.m. è data da:
+Dove si ricorda che $\vv{E}'_s$ è il campo elettrostatico all'interno del generatore, e che è in contrapposizione con il campo $\vv{E}_e$ che rappresenta la forza che separa le cariche all'interno del generatore. All'interno del 
+generatore entrambi i campi sono conservativi.\\
+Da questi possiamo calcolare la f.e.m. che è data da:
 \begin{gather*}
-    fem = \int_{A}^{B} \vv{E}_e \cdot \vv{dl} = \int_{A}^{B} -\vv{E}'_s \cdot \vv{dl}\\
+    f.e.m. = \E = \int_{A}^{B} \vv{E}_e \cdot \vv{dl} = \int_{A}^{B} -\vv{E}'_s \cdot \vv{dl}\\
     = \int_{A}^{B} \vv{E}'_s \cdot \vv{dl} = V_A-V_B
 \end{gather*}
-Di conseguenza possiamo avere la definizione operativa di f.e.m. come la differenza di potenziale che si misura ai capi del generatore quando non c'è corrente che lo attraversa.\\
+Di conseguenza possiamo avere la definizione operativa di f.e.m. come la differenza di potenziale che si misura ai capi del generatore quando non c'è corrente che lo attraversa. Ed è ciò che dobbiamo riuscire a misurare\\
 \begin{gather*}
     fem = f = \mathcal{E} = (V_A - V_B)_\text{misurata} \vert_{i=0}
 \end{gather*}
-E si misura in volt $[V]$.\\
-In generale se abbiamo una situazione di questo tipo:
+E si misura in volt $[V]$
+In generale consideriamo una situazione rappresetata dal circuito sulla sinistra, sulla destra è anche riportato il grafico che rappresenta la decaduta lineare della resistenza fino ad un certo valore:
 \begin{center}
     \begin{tikzpicture}
         \draw (0,0) to [battery1, invert, l=$f\quad \pm$,] (0,2);
@@ -795,19 +821,19 @@ In generale se abbiamo una situazione di questo tipo:
             \draw[->] (0,0) -- (3,0) node[below] {$i$};
             \draw[->] (0,0) -- (0,3) node[left] {$V_A-V_B$};
             %linea
-            \draw[dashed] (0,2) -- (2.5,2);
             \draw[thick] (0,2) -- (2,0.5) node[midway, above] {$r$} node[at start, left]{$f$};
             \draw[thick, cyan] (2,0.5) to[bend left = 10] (2.5,0);
             \node at(2.5,0) [below] {$i_m$};
     \end{tikzpicture}
 \end{center}
-Il potenziale tra $A$ e $B$ è dato da:
+Come già spiegato precedentemente il potenziale tra $A$ e $B$ è dato da:
 \begin{gather*}
     (V_A - V_B) = f - r i\\
     = \mathcal{E} -i \rho
 \end{gather*}
-\begin{example}
-    Prendiamo ora i seguenti circuiti:
+Questo ovviamente vale fino a che ci manteniamo nel regime di proporzionalità, ovvero non siamo vicini alla corrente massima $i_m$ che il generatore riesce a sostenere.\\
+    \newpage\noindent
+    Riprendiamo ora i circuiti della scorsa lezione:
     \begin{center}
         \begin{tikzpicture}
             \draw (0,0) to [battery1, invert, l=$f\quad \pm$,] (0,2);
@@ -840,7 +866,7 @@ Il potenziale tra $A$ e $B$ è dato da:
             \draw(0,-6) to [short, voltmeter] (2,-6);
         \end{tikzpicture}
     \end{center}
-    Da qui l'altra volta eravamo arrivati a ricavare dal primo circuito:
+    Eravamo arrivati a ricavare la differenza di potenziale in base alla misurazione dei multimetri si aveva dal primo circuito:
     \begin{gather*}
         (V_A - V_B)_1 = V_1
     \end{gather*}
@@ -848,15 +874,65 @@ Il potenziale tra $A$ e $B$ è dato da:
     \begin{gather*}
         (V_A - V_B)_2 = V_2
     \end{gather*}
-    Questo metodo 
-\end{example}
-\subsection{richiamo leggi kirchoff e leggi nodi}
-Legge dei nodi:
+    Questo metodo di fatto ci permette di ricavare la fem anche se non siamo a corrente nulla, e per quanto queste leggi siano giuste e valide, per definizione questa non è esattamente la fem, ma di sicuro una suoa buona stima, questo metodo semplicemente non può essere scalato 
+    con strumenti più precisi per ottenere risultati molto migliori, di sicuro però mi è utile sia per stimare la fem sia per misurare abbastanza accuratamente la resistenza interna del generatore.
+\subsection{Metodo del divisore di tensione}
+Per questo metodo dobbiamo introdurre un nuovo oggetto, prendiamo in considerazione il seguente circuito:
+\begin{center}
+    \begin{tikzpicture}
+        \draw (0,-2) to[battery1, invert, l=$f \quad \pm$,] (0,2);
+        \draw (0,2) to [short] (2,2);
+        \draw (2,2) to[vR, l=$R_v$] (2,0) to [vR, l=$R_v$] (2,-2);
+        \draw (2,-2) to [short] (0,-2);
+        \filldraw(2,-2) circle (2pt);
+        \filldraw(2,2) circle (2pt);
+        \draw(1.5,-2.3) rectangle (2.5,2.3);
+        \draw(2,0) to[ammeter, f=$i{=}0$] (4,0) to[R, l=$\rho_x$] (6,0);
+        \draw(6,0) to[battery1, invert, l=$\pm\quad \E_x$,] (6,-2);
+        \draw(6,-2) to [short] (0,-2);
+    \end{tikzpicture}
+\end{center}
+Il rettangolo rappresentato nel circuito sovrastante è proprio un divisore di tensione che è un dispositivo che ha resistenze variabili che ci permette di cambiare la tensione in uscita in base ad un cursore che muoviamo noi.\\
+Di fatto come facciamo a misurare la fem del generatore $\E_x$?\\
+Intanto si deve sapere che non ci interessa la fem del generatore $f$ che nel circuito è rapresentato a destra, questo perchè giocando col cursore del divisore di tensione 
+possiamo ottenere il giusto rapporto di resistenze fino a che l'amperometro (che si ricorda essere uno strumento che misura proprio la corrente) ci dirà che nella maglia di destra non passerà più corrente, e quindi la tensione che misureremo ai capi del generatore $\E_x$ sarà proprio la sua fem.\\
+Questo è chiamato \textbf{metodo potenziometrico} e in laboratorio sarà composto da due step o circuiti:\\
+\begin{center}
+\begin{tikzpicture}[scale=0.7, transform shape]
+        \draw (0,-2) to[battery1, invert, l=$f \quad \pm$,] (0,2);
+        \draw (0,2) to [short] (2,2);
+        \draw (2,2) to[vR, l=$R_v$] (2,0) to [vR, l=$R_v$] (2,-2);
+        \draw (2,-2) to [short] (0,-2);
+        \filldraw(2,-2) circle (2pt);
+        \filldraw(2,2) circle (2pt);
+        \draw(1.5,-2.3) rectangle (2.5,2.3);
+        \draw(2,0) to[ammeter, f=$i{=}0$] (4,0) to[R, l=$r_x$] (6,0);
+        \draw(6,0) to[battery1, invert, l=$\pm\quad \E_x$,] (6,-2);
+        \draw(6,-2) to [short] (0,-2);
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.7, transform shape]
+        \draw (0,-2) to[battery1, invert, l=$f \quad \pm$,] (0,2);
+        \draw (0,2) to [short] (2,2);
+        \draw (2,2) to[vR, l=$R_v$] (2,0) to [vR, l=$R_v$] (2,-2);
+        \draw (2,-2) to [short] (0,-2);
+        \filldraw(2,-2) circle (2pt);
+        \filldraw(2,2) circle (2pt);
+        \draw(1.5,-2.3) rectangle (2.5,2.3);
+        \draw(2,0) to[ammeter, f=$i{=}0$] (4,0) to[R, l=$r_R$] (6,0);
+        \draw(6,0) to[battery1, invert, l=$\pm\quad \E_R$,] (6,-2);
+        \draw(6,-2) to [short] (0,-2);
+    \end{tikzpicture}
+\end{center}
+Si calcolano le due f.e.m.  di entrambi i generatori $\E_x$ e $\E_R$ con il metodo potenziometrico, si eseguono due misure proprio per ricavare le resistenze interne $r_x$ e $r_R$ dei generatori.\\
+Con questo metodo si riescono a raggiungere discrete precisioni fino a: $\frac{\Delta V}{V} \sim 10^{-9}$per le tensioni e $\frac{\Delta R}{R} \sim 10^{-9}$ per le resistenze.
+\subsection{leggi nodi}
+Questa legge ci dice che la somma algebrica delle correnti che entrano in un nodo è uguale alla somma algebrica delle correnti che escono da quel nodo, e quindi se consideriamo un nodo con $n$ correnti che entrano e $m$ correnti che escono, allora avremo:
 \begin{gather*}
     \sum_k i_k = 0 \qquad \nabla \cdot \vv{J} = 0\\
     \int_S \vv{J} \cdot \vv{dS} = 0
 \end{gather*}
-Legge delle maglie:
+\subsection{Legge delle maglie}
+Questa legge ci dice che la somma algebrica delle differenze di potenziale lungo una maglia chiusa è uguale a zero, e quindi se consideriamo una maglia con $n$ differenze di potenziale, allora avremo:
 \begin{gather*}
     \sum_k \Delta V_k = 0 \qquad \nabla \land \vv{E} = 0\\
     \oint_\Gamma \vv{E} \cdot \vv{dl} = 0
@@ -865,8 +941,15 @@ Ricordiamo che noi schematizziamo i circuiti come se le resistenze fossero punti
 \begin{gather*}
     \vv{E}(\vv{r}) = \rho \vv{J}(\vv{r})
 \end{gather*}
-\subsection{legge di ohm generalizzata}
-Prendiamo il circuito:\\
+\subsection{esercizi con legge di ohm generalizzata}
+Prendiamo il circuito:
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[R, l=$R$] (2,0) to[battery1, invert, l=$- \ +$] (3,0) to[R, l=$R$] (5,0) to[battery1, invert, l=$- \ +$] (6,0) to[R, l=$R$] (8,0);
+        \filldraw(0,0) circle (2pt) node [below] {$A$};
+        \filldraw(8,0) circle (2pt) node [below] {$B$};
+    \end{tikzpicture}
+\end{center}
 Abbiamo che:
 \begin{gather*}
     \int_{A}^{B} \vv{E} \cdot \vv{dl} = \int_{A}^{B} \rho_R \vv{J} \cdot \vv{dl}
@@ -887,18 +970,22 @@ Ora ho che $\int_{-}^{+} \vv{E}_1 \cdot \vv{dl} = f_1$ e $\int_{+}^{-} \vv{E}_2 
 \begin{gather*}
     \sum_\text{maglia} f = (\sum_\text{maglia} R i)
 \end{gather*}
+Questo vuol dire che la somma delle f.e.m. che attraversano una maglia è uguale alla somma delle cadute di tensione che attraversano quella maglia, e quindi se consideriamo una maglia con $n$ f.e.m. e $m$ resistenze, allora avremo:
+\begin{gather*}
+    \sum_{k=1}^{n} f_k = \sum_{k=1}^{m} R_k i_k
+\end{gather*}
 \newpage
 \section{9/3/26}
 La scorsa volta abbiamo impostato il seguente esercizio:
 \begin{center}
     \begin{tikzpicture}
-        \draw (0,0) to [battery1, invert, l=$\mathcal{E}_1\quad \pm$,] (0,2);
-        \draw (0,2) to [short] (2,2);
+        \draw (0,0) to [battery1, invert, l=$\mathcal{E}_1\quad \pm$,] (0,3);
+        \draw (0,2) to [short] (2,3);
         \draw (2,0) to [battery1, invert, l=$\mathcal{E}_2 \quad \pm$] (2,1);
-        \draw (2,1) to[ R, l=$R_2$] (2,2);
+        \draw (2,1) to[ R, l=$R_2$] (2,3);
         \draw(2,0) to [short] (0,0);
         \draw(2,0) to[short] (4,0);
-        \draw(2,2) to[short] (4,2);
+        \draw(2,2) to[short] (4,3);
     \end{tikzpicture}
 \end{center}
 Procediamo a risolverlo con il metoodo delle maglie che abbiamo introdotto la scorsa volta, consideriamo le correnti di maglia $I_1$ e $I_2$.
@@ -1050,7 +1137,7 @@ Quindi per riscriverlo in formula ho:
 \section{11/3/26}
 \subsection{galvanometro}
 È lo strumento base con cui si fanno le varie misure in laboratorio.\\
-Di base è un misuratore di corrente, o meglio è un misuratore 
+Di base è un misuratore di corrente, o meglio è un misuratore di corrente che è in grado di misurare correnti molto piccole, dell'ordine dei nanoampere, e quindi è uno strumento molto sensibile.\\ 
 \begin{center}
     \begin{tikzpicture}
         \draw(0,0) rectangle (2,2);
@@ -1063,9 +1150,9 @@ Di base è un misuratore di corrente, o meglio è un misuratore
         \node at(3.5,1.8) {$S$};
         \filldraw (2,1.8) circle (2pt);
         \draw (1,1.5) arc (180:0:1);
-        \begin{scope}[rotate = 30, shift={(2,1.8)}]
+        \begin{scope}[rotate = 30, shift={(2.63,0.55)}]
             \draw(-0.5,0) -- (0.5,0);
-            \draw(0,0) -- (0,2);
+            \draw(0,0) -- (0,1);
         \end{scope}
     \end{tikzpicture}
 \end{center}
@@ -1179,7 +1266,7 @@ Un esempio di un divisre con $20 ppm$, $r=0.5$:
     \begin{tikzpicture}
         \filldraw(-1,0) circle (2pt) node [below] {$L$};
         \filldraw(-1,10.6) circle (2pt) node [above] {$H$};
-        \filldraw(1,0) circle (2pt) node [left] {$0$};
+        \filldraw(1,0) circle (2pt) node [below] {$0$};
         \filldraw(1,2) circle (2pt) node [left] {$1$};
         \filldraw(1,3.96) circle (2pt) node [left] {$2$};
         \filldraw(1,4.6) circle (2pt) node [left] {$8$};
@@ -1188,12 +1275,26 @@ Un esempio di un divisre con $20 ppm$, $r=0.5$:
         \draw(-1,0) to[short] (1,0);
         \draw(1,0) to[R] (1,2) to[R] (1,4);
         \node at(1,4) [above]{$\vdots$};
-        \draw(1,4.6) to[R] (1,6.6) to[R] (1,8.6) to[R, l=$11 \times 1 K \Omega$] (1,10.6) to[short] (0,10.6);
-        \draw[<-] (1,8.6) to (3,8.6) node[above, at start] {$i+2$};
-        \draw[<-] (1,6.6) to (3,6.6) node[above, at start] {$i$};
-        \filldraw(2,8.6) circle (2pt);
-        \filldraw(2,6.6) circle (2pt);
-        \draw(1.5,5.6) rectangle (2.5,9.6);
+        \draw(1,4.6) to[R] (1,6.6) to[R] (1,8.6) to[R, l=$11 \times 1 K \Omega$] (1,10.6) to[short] (-1,10.6);
+        \filldraw(3,8.6) circle (2pt);
+        \filldraw(3,6.6) circle (2pt);
+        \draw(2.5,6.1) rectangle (3.5,9.1);
+        \draw[->] (4,8.6) to (1.1,8.6)  node[above right] {$i+2$};
+        \draw[->] (4,6.6) to (1.1,6.6)  node[above right] {$i$};
+        \draw(4,8.6) to [short] (4,10.6) to[short] (6,10.6) to[R, l=$11 \times 200 \Omega$] (6,8.6) to[R] (6,6.6) to[R] (6,4.6);
+        \draw(4,6.6) to [short] (4,2.6) to[short] (6,2.6) to[R] (6,4) node[above] {$\vdots$};
+        \filldraw(5,10.6) circle (2pt) node[above] {$C$};
+        \filldraw(5,2.6) circle (2pt) node[below] {$D$};
+        \draw[->] (9,4.6) to (6.1,4.6)  node[above right] {$j$};
+        \draw[->] (9,8.6)  to (6.1,8.6)node[above right] {$j+2$};
+        \draw (7,4.1) rectangle (8,9.1);
+        \draw (9, 4.6) to[short] (9,2.6) to[short] (11,2.6);
+        \draw (9, 8.6) to[short] (9,10.6) to[short] (11,10.6);
+        \filldraw(10,10.6) circle (2pt) node[above] {$E$};
+        \filldraw(10,2.6) circle (2pt) node[below] {$F$};
+        \draw (11,10.6) to[R] (11, 8.6) to[R] (11,6.6) to[R] (11,4.6) to[R] (11,2.6);
+        \draw[->] (14,6.6) to (11.1,6.6) node[above right] {$k$};
+        \filldraw (14,6.6) circle (2pt) node[above]{$h$};
     \end{tikzpicture}
 \end{center}
 \begin{gather*}

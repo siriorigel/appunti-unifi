@@ -1,13 +1,13 @@
 # Fdb version 4
-["makeindex mecAnal.idx"] 1773150869.38335 "mecAnal.idx" "mecAnal.ind" "mecAnal" 1773150873.95644 0
-  "mecAnal.idx" 1773150872.12688 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex mecAnal.idx"] 1773150869.38335 "mecAnal.idx" "mecAnal.ind" "mecAnal" 1773312490.92441 0
+  "mecAnal.idx" 1773312488.20597 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "mecAnal.ilg"
   "mecAnal.ind"
   (rewritten before read)
-["pdflatex"] 1773150869.87427 "/home/ale/Documents/programming/repo/meccanica analitica/mecAnal.tex" "mecAnal.pdf" "mecAnal" 1773150873.95675 0
+["pdflatex"] 1773312485.70847 "/home/ale/Documents/programming/repo/meccanica analitica/mecAnal.tex" "mecAnal.pdf" "mecAnal" 1773312490.92473 0
   "/etc/texmf/web2c/texmf.cnf" 1757966406.34692 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/ale/Documents/programming/repo/meccanica analitica/mecAnal.tex" 1773150868.72275 26341 a4470293664bedb2682cb2dc44e2fc47 ""
+  "/home/ale/Documents/programming/repo/meccanica analitica/mecAnal.tex" 1773312478.07192 26358 f4e5782c0966bf38d86f65fad4542454 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1136768653 1408 5937f58aa508ea2cea4901c07d10f5fe ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -257,9 +257,9 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1757966485.51747 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1757966769 8216388 f4b84a74f491ba33437f9e3f70a43fdb ""
-  "mecAnal.aux" 1773150873.66594 1067 e6b707cfd8340d05370bd9349b659bd7 "pdflatex"
+  "mecAnal.aux" 1773312490.43398 1162 01b789ce2613fd427983414dbb583171 "pdflatex"
   "mecAnal.ind" 1773150869.80979 0 d41d8cd98f00b204e9800998ecf8427e "makeindex mecAnal.idx"
-  "mecAnal.tex" 1773150868.72275 26341 a4470293664bedb2682cb2dc44e2fc47 ""
+  "mecAnal.tex" 1773312478.07192 26358 f4e5782c0966bf38d86f65fad4542454 ""
   (generated)
   "mecAnal.aux"
   "mecAnal.idx"

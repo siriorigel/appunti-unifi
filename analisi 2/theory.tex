@@ -1523,7 +1523,6 @@ per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \text
         \frac{\de f}{\de\underline{\nu}}(P_0) = \left\langle \nabla f(P_0);\underline{\nu}\right\rangle 
         \end{gather*}
     \end{theorem}
-    \newpage
     \noindent\textbf{\underline{Corollario (direzione di massima pendenza)}}\\
     Vale sotto le \textbf{stesse ipotesi},del th. precedente, e afferma:
     \begin{itemize}
@@ -1545,7 +1544,7 @@ per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \text
             \frac{\de f(x_0)}{\de \underline{\nu}} = -\left\lvert \nabla f(x_0) \right\rvert
         \end{gather*}
     \end{proof}
-\subsection{funzioni composte}
+    \subsection{funzioni composte}
         $I=(a,b) \subseteq \mathbb{R}$
         \begin{definition}
             $\underline{x}(t):I \to \mathbb{R}^3(o \mathbb{R}^2)$ è una curva parametrica\\
@@ -1554,7 +1553,7 @@ per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \text
         \end{definition}
         \begin{definition}
             Funzione composta\\
-$            F(t) = f(\underline{x}(t)) = f(x(t),y(t))\\
+            $F(t) = f(\underline{x}(t)) = f(x(t),y(t))\\
             f:A \to \mathbb{R} \quad \mathring{A} \subseteq \mathbb{R}^2\\
             \underline{x}(t) \text{curva piana} \qquad \underline{x}(t):I \to A$
         \end{definition}
@@ -1587,6 +1586,262 @@ $            F(t) = f(\underline{x}(t)) = f(x(t),y(t))\\
             \fbox{**}: $ \ \lim_{h \to 0} \sqrt{\underbrace{\frac{(x(t+h)-x(t))^2}{h^2}}_{\underset{\to (\dot{x}(t))^2}{(\frac{x(t+h)-x(t)}{h})^2}} + \underset{\to (\dot{y}(t))^2}{\frac{(y(t+h)-y(t))^2}{h^2}} } = \sqrt{\dot{x}^2(t)+\dot{y}^2(t)} = |\underline{\dot{x}}(t)|$\\
             \bulletout di conseguenza:$ \ \Rightarrow \exists \underset{F'(t)}{\lim_{h \to 0}\frac{F(t+h)-F(t)}{h}} = \left\langle \nabla f(\underline{x}(t)), \dot{x}(t) \right\rangle $
         \end{proof}
+        \begin{proof}
+            (Formula del gradiente per $\frac{\partial f}{\partial \underline{\nu}}$)\\
+            \begin{gather*}
+                \frac{\partial f}{\partial \underline{\nu}} = \lim_{h \to 0} \frac{f(\underline{x_0}+h \underline{\nu})-f(\underline{x_0})}{h} = \lim_{h \to 0}\frac{F(h)-F(0)}{h} = F'(0)
+            \end{gather*}
+            Nel penultimo passaggio ho sfruttato che:
+            \begin{gather*}
+                F(t) = f\overset{\overset{\underline{x}(t)}{||}}{(\underline{x_0}+t \underline{\nu})} \quad \text{ è funzione composta}\\
+            \end{gather*}
+            Ora posso applicare il teorema di derivazione delle funzioni composte, che mi dice che $F$ è derivabile in $t=0$ e che:
+            \begin{gather*}
+                \underline{x}(t) = \underline{x_0} + t \underline{\nu} \qquad \underline{\dot{x}}(t) = \underline{\nu} \qquad \underline{x}(0) = \underline{x_0}  
+            \end{gather*}
+            Da qui si può concludere che:
+            \begin{gather*}
+                F'(0) = \left\langle \nabla f(\underline{x}(0)); \underline{\dot{x}}(0) \right\rangle = \left\langle \nabla f(\underline{x_0});\underline{\nu} \right\rangle
+            \end{gather*}
+        \end{proof}
 
     
+\begin{theorem}
+  \underbar{Sia} $f:A \to \R$ differenziabile, $P_0 \equiv (x_0,y_0) \in \overset{\text{linea di livello}}{U_k = \{ (x,y) \in A : f(x,y) = k\}}$\\
+  \underbar{Allora}: $\nabla f(P_0) \perp U_k$
+\end{theorem}\noindent
+Sostanzialmente, il vettore gradiente è perpendicolare alla retta tangente alla curva di livello in $P_0$. Anche se si parla di retta tangente si dice che 
+il vettore è parallelo alla linea di livello perchè stiamo considerando tutto questo \textbf{esattamente} in $P_0$, e quindi in un suo intorno la liena di livello è una retta.\\ 
+\begin{proof}
+  \hfill\\
+  \begin{center}
+    \begin{tikzpicture}[scale=1.5]
+      \draw[gray, thick] plot [smooth] coordinates {(-2,-1) (-1.5,-0.5) (-1,0) (-0.5,0.5) (0,1) (0.5,1.2) (1,1) (1.5,0.5) (2,0)};
+      \draw[gray, thick] plot [smooth] coordinates {(-2.2,-0.3) (-1.7,0.2) (-1.2,0.7) (-0.7,1.2) (0,1.5) (0.7,1.5) (1.5,1) (2,0.5)};
+      \draw[gray, thick] plot [smooth] coordinates {(-2.5,0.2) (-2,0.8) (-1.5,1.3) (-0.8,1.8) (0,2) (0.8,1.9) (1.8,1.3) (2.2,0.7)};
+      \node[white, font=\small] at (-1.5, -0.8) {$k_1$};
+      \node[white, font=\small] at (-1.8, 0.5) {$k_2$};
+      \node[white, font=\small] at (-2, 1.2) {$k_3$};
+      \draw[cyan, thick] (-1,0) -- (1,2);
+      \fill[red] (0, 1) circle (0.08);
+      \node[red, font=\small] at (0, 0.8)[below] {$P_0$};
+      \draw[->, red, thick] (0, 1) -- (-0.5, 1.8) node[above] {$\nabla f(P_0)$};
+    \end{tikzpicture}
+  \end{center}\noindent
+  Vicino a $P_0$, $U_k$ lo posso considerare come una curva e quindi ha forma una del tipo: $\begin{pmatrix}
+    x(t) \\
+    y(t)
+  \end{pmatrix} = \underline{x}(t)$ con $t \in I$\\
+  Definisco anche una funzione $g(t) = f(\underline{x}(t))$\\
+  Quello che devo dimostrare è che $\nabla f(P_0) \perp U_k$ in $P_0$\\
+  Ovvero, devo dimostrare che $\nabla f(P_0) \perp \underline{x}(t)$ in $P_0$\\
+  Ovvero, devo dimostrare che $\nabla f(P_0) \perp$ direzione tangente a $\underline{x}(t)$ in $P_0$\\
+  Ovvero, devo dimostrare che $\nabla f(P_0) \perp \underline{\dot{x}}(t)$ in $t_0$ t.c. $\underline{x}(t_0) = P_0$\\
+  Ovvero, devo dimostrare che $f_x(P_0) \dot{x}(t_0) + f_y(P_0) \dot{y}(t_0) = 0$\\
+  Ma so $g(t) = f(\underline{x}(t)) \quad \forall t \in I$ ma ho che $\underline{x}(t) \in U_k$ quindi $g(t) = f(\underline{x}(t)) = k \quad \forall t \in I$\\
+  Se ora Calcolo la derivata di $g$ ottengo $g'(t) = 0 \quad \forall t \in I$ perchè è una funzione costante, proprio perchè descrive l'immagine della funzione ad una linea di livello.\\ 
+  Per come ho definito $g$ però è uguale ad una funzione composta e quindi posso applicare il th. di derivazione delle funzioni composte che mi dice che:
+  \begin{gather*}
+    g'(t) = \left\langle \nabla f(\underline{x}(t)) , \underline{\dot{x}}(t)\right\rangle  \quad \forall t \in I\\
+  \end{gather*}
+  Che sviluppando il prodotto scalare diventa proprio:
+  \begin{gather*}
+    g'(t) = f_x(\underline{x}(t)) \dot{x}(t) + f_y(\underline{x}(t)) \dot{y}(t) \quad \forall t \in I
+  \end{gather*}
+  Calcolando questa espressione in $t_0$ ottengo la tesi:
+  \begin{gather*}
+    g'(t_0) = f_x(P_0) \dot{x}(t_0) + f_y(P_0) \dot{y}(t_0) = 0
+  \end{gather*}
+  Dalla equazione precedente però ho dimostrato che il gradiente è sempre perpendicolare alla direzione tangente alla curva di livello, e quindi è sempre perpendicolare alla linea di livello.
+\end{proof}
+\begin{theorem}[Del gradiente nullo]
+  \underbar{Se} $\nabla f = 0$ in $A$, \underbar{allora} $f$ è \textbf{costante} in $A$.
+  Questo vuol dire che \underbar{se} $A$ è un \textbf{aperto connesso} (se non è scomponibile in più pezzi, è un \textbf{pezzo unico}) con $A \subseteq \R^2$\\
+  \underbar{se} $A = A_1 \cup A_2$ con $A_1$ e $A_2$ \textbf{connessi}, \underbar{allora}:\\
+  \begin{gather*}
+    \exists k_1, k_2 \in \R \text{ t.c. } 
+    \begin{cases}
+      f \equiv k_1 \text{ in } A_1\\
+      f \equiv k_2 \text{ in } A_2
+    \end{cases}
+  \end{gather*}
+\end{theorem}
+
+\section{formula di Taylor}(in più variabili)\\
+    La formula di Taylor si può ovviamente estendere a più variabili, e in particolare noi ci concentreremo sul caso di funzioni in due variabili.\\
+        Sia $A_{ap} \in \mathbb{R}^2$ e sia $f:A\to \mathbb{R}$\\
+        Prendiamo un punto di questo insieme: $\underline{x} \in A$ e consideriamo un suo incremento che quindi sarà un'altro punto che chiameremo: $\underline{y} = \underline{x} + \underline{h}$ con $\underline{h} = (h_1,h_2) \neq 0$\\
+        Ora uniamoli con un segmento $[\underline{x}, \underline{y}] \text{ segmento } \subseteq A$ che è ancora nell'insieme\\
+        Ora definiamo il segmento come una curva così possiamo definire l'incremento h in funzione del tempo $\underline{\phi}(t) = \underline{x} + t \underline{h} \quad t \in [0,1]$\\
+        \hfill\\
+        \begin{theorem}[I° ordine con resto di Peano]
+            \underbar{Se} $f \in C^1(A)$ \underbar{allora} $f(\underline{x}+\underline{h}) = f(\underline{x}) + \left\langle \nabla f(\underline{x}), \underline{h}\right\rangle  + o(|\underline{x}|)$
+        \end{theorem}
+        \begin{theorem}[I° ordine con resto di Lagrange]
+            \underbar{Se} $f \in C^1(A)$ \underbar{allora} $\exists\theta \in (0,1) \ t.c. \ f(\underline{x} + \underline{h}) = f(\underline{x}) + \left\langle \nabla f(\underline{x} + \theta h); \underline{h}\right\rangle $
+        \end{theorem}
+        \begin{observation}
+            Inoltre si ha: $\theta = \theta(\underline{x}, \underline{h})$
+        \end{observation}
+
+        \begin{proof}
+            (resto di lagrange)\\
+            Prendo la funzione composta $F(t) = f(\underline{x} + t \underline{h})$ 
+            \begin{gather*}
+                F(t) = f(\underbar{x} + t \underline{h}) = f(x_0+t h_1;y_0+t h_2) \qquad \forall t \in [0,1]\\
+            \end{gather*}
+            Siccome $F \in C^1(0,1)$ posso applicare il teorema di derivazione delle funzioni composte per calcolare $F'(t)$:
+            \begin{gather*}
+                F'(t) = \left\langle Df(\underline{x} + t\underbar{h}) ; \underline{h} \right\rangle
+            \end{gather*}
+            Applico il th. di Lagrange a $F$
+            \begin{gather*}
+                \Rightarrow \exists \theta \in (0,1): F(1) = F(0) + F'(\theta)(1-0)\\
+                \text{cioè: }f(\underline{x} + \underline{h} = f(\underline{x})) + \left\langle \nabla f(\underline{x} + \theta \underline{h}); \underline{h} \right\rangle  
+            \end{gather*}
+        \end{proof}
+        \begin{theorem}[II° ordine con resto di lagrange]
+            \underbar{Sia} $f \in C^2(A)$ \underbar{allora} $\exists \theta \in (0,1) \ t.c.$\\
+            $F(\underline{x}+ \underline{h}) = f(\underline{x}) + \left\langle \nabla f(\underline{x}); \underline{h}\right\rangle + \frac{1}{2} \left\langle \nabla^2 \right\rangle $
+        \end{theorem}
+    \begin{observation}
+            Si ha sempre che: $\theta = \textacutedbl(\underline{x}, \underline{h})$\\
+        \end{observation}
+        \begin{proof}
+            \hfil\\
+            Prendo sempre una funzione composta $F(t)$
+            \begin{gather*}
+                F(t) = f(\underline{x} + t \underline{h}) \in C^2(0,1)
+            \end{gather*}
+            Si noti che $F(0) = f(\underline{x})$ e $F(1) = f(\underline{x} + \underline{h})$\\
+            Adesso sfrutto il fatto che $F$ sia ad una variabile e ci applico Taylor in $t=1$ e quindi per il resto di Lagrange $\exists \theta \in (0,1) \ t.c.$\\
+            \begin{gather*}
+                F(1) = F(0) + F'(0) 1 + \frac{1}{2} F''(\theta)1^2
+            \end{gather*}
+            Esplicito $F'$ usando il teorema di derivazione delle funzioni composte:
+            \begin{gather*}
+                f(\underline{x} + \underline{h}) = f(\underline{x}) + \left\langle \nabla f(\underline{x}),\underline{h} \right\rangle + \frac{1}{2}F''(\theta)\\
+                = f(\underline{x}) + \left\langle \nabla f(\underline{x});\underline{h} \right\rangle +\underline{\frac{1}{2} F''(\theta)}_{\text{che da } \boxed{\textcolor{orange}{*}} \text{ è } \left\langle \nabla^2f(\underline{x} + t \underline{h})\underline{h} ; \underline{h}\right\rangle}
+                \end{gather*}
+            Devo calcolare $F''(\theta)$ che è anche $(F'(\theta))' = (\underset{g(\underline{x}(t))}{f_x(\underline{x}+ t \underline{h})h_1+f_y(\underline{x} + t\underline{h})h_2})'$\\
+            L'ultima espressione è una funzione di $\underline{x}(t)$ quindi la chiamo $g(\underline{x}(t))$ e se derivo quest'ultima la posso scrivere come: $\underbrace{\left\langle \nabla g(\underline{x}(t)); \dot{\underline{x}}(t) \right\rangle}_{\boxed{*}}$
+            \begin{gather*}
+                \nabla (f_x) = \begin{pmatrix}
+                    f_{xx}\\
+                    f_{xy}
+                \end{pmatrix}\\
+                \nabla (f_y) = \begin{pmatrix}
+                    f_{yx}\\
+                    f_{yy}
+                \end{pmatrix} = \begin{pmatrix}
+                    f_{xy}\\
+                    f_{yy}
+                \end{pmatrix}
+            \end{gather*}
+            Ora ricordando che $\dot{\underline{x}} = \begin{pmatrix} h_1 \\ h_2 \end{pmatrix}$ e quindi se scriviamo l'espressione $\boxed{*}$ con quello detto finora otteniamo:
+            \begin{gather*}
+                \nabla g = \begin{pmatrix}
+                    f_{xx} h_1+ f_{xy}h_2\\
+                    f_{xy} h_1 + f_{yy}h_2
+                \end{pmatrix}
+                = \nabla(f_x)h_1 + \nabla(f_y)h_2
+            \underset{\text{calcolato in }\underline{x} +t \underline{h}}{=} (f_{xx} h_1 + f_{xy}h_2)h_1 +(f_{xy} h_1 + f_{yy}h_2)h_2\\
+            = f_{xx} h_1^2 + 2f_{xy}h_1 h_2 + f_{yy}h_2^2 \\
+            = \left\langle \begin{pmatrix}
+                f{xx} & f_{xy}\\
+                f{xy} & f{yy}
+            \end{pmatrix}
+            \begin{pmatrix}
+                h_1\\h_2
+            \end{pmatrix};\begin{pmatrix}
+                h_1\\h_2
+            \end{pmatrix}\right\rangle \\
+            = \left\langle \nabla^2f(\underline{x} + t \underline{h})\underline{h} ; \underline{h}\right\rangle \text{\fbox{\textcolor{orange}{*}}} \quad \forall t \in (0,1)
+            \end{gather*}
+        \end{proof}
+
+        \begin{theorem}
+            (II° ordine con resto di Peano)\\
+        \underbar{Sia} $f \in C^2(A)$ \underbar{allora} $f(\underline{x}+ \underline{h}) = f(\underline{x}) + \left\langle Df(\underline{x}); \underline{h} \right\rangle + \text{\fbox{$\frac{1}{2}\left\langle \nabla^2f(\underline{x})\underline{h};\underline{h} \right\rangle $}} + \underline{ | \underline{h} | ^2}$ 
+        \end{theorem}
+        \begin{proof}\hfill\\
+            Si parte dalla formula del resto di lagrange appena dimostrata, vogliamo dimostrare che lo scarto tra la parte principale di Peano e \textbf{tutto} Lagrange è un $o$ piccolo di $|\underline{h}^2|$, in termini pratici dobbiamo dimostrare il seguente limite:            
+            \begin{gather*}
+                \lim_{\underline{h} \to \underline{0}} \frac{\left\langle \nabla^2f(\underline{x} + \theta \underline{h})\underline{h} ; \underline{h} \right\rangle - \left\langle \nabla^2f(\underline{x})\underline{h} ; \underline{h} \right\rangle }{|h|^2} = 0\\
+                \frac{\left\lvert \left\langle \nabla^2f(\underline{x} + \theta \underline{h}) \textcolor{cyan}{\fbox{\textcolor{white}{\underline{h}}}} ; \textcolor{magenta}{\fbox{\textcolor{white}{\underline{h}}}} \right\rangle - \left\langle \nabla^2f(\underline{x})\textcolor{cyan}{\fbox{\textcolor{white}{\underline{h}}}} ; \textcolor{magenta}{\fbox{\textcolor{white}{\underline{h}}}} \right\rangle\right\rvert  }{|h|^2} \overset{\text{\fbox{\textcolor{green}{*}}}}{=} \qquad\qquad \text{\fbox{\textcolor{green}{*}}}\left\langle  A \textcolor{cyan}{v};\textcolor{magenta}{w}\right\rangle - \left\langle B \textcolor{cyan}{v};\textcolor{magenta}{w}\right\rangle = \left\langle (A-B)\textcolor{cyan}{v};\textcolor{magenta}{w}\right\rangle\\
+                \frac{\left\lvert \left\langle [\nabla^2 f(\underline{x} + \theta \underline{h}) - \nabla^2 f(\underline{x})] \underline{h} ; \underline{h} \right\rangle \right\rvert }{|h|^2} \underset{\textcolor{yellow}{Cauchy-Schwarz}}{\leq} \frac{\left\lvert (\nabla^2 f(\underline{x} + \theta \underline{h}) - \nabla^2 f(\underline{x}))  \underline{h} \right\rvert \left\lvert \underline{h}\right\rvert }{|h|^2} \underset{\text{\fbox{\textcolor{orange}{*}}}}{\leq} \frac{\overbrace{\left\lvert \nabla^2f(\underline{x}+ \theta \underline{h} - \nabla^2(\underline{x}))\right\rvert}^{\to 0 \text{ per } \underline{h} \to \underline{0} \quad \text{\fbox{\textcolor{red}{*}}}} \cancel{|\underline{h}^2|}}{\cancel{|\underline{h}^2|}}\\
+                \text{\fbox{\textcolor{orange}{*}}}: \left\lvert A \underline{v} \right\rvert \leq \left\lvert A \right\rvert \left\lvert \underline{v} \right\rvert \qquad \text{con }\left\lvert A \right\rvert \text{norma euclidea di }\mathbb{R}^{n\times m} =\sqrt{\sum_{i}^{n}\sum_{j}^{m} a^2_{ij} }   \\
+                \text{\fbox{\textcolor{red}{*}}}: \text{poichè } \nabla^2f\in C^0 \text{ e } \underline{x} + \theta\underline{h} \to \underline{x}
+            \end{gather*}
+        \end{proof}
+        \begin{proposition}
+        Una delle applicazioni più importanti della formula di Taylor è che il suo sviluppo al primo ordine è proprio il piano tangente della funzione, il secondo ordine è molto utile per diversi teoremi, oltre il secondo i casi sono più rari ma comunque utili.
+            \begin{gather*}
+                f(\underline{x}) = \underset{\text{Piano tangente}}{f(\underline{x_0}) \left\langle \nabla f(\underline{x_0};(\underline{x} - \underline{x_0})) \right\rangle} + \underset{\text{termine II° ordine}}{\frac{1}{2} \left\langle \nabla^2 f(\underline{x_0})(\underline{x}- \underline{x_0}); \underline{x}- \underline{x_0}\right\rangle  + \underset{\text{Resto}}{o(| \underline{x}- \underline{x_0} |^2)}}
+            \end{gather*}
+            \underline{Se} $\nabla^2f(\underline{x_0})$ è definita $> 0$ \underline{allora} il termine di II° ordine più il resto $>0$ \underline{\textbf{localmente}} $\Rightarrow \ f(x) > $ Piano tangente localmente vicino a $x_0$\\
+            \underline{Se} $\nabla^2f(\underline{x_0})$ è definita $< 0$ \underline{allora} il termine di II° ordine più il resto $<0$ \underline{\textbf{localmente}} $\Rightarrow \ f(x) < $ Piano tangente localmente vicino a $x_0$\\ 
+            \underline{se} è indefinita $\exists $ direzione $\underline{x} - \underline{x_0}$ per le quali $f(x) < $ piano tangente e altre per cui $f < $ piano tangente\\
+        \end{proposition}
+                \begin{proposition}
+            $Det A = \lambda_1 \lambda_2 > 0 \Rightarrow \lambda_i$ concordi\\
+            $Tr A = \lambda_1 + \lambda_2 < 0 \Rightarrow \lambda_i< 0$\\
+            $Tr A = \lambda_1 + \lambda_2 > 0 \Rightarrow \lambda_i> 0$\\ 
+        \end{proposition}
+
+\section{l'ottimizzazione}
+Cerchiamo il massimo di $f(x,y)$ quando $(x,y) \in A$\\
+\underbar{Se} $A$ è un insieme aperto, (quindi ogni punto è interno ad $A$) allora si parla di \underbar{massimi liberi}.\\
+\underbar{Se} $A$ NON è aperto, ad es. se $A$ è una curva o una superficie, si parla di \underbar{massimi vincolati}.\\
+\begin{definition}
+    Max assoluto\\
+    $f$ definita in $A \to \mathbb{R} \quad (x_0,y_0) \in A$ \\
+    dico che $(x_0,y_0)$ è punto di max assoluto per $f$ in $A$, e che $f(x_0,y_0)$ è massimo assoluto.\\ 
+\end{definition}
+\begin{definition}
+    Max relativo o locale\\
+    $f$ definita in $A \to \mathbb{R} \quad (x_0,y_0) \in A$ \\
+    dico che $(x_0,y_0)$ è punto di max relativo per $f$ in $A$, e che $f(x_0,y_0)$ è massimo se\underbar{text}:\\
+    $\exists$ un intorno $U$ di $(x_0,y_0) \ t.c.$\\
+    \begin{gather*}
+        f(x_0,y_0) \leq f(x,y) \quad \forall (x,y) \in U
+    \end{gather*} 
+\end{definition}
+Le domande che mi pongo sono due:
+\begin{enumerate}[$i)$]
+            \item So che esiste?
+            \item Come lo trovo?
+        \end{enumerate}            
+        \hfil\\
+        Per $i)$ posso usare il t. di Weierstrass:\\
+        Se $A$ è chiuso e limitato e se f è continua in $A$ allora esiste sia il max assoluto che il min assoluto.\\
+        Per usarlo so che certamente $\exists$ una palla chiusa $C$ t.c. il pinto di minimo non va fuori da $C$. QUindi il problema dell'esistenza è fondamentalmente risolto.\\
+        \subsection{trovare il min/max assoluto}
+        Non è altrettanto scontato il punto $ii)$, in questo caso cerchiamo delle condizioni analitiche necessarie o sufficienti.\\
+        \begin{proposition}
+            Condizione necessaria (Teorema di Fermat)\\
+            \underbar{Se} $(x_0,y_0)$ è di max relativo; $(x_0,y_0) \in A$ \underbar{e} $f$ è derivabile in $(x_0,y_0)$\\ 
+            \underbar{allora} $\nabla f(x_0,y_0) = 0$
+        \end{proposition}
+        \begin{proof}
+            Fissiamo un $y = y_0$, in questo modo la funzione che considero è ad una variabile, ne definisco una: $\varphi_1 (x) = f(x, y_0)$
+            \begin{center}
+                \begin{tikzpicture}[scale = 1.5]
+                    \draw(0, 0) -- (0,1);
+                    \draw(-0.3,0.3) -- (1,0.3);
+                    \draw[red](-0.3,0.5) -- (1,0.5);
+                    \node at(-0.3,0.7){$_{y_0}$};
+                    \node at(0.8,0.7){$_{(x_0,y_0)}$};
+                    \filldraw [black] (0,0.5) circle (1pt);
+                    \filldraw [black] (0.3,0.5) circle (1pt);
+                \end{tikzpicture}
+            \end{center}\noindent
+            $x_0$ è punto di max relativo per la funzione di 1 variabile $\varphi_1(x)$ ed è derivabile in $x_0$, $x_0$ è interno al dominio di $\phi_1 \Rightarrow \varphi_1'(x_0) = 0$\\
+            Ma $\varphi_1'(x_0) = \frac{\partial f}{\partial x}(x_0,y_0)$ quindi ho che $\frac{\partial f}{\partial x}(x_0,y_0) = 0$\\
+            Analogamente si dimostra che $\frac{\partial f}{\partial y} (x_0,y_0) = 0$
+        \end{proof}
+        \begin{proposition}
+            Un punto in cui $\nabla f(x_0,y_0)$ è zero si chiama punto stazionario o punto critico, non è affatto detto che un punto critico sia un max o min locale.
+        \end{proposition}
+
 \end{document}
