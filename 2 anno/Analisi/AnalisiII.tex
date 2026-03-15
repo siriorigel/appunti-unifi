@@ -1646,40 +1646,72 @@ controparti ad una variabile sola.
 \end{gather*}
 \end{definition}
 \begin{definition}[Insieme chiuso in $\mathbb{R}^{2}$]
-    Posto $\mathbb{E} \subseteq \mathbb{R}^{2}$ 
-    dove $\overline{E}$ è il più più piccolo chiuso in $\supseteq E$ (ossia la chiusura di $E$)
-    e dove $ \dot{E}$ è il più grande aperto $\subseteq E$ ( interno). 
+    Posto $\mathbb{E} \subseteq \mathbb{R}^{2}$ dove
+    \begin{itemize}
+        \item $\overline{\mathbb{E}}$ è il più più piccolo chiuso in $\supseteq \mathbb{E}$ (ossia la chiusura di $E$);
+        \item  $ \dot{\mathbb{E}}$ è il più grande aperto $\subseteq \mathbb{E}$ (interno). 
+    \end{itemize} 
 \end{definition}
 \begin{definition}[Dominio su $\mathbb{R}^{2}$ ]
-    $D$ è un dominio se $D = \overline{A}$ con $A$ insieme aperto e
+    $\mathbb{D}$ è un dominio se $\mathbb{D} = \overline{\mathbb{A}}$ con $\mathbb{A}$ insieme aperto e
     \begin{gather*}
-        D =\dot{D} \cup \ni D
+        \mathbb{D} =\dot{\mathbb{D}} \cup \partial\mathbb{D}
     \end{gather*} 
+    Dove $\partial \mathbb{D}$ indica la \textbf{frontiera} di $\mathbb{D}$, ossia i punti che non appartengono all'aperto $\dot{\mathbb{D}}$
+    e che costituiscono il bordo del chiuso $\overline{ \mathbb{D}}$.
+\end{definition} \noindent
+I grafici di una funzione a più variabili prendono il nome di \textbf{superfici}. Considerata
+una funzione $f: \mathbb{D} \to \mathbb{R}$, il suo grafico è dato da
+\begin{align}
+    f = \{(x, y, z) \in \mathbb{R}^{3} : (x, y) \in \mathbb{D} \ z \in f(x, y)\}
+\end{align}
+\begin{definition}[Linea di livello]
+    Data una funzione $f = (x, y)$, definita da $f : \mathbb{D} \to \mathbb{R}$, l'insieme
+    \begin{align}
+        \mathbb{U}_t = \{(x, y) \in \mathbb{D} : f(x, y) = t\}
+    \end{align}
+    prende il nome di \textbf{linea di livello per} $t$. L'unione delle linee di livello 
+    per $t \in \mathbb{R}$ è esattamente $\mathbb{D} = \cup_{t \in \mathbb{R}} \mathbb{U}_t $.
 \end{definition}
-I grafici di una funzione a più variabili si chiama \textbf{superficie}. 
-\begin{example}[esercizio tipo in una funzione a due variabili]
+\begin{observation}
+    Si osserva come 
+    \begin{itemize}
+        \item $\max \{t : \mathbb{U}_t \neq 0\} = \max_{(x, y) \in \mathbb{D}} f(x, y)$
+        \item $\min \{t : \mathbb{U}_t \neq 0\} = \min_{(x, y) \in \mathbb{D}} f(x, y)$ 
+    \end{itemize}
+    Essenzialmente la massima linea di livello è il massimo valore assunto dalla funzione mentre
+    la minima linea di livello è il minimo assunto dalla funzione. 
+\end{observation}
+\begin{definition}[Dominio naturale]
+    Data una funzione $f : \mathbb{D} \to \mathbb{R}$ dove $\mathbb{D} \subseteq \mathbb{R}^{2}$
+    qualsiasi, prende il nome di \textbf{dominio naturale}, il maggiore insieme possibile 
+    dove ha senso scrivere una funzione.
+\end{definition}
+
+\begin{example}[Esempio di una funzione a due variabili]
+    Data la funzione
     \begin{gather*}
         f(x, y) = \ln(1 - x^{2} - y^{2}  )
     \end{gather*}
+    Si vuole determinare
     \begin{itemize}
-        \item Determinare il dominio naturale
+        \item Dominio naturale
         \item Descrivere le linee di livello 
         \item Trovare $\min/\max $ di $f$ su di un insieme $Q$
         \begin{gather*}
             Q = \{|x| \leq \frac{1}{2}, |y| \leq \frac{1}{2}\}
         \end{gather*}
     \end{itemize}
-    Il dominio naturale della funzion sarà dato da:
+    Il dominio naturale della funzione sarà dato da:
     \begin{gather*}
-        D = \{(x, y) \in \mathbb{R}^{2} : 1 - x^{2} - y^{2} > 0   \} \ \Longrightarrow \  D= \{(x ,y) \in \mathbb{R}^{2} : x^{2} + y^{2} < 1   \}
+        \mathbb{D} = \{(x, y) \in \mathbb{R}^{2} : 1 - x^{2} - y^{2} > 0   \} \ \Longrightarrow \  \mathbb{D} = \{(x ,y) \in \mathbb{R}^{2} : x^{2} + y^{2} < 1   \}
     \end{gather*}
-    Ossia la circonferenza di raggio uno centrata sull'origine.
-\end{example}
-POsso ora definire le linee di livello come
+    Ossia la circonferenza di raggio uno centrata sull'origine. \\
+    Si può ora determinare le linee di livello:
 \begin{gather*}
     f(x, y) = t = \ln(1 - x^{2} - y^{2}  ) \ \Longrightarrow \ e^{t} = 1 - x^{2} - y^{2}.   
 \end{gather*}
-OSsia
+Ossia
 \begin{gather*}
     \left\{\begin{array}{l}
         (x, y) \in D \\
@@ -1694,6 +1726,8 @@ OSsia
 Nel limite in cui $t$ tende a meno infinito allora si ottiene la circonferenza di
 raggio $1$ e quindi $U_t$ coinciderà con l'insieme del
 $\ni D$. Si possono trovare ora il minimo ed il massimo della funzione nell'insieme $Q$ 
+
+\end{example}
 
 \section{Limiti di funzioni in due variabili}
 I limiti in due funzioni funzionano in maniera simile ai limiti in una variaabile 
@@ -1847,6 +1881,115 @@ del polinomio che moltiplica il seno o il coseno.
     \end{gather*}
     Generalmente l'equazione di $n$ ordine ha $n$ costanti $C_1, \dots, C_n$ che moltiplicano. 
 \end{example}
+
+\subsection{Soluzioni stazionarie}
+In un equazione differenziale, si trovano le \textbf{soluzioni stazionarie}, 
+ossia quando $y' = 0$, per trovare i massimi ed i minimi.
+
+\section{Moltiplicatori di Lagrange}
+Il metodo dei moltiplicatori di Lagrange è molto utile per risolvere esercizi di distanza
+di un punto rispetto ad una data superficie assegnata. Si 
+determina la formula della distanza della superficie dal punto assegnato 
+$P_0 = (x_0, y_0, z_0)$ come
+\begin{gather*}
+    d = \sqrt{(x - x_0)^{2} + (y - y_0)^{2} + (z - z_0)^{2}} 
+\end{gather*}
+Si definisce \textbf{vincolo} la superficie rispetto alla quale si vuole determinare
+la distanza e la si definisce con $g(x, y, z)$. Il metodo dei moltiplicatori 
+di Lagrange dunque prevede che
+\begin{gather*}
+    \nabla f = \lambda \nabla g
+\end{gather*}
+Dunque si risolve il sistema e si trovano $x, y, z$ in funzione di $\lambda$
+e si sostituiscono nell'equazione del vincolo:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \frac{\partial f}{\partial x} - \lambda \frac{\partial g}{\partial x} = 0 \\
+        \frac{\partial f}{\partial y} - \lambda \frac{\partial g}{\partial y} = 0 \\
+        \frac{\partial f}{\partial z} - \lambda \frac{\partial g}{\partial z} = 0 \\
+        g(x, y, z) + c = 0
+    \end{array}\right.
+\end{gather*}
+Dove $c$ è una costante che dipende dalla funzione (esempio $x^{2} + y^{2} + z^{2} = 1$).
+Da qui si sostituiscono $x, y, z$ e si trovano i valori di $\lambda$ che risolvono 
+l'ultima equazione del sistema e si ri-sostituisce $\lambda$ nelle altre
+equazione per trovare i punti di distanza minima e massima. A questo punto
+\begin{gather*}
+    f(P_1) = d_1 \qquad f(P_2) = d_2
+\end{gather*}
+Dove $d_1$ e $d_2$ sono le distanza dei punti $P_1$ e $P_2$ rispetto alla superficie.
+
+\chapter{Primo parziale 11/13/2025}
+\section{Esercizio 1}
+Trovare la soluzione generale dell'equazione 
+\[ y^{\prime\prime}-4y^{\prime}+5y=e^{x}\sin x+5x \] 
+
+
+
+\section{Esercizio 2}
+Per $a\in\mathbb{R}$ si consideri il Problema di Cauchy:
+\[ \begin{cases}y^{\prime}=(1-y^{2})^{2}\\ y(0)=a.\end{cases} \] 
+\begin{itemize}
+    \item[(a)] Provare che esiste un'unica soluzione massimale $y$; determinare se l'intervallo massimale di definizione $I$ è limitato.
+    \item[(b)] Discutere la limitatezza delle soluzioni (quindi se $\inf$/$\sup$ di $\{y(x):x\in I\}$ è finito).
+    \item[(c)] Discutere la concavità ed eventuali punti di flesso.
+\end{itemize}
+
+
+\section{Esercizio 3}
+Usare il metodo dei moltiplicatori di Lagrange per determinare la distanza massima e quella minima del punto $(2, 1, -2)$ dalla superficie sferica di equazione $x^{2}+y^{2}+z^{2}=1$ 
+
+
+\section{Esercizio 4}
+Si consideri l'arco di Cicloide $\Gamma$ di equazioni parametriche:
+\[ \underline{r}(t)=\begin{cases}x(t)=\sqrt{2}(t-\sin t),\\ y(t)=\sqrt{2}(1-\cos t).\end{cases} \quad t\in[0,\pi]. \]
+\begin{itemize}
+    \item[(a)] Calcolare le coordinate del baricentro geometrico di $\Gamma$. 
+    \item[(b)] Scrivere la retta tangente a $\Gamma$ nel punto di ordinata $\frac{1}{\sqrt{2}}$.
+\end{itemize}
+
+\section{Esercizio 5}
+Sia $f(x,y)=e^{x^{2}-y^{2}}$
+\begin{itemize}
+    \item[(a)] Determinare se le linee di livello di $f$ sono localmente grafici di funzione.
+    \item[(b)] Sia $T$ la linea di livello che passa per $P\equiv(1,2)$ 
+    \begin{itemize}
+        \item[(b1)] Determinare $r$, la retta tangente a $T$ in $P$. 
+        \item[(b2)] Stabilire se, localmente in un intorno di $P$, la curva $T$ giace in uno dei due semipiani determinati da $r$. In caso affermativo determinare quale semipiano. 
+    \end{itemize}
+\end{itemize} \noindent 
+(a) Le linee di livello di $f$ non sono localmente grafici 
+solo per il punto $(0, 0)$, infatti le derivate parziali
+\begin{gather*}
+    F_x = \frac{\partial f}{\partial x} = e^{x^{2} - y^{2}} (2x) \qquad F_y = \frac{\partial f}{\partial y} = e^{x^{2} - y^{2}} (-2y)  
+\end{gather*}
+Si azzerano solo per quel punto, dunque le linee di livello si possono
+esprimere come 
+\begin{gather*}
+    e^{x^{2} - y^{2}}  =\tau \ \Longrightarrow \ x^{2} -y^{2} - \ln \tau = 0
+\end{gather*}
+Dunque la linea di livello per il quale non è localemente grafico di funzione è 
+per $\tau = 1$, infatti per il teorema del dini la derivata prima si azzera in $(0, 0)$. \\
+(b) La linea di livello che passa per il punto $P \equiv (1, 2)$ è 
+\begin{gather*}
+    x^{2} - y^{2} = \ln T \ \Longrightarrow \ T = e^{-3}
+\end{gather*}
+(b1) La retta $r$ che è tangente in $P$ a $T$ è trovata sfruttando la tesi del Teorema del Dini,
+infatti in $(1, 2)$ non si azzera la derivata $F_y$, inoltre per questa linea di livello, 
+\begin{gather*}
+    x^{2} - y^{2} - \ln T = 0 
+\end{gather*}
+Che per $T = e^{-3}$ è valida. Allora si può trovare il coefficiente della retta tangente 
+è dato da
+\begin{gather*}
+    m = - \frac{F_x(1)}{F_y(2)} = \frac{1}{2}
+\end{gather*}
+Allora la retta tangente è
+\begin{gather*}
+    y = \frac{1}{2}(x - 1) + 2 
+\end{gather*}
+(b2) Non risolto ATM.
+
 
 
 \end{document}

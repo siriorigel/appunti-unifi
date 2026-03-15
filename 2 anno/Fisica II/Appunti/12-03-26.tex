@@ -1,0 +1,270 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fisica II}
+\author{Tommaso Miliani}
+\date{12-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Condensatore con carica}
+Data una lastra metallica di spessore $D$ tra le due piastre
+del condensatore, in modo tale che sia distante $a$ dalla prima 
+piastra e $b$ dalla seconda, dunque $a + b = D$. 
+La piastra centrale avrà, per induzione, $-Q_0$ sulla parte sinistra
+(in quanto la prima piastra ha $Q_0$) e $Q_0$ sulla destra
+(in quanto la piastra a destra ha $-Q_0$). Dato che la piastra rimane neutra, 
+la somma delle sue cariche interne è zero, inoltre essa con le due
+piastre costituisce un sistema di due condensatori in serie. 
+\begin{gather*}
+    \frac{1}{C_1} = \frac{a}{\epsilon_0 S} + \frac{b}{\epsilon_0 S} = \frac{a + b}{\epsilon_0 S} = \frac{D}{\epsilon_0 S} \ \Longrightarrow \ C_1 = \frac{\epsilon_0 S}{D} = 2C_0
+\end{gather*}
+Il processo di carica di un condensatore consiste nel prendere singolarmente le cariche da una piastra e spostandole
+nell'altra piastra in modo tale che da una parte si abbia $-Q_0$ e $Q_0$ fino a 
+che la differenza di potenziale tra le due piastre è 
+\begin{gather*}
+    V_0 \frac{Q_0}{C_0}
+\end{gather*}
+Il lavoro compiuto nel portare un $dq$ dalla piastra carica con $q$ a quella $-q$, si 
+compirà un lavoro 
+\begin{gather*}
+    \mathcal{L} = \int_{\gamma} dq\vv{E} \cdot \vv{dl} = dq \int_{\gamma} \vv{E} \cdot \vv{dl} = -dq \Delta V  = dq(V(D) - V(0)) = dq(-\Delta V)
+\end{gather*}
+Dove $\Delta V$ è la differenza di potenziale tra le armature quando è presente
+una carica $q$. Si osserva che il campo compie un lavoro negativo (poiché 
+si oppone al trasporto della carica $dq$ da un armatura all'altra), mentre il generatore
+compie lavoro positivo per portare le cariche da un armatura all'altra. Se si ponesse $-dq$:
+\begin{gather*}
+    \mathcal{L}_{E} = -\int_{\gamma} dq\vv{E} \cdot \vv{dl} = -dq \int_{\gamma} \vv{E} \cdot \vv{dl} = dq \Delta V  = dq(V(D) - V(0)) = dq(-\Delta V)
+\end{gather*}
+Mentre il lavoro del generatore
+\begin{gather*}
+    d\mathcal{L}_{G} = - d\mathcal{L}_{E} = dq(V(0)) = dqV_0
+\end{gather*}
+Quando si mette a massa la piastra destra a massa  $V(D) = 0$. Adesso 
+il lavoro meccanico complessivo diventa
+\begin{gather*}
+    \mathcal{L}_{G} = \int_{0}^{Q_0}  
+\end{gather*} 
+Più cariche si vogliono mettere sull'armatura destra e maggiore 
+sarà il lavoro richiesto al generatore per portare le cariche successive, 
+dunque $V(0)$ cresce nel tempo. Allora il lavoro si può esprimere in funzione 
+della carica già presente $q$:
+\begin{gather*}
+    dqV(0) = dq\frac{q}{\mathcal{C}_0 }
+\end{gather*}
+Allora 
+\begin{gather*}
+    \mathcal{L}_{G} = \int_{0}^{Q_0} dq\frac{q}{\mathcal{C}_0} = \frac{Q_0^{2}}{2\mathcal{C}_0}  = \frac{Q_0V_0}{2} = \mathcal{C}_0 \frac{V_0^{2}}{2}
+\end{gather*}
+Questa energia viene accumulata nel campo elettrico (che prima non c'era).
+ispetto al 
+caso in cui il condensatore non era carico, il generatore ha  compiuto un lavoro 
+e ha immagazzinato quell'energia in un campo elettrico secondo la seguente:
+\begin{gather*}
+    \frac{Q_0^{2}}{2\mathcal{C}_0} = \frac{\epsilon E^{2}}{2}S(2D)
+\end{gather*}
+Se si inserisse la lastra metallica tra le due armature, allora
+\begin{align*}
+    U_1 &= \frac{Q_0^{2}}{2\mathcal{C}_1} = \frac{U_0}{2}  \qquad &Q_0 = \text{const}\\
+    U_1 &= \frac{\mathcal{C}_1 V_0^{2}}{2} = 2U_0 \qquad &V = \text{const}
+\end{align*}
+Quale delle due espressioni è vera? Sono entrambe vere ma dipendono dal fatto che, la prima 
+è vera se si tiene stabile la carica $Q_0$, mentre la seconda vale se $V$ rimane costante. 
+Se le due armature non sono conesse a niente, le cariche rimangono costanti 
+ed il lavoro di inserimento della lastra è tale per cui l'energia dimezzi: questo perché 
+dentro la lastra non c'è campo elettrico e, dato che la dimensione della lastra ($D$) è uguale alla distanza
+tra l'armatura 1 e la lastra + l'armatura 2 e la lastra, allora si è dimezzato il volume 
+in cui è presente il campo. Il campo elettrico ha dunque speso energia nell'inserimento 
+della lastra (cedendola a quest'ultima sottoforma di energia cinetica e quindi compiendo lavoro
+positivo). I contributi vicino al bordo non possonon essere bilanciati, allora le linee di campo 
+ai bordi del condensatore non sono più orizzontali, altrimenti la lastra non 
+potrebbe essere tirata dentro dal campo elettrico. Sulle superfici 
+della lastra agiscono due forze concordi verso il basso ma opposte sulla direzione 
+orizzontale, questa forza è responsabile del dimezzamento dell'energia potenziale:
+\begin{gather*}
+    \mathcal{L}_{E} = \frac{U_0}{2}
+\end{gather*}
+IL lavoro di portare una carica da un armatura all'altra lo si fa mediante un \textbf{generatore}: ossia un 
+dispositivo che riesce a fare un lavoro contrario alle forze del campo facendo 
+scorrere una corrente che muove gli elettroni con una forza motrice (non elettrica). 
+Invece nel caso in cui l'energia cresce, il generatore sposta le cariche sulle armature 
+in modo tale che non scenda il potenziale nel condensatore. Riassumendo
+\begin{itemize}
+    \item Carica costante:
+    \begin{gather*}
+        U_{in}^{Q} = U_0^{Q} \qquad U_{fin}^{Q} = \frac{U_0}{2} 
+    \end{gather*}
+    Allora
+    \begin{gather*}
+        \Delta U^{Q} = - \frac{U_0}{2} = - \mathcal{L}_E
+    \end{gather*}
+    In questo caso $V = \frac{V_0}{2}$.
+    \item Potenziale costante: 
+    \begin{gather*}
+        U_{in}^{V} = U_0 \qquad U_{fin}^{V} = 2U_0
+    \end{gather*}
+    Allora
+    \begin{gather*}
+        \Delta U^{V} = U_0 =  \mathcal{L}_G - \mathcal{L}_E
+    \end{gather*}
+    In questo caso $Q = \frac{Q_0}{2}$. 
+\end{itemize}
+Si può dunque definire seguenti procedimenti:
+\begin{enumerate}
+    \item Inserire la lastra nel condensatore, in questo modo 
+    diminuisce l'energia potenziale ma la carica rimane costante:
+    $Q_0 = Q$, ma $V = \frac{V_0}{2}$. 
+    \item Si attacca il generatore in modo tale da riportare $V$ a $V_0$, 
+    dunque $Q = 2Q_0$. Il lavoro compiuto dal generatore è ovviamente positivo 
+    poiché sta aumentando l'energia potenziale del condensatore.
+\end{enumerate}
+Il lavoro compiuto dal generatore è dunque 
+\begin{gather*}
+    \mathcal{L}_G = \int_{Q_0}^{2Q_0} dq V(q)  \qquad V(q) = \frac{q}{2\mathcal{C}_0} = \frac{q}{\mathcal{C}_1}
+\end{gather*}
+Dove il potenziale $V(q)$ sta salendo man mano che le cariche spostate 
+aumentano, allora l'integrale diventa
+\begin{gather*}
+    \mathcal{L}_G  = \int_{Q_0}^{2Q_0} \frac{q}{\mathcal{C}_1} dq = \frac{3Q_0^{2}}{2\mathcal{C}_1} = \frac{3}{2}U_0 
+\end{gather*}
+
+\section{Dielettrici}
+\subsection{Sviluppo multipolare dei dielettrici}
+Considerato un volume $\tau$ molto grande all'interno del quale è presente
+della carica con densità di carica $\rho$ (all'esterno non vi è carica),
+si considera un sistema di assi centrato dentro $\tau$. Si vuole ora
+determinare il campo elettrico a distanza $\vv{r}$. 
+\begin{gather*}
+    V(r) = \frac{1}{4\pi\epsilon_0} \int \frac{\rho(\vv{r'} )}{\left| \vv{r} - \vv{r'}   \right| } \ d\tau
+\end{gather*} 
+Dato che $d\tau \rho = dq$. Se si è abbastanza lontani dal volumetto dove sta la carica, 
+la distribuzione precisa della carica non è importante per determinare il 
+potenziale, ma è possibile eseguire uno sviluppo in serie del potenziale in modo che, 
+via via che si sviluppa aumenta la precisione del potenziale. Posti 
+allora nel caso in cui $\left| \vv{r}  \right|  >> \left| \vv{r'}  \right|$, si scrive
+\begin{gather*}
+    \frac{1}{\left| \vv{r} -\vv{r'}   \right| } = \frac{1}{\left((\vv{r} - \vv{r'}  ) \right)^{1/2}} = \left(r^{2} + r^{'2} - 2(\vv{r}\cdot \vv{r'}  )\right)^{\frac{1}{2}} = \frac{1}{r} \left(1 + \underset{x}{\underline{\frac{r'^{2}}{r^{2}} - 2\frac{(\vv{r} \cdot \vv{r'}  )}{r^{2}}}}\right)^{\frac{1}{2}}
+\end{gather*}
+Dunque si pul ottenere lo sviluppo in funzione dell'infinitesimo $x$:
+\begin{gather*}
+    \frac{1}{r}\left(1 - \frac{1}{2}x  + \frac{3}{8}x^{2}\right)
+\end{gather*}
+Tuttavia dentro $x$ c'è anche un infinitesimo del secondo ordine, allora per fermarsi al primo ordine devo 
+fermarmi al secondo ordine di $\frac{r'}{r}$:
+\begin{gather*}
+    \frac{1}{\left| \vv{r} - \vv{r'}   \right| } = \frac{1}{r}\left(1 - \frac{1}{2} \frac{r^{'2}}{r^{2}} + \frac{(\vv{r} -\vv{r'}  )}{r^{2}} + \frac{3}{8} \left(4\frac{\left(\vv{r} - \vv{r'}  \right)^{2}}{r^{4}}\right) + o\left(\left(\frac{r'}{r}\right)^{3}\right)\right)
+\end{gather*}
+Allora il potenziale diventa
+\begin{gather*}
+    V(r) = \frac{1}{4\pi\epsilon_0} \int \rho(r') \frac{1}{\left| \vv{r} -\vv{r'}   \right| } d\tau \approx \frac{1}{4\pi \epsilon_0}\left(\int \frac{\rho(r')}{r} dr  + \int \frac{\rho(r')}{r^{3}} (\vv{r} \cdot \vv{r'}  ) \ d\tau + \frac{1}{2} \int \left(\frac{3(\vv{r}\cdot \vv{r'}  )^{2}}{r^{5}} - \frac{r'^{2}}{r^{3}}\right) \rho \ d\tau  \right) 
+\end{gather*}
+Questo è definito come \textbf{sviluppo multipolare} del potenziale:
+\begin{gather*}
+    V(r) = \frac{1}{4\pi\epsilon_0} \frac{1}{r}\int \rho(r') \ d\tau = \frac{Q}{4\pi\epsilon_0 r} 
+\end{gather*}
+Questo prende il nome di \textbf{monopolo}: da lontano tutte le distribuzioni di carica
+appaiono come puntiformi data la distanza e dunque la carica $Q$ è il \textbf{monopolo elettrico}, 
+fermandoci per un termine diverso dall'ordine uno poiché altrimenti è zero (???). Per l'ordine 
+1 si prende il termine dello sviluppo:
+\begin{gather*}
+    V_1(r) = \frac{1}{4\pi\epsilon_0} \frac{1}{r^{3}} \int \rho(\vv{r'} ) \cdot \vv{r} \cdot \vv{r'} \ d\tau   = \frac{1}{4\pi\epsilon_0} \frac{\vv{r} }{r^{3}} \int \rho(\vv{r'} ) \vv{r'} \ d\tau  
+\end{gather*}
+Posso portare fuori il vettore $\vv{r}$ in quanto è sempre costante. L'integrale finale prende il nome di 
+\textbf{dipolo elettrico} ($\vv{p}$ ): se la carica è distante questo vettore va dalla carica negativa a quella positiva 
+e da lontano in un dipolo elettrico cambia l'integrale a seconda della distribuzione di cariche positive e negative. Se $Q = 0 $, 
+si può dire che $\rho = \rho_+(\vv{r'} ) + \rho_- (\vv{r'} )$, questo vuol dire che
+\begin{gather*}
+    \int_{\tau} \rho_-(\vv{r'} ) \ d\tau = Q \qquad \int_{\tau} \rho_-(\vv{r'} ) \ d\tau = -Q  
+\end{gather*}
+Il dipolo elettrico è dunque importante quando la carica totale è nulla:
+\begin{gather*}
+    \vv{p} = \int \left(\rho_+(\vv{r'} ) + \rho_-(\vv{r'} )\right) \vv{r} \ d\tau   = q\vv{r_+} - q\vv{r_-} = q(\vv{r_+} - \vv{r_-}  )  
+\end{gather*}
+Quando il dipolo contiene una carica $+$ in $\vv{r_+}$ ed una carica $-$ in $\vv{r_-}$, 
+allora il vettore dipolo corrisponde esattamente al vettore dalla carica meno a quella più. Dunque 
+quando si è molto lontani, non importa sapere dove stanno i centri di carica più e quelli di carica meno,
+ma interessa solo che ci sia una carica positiva e negativa. Si capisce che ora, rispetto alla distribuzione 
+di carica, conta rispetto a quale direzione rispetto all'asse del dipolo ci si allontana.
+Nel caso in cui sia presente un altro dipolo uguale e contrario rispetto a quello di partenza,
+si deve sviluppare al secondo ordine:
+\begin{gather*}
+    V_2(\vv{r} ) = \frac{1}{4\pi\epsilon_0} \frac{1}{2r^{5}}\int\rho\left(3(\vv{r} \cdot \vv{r'}  )^{2} - r^{'2} r^{2}\right) d\tau
+\end{gather*}
+Si tira fuori la matrice adesso utilizzando gli indici:
+\begin{gather*}
+    \frac{1}{4\pi\epsilon_0} \frac{1}{2r^{5}} \int \rho \left(3(\vv{r} \cdot \vv{r'}  ) (\vv{r}\cdot \vv{r'}  ) - r^{'2} r^{2}\right) d\tau =  \frac{1}{4\pi\epsilon_0} \frac{1}{2r^{5}} \int \rho \left(3(r_ir_i')(r_jr_j) - r'^{2} r^{2}\right) d\tau \qquad r^{2} = \sum_{i, j = 1}^{n} r_ir_j \delta_{i, j}
+\end{gather*}
+Il motivo di $j$ è che devo moltiplicare ma non riutilizzare gli stessi indici, in questo modo esce fuori la matrice, 
+inoltre si mette anche lo scalare in matrice:
+\begin{gather*}
+    V_2(r) = \frac{1}{4\pi\epsilon_0} \frac{1}{2r^{5}} r_i r_j \int \rho\left(3r_i'r_j' - r'^{2}\delta_{i,j}\right)  \ d\tau
+\end{gather*}
+L'integrale prende ora il nome di \textbf{tensore di quadrupolo}, definito dunque come
+\begin{gather*}
+    \mathcal{Q}_{i, j }\frac{1}{2} \int \rho (3r_i'r_j' - r'^{2}\delta_{i, j}) \ d\tau 
+\end{gather*}
+Si potrebbe osservare come in realtà esistano anche dipoli orizzontali (come
+nel disegno), da qui il nome di \textbf{quadrupolo}. Allora si riassume lo sviluppo al secondo ordine come 
+\begin{gather*}
+    V_2(r) = \frac{1}{4\pi\epsilon_0} \frac{r_ir_j Q_{i, j}}{r^{5}}
+\end{gather*}
+Se questo fosse nullo, allora si otterrebbe l'ottopolo. Da qui si capisce il nome di sviluppo
+multipolare. 
+
+\subsection{I dielettrici}
+Così come i metalli, in media le cariche si orientano o deformano fisicamente o sotto l'effetto di un campo 
+elettrico in modo tale da ottenere un dipolo polarizzato (anche se di base non è polare).
+
+
+
+
+
+
+\end{document}

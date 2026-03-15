@@ -1,0 +1,266 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di metodi}
+\author{Tommaso Miliani}
+\date{06-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Logaritmo sul piano complesso}
+Su $\mathbb{C}$ l'esponenziale non è iniettiva poiché è periodica
+di periodo $2\pi i$. Questo ci dice che, se si prende l'esponenziale lungo 
+il dominio e si restringe il dominio per poter definire l'inversa. Per trovare 
+questo dominio nel quale l'esponenziale sia complessa, si può prendere
+un dominio $\mathbb{S_\alpha}$:
+\begin{gather*}
+    S_\alpha \equiv \{w \in \mathbb{C} : \alpha - \pi <  Im(w) < \alpha + \pi\}
+\end{gather*}
+Dunque si restringe il dominio ad una striscia dell'asse reale. Tra gli elementi della striscia,
+si vuole vedere se ci sono dei punti in cui $e^{w_1} = e^{w_2}$. Posti che 
+$w_1, w_2  \in S_\alpha$, questo implica che $w_1 = w_2$? Si può dimostrare
+\begin{gather*}
+    e^{w_1} \cdot e^{w_2} = 1 \ \Longrightarrow \ w_1 - w_2 = 2\pi i \ \Longrightarrow \ w_1 = w_2
+\end{gather*}
+All'interno della striscia gli estremi non sono inclusi e l'unico modo per distare
+$2\pi i$ è che i punti coincidano. Allora l'esponenziale è iniettivo se lo si restringe 
+a $\mathbb{S}_\alpha$. Si può dunque definire l'immagine dell'esponenziale come
+\begin{align}
+    \mathbb{T}_\alpha = \{z \in \mathbb{C} : z = e^{a + ib}, \ a \in \mathbb{R}, b \in (\alpha - \pi, \alpha + \pi)\}
+\end{align}
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \centering
+    \caption{}
+    \begin{tikzpicture}
+        \draw[->](-1.5, 0) -- (1.5, 0);
+        \draw[->](0, -1.5) -- (0, 1.5);
+        \draw[very thick](-1, -0.75) -- (0, 0);
+        \draw(-0.5, 0) arc (180:220:0.5) node[midway, left] {$\alpha$};
+        \draw[pattern = north west lines] (-1, 1) rectangle (1, -1);
+    \end{tikzpicture}    
+\end{wrapfigure}
+Il modulo di questi elementi è $e^{a}$, ossia qualunque numero reale strettamente positivo. Si può vedere che 
+angoli possono avere in coordinate polari, tranne l'angolo $\alpha - \pi$. L'angolo $\alpha + \pi$ sarà allora 
+una semiretta che parte dall'origine con angolo $\alpha$:
+Quindi 
+\begin{gather*}
+    \mathbb{T}_\alpha = \{z \in \mathbb{C} : z \neq 0, \arg z \neq \alpha - \pi \}
+\end{gather*}
+L'immagine appena descritta è tutto il piano complesso tranne la semiretta. Si può dunque 
+definire
+\begin{align}
+    \log_\alpha : \mathbb{T}_\alpha \to \mathbb{S}_\alpha
+\end{align}
+Non esiste dunque un unica definizione del Logaritmo ma sono 
+parametrizzate dall'angolo $\alpha$. Si vuole allora invertire l'esponenziale 
+a partire da quanto fatto fino ad ora
+\begin{gather*}
+    z \in \mathbb{T}_\alpha \qquad e^{w} = z \qquad w \in \mathbb{S}_\alpha
+\end{gather*}
+Il modo più semplice è riscrivere $z$ in coordinate polari, in modo 
+tale che $\theta$ sia scelto nel dominio $\mathbb{T}_\alpha$:
+\begin{gather*}
+    z = re^{i\theta} \qquad \alpha \neq \alpha + \pi + 2 \pi  k, \ k \in \mathbb{Z}
+\end{gather*}
+Al posto di $\theta$ si può prendere 
+\begin{gather*}
+    b = \theta + 2\pi k \qquad b \in (\alpha - \pi, \alpha + \pi) \ \Longrightarrow \ z = re^{ib}
+\end{gather*} 
+Dato che $r$ è reale positivo, si può esprimere come
+\begin{gather*}
+    r = e^{a} \ \Longrightarrow \  \ln (r) = a \ \Longrightarrow \ z = e^{\ln r} e^{ib}
+\end{gather*}
+Allora, se si volesee 
+\begin{gather*}
+    e^{w} = e^{\ln a} e^{ib} \ \Longrightarrow \ \boxed{w = \ln r + ib } \in \mathbb{S}_\alpha
+\end{gather*}
+Dove $b$ è l'unico numero per cui è equivalente a $\theta + 2\pi k$ appartenente a
+$(\alpha - \pi, \alpha + \pi)$. La determinazione del logaritmo non cambia la parte 
+reale del logaritmo ma cambia quella immaginaria. Se $\alpha$ è diverso, in generale, 
+la parte immaginaria può essere diversa: determinazioni diverse del logaritmo hanno 
+parte reale uguale e parte immaginaria che differisce di multipli di $2\pi i$.  \\
+Adesso si deve dare una \textbf{determinazione principale} del logaritmo in modo tale che 
+nel caso reale si ottenga il logaritmo sui reali. Questa determinazione impone 
+che il logaritmo abbia $\alpha = 0$, dunque
+\begin{align}
+    \ln z = \ln \left| z \right| + i\arg(z) \qquad z \in \mathbb{C}, \ \arg(z) \in (-\pi, \pi) 
+\end{align}
+Se si fosse preso $\alpha = 2pi$, si avrebbe ottenuto lo stesso "taglio", ma 
+\begin{gather*}
+    \ln_{2\pi} z = \ln z + 2\pi i \qquad \arg(z) \in (\pi, 3\pi) 
+\end{gather*}
+Questa determinazione è chiaramente diversa da quella con $\alpha = 0$. Se
+invece $\alpha = \frac{\pi}{2}$, il logaritmo sull'asse reale positivo è quello standard
+anche se si estende la definizone del logaritmo stesso ai reali negativi:
+\begin{gather*}
+    \ln_{\frac{\pi}{2}}(-x) = \ln x + \pi i  \qquad x \in \mathbb{R}^{+}
+\end{gather*}
+Se invece $\alpha = -\frac{\pi}{2}$, allora l'argomento sarebbe $\in (- \frac{3}{2}\pi, \frac{\pi}{2})$:
+\begin{gather*}
+    \ln (-x) = \ln x - \pi i \qquad x \in \mathbb{R}^{+}
+\end{gather*}
+Per $\alpha = \frac{\pi}{2}$, il logaritmo $\ln(ix) = \ln x + \frac{\pi}{2} i$. Una determinazione che si utilizza per calcolare gli integrali sul piano complesso è $\alpha = \pi$, dunque il logaritmo 
+di un numero reale positivo non è definito. Nella determinazione $\alpha = 0$, se si facesse tendere
+l'angolo verso $\pi$ o $-\pi$, si ha 
+\begin{gather*}
+    \ln(-x + i\epsilon) - \ln (-x - i\epsilon) = \ln x + \pi - (\ln x - \pi i) = 2\pi i 
+\end{gather*}
+Non si includono le frontiere nella determinazione perché la parte immaginaria 
+non è definita. Dunque sulla frontiera la parte immaginaria non sarebbe continua e 
+quindi non sarebbe derivabile.
+\begin{gather*}
+    \boxed{\ln z = \ln \left| z \right| + i\arg(z) + 2\pi i k \qquad k \in \mathbb{Z} }
+\end{gather*}
+QUesto permette di determinare il logaritmo come una funzione a più valori e riassumendo tutte le determinazioni in 
+un unica formula. Si posson anche definire le seguenti proprietà per il logaritmo di numeri complessi: $\ln(z_1 \cdot z_2) = \ln(z_1) + \ln(z_2) + 2\pi i k$ con $k \in \mathbb{Z}$: 
+    non si ottiene la stessa uguaglianza del caso reale perché potrebbero differire per un 
+    angolo. 
+\section{Potenze complesse: le potenze frazionarie}
+Le \textbf{potenze frazionarie} sono delle funzioni a più valori .Quelle
+a numeri interni un numero finito di valori differenti, mentre quelle frazionarie hanno 
+un numero infinito di valori. Si vuole allora definire  $z^{p}$ con $p \in \mathbb{C}$.
+\begin{gather*}
+    z^{p} = (r e^{i\theta})^{p} = r^{p}e^{ip\theta}
+\end{gather*}
+Si nota come $\theta$ differisce di $2\pi$, dunque si definisce
+\begin{gather*}
+    r^{p}e^{ip\theta'} = r^{p}e^{ip(\theta + 2\pi)} = r^{p}e^{ip\theta}e^{2\pi i k p}
+\end{gather*}
+\begin{itemize}
+    \item $p = \frac{1}{n}$ allora si è trovato quello che si sapeva già, ossia che la radice $n$ esiam di un numero 
+complesso ha $n$ valori differenti.
+    \item $p \not \in \mathbb{Q}$: si ottengono infiniti valori per la 
+    radice di questo numero. Sono dunque un sottoinsieme numerabile della circonferenza
+    di raggio $r^{p}$.
+\end{itemize}
+Si può utilizzare il logaritmo per esprimere un numero complesso elevato a potenza:
+\begin{gather*}
+    z^{p} = \left(e^{\ln_\alpha z}\right)^{p} = e^{p\ln_\alpha z} = e^{p\left(\ln \left| z \right| + i(\theta + 2\pi k)\right)}
+\end{gather*}
+Se $p \in \mathbb{C}$, $p = a + ib$:
+\begin{gather*}
+    z^{p} = e^{(a + ib)(\ln \left| z \right| + i(\theta + 2\pi k) )}
+\end{gather*}
+Dove il $k$ dipende dalla determinazione. Svolgendo i calcoli, si ha
+\begin{gather*}
+    e^{a\ln \left| z \right| }e^{-(\theta + 2\pi k)} e^{ia(\theta + 2\pi k ) + ib\ln \left| z \right| }
+\end{gather*}
+Per definire univocamente una potenza con esponente non intero si deve scegliere 
+una determinazione, così come si fa per il logaritmo. 
+\begin{example}
+    Presa la radice quadrata $z^{\frac{1}{2}}$, con la determinazione 
+    principale del logaritmo si ha 
+    \begin{gather*}
+        z^{\frac{1}{2}} = e^{\frac{1}{2}\ln z} = \left| z \right|^{\frac{1}{2}}e^{\frac{1}{2} i\arg(z)} 
+    \end{gather*}
+    Sull'asse reale positivo si trova la solita radice quadrata che poi è estesa al 
+    piano complesso. Se si utilizzasse $\alpha = 2\pi$. Con questa determinazione, 
+    il modulo rimane invariato, ma sull'asse reale l'argomento di $z$:
+    \begin{gather*}
+        \sqrt{x} e^{\frac{1}{2}2\pi i} = -\sqrt{x}   
+    \end{gather*}
+    DOve $x$ è il modulo del numero complesso. Le determinazioni cambiano su tutto il piano complesso: con determinazioni 
+    diverse si ottengono soluzioni diverse. Con questo ragionamento, l'angolo della radice definsice
+    la determinazione e dunque la soluzione trovata: per la radice cubica, si utilizzano i tre angoli 
+    per ottenere tre determinazioni e dunque 3 soluzioni diverse.
+\end{example}
+
+\section{Studio delle funzioni derivabili sul piano complesso: funzioni olomorfe}
+In generale si definiscono queste funzioni su degli aperti su $\mathbb{C}$: non c'è bisogno 
+che sia tutto $\mathbb{C}$ ma, per semplicità si indicano come 
+\begin{gather*}
+    f: \mathbb{C} \to \mathbb{C} 
+\end{gather*}
+SI scrive, in modo equivalente, con $z \in \mathbb{C}$:
+\begin{gather*}
+    f(z) = f(x + iy) = F(x, y) = u(x, y) + iv(x, u)
+\end{gather*}
+Dove $u, v : \mathbb{R}^{2} \to \mathbb{R}$ che permettono di discernere parte 
+reale dalla parte complessa. Quando sono derivabili in senso complesso? Si è introdotto la 
+definizione di derivabilità in senso complesso:
+\begin{align}
+    f'(z) = \lim_{\Delta z \to 0} \frac{f(z + \Delta z) - f(z)}{\Delta z} \in \mathbb{C} 
+\end{align}
+È equivalente a quella già definita. QUesto limite deve valere per tutte le direzioni sul 
+piano complesso e deve essere uguale per tutte le direzioni. Tramite queste definizioni è facile vedere come 
+le derivate dei polinomi sono quelle standard:
+\begin{gather*}
+    \frac{d}{dz}z^{n} = \lim_{\Delta z \to 0} \frac{(z + \Delta z)^{n} - z^{n}}{\Delta z} = \lim_{\Delta z \to 0} \frac{z^{n} + nz^{n - 1} \Delta z + o(\Delta z^{2}) - z^{n}}{\Delta z} = \lim_{\Delta z \to 0} \left(n z^{n - 1} + \frac{o(\Delta z^{2})}{\Delta z}\right) = n z^{n - 1}   
+\end{gather*}
+\begin{example}[Funzione non derivabile in senso complesso]
+    La seguente funzione 
+    \begin{gather*}
+        f(x + iy) = x
+    \end{gather*}
+    La derivata è 
+    \begin{gather*}
+        f' = \lim_{\Delta z \to 0} \frac{(x + Re(\Delta z)) - x}{\Delta z} = \lim_{\Delta z \to 0} \frac{x + \Delta x  - x}{\Delta x + i\Delta y} = \lim_{ \to } \frac{\Delta x}{\Delta x + i\Delta y}  
+    \end{gather*}
+    Questa funzione non è derivabile in senso complesso poiché ha valore solo in $\mathbb{R}$. In generale 
+    non è derivabile in senso complesso nessuna funzione o solo reali o solo immaginari a meno che 
+    non siano costanti. 
+\end{example}
+
+\subsection{Funzioni di Cauchy-Riemann}
+Si definiscono condizioni o funzioni di Cauchy-Riemann come 
+\begin{align}
+    \partial x f(z) &= \lim_{\Delta x \to 0} \frac{f(z + \Delta x) - f(z)}{\Delta x} \\
+    \partial y f(z) &= \lim_{\Delta y \to 0} \frac{f(z + i\Delta y) - f(z)}{\Delta y} 
+\end{align}
+Dove $\Delta x, \Delta y \in \mathbb{R}^{+}$ e $\partial x, \partial y$ indicano le derivate della 
+funzione $f(z)$ rispetto a $x$ e $y$ rispettivamente. Per fare la derivata della direzione immaginaria devo 
+anche mettere la $i$, dunque rispetto ad $y$ non è derivabile lungo l'asse
+immaginario. Lo è se 
+\begin{gather*}
+    f'(z) = \boxed{\partial x f(z) = \frac{1}{i} \partial y f(z)} \Longleftrightarrow \partial x f + i\partial y f = 0
+\end{gather*}
+Prende il nome di \textbf{identità di Cauchy-Riemann}. Una funzione derivabile in senso 
+reale su $\mathbb{R}^{2}$ non è detto che sia anche derivabile in $\mathbb{C}$, ma deve valere questa condizione. 
+
+\end{document}

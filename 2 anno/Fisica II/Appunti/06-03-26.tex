@@ -1,0 +1,201 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Esercizi di Fisica II}
+\author{Tommaso Miliani}
+\date{06-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Esercizi}
+\begin{example}[20/02/2012]
+    Se si volesse calcolare il potenziale dentro la sfera, è dato 
+    \begin{gather*}
+        z = R\cos\theta \quad dQ = \sigma(\theta)dl Rd\theta = \sigma_0\cos\theta dl d\theta R\\
+        r(\theta) = R\sin\theta \quad 
+    \end{gather*}
+    Dunque 
+    \begin{gather*}
+        V = \int_{}^{} dl \int_{}^{} d\theta \frac{dQ}{4\pi\epsilon_0 R} = \frac{1}{4\pi \epsilon_0} \int_{}^{} dl \int_{0}^{\pi} d\theta \sigma_0\cos\theta = \frac{1}{4\pi\epsilon_0} \int_{0}^{\pi} d\theta \sigma_0 \cos\theta \pi R^{2} \sin\theta = 0 
+    \end{gather*}
+    Dove $dl$ è un tratto infinitesimo sulla sfera: l'integrale su $dl$ è dunque l'integrale lungo 
+    la spira mentre quello in $d\theta$ è su tutta la sfera. Il potenziale dentro la sfera è 
+    dunque zero. Il campo al centro della sfera si trova in maniera simile: sfruttando le stesse 
+    considerazioni geometriche si può trovare 
+    infatti il contributo infinitesimo di campo 
+    \begin{gather*}
+        dE_z = \frac{dQ}{4\pi\epsilon_0 R^{2}}\cos\theta
+    \end{gather*}
+    Il campo totale $\vv{E}$ sarà dunque solo lungo $\hat{z}$:
+    \begin{gather*}
+        E_z = \int_{0}^{\pi} \int_{SPIRA} \frac{\sigma_0 \cos\theta R d\theta dl}{4\pi\epsilon_0 R^{2}} \cos\theta = \frac{\sigma_0}{4\pi\epsilon_0 R} \int_{0}^{\pi} d\theta \cos^{2}\theta \int_{SPIRA}^{} dl      
+    \end{gather*}  
+    Ottenendo 
+    \begin{gather*}
+        E_z = \int_{0}^{\pi} d\theta \cos^{2}\theta 2\pi R\sin\theta = \frac{\sigma_0}{3\epsilon_0}
+    \end{gather*}
+\end{example}
+
+Considerata una carica negativa ed una positiva distanziate da una stessa quantità $d$. Si definisce il dipolo elettrico 
+$\vv{P} = q\vv{d}$, ossia il vettore spostamento tra le cariche. Il campo elettrico di un dipolo è importante perché è il campo che 
+genera un atomo. Si vuole ora colcolare il campo elettrico totale di un sistema di questa tipologia e gli effetti meccanici che
+agiscono su di esso. Il campo elettrico in un punto generico $r >> d$, 
+\begin{gather*}
+    \vv{r} = x\hat{x} + y\hat{y} + z\hat{z} \qquad \vv{r_+} = \frac{d}{2} \hat{z} \qquad \vv{r_-} = - \frac{d}{2}\hat{z}        
+\end{gather*}
+Si vuole ora determinare il potenziale, il quale sarà 
+\begin{gather*}
+    V = V_+ + V_- = \frac{q}{4\pi\epsilon_0} \left(\frac{1}{\left| \vv{r} - \vv{r_+}   \right| } - \frac{1}{\left| \vv{r} - \vv{r_-}   \right| }\right)
+\end{gather*}
+I vettori 
+\begin{align*}
+    \vv{r} - \vv{r_+} &= x\hat{x} + y\hat{y} + \left(z - \frac{d}{2}\right)    \hat{z}  &\left| \vv{r} - \vv{r_+}   \right| = \sqrt{ x^{2} + y^{2} + \left(z - \frac{d}{2}\right)^{2}} \\
+    \vv{r} - \vv{r_-} &= x\hat{x} + y\hat{y} + \left(z + \frac{d}{2}\right) \hat{z}      &\left| \vv{r} - \vv{r_-}  \right| = \sqrt{x^{2} + y^{2} + \left(z + \frac{d}{2}\right)^{2}} 
+\end{align*}
+Dunque
+\begin{gather*}
+    \frac{1}{\left| \vv{r} - \vv{r_+}   \right| } = \frac{1}{\sqrt{x^{2} + y^{2} + z^{2} - zd + \frac{d^{2}}{4}} } = \frac{1}{\sqrt{r^{2} \left(1 + \frac{d^{2}}{4r^{2}} - \frac{zd}{r^{2}}\right) }} =  \frac{1}{r} \frac{1}{\left(1 + \frac{d^{2}}{4r^{2}} - \frac{zd}{r^{2}}\right)} \\
+    \frac{1}{\left| \vv{r} - \vv{r_-}   \right| } = \frac{1}{\sqrt{x^{2} + y^{2} + z^{2} + zd + \frac{d^{2}}{4}} } = \frac{1}{\sqrt{r^{2} \left(1 + \frac{d^{2}}{4r^{2}} + \frac{zd}{r^{2}}\right) }} =  \frac{1}{r} \frac{1}{\left(1 + \frac{d^{2}}{4r^{2}} + \frac{zd}{r^{2}}\right)} 
+\end{gather*}
+SI può ora approssimare che $d^{2} << r^{2}$, ossia secondo l'approssimazione dipolo. Si sviluppa dunque 
+con Taylor considerando $\frac{zd}{r^{2}}$ come $\epsilon$, si può ignorare il termine $d^{2}$ e sviluppare:
+\begin{gather*}
+    \frac{1}{\sqrt{1 \pm \epsilon} } \approx 1 \mp \frac{1}{2}\epsilon 
+\end{gather*}
+Dunque
+\begin{gather*}
+    V = \frac{q}{4\pi\epsilon_0 } \left(\frac{1}{2} \left(1 + \frac{1}{2} \epsilon\right) - \frac{1}{2}\left(1 - \frac{1}{2}\epsilon\right)\right) = \frac{q}{4\pi\epsilon_0} \frac{\epsilon}{r}
+\end{gather*}
+Allora
+\begin{gather*}
+    V = \frac{q}{4\pi\epsilon_0} \frac{1}{r} \frac{zd}{r^{2}}
+\end{gather*}
+Il vettore 
+\begin{gather*}
+    \left| \vv{P} \right| = qd \quad z = r\cos\theta \ \Longrightarrow \ zqd = \left| \vv{P}  \right| \left| \vv{r}  \right| \cos\theta = \vv{P} \cdot \vv{r}     
+\end{gather*}
+Allora
+\begin{gather*}
+    V = \frac{\vv{P} \cdot \vv{r}  }{4\pi\epsilon_0 r^{3}}
+\end{gather*}
+Ossia il potenziale elettrico generato da un dipolo elettrico in un generico punto dello spazio. Avrà dunque un campo 
+non nullo:
+\begin{gather*}
+    \vv{E} = -\vv{\nabla}V = \frac{\partial V}{\partial r}\hat{r} + \frac{1}{r} \frac{\partial V}{\partial \theta} \hat{\theta} + \frac{1}{r\sin\theta}\frac{\partial V}{\partial \phi}\hat{\phi}        
+\end{gather*}
+Dove l'angolo $\phi $è l'angolo che la proiezione del vettore $r$ sul piano $xy$ ha rispetto all'asse $x$. Non si ha una dipendenza da $\phi$
+in quanto non cambia l'orientazione del vettore. Tuttavia il campo dipenderà anche dall'angolo $\theta$:
+\begin{align*}
+    E_r &= -\frac{\partial V}{\partial r} = \frac{\left| P \right| \cos\theta }{2\pi\epsilon_0 r^{3}} \\
+    E_\theta &= -\frac{1}{r} \frac{\partial V}{\partial \theta} = -\frac{1}{r} \frac{\left| P \right| (-\sin\theta) }{ 4\pi\epsilon_0 r^{2}} = \frac{\left| P \right| }{4\pi\epsilon_0 r^{3}} \sin\theta
+\end{align*}
+Allora il campo totale
+\begin{gather*}
+    \vv{E}  = \frac{\left| P \right| \cos\theta }{2\pi\epsilon_0 r^{3}} \hat{r}  + \frac{\left| P \right| }{4\pi\epsilon_0 r^{3}} \sin\theta \hat{\theta} 
+\end{gather*}
+Si può traformare il vettore $\hat{r}$:
+\begin{gather*}
+    \hat{r} = \begin{pmatrix}
+        \cos\theta & \sin\theta \\
+        -\sin\theta & \cos\theta
+    \end{pmatrix}  \begin{pmatrix}
+        0 \\
+        1
+    \end{pmatrix} = \sin\theta \hat{i} + \cos\theta \hat{k} 
+\end{gather*} 
+E il versore $\hat{\theta}$:
+\begin{gather*}
+    \hat{\theta} = \begin{pmatrix}
+        \cos\theta & \sin\theta \\
+        -\sin\theta & \cos\theta 
+    \end{pmatrix} \begin{pmatrix}
+        1 \\
+        0 
+    \end{pmatrix} = \cos\theta \hat{i} - \sin\theta \hat{k}  
+\end{gather*} 
+Dunque 
+\begin{align*}
+    \cos\theta \hat{r} &= \sin\theta \cos\theta \hat{i} + \cos^{2}\theta \hat{k} \\
+    \sin\theta \hat{\theta} &= \cos\theta \sin\theta \hat{i} - \sin^{2} \theta \hat{k}     \\
+    2\cos\theta \hat{r} + \sin\theta \hat{\theta} &= 3\cos\theta \hat{r} - \cos\theta \hat{r} + \sin\theta \hat{\theta} = 3\cos\theta \hat{r} - \hat{k}        
+\end{align*}
+Questo ci interessa perché stiamo cercando delle coordinate che lungo $r$ e lungo $k$, sono cilindriche 
+nella direzione del dipolo:
+\begin{gather*}
+    \vv{E} = \frac{\left| P \right| }{4\pi\epsilon_0 r^{3}} \left(3 \cos\theta \hat{r} - \hat{k}  \right) = \frac{1}{4\pi\epsilon_0} \left(3 \frac{(\vv{P} \cdot \vv{r}  ) \vv{r} }{r^{5}} - \frac{\vv{P} }{r^{3}}\right) 
+\end{gather*}
+Questo campo prende il nome di \textbf{campo di dipolo}.
+
+\subsection{Effetti meccanici di un dipolo}
+Gli effetti meccanici di un dipolo sono i seguenti
+\begin{gather*}
+    \vv{F^{-}} = -q\vv{E(\vv{r} )}   \qquad \vv{F^{+}} = q\vv{E}(\vv{r} + \vv{d}  )  
+\end{gather*}
+Si può anche determinare il momento che fa il dipolo
+\begin{gather*}
+    \vv{m} = \vv{r} \times \vv{F^{-}} + (\vv{r} + \vv{d})  \times \vv{F^{+}} = q\left((\vv{r} + \vv{d}  ) \times \vv{E}(\vv{r} + \vv{d}  ) - \vv{r} \times \vv{E}(\vv{r} )  \right)
+\end{gather*}
+Le componenti del campo sono 
+\begin{gather*}
+    E_x(\vv{r} + \vv{d}  ) = \vv{E_x} (\vv{r} ) + \frac{\partial E_x}{\partial x} dx + \frac{\partial E_x}{\partial y} dy + \frac{\partial E_x}{\partial z} dz   
+\end{gather*}
+Dunque
+\begin{gather*}
+    \vv{E}(\vv{r} + \vv{d}  ) = \vv{E}(\vv{r} ) + (\vv{d} \cdot \vv{\nabla}  )  \vv{E} 
+\end{gather*}
+Sviluppando al primo ordine la forza totale è nulla, ma il momento di dipolo 
+non è nullo ed è l'analogo con il campo elettrico del momento delle forze in meccanica:
+\begin{gather*}
+    \left\{\begin{array}{l}
+        \vv{F} = (\vv{P} \cdot \vv{\nabla}  ) \vv{E} \\
+        \vv{m} = \vv{P} \times \vv{E}     
+    \end{array}\right.
+\end{gather*}
+
+\end{document}

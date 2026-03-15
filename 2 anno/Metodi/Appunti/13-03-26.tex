@@ -1,0 +1,343 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Metodi}
+\author{Tommaso Miliani}
+\date{13-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Formula integrale di Cauchy}
+La formula integrale di Cauchy
+\begin{align}
+    f(z) = \frac{1}{2\pi i} \int_{\Gamma}^{} \frac{f(w)}{w - z} \ dw 
+\end{align}
+Dove la funzione deve essere Olomorfa in tutti i punti del circuito. Le conseguenze
+di questa formula sono le seguenti
+
+\begin{corollary}[Conseguenza della formula integrale]
+    Una funzione olomorfa è necessariamente $C^{\infty }$, inoltre 
+    le derivata possono essere calcolate con una formula simile:
+    \begin{align}
+        f^{(n)}(z) = \frac{n!}{2\pi i} \int_{\Gamma} \frac{f(w)}{(w - z)^{ n - 1}}\ dw 
+    \end{align}
+    Con $\Gamma$ lo stesso circuito di quello scelto per la funzione base. La dimostrazione si ottiene derivando 
+    la formula integrale di Cauchy.
+\end{corollary}
+
+\begin{theorem}[Teorema di analicità di una funzione]
+    Sia $f$ una funzione olomorfa definita su un aperto $\mathbb{A}$ , sia $z_0  \in \mathbb{A}$, 
+    tale che 
+    \begin{gather*}
+        B=(z_0, r ) \subset \mathbb{A} \qquad r > 0
+    \end{gather*}
+    Allora la funzione può essere espansa in serie
+    \begin{align}
+        f(z) = f(z_0) + f'(z_0) (z - z_0) + \frac{f^{(n)}(z_0)}{n!}(z - z_0)^{n}
+    \end{align}
+    E converge sul disco $B$. Esiste sempre un intorno non banale in cui 
+    la serie di Taylor converge.
+\end{theorem}
+\begin{proof}
+    (Non la chiede). Si utilizza uno sviluppo in serie all'interno della 
+    forma integrale di Cauchy, si sviluppa a partire dalla palla $B$, e si prende
+    la frontiera $\Gamma$ (che sta fuori dal disco in quanto è aperto), e si sceglie $z$ 
+    dentro la frontiera:
+    \begin{gather*}
+        \frac{1}{w - z} = \frac{1}{(w - z_0) - (z - z_0)} = \frac{1}{w - z_0} \frac{1}{1 - \frac{z - z_0}{w - z_0}}
+    \end{gather*}
+    Utilizzando la disuguaglianza triangolare
+    \begin{gather*}
+        \left| z - z_0 \right| < \left| w - z_0 \right|  
+    \end{gather*}
+    Se si vede 
+    \begin{gather*}
+        \frac{1}{1 - \frac{z - z_0}{w - z_0}}
+    \end{gather*}
+    Come serie geometrica convergente, allora essa è convergente 
+    perché
+    \begin{gather*}
+        \left| \frac{z - z_0}{w - z_0} \right| < 1
+    \end{gather*}
+    E dunque 
+    \begin{gather*}
+        \frac{1}{w - z_0} \sum_{n = 0}^{\infty } \left(\frac{z - z_0}{w - z_0}\right) ^{n}
+    \end{gather*}
+    Allora si può scrivere
+    \begin{gather*}
+        f(z) = \frac{1}{2\pi i} \int_{\Gamma} \frac{f(z)}{w - z} dw = \frac{1}{2\pi i} \int_{\Gamma} \frac{f(w)}{w - z_0} \sum_{n = 0}^{\infty } \left(\frac{z - z_0}{w - z_0}\right)^{n}dq
+    \end{gather*}
+    Si può allora sostituire l'integrale con la serie
+    \begin{gather*}
+        = \sum_{n = 0}^{\infty } \frac{(z - z_0)^{n}}{2\pi i} \int_{\Gamma} \frac{f(w)}{(w - z_0)^{n + 1}} \ dw  = \sum_{n = 0}^{\infty } \frac{f^{(n)}(z_0)}{n!}(z - z_0)^{n} 
+    \end{gather*}
+    Se si considera
+    \begin{gather*}
+        \sup_{\Gamma} \left| \frac{f(w)}{w - z_0} \left(\underset{\left| \delta \right|  < 1}{\underline{\frac{z - z_0}{w - z_0}}}\right)^{n} \right|  \leq \dfrac{\sup_{\Gamma} \left| f(w) \right| }{r}\left| \delta \right| ^n
+    \end{gather*}
+    Il termine sulla frazione in fondo  è un termine di una serie convergente e duneque la serie 
+    converge totalmente (in quanto $\delta$ converge).
+\end{proof}
+
+\begin{theorem}[Condizioni di olomorfismo]
+    Se $f \in \mathbb{C}^{0}(\mathbb{A}, \mathbb{C})$, ossia una funzione continua su 
+    di un aperto $\mathbb{A} \subset \mathbb{C}$. Se essa è continua e ammette primitiva, 
+    allora è olomorfa su $\mathbb{A}$.
+\end{theorem}
+\begin{proof}
+    Se $f = F'$, dunque se $F$ è olomorfa, allora anche la derivata di 
+    una funzione olomorfa è olomorfa (si vede sviluppando in serie), 
+    allora $f$ è olomorfa.
+\end{proof}
+
+\begin{theorem}[Riassunto delle proprietà di funzioni continue su di un aperto]
+    Sia $f$ una funzione definita su di un aperto $\mathbb{A}$ 
+    $f : \mathbb{A} \to \mathbb{C}$, se essa è continua, allora 
+    \begin{enumerate}
+        \item $f$ è olomorfa
+        \item $f$ è localmente esatta: così come nel caso reale,
+        l'integrale su qualsiasi circuito in $\mathbb{A}$ è nullo.
+        \item $f$ ammette localmente primitiva
+        \item 
+        \begin{align}
+            \oint_\gamma f \ dz = 0
+        \end{align}
+        per ogni circuito $\gamma$ nullomotopo in $\mathbb{A}$.
+    \end{enumerate}
+\end{theorem}
+\begin{corollary}
+    Il dominio della funzione deve essere semplicemente connesso per far sì che valga 
+    la condizione 3, per questo vale \textbf{localmente} e non globalmente. Un esempio 
+    è la funzione
+    \begin{gather*}
+        f(z) = \frac{1}{z - z_0} \ \Longrightarrow \ F = \log(z - z_0)
+    \end{gather*}
+    Essa è una buona primitiva localmente ma non globalmente, infatti il dominio presenta un taglio
+    in $z = z_0$. 
+\end{corollary}
+
+
+\section{Serie di Laurent}
+\begin{definition}
+    Si definisce \textbf{serie bilatera}  una serie
+    \begin{align}
+        \sum_{n = -\infty }^{\infty } c_n(z - z_0)^{n} 
+    \end{align}
+    ossia che una serie che ha anche potenze negative. Si è interessati 
+    a vedere come converge questa tipologia di serie. La convergenza
+    di questa tipologia di serie viene studiata mediante due convergenze:
+    \begin{align}
+        \left\{\begin{array}{l}
+            \text{parte regolare} \qquad \sum_{n = 0}^{\infty } c_n(z - z_0)^{n} \\
+            \text{singolare} \qquad \sum_{n = -\infty }^{-1} c_n(z - z_0)^{n} 
+        \end{array}\right.
+    \end{align}
+    Dove la parte regolare è la semplice serie di Taylor, che converge in una
+    palla definita da un raggio $r_2$, per cui si associa un raggio di convergenza
+    \begin{align}
+        \left| z - z_0 \right| < r_2
+    \end{align}
+    Per far convergere la serie singolare si può considerare:
+    \begin{align}
+        w = \frac{1}{z - z_0} \ \Longrightarrow \ \sum_{n = 1}^{\infty } c_{-n}w^{n}
+    \end{align}
+    Dove la convergenza si ha considerando:
+    \begin{align}
+        \left| w \right| < \rho \Longleftrightarrow  \left| z - z_0 \right|   > \frac{1}{\rho} \equiv r_1 \qquad \qquad w = \frac{1}{\left| z - z_0 \right| }
+    \end{align}
+    Dunque la serie singolare converge all'esterno del disco, mentre la parte regolare converge all'esterno di un disco. Esistono dunque 
+    tre casi di convergenza
+    \begin{enumerate}
+        \item $r_1 > r_2$: non esiste nessun dominio in cui vi è convergenza di entrambi, allora 
+        la serie bilatera non converge.
+        \item $r_1 = r_2$: la serie può al più convergere sul bordo 
+        del disco (ma non si hanno condizioni forti per la convergenza), su qualche 
+        punto può convergere per $\left| z - z_0  \right| = r_1 = r_2$.
+        \item $r_1 < r_2$: la convergenza si ha su di una corona circolare 
+        \begin{align}
+            \mathbb{B} = (z_0, (z_1, z_2))
+        \end{align}
+    \end{enumerate}
+\end{definition} \noindent
+È possibile dunque utilizzare questa tipologia di serie per ottenere
+funzioni olomorfe.
+\begin{theorem}[Sviluppo in serie di Laurent]
+    Presa una funzione $f$ olomorfa in un dominio $\mathbb{A}$ aperto, e si assume che
+    esista una corona circolare
+    \begin{gather*}
+        \mathbb{B} = (z_0, (r_1, r_2)) \subset \mathbb{A}
+    \end{gather*}
+    Ovviamente $0 \leq r_1 < r_2 \leq + \infty$, allora 
+    \begin{align}
+        \forall z \in \mathbb{B}, \qquad f(z) = \sum_{n = -\infty }^{\infty } c_n(z - z_0)^{n} 
+    \end{align}
+    e converge assolutamente e totalmente. Inoltre si può scrivere
+    \begin{align}
+        c_n = \frac{1}{2\pi i} \int_{\gamma_r} \frac{f(w)}{(w - z_0)^{ n + 1}} \ dw  
+    \end{align}
+    Dove $\gamma_r$ è una qualunque circonferenza contenuta completamente nella corona $\mathbb{B}$, 
+    tale che $\gamma_r : z_0 + re^{i\theta} \ r_1 < r < r_2$.
+\end{theorem}
+
+\begin{corollary}
+    Questo teorema consente di far convergere la serie anche intorno ad un buco 
+    (l'importante è la corona sia totalmente contenuta nel dominio di olomorfia).
+\end{corollary}
+
+\section{Singolarità isolate}
+Sia $f$ una funzione definita su di un aperto $\mathbb{A}$, posto 
+$\mathcal{N} = \{a_i\}$ un insieme di punti singolari in cui la funzione non è 
+definita all'interno di $\mathbb{A}$. La funzione 
+$f \in H(\mathbb{A} \ \mathcal{N})$, le singolarità prendono il nome
+di \textbf{isolate} se non esiste un punto di accumulazione per le singolarità 
+(ossia tale per cui per ogni intorno esista alemeno un altro punto dell'insieme
+che ci cade dentro). Si definiscono diversi tipi di singolarità isolate:
+\begin{itemize}
+    \item  \textbf{singolarità eliminabile}: è una singolarità
+isolata tale per cui la funzione può essere estesa anche a questa singolarità. La serie bilatera
+ha solo potenze non negative. Se, sviluppando in serie di Laurent si ottiene che
+la singolarità non esiste, allora essa è eliminabile e la funzione è estendibile
+sulla singolarità $a$, definendo $f(a_i) = c_0$.
+    \item \textbf{polo}: una singolarità isolata in cui la serie singolare ha 
+    un numero finito di termini. 
+    \begin{align}
+        \exists m > 0 : \ c_{-m} \neq 0, \quad c_{-n} = 0 \ \forall n > m
+    \end{align}
+    Si dice allora che il polo è di \textbf{ordine} $m$: in un intorno del polo
+    la funzione va come 
+    \begin{gather*}
+        f \approx \frac{1}{(z - a)^{m}}
+    \end{gather*}
+    \item \textbf{singolarità essenziale}: essa corrisponde ad al caso in 
+    cui la parte singolare ha un numero infinito di termini. 
+\end{itemize}
+\begin{example}[Singolarità]
+    \begin{itemize}
+        \item Eliminabile: la funzione $\frac{\sin(z)}{z}$, 
+        essa è estendibile 
+        \item Polo: $\frac{1}{(z - a)^{m}}$, ossia un polo di ordine $m$.
+        \item Essenziale: $\exp\left(-\frac{1}{z^{2}}\right)$ intorno a zero 
+        può essere espanso in serie di Laurent che convergerà per $z \neq 0$:
+        \begin{gather*}
+            \sum_{n = 0}^{\infty } \frac{1}{n!} \left(- \frac{1}{z^{2}}\right) ^{m} = \sum_{n = -\infty }^{0} \frac{1}{\left| n \right|! } \left(-z^{2}\right)^{m}
+        \end{gather*}
+        L'origine è dunque un punto singolare.
+    \end{itemize}
+\end{example}
+
+\begin{theorem}
+    Considerata $a$ una singolarità isolata di una funzione $f$ olomorfa, sono equivalenti
+    \begin{enumerate}
+        \item $a$ è eliminabile
+        \item $\lim_{z \to a} f(z)$ esiste su $\mathbb{C}$:
+        \item $f$ è limitata in un intorno di $a$ (con $a$ escluso). 
+    \end{enumerate}
+    Invece in prossimità di un polo (ma non di una singolarità essenziale) il comportamento di
+$f$ è divergente, cioè il modulo di $f$ cresce in modo illimitato.
+\end{theorem}
+
+\begin{theorem}
+    $a$ è un polo se e solo se
+    \begin{align}
+        \lim_{z \to a} f(z) = \infty \Longleftrightarrow \lim_{z \to a} \left| f(z) \right| = +\infty 
+    \end{align}
+\end{theorem}
+
+\begin{theorem}[Teorema di Casorati-Weirestrass]
+    Se $a$ è singolarità essenziale se e solo se 
+    \begin{align}
+        \forall \delta > 0 : \ \mathbb{B} = (a, \delta) \subset \mathbb{A} \qquad f(\mathbb{B} \ {a})
+    \end{align}
+    dove $\mathbb{A}$ è un aperto, l'immagine di $f$ è \textbf{densa} in $\mathbb{C}$.
+\end{theorem}
+
+\begin{theorem}{Teorema di Picard}
+    In ogni introno di una singolarità essenziale  $f$ assume tutti i valori
+    di $\mathbb{C}$, tranne che al più un valore, infinite volte.   
+\end{theorem}
+
+\begin{example}
+    La funzione 
+    \begin{gather*}
+        f(z) = e^{-\frac{1}{z}}
+    \end{gather*}
+    non assume mai valore in zero. 
+\end{example}
+
+\subsection{Trovare gli sviluppi di Laurent negli intorni delle singolarità}
+Si possono definire sviluppi di Laurent in diversi insiemi. Se si prende una qualunque
+funzione olomorfa, è posibile considerare diverse palle per poter determinare 
+l'espansione di Laurent, così che lo sviluppo in serie non sia lo stesso:
+lo sviluppo dipende dunque a seconda del punto di origine e dalla palla scelta.
+\begin{example}[Esempio di funzione espandibile in modi diversi]
+    Si considera lo sviluppo di 
+    \begin{gather*}
+        f(z) = \frac{1}{z(1 - z)}
+    \end{gather*}
+    Essa ha due singolarità $z = 0, z = 1$ sull'asse reale. Se ci si chiedesse 
+    quali sviluppi di Laurent esistano fuori dall'origine:
+    \begin{gather*}
+        \mathbb{B}_1 = (0, (0, 1)) \qquad \mathbb{B}_2(0, (1, \infty ))
+    \end{gather*}
+    Nel primo caso 
+    \begin{gather*}
+        \frac{1}{z}\frac{1}{z - 1} = \frac{1}{z} \sum_{n = 0}^{\infty } z^{n} = \sum_{m = 1}^{\infty } z^{m}  
+    \end{gather*}
+    L'origine è una singolarità che è un polo di ordine 1. Nel secondo caso invece
+    \begin{gather*}
+        \frac{1}{z} \frac{1}{z - 1} = \frac{1}{z} \frac{1}{z\left(\frac{1}{z} - 1\right)} = -\frac{1}{z^{2}} \frac{1}{1 - \frac{1}{z}}
+    \end{gather*}
+    Si espande dunque l'ultima frazione 
+    \begin{gather*}
+        - \frac{1}{z^{2} \sum_{n = 0}^{\infty } } \left(\frac{1}{z}\right)^{n} = -\sum_{n = 0}^{\infty } \left(\frac{1}{z}\right) ^{n + 2}
+    \end{gather*}
+    Questi due sviluppi sono ovviamente diversi
+\end{example}
+
+\end{document}
