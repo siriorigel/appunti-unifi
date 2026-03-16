@@ -1,0 +1,10 @@
+**/lab
+**/svg-inkscape
+**/*.aux
+**/*.fdb_latexmk
+**/*.fls
+**/*.idx
+**/*.ilg
+**/*.ind
+**/*.log
+**/*.synctex.gz
