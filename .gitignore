@@ -8,3 +8,7 @@
 **/*.ind
 **/*.log
 **/*.synctex.gz
+**/*.dat
+**/*.table
+**/*.dat
+**/*.script
