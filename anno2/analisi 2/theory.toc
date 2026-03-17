@@ -1,37 +1,43 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {section}{\numberline {1}Introduzione}{3}{}%
-\contentsline {section}{\numberline {2}Soluzione di un'equazione differenziale}{3}{}%
-\contentsline {section}{\numberline {3}Problemi di Cauchy}{3}{}%
-\contentsline {subsection}{\numberline {3.1}1° ordine}{3}{}%
-\contentsline {subsection}{\numberline {3.2}Ordini superiori}{3}{}%
-\contentsline {subsection}{\numberline {3.3}Unicità delle soluzioni}{4}{}%
-\contentsline {subsection}{\numberline {3.4}EDO Omogenea}{7}{}%
-\contentsline {section}{\numberline {4}Esistenza globale}{8}{}%
-\contentsline {section}{\numberline {5}Sistemi di equazioni differenziali}{9}{}%
-\contentsline {subsection}{\numberline {5.1}Equazioni differenziali di ordine n}{9}{}%
-\contentsline {section}{\numberline {6}Spazi di funzioni}{10}{}%
-\contentsline {section}{\numberline {7}Soluzione delle EDO}{13}{}%
-\contentsline {section}{\numberline {8}Spazi metrici}{15}{}%
-\contentsline {subsection}{\numberline {8.1}Esempio}{15}{}%
-\contentsline {subsection}{\numberline {8.2}Esempio - Distanza euclidea}{15}{}%
-\contentsline {section}{\numberline {9}Spazi normati}{16}{}%
-\contentsline {subsection}{\numberline {9.1}Esempio}{16}{}%
-\contentsline {subsection}{\numberline {9.2}Norme su $\mathbb {R}^n$}{16}{}%
-\contentsline {section}{\numberline {10}Accenni di topologia}{18}{}%
-\contentsline {section}{\numberline {11}Successioni di spazi metrici}{19}{}%
-\contentsline {subsection}{\numberline {11.1}Contrazioni}{20}{}%
-\contentsline {section}{\numberline {12}Teorema di esistenza e unicità di Cauchy}{23}{}%
-\contentsline {section}{\numberline {13}Introduzione}{26}{}%
-\contentsline {section}{\numberline {14}Topologia}{26}{}%
-\contentsline {section}{\numberline {15}Limiti}{27}{}%
-\contentsline {subsection}{\numberline {15.1}Teoremi utili per funzioni a due variabili}{27}{}%
-\contentsline {section}{\numberline {16}Derivate}{28}{}%
-\contentsline {subsection}{\numberline {16.1}Derivate di ordine successivo}{28}{}%
-\contentsline {section}{\numberline {17}Differenziabilità}{30}{}%
-\contentsline {subsection}{\numberline {17.1}Piano tangente}{31}{}%
-\contentsline {subsection}{\numberline {17.2}Derivate direzionali}{32}{}%
-\contentsline {subsection}{\numberline {17.3}funzioni composte}{33}{}%
-\contentsline {section}{\numberline {18}formula di Taylor}{35}{}%
-\contentsline {section}{\numberline {19}l'ottimizzazione}{38}{}%
-\contentsline {subsection}{\numberline {19.1}trovare il min/max assoluto}{38}{}%
+\contentsline {section}{\numberline {1}Introduzione}{2}{}%
+\contentsline {section}{\numberline {2}Soluzione di un'equazione differenziale}{2}{}%
+\contentsline {section}{\numberline {3}Problemi di Cauchy}{2}{}%
+\contentsline {subsection}{\numberline {3.1}1° ordine}{2}{}%
+\contentsline {subsection}{\numberline {3.2}Ordini superiori}{2}{}%
+\contentsline {subsection}{\numberline {3.3}Unicità delle soluzioni}{3}{}%
+\contentsline {subsection}{\numberline {3.4}EDO Omogenea}{6}{}%
+\contentsline {section}{\numberline {4}Esistenza globale}{7}{}%
+\contentsline {section}{\numberline {5}Sistemi di equazioni differenziali}{8}{}%
+\contentsline {subsection}{\numberline {5.1}Equazioni differenziali di ordine n}{8}{}%
+\contentsline {section}{\numberline {6}Spazi di funzioni}{9}{}%
+\contentsline {section}{\numberline {7}Soluzione delle EDO}{12}{}%
+\contentsline {section}{\numberline {8}Spazi metrici}{14}{}%
+\contentsline {subsection}{\numberline {8.1}Esempio}{14}{}%
+\contentsline {subsection}{\numberline {8.2}Esempio - Distanza euclidea}{14}{}%
+\contentsline {section}{\numberline {9}Spazi normati}{15}{}%
+\contentsline {subsection}{\numberline {9.1}Esempio}{15}{}%
+\contentsline {subsection}{\numberline {9.2}Norme su $\mathbb {R}^n$}{15}{}%
+\contentsline {section}{\numberline {10}Accenni di topologia}{17}{}%
+\contentsline {section}{\numberline {11}Successioni di spazi metrici}{18}{}%
+\contentsline {subsection}{\numberline {11.1}Contrazioni}{19}{}%
+\contentsline {section}{\numberline {12}Teorema di esistenza e unicità di Cauchy}{22}{}%
+\contentsline {section}{\numberline {13}Introduzione}{25}{}%
+\contentsline {section}{\numberline {14}Topologia}{25}{}%
+\contentsline {section}{\numberline {15}Limiti}{26}{}%
+\contentsline {subsection}{\numberline {15.1}Teoremi utili per funzioni a due variabili}{26}{}%
+\contentsline {section}{\numberline {16}Derivate}{27}{}%
+\contentsline {subsection}{\numberline {16.1}Derivate di ordine successivo}{27}{}%
+\contentsline {section}{\numberline {17}Differenziabilità}{29}{}%
+\contentsline {subsection}{\numberline {17.1}Piano tangente}{30}{}%
+\contentsline {subsection}{\numberline {17.2}Derivate direzionali}{31}{}%
+\contentsline {subsection}{\numberline {17.3}funzioni composte}{32}{}%
+\contentsline {section}{\numberline {18}formula di Taylor}{34}{}%
+\contentsline {section}{\numberline {19}l'ottimizzazione}{37}{}%
+\contentsline {subsection}{\numberline {19.1}trovare il min/max assoluto}{37}{}%
+\contentsline {subsection}{\numberline {19.2}Massimi e minimi vincolati}{41}{}%
+\contentsline {section}{\numberline {20}funzioni implicite}{42}{}%
+\contentsline {section}{\numberline {21}Curve parametriche}{45}{}%
+\contentsline {subsection}{\numberline {21.1}Integrali di linea di prima specie}{47}{}%
+\contentsline {subsubsection}{\numberline {21.1.1}applicazioni degli int. di 1^a specie}{48}{}%
+\contentsline {subsection}{\numberline {21.2}forme differenziali}{48}{}%
