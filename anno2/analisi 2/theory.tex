@@ -28,6 +28,7 @@
 \usepackage{pgfplots}
 \usepackage{pifont}
 \usepackage{imakeidx}
+\usetikzlibrary{patterns}
 %\usepackage{animate}
 %\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
 \pgfplotsset{compat=1.18}
@@ -245,7 +246,7 @@
         \item La funzione $y(x)=\frac{x^3}{27}$ \textbf{è soluzione}.
     \end{itemize}
     Per proseguire, ho bisogno di definire un \textbf{particolare tipo di funzioni} di cui mi servirò. 
-    \begin{inciso}[Funzione di \textbf{Lipshitz}]
+    \begin{aside}[Funzione di \textbf{Lipshitz}]
     Sia $g:\ [a,b]\to\R$, con $[a,b]\subseteq\R$. \\
     Dico che $g$ è una \textbf{funzione di Lipshitz}, o \textbf{funzione Lipshitziana}, in $[a,b]$ se
     $\forall z_1,z_2\in [a,b]$ risulta che:
@@ -277,7 +278,7 @@
     A livello \textbf{geometrico}, posso affermare che una funzione Lipshitziana non può avere \textbf{asintoti verticali}, dal
     momento che in essi la derivata \textbf{tende a $\pm\infty$}.
     \end{multicols}
-    \end{inciso}
+    \end{aside}
 
     \subsection{Unicità delle soluzioni}
     Il \textbf{teorema di Peano} ci ha fornito informazioni sull'\textbf{esistenza delle soluzioni}, ma ancora 
@@ -699,7 +700,7 @@
         \[y_0(x) = e^{\lambda x}\]
         è \textbf{soluzione dell'omogenea} \underbar{se e solo se} $\lambda$ è una \textbf{radice} del \textbf{polinomio caratteristico}.
 
-        \begin{proof}
+        \begin{proof}\hfill\\
             $y(x) = e^{\lambda x} \ \to$ scrivo le \textbf{derivate}:\\
             $y'(x) = \lambda \ e^{\lambda x}$\\
             $\vdots$\\
@@ -2608,7 +2609,7 @@ L'area del sottografico di $f(x,y)$ lungo la curva $\underline{r}(t)$ è proprio
 \end{proof}
 
 
-\subsubsection{applicazioni degli int. di 1^a specie} 
+\subsubsection{applicazioni degli int. di $1^a$ specie} 
 $\gamma$ sostegno di $\underline{x}(t):[a,b] \to \mathbb{R}^3$\\
 \bulletout \underbar{Massa di un filo con densità}:
 \begin{gather*}
@@ -2828,11 +2829,6 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
         \Rightarrow \int_{\gamma_1} \omega = \int_{\gamma_2} \omega 
     \end{gather*}
     \bulletout $3 \rightarrow 1$\\
-    %\begin{figure}[tbh]
-    %\centering
-    %\includesvg[width = 150 pt]{anal2}
-    %\caption{Grafico di $f$ generica in due variabili}\label{fig:testsvg}
-    %\end{figure}
     \begin{gather*}
         f(x_1,x_2,x_3) = \int_{\gamma} \omega \\
         f(x_1+h,x_2,x_3) = \int_{\gamma \cup \varphi} \omega
@@ -2849,6 +2845,2502 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
         \frac{\partial f}{\partial x_1} (x_1,x_2,x_3) = a_1(x_1,x_2,x_3)
     \end{gather*}
 \end{proof}
+
+
+\begin{proposition}[Forme chiuse e forme esatte]
+    \underbar{sia} $\omega$ una forma differenziale $C^1$ in $A \subseteq \mathbb{R}^n$
+    \begin{gather*}
+        \omega = a_1(x) dx_1 + \ ... \ + a_n(x) dx_n
+    \end{gather*}
+    Dove $x= (x_1,x_2, \ ... , x_n)$\\
+    Si dice che $\omega$ è \textbf{chiusa} \underbar{se}
+    \begin{gather*}
+        \forall i,j = 1, \ ... \ ,n \quad i \neq j \qquad \text{risulta}\\
+        \frac{\partial a_i(x)}{ax_j} = \frac{\partial a_j(x)}{\partial ax_i} \qquad \forall x \in A
+    \end{gather*}
+    Cosa diventa se n=2\\
+    \end{proposition}
+
+
+\begin{theorem}
+    \underbar{sia} $A \subset \mathbb{R}^3$ e $\omega$ una forma differenziale $C^1$ in $A$ \\
+    \underbar{se} $\omega$ è esatta \underbar{allora} $\omega$ è chiusa\\
+    (vale anche in $\mathbb{R}^3 \ \forall n \geq 2$)
+\end{theorem}
+
+\begin{proof}
+    Se $\omega$ è esatta, $\omega = df$, cioè $a_1 = \frac{\partial f}{\partial x_1} \quad a_2 = \frac{\partial f}{\partial x_2} \quad a_3 = \frac{\partial f}{\partial x_3}   $\\
+    con $f$ potenziale di $\omega$.\\
+    Scegliete $i,j = 1,2,3$ con $i \neq j$\\
+    Poichè $\frac{\partial f}{\partial x_i}$ e $\frac{\partial f}{\partial x_j}$ sono $C^1$ sono derivabili e le loro derivate sono continue\\
+    In particolare esistono e sono continue:
+    \begin{gather*}
+        \frac{\partial^2 f}{\partial x_i\partial x_j} \quad \text{e} \quad \frac{\partial^2 f}{\partial x_j\partial x_i} 
+    \end{gather*}
+    La continuità e il teorema di Schwarz garantiscono che sono uguali allora:
+    \begin{gather*}
+        \frac{\partial}{\partial x_j} a_i = \frac{\partial}{\partial x_j} (\frac{\partial f}{\partial x_i}) = \frac{\partial}{\partial x_1}(\frac{\partial f}{\partial x_j}) = \frac{\partial}{\partial x_1} a_j
+    \end{gather*}
+\end{proof}
+
+
+\begin{definition}
+    \begin{gather*}
+        rot F = \nabla_x F =\\
+        \det\begin{pmatrix}
+            i & j & k\\
+            \frac{\partial}{\partial x_1} & \frac{\partial}{\partial x_2} & \frac{\partial}{\partial x_3}\\
+            F_1 & F_2 & F_3
+        \end{pmatrix}\\
+        = \underline{i} (\frac{\partial F_3}{\partial x_2} + \frac{\partial F_2}{\partial x_3}) + \underline{j} (\frac{\partial F_1}{\partial x_3} + \frac{\partial F_3}{\partial x_1}) + \underline{k} (\frac{\partial F_2}{\partial x_1} + \frac{\partial F_1}{\partial x_2})
+    \end{gather*}
+\end{definition}
+
+
+\begin{theorem}
+    \underbar{sia} $F \in C^1(A)$\\
+    \underbar{se} $F$ è conservativo \underbar{allora}\\
+    \begin{gather*}
+        \text{rot } F \equiv 0 \text{($F$ è irrotazionale)}
+    \end{gather*}
+\end{theorem}
+
+
+\begin{theorem}
+    \underbar{se} $\omega$ è una fomra differenziale \textbf{chiusa} definita e $C^1$ in un insieme semplicemente connesso $A$\\
+    \underbar{allora} $\exists$ una primitiva di $\omega$ definita in $A$.
+\end{theorem}
+
+\begin{observation}
+    Un insieme si dice semplicemente connesso se data una curva contenuta in quellinsieme posso deformarla in modo continuo fino a ridurla a un punto.
+\end{observation}
+
+\section{insiemi semplicemente connessi}
+\begin{definition}[\textbf{non rigorosa} di semplicemente connesso]
+    Un aperto $A$ si dice semplicemente conensso \underbar{se} è connesso e inoltre ogni curva chiusa è internamente contenuta in $A$ può essere ridotta mediante una deformazione continua in un unico punto senza mai uscire da $A$
+\end{definition}
+
+\begin{aside}
+    Tutti gli insiemi connessi sono semplicemente connessi
+    Tutti gli insieme stellati sono semplicemente connessi
+\end{aside}
+
+
+\begin{definition}[insieme stellato]
+    Un insieme $A$ si dice stellato\\
+    \underbar{se} $\exists \ P_0 \in A \ t.c. \ \forall P \in A$: \tab tutto il segmento ci estremi $P$ e $P_0$ è contenuto in $A$
+\end{definition}
+
+
+Per introdurre la seconda def. di semplicemente connesso serve introdurre il concetto di Omotopia tra curve:
+\begin{definition}[Omotopia tra curve]
+    Siano $\gamma_1$ e $\gamma_2$ curve contenute in un aperto connesso $A \subseteq \mathbb{R}^2$ o $A \subseteq \mathbb{R}^3$ e supponiamo che:\\
+    $\varphi_1[a,b] \to A$ \tab sia una cruva parametrica di $\gamma_1$\\
+    $\varphi_2[a,b] \to A$ \tab sia una cruva parametrica di $\gamma_2$\\
+    tali che: \tab $\varphi_1(a) = \varphi_2(a) \ $  $ \ \varphi_1(b) = \varphi_2(b)$\\
+    $\gamma_1$ e $\gamma_2$ si dicono \textbf{omotope} in $A$ \underbar{se} esiste una funzione continua: $\phi(t, \lambda) \quad t \in [a,b] \quad \lambda \in [0,1]$\\
+    tale che:
+    \begin{enumerate}
+        \item $\phi(t, 0) = \varphi_1(t) \quad \phi(t,1) = \varphi_2(t) \quad \forall t \in [a,b]$
+        \item $\phi(a, \lambda) = P_a \quad \phi(b , \lambda) = P_b \quad \forall \lambda \in [0,1]$
+    \end{enumerate}
+    E infine che $\forall \lambda \in [0,1]$ la curva $\phi_\lambda$ di equazione $\phi = \phi(t,\lambda)$ sia contenuta in $A$.
+    \begin{center}
+        \begin{tikzpicture}
+            \draw(0,0) ..controls(1,1.5).. (2,1) node[at start, left]{$P_a$} node[midway, above]{$\gamma_1$};
+            \draw(0,0) ..controls(1,-0.5).. (2,1) node[at end, right]{$P_b$} node[midway, below]{$\gamma_2$};
+            \draw[dashed](0,0) ..controls(1,1).. (2,1);
+            \draw[dashed](0,0) ..controls(1,0).. (2,1);
+            \node at(1,2){$\lambda = 0$};
+            \node at(1,-1.6){$\lambda = 1$};
+            \draw(1,0) circle (2.5);
+            \node at(-2,0){$A$};
+        \end{tikzpicture}
+    \end{center}
+\end{definition}
+
+
+\begin{proposition}
+    Se $\gamma_1$ e $\gamma_2$ sono chiuse $\varphi_1(a) = \varphi_1(b)$,$\varphi_2(a) = \varphi_2(b)$, esse si dicono omotope in $A$ se vale la definizione precedente con la condizione 2) sostituita dalla seguente:
+    \begin{gather*}
+        2)' \quad \varphi(a,\lambda) = \varphi(b,\lambda) \quad \forall \lambda \in [0,1]
+    \end{gather*}
+\end{proposition}
+
+
+\begin{definition}[\textbf{rigorosa} di essere semplicemente connesso]
+    Un aperto $A$ di $\mathbb{R}^2$ o di $\mathbb{R}^3$ si dice semplicemente connesso se è connesso e due curve qualsiasi contenute in $A$ e aventi gli stessi estremi sono omotrope.\\
+    La def. può essere data in termini di curve chiuse: ogni curva chiusa contenuta in $A$ è omotopa a una curva costante (cioè che si riduce ad un solo punto).
+\end{definition}
+
+
+\begin{theorem}
+    \underbar{Sia} $\omega= a_1 \ (x,y) \ dx + a_2 \ (x,y) \ dy$ una forma differenziale $C^1$\\
+    \underbar{e} chiusa in un insieme $A \subseteq \mathbb{R}^2$ semplicemente connesso\\
+    \underbar{Allora} $\omega$ è esatta.\\
+    Vale un enunciato analogo in $\mathbb{R}^3$
+    \begin{center}
+        \begin{tikzpicture}
+            \draw(0,0) ..controls(1,1.5).. (2,1) node[at start, left]{$P_a$} node[midway, above]{$\gamma_1$};
+            \draw(0,0) ..controls(1,-0.5).. (2,1) node[at end, right]{$P_b$} node[midway, below]{$\gamma_2$};
+            \draw(1,0) circle (2.5);
+            \node at(-2,0){$A$};
+        \end{tikzpicture}
+    \end{center}
+\end{theorem}
+
+\begin{proof}
+    Siano $\gamma_1$ e $\gamma_2$ due curve in $A$ cge gabbi gku stessu estremi. Poich $A$ è semplicemente connesso $\gamma_1$ e $\gamma_2$ sono omotope.\\
+    $\exists \gamma(t, \lambda) :[a,b]\times[0,1] \to A$ che soddisfa le proprietà enunciate nella def. di omotopia.\\
+    Definisco $\forall \lambda \in [0,1]$
+    \begin{gather*}
+        I(\lambda) = \int_{\text{curva }\gamma_\lambda} \omega = \int_{a}^{b} a_1 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial x}{\partial t}(t,\lambda) + a_2 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial y}{\partial t}(t,\lambda) \ dt
+    \end{gather*}
+    Suppongo che $\varphi(t,\lambda)$ \underbar{sia} $C^1\left( [a,b] \times [0,1] \right)$ e che le derivate secode miste $\frac{\partial^2 x}{\partial \lambda \partial t}, \frac{\partial^2 y}{\partial \lambda \partial t}$ \underbar{siano} continue.\\
+    Ora calcolo la derivata rispetto a $\lambda$ i calcoli del passaggio precedente:
+    \begin{gather*}
+        \frac{d}{d\lambda}\left(I(\lambda) \right) = \frac{d}{d\lambda}\left(\int_{\text{\tiny curva \normalsize}\gamma_\lambda} \omega\right)  = \int_{a}^{b} \frac{d}{d\lambda}\left(a_1 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial x}{\partial t}(t,\lambda) + a_2 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial y}{\partial t}(t,\lambda)\right)  \ dt
+    \end{gather*}
+    Voglio dimostrare che l'ipotesi $\omega$ chiusa implica che:
+    \begin{gather*}
+        \int_{a}^{b} \frac{d}{d \lambda}\left( \ \ \  \right)dt\\
+        = \int_{a}^{b} \frac{d}{dt}\left( a_1(x(t, \lambda),y(t, \lambda))\frac{\partial x}{\partial \lambda}(t, \lambda) + a_2(x(t, \lambda),y(t, \lambda))\frac{\partial y}{\partial \lambda}(t, \lambda)\right)  \ dt \\
+        = \left[a_1(x(t, \lambda),y(t, \lambda))\frac{\partial x}{\partial \lambda}(t, \lambda) + a_2(x(t, \lambda),y(t, \lambda))\frac{\partial y}{\partial \lambda}(t, \lambda)\right]_{t=a}^{t=b} = 0 
+    \end{gather*}
+    \begin{gather*}
+        \frac{d}{d\lambda}\left[ a_1(x(t,\lambda),y(t,\lambda)) \frac{\partial x}{\partial t}(t, \lambda) + a_2(x(t,\lambda),y(t,\lambda)) \frac{\partial y}{\partial t}(t, \lambda) \right] \qquad \boxed{I} \\
+        \frac{d}{d t}\left[a_1(x(t, \lambda),y(t, \lambda))\frac{\partial x}{\partial \lambda}(t, \lambda) + a_2(x(t, \lambda),y(t, \lambda))\frac{\partial y}{\partial \lambda}(t, \lambda)\right] \qquad \boxed{II}\\
+    \end{gather*}
+    Voglio far vedere che le loro derivate sono uguali:
+    \begin{gather*}
+        \frac{d}{d\lambda} \boxed{I} = \left[ \frac{\partial a_1}{\partial x}( '' ) \frac{\partial x}{\partial \lambda}( '' )+ \frac{\partial a_1}{\partial y}( '' )\frac{\partial y}{\partial \lambda}\right]\frac{\partial x}{\partial t}( '' ) + a_1( '' ) \frac{\partial^2 x}{\partial \lambda \partial t} + \left[ \frac{\partial a_2}{\partial x}( '' )\frac{\partial x}{\partial \lambda} + \frac{\partial a_2}{\partial y}( '' )\frac{\partial y}{\partial \lambda} \right]\frac{\partial y}{\partial t} + a_2( '' )\frac{\partial^2 y}{\partial \lambda \partial t}\\
+        \frac{d}{d \lambda} \boxed{II} = \left[ \frac{\partial a_1}{\partial x}( '' ) \frac{\partial x}{\partial t}( '' )+ \frac{\partial a_1}{\partial y}( '' )\frac{\partial y}{\partial t}\right]\frac{\partial x}{\partial \lambda}( '' ) + a_1( '' ) \frac{\partial^2 x}{\partial t \partial \lambda} + \left[ \frac{\partial a_2}{\partial x}( '' )\frac{\partial x}{\partial t} + \frac{\partial a_2}{\partial y}( '' )\frac{\partial y}{\partial t} \right]\frac{\partial y}{\partial \lambda} + a_2( '' )\frac{\partial^2 y}{\partial t \partial \lambda}
+    \end{gather*}
+    So che è chiusa cioè che $\forall(x,y) \in A \frac{\partial^2 a_1 (x,y)}{\partial y}(x,y) = \frac{\partial^2 a_2}{\partial x} (x,y)$
+\end{proof}
+
+\section{famiglia di curve}
+\begin{definition}[EDO famiglia di curve]
+    \begin{gather*}
+        F_c(x,y) = 0
+    \end{gather*}
+    famiglia ad 1 parametro ($c \in \mathbb{R}$) di curve.
+    Le ipotesi che devono essere soddisfatte sono
+    \begin{itemize}
+        \item $F_c \in C^1(A)$ Aperto $\subseteq \mathbb{R}^2$, derivabile rispetto c.\\
+        \item $(x,y)$ regolare, $\frac{\partial F_c}{\partial y} \neq 0$
+    \end{itemize}
+    La seconda ipotesi vuol dire che una curva parametrica la possiamo considerare come grafico in $f(x)$ in un punto in cui è regolare.\\
+    Quindi cerco $y = y(x) \ t.c. \ \boxed{F_c(x,y(x)) = 0} \quad \forall x \in I$
+    Derivando si ottiene:
+    \begin{gather*}
+        \forall x \in I \qquad \frac{d}{dx}(F_c (x,y(x))) = 0\\
+        \text{cioè } \boxed{\frac{\partial F_c(x,y(x))}{\partial x} + y'(x \frac{\partial F_c(x,y(x))}{\partial y}) = 0} \quad \forall c
+    \end{gather*}
+    Cerco di ricavare $c$ e trovo l'equazione:
+    \begin{gather*}
+        f(x,y,y') = 0
+    \end{gather*}
+\end{definition}
+
+
+\section{Integrali per funzioni a più variabili}
+Quando si parla di questi integrali si parla di più concetti.\\
+Ad esempio si può parlare di area in tre o più dimensioni, in intuizione geometrica sarebbe il volume sotteso dal grafico. Anche se non sembra non sono concetti chiari poichè devo definire cosa intendo per area e per volume e fare una th di integrazione si intende definire volumi di insiemi e aree di insiemi, l'area non è un concetto universale (se si parla di casi più particolare), ad es. si prende un quadrato di $x \leq 1$ e $y\leq 1$ ma si prendono solo le x t.c siano razionali e y t.c siano irrazionali, e questo caso è difficile da definire un'area.\\
+I casi più  completi sono le integrazioni di Lebeqe che non tratteremo in questo corso ci concentreremo invece sull'integrazione di cauchuy-rimann e quella di jordan.\\
+Prendiamo per prima cosa il dominio:
+\tiny
+\begin{center}
+    \begin{tikzpicture}
+        %asse x
+        \draw[->] (0,0) -- (5,0) node[right] {\normalsize$x$\tiny};
+        %asse y
+        \draw[->] (0,0) -- (0,5) node[above] {\normalsize$y$\tiny};
+        \draw(-0.2,0.5) -- (0.2,0.5) node[left, at start]{$y_0 = c$};
+        \draw(-0.2,1) -- (0.2,1) node[left, at start]{$y_1$};
+        \draw(-0.2,1.5) -- (0.2,1.5) node[left, at start]{$y_2$}; 
+        \draw(-0.2,2) -- (0.2,2) node[left, at start]{$y_3$};
+        \draw(-0.2,2.5) -- (0.2,2.5) node[left, at start]{$y_4$};
+        \draw(-0.2,3) -- (0.2,3) node[left, at start]{$y_5 = d$};  
+        \draw(0.5,-0.2) -- (0.5,0.2) node[below, at start]{$x_0 = a$};
+        \draw(1,-0.2) -- (1,0.2) node[below, at start]{$x_1$};
+        \draw(1.5,-0.2) -- (1.5,0.2) node[below, at start]{$x_2$};
+        \draw(2,-0.2) -- (2,0.2) node[below, at start]{$x_3$};
+        \draw(2.5,-0.2) -- (2.5,0.2) node[below, at start]{$x_4$};
+        \draw(3,-0.2) -- (3,0.2) node[below, at start]{$x_5 = b$};
+        %griglia
+        \draw (0.5,0.5) -- (0.5,3);
+        \draw (1,0.5) -- (1,3);
+        \draw (1.5,0.5) -- (1.5,3);
+        \draw (2,0.5) -- (2,3);
+        \draw (2.5,0.5) -- (2.5,3);
+        \draw (3,0.5) -- (3,3);
+        \draw (0.5,0.5) -- (3,0.5);
+        \draw (0.5,1) -- (3,1);
+        \draw (0.5,1.5) -- (3,1.5);
+        \draw (0.5,2) -- (3,2);
+        \draw (0.5,2.5) -- (3,2.5);
+        \draw (0.5,3) -- (3,3);
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        %asse x
+        \draw[->] (0,0) -- (4,0) node[right] {\normalsize$x$\tiny};
+        %asse y
+        \draw[->] (0,0) -- (0,3) node[above] {\normalsize$y$\tiny};
+        \draw(-0.2,2) -- (0.2,2) node[left, at start]{$y_k$};
+        \draw(-0.2,1.5) -- (0.2,1.5) node[left, at start]{$y_{k-1}$};
+        \draw(2, -0.2) -- (2,0.2) node[below, at start]{$x_h$};
+        \draw(3, -0.2) -- (3,0.2) node[below, at start]{$x_{h-1}$};
+        %rettangolo
+        \draw (2,1.5) -- (2,2) -- (3,2) -- (3,1.5) -- (2,1.5);
+        \node at (2.5,1.75) {$I_{hk}$};
+        \node at (2.5, 0.5) {$\frac{b-a}{n}$};
+        \node at (0.8, 1.75) {$\frac{d-c}{n}$};
+    \end{tikzpicture}
+\end{center} 
+\normalsize
+Prendo $n$ parametro, $n\in \mathbb{N}$\\
+divido $[a,b]$ in $n$ parti uguali.\\
+divido $[c,d]$ in $n$ parti uguali.\\
+Ottengo così una griglia di $n^2$ rettangoli.\\
+Chiamo $I_{hk}$ il rettangolo in posizione $h,k$\\
+Area di $I_{hk} = |I_{hk}| = \frac{b-a}{n}\frac{d-c}{n}$ 
+
+
+Definisco somma di Cauchy-Riemann come:
+\begin{definition}
+    \begin{gather*}
+        S_n = \sum_{h,k = 1}^{n} f(P_{hk})|I_{hk}| \\
+    \end{gather*}
+\end{definition}
+
+
+\tiny
+\begin{center}
+    \begin{tikzpicture}
+        %assi xyz
+        \draw[->](0,0) -- (5,0) node[right] {\normalsize$y$\tiny};
+        \draw[->](0,0) -- (0,5) node[above] {\normalsize$z$\tiny};
+        \draw[->](0,0) -- (-3,-3) node[below right] {\normalsize$x$\tiny};
+        %parallelepipedo 1
+        \draw[red](-1,-1) -- (1,-1) -- (2,0);
+        \draw[red](-1,-1) -- (-1, 2);
+        \draw[red](1,-1) -- (1,2);
+        \draw[red](2,0) -- (2,3);
+        \draw[red](0,0) -- (0,3);
+        \draw[red](0,0) -- (-1,-1);
+        \draw[red](-1,2) -- (1,2) -- (2,3) -- (0,3) -- (-1,2);
+        %parallelepipedo 2
+        \draw[blue](2,0) -- (4,0) -- (3,-1) -- (1,-1) -- (2,0);
+        \draw[blue](2,0) -- (2,2.5);
+        \draw[blue](4,0) -- (4,2.5);
+        \draw[blue](3,-1) -- (3,1.5);
+        \draw[blue](2,2.5) -- (4,2.5) -- (3,1.5) -- (1,1.5) -- (2,2.5);
+        %parallelepipedo 3
+        \draw[green](-2,-2) -- (0,-2) -- (1,-1) -- (-1,-1) -- (-2,-2);
+        \draw[green](-2,-2) -- (-2,0.7);
+        \draw[green](0,-2) -- (0,0.7);
+        \draw[green](1,-1) -- (1,1.7);
+        \draw[green](-2,0.7) -- (0,0.7) -- (1,1.7) -- (-1,1.7) -- (-2,0.7);
+        %parallelepipedo 4
+        \draw[cyan](1,-1) -- (3,-1) -- (2,-2) -- (0,-2);
+        \draw[cyan](1,-1) -- (1, 1);
+        \draw[cyan](3,-1) -- (3, 1);
+        \draw[cyan](2,-2) -- (2,0);
+        \draw[cyan](1,1) -- (3,1) -- (2,0) -- (0,0) -- (1,1);
+        %P11
+        \filldraw[black] (-0.8,-1.5) circle (2pt) node[above right] {$P_{11}$};
+        \draw[dashed] (-0.8,-1.5) -- (-0.8,1.5);
+        \filldraw[black](-0.8,1.5) circle (2pt) node[above right] {$f(P_{11})$};
+        %P22
+        \filldraw[black] (2.5,-0.5) circle (2pt) node[above right] {$P_{22}$};
+        \draw[dashed] (2.5,-0.5) -- (2.5,2);
+        \filldraw[black](2.5,2) circle (2pt) node[above right] {$f(P_{22})$};
+        %P21
+        \filldraw[black] (0.5,-0.4) circle (2pt) node[above right] {$P_{21}$};
+        \draw[dashed] (0.5,-0.4) -- (0.5,2.5);
+        \filldraw[black](0.5,2.5) circle (2pt) node[above right] {$f(P_{21})$};
+        %P12
+        \filldraw[black] (1.8,-1.6) circle (2pt) node[above right] {$P_{12}$};
+        \draw[dashed] (1.8,-1.6) -- (1.8,0.4);
+        \filldraw[black](1.8,0.4) circle (2pt) node[above right] {$f(P_{12})$};
+    \end{tikzpicture}
+    \hfill\\
+    Questo è un esempio di somma di Cauchy-Riemann con $n=2$. In cui viene approssimata una funzione $f(x,y)$ con dei parallelepipedi.
+\end{center}
+\normalsize
+
+
+\begin{definition}
+    Diremo che la funzione $f:[a,b] \times [c,d]$, 
+    limitata, è integrabile sul rettangolo $R=[a,b] \times 
+    [c,d]$ se esiste finito il limite di  $\lim_{n \to \infty}s_n$ e 
+    \underbar{se} tale limite \textbf{non} dipende da come si sono scelti 
+    i punti di $P_{hk}$ nei rispettivi rettangoli ad ogni passo della costruzione. 
+\end{definition}
+
+\begin{example}
+    $f[0,1]\times[0,1] \to \mathbb{R}$ definita $f(x,y) =   \begin{cases}
+        1 & \text{se } x \in \mathbb{Q} \\
+        0 & \text{se } x \in \mathbb{R}\backslash\mathbb{Q}
+    \end{cases} $\\
+    $f$ NON è integrabile $\qquad S_n = \sum 1 |I_{hk}| = 1$\\
+\end{example}
+
+
+\begin{theorem}
+    \underbar{se} $f:[a,b] \times [c,d]$ è contuinua
+    \underbar{allora} è integrabile.\\
+    (no dim.)
+\end{theorem}
+
+
+\begin{center}
+    \begin{tikzpicture}
+        %assi x y e z
+            \draw[->](0,0) -- (8,0) node[right] {$y$};
+            \draw[->](0,0) -- (0,5) node[above] {$z$};
+            \draw[->](0,0) -- (-3.5,-3.5) node[below right] {$x$};
+            %parallelepipedo
+            \draw[very thick](1,-1) -- (-1,-3) -- (0,-3) -- (2,-1) -- (1,-1);
+            \draw[very thick](1,-1) -- (1,2);
+            \draw[very thick](-1,-3) -- (-1,0);
+            \draw[very thick](0,-3) -- (0,0);
+            \draw[very thick](2,-1) -- (2,2);
+            \draw[very thick](1,2) -- (-1,0) -- (0,0) -- (2,2) --(1,2);
+            %Parappellepipedo inclinato
+            \draw[very thick](2,-1) -- (6,-1) -- (4,-3) -- (0,-3);
+            \draw[very thick](6,-1) -- (6,1.5);
+            \draw[very thick](4,-3) -- (4,-0.7);
+            \draw[very thick](2,2) ..controls(3.5,2.1).. (6,1.5) node[midway, above]{$z=f(x,y)$};
+            \draw[very thick](6,1.5) ..controls(5,0.8).. (4,-0.7);
+            \draw[very thick](4,-0.7) ..controls(3.5,-1)and(1,0).. (0,0);
+            %punti e proiezioni
+            \draw(-3.2,-3) -- (-2.8,-3) node[at start, left]{$b$};
+            \draw(-1.2,-1) -- (-0.8,-1) node[at start, left]{$a$};
+            \draw[dashed](-2.8,-3) -- (-1,-3);
+            \draw[dashed](-0.8,-1) -- (1,-1);
+            \draw(1.8,-0.2) -- (2.2,0.2) node[above, at end]{$c$};
+            \draw(6.8,-0.2) -- (7.2,0.2) node[above, at end]{$d$};
+            \draw[dashed](1,-1) -- (1.8,-0.2);
+            \draw[dashed](6,-1) -- (6.8,-0.2);
+    \end{tikzpicture}
+    \begin{gather*}
+        \left( \int_{[a,b] \times [c,d]} f(x,y) \ dx\ dy \right) = \int_{c}^{d} \left( \int_{a}^{b} f(x,y) \ dx\right) \ dy  
+    \end{gather*}
+\end{center}
+
+\begin{example}
+    \begin{gather*}
+        \int_{[0,1] \times [0,2]} x e^{xy} \ dx \ dy\\
+        \int_{0}^{1} \left( \int_{0}^{2} f(x,y) \ dx \right) \ dy \Rightarrow e^{xy} |_{y=0}^{y=2}  
+    \end{gather*}
+\end{example}
+
+
+\begin{theorem}
+    \underbar{Se} $f:[a,b] \times [c,d] \to \mathbb{R}$ è continua\\
+    \underbar{allora} 
+    \begin{gather*}
+        \left( \int_{[a,b] \times [c,d]} f(x,y) \ dx \ dy\right) = \int_{c}^{d} \left( \int_a^b f(x,y) \ dx \right) \ dy = \int_{a}^{b} \left(\int_{c}^{d} f(x,y) \ dy\right) \ dx       
+    \end{gather*}
+\end{theorem}
+
+
+\begin{lemma}
+    \underbar{Se} $f(x,y)$ è continua in $[a,b] \times [c,d]$\\
+    La funzione $\varphi(x) = \int_{c}^{d} f(x,y) \ dy $ è continua in $[a,b]$.\\
+    Analogamente $\psi(y) = \int_{a}^{b} f(x,y) \ dx$ \tab\tab \tiny (no dim)\normalsize\\
+\end{lemma}
+
+
+Ho diviso l'intervallo in varie parti:
+\begin{center}
+    \tiny
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (4,0) node[right] {\normalsize$x$\tiny};
+        \draw(0.5,-0.2) -- (0.5,0.2) node[below, at start]{$a$};
+        \draw(1,-0.2) -- (1,0.2);
+        \draw(1.5,-0.2) -- (1.5,0.2) node[below, at start]{$x_{h-1}$};
+        \draw(2,-0.2) -- (2,0.2)  node[below, at start]{$x_h$};
+        \draw(2.5,-0.2) -- (2.5,0.2);
+        \draw(3,-0.2) -- (3,0.2) node[below, at start]{$b$};
+        \draw[red](1.5,0) -- (2,0) node[above, midway]{$\textcolor{white}{x_h^*}$};
+    \end{tikzpicture}
+    \normalsize
+\end{center}
+
+
+\begin{gather*}
+    \int_{a}^{b} \ dx = \sum_{h=1}^{n} \int_{x_{h-1}}^{x_h} \varphi(x) \ dx \overset{\text{\tiny th. della m int. \normalsize}}{=} \sum_{h=1}^{n} \varphi(x_h^*) (x_h - x_{h-1}) = \left(\frac{b-a}{n}\right) \sum_{h=1}^{n} \varphi(x_h^*)\\
+\end{gather*}
+Nell'ultimo passaggio praticamente si è considerato che ogni intervallo è uguale a $\frac{b-a}{n}$ e questo termine è moltiplicato per ogni termine della sommatoria, siccome non dipende dall'indice si porta   in evidenza.
+\begin{gather*}
+    = \left(\frac{b-a}{n}\right) \sum_{h=1}^{n} \int_{c}^{d} f(x_h^* , y) \ dy = \left(\frac{b-a}{n}\right) \sum_{k=1}^{n} \int_{y{k-1}}^{y_k} f(x_h^*,y) \ dy\\
+\end{gather*}
+Ora siamo passati dalla funzione $\varphi(x^*_h)$ a $f(x^*_h,y)$, lo possiamo fare perchè $\varphi(x) = \int_{c}^{d} f(x,y) \ dy$ in generale ero solo partito dall'intervallo $[a,b]$ ma posso farlo con entrambi, così facendo posso riscrivere l'integrale con la sommatoria e riapplicare il th. della media integrale per finire i passaggi.
+\begin{gather*}
+    = \left(\frac{b-a}{n}\right) \sum_{h=1}^{n} \sum_{k=1}^{n} f(x_h^*,y_k^*) \underset{\left(\frac{d-c}{n}\right)}{\left(y_k - y_{k-1}\right) } \\
+    = \sum_{h,k = 1}^{n} f(x_h^*,y_k^*) \underbrace{\left(\frac{b-a}{n}\right)\left(\frac{d-c}{n}\right)}_{\left\lvert I_{hk} \right\rvert }\\
+    = \sum_{h,k=1}^n f(x_h^*,y_k^*) |I_{hk}| 
+    \end{gather*}
+Si ricorda che abbiamo supposto che la funzione sia continua, e quindi integrabile. Arriviamo ad una particolare somma di rimann che dipende dai punti che non possiamo scegliere arbitrariamente ma ci sono stati forniti dal th. della media integrale.\\
+
+
+\subsection{Integrali su domini non rettangolari}
+\begin{definition}
+    \underbar{sia} $f:\Omega \to \mathbb{R}$ , con $\Omega \subseteq \mathbb{R}^2$ limitato\\
+    \underbar{sia} $R = [a,b] \times [c,d]$ un rettangolo contenente $\Omega$ \\
+    e \underbar{sia} $\tilde{f}:R \to \mathbb{R}$ definita: $\tilde{f}(x,y) = \begin{cases}
+        f(x,y) & \text{se } (x,y) \in \Omega \\
+        0 & \text{se } (x,y) \in R \backslash \Omega
+    \end{cases}$\\
+    \underbar{Se} $\tilde{f}$ è integrabile su $R$ diremo che $f$ è integrabile su $\Omega$ e:
+    \begin{gather*}
+        \int_{R} \tilde{f}(x,y) \ dx \ dy = \int_{\Omega} f(x,y) \ dx \ dy
+    \end{gather*}
+\end{definition}
+
+
+\begin{definition}[insiemi semplici e regolari]
+    $E \subseteq \mathbb{R}^2$ si duce y-semplice se è del tipo:
+    \begin{gather*}
+        E \{ (x,y):x \in [a,b] \quad g_1(x) \leq y \leq g_2(x) \ \}
+    \end{gather*} 
+    con $g_1,g_2:[a,b] \to \mathbb{R}$ continue\\
+    Inoltre si dice \underbar{regolare} se è unione di un numero finito di insiemi semplici.
+\end{definition}
+
+
+\begin{center}
+    \tiny
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (3,0) node[right] {\normalsize$x$\tiny};
+        \draw[->](0,0) -- (0,3) node[above] {\normalsize$y$\tiny};
+        \draw(-0.2,1) -- (0.2,1) node[left, at start]{$1$};
+        \draw(-0.2,2) -- (0.2,2) node[left, at start]{$2$};
+        \draw(1,-0.2) -- (1,0.2) node[below, at start]{$1$};
+        \draw(2,-0.2) -- (2,0.2) node[below, at start]{$2$};
+        \draw[dashed](1,1) -- (1,2) -- (2,2);
+        \draw(1,1) -- (2,1) -- (2,2);
+        \draw(1,1) -- (2,2);
+        \node at (1.7,1.3) {$E$};
+    \end{tikzpicture}
+    \hfill\\
+    Questo grafico rappresenta un caso in cui una funzione è sia x-semplice sia y-semplice.
+    \normalsize
+\end{center}
+
+
+Nello specifico il grafico descrive:
+\begin{gather*}
+    E = \{ (x,y) 1 \leq x \leq 2 \quad 1\leq y \leq x \}
+\end{gather*}
+
+\subsection{Funzioni x-semplici e y-semplici}
+\begin{definition}[insiemi y-semplici]
+    Un insieme $E \subseteq \mathbb{R}^2$ \\
+    y-semplice è del tipo:
+    \begin{gather*}
+        E = \{ (x,y): x \in [a,b], \quad g_1(x) \leq y \leq g_2(x) \}
+    \end{gather*}
+    Dove $g_1,g_2:[a,b] \to \mathbb{R}$ sono continue
+\end{definition}
+*Un nome spesso usato per y-semplice è "normale rispetto alle x"\\
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (4,0) node[right] {$x$};
+        \draw[->](0,0) -- (0,3) node[above] {$y$};
+        \draw(1,-0.2) -- (1,0.2) node[below, at start]{$a$};
+        \draw(3,-0.2) -- (3,0.2) node[below, at start]{$b$};
+        \draw(1,1) -- (1,2);
+        \draw(3,0.5) -- (3,2.5);
+        \draw(1,2) .. controls (1.5,3) .. (3,2.5) node[midway, above]{$y=g_2(x)$};
+        \draw(1,1) .. controls (1.5,1.5) .. (3,0.5) node[midway, below]{$y=g_1(x)$};
+        \draw[dashed](1.2,0.2) -- (1.2,3.5);
+        \draw[dashed](2,0.2) -- (2,3.5);
+        \draw[dashed](2.8,0.2) -- (2.8,3.5);
+        \draw[red](1,0) -- (3,0);
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (4,0) node[right] {$x$};
+        \draw[->](0,0) -- (0,3) node[above] {$y$};
+        \draw(1.3,-0.2) -- (1.3,0.2) node[below, at start]{$a$};
+        \draw(3,-0.2) -- (3,0.2) node[below, at start]{$b$};
+        \draw(3,1) .. controls (2.5,2) .. (3,3);
+        \draw(3,1) .. controls (1,2) .. (3,3);
+        \draw[dashed](2,0.2) -- (2,3.5);
+        \draw[dashed](2.8,0.2) -- (2.8,3.5);
+        \draw[red](1.3,0) -- (3,0);
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (4,0) node[right] {$x$};
+        \draw[->](0,0) -- (0,3) node[above] {$y$};
+        \draw(1,-0.2) -- (1,0.2) node[below, at start]{$a$};
+        \draw(3.5,-0.2) -- (3.5,0.2) node[below, at start]{$b$};
+        \draw(1,1) rectangle (2,2);
+        \draw(2.5,1) rectangle (3.5,2);
+        \draw[dashed](1.2,0.2) -- (1.2,3.5);
+        \draw[dashed](2.8,0.2) -- (2.8,3.5);
+        \draw[red](1,0) -- (2,0);
+        \draw[red](2.5,0) -- (3.5,0);
+    \end{tikzpicture}
+\end{center}
+Perchè una funzione sia y-semplice deve poter essere proiettata sull'asse delle x in modo che formi un solo segmento, inoltre qualsiasi retta lo intersechi verticalmente intersecandolo al massimo in due punti.\\
+Perchè una funzione sia x-semplice deve poter essere proiettata sull'asse delle y in modo che formi un solo segmento, inoltre qualsiasi retta lo intersechi orizzontalmente intersecandolo al massimo in due punti.\\
+
+\begin{theorem}
+    \underbar{Se} $f:\Omega \to \mathbb{R}$ è continua in $\Omega$ e\\
+    \underbar{se} $\Omega$ è regolare\\
+    \underbar{allora} $f$ è integrabile
+    \begin{center}
+        \begin{tikzpicture}
+            \draw(0,0) rectangle (3,3);
+            \draw(0.5,1) -- (0.5,2);
+            \draw(2.5,0.5) -- (2.5,2.5);
+            \draw(0.5,2) .. controls (1.5,3) .. (2.5,2.5);
+            \draw(0.5,1) .. controls (1.5,0.5) .. (2.5,0.5);
+            \node at(1,2){$f$};
+            \node at(1.5,1.5){$\Omega$};
+        \end{tikzpicture}
+    \end{center}
+\end{theorem}
+
+
+\subsubsection{misura di un insieme del piano}
+\begin{definition}
+    Sia $\Omega \subseteq \mathbb{R}^2$ limitato\\
+    $\Omega$ si dice misuraile se la funzione costante 1 in $\Omega$ è integrabile.\\
+    In tal caso chiameremo misura (o area) di $\Omega$ e indicheremo con il simbolo $|\Omega|$ il numero:
+    \begin{gather*}
+        |\Omega| = \int_{\Omega} 1 \ dx \ dy
+    \end{gather*} 
+\end{definition}
+
+\begin{observation}
+    \hfill\\
+    \begin{enumerate}[$i)$]
+    \item\underbar{Se} $\Omega$ è regolare\\
+    \underbar{allora} è misurabile (perchè la funzione è continua in $\Omega$ e quindi integrabile per il th. precedente).
+    \item\underbar{Se} $\Omega=\{(x,y): x \in[0,1] \cap \mathbb{Q}, y \in [0,1]\}$ 
+    \end{enumerate}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->](1,1) -- (1,4) node[above] {$y$};
+            \draw[->](1,1) -- (4,1) node[right] {$x$};
+            \draw(1,0.8) -- (1,1.2) node[below, at start]{$0$};
+            \draw(3,0.8) -- (3,1.2) node[below, at start]{$1$};
+            \draw(0.8,1) -- (1.2,1) node[left, at start]{$0$};
+            \draw(0.8,3) -- (1.2,3) node[left, at start]{$1$};
+            \draw(1,1) rectangle (3,3);
+            \draw[dashed](1.2, 1) -- (1.2,3);
+            \draw[dashed](1.4, 1) -- (1.4,3);
+            \draw[dashed](1.6, 1) -- (1.6,3);
+            \draw[dashed](1.8, 1) -- (1.8,3);
+            \draw[dashed](2, 1) -- (2,3);
+            \draw[dashed](2.2, 1) -- (2.2,3);
+            \draw[dashed](2.4, 1) -- (2.4,3);
+            \draw[dashed](2.6, 1) -- (2.6,3);
+            \draw[dashed](2.8, 1) -- (2.8,3);
+            \draw[dashed](3, 1) -- (3,3);
+        \end{tikzpicture}
+    \end{center}
+        $\Omega$ NON è misurabile
+\end{observation}
+
+
+\begin{proposition}
+    Un insieme limitato $\Omega \subseteq \mathbb{R}^2$ è misurabile e ha misura zero\\
+    \underbar{se e solo se} vale la seguente propirietà: \\
+    Detto $R$ un rettangolo contenente $\Omega$ considerata la suddivisione di $R$ in $n^2$ rettangoli uguali (come nella def. di integrale) e detta
+    $A_n$ la somma delle aree dei rettangoli che hanno intersezione non vuota con $\Omega$ si ha che $A_n \to 0 $ per $n \to \infty$ 
+\end{proposition}
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (0,4) node[above] {$y$};
+        \draw[->](0,0) -- (4,0) node[right] {$x$};
+        \draw(1,1) rectangle (3.8,3.8);
+        \draw[dashed](1,0) -- (1,1) node[at start, below]{$a$};
+        \draw[dashed](1.4,0) -- (1.4,1);
+        \draw[dashed](1.8,0) -- (1.8,1);
+        \draw[dashed](2.2,0) -- (2.2,1);
+        \draw[dashed](2.6,0) -- (2.6,1);
+        \draw[dashed](3,0) -- (3,1);
+        \draw[dashed](3.4,0) -- (3.4,1);
+        \draw[dashed](3.8,0) -- (3.8,1) node[at start, below]{$b$};
+        \draw[dashed](0,1) -- (1,1) node[left, at start]{$c$};
+        \draw[dashed](0,1.4) -- (1,1.4);
+        \draw[dashed](0,1.8) -- (1,1.8);
+        \draw[dashed](0,2.2) -- (1,2.2);
+        \draw[dashed](0,2.6) -- (1,2.6);
+        \draw[dashed](0,3) -- (1,3);
+        \draw[dashed](0,3.4) -- (1,3.4);
+        \draw[dashed](0,3.8) -- (1,3.8) node [left, at start]{$d$};
+        \draw(1.4,1) -- (1.4,3.8);
+        \draw(1.8,1) -- (1.8,3.8);    
+        \draw(2.2,1) -- (2.2,3.8);
+        \draw(2.6,1) -- (2.6,3.8);
+        \draw(3,1) -- (3,3.8);
+        \draw(3.4,1) -- (3.4,3.8);
+        \draw(1,1.4) -- (3.8,1.4);
+        \draw(1,1.8) -- (3.8,1.8);    
+        \draw(1,2.2) -- (3.8,2.2);
+        \draw(1,2.6) -- (3.8,2.6);
+        \draw(1,3) -- (3.8,3);
+        \draw(1,3.4) -- (3.8,3.4);
+        \draw(1,3.8) -- (3.8,3.8);
+        \filldraw[fill=white](1,1.4) rectangle (1.4,1.8);
+        \filldraw[fill=white](1.4,1.4) rectangle (1.8,2.2);
+        \filldraw[fill=white](1.8,2.2) rectangle (2.2,2.6);
+        \filldraw[fill=white](2.6,1.8) rectangle (3,2.2);
+        \filldraw[fill=white](2.2,2.2) rectangle (2.6,2.6);
+        \filldraw[fill=white](3,1.4) rectangle (3.4,1.8);
+        \filldraw[fill=white](3.4,1.4) rectangle (3.8,1.8);
+    \end{tikzpicture}\\
+    Rappresentazione di una curva sul dominio.\\
+    $g(x)$ continua in $[a,b]$\\
+    \fbox{Il grafico di $g$ ha misura nulla}
+\end{center}
+
+
+\begin{proposition}
+    L'unione di un numero finito di insiemi di misura nulla ha misura nulla.
+\end{proposition}
+
+
+\begin{corollary}
+    Il bodro di un insieme semplice e il bordo di un insieme regolare hanno misura nulla.
+\end{corollary}
+
+
+\begin{theorem}
+    \underbar{Sia} $\Omega \to \mathbb{R}$ un dominio regoalre e $f:\Omega \to \mathbb{R}$ una funzione limitata continua a eccezione di un insieme di misura nulla di punti di discontinuità.\\
+    \underbar{Allora} è integrabile
+\end{theorem}
+
+
+\begin{theorem}
+    \underbar{se} $f:[a,b] \times [c,d] \to \mathbb{R}$ è limitatta e continua salvo un insieme di misrua nulla di punti di discontinuità\\
+    \underbar{allora} valgono ancora le formule di riduzione cioè:
+    \begin{gather*}
+        \int_{[a,b]\times[c,d]} f \ dx \ dy = \int_{a}^{b} \left( \int_{c}^{d} f(x,y) \ dy \right) \ dx = \int_{c}^{d} \left( \int_{a}^{b} f(x,y) \ dx \right) \ dy  
+    \end{gather*}
+\end{theorem}
+
+
+\begin{proposition}
+        \underbar{sia} $\Omega \subseteq \mathbb{R}^2$ limitato e misurabile, $f$ e $g$ funzioni integrabili in $\Omega$, $c \in \mathbb{R}$\\
+    \begin{enumerate}[$a)$]
+        \item l'integrale è lineare:
+        \begin{gather*}
+            \int_{\Omega} (f+g) \ dx \ dy = \int_{\Omega} f \ dx \ dy + \int_{\Omega} g \ dx \ dy\\
+            \int_{\Omega} c \ f \ dx \ dy = c \int_{\Omega} f \ dx \ dy
+        \end{gather*}
+        \item \underbar{se} $f\geq 0 \Rightarrow \int_{\Omega} f \ dx \ dy \geq 0$\\
+        \underbar{se} $f \geq g \Rightarrow \int_{\Omega} f \ dx \ dy \ \geq \int_{\Omega} g \ dx \ dy$\\
+        In particolare dato che $-|f| \leq f < |f|$
+        \begin{gather*}
+            \Rightarrow \ -\int_{\Omega} |f| \ dx \ dy \leq \int_{\Omega} f \ dx \ dy \leq \int_{\Omega} |f| \ dx \ dy \Rightarrow \left| \int_{\Omega} f \ dx \ dy \right| \leq \int_{\Omega} |f| \ dx \ dy
+        \end{gather*}
+        \item \underbar{se} $\Omega' \subseteq \Omega$ è misurabile \\
+        \underbar{allora} $f$ è integrabile in $\Omega'$, \underbar{se} inoltre $f \geq 0$ \\
+        \underbar{allora} $\int_{\Omega'} f \ dx \ dy \ \leq \int_{\Omega} f \ dx \ dy$
+        \item\underbar{se} $\Omega_1 \Omega_2$ sono domini regolari, $\Omega_1 \cap \Omega_2$ ha misura nulla e f è integrabile in $\Omega_1 \cup \Omega_2$\\
+        \underbar{allora} 
+        \begin{gather*}
+            \int_{\Omega_1 \cup \Omega_2} f \ dx \ dy = \int_{\Omega_1} f \ dx \ dy + \int_{\Omega_2} f \ dx \ dy
+        \end{gather*}
+        \item se $|\Omega| = 0 \Rightarrow \int_{\Omega} f \ dx \ dy = 0$
+    \end{enumerate}
+\end{proposition}
+
+
+\begin{theorem}[formula di riduzione nel caso di insiemi semplici]
+    \underbar{Sia} $f:\Omega \to \mathbb{R}$ continua e sia $\Omega$ un dominio x-semplice, cioè:
+    \begin{gather*}
+        \Omega = \{ (x,y) \mathbb{R}^2: y \in[c,d] h_1(y) \leq x \leq h_2(y)\}
+    \end{gather*}
+    con $h_1,h_2:[c,d] \to \mathbb{R}$ continue.\\
+    \underbar{Allora}:
+    \begin{gather*}
+        \int_{\Omega} f(x,y) \ dx \ dy = \int_{c}^{d} \left( \int_{h_1(y)}^{h_2(y)} f(x,y) \ dx \right) \ dy
+    \end{gather*}
+\textbf{Vale} una formula analoga per domini y-semplici
+\end{theorem}
+
+
+\begin{proof}
+Ora procediamo a dimostrarla
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->](0,0) -- (0,3) node[at end, left]{$y$};
+            \draw[->](0,0) -- (4,0) node[at end, below]{$x$};
+            \draw(-0.2,2) -- (0.2,2) node[at start, left]{$d$};
+            \draw(-0.2,1) -- (0.2,1) node[at start, left]{$c$};
+            \draw(1,-0.2) -- (1,0.2) node[at start, below]{$a$};
+            \draw(3,-0.2) -- (3,0.2) node[at start, below]{$b$};
+            \draw[thin, gray](1,1) rectangle (3,2) node[at end, right]{$R$};
+            \draw[ultra thick](1.5,2) -- (2.5,2);
+            \draw[ultra thick](1.3,1) -- (2,1);
+            \tiny
+            \draw[ultra thick](1.5,2) ..controls(1.7,1.3).. (1.3,1) node[midway, left]{$x=h_1(y)$};
+            \draw[ultra thick](2.5,2) ..controls(2.7,1.7)and(1.7,1.3).. (2,1) node[midway, right]{$x=h_2(y)$};
+            \normalsize
+            \node at(1.95,1.7){$\Omega$};
+            \draw(0,1.2) -- (3.5,1.2) node[at start, left]{$y$};
+            \tiny
+            \draw[dashed](1.55,1.2) -- (1.55,0) node[at end, below]{$h_1(y)$};
+            \draw[dashed](1.95,1.2) -- (1.95,0);
+            \node at(2.2,-0.2){$h_2(y)$};
+            \normalsize
+            \filldraw[black](0,1.2) circle (1.3pt);
+            \filldraw[black](1.55,1.2) circle (1.3pt);
+            \filldraw[black](1.95,1.2) circle (1.3pt);
+        \end{tikzpicture}
+    \end{center}
+    definisco 
+    \begin{gather*}
+        \tilde{f} : R \to \mathbb{R} \text{ come } \tilde{f}(x,y) = \begin{cases}
+            f(x,y) \quad \text{se } (x,y) \in \Omega\\
+            0 \quad \text{se } (x,y) \in R \backslash \Omega
+        \end{cases}\\
+        \int_{\Omega} f \ dx \ dy = \int_{R} \tilde{f} \ dx \ dy = \int_{c}^{d} \left( \int_{a}^{b} \tilde{f} (x,y) \ dx \right) \ dy \qquad \boxed{*} 
+    \end{gather*}
+    grafico di $\tilde{f}(x,y)$ come funzione di $x$ con $y$ fissato
+\begin{minipage}{0.48\textwidth}
+            \begin{tikzpicture}
+                \draw[->](0,0) -- (0,3) node[at end, left]{$z$};
+                \draw[->](0,0) -- (3,0) node[at end, below]{$x$};
+                \tiny
+                \draw(1,-0.2) -- (1,0.2) node[at start, below]{$h_1(y)$};
+                \draw(2,-0.2) -- (2,0.2) node[at start, below]{$h_2(y)$};
+                \normalsize
+                \draw(0.5,-0.2) -- (0.5,0.2) node[at start, below]{$a$};
+                \draw(2.5,-0.2) -- (2.5,0.2) node[at start, below]{$b$};
+                \draw[dashed](1,0) -- (1,1.5);
+                \draw[dashed](2,0) -- (2,1.5);
+                \draw(1,1.5) ..controls(1.2,1.7)and(1.4,1.3).. (2,1.5) node[midway, above]{$z=f(x,y)$};
+            \end{tikzpicture}
+\end{minipage}
+    \begin{gather*}
+        \int_{a}^{b} \tilde{f} \ dx = \left( \int_{a}^{h_1(y)} + \int_{h_1(y)}^{h_2(y)} + \int_{h_2(y)}^{b} \right) \tilde{f} (x,y) \ dx\\
+        = 0 + \int_{h_1(y)}^{h_2(y)} f(x,y) dx + 0 = \int_{h_1(y)}^{h_2(y)} f(x,y) \ dx 
+    \end{gather*}
+    Da adesso se torniamo al passaggio \fbox{*} 
+    \begin{gather*}
+        = \int_{c}^{d} \left( \int_{h_1(y)}^{h_2(y)} f(x,y) \ dx \right) \ dy 
+    \end{gather*}
+\end{proof}
+
+
+\subsection{Cambiamenti di variabili}
+\begin{gather*}
+    \int_{\Omega} f(x,y) dx \ dy
+\end{gather*}
+\begin{example}
+    \begin{gather*}
+        \Omega = \left[ B(0,2) \backslash B(0,1) \right] \\
+        \int_{\Omega} x^2 \ dx \ dy
+    \end{gather*}
+\end{example}
+\begin{wrapfigure}{r}{0.45\textwidth}
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (0,3.5) node[at end, left]{$\theta$};
+        \draw[->](0,0) -- (3,0) node[at end, below]{$\rho$};
+        \draw(1,0) rectangle (2,3) node[at end, right]{$\Omega'$};
+        \fill[pattern=north east lines](1,0) rectangle (2,3);
+        \draw(-0.2,-0.2) -- (0.2,0.2) node[at start, below]{$0$};
+        \draw(-0.2, 3) -- (0.2, 3) node[at start, left]{$2\pi$};
+        \node at(1,0)[below]{$1$};
+        \node at(2,0)[below]{$2$};
+    \end{tikzpicture}
+\end{wrapfigure}
+Cambio in coordinate polari:
+\begin{gather*}
+    (x,y) \to (\rho, \theta) = \begin{cases}
+        x = \rho \cos(\theta)\\
+        y = \rho \sin(\theta)
+    \end{cases}\\
+    \rho \geq 0 \qquad \theta \in [0,2\pi]
+\end{gather*}
+\begin{gather*}
+    \int_{\Omega '} \rho^2 \cos^2(\theta) \ dx \ dy \overset{?}{\to} (d\rho \ d\theta)
+\end{gather*}
+\hfill\\
+
+
+\subsection{cambiamento di differenziale}
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (0,3.5) node[at end, left]{$y$};
+        \draw[->](0,0) -- (3,0) node[at end, below]{$x$};
+        \potato{(1,0)}{1};
+        \node at(3.5,1.5){$\Omega$};
+        \tiny
+        \draw(1.3,1.5) ..controls(1.6,1.7).. (2,1.8) node[midway, above]{1};
+        \draw(1.5,1) ..controls(1.8,1.2).. (2.2,1.3) node[midway, below]{3};
+        \draw(1.3,1.5) ..controls(1.45,1.3).. (1.5,1) node[midway, left]{2};
+        \draw(2,1.8) ..controls(2.15,1.5).. (2.2,1.3) node[midway, right]{4};
+        \normalsize
+        \draw[rotate around={29:(0,0)}, gray](1.7,0.1) rectangle (2.7,0.7);
+    \end{tikzpicture}
+    \tab$\quad$
+    \begin{tikzpicture}
+        \draw(1.3,1) rectangle (2.3,1.5);  
+        \draw[dashed](1.3,0) -- (1.3,1) node[at start, below]{$U$};
+        \draw[dashed](2.3,0) -- (2.3,1) node[at start, below]{$U+dU$};
+        \draw[dashed](0,1) -- (1.3,1) node[at start, left]{$V$};
+        \draw[dashed](0,1.5) -- (1.3,1.5) node[at start, left]{$V+dV$};
+        \potato{(1,0)}{1};
+        \node at(3.5,1.5){$\Omega'$};
+        \draw[->](-2.5,1.5) -- (-3.5,1.5) node[above, midway]{\tiny{(trasf. non lineare)}};
+        \draw[->](0,0) -- (0,3.5) node[at end, left]{$V$};
+        \draw[->](0,0) -- (4,0) node[at end, below]{$U$};
+    \end{tikzpicture}
+\end{center}
+
+
+I vari lati distorti del parallelepipedo sono descritti dalle seguenti equazioni:
+\begin{align*}
+    &1: g(U,V+dV), h(U,V+dV)\\
+    &2: g(U,V), h(U,V)\\
+    &3: g(U+dU,V), h(U+dU,V)\\
+    &4: g(U+dU,V+dV), h(U+dU,v+dV)
+\end{align*}
+Fondamentalmente approssimeremo l'area del parallelepipedo irregolare ad una regolare per calcolarla...
+\begin{gather*}
+    \begin{cases}
+        x = g(U,V)\\
+        y = h(U,V)
+    \end{cases}
+    T:\underset{\subseteq \text{piano } (U,V)}{\Omega'} \to \underset{\subseteq \text{piano } (x,y)}{\Omega}
+\end{gather*}
+Supponiamo che:
+\begin{itemize}
+    \item $T$ sia biunivoca $\Omega ' \to \Omega$
+    \item le funzioni $g$ e $h$ siano $C^1 (\Omega')$
+    \item la matrice Jacobiana di $T$ ha det. $\neq 0$ in ogni $(U,V) \in \Omega'$
+\end{itemize}
+Con lo Jacobiano che è:
+\begin{gather*}
+    \mathcal{J} (U,V) = \begin{pmatrix}
+        \frac{\partial g}{\partial U} & \frac{\partial g}{\partial V}\\
+        \frac{\partial h}{\partial U} & \frac{\partial h}{\partial V}
+    \end{pmatrix}
+\end{gather*}
+
+
+\begin{theorem}[formula di cambiamento di variabili]
+    \underbar{se} $\Omega$ è regolare\\
+    \underbar{se} $T$ soddisfa le ipotesi scritte adesso\\
+    \underbar{allora}:
+    \begin{gather*}
+        \int_{\Omega} f(x,y) \ dx \ dy = \int_{\Omega'} f(g(U,V), h(U,V)) \left\lvert det \mathcal{J}_T (U,V) \right\rvert \ du \ dv 
+    \end{gather*}
+\end{theorem}
+
+
+\begin{gather*}
+    x = \rho \cos(\theta) = g(\rho , \theta)\\
+    y = \rho \sin(\theta) = h(\rho , \theta)
+\end{gather*}
+La mia Jacobiana diventa:
+\begin{gather*}
+    \mathcal{J} = \begin{pmatrix}
+        \cos(\theta) & -\rho \sin(\theta)\\
+        \sin(\theta) & \rho \cos(\theta)
+    \end{pmatrix}
+    det(\mathcal{J}) = \rho \cos^2(\theta) + \rho \sin^2(\theta) = \rho\\
+    \int_{\Omega} x^2 \ dx \ dy = \int_{\Omega'} \rho^2 \cos^2(\theta) \ d\rho = \int_{0}^{2\pi} \ d\theta (\cos^2(\theta) (4-\frac{1}{4}))\\
+    = \frac{15}{4} \int_{0}^{2\pi} \frac{1+\cos(2\theta)}{2} \ d\theta = \frac{15}{4} (0 + \pi) = \frac{15\pi}{4}
+\end{gather*}
+\begin{gather*}
+    \left(g(U,V+dV)-g(U,V), h(U,V+dV)-h(U,V)\right) \\
+    \approx \left( \frac{\partial g}{\partial V} dV, \frac{\partial h}{\partial V} dV \right) \left( \frac{\partial g}{\partial V} dU, \frac{\partial h}{\partial V} dU \right)\\
+    = \left( \frac{\partial g}{\partial V}, \frac{\partial h}{\partial V} \right) dV\\
+    \mathcal{J} (U,V) = \left\lvert \begin{pmatrix}
+        \frac{\partial g}{\partial U} & \frac{\partial g}{\partial V}\\
+        \frac{\partial h}{\partial U} & \frac{\partial h}{\partial V}
+    \end{pmatrix}\right\rvert dU \ dV
+\end{gather*}
+
+
+\section{integrali tripli}
+\begin{center}
+  \begin{tikzpicture}
+    %assi x y e z
+    \draw[->](0,0) --(5,0) node[anchor=north east]{$x$};
+    \draw[->](0,0) --(0,5) node[anchor=north west]{$y$};
+    \draw[->](0,0) --(-2,-2) node[anchor=south]{$z$};
+    %proiezione su xz
+    \draw[thin](0,-0.7) -- (-0.7,-1.4) -- (1.1,-1.4) -- (1.8,-0.7) -- cycle;
+    \draw[dashed](0,-0.7) -- (-0.7,-0.7) node[at end, left]{$b$};
+    \draw[dashed](-0.7,-1.4) -- (-1.4,-1.4) node[at end, left]{$a$};
+    %parallelepipedo al centro
+    \draw[ultra thick](-0.3, 0.3) -- (0.4,1) -- (1.8,1) -- (1.1,0.3) -- cycle;
+    \draw[ultra thick](-0.3,0.3) -- (-0.3, 2.8);
+    \draw[ultra thick](0.4,1) -- (0.4,3.5);
+    \draw[ultra thick](1.8,1) -- (1.8,3.5);
+    \draw[ultra thick](1.1,0.3) -- (1.1,2.8);
+    \draw[ultra thick](-0.3,2.8) -- (0.4,3.5) -- (1.8,3.5) -- (1.1,2.8) -- cycle;
+    %proiezione sul piano yz
+    \draw[thin](-1.4,0.3) -- (-1.4,2.8) -- (-0.7,3.5) -- (-0.7,1) -- cycle;
+    \draw[dashed](-0.7,1) -- (0, 1.7) node[at end, right]{$e$};
+    \draw[dashed](-0.7,3.5) -- (0, 4.2) node[at end, right]{$f$};
+    %proiezione sul piano zy
+    \draw[thin](0.7,1.7) -- (2.1,1.7) -- (2.1, 4.2) -- (0.7, 4.2) -- cycle;
+    \draw[dashed](0.7,1.7) -- (0.7, 0) node[at end, below]{$c$};
+    \draw[dashed](2.1,1.7) -- (2.1, 0) node[at end, below]{$d$};
+    %intersezione
+    \draw[fill=red, opacity= 0.3](-0.3, 1.55) -- (0.4,2.25) -- (1.8,2.25) -- (1.1,1.55) -- cycle;
+    \draw[->](4,2.05) ..controls(3,2.5).. (1,2.05) node[at start, right]{$\begin{matrix}
+      \text{intersezione }\underbrace{P \cap \{z = z_0\}}_{P(z_0)}\\
+      \{x = x_0 , y = y_0 , z = z_0\}
+    \end{matrix}$};
+  \end{tikzpicture}
+\end{center}
+
+
+\begin{proposition}[integrazione per fili]
+  \begin{gather*}
+    P=\{ (x,y,z): \quad x\in[a,b] \ , \ y \in[c,d] \ , \ z \in[e,f] \}\\
+    = [a,b] \times [c,d] \times [e,f]\\
+    \int_P f \ dx \ dy \ dz = \int_ {[a,b] \times [c,d]} \left( \int_e^f f(x,y,z) \ dz \right) dx \ dy\\
+  \end{gather*}
+\end{proposition}
+
+
+\begin{proposition}
+  Formula di integrazione "per fili " per un dominio più generale:\\
+  \underbar{Supponiamo} che $\Omega$ si possa rappresentare in questa forma:
+  \begin{gather*}
+    \Omega = \left\{ (x,y,z) : (x,y) \in D \ , \ g_1(x,y) \leq z \leq g_2(x,y) \right\} 
+  \end{gather*}
+  dove $D$ è un dominio\\
+  \underbar{Allora} se $f:\Omega \to \mathbb{R}$ è continua l'integrale si può calcolare mediante:
+  \begin{gather*}
+    \int_\Omega f(x,y,z) \ dx \ dy \ dz = \int_D \left( \int_{g_1(x,y)}^{g_2(x,y)} f(x,y,z) \ dz \right) dx \ dy
+  \end{gather*}
+\end{proposition}
+
+
+Prendiamo una curva di questo tipo:
+\begin{center}
+  \begin{tikzpicture}
+    %assi x y e z
+    \draw[->](0,0) --(5,0) node[anchor=north east]{$x$};
+    \draw[->](0,0) --(0,5) node[anchor=north west]{$y$};
+    \draw[->](0,0) --(-2,-2) node[anchor=south]{$z$};
+    %curva
+    \draw(1,0.5) .. controls (2,2) and (0,3) .. (0.5,4);
+    \draw(-1,0.5) .. controls (-2,2) and (0,3) .. (-0.5,4);
+    %sezioni ellittiche
+    \draw(0,0.6) ellipse (1.05 and 0.3);
+    \draw(0,2) ellipse (1.15 and 0.3);
+    \draw(0,4) ellipse (0.5 and 0.2);
+    %piano intermedio
+    \draw[fill=red, opacity=0.3](-2.5,2.5) -- (1.5,2.5) -- (2,2.8) -- (-2,2.8) -- cycle;
+  \end{tikzpicture}
+\end{center}
+
+
+Qui l'integrale per fili è poco pratico se non addirittura impossibile.\\
+Si usa quindi il metodo della cosiddetta integrazione "per fette" o "per strati".\\
+\begin{gather*}
+  \Omega = \left\{ (x,y,z) : \quad h_1 \leq z \leq h_2 \quad (x,y)\in\Omega (z) \right\} 
+\end{gather*}
+Dove $\forall z \in[h_1, h_2] , \Omega(z)$ è un dominio regolare del piano.\\
+
+
+\begin{proposition}[integrazione per strati]
+  \begin{gather*}
+    \int_\Omega f(x,y,z) \ dx \ dy \ dz = \int_{h_1}^{h_2} \left( \int_{\Omega(z)} f(x,y,z) \ dx \ dy \right) dz
+  \end{gather*}
+\end{proposition}
+
+
+\subsection{cambiamenti di variabili per integrali tripli}
+La situazione è analoga al caso del piano e agli integrali doppi.
+\begin{center}
+  \begin{tikzpicture}
+    % due grafici affiancati usando scope con traslazione orizzontale
+    \begin{scope}[xshift=0cm]
+      % primo sistema (x,y,z)
+      \draw[->] (0,0,0) -- (5,0,0) node[right] {$x$};
+      \draw[->] (0,0,0) -- (0,5,0) node[above] {$z$};
+      \draw[->] (0,0,0) -- (0,0,5) node[above] {$y$};
+      \potato{(2,2,2)}{0.5};
+      \filldraw (2.5,3,2) circle (1.5pt) node[anchor=south east] {$P$};
+      \node at (2,4,2) {$D$};
+    \end{scope}
+    \draw[->](7,2.5,2) -- (6,2.5,2) node[above] {$T$};
+    \begin{scope}[xshift=7.5cm]
+      % secondo sistema (u,v,w)
+      \draw[->] (0,0,0) -- (5,0,0) node[right] {$v$};
+      \draw[->] (0,0,0) -- (0,5,0) node[above] {$w$};
+      \draw[->] (0,0,0) -- (0,0,5) node[above] {$u$};
+      \potato{(2,2,2)}{0.5};
+      \filldraw (2.5,3,2) circle (1.5pt) node[anchor=south east] {$P$};
+      \node at (2,4,2) {$D'$};
+    \end{scope}
+  \end{tikzpicture}
+\end{center}
+\begin{gather*}
+  x = a(u,v,w) \\
+  y = b(u,v,w) \\
+  z = c(u,v,w) \\
+\end{gather*}
+\begin{itemize}
+  \item Si suppone che $a,c,b$ siano $C^1$
+  \item La trasformazione da $D \to D'$ è biunivoca
+  \item La matrice Jacobiana della trasformazione abbia $det \ \neq 0$ in ogni punto di $D'$ 
+\end{itemize}
+\underbar{Se} $f$ è continua in $D$ \underbar{allora}:
+\begin{gather*}
+  \int_D f(x,y,z) \ dxdydz = \int_{D'} f(a(u,v,w),b(u,v,w),c(u,v,w)) \cdot \left| det(Jac) \right| \ dudvdw \\
+\end{gather*}
+
+
+\begin{definition}[Coordinate cilindriche]
+  \begin{gather*}
+    P = (x,y,z) \Leftrightarrow (\rho,\theta,z) \\
+    \begin{cases}
+      z = z\\
+      x = \rho\cos(\theta) \\
+      y = \rho\sin(\theta) \\
+    \end{cases}
+    \left| det \mathcal{J} \right| = \rho 
+  \end{gather*}
+\end{definition}
+
+\begin{center}
+    \tdplotsetmaincoords{70}{110}
+    \begin{tikzpicture}[tdplot_main_coords, scale=1.5]
+        \draw[->] (0,0) -- (3,0) node[right] {$x$};
+        \draw[->] (0,0) -- (0,3) node[above] {$y$};
+        \draw[->] (0,0) -- (0,0,3) node[above] {$z$};
+        \draw[dashed] (0,0) circle (2);
+        \draw[thick, cyan] (0,0) -- (30:2) node[midway, above right] {$\rho$};
+        \draw[thick, cyan] (30:2) -- ({2*cos(30)},{2*sin(30)},2) node[midway, right] {$z$};
+        \draw[thick, cyan] (0,0,2) -- ({2*cos(30)},{2*sin(30)},2);
+        \draw[->] (0.2,0) arc (0:30:0.5) node[midway, right] {$\theta$};
+        \filldraw[fill=black] ({2*cos(30)},{2*sin(30)},2) circle (1.5pt) node[anchor=south east] {$P'$};
+        \filldraw[fill=black] ({2*cos(30)},{2*sin(30)},0) circle (1.5pt) node[anchor=south east] {$P$};
+      \end{tikzpicture}
+\end{center}
+
+
+\subsection{coordinate sferiche}
+A differenza delle coordinate cilindriche, si utilizzano due angoli invece di uno e due due coordinate per la distanza.
+\begin{center}
+  \begin{tikzpicture}
+    \draw[->] (0,0,0) -- (5,0,0) node[right] {$x$};
+    \draw[->] (0,0,0) -- (0,5,0) node[above] {$z$};
+    \draw[->] (0,0,0) -- (0,0,5) node[above] {$y$};
+    \draw[red, ->](0,0,0) -- (2,2,1) node[midway, above] {$\rho$};
+    \draw(0,0,0) -- (2,0,1);
+    \draw(2,0,1) -- (2,2,1);
+    \draw(0,2,0) -- (2,2,1) ;
+    \filldraw[fill=black](2,2,1) circle (2pt) node[right] {$P$};
+    \draw[dashed](2,0,0) -- (2,0,1);
+    \draw[dashed](2,0,1) -- (0,0,1);
+    \draw[->, cyan](0.5,0,0.3) arc (0:45:0.5) node[midway, above right] {$\varphi$};
+    \draw[->, cyan](0,0,0.3) arc (-130:-60:0.7) node[midway, below] {$\theta$};
+    \filldraw[fill=black](2,0,1) circle (2pt) node[below] {$P'$};
+  \end{tikzpicture}
+\end{center}
+Dove $\rho$ è la distanza di $P$ da $(0,0,0)$, e $P$ è definito da $\rho, \theta , \varphi$
+\begin{gather*}
+  \rho \geq 0\\
+  \varphi \in [0,\pi] \\
+  \theta \in [0,2\pi) \\
+  \begin{cases}
+    z = \rho\cos(\varphi) \\
+    x = \rho\sin(\varphi)\cos(\theta) \\
+    y = \rho\sin(\varphi)\sin(\theta) \\
+  \end{cases}
+  \left\lvert det \mathcal{J} \right\rvert = \rho^2 \sin(\varphi)
+\end{gather*}
+Prendiamo ora $\rho = cost$ e $\varphi = cost$ e ho quindi due sfere centrate in $(0,0,0)$ e ho quindi coni circolari con asse di simmetria l'asse $z$.
+
+\begin{center}
+  \begin{tikzpicture}
+    \tdplotsetmaincoords{70}{110}
+    \begin{tikzpicture}[tdplot_main_coords, scale=2]
+      % Axes
+      \draw[->] (0,0,0) -- (3,0,0) node[right] {$x$};
+      \draw[->] (0,0,0) -- (0,3,0) node[above] {$y$};
+
+      % Parameters
+      \pgfmathsetmacro{\Rsphere}{1.5}
+      \pgfmathsetmacro{\zbase}{1} % height where cone meets the sphere (base of the displayed cone)
+      \pgfmathsetmacro{\rbase}{sqrt(\Rsphere*\Rsphere - \zbase*\zbase)} % base radius at z = \zbase
+
+      % Sphere (shaded)
+      \shade[ball color=blue!20, opacity=0.5] (0,0,0) circle (\Rsphere);
+      \draw[dashed] (0,0,0) circle (\Rsphere);
+
+      % Cone surface: approximate by triangular fan from apex to base circle
+      \foreach \a in {0,10,...,350} {
+        \pgfmathsetmacro{\an}{\a+10}
+        \fill[red!25,opacity=0.7,draw=red!70,very thin]
+          (0,0,0) -- ({\rbase*cos(\a)},{\rbase*sin(\a)},{\zbase}) -- ({\rbase*cos(\an)},{\rbase*sin(\an)},{\zbase}) -- cycle;
+      }
+
+      % Base circle / intersection curve
+      \draw[thick,green!60!black] plot [domain=0:360,samples=200]
+        ({\rbase*cos(\x)},{\rbase*sin(\x)},{\zbase});
+
+      % A couple of cone edges for clarity
+      \draw[thick,cyan!80] (0,0,0) -- ({\rbase},0,{\zbase});
+      \draw[thick,cyan!80] (0,0,0) -- ({-0.6*\rbase},{0.8*\rbase},{\zbase});
+      \draw[->] (0,0,0) -- (0,0,2) node[above] {$z$};
+    \end{tikzpicture}
+  \end{tikzpicture}
+\end{center}
+Se invece tengo $\theta$ costante ho dei semipiani contenenti l'asse $z$.
+
+
+\begin{lemma}
+  \underbar{Sia} $F$ un campo vettoriale piano, di componenti:
+  \begin{gather*}
+    F(x,y) = \left( P(x,y) \ , \ Q(x,y) \right)
+  \end{gather*}
+  \underbar{Supponiamo} che $F \in C^1 (\overline{D})$ 
+  \underbar{Sia} $D \subseteq \mathbb{R}^2$\\ 
+  \underbar{Se} $D$ è y-semplice e $\partial D$ è una curva, chiusa, regolare a tratti \underbar{allora}:
+  \begin{gather*}
+    \int_D \frac{\partial P}{\partial y}(x,y) \ dx \ dy = -\int_{\partial^+ D} P(x,y) \ dx \qquad (1)
+  \end{gather*}
+  \underbar{se} $D$ è x-semplice e $\partial D$ è una curva, chiusa, regolare a tratti \underbar{allora}:
+  \begin{gather*}
+    \int_D \frac{\partial Q}{\partial x}(x,y) \ dx \ dy = \int_{\partial^+ D} Q(x,y) \ dy \qquad (2)
+  \end{gather*}
+\end{lemma}
+
+\begin{proof}
+  punto $(1)$\\
+  \begin{gather*}
+    D=\left\{ (x,y): x \in[a,b] \ \varphi_1(x) \leq y \leq \varphi_2(x) \right\} 
+  \end{gather*}
+  Con $\varphi_1, \varphi_2 \quad C^1$ a tratti.\\
+  \begin{center}
+    \begin{tikzpicture}
+      %assi xy
+      \draw[->] (-1,0) -- (5,0) node[right] {$x$};
+      \draw[->] (0,-1) -- (0,5) node[above] {$y$};
+      %funzione sopra
+      \draw(1,1.5) .. controls (2,3) and (3,4) .. (4,3.5) node[right] {$\varphi_2(x)$} node[midway, above]{$\boxed{3}^+$};
+      %funzione sotto
+      \draw(1,0.5) .. controls (2,1) and (3,0.5) .. (4,1) node[right] {$\varphi_1(x)$} node[midway, below]{$\boxed{1}^+$};
+      %linee verticali
+      \draw[dashed](1,0) -- (1,0.5) node[at start, below]{$a$};
+      \draw[dashed](4,0) -- (4,1) node[at start, below]{$b$};
+      %lati
+      \draw[thick](1,1.5) -- (1,0.5) node[midway, left]{$\boxed{4}^+$};
+      \draw[thick](4,3.5) -- (4,1) node[midway, right]{$\boxed{2}^+$};
+    \end{tikzpicture}
+    Fig. di riferimento
+  \end{center}
+\begin{gather*}
+  \int_D \frac{\partial P(x,y)}{\partial y} \ dx \ dy = \int_a^b dx \int_{\varphi_1(x)}^{\varphi_2(x)} \frac{\partial P(x,y)}{\partial y} \ dy =\\
+  = \int_a^b \left[ P(x,y) \right]_{y=\varphi_1(x)}^{y=\varphi_2(x)} \ dx = \int_a^b \left[ P(x,\varphi_2(x)) - P(x,\varphi_1(x)) \right] \ dx
+\end{gather*}
+\fbox{Richiamo cosa è esattamente $\int_\gamma g(x,y) \ dx $ dove $\gamma:[c,d] \to \mathbb{R}^2$\\
+è una curva orientata $\int_c^d g\left( \gamma_1(t) , \gamma_2(t) \right) \dot{\gamma}_1(t) \ dt $}\\
+Ora considero i vari integrali di linea sui 4 tratti della curva (segnati nel disegno):
+\begin{gather*}
+  \int_{\partial^+ P} P \ dx = \int_{\boxed{1}^+} P \ dx + \int_{\boxed{2}^+} P \ dx + \int_{\boxed{3}^+} P \ dx + \int_{\boxed{4}^+} P \ dx\\
+  \int_{\boxed{2}^+} P \ dx = \int_{\boxed{4}^+} P \ dx = 0
+\end{gather*}
+Perchè in quei tratti la variazione di $x$ è nulla:\\
+\begin{gather*}
+  t \to (b,t) \qquad t \in [\varphi_1(b), \varphi_2(b)] \\
+  \int_{\varphi_1(t)}^{\varphi_2(t)} P(b,t) \cdot 0 \ dt = 0
+\end{gather*}
+%\underbar{Se} $\omega = a(x,y) \ dx + \cancel{b (x,y) \ dy}$\\
+%\begin{gather*}
+%  \int_\gamma \omega = \int_c^d a(\gamma_1(t)) \dot{\gamma}_2(t) \ \dot{\gamma}_1(t) + \cancel{b} dt
+%\end{gather*}
+Calcoliamo ora gli integrali sui tratti rimanenti:
+\begin{gather*}
+  \int_{\boxed{1}^+} P(x,y) \ dx \\
+  \text{tenendo a mente: } t \to (t, \varphi_1(t)) \quad t \in [a,b]\\
+  = \int_a^b P(t,\varphi_1(t)) \cdot 1 \ dt = \int_a^b P(t,\varphi_1(t)) \ dt \\
+  \int_{\boxed{3}^+} P(x,y) \ dx \\
+  \text{tenendo a mente: } t \to (t, \varphi_2(t)) \quad t \in [a,b]\\  
+  = -\int_a^b P(t,\varphi_2(t)) \ dt
+\end{gather*}
+Quindi abbiamo:
+\begin{gather*}
+  \int_a^b P\left( x, \varphi_2(x) \right) \ dx - \int_a^b P\left( x, \varphi_1(x) \right) \ dx\\
+  -\int_{\boxed{3}^+} P \ dx = \int_{\boxed{1}^+} P \ dx
+\end{gather*}
+\end{proof}
+
+
+\begin{lemma}
+  \underbar{Sia} $F$ un campo vettoriale piano, di componenti:
+  \begin{gather*}
+    F(x,y) = \left( P(x,y) \ , \ Q(x,y) \right)
+  \end{gather*}
+  \underbar{Supponiamo} che $F \in C^1 (\overline{D})$ 
+  \underbar{Sia} $D \subseteq \mathbb{R}^2$\\ 
+  \underbar{Se} $\partial D$ Sia una curva semlice , chiusa, regolare a tratti.\\
+  \underbar{Se} $D$ è sia x-semplice che y-semplice \underbar{allora}:
+  \begin{gather*}
+    \int_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) \ dx \ dy = \int_{\partial^+ D} P \ dx + Q \ dy
+  \end{gather*}  
+  Quest'ultima è la stessa cosa che dire $\int_{\partial^+ D} \left\langle F,T \right\rangle \ ds $
+\end{lemma}
+
+\begin{definition}
+    Diciamo che un insieme $D\subseteq \mathbb{R}^2$ è s-decomponibile\\
+    \underbar{se} esso è decomponibile in un numero finito di sottodomini $D_1, D_2, \dots , D_k$ semplici rispetto ad entrambi gli assi.
+\end{definition}
+
+\begin{observation}
+  La corona circolare non è ne x-semplice ne y-semplice ma se si divide in quattro parti ogni parte è sia x-semplice sia y-semplice:
+  \begin{center}
+    \begin{tikzpicture}[scale = 0.5]
+      \draw(0,0) circle (1);
+      \draw(0,0) circle (2);
+      \draw[red](0,-2) -- (0,2);
+      \draw[red](-2,0) -- (2,0);
+      \fill[page](0,0) circle (0.9);
+    \end{tikzpicture}
+  \end{center}
+\end{observation}
+
+
+\begin{observation}
+    \underbar{Se} $D$ è s-decomponibile come orientazione positiva su $\partial D$ si intende quella data alle singole componenti di $\partial D$ in modo che percorrendole si lasci il dominio sempre alla propria sinistra.\\
+\end{observation}
+
+\begin{theorem}[formule di Gauss-Green]
+  \underbar{Se} $D$ è s-decomponibile \underbar{e} $F \in C^1 (\overline{D})$\\
+  \underbar{allora} vale la formula:
+  \begin{gather*}
+    \int_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) \ dx \ dy = \int_{\partial^+ D} P \ dx + Q \ dy
+  \end{gather*}  
+  (già vista nel lemma prec.)
+\end{theorem}
+
+\begin{proof}
+\hfill\\
+  \begin{center}
+    \begin{tikzpicture}
+      \draw[red, thick](0,0) ellipse (2 and 1.3);
+      \draw[red, thick](-0.4,0.1) ellipse (0.5 and 0.7);
+      \draw[red, thick](0.9,-0.5) ellipse (0.35 and 0.2);
+      \draw[red, thick](-0.25, 1.3) -- (-0.35, 0.8);
+      \draw[red, thick](-0.45, -0.6) -- (-0.55, -1.25);
+      \draw[red, thick](1.25, -0.45) -- (1.9, -0.35);
+      \draw[red, thick](0.05, -0.24) -- (0.56, -0.46);
+      \draw[red, thick](-0.9,-0.05) -- (-2,0.15);
+      \draw[red, thick](0.9,-0.3) -- (1.3, 1);
+      \draw[red, thick](0.9, -0.7) -- (0.9, -1.15);
+      %\draw[->](-0.2, 1.3) -- (-0.3, 0.8);
+      %\draw[->](-0.4, 0.8) -- (-0.3, 1.3);
+      %\draw[->](0.1, -0.2) -- (0.55, -0.4);
+      %\draw[->](0.5, -0.5) -- (0.05, -0.3);
+      %\draw[->](1.3, -0.5) -- (1.9, -0.4);
+      %\draw[->](1.9, -0.3) -- (1.2, -0.4);
+      %\draw[->](-0.9, 0) -- (-2, 0.2);
+      %\draw[->](-2, 0.1) -- (-0.9, -0.1);
+      %\draw[->](-0.5,-0.6) -- (-0.6, -1.2);
+      %\draw[->](-0.5,-1.2) -- (-0.4, -0.6);
+      \node[scale=2] at (0.5,0.3) {$\circlearrowleft $};
+      \node[scale=1.5] at (1.5,0.2) {$\circlearrowleft $};
+      \node[scale=1] at (1.4,-0.7) {$\circlearrowleft $};
+      \node[scale=1.5] at (0.3,-0.8) {$\circlearrowleft $};
+      \node[scale=1.5] at (-1.2, 0.6) {$\circlearrowleft $};
+      \node[scale=1.5] at (-1.2,-0.6) {$\circlearrowleft $};
+      \node[scale=1.5] at (-0.4,0.1) {$\circlearrowright $};
+      \node[scale=0.8] at (0.9,-0.5) {$\circlearrowright $};
+      \node [red, rotate = -26] at (1,1.1){$<$};
+      \node [red, rotate = 22] at (-1,1.1){$<$};
+      \node [red, rotate = 26] at (1,-1.1){$>$};
+      \node [red, rotate = -22] at (-1,-1.1){$>$};
+      \node [red, rotate = 50] at (-0.1,-0.45){$<$};
+      \node [red, rotate = -110] at (-0.85,0.4){$<$};
+      \node [scale = 0.8, red, rotate = 20] at (0.75,-0.32){$<$};
+      \node [scale = 0.8, red, rotate = -130] at (1.19,-0.6){$<$};
+    \end{tikzpicture}
+  \end{center}
+  \begin{gather*}
+    \int_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) \ dx \ dy = \sum_{i=1}^{k} \int_{D_i} \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) \ dx \ dy = \sum_{i=1}^{k} \int_{\partial^+ D_i} P \ dx + Q \ dy = \int_{\partial^+ D} P \ dx + Q \ dy
+  \end{gather*}
+\end{proof}
+
+
+\begin{aside}
+    C'è anche stokes e il th. della divergenza nel piano ma riportiamo solo quella in $\mathbb{R}^2$
+\end{aside}
+
+
+\section{Superfici parametriche}
+\begin{definition}[Superficie parametrica]
+  Una superficie parametrica è una funzione:
+  \begin{gather*}
+    \underline{\varphi} : D \subseteq \mathbb{R}^2 \to \mathbb{R}^3\\
+    (u,v) \to \underline{\varphi}(u,v) = \begin{pmatrix}
+      x(u,v)\\
+      y(u,v)\\
+      z(u,v)
+    \end{pmatrix}
+  \end{gather*}
+  dove $x,y,z$ sono funzioni reali di due variabili reali (i due parametri che sto considerando).\\
+  La superficie è regolare \underline{se}:
+  \begin{itemize}
+    \item $\underline{\varphi}$ è di classe $C^1$ in un aperto $A$ contenente $D$
+    \item $\underline{\varphi}$ è iniettiva in $AV$
+    \item la matrice jacobiana ha rango 2 in ogni punto del dominio.
+  \end{itemize} 
+  La matrice jacobiana si ricorda essere:
+  \begin{gather*}
+    \mathcal{J} = \begin{pmatrix}
+      \frac{\partial x}{\partial u} & \frac{\partial x}{\partial v}\\
+      \frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}\\
+      \frac{\partial z}{\partial u} & \frac{\partial z}{\partial v}
+    \end{pmatrix} = (r_u \ | \ r_v) = \mathcal{J}_r(u,v)
+  \end{gather*}
+  Si ricorda che dire che $\mathcal{J}$ ha rango 2 implica che i due vettori "colonna" $r_u, r_v$ sono linearmente indipendenti.
+\end{definition}
+
+
+\begin{example}
+      Definiamo l'Elicoide
+      \begin{center}
+        \begin{tikzpicture}
+          %assi xyz
+          \draw[->] (-4,2,0) -- (4,2,0) node[right] {$x$};
+          \draw(0,2,0) -- (0,4,0);
+          \draw[->] (0,2,-3) -- (0,2,5) node[above] {$y$};
+          %elica
+          \def\R{1} %raggio
+          \def\k{0.5} %passo
+          \def\a{6} %estremo inferiore
+          \def\b{12} %estremo superiore
+          \def\n{6} %numero di giri
+          \def\h{\n * 2 * pi * \k} %altezza totale
+          %superficie elicoidale
+          \def\eps{0.2} %spessore superficie
+          \def\Rpeps{\R + \eps}
+          \def\Rmeps{\R - \eps}
+          \tdplotsetmaincoords{70}{110}
+          \begin{scope}[tdplot_main_coords]
+            \foreach \v in {0, 0.1, ..., 1} {
+              \draw[gray!50, domain=\a:\b,smooth,variable=\u, orange] plot 
+              ({(\Rmeps + \v * 2 * \eps) * cos(\u r)}, 
+               {(\Rmeps + \v * 2 * \eps) * sin(\u r)}, 
+               {\k * \u});
+            }
+          \end{scope}
+          \draw[->] (0,4,0) -- (0,6,0) node[above] {$z$};
+          \filldraw[fill=black] (0,3.8,0) circle (2pt) node[left]{$\begin{pmatrix}
+            0\\
+            0\\
+            z
+          \end{pmatrix}$};
+          \draw[black](0,3.8,0) -- (1.3,4,1) node[at end, right]{$P$};
+          \filldraw[fill=black] (1.3,4,1) circle (2pt);
+        \end{tikzpicture}
+      \end{center}
+      Si parte dall'equazione dell'elica cilindrica:
+      \begin{gather*}
+        \xi(u) = \begin{pmatrix}
+          R \cos(u)\\
+          R \sin(u)\\
+          k u
+        \end{pmatrix} \quad u \in \mathbb{R} \text{ \tiny{oppure} } u \in [a,b]
+      \end{gather*}
+      Si ottiene l'elicoide: $\underline{\varphi}_\xi$ collegando ogni punto di $\xi$ con l'asse $z$ tramite un segmento $\parallel$ al piano $xy$:
+      \begin{gather*}
+        \underline{\varphi}_\xi (u,v) = \begin{pmatrix}
+          R u \cos(u)\\
+          R v \sin(u)\\
+          k u
+        \end{pmatrix} \quad u \in I, v \in [0,1]
+      \end{gather*}
+      Considero quindi ad esempio il segmento da $P_z$ a $\begin{pmatrix}
+        0\\
+        0\\
+        z \underline{P}_\xi
+      \end{pmatrix}$ 
+      cioè da $\begin{pmatrix}
+        R \ \cos(u)\\
+        R \ \sin(u)\\
+        k \ u
+      \end{pmatrix}$ a $\begin{pmatrix}
+        0\\
+        0\\
+        k \ u
+      \end{pmatrix} \quad \forall u \in I$
+      \begin{gather*}
+        \underset{\tiny \text{da } \underline{P}_\xi \text{ a } \begin{pmatrix}
+          0\\
+          0\\
+          z \underline{P}_\xi
+        \end{pmatrix}}{\text{segmento}} = \begin{pmatrix}
+          v(R  \cos(u))\\
+          v(R  \sin(u))\\
+          \underset{= ku}{(1-v) ku + v \ ku}
+        \end{pmatrix} \quad v \in [0,1]
+      \end{gather*}
+      Quando una uperficie è regolare?\\
+      Guardo la matrice jacobiana:
+        $\underline{\varphi}_\xi$ è superficie regolare in $D = [a,b] \times [0,1]$ e $A = (a,b) \times (0,1) \quad I = [a,b]$\\
+        \underline{Se} ho le seguenti proprietà:\\
+        (nel caso specifico dell'elica)
+        \begin{itemize}
+          \item $\underline{\varphi}_\xi \in C^1(A)$
+          \item $\underline{\varphi}_\xi$ è iniettiva in $AV$
+          \item Se la jacobiana ha rango 2 quindi:\\
+          $\left(\underline{\varphi}_\xi\right)_u = \begin{pmatrix}
+            -Rv \ \sin(u)\\
+            Rv \ \cos(u)\\
+            k
+          \end{pmatrix} $ e $\left(\underline{\varphi}_\xi\right)_v = \begin{pmatrix}
+            R \ \cos(u)\\
+            R \ \sin(u)\\
+            0
+          \end{pmatrix} \quad \forall u \in (a,b) \ \forall v \in (0,1)$ 
+        \end{itemize}
+\end{example}
+
+
+\begin{definition}[Superficie di rotazione]
+    Superficie di rotazione generale da una cuva piana $\gamma$ ($\subseteq$ piano considerato) che ruota attorno ad un asse (asse coordinato).\\
+    \begin{center}
+      \tdplotsetmaincoords{70}{110}
+      \begin{tikzpicture}[tdplot_main_coords, scale=1.5]
+        %assi xyz
+        \draw[->] (-4,0,0) -- (4,0,0) node[right] {$x$};
+        \draw[->] (0,-4,0) -- (0,4,0) node[above] {$y$};
+        \draw[->] (0,0,-1) -- (0,0,5) node[above] {$z$};
+        %superficie di rotazione
+        \draw[dashed, gray](0,0,1) circle (1);
+        \draw[dashed, green](0,0,2) circle (1.5);
+        \draw[dashed, gray](0,0,3) circle (1.5);
+        \node at (0,1.5,2) {\textcolor{green}{parallelo}};
+        \draw[green](-1,0,1) .. controls (-1.5,0,1.5) and (-0.5,0,2) ..  (-1.5,0,3) node[at end, right] {meridiano};
+        %punto sulla curva e sull'asse
+        \draw[dashed, orange] (0,0,2) -- (1.5,0.15,2);
+        %curva piana
+        \draw[red](1,0,1) .. controls (1.5,0,1.5) and (0.5,0,2) ..  (1.5,0,3) node[at end, right] {$\gamma$};
+        \filldraw[black] (0,0,2) circle (0.8pt) node[above right] {$c$};
+        \filldraw[black] (1.5,0.15,2) circle (0.8pt) node[above right] {$P$};
+      \end{tikzpicture}
+    \end{center}
+    $\gamma \subseteq$ piano $yz$ (cioè $x=0$) che ruota attorno all'asse $z$.\\
+    Parametrizzo la curva:
+    \begin{gather*}
+      \underline{\gamma}(t) = \begin{pmatrix}
+        0\\
+        y(t)\\
+        z(t)
+      \end{pmatrix} \quad t \in I
+    \end{gather*}
+    Con $y(t) \neq 0 \quad \forall t \in I$ e $y,z \in C^1(\mathring{I})$\\
+    Prendo un punto $P$ sulla curva che descrive la circonferenza di centro sull'asse $z$ e raggio $y_P$, inoltre chiamo $c$ il punto sull'asse $z$ che connette il centro della circonferenza con il punto $P$:
+    \begin{gather*}
+      \begin{pmatrix}
+        y_P \sin(\theta)\\
+        y_P \cos(\theta)\\
+        z_P
+      \end{pmatrix} \quad \theta \in [0,2\pi]
+    \end{gather*}
+    Osservo che $y_P = y(t)$ e $z_P = z(t)$ quindi la parametrizzazione della superficie di rotazione è:
+    \begin{gather*}
+      \underline{\varphi}(t,\theta) = \begin{pmatrix}
+        y(t) \ \sin(\theta)\\
+        y(t) \ \cos(\theta)\\
+        z(t)
+      \end{pmatrix} \quad t \in I \quad \theta \in [0,2\pi]\\
+      \text{per ex} \underline{\varphi}_\gamma \text{ è superfic. parametrica regolare (partendo da $\gamma$ curva regolare)}
+    \end{gather*}
+\end{definition}
+
+
+\begin{aside}[Caso assi scambiati]
+  Possiamo avere lo stsso fenomeno solo con un'altro asse di rotazione ovviamente, per esempio prendiamo l'asse y:\\
+  E prendiamo una curva $\gamma$ nel piano $yz$ che ruota appunto attorno all'asse $y$.\\
+  $P(t) = (0,y(t), z(t))$ compie una circonferenza nel piano $\parallel zx$\\
+  Quindi avremo il centro $C \equiv (0, y_P, 0)$ ed un raggio $R = |z_P|$:
+  \begin{gather*}
+    \underline{\varphi}_{\underline{\gamma}} (t, \theta) = \begin{pmatrix}
+      z(t) \sin(\theta)\\
+      y(t)\\
+      z(t) \cos(\theta)
+    \end{pmatrix} \quad \theta \in [0,2\pi], \ t \in I
+  \end{gather*}
+\end{aside}
+
+
+\begin{observation}
+La regolarità dipende: sia dalla geometria che dalla parametrizzazione usata.
+\end{observation}
+
+
+\begin{definition}
+  Le curve $t \to \varphi_\gamma (t , \ \theta \text{\tiny{fix.}})$ sono meridiani\\
+  Le curve $\theta \to \varphi_\gamma (t \text{\tiny{fix.} }, \  \theta)$ sono paralleli.
+\end{definition}
+
+
+\begin{proof}[Dimostrazione che una superficie di rotazione è regolare]
+Bisogna provare:
+\begin{itemize}
+  \item che sia iniettiva
+  \item che il vettore tangente non si annulli mai
+  \[
+  \begin{aligned}
+    \bigl(\underline{\varphi}_{\underline{\gamma}}\bigr)_t
+      &= (\dot y\sin\theta,\ \dot y\cos\theta,\ \dot z),\\
+    \bigl(\underline{\varphi}_{\underline{\gamma}}\bigr)_\theta
+      &= (y\cos\theta,\ -y\sin\theta,\ 0),\\
+    \bigl(\underline{\varphi}_{\underline{\gamma}}\bigr)_t\times\bigl(\underline{\varphi}_{\underline{\gamma}}\bigr)_\theta
+      &= (y\dot z\sin\theta,\ -y\dot z\cos\theta,\ -y\dot y).
+  \end{aligned}
+  \]
+\end{itemize}
+\end{proof}
+
+
+\subsection{Piano tangente ad una superficie parametrica}
+In questa lezione vedremo come trovare il piano tangente ad una superficie data la sua parametrizzazione, e come calcolare l'area di una superficie(gli integrali di superficie)\\
+\begin{center}
+    \textbf{Superficie generica:}
+\end{center}
+\begin{center}
+\begin{tikzpicture}
+    \draw[->](0,0) -- (3,0) node[right]{$U$};
+    \draw[->](0,0) -- (0,3) node[above]{$V$};
+    \potato{(1,1)}{1};
+    \draw (0.5,0.5) node{$D$};
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \draw[->](-1,2) -- (-2.5,2) node[midway, above]{$\varphi$};
+      \begin{axis}[
+         view={60}{30},
+         colormap/viridis,
+         samples=50,
+         samples y=15,
+         domain=0:360,
+         y domain=0:1,
+         axis equal image
+         ]
+         \addplot3[surf, shader=interp]
+         ({x/180 + 0.3*y*sin(x/20)},
+        {y + 0.2*sin(x/35)},
+        {0.8*sin(x/25)*cos(y*pi) 
+         + 0.6*cos(x/40)*sin(y*pi)
+         + 0.5*sin(x/15 + 2*y*pi)*cos(y*pi)
+         + 0.4*sin(2*x/45)*cos(3*y*pi)
+         + 0.35*cos(x/50)*sin(2*y*pi)
+         + 0.25*sin(x/30 - y*pi)*cos(4*y*pi)
+         + 0.2*cos(x/60)*sin(5*y*pi)
+         + 0.15*sin(3*x/40)*cos(2*y*pi)
+         + 0.6*exp(-(x-180)^2/8000)*exp(-20*(y-0.5)^2)
+         + 0.45*exp(-(x-90)^2/5000)*exp(-15*(y-0.7)^2)});
+         \end{axis}
+  \end{tikzpicture}
+\end{center}
+Consideriamo quindi $\varphi$ che porta un dominio $D$ da $\mathbb{R}^2$ a $\mathbb{R}^3$:
+\begin{gather*}
+  \varphi : \underset{\subseteq \mathbb{R}^2 }{D} \to \mathbb{R}^3\\
+\end{gather*}
+E deve soddisfare la proprietà:
+\begin{gather*}
+  S = \varphi(D)
+\end{gather*}
+Ovvero l'immagine di D tramite $\varphi$ è la superficie $S$.\\
+\hfill\\
+Posso ora considerare $(U_0, V_0) \in \mathring{D}$ ovvero un punto interno al dominio D.\\
+E il suo punto immagine sulla superficie tramite $\gamma(t)$ che è la curva che si comporta in modo che $V_0$ sia costante e $U_0$ varia con un parametro ($t$).\\
+Inoltre considero $\widetilde{\varphi}(t) = \varphi(\gamma(t))$ che è proprio $\widetilde{\gamma} = \varphi(U_0 + t, V_0)$. Prendendo $U$ e $V$ generici ho:
+\begin{gather*}
+  \varphi(U,V) = \left( X(U,V), Y(U,V), Z(U,V) \right)\\
+  \frac{\partial \varphi}{\partial U} = \left( \frac{\partial X}{\partial U}(U,V), \frac{\partial Y}{\partial U}(U,V), \frac{\partial Z}{\partial U}(U,V) \right) = \varphi_U (U,V)\\ 
+\end{gather*}
+Considero adesso $\dot{\widetilde{\gamma}}(t)|_{t=0}$, che è proprio:
+\begin{gather*}
+  \frac{d}{dt} \varphi(U_0 + t, V_0) |_{t=0} = \frac{\partial}{\partial U}\varphi(U_0,V_0)
+\end{gather*}
+Inoltre siccome $\widetilde{\gamma}(t) = \varphi(U_0 + t, V_0)$ se riconsidero la sua derivata ho:
+\begin{gather*}
+  \dot{\widetilde{\gamma}}(t) = \frac{d}{dt} \widetilde{\gamma}(t) = \frac{d}{dt} \varphi(U_0 + t, V_0) = \frac{\partial \varphi}{\partial U}(U_0 + t, V_0) \underset{= 1}{\boxed{\frac{d}{dt}(U_0 + t)}} + \frac{\partial \varphi}{\partial V}(U_0 + t, V_0) \underset{= 0}{\cancel{\frac{d}{dt}(V_0)}} = \frac{\partial \varphi}{\partial U} (U_0 + t,V_0)
+\end{gather*}
+\hfill\\
+Prendiamo ora un'altro caso in cui $\gamma(t)$ è una qualsiasi curva che passa per il mio punto $(U_0, V_0)$, quindi adesso cos'è $\widetilde{\gamma}$?
+\begin{gather*}
+  \widetilde{\gamma}(t) = \varphi  \gamma(t) = \varphi(U(t), V(t))\\
+  \dot{\widetilde{\gamma}}(0) = \frac{d}{dt} \varphi(U(t), V(t)) |_{t=0} = \frac{\partial \varphi}{\partial U}(U_0, V_0) \cdot \frac{d}{dt}U(0) + \frac{\partial \varphi}{\partial V}(U_0, V_0) \cdot \frac{d}{dt}V(0)
+\end{gather*}
+Per domodità useremo la notazione: $\frac{\partial \varphi}{\partial U} \leftrightarrow \varphi_U$\\
+Prendiamo ora un vettore normale al piano tangente alla superficie in $\varphi(U_0, V_0)$, per farlo farò il prodotto vettoriale (o prodotto wedge $\land$)
+\begin{gather*}
+  (\varphi_U \land \varphi_U) (U_0, V_0)
+\end{gather*}
+Questo è un vettore normale al piano tangente a $S$ in $\varphi(U_0, V_0)$.\\
+\begin{definition}[Versore normale]
+    Se ora lo divido per la sua norma ottengo il versore normale:
+    \begin{gather*}
+      N = \frac{\varphi_U \land \varphi_V}{\left\lVert \varphi_U \land \varphi_V \right\rVert }
+    \end{gather*}
+\end{definition}
+Se rappresento questa operazione con una matrice ho:
+\begin{gather*}
+  \begin{matrix}
+    i & j & k\\
+    X_U & Y_U & Z_U\\
+    X_V & Y_V & Z_V
+  \end{matrix}\\
+  \begin{matrix}
+    i \underbrace{det\begin{pmatrix}
+      Y_U & Z_U\\
+      Y_V & Z_V
+    \end{pmatrix}}_{\frac{\partial (y,z)}{\partial (U,V)}}   - j \underbrace{det\begin{pmatrix}
+      X_U & Z_U\\
+      X_V & Z_V
+    \end{pmatrix}}_{\frac{\partial (x,z)}{\partial (U,V)}} + k \underbrace{det\begin{pmatrix}
+      X_U & Y_U\\
+      X_V & Y_V
+    \end{pmatrix}}_{\frac{\partial (x,y)}{\partial (U,V)}}
+  \end{matrix}
+\end{gather*}
+Se ora considero $(x,y,z) \in$ \textbf{piano tang.} a $S$ in $\varphi(U_0, V_0)$, posso scrivere l'equazione del piano tangente:
+\begin{gather*}
+  \left\langle (x,y,z) - \varphi(U_0, V_0) , (\varphi_U \land \varphi_V)(U_0, V_0)\right\rangle = 0\\
+  \left\langle \left(x-x(U_0,V_0), y-y(U_0,V_0), z-z(U_0,V_0),\right) , (\varphi_U \land \varphi_V)(U_0, V_0)  \right\rangle 
+\end{gather*} 
+Questo considerando la scrittura precedente può anche essere espresso come:
+\begin{gather*}
+  det \begin{pmatrix}
+    x - x(U_0,V_0) & y - y(U_0,V_0) & z - z(U_0,V_0)\\
+    X_U(U_0,V_0) & Y_U(U_0,V_0) & Z_U(U_0,V_0)\\
+    X_V(U_0,V_0) & Y_V(U_0,V_0) & Z_V(U_0,V_0)
+  \end{pmatrix} = 0
+\end{gather*}
+
+
+\subsection{integrali di superficie}
+Per integrali di superficie si intende calcolare l'area superficiale di una data funzione.\\
+Per fare questo in generale si considera la trasformazione non lineare $T$ che porta dal piano del dominio $D$ alla superficie ovvero la funzione, dopodichè si considera il piano tangente ad una superficie infinitesima e si calcola quel'area, si fa questo per tutta la superficie e si somma il tutto. Vediamo nel dettaglio cosa significa.\\
+\hfil\\
+Consideriamo la trasformazione $T$
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (0,3.5) node[at end, left]{$y$};
+        \draw[->](0,0) -- (3,0) node[at end, below]{$x$};
+        \potato{(1,0)}{1};
+        \node at(3.5,1.5){$\quad \varphi(U,V)$};
+        \tiny
+        \draw(1.3,1.5) ..controls(1.6,1.7).. (2,1.8) node[at end, above]{4};
+        \draw(1.5,1) ..controls(1.8,1.2).. (2.2,1.3) node[at start, below]{1};
+        \draw(1.3,1.5) ..controls(1.45,1.3).. (1.5,1) node[at start, left]{2};
+        \draw(2,1.8) ..controls(2.15,1.5).. (2.2,1.3) node[at end, right]{3};
+        \draw[->, orange](1.5,1) -- (2.2,1.3);
+        \draw[<-, orange, opacity = 0.4](1.3,1.5) -- (1.5,1);
+        \normalsize
+    \end{tikzpicture}
+    \tab$\quad$
+    \begin{tikzpicture}
+        \draw(1.3,1) rectangle (2.3,1.5);  
+        \draw[dashed](1.3,0) -- (1.3,1) node[at start, below]{$U_0$};
+        \draw[dashed](2.3,0) -- (2.3,1) node[at start, below]{$U_0+dU$};
+        \draw[dashed](0,1) -- (1.3,1) node[at start, left]{$V_0$};
+        \draw[dashed](0,1.5) -- (1.3,1.5) node[at start, left]{$V_0+dV$};
+        \potato{(1,0)}{1};
+        \node at(3.5,1.5){$D$};
+        \draw[->](-2.5,1.5) -- (-3.5,1.5) node[above, midway]{$T$};
+        \draw[->](0,0) -- (0,3.5) node[at end, left]{$V$};
+        \draw[->](0,0) -- (4,0) node[at end, below]{$U$};
+    \end{tikzpicture}
+\end{center}
+I vari vertici del segmento infinitesimo della funzione sono:
+\begin{align*}
+    &1: \varphi(U_0,V_0)\\
+    &2: \varphi(U_0,V_0+dV)\\
+    &3: \varphi(U_0+dU,V_0)\\
+    &4: \varphi(U_0+dU,V_0+dV)
+\end{align*}
+Se ora consideriamo da ognuno di questi punti i vertici che partono da essi e collegano direttamente i vertici adiacenti otteniamo un parallelogramma infinitesimo, per esempio quello in arancione intenso è:
+\begin{gather*}
+  \varphi(U_0 + dU,V_0) - \varphi(U_0,V_0) \approx \varphi_U (U_0,V_0) dU + o(dU)\\
+\end{gather*}
+Così facendo stiamo considerando i segmenti rettiche partono dal punto $(U_0,V_0)$ in questo modo:
+  \begin{multicols}{2}
+    \noindent
+    \begin{center}
+     \begin{tikzpicture}[scale = 2.5]
+     \draw[rotate around={29:(0,0,0)}](1.3,1.5) ..controls(1.6,1.7).. (2,1.8);
+     \draw[rotate around={29:(0,0,0)}](1.5,1) ..controls(1.8,1.2).. (2.2,1.3);
+     \draw[rotate around={29:(0,0,0)}](1.3,1.5) ..controls(1.45,1.3).. (1.5,1);
+     \draw[rotate around={29:(0,0,0)}](2,1.8) ..controls(2.15,1.5).. (2.2,1.3);
+     \draw[->, red, very thick, rotate around={29:(0,0,0)}](1.3, 1.5) -- (1.5,1.2) node[at end, left, below]{$\varphi_U (U_0,V_0)dU$};
+     \draw[->, red, very thick, rotate around={29:(0,0,0)}](1.3, 1.5) -- (2,2) node[at end, left]{$\varphi_V (U_0,V_0)dV$};
+     \draw[dashed, red, rotate around={29:(0,0,0)}](1.5,1) -- (1.5,1.2);
+     \draw[dashed, red, rotate around={29:(0,0,0)}](2,1.8) -- (2,2);
+     \draw[red, rotate around={29:(0,0,0)}](1.5,1.2) -- (2.2,1.7);
+     \draw[red, rotate around={29:(0,0,0)}](2,2) -- (2.2,1.7);
+     \draw[dashed, red, rotate around={29:(0,0,0)}](2.2,1.3) -- (2.2 ,1.7);
+    \end{tikzpicture}
+    \end{center}
+    \columnbreak
+    \hfill\\
+    \scriptsize Questa rappresentazione \textbf{non} è coerente con l'esempio precedente per via di prospettiva ma è utile per visualizzare i vettori considerati. \normalsize\\
+  \end{multicols}
+Una volta che abbiamo questi due vettori ne consideriamo l'area del parallelogramma che formano, che è data dal modulo del loro prodotto vettoriale:
+\begin{gather*}
+  \left\lVert \varphi_U (U_0, V_0) \land \varphi_V (U_0 , V_0) \right\rVert dU dV 
+\end{gather*}
+Che è proprio l'area infinitesima della superficie considerata.\\
+Se ne consideriamo quindi la somma (e quindi l'integrale) otteniamo:
+\begin{gather*}
+  Area(S) = \iint_D \left\lVert \varphi_U \land \varphi_V \right\rVert dUdV
+\end{gather*}
+
+
+\subsubsection{Integrali di una funzione su una superficie}
+Presa una superficie $S$ una superficie descritta da una parametrizzazione:
+\begin{gather*}
+  \varphi : D \subseteq \mathbb{R}^2 \to \mathbb{R}^3\\
+  \varphi(u,v) = (x(u,v), y(u,v), z(u,v))\\
+  \varphi_u = \frac{\partial \varphi}{\partial u} = (x_u, y_u, z_u)\\
+  \varphi_v = \frac{\partial \varphi}{\partial v} = (x_v, y_v, z_v)
+\end{gather*}
+E considerando un punto nella superficie considerato il piano tangente alla superficie in quel punto si identifica il vettore normale al piano tangente come:
+\begin{gather*}
+  N = \frac{\varphi_u \land \varphi_v}{\left\lVert \varphi_u \land \varphi_v \right\rVert}
+\end{gather*}
+E abbiamo anche definito l'area della superficie come:
+\begin{gather*}
+  Area(S) = \iint_D \left\lVert \varphi_u \land \varphi_v \right\rVert dudv
+\end{gather*}
+\subsection{Integrali di una funzione su una superficie}
+Presa una funzione $f(x,y,z)$ sia una funzione definita in un sottoinsieme di $\mathbb{R}^3$ che contiene $S$ integrale (superficiale) , di $f$ su $S$.
+\begin{gather*}
+  \int_S f d \sigma
+\end{gather*}
+Questa funzione va ha come dominio la superficie $S$ e come codominio i numeri reali.\\
+Per calcolare questo integrale si usa la parametrizzazione della superficie:
+\begin{gather*}
+  \int_S f d \sigma = \iint_D f(\varphi(u,v)) \left\lVert \varphi_u \land \varphi_v \right\rVert dudv\\
+  = \iint_D f(x(u,v), y(u,v), z(u,v)) \left\lVert \varphi_u \land \varphi_v \right\rVert dudv
+\end{gather*}
+
+
+\subsubsection{Perchè cambiando parametrizzazione di una superficie non cambiano i risultati}
+Prendo una mappa $\phi : T \to D$\\
+Ho ipotesi du $\phi$ quelle che ho supposto quando ho parlato di cambiamento di variabili negli integrali doppi:
+\begin{itemize}
+  \item $\phi$ è biunivoca
+  \item $\phi$ è di classe $C^1$
+  \item Il det Jacobiano di $\phi \neq 0$ in ogni punto di $T$
+\end{itemize}
+\begin{gather*}
+  \phi : \mathbb{R}^2 \to \mathbb{R}^2\\
+  (s,t) \overset{\phi}{\to} (u, v)\\
+  \psi (s,t) = (u(s,t), v(s,t))
+\end{gather*}
+Definisco ora $\psi := \varphi_0 \phi$
+\begin{gather*}
+  \psi (s,t) = \varphi (u(s,t), v(s,t)) = (x(u(s,t), v(s,t)), y(u(s,t), v(s,t)), z(u(s,t), v(s,t)))\\
+  \psi_s (s,t) = \frac{\partial}{\partial s} \psi(s,t) = \varphi_u (u(s,t), v(s,t)) \cdot \frac{\partial u}{\partial s} (s,t) + \varphi_v (u(s,t), v(s,t)) \cdot \frac{\partial v}{\partial s}(s,t)\\
+  \psi_t (s,t) = \frac{\partial}{\partial t} \psi(s,t) = \varphi_u (u(s,t), v(s,t)) \cdot \frac{\partial u}{\partial t} (s,t) + \varphi_v (u(s,t), v(s,t)) \cdot \frac{\partial v}{\partial t}(s,t)\\
+\end{gather*}
+Che relazione c'è tra $\psi_s, \psi_t$ e $\varphi_u, \varphi_v$?\\
+\hfill\\
+Andiamo ora a farne il prodotto vettoriale:
+\begin{gather*}
+  \psi_s (s,t) \land \psi_t (s,t) = \\
+  \left( \underline{\varphi_u} u_s + \underline{\varphi_v} v_s \right) \land \left( \underline{\varphi_u} u_t + \underline{\varphi_v} v_t \right)\\
+  = u_s u_t ( \varphi_u \land \varphi_u ) + u_s v_t ( \varphi_u \land \varphi_v ) + v_s u_t ( \varphi_v \land \varphi_u ) + v_s v_t ( \varphi_v \land \varphi_v )\\
+  = (u_s v_t - v_s u_t) ( \varphi_u \land \varphi_v )
+  %\begin{vmatrix}
+  %  i & j & k\\
+  %  \psi_{u_1} & \psi_{u_2} & \psi_{u_3}\\
+  %  \psi_{v_1} & \psi_{v_2} & \psi_{v_3}
+  %\end{vmatrix} \cdot \begin{vmatrix}
+  %  u_s & u_t\\
+  %  v_s & v_t
+  %\end{vmatrix}\\ = (\varphi_u \land \varphi_v)(u(s,t), v(s,t))
+   \cdot det \begin{pmatrix}
+    u_s & u_t\\
+    v_s & v_t
+  \end{pmatrix}
+\end{gather*}
+Una notazione comoda è:
+\begin{gather*}
+  \frac{\partial (u,v)}{\partial (s,t)} = det \begin{pmatrix}
+    u_s & u_t\\
+    v_s & v_t
+  \end{pmatrix}
+\end{gather*}
+
+
+\subsubsection{gli integrali non dipendono dalla parametrizzazione}
+\begin{gather*}
+  \int_S f d\sigma \overset{\text{usando } \varphi}{=} \int_D f(x(u,v), y(u,v), z(u,v)) \left\lVert \varphi_u \land \varphi_v \right\rVert dudv\\
+  \overset{\text{cambio var. ass. a } \phi}{=} \int_T f(x(u(s,t), v(s,t)), y(u(s,t), v(s,t)), z(u(s,t), v(s,t))) \cdot \left\lVert \varphi_u \land \varphi_v \right\rVert \cdot \left| \frac{\partial (u,v)}{\partial (s,t)} \right| dsdt\\
+  \text{usando la param.} \psi \begin{cases}
+    = \int_T f( \ "" \ ) \cdot \left\lVert (\psi_s \land \psi_t) (s,t) \right\rVert \ ds \ dt\\
+    = \int_S f \ d\sigma
+  \end{cases}
+\end{gather*}
+
+
+\subsubsection{Orientazione e bordo di una superficie}
+Generalemtne per questi concetti si utilizza la geometria differenziale. Per quello che ci interessa useremo delle definizioni intuitive.\\
+\hfill\\
+Sia  $S$ una superficie e supponiamo che si possa 
+scegliere il verso normale in ogni punto di $S$ in modo 
+che partendo da un punto $P_0 \in S$ e seguendo una qualsiasi 
+curva continua chiusa (che dunque vi torni in $P_0$) 
+contenuta in $S$ il vettore normale vari con continuità e ritorni alla posizione iniziale. 
+In tal caso diremo che $S$ è orientabile.\\
+\hfill\\
+Un esempio di superficie orientabile è una sfera.\\
+Un esempio di superficie non orientabile è il nastro di Moebius
+\begin{center}
+  \begin{tikzpicture}
+    %nastro di Moebius
+\begin{axis}[
+    hide axis,
+    view={40}{40}
+]
+\addplot3 [
+    surf, shader=faceted interp,
+    point meta=x,
+    colormap/greenyellow,
+    samples=40,
+    samples y=5,
+    z buffer=sort,
+    domain=0:360,
+    y domain=-0.5:0.5
+] (
+    {(1+0.5*y*cos(x/2)))*cos(x)},
+    {(1+0.5*y*cos(x/2)))*sin(x)},
+    {0.5*y*sin(x/2)});
+\addplot3 [
+    samples=50,
+    domain=-145:180, % The domain needs to be adjusted manually, depending on the camera angle, unfortunately
+    samples y=0,
+    thick
+] (
+    {cos(x)},
+    {sin(x)},
+    {0});
+\end{axis}
+  \end{tikzpicture}
+\end{center}
+La parametrizzazione del nastro di Moebius è:
+\begin{gather*}
+  \varphi(u,v) = \left( \left(1 + \frac{v}{2} \cos\left(\frac{u}{2}\right)\right) \cos(u), \left(1 + \frac{v}{2} \cos\left(\frac{u}{2}\right)\right) \sin(u), \frac{v}{2} \sin\left(\frac{u}{2}\right) \right)\\
+  u \in [0, 2\pi], \ v \in [-1, 1]
+\end{gather*}
+\hfill\\
+Un'altra definizione importante è quella di bordo di una superficie.\\
+Prendiamo in esempio una semisfera e consideriamone la sua superficie $S$.\\
+Il suo bordo è il cerchio che si ottiene tagliando la sfera (che formerei da due delle mie semisfere) a metà.\\
+Se ad esempio invece di una semisfera perfetta si ha una parte di una sfera il bordo sarà la circonferenza che seziona la sfera.\\
+\hfill\\
+Più in generale il bordo di una superficie $S$ è l'insieme dei punti di $S$ che 
+possono essere raggiunti da una curva contenuta in $S$ che non può essere 
+estesa oltre $S$.\\
+\hfill\\
+Un esempio di superficie senza bordo è la sfera.\\
+Un esempio di superficie con bordo è il paraboloide limitato da un piano orizzontale.
+\hfill\\ 
+\hfill\\ 
+Passiamo ora al concetto di orientazione della superficie del bordo. teniamo a mente l'esempio della semisfera per praticità\\
+Fissiamo una orientazione della superficie (orientabile [presa per hp.]) $S$.\\
+Si determina due "lati" di $S$, chiamando lato positivo quello verso cui punta il versore normale $N$ e lato negativo quello opposto.\\
+Diciamo che $\partial S$ è orientato positivamente rispetto a $S$ se, percorrendo $\partial S$ orientandosi sul lato positivo di $S$ si lasciano i punti di $S$ sulla sinistra.\\
+Ci sono figure che non hanno bordo:
+\begin{itemize}
+  \item sfera $\partial = \emptyset$
+  \item toro $\partial = \emptyset$
+  \item Paraboloide non limitato $\partial = \emptyset$
+\end{itemize}
+Tutte le superfici chiuse non hanno bordo ma non tutte le superfici senza bordo sono chiuse (es. paraboloide non limitato).
+
+
+\begin{definition}[Flusso di un campo lungo una superficie]
+  Si para di flusso di un campo lungo una superficie.\\
+  \underbar{Se} io ho un campo $F$ definito in un intorno di una superficie orientabile e\\
+  \underbar{se} $N$ è una scelta del vettore normale a $S$.\\
+  Definisco flusso di $F$ normale a $S$ come:
+  \begin{gather*}
+    S = \int_S \langle F, N \rangle d \sigma
+  \end{gather*}
+  Appurato questo:\\
+  \hfill\\
+  \underbar{se} $\varphi : D \to \mathbb{R}^3$ è una parametrizzazione di $S$ quell'integrale, \\
+  \underbar{se} $\varphi(u,v) = (x(u,v), y(u,v), z(u,v))$, diventa:
+  \begin{gather*}
+    \int_D \underbrace{\left\langle F(x(u,v), y(u,v), z(u,v)) , \frac{\varphi_u \land \varphi_v}{\cancel{\left\lVert \varphi_u \land \varphi_v \right\rVert}}\right\rangle }_{\left\langle F,N \right\rangle } \cdot \cancel{\left\lVert \varphi_u \land \varphi_v \right\rVert} dudv\\
+    = \int_D \left\langle F(x(u,v), y(u,v), z(u,v)) , \varphi_u \land \varphi_v \right\rangle dudv
+  \end{gather*}
+\end{definition}
+
+
+\begin{theorem}[di Stokes]
+  \underbar{Sia} $S$ una superficie orientabile di $\mathbb{R}^3$, \underbar{avente} un campo normale unitario $N$ \underbar{il cui} bordo consiste in un numero finito di curve chiuse con orientazione ereditata dall'orientazione di $S$.\\
+  \underbar{Se} $F$ è un campo vettoriale definito su un insieme aperto contenente $S$ e $C^2$, e $T$ è 
+  un versore tangente a $\delta^+ S$, orientato in modo concorde al verso positivo di $\delta^+ S$\\
+  \underbar{allora}:
+  \begin{gather*}
+    \int_S \left\langle rot \ F, N \right\rangle d\sigma = \int_{\partial^+ S} \left\langle F, T \right\rangle ds  
+  \end{gather*}
+\end{theorem}
+
+\begin{proof} \hfill\\
+   Questa dim. la vedremo solo in un caso particolare, quando $S$ è il grafico di una funzione $z = f(x,y)$ con $(x,y) \in D$.\\
+   Supponiamo come nell'esempio precedente che $N$ punti verso l'alto.\\
+   \begin{center}
+      \tdplotsetmaincoords{70}{110}
+      \begin{tikzpicture}[tdplot_main_coords]
+      %assi xyz
+      \draw[->](0,0,0) -- (5,0,0) node[right]{$x$};
+      \draw[->](0,0,0) -- (0,5,0) node[above]{$y$};
+      \draw[->](0,0,0) -- (0,0,5) node[above]{$z$};
+      %dominio
+      \draw[ultra thick](1,1,0) -- (3,1,0) -- (3,2,0) -- (1,2,0) -- cycle;
+      \node at(2,1.5,0){$D$};
+      \draw[->] (1.2,0.8,0) -- (2.8,0.8,0);
+      \draw[->] (3.2,1.2,0) -- (3.2,1.8,0);
+      \draw[->] (2.8,2.2,0) -- (1.2,2.2,0);
+      \draw[->] (0.8,1.8,0) -- (0.8,1.2,0);
+      %superficie
+      \begin{scope}[scale=2.5,  shift={(0,0.65,-0.5)}, rotate = 40]
+        \draw[ultra thick](1.3,1.5,2) ..controls(1.6,1.7,2).. (2,1.8,2);
+        \draw[<-](1.3,1.6,2) ..controls(1.6,1.8,2).. (2,1.9,2);
+
+        \draw[ultra thick](1.5,1,2) ..controls(1.8,1.2,2).. (2.2,1.3,2);
+        \draw[->](1.7,1,2) ..controls(2,1.2,2).. (2.4,1.3,2);
+        
+        \draw[ultra thick](1.3,1.5,2) ..controls(1.45,1.3,2).. (1.5,1,2);
+        \draw[->](1.1,1.5,2) ..controls(1.25,1.3,2).. (1.3,1,2);
+
+        \draw[ultra thick](2,1.8,2) ..controls(2.15,1.5,2).. (2.2,1.3,2);
+        \draw[<-](2.2,1.9,2) ..controls(2.35,1.6,2).. (2.4,1.4,2);
+      \end{scope}
+      %punto
+      \filldraw[white](3,1.5) circle (1.5pt) node[below]{$(x(t),y(t))$};
+      \filldraw[black](3,1.5) circle (1pt);
+      \draw[dashed](3,1.5,0) -- (3,1.5,3.05);
+      \filldraw[white](3,1.5,3.05) circle (1.5pt) node[left]{$(x(t),y(t),f(x(t),y(t)))$};
+      \filldraw[black](3,1.5,3.05) circle (1pt);
+      \draw[->, very thick](2.2,1.9,3.2) -- (2.2,1.9,4.5)node[at end, right]{$N$};
+      \node at(1.2,3.5,3.2){$z = f(x,y)$};
+  \end{tikzpicture}
+   \end{center}
+   A $\delta D$ corrisponde $\delta S$, e all'orientazione positiva di $\delta D$ corrisponde l'orientazione positiva di $\delta S$\\
+   \begin{gather*}
+    \int_S \left\langle rot \ F , N \right\rangle d\sigma = \int_D \left\langle \underbrace{\left( \frac{\partial F_3}{\partial y} - \frac{-\partial F_2}{\partial z} , \frac{\partial F_1}{\partial z} \frac{\partial F_3}{\partial x} , \frac{\partial F_2}{\partial x} - \frac{\partial F_1}{\partial y} \right)}_{rot(F_1, F_2, F_3)} , \left( \frac{-\partial f}{\partial x}, \frac{-\partial f}{\partial y} , 1 \right) \right\rangle  \ dxdy\\
+    = \int_D \left[ -\left(\frac{\partial F_3}{\partial y}(x,y,f(x,y))\right) \frac{\partial f}{\partial x}  - \left(\frac{\partial F_1}{\partial z}( \ "" \ )- \frac{\partial F_3}{\partial x} ( \ "" \ )\right)\frac{\partial f}{\partial y} + \left(\frac{\partial F_2}{\partial x}( \ "" \ )-\frac{\partial F_1}{\partial y}\right)  \right] \ dxdy 
+   \end{gather*}
+   Abbiamo fatto la parte sinistra ora facciamo la destra e verificheremo che sono uguali:
+   \begin{gather*}
+    \int_{\partial^+ S} \left\langle F, T \right\rangle ds
+   \end{gather*}
+   Supponiamo che $\partial^+ D$ consista di una sola curva chiusa.\\
+   \underbar{Sia} $\gamma(t) = (x(t), y(t)) \quad t \in [a,b]$ una parametrizzazione di $\partial^+ D$  coerente con l'orientazione positiva.\\
+   \underbar{Allora} una parametrizzazione di $\partial^+ S$ è:
+   \begin{gather*}
+    \widetilde{\gamma}(t) = (x(t), y(t), f(x(t), y(t))) \quad t \in [a,b]\\
+    \int_a^b F(x(t), y(t), f(x(t), y(t))) \cdot \widetilde{\gamma}'(t) dt
+   \end{gather*}
+   Calcoliamo $\dot{\widetilde{\gamma}}$:
+   \begin{gather*}
+    \dot{\widetilde{\gamma}} = \frac{d}{dt} \widetilde{\gamma} (t) = \left( \dot{x}(t), \dot{y}(t), \frac{\partial f}{\partial x} (x(t), y(t)) \cdot \dot{x}(t) + \frac{\partial f}{\partial y} (x(t), y(t)) \cdot \dot{y}(t) \right)
+   \end{gather*}
+   Quindi l'integrale di linea diventa:
+   \begin{gather*}
+    \int_a^b F(x(t), y(t), f(x(t), y(t))) \cdot \left( \dot{x}(t), \dot{y}(t), \frac{\partial f}{\partial x} (x(t), y(t)) \cdot \dot{x}(t) + \frac{\partial f}{\partial y} (x(t), y(t)) \cdot \dot{y}(t) \right) dt\\
+    = \int_a^b \left[ F_1( \ "" \ ) \dot{x}(t) + F_2( \ "" \ ) \dot{y}(t) + F_3( \ "" \ ) \left( \frac{\partial f}{\partial x} (x(t), y(t)) \cdot \dot{x}(t) + \frac{\partial f}{\partial y} (x(t), y(t)) \cdot \dot{y}(t) \right) \right] dt\\
+   \end{gather*}
+   Voglo raccogliere $\dot{x}$ e $\dot{y}$
+   \begin{gather*}
+      = \int_a^b \left( \left[ F_1( \ "" \ ) + F_3( \ "" \ )\frac{\partial f}{\partial x}(x,y) \right] \dot{x}(t) + \left[ F_2( \ "" \ ) + F_3( \ "" \ )\frac{\partial f}{\partial y}(x,y) \right] \dot{y}(t) \right) dt\\
+      = \int_{\partial^+ D} \left( \left[ F_1(x,y,f(x,y)) + F_3(x,y,f(x,y))\frac{\partial f}{\partial x}(x,y) \right] dx + \left[ F_2(x,y,f(x,y)) + F_3(x,y,f(x,y))\frac{\partial f}{\partial y}(x,y) \right] dy \right)
+   \end{gather*}
+   Sono passato da un integrale su $t$ ad uno su $\partial^+ D$, a questo posso applicare le formule di Gauss-Green.\\
+   Le formule di Gauss-Green dicono che tale integrale è:
+   \begin{gather*}
+    \int_D \frac{\partial}{\partial x}\left[ F_2(x,y,f(x,y)) + F_3(x,y,f(x,y)) \frac{\partial f}{\partial y}(x,y) \right]- \frac{\partial}{\partial y} \left[ F_1(x,y,f(x,y)) + F_3(x,y,f(x,y))\frac{\partial f}{\partial x} (x,y) \right] \ dxdy  
+   \end{gather*}
+   Devo derivare rispetto a $x$ e $y$:
+   \begin{gather*}
+    = \int_D \left[ \frac{\partial F_2}{\partial x} ( x,y,f(x,y) ) + \frac{\partial F_2}{\partial z} ( \ "" \ ) \frac{\partial f}{\partial x}(x,y) + \frac{\partial F_3}{\partial x}\frac{\partial f}{\partial y} + \frac{\partial F_3}{\partial z} ( \ "" \ ) \frac{\partial f}{\partial x}\frac{\partial f}{\partial y}(") + F_3( \ "" \ ) \frac{\partial^2 f}{\partial x \partial y} \right] - \\
+    \left[ \frac{\partial F_1}{\partial y} ( \ "" \ ) + \frac{\partial F_1}{\partial z} ( \ "" \ ) \frac{\partial f}{\partial y} + \frac{\partial F_3}{\partial y} ( \ "" \ ) \frac{\partial f}{\partial x} + \frac{\partial F_3}{\partial z}\frac{\partial f}{\partial x}\frac{\partial f}{\partial y} + F_3( \ "" \ ) \frac{\partial^2 f}{\partial y \partial x} \right] \ dxdy
+  \end{gather*}
+  Dopo aver tolto i termini che si cancellano ottengo:
+  \begin{gather*}
+    \int_D \frac{\partial f}{\partial x} (x,y) \left[ \frac{\partial F_2}{\partial z} - \frac{\partial F_3}{\partial y} \right] + \frac{\partial f}{\partial y}\left[ \frac{\partial F_3}{\partial x} -\frac{\partial F_1}{\partial z}\right] + \left[ \frac{\partial F_2}{\partial x}( " )- \frac{\partial F_1}{\partial y} \right] \ dxdy   
+  \end{gather*}
+\end{proof}
+
+
+\begin{theorem}[Della divergenza]
+  \underbar{Sia} $D \subseteq \mathbb{R}^3$ un aperto limitato la cui frontiera è una superficie regolare (o regolare a tratti) chiusa orientabile.\\
+  \underbar{Sia} in ogni punto di $\partial D$ sia il versore normale $N$ orientato in modo da puntare verso l'esterno di $D$.\\
+  \underbar{Sia} $F$ un campo definito e $C^1$ in un intorno di $D$.\\
+  \underbar{Allora}:
+  \begin{gather*}
+    \int_D  \text{div}F \ dxdydz = \int_{\partial D} \left\langle F , N \right\rangle d\sigma
+  \end{gather*} 
+\end{theorem}
+
+
+\begin{proposition}
+  \underbar{se} $f$ è una funzione (scalare) def e $C^1$ in un intorno di $D$\\
+  \underbar{allora}:
+  \begin{gather*}
+    \int_D \frac{\partial f}{\partial x} \ dxdydz = \int_{\partial D} f N_1 \ d\sigma \\
+    \int_D \frac{\partial f}{\partial y} \ dxdydz = \int_{\partial D} f N_2 \ d\sigma \\
+    \int_D \frac{\partial f}{\partial z} \ dxdydz = \int_{\partial D} f N_3 \ d\sigma
+  \end{gather*}
+\end{proposition}
+
+
+\section{Successioni e serie di funzioni}
+Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funzioni reali continue su un intervallo:
+\begin{gather*}
+  \mathcal{F}_i = \{ g: I \to \mathbb{R} \} \quad I \subseteq \mathbb{R}\\
+  \{f_k (x)\} \subseteq \mathcal{F}_i
+\end{gather*} 
+
+\begin{definition}[Convergenza puntuale e uniforme]
+  Una successione converge puntualmente a $f \in \mathcal{F}_i$ se:
+  \begin{gather*}
+    f_k \to f \quad \text{in} \quad (\mathcal{F}_i ; | \cdot |) \quad \text{cioè} \quad \lim_{k \to \infty} |f_k(x) - f(x)| = 0 \quad \forall x \in I\\
+  \end{gather*}
+  Una successione converge uniformemente a $f \in \mathcal{F}_i$ se:
+  \begin{gather*}
+    f_k \rightrightarrows f \quad (\mathcal{F}_i ; \left\lVert \cdot \right\rVert ) \quad \text{cioè} \quad \lim_{k \to \infty} \underset{x \in I}{sup}\left\lvert f_k(x) - f(x) \right\rvert = 0
+  \end{gather*}
+\end{definition}
+
+
+\begin{observation}
+  La convergenza uniforme implica la convergenza puntuale.\\
+  \begin{gather*}
+    f_k \rightrightarrows  f \quad \Rightarrow f_k \overset{I}{\to} f
+  \end{gather*}
+  Non è vero il viceversa
+\end{observation}
+
+
+\begin{theorem}[continuità del limite]
+  Preso un intervallo $I = [a,b]$\\
+  \underbar{se} $\{f_k\} \in C^0 (I)$ e $f_k \in I$\\
+  \underbar{allora} $f \in C^0 (I)$
+\end{theorem}
+
+\begin{proof}
+  fissiamo $x_0 \in [a,b]$\\
+  fisso inoltre $\varepsilon > 0$\\
+  Per valutare la continuità devo valutare:
+  \begin{gather*}
+    \left\lvert f(x) - f(x_0) \right\rvert \leq \left\lvert f(x) - f_{k_0}(x_0)\right\rvert + \left\lvert f_{k_0}(x) - f_{k_0}(x_0) \right\rvert + \left\lvert f_{k_0}(x_0) - f(x_0) \right\rvert   \\
+    f_k \rightrightarrows f \quad \Rightarrow \exists \nu : \forall k_0 > \nu \quad \left\lvert f_k(x) - f(x) \right\rvert < \varepsilon \quad \forall x \in I\\
+  \end{gather*}
+  Ora sappiamo che:
+  \begin{gather*}
+    \left\lvert f(x) - f_{k_0}(x_0)\right\rvert < \varepsilon \\
+    \left\lvert f_{k_0}(x_0) - f(x_0) \right\rvert < \varepsilon \\
+  \end{gather*}
+  Devo stimare:
+  \begin{gather*}
+    \left\lvert f_{k_0}(x) - f_{k_0}(x_0) \right\rvert
+  \end{gather*}
+  \begin{observation}
+      $f_{k_0} \in C^0 (I) \quad \Rightarrow \exists \delta > 0 :$ \underbar{ se } $x \in I \text{ con } |x-x_0| < \delta$\\
+      \underbar{allora} $| f_{k_0}(x) - f_{k_0}(x_0) | < \varepsilon$
+  \end{observation}
+  Quindi:
+  \begin{gather*}
+    |f_{k_0}(x) - f_{k_0}(x_0)| < \varepsilon
+  \end{gather*}
+  se $x \in I $ con $|x-x_0| < \delta$\\
+\end{proof}
+
+
+\begin{theorem}[criterio di cauchy per la convergenza uniforme]
+  \begin{gather*}
+    f_k \rightrightarrows f \in I \Leftrightarrow \forall \varepsilon > 0 \quad \exists \nu \in \mathbb{N} : \forall h,k > \nu \quad \left\lvert f_k(x) - f_h(x) \right\rvert < \varepsilon \quad \forall x \in I
+  \end{gather*}
+\end{theorem}
+
+\begin{observation}
+  \begin{gather*}
+    f_k(x) = x^k \cancel{\rightrightarrows} f \in [0,1]\\
+    f(x) = \begin{cases}
+      0 \quad x \in [0,1)\\
+      1 \quad x = 1
+    \end{cases}\\
+  \end{gather*}
+  Non è preservata la continuità quindi \textbf{non} c'è convergenza uniforme.\\
+  Questo ci dice che questo teorema si usa per dimostrare che non c'è convergenza uniforme.
+\end{observation}
+
+
+\begin{theorem}[Passaggio sotto $\int$]
+  \begin{gather*}
+    I = [a,b] \quad \{ f_k \} \subseteq C^0 (I), f_k \rightrightarrows f \in I\\
+    \Rightarrow \lim_{k \to \infty} \int_a^b f_k(x) \ dx = \int_a^b \lim_{k \to \infty} f_k(x) \ dx
+  \end{gather*}
+\end{theorem}
+
+\begin{proof}
+  $f \in C^0 (I)$ per th. continuità del limite $\Rightarrow \ \exists \int_a^b f(x) \ dx$ \\
+\end{proof}
+Si usa adesso la lineraità dell'integrale e porto dentro il valore assoluto maggiorandolo.
+\begin{gather*}
+  \left\lvert \int_a^b f_k(x) \ dx - \int_a^b f(x) \ dx \right\rvert  \leq \int_a^b \underbrace{\left\lvert f_k(x) - f(x) \right\rvert}_{\leq \underset{x \in [a,b]}{max} \left\lvert f_k(x) - f(x) \right\rvert = \left\lVert f_k - f \right\rVert_\infty  } \ dx \leq (b-a) \cdot \left\lVert f_k - f \right\rVert_\infty \overbrace{\to 0 }_{\text{poichè } f_k \rightrightarrows f \in [a,b]}\\
+\end{gather*}
+
+
+\begin{observation}
+  non vale il th. se la convergenza è puntuale
+  \begin{gather*}
+    \text{se } \cancel{\rightrightarrows }\\
+    \text{ma solo } \to 
+  \end{gather*}
+\end{observation}
+
+
+\begin{theorem}[Passaggio al limite sotto ]
+  Preso un intervallo $I = [a,b]$\\
+  \underbar{Sia} $\{f_k\} \in C^0 (I)$\\
+  \underbar{Se} $\exists x_0 \in I $ t.c. $ f_k(x_0) \to \ell \in \mathbb{R}$\\
+  \underbar{e} $f'_k \rightrightarrows g \in I$\\
+  \underbar{allora}
+  \begin{gather*}
+    \exists f \in C^1 (I) : f_k \rightrightarrows f \in I\\
+    \text{e } f'_k \to f' \quad \in I\\
+  \end{gather*}
+\end{theorem}
+
+
+\begin{observation}
+  $f_k$ derivabile, $f_k \overset{I}{\rightrightarrows} f$ \textbf{non} implica che $f$ sia derivabile.\\
+\end{observation}
+
+
+\begin{theorem}[Del DINI della convergenza monotona]
+  Preso un intervallo $I = [a,b]$\\
+  \underbar{Sia} $\{f_k\} \subseteq C^0 (I)$ t.c. monotona rispetto a $k$ (cioè $f_{k+1} \overset{o <}{>} f_k(x) \quad \forall x \in I$)\\
+  \underbar{e} $f_k(x) \to f(x) \in C^0 (I)$\\
+  \underbar{allora} $f_k \rightrightarrows f \in I$
+\end{theorem}
+
+
+\begin{observation}
+    \begin{gather*}
+      f_k(x) \to f(x) \equiv 0 \quad \forall x \in I\\
+    \end{gather*}
+\end{observation}
+
+
+\begin{definition}
+  \begin{gather*}
+    \{f_k\} \subseteq \mathcal{F}_I \quad S_n(x) = \sum_{k=0}^n f_k(x) \in \mathcal{F}_I\\
+    \sum_0^{+\infty} f_k(x) \text{ serie } = \lim_{n \to +\infty} S_n(x) \quad (\mathcal{F}_I; \text{norma}) \\
+  \end{gather*}
+\end{definition}
+
+
+\begin{definition}
+  $\sum_0^{+\infty} f_k$ converge puntualmente a $S(x)$ \underbar{se} $S_n(x) \to S(x)$ puntualmente in $I$\\
+  $\sum_0^{+\infty} f_k$ converge assolutamente a $S(x)$ \underbar{se} $\sum_0^n |f_k(x)| \to S(x)$ puntualmente\\
+  $\sum_0^{+\infty} f_k$ converge uniformemente a $S(x)$ \underbar{se} $S_n(x) \to S(x)$ uniformemente in $I$\\rie
+  $\sum_0^{+\infty} f_k$ converge totalmente a $S(x)$ \underbar{se} $\exists \{M_n\} \subseteq \mathbb{R} \ t.c. \ |f_n(x)| \leq M_n \forall x \in I$ e $\sum_0^{+\infty} M_n$ converge\\
+  quest'ultima vuol dire anche che $\sum_{n=0}^{+\infty} \underset{x \in I}{sup} |f_n(x)|$ converge.
+\end{definition}
+
+
+\begin{theorem}
+  $\sum f_k$ converge totalmente $ \overset{\in I}{\implies}$ converge uniformemente in $I$ $\overset{\in I}{\implies}$ converge puntualmente in $I$.
+\end{theorem}
+
+
+\begin{theorem}
+  \begin{itemize}
+    \hfil\\
+    \item continuità della somma.
+    \begin{gather*}
+      \{f_k\} \subseteq C^0(I) \ , \ \sum f_k(x) \rightrightarrows S(x) \in I \implies S(x) \in C^0(I)
+    \end{gather*}
+    \item Integrazione per Serie
+    \begin{gather*}
+      I = [a,b] \{f_k\} \subseteq C^0(I) \ , \ \sum f_k(x) \overset{I}{\rightrightarrows} S(x) \in I \implies \int_a^b S(x) dx = \sum_0^{+\infty} \int_a^b f_k(x) dx
+    \end{gather*}
+    \item Derivazione per Serie
+    \begin{gather*}
+      I = [a,b] \{f_k\} \subseteq C^1(I) \ , \ \sum f_k(x) \overset{I}{\rightrightarrows} S(x) \in I \ , \ \sum f_k'(x) \rightrightarrows G(x) \in I \implies S(x) \in C^1(I) \ , \ S'(x) = \sum f_k'(x) \quad \forall x \in I
+    \end{gather*}
+  \end{itemize}
+\end{theorem}
+
+
+\begin{definition}
+  $\{a_k\} \subseteq \mathbb{R}$ serie di potenze di centro $x_0 \in \mathbb{R} \qquad \sum_{n=0}^{+\infty} a_n (x - x_0)^n$
+\end{definition}
+
+
+\begin{observation}
+  posso suppore $x_0=0$ $y=x-x_0$ considerando $\sum a_n y^n$
+\end{observation}
+
+
+\begin{observation}
+  $\sum a_n x^n$ converge in $x=0$ \small sempre (poichè $S_n(0) = a_0$)\normalsize
+\end{observation}
+
+
+\begin{theorem}
+  $\exists \xi \neq 0 \ t.c. \ \sum a_n x^n $ converge in $\xi$\\
+  $\implies$ la serie converge totalmente in $[a,b] \quad \forall [a,b] \subseteq (-|\xi|, |\xi|)$\\
+  e quindi conerge puntualmente in $(-|\xi|, |\xi|)$
+\end{theorem}
+
+
+\begin{observation}
+  $(-|\xi|, |\xi|) \subseteq$ L'insieme di convergenza
+\end{observation}
+
+
+\begin{proof}
+  \hfil\\
+  sia $\eta \in (-|\xi|, |\xi|)$\\
+  $I = [-\eta, \eta] \in I$\\
+  \begin{gather*}
+    \left\lvert a_n x^n \right\rvert = \underbrace{\left\lvert a_n \xi^n \right\rvert} \left\lvert \frac{x}{\xi} \right\rvert^n := M_n \text{ e oss. che } \sum M_n \text{conv. } \left(\left\lvert \frac{\eta}{\xi}\right\rvert  < 1 \right) \\
+    \exists M \ t.c. \ \leq M \quad \forall n \in \mathbb{N}
+    \implies \sum a_n x^n \text{ converge totalmente } \in I = [-\eta, \eta] \\
+  \end{gather*}
+\end{proof}
+
+
+\begin{observation}
+  $\left(-|\xi|, |\xi|\right) $L'insieme di convergenza di una serie di potenze
+\end{observation}
+
+
+\begin{definition}
+  \begin{gather*}
+    \boxed{\rho := sup \{\xi \in \mathbb{R} : \sum a_n  x^n \text{ conv. in } \xi \}}
+  \end{gather*}
+  Detto raggio di convergenza della serie di potenze
+  \begin{gather*}
+    \rho = \begin{cases}
+      +\infty \leftrightarrow \sum a_n x^n \text{conv. } \forall x \in \mathbb{R}\\
+      = R \in \mathbb{R} \\
+      = 0 \leftrightarrow \sum a_n x^n \text{conv. solo per } x=0
+    \end{cases}
+  \end{gather*}
+\end{definition}
+
+
+\begin{theorem}
+  $\rho = R \leftrightarrow $\\
+  \begin{gather*}
+    \sum a_n x^n \text{converge se } |x| < R \\
+    \sum a_n x^n \text{non converge se } |x| > R
+  \end{gather*} 
+  Con $R := $ raggio di convergenza
+\end{theorem}
+
+
+\begin{observation}
+  per $|x| = R$ non si sa nulla in generale
+\end{observation}
+
+
+\begin{proof}
+  [\textbf{parte 1} $\Rightarrow$]
+  $\exists \xi \in \mathbb{R}: |x| < |\xi| \leq R$ e $\sum a_n \xi^n $ converge.\\
+  Dal th. prec si ha convergenza in $(-|\xi|, |\xi|)$ quindi anche in x (poichè converge in $-|x|$ e  $|x|)$\\
+  \underbar{sia} $\xi: \xi > R$
+  suppongo $\sum a_n \xi^n $ converge $\implies$ dal th.prec. $\sum a_n \xi^n$ converge anche in $x$ t.c. $R < x \leq \xi$ è assurdo perchè $R = sup \{\dots\}$\\
+
+  [\textbf{parte 2} $\Leftarrow$]
+  $\sum a_n x^n $ conv per $|x| < \rho$ o non conv per $|x| > \rho$ (vogliamo dimostrare $\rho = R$)\\
+  \begin{itemize}
+    \item se $x \in (-\rho, \rho)$ dal th. prec. si ha $x \leq sup \{\dots\} = R \quad \forall x \in (-\rho,\rho) \implies \rho \leq R$
+    \item se fosse $\rho < R \quad \exists \rho < \xi < R$ con $\sum a_n \xi^n$ converge dal th. prec.
+    Ma per hp. $\sum x_n \xi^n$ non converge per $|x| > \rho$ quindi $\rho = R$
+  \end{itemize}
+  \begin{observation}
+    $(-R,R) \subseteq$ l'insieme di convergenza ed è un intervallo
+  \end{observation}
+\end{proof}
+
+
+\begin{theorem}
+  [di Cauchy-Hadamard]
+  \begin{gather*}
+    \sum_{0}^{+\infty} a_n x^n \quad \ell := \overline{\lim_{n \to +\infty}} \sqrt[n]{|a_n|} \\
+  \end{gather*}
+  \underbar{allora:}
+  \begin{itemize}
+    \item se $\ell = 0 \implies R = +\infty$
+    \item se $\ell = +\infty \implies R = 0$
+    \item $\ell \in R, \ell \neq 0 \implies R = \frac{1}{\ell}$
+  \end{itemize}
+\end{theorem}
+
+
+\begin{proof}
+  \hfil\\
+  \textbf{casi possibili:} $\exists \lim_{n \to \infty} \sqrt[n]{|a_n|} = \ell \begin{cases}
+    0\\
+    +\infty\\
+    \ell \in \mathbb{R}, \ell \neq 0
+  \end{cases}$\\
+  \textbf{caso 1:} $\ell = 0$\\
+  \bulletout \underbar{sia} $x \neq 0$ $\lim \sqrt[k]{|a_k| |x|^k} = |x| \cdot \ell = \begin{cases}
+    0 \text{ se } \ell = 0\\
+    +\infty \text{ se } \ell = +\infty\\
+    |x| \cdot \ell \text{ se } \ell \in \mathbb{R}, \ell \neq 0 
+  \end{cases}$
+  \textbf{caso 2:}  $\ell = +\infty$\\
+  \bulletout \underbar{se} $\ell = 0$ il criterio della radice per la serie numerica $\sum |a_n| |x|^n$ garantisce la convergenza.\\
+  \bulletout \underbar{se} $\ell = +\infty$ il criterio della radice per la serie numerica $\sum |a_n| |x|^n$ garantisce la divergenza.\\
+  \bulletout \textbf{caso 3:} $\ell \in \mathbb{R}, \ell \neq 0$\\
+  il criterio della radice fa si che la serie converga se $\ell |x| < 1$ e non converga se $|x| > 1$\\
+  Dal th. 1.4 segue $R = \frac{1}{\ell}$
+\end{proof}
+
+
+\section{Limiti superiori}
+si indicano con $\overline{\lim} a_n = max\{ \lim a_{nk} \}$
+
+
+\begin{theorem}
+  [derivazione serie di potenze]
+    $\sum_{0}^{+\infty} a_n x^n \quad R = raggio di convergenza$ \\
+    \underbar{allora}: la serie derivata $\sum_{1}^{+\infty} k a_k x^{k-1}$ ha ancora raggio di convergenza $R$.
+\end{theorem}
+\begin{observation}
+  $x^{k-1} = \frac{x^2}{x}$
+\end{observation}
+
+
+\begin{theorem}
+  [di derivazione e integrazione per serie di potenze]
+  $\sum_{n=0}^{+\infty} a_n x^n$ con $R \neq 0$ raggio di convergenza, e $S(x) = \sum a_n x^n$ per $x \in I$\\
+  \underbar{allora}: $S'(x) = \sum_{1}^{+\infty} n a_n x^{n-1} \quad \forall x:|x| < R$ cioè in $\mathring{I}$\\
+  e $\int_0^x S(t) dt = \sum_{0}^{+\infty} \frac{a_n}{n+1} x^{n+1} \quad \forall x: |x| < R$
+\end{theorem}
+
+
+\begin{proof}
+  \hfil\\
+  segue dal theorema della serie derivate e dalla convergenza uniforme della serie di potenze in $[a,b] \subseteq (-R,R)$ + valgono i teoremi di derivazione e integrazione per serie di funzioni applicati a:
+  \begin{gather*}
+    S(x) = \sum_{0}^{+\infty} a_n x^n \\
+    G(x) = \sum_{1}^{+\infty} n a_n x^{n-1} \\
+  \end{gather*}
+\end{proof}
+
+
+\begin{theorem}
+  [di Abel]
+  Presa: $\sum a_n x^n$ con $ R>0 $ e $\sum a_n R^n$ converge\\
+  \underbar{allora}: $\sum a_n x^n $ converge uniformemente in $[0,R]$ e la somma è $C^0$ per $x \to R$
+\end{theorem}
+\begin{problem}
+  $\sum a_n x^n + \sum b_n x^n \overset{?}{=} \sum (a_n + b_n) x^n$ 
+\end{problem}
+\begin{solution}
+  \hfil\\
+  Vale quando:\\
+  $a_n x^n $ converge $\leftrightarrow$ converge $|x|<R_1$\\
+  $b_n x^n $ converge $\leftrightarrow$ converge $|x|<R_2$\\
+  e definisco $R := min \{ R_1, R_2 \}$
+\end{solution}
+\begin{proof}
+  vediamo di dimostrare questo fatto.\\
+  \begin{gather*}
+    f(x) = \sum a_n x^n \quad g(x)\\
+    g(x) = \sum b_n x^n \\
+    S_N = \sum_{n=0}^{N} (a_n + b_n) x^n = \sum_{n=0}^{N} a_n x^n + \sum_{n=0}^{N} b_n x^n \\
+  \end{gather*}
+  Vogliamo dimostrare che $\lim S_N = f(x) - g(x)$
+  \begin{gather*}
+    \left\lvert S_N(x) - (f(x)- g(x)) \right\rvert = \left\lvert \sum_{0}^{N} a_n x^n - f(x) + \sum_{0}^{N} b_n x^n - g(x) \right\rvert \\
+    \leq \underbrace{\left\lvert \sum_{0}^{N} a_n x^n - f(x) \right\rvert}_{\to 0 \text{ se } |x| < R} + \underbrace{\left\lvert \sum_{0}^{N} b_n x^n - g(x) \right\rvert}_{\to 0 \text{ se } |x| < R} \\
+  \end{gather*}
+\end{proof}
+
+\begin{theorem}
+  $\sum a_n x^n$ con $R\neq 0$ raggio di convergenza e $f(x) = \sum a_n x^n$ per $x \in I = (-R;R)$\\
+  \underbar{allora}: $f \in C^\infty (\mathring{I}) \quad \forall m \in \mathbb{N}$ si ha:\\
+  \begin{gather*}
+    f^{(m)} (x) = \sum_{k=m}^{+\infty} k(k-1)(k-2) \dots (k - m + 1) a_k x^{k-m} \text{ in } \mathring{I}\\
+  \end{gather*}
+  e in particolare:
+  \begin{gather*}
+    a_k = \frac{f^{(k)}(0)}{k!} \quad \text{cioè} \quad f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(0)}{k!} x^k 
+  \end{gather*}
+\end{theorem}
+\begin{proof}
+  Si applica il teorema di derivazione per serie m-volte:\\
+  Calcolo:
+  \begin{gather*}
+    f^{(m)}(0) = \sum_{k=m}^{+\infty} k(k-1)(k-2) \dots (k - m + 1) a_k \ x^{k-m} \Bigg\rvert_{x=0} = m(m-1) \dots 2 \cdot 1 \cdot a_m = m! \ a_m \\
+  \end{gather*}
+\end{proof}
+
+
+\begin{definition}
+  Si chiama serie di Taylor di $f \in C^\infty$ centrata in $x_0$:
+  \begin{gather*}
+    \sum_{k=0}^{+\infty} \frac{f^{(k)}(x_0)}{k!} (x-x_0)^k = S_{T,x_0}
+  \end{gather*} 
+\end{definition}
+
+
+\begin{observation}
+  sia $f(x) = \sum a_n (x-x_0)^n \quad x \in (a,b)$\\
+  allora $\forall I_{x_0} \subseteq (a,b) , |x-x_0| < \rho$ si ha:
+  \begin{itemize}
+    \item $f$ è $\infty$-derivabile per $|x-x_0| < \rho$
+    \item $a_n = \frac{f^{(n)}(x_0)}{n!}$ se $f(x)$ (è uguale alla sua serie di Taylor \tiny detto da copilot\normalsize)
+  \end{itemize}
+  Quindi $f$ è sviuppabile in serie di Taylor se $f(x)$ stessa è uguale alla sua serie di Taylor
+\end{observation}
+
+
+\begin{observation}
+  se $f$ è $\infty$-derivabile e $\sum \frac{f^{(k)}(0)}{k!}$ convergente $\cancel{\implies} f(x) = \sum \frac{f^{(k)}(0)}{k!} x^k$\\
+  \begin{example}
+    \begin{gather*}
+      f(x) = \begin{cases}
+        e^{-\frac{1}{x^2}} \quad \text{se } x \neq 0 \qquad f \infty-\text{deriv.} in \mathbb{R} 
+        0 \quad \text{se x = 0} \qquad f(0) = f'(0) = ... = f^{(k)}(0) = 0
+      \end{cases}
+    \end{gather*}
+    ma $f(x) \neq \sum \frac{f^{(k)}(0)}{k!} x^k = 0$ poichè $f \cancel{\equiv} 0$
+  \end{example}
+\end{observation}
+
+
+\begin{theorem}
+  [criterio di sviluppabilità in serie di Taylor]
+  Presa $f$ $\infty$-derivabile in $(a,b)$ ed $\exists M,L > 0: |f^{(k)}(0)| \leq M L^k \quad \forall x \in (a,b)$\\
+  \underbar{allora}: $\forall x_0 \in (a,b) f$ è Taylo-sviluppabile di centro $x_0 \in (a,b)$\\
+  cioè $f(x) = \sum \frac{f^{(k)}(x_0)}{k!} (x-x_0)^k \quad \forall x \in (a,b)$
+\end{theorem}
+
+
 
 
 \end{document}
