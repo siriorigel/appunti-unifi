@@ -1,0 +1,584 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz-3dplot}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{arydshln}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{cancel}
+\usepackage[d]{esvect}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfplots}
+\usepackage{pifont}
+%\usepackage{animate}
+%\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{tikzmark}
+\newcommand{\TikzNCbar}[4][10pt]{
+\tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+
+\graphicspath{ {images/} }
+
+\definecolor{redish}{rgb}{255, 0, 30}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}   
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\setlength\arrayrulewidth{0.3pt}
+
+\newcommand\eqq{\stackrel{\mathclap{\normalfont\mbox{?}}}{=}}
+\newcommand\bulletout  {\labelitemfont \textbullet}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\xmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\cmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
+ \newcommand{\hookbox}[1]{
+\begin{center}
+\hfill\break
+\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt,anchor=base] (A) {
+\begin{minipage}{\dimexpr\linewidth-5em}
+\centering
+#1
+\end{minipage}
+};
+% Draw the left bracket
+\draw ([xshift=0pt]A.north west) -- ++(0, 0.5) -- ++(0.4, 0);
+% Draw the right bracket
+\draw ([xshift=0pt]A.south east) -- ++(0, -0.5) -- ++(-0.4, 0);
+\end{tikzpicture}
+\end{center}} 
+\title{Analisi II}
+\author{Gariboldi Alessandro}
+\date{ }
+
+
+\begin{document}
+
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{observation}{Oss.}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{problem}{Problema}[section]
+\newtheorem{solution}{Soluzione}[section]
+\newtheorem{proposition}{Proposizione}[section]
+
+
+\maketitle
+\section{ESERCIZI PRIMO PARZIALE}
+
+\begin{enumerate}
+    \item equazioni differenziali di primo grado:
+    \begin{itemize}
+        \item variabili separabili
+        \item eq del tipo $z'+ a(x) = 0$ (metodo con $e^{A(x)}$)
+        \item eq del tipo $z' + a(x) = f(x)$ (metodo con $e^{A(x)}$ o variazione dele costanti)
+    \end{itemize}
+    \item equazioni differenziali di secondo grado:
+    \begin{itemize}
+        \item \textbf{metodo generale per soluzione omogenea}
+        \item metodo variazione delle costanti 
+        \item metodo somiglianza
+        \item studio qualitativo
+    \end{itemize}
+    \item eq. diff. di primo e secondo ordine a coeff. variabili
+    \item es. su spazi metrici
+    \item limiti in due variabili
+    \item continuità, derivabilità e differenziabilità
+    \item trovare massimi e minimi liberi e vincolati (classificazione dei punti critici)
+    \item approssimazioni con taylor. \tab trovare rette o piani tangenti ad un punto dato
+    \item esercizi funzioni implicite (teorema del dini in 2 o 3 variabili)
+    \item Curve parametriche:
+    \begin{itemize}
+        \item se è semplice e regolare
+        \item trovare la retta o piano tangente ad un punto dato
+        \item calcolare la lunghezza
+    \end{itemize}
+    \item integrali di linea di prima specie
+    \item integrali di linea di seconda specie
+\end{enumerate}
+    \newpage
+    
+    \begin{gather*}
+        z' + a(x)z = 0\\\\
+    \end{gather*}
+    \underbar{Sia} $A(x)$ una primitiva (finita senza le costanti) di $a(x)$. Quindi $A'(x) = a(x)$\\
+    \subsection{metodo con $e^{A(x)}$}
+        Prendiamo l'equazione differenziale omogenea:
+        \begin{gather*}
+            z'+ a(x)z = 0
+        \end{gather*}
+        Consideriamo $A(x)$ una primitiva (fissata, senza costanti ) di $a(x)$, dunque $A'(x) = a(x)$\\
+        Mi ricavo $A(x)$ calcolando l'integrale: $\int a(x) dx = A(x)$\\
+        ora moltiplico per $e^{A(x)}$ e quindi ottengo:\\
+        \begin{gather*}
+            z' e^{A(x)} +a(x) z e^{A(x)} = 0\\
+        \end{gather*}
+        E da questo si sa che questa espressione è uguale a: 
+        \begin{gather*}
+            (e^{A(x)} z )' = 0
+        \end{gather*}
+        Ora posso integrare questa espressione e ottenere:
+        \begin{gather*}
+           z \ e^{(A(x))} = c \rightarrow z = c \ e^{-A(x)}\\ 
+        \end{gather*}
+        Così ci siamo ricondotti ad una forma $z = \ 'qualcosa'$ e di conseguenza risolto l'eq differenziale omogenea.
+        \\\\Facciamo ora la stessa cosa con un'equazione differenziale non omogenea:\\
+        \begin{gather*}
+            z' + a(x) \ z = f(x)\\
+        \end{gather*}
+        Ricavo di nuovo $A(x)$ calcolando $\int a(x) dx$ e moltiplico sempre per $e^{A(x)}$ di conseguenza otterrò lo stesso caso sulla \emph{sinistra} ma dove prima avevo $0$ ora ho $f(x)$ e quindi avrò:\\
+        \begin{gather*}
+            z' \ e^{A(x)} + z \ e^{A(x)} \ a(x) = e^{A(x)} f(x)\\
+        \end{gather*}
+        Ora pongo: 
+        \begin{gather*}
+            (z \ e^{A(x)})' = f(x) e^{A(x)} \text{E integro: }\\
+            z \ e^{A(x)} = \int f(x) \ e^{A(x)} dx\\
+        \end{gather*}
+        Adesso ho una situazione "simile" ma per ricondurmi alla forma $z = 'qualcosa'$ devo risolvere l'integrale $\int f(x) e^{A(x)} dx$, una volta fatto questo la mia equazione differenziale non omeogenea è risolta.
+    \begin{gather*}
+    %    e^{A(x)}z' + a(x) e^{A(x)}z = 0\\
+    %    (e^{A(x)}z)' = 0\\
+    %    e^{A(x)} = c \quad c \in \mathbb{R}\\
+    %    z = c r^{-A(x)}\\
+    %    y' e^{A(x)} + a(x) e^{A(x)} y = f(x) r^{A(x)}\\
+    %    (ye?{A(x)})' = f(x) e^{A(x)}\\
+    %    \text{\underbar{se}} \ F(x) \text{indica una \underbar{primitiva} di} f(x)e^{A(x)}\\
+    %    ye^{A(x)} = F(x) + c \quad c \in \mathbb{R}\\
+    %    \text{\fbox{$
+    %    y=ce^{-A(x)}+e^{-A(x)}F(x)
+    %    $}}
+    \end{gather*}
+    \subsection{Metodo generale risoluzione EDO ordine II}
+    Avendo una equazione differenziale del II° ordine della forma:
+    \begin{gather*}
+        \text{\textcolor{cyan}{a}}y''(x) + \text{\textcolor{cyan}{b}}y'(x) + \text{\textcolor{cyan}{c}}y(x) = 0 \qquad \text{con \textcolor{cyan}{a},\textcolor{cyan}{b} e \textcolor{cyan}{c} numeri reali}
+    \end{gather*}
+    So che l'insieme delle soluzioni sarà uno spazio vetttoriale di dimensione 2\\
+    Quindi la soluzione generale sarà della forma:
+    \begin{gather*}
+        y(x) = c_1 y_1(x) + c_2 y_2(x)
+    \end{gather*}
+    Dove $c_1$ e $c_2$ sono parametri liberi e $y_1(x)$ e $y_2(x)$ sono la base dello spazio delle soluzioni.\\
+    \\\\$\Rightarrow$ Per trovare una base devo risolvere in $\mathbb{C}$ l'equazione caratteristica:
+    \begin{gather*}
+        \text{\textcolor{cyan}{a}}\lambda^2 + \text{\textcolor{cyan}{b}}\lambda + \text{\textcolor{cyan}{c}}
+    \end{gather*}
+    \textbf{Avrò tre casi distinti:}
+    \begin{enumerate}[$\rightarrow$]
+        \item 2 soluzioni reali distinte: $\lambda_1 \neq \lambda_2 \ \ \ \ \Rightarrow \ \ \ \ \ \ \ \ \ \overset{\text{BASE}}{e^{\lambda_1 x}, e^{\lambda_2 x}} \ \ \ \ \ \ \ \ \ \ \Rightarrow \ \ \ \ \overset{\text{SOLUZIONE GENERALE}}{y(x) = c_1 e^{\lambda_1 x} + c_2 e^{\lambda_2 x}}$
+        \item 2 soluzioni reali coincidenti: $\lambda_1 = \lambda_2 \Rightarrow \ \ \ \ \ \ \ \ \ e^{\lambda_1 x}, xe^{\lambda_2 x} \ \ \ \ \ \ \ \ \Rightarrow \ \ \ \ \ y(x) = c_1 e^{\lambda_1 x} + c_2 xe^{\lambda_2 x}$
+        \item 2 soluzioni complesse: $\lambda_{1,2} = \alpha \pm i \beta \ \Rightarrow e^{\alpha x} \cos(\beta x) , e^{\alpha x} \sin(\beta x) \Rightarrow y(x) = c_1e^{\alpha x} \cos(\beta x) + c_2 e^{\alpha x} \sin(\beta x)$
+    \end{enumerate}
+
+    \subsection{Metodo Variazione Costanti}
+    Metodo generale per risolvere le equazioni differenziali del II° ordine che richiede di saper risolvere l'equazione differenziale omogenea associata.\\
+    Consideriamo l'equazione generica:
+    \begin{gather*}
+        ay''(x) + by'(x) +cy(x) = \text{\textcolor{orange}{$f(x)$}}
+    \end{gather*}
+    \textbf{\underbar{Passo 1°}}: Determinare la soluzione generale dell'equazione omogenea associata:
+    \begin{gather*}
+        y_0(x) = c_1 \text{\textcolor{cyan}{$y_1(x)$}} + c_2 \text{\textcolor{yellow}{$y_2(x)$}}
+    \end{gather*}
+    \textbf{\underbar{Passo 2°}}: trovare una soluzione particolare della forma:
+    \begin{gather*}
+        y_p(x) = c_1(x) \textcolor{cyan}{y_1(x)} + c_2(x) \textcolor{yellow}{y_2(x)}
+    \end{gather*}
+    Per trovare $c_1(x)$ e $c_2(x)$ bisogna risolvere il sistema:
+    \begin{gather*}
+        \begin{cases*}
+            c_1'(x) \text{\textcolor{cyan}{$y_1(x)$}} + c_2'(x) \text{\textcolor{yellow}{$y_2(x)$}} = 0\\
+            c_1'(x) \text{\textcolor{cyan}{$\underline{y_1'(x)}$}} + c_2'(x) \text{\textcolor{yellow}{$\underline{y_2'(x)}$}} = \text{\textcolor{orange}{$f(x)$}}\\
+        \end{cases*}
+    \end{gather*}
+    Risolvo per $c_1'(x)$ e $c_2'(x)$ e li dovrò integrare per ottenere $c_1(x)$ e $c_2(x)$.\\\\
+    \textbf{\underbar{Passo 3°}}:Calcolare la soluzione generale sommando $y_0(x)$ e $y_p(x)$:
+    \begin{gather*}
+        y(x) = y_0(x) + y_p(x)
+    \end{gather*}
+    \begin{example}
+        Prendiamo in esempio l'equazione: $y'' -2y + y = \frac{e^x}{x^4}$\\
+        \fbox{1}: Calcolo le soluzioni dell'omogenea associata:\\
+        \begin{gather*}
+            \lambda^2 -2\lambda +1 = 0\Rightarrow (\lambda - 1)^2 \Rightarrow \lambda_1 = \lambda_2 = 1\\
+            y_0(x) = c_1 \text{\textcolor{cyan}{$e^x$}} + c_2 \text{\textcolor{yellow}{$xe^x$}}
+        \end{gather*}
+        \fbox{2}: Risolvo il sistema:\\
+        \begin{gather*}
+            \begin{cases}
+                c_1' (x) \text{\textcolor{cyan}{$e^x$}} + c_2'(x) \text{\textcolor{yellow}{$xe^x$}} = 0\\
+                c_1' (x) \underset{[e^x]'}{\text{\textcolor{cyan}{$e^x$}}} + c_2'(x) \underset{[xe^x]'}{\text{[\textcolor{yellow}{$e^x+ xe^x$}]}} = \text{\textcolor{orange}{$\frac{e^x}{x^4}$}}\\
+            \end{cases}\\
+            \Rightarrow c_1' = \frac{-c_2'(x) x \cancel{e^x}}{\cancel{e^x}} = -x c_2'(x)\\
+            \cancel{-xc_2'(x)}+ c_2'(x) \cancel{e^x}+ \cancel{c_2'(x) x e^x} = \frac{e^x}{x^4}\\
+            \Rightarrow \begin{cases}
+                c_1'(x) = -\frac{1}{x^3}\\
+                c_2'(x) = \frac{1}{x^4}\\
+            \end{cases}
+        \end{gather*}
+        Ora procediamo a integrare:
+        \begin{gather*}
+            c_1(x) = \int -\frac{1}{x^3} dx = \frac{1}{2x^2}\\
+            c_2(x) = \int \frac{1}{x^4} dx = \frac{1}{3x^3}\\
+        \end{gather*}
+        Da qui si trova $y_p$:
+        \begin{gather*}
+            y_p(x) = \frac{1}{2X^2}e^x - \frac{1}{3x^3} xe^x = \frac{e^x}{6x^2}
+        \end{gather*}
+        \fbox{3}: metto insieme soluzione dell'omogenea associata e soluzione particolare:
+        \begin{gather*}
+            y(x) = y_0(x) + y_p(x)\\
+            c_1 e^x + c_2 xe^x + \frac{e^x}{6x^2}
+        \end{gather*}
+
+    \end{example}
+    %\begin{gather*}
+    %    y(x) = c \ e^{A(x)} = \text{\fbox{$c(x)e^{-A(x)}$}}\\
+    %    y' = c' e^{-A(x)} - ce^{-A(x)} a\\
+    %    y' + a(x) y= f\\
+    %    c' e^{-A(x)} - a c e^{-A(x)} + a(x) c e^{-A(x)} = f\\
+    %    c' = f(x) e^{A(x)} \text{cioè se } c(x) \text{è una primitiva di } f(x) e^{A(x)}\\
+    %    \text{Cioè se } c = F(x) + d \quad d \in \mathbb{R}\\
+    %    \text{Quindi le soluzioni sono: }\\
+    %    y(x) = c(x)e^{-A(x)} \text{cioè } y(x) = (F(x) + d)e^{-A(x)}
+    %\end{gather*}   
+
+\subsection{Metodo di somiglianza}
+    È un metodo per risolvere equazioni differenziali del II° ordine del tipo:
+    \begin{gather*}
+        y'' + a y' + b y = P(x) e^{\Lambda x} \underset{\sin(\mathcal{B} x)}{\cos(\mathcal{B} x)}
+    \end{gather*}
+    Per prima cosa come di consueto si passa a risolvere la omogenea associata:
+    \begin{gather*}
+        y_0(x) = c_1 y_1(x) + c_2 y_2(x)
+    \end{gather*}
+    In cui si ricorda $y_1(x)$ e $y_2(x)$ sono generate in base alle soluzioni dell'equazione caratteristica, e più in particolare per quello che ci interessa alle soluzioni di quest'ultima:\\ 
+    $\lambda_1$ e $\lambda_2$ oppure soluzioni complesse $\alpha \pm i \beta$\\
+    Ora si guarda la funzione nota a destra dell'uguale e consideriamo i diversi casi in cui le varie tipologie di soluzionicoincidono o meno con $\Lambda$ e $\mathcal{B}$:
+    \begin{gather*}
+        f(x) e^{\lambda x} P(x) \rightarrow
+        \begin{cases}
+            \lambda_{1,2} \neq \Lambda \land \beta = 0 \to y_p(x) = \overline{P}(x) \ e^{\lambda x} \\
+            \text{(soluz. distinte) }\lambda_1 = \Lambda \land \lambda_2 = \Lambda \land \beta = 0 \to y_p(x) = x \ \overline{P}(x) \ e^{\lambda x} \\
+            \text{(soluz. coincidenti) }\lambda_1 = \lambda_2 = \Lambda \land \beta = 0 \to y_p(x) = x^2 \ \overline{P}(x) \ e^{\lambda x} \\
+            \alpha \neq \Lambda \lor \beta \neq \mathcal{B} \to y_p(x) = e^{\Lambda x} \ \left[ \ \overline{P_1}(x) \cos(\mathcal{B} x) + \overline{P_2}(x) \sin(\mathcal{B} x) \ \right]\\
+            \alpha = \Lambda \land \beta = \mathcal{B} \to y_p(x) = x \ e^{\Lambda x} \ \left[ \ \overline{P_1}(x) \cos(\mathcal{B} x) + \overline{P_2}(x) \sin(\mathcal{B} x) \ \right]\\
+        \end{cases}
+    \end{gather*}
+    Dove $\overline{P_1}(x)$ e $\overline{P_2}(x)$ sono dei polinomi generici dello stesso grado di $P(x)$ (che è il polinomio noto a destra dell'uguale dell'equazione) con coefficienti da determinare.\\
+    Per determinarli si calcolano $y_p'(x)$ e $y_p''(x)$ e si sostituiscono nell'equazione differenziale di partenza.\\
+    Dopodichè si raccoglie a secondo i termini in $\cos(\mathcal{B} x)$ e $\sin(\mathcal{B} x)$ (se presenti) e si uguaglia i coefficienti a quelli di $f(x) e^{\Lambda x} P(x)$ per trovare i coefficienti dei polinomi.\\
+    Infine la soluzione generale sarà data da:
+    \begin{gather*}
+        y(x) = y_0(x) + y_p(x)
+    \end{gather*}
+
+
+
+    \begin{example}
+        Prendiamo l'equazione differenziale:
+        \begin{gather}
+            y'' -2y' +2y = 5 \sin(x)
+        \end{gather}
+        \fbox{1}: Risolvo l'omogenea associata:
+        \begin{gather*}
+            \lambda^2 -2\lambda +2 = 0 \Rightarrow \lambda_{1,2} = 1 \pm i\\
+            y_0(x) = c_1 e^{x} \cos(x) + c_2 e^{x} \sin(x)
+        \end{gather*}
+        \fbox{2}: Cerco la soluzione particolare.\\
+        Qui $\alpha = 1 \neq 0 = \Lambda$ e $\beta = 1 \neq 1 = \mathcal{B}$ quindi:
+        \begin{gather*}
+            y_p(x) = \overline{P_1}(x) \cos(x) + \overline{P_2}(x) \sin(x)\\
+            \text{con } \overline{P_1}(x) = A \quad \overline{P_2}(x) = B \quad A,B \in \mathbb{R}\\
+        \end{gather*}
+        Siccome $P(x)$ è un polinomio di grado 0 (una costante) allora anche $\overline{P_1}(x)$ e $\overline{P_2}(x)$ saranno di grado 0 quindi costanti generiche $A$ e $B$.\\
+        Inoltre tutto sarebbe moltiplicato per $e^\Lambda$ ma siccome $\Lambda = 0$ avremmo $e^0$ che è 1 e quindi si omette.\\
+        Procediamo ora con calcolare le derivate della nostra $y_p(x)$\\
+        \begin{gather*}
+            y_p(x) = A \cos(x) + B \sin(x)\\
+            y_p'(x) = -A \sin(x) + B \cos(x)\\
+            y_p''(x) = -A \cos(x) - B \sin(x)\\
+        \end{gather*}
+        Ora si sostituiscono queste espressioni nell'equazione (1) e si raccolgono i termini con $\cos(x)$ e $\sin(x)$:
+        \begin{gather*}
+            (-A \cos(x) - B \sin(x)) -2(-A \sin(x) + B \cos(x)) + 2(A \cos(x) + B \sin(x)) = 5 \sin(x)\\
+            \overset{*}{-A \cos(x)} - \overset{o}{B \sin(x)} + \overset{o}{2A \sin(x)} - \overset{*}{2B \cos(x)} + \overset{*}{2A \cos(x)} + \overset{o}{2B \sin(x)} = 5 \sin(x)\\
+            ( A - 2B ) \cos(x) + ( 2A + B ) \sin(x) = 5 \sin(x)\\
+        \end{gather*}
+        Da qui si può impostare il sistema, poichè vediamo che per essere soddisfatta il termine del coseno deve essere 0, e il termine del seno deve essere 5:
+        \begin{gather*}
+            \begin{cases}
+                A - 2B = 0\\
+                2A + B = 5\\
+            \end{cases}
+            \begin{cases}
+                A = 2B\\
+                4B + B = 5\\
+            \end{cases}\to B = 1 \to A = 2
+        \end{gather*}
+        \fbox{3} infine calcolo la soluzione generale esatta:
+        \begin{gather*}
+            y(x) = y_0(x) + y_p(x)\\
+            = c_1 e^{x} \cos(x) + c_2 e^{x} \sin(x) + 2 \cos(x) + 1 \sin(x)\\
+        \end{gather*}
+    \end{example}
+
+
+\newpage
+\subsection{limiti in due variabili}
+
+
+
+        \newpage
+        \subsection{\textbf{Metodo per trovare massimi e minimi}:}
+            fare le derivate parziali rispetto a $x$ e $y$ e porle in un sistema uguale a 0 (di fatto pongo il \underbar{gradiente} uguale a 0)\\
+            \begin{gather*}
+                \begin{cases}
+                    \frac{\partial f}{\partial x} = f_x(x,y) = 0\\
+                    \frac{\partial f}{\partial y} = f_y(x,y) = 0
+                \end{cases}
+            \end{gather*}
+            Risolvere il sistema e trovare i punti in cui il \underbar{gradiente} si annulla:\\
+            \begin{gather*}
+                \text{es. } \textcolor{cyan}{P_1} = (\textcolor{cyan}{x_1},\textcolor{cyan}{y_1}),\textcolor{yellow}{P_2} = (\textcolor{yellow}{x_2},\textcolor{yellow}{y_2})
+            \end{gather*}
+            Calcolare le derivate miste e le derivate seconde rispetto a $x$ e $y$.
+            \begin{gather*}
+                \frac{\partial^2 f}{\partial x^2} = \textcolor{BrickRed}{f_1}(x,y)\\
+                \frac{\partial^2 f}{\partial y^2} = \textcolor{magenta}{f_2}(x,y)\\
+                \frac{\partial^2 f}{\partial yx} = \textcolor{green}{f_3}(x,y)\\
+                \frac{\partial^2 f}{\partial xy} = \textcolor{orange}{f_4}(x,y)\\
+            \end{gather*}
+            Scriversi la matrice hessiana:
+            \begin{gather*}
+                \begin{pmatrix}
+                    \textcolor{BrickRed}{f_1}(x,y) & \textcolor{green}{f_3}(x,y)\\
+                    \textcolor{orange}{f_4}(x,y) & \textcolor{magenta}{f_2}(x,y)
+                \end{pmatrix}
+            \end{gather*}
+            Calcolare il \textcolor{Emerald}{determinante} dell'hessiano nei punti $\textcolor{cyan}{P_1}$ e $\textcolor{yellow}{P_2}$\\
+            si ricorda il \textcolor{Emerald}{determinante} di una matrice $2\times2$ è:
+            \begin{gather*}
+                \begin{pmatrix}
+                    a & b\\
+                    c & d
+                \end{pmatrix} = ad-bc
+            \end{gather*}
+            \begin{gather*}
+                \det
+                \begin{pmatrix}
+                    \textcolor{BrickRed}{f_1}(\textcolor{cyan}{x_1},\textcolor{cyan}{y_1}) & \textcolor{green}{f_3}(\textcolor{cyan}{x_1},\textcolor{cyan}{y_1})\\
+                    \textcolor{orange}{f_4}(\textcolor{cyan}{x_1},\textcolor{cyan}{y_1}) & \textcolor{magenta}{f_2}(\textcolor{cyan}{x_1},\textcolor{cyan}{y_1})
+                \end{pmatrix} = \text{\textcolor{Emerald}{\text{\fbox{\textcolor{white}{$d_1$}}}}}\qquad
+                \det
+                \begin{pmatrix}
+                    \textcolor{BrickRed}{f_1}(\textcolor{yellow}{x_2},\textcolor{yellow}{y_2}) & \textcolor{green}{f_3}(\textcolor{yellow}{x_2},\textcolor{yellow}{y_2})\\
+                    \textcolor{orange}{f_4}(\textcolor{yellow}{x_2},\textcolor{yellow}{y_2}) & \textcolor{magenta}{f_2}(\textcolor{yellow}{x_2},\textcolor{yellow}{y_2})
+                \end{pmatrix} = \text{\textcolor{Emerald}{\text{\fbox{\textcolor{white}{$d_2$}}}}}
+            \end{gather*}
+            \underbar{caso I}: \textcolor{Emerald}{Determinante} \textbf{positivo} $\Rightarrow$ ho \textbf{min/max}\\
+            \underbar{caso II}: \textcolor{Emerald}{Determinante} \textbf{negativo} $\Rightarrow$ ho punto di \textbf{sella}\\\\
+            Per vedere se nel \underbar{caso I} si ha punti di min. o max. si vede se la \textbf{\underbar{\textcolor{Orchid}{traccia}}} della matrice è positiva o negativa:
+            \begin{gather*}
+                tr
+                \begin{pmatrix}
+                    \textcolor{BrickRed}{f_1}(\textcolor{cyan}{x_1},\textcolor{cyan}{y_1}) & \textcolor{green}{f_3}(\textcolor{cyan}{x_1},\textcolor{cyan}{y_1})\\
+                    \textcolor{orange}{f_4}(\textcolor{cyan}{x_1},\textcolor{cyan}{y_1}) & \textcolor{magenta}{f_2}(\textcolor{cyan}{x_1},\textcolor{cyan}{y_1})
+                \end{pmatrix} = \text{\textcolor{Orchid}{\text{\fbox{\textcolor{white}{$t_1$}}}}}\qquad
+                tr
+                \begin{pmatrix}
+                    \textcolor{BrickRed}{f_1}(\textcolor{yellow}{x_2},\textcolor{yellow}{y_2}) & \textcolor{green}{f_3}(\textcolor{yellow}{x_2},\textcolor{yellow}{y_2})\\
+                    \textcolor{orange}{f_4}(\textcolor{yellow}{x_2},\textcolor{yellow}{y_2}) & \textcolor{magenta}{f_2}(\textcolor{yellow}{x_2},\textcolor{yellow}{y_2})
+                \end{pmatrix} = \text{\textcolor{Orchid}{\text{\fbox{\textcolor{white}{$t_2$}}}}}
+            \end{gather*}
+            Se la \textcolor{Orchid}{traccia}($t_1/t_2$) è \textbf{positiva} $\Rightarrow$ ho un punto di \textbf{min.} (ho un paraboloide definito positivo)\\
+            Se la \textcolor{Orchid}{traccia}($t_1/t_2$) è \textbf{negativa} $\Rightarrow$ ho un punto di \textbf{max.} (ho un paraboloide definito negativo)\\
+\newpage
+\subsection{esercizi dini}
+\underline{Richiamo teorema e oss. utili sul DINI:}
+\begin{theorem}[del DINI]
+    $A_{ap} \subseteq \mathbb{R}^2 \ F:A\to \mathbb{R}, F \in C^1 (A)$\\
+    \underbar{sia} $P_0 \equiv (x_0,y_0) \in A \ t.c. \ F(x_0,y_0) = 0 , P_0 $ Regolare (cioè $DF(x_0,y_0)\neq 0$)\\
+    \underbar{Allora} $\exists U$ intorno di $x_0$ e $\exists V$ intorno di $y_0$ $ \ t.c. \ F(x,y) = 0$ definisce un grafico di funzione $y= f(x)$ oppure $x = g(y)$ in $U\times V$ intorno di $P_0$
+\end{theorem}
+\underbar{\textbf{In particolare:}}\\
+\begin{itemize}
+    \item  se $F_y(x_0,y_0) \neq 0$ allora $\exists! y = f(x):U\to V \ t.c. \ F(x,f(x)) = 0$, $f \in C^1(U)$ e $ f'(x) = -\frac{F_x(x,f(x))}{F_y(x,f(x))} \quad \forall x \in \overset{\circ}{U}$
+    \item se $F_x(x_0,y_0) \neq 0$ allora $\exists! x = g(y): V \to U \ t.c. \ F(g(y),y) = 0$, $g \in C^1(V)$ e $g'(y) = -\frac{F_y(g(y),y)}{F_x(g(y),y)} \quad \forall y \in \overset{\circ}{V}$
+\end{itemize}
+$F(x,y) = x^2+y^2-1$\\
+$DF = \begin{pmatrix}
+    2x\\
+    2y
+\end{pmatrix}$\\
+punti critici $\Leftrightarrow DF = \underbar{0} \Leftrightarrow P \equiv(0,0) \cancel{\in}$ linea $(F(x,y) = 0) \Rightarrow $ Tutti i punti di $F(x,y) = 0$ sono regolari.\\
+\begin{observation}
+    $F \in C^2$ ( e vale teorema Dini) $\Rightarrow f \in C^2$\\
+    Da cui $f(x) = \underset{\textcolor{cyan}{\underset{y_0}{||}}}{f(x_0)} = f(x_0) + \underset{\textcolor{yellow}{= -\frac{F_x(x_0,y_0)}{F_y(x_0,y_0)}}}{f'(x_0)}(x-x_0) + \textcolor{orange}{\boxed{\textcolor{white}{\frac{f''(x_0)}{2}}}}(x-x_0)^2 + o((x-x_0)^2)$
+    per $x \in I_{x_0}$
+    \begin{gather*}
+        f''(x) = \left(-\frac{F_x(x,f(x))}{f_y(x,f(x))}\right)' = -\frac{(F_x(x,f(x)))'F_y(x,f(x))-F_x(x,f(x))(F_y(x,f(x)))'}{\left(F_y(x,f(x))\right)^2 }\\
+        = -\frac{1}{(F_y)^2}[(F_{xx} + F_{xy}f')F_y-F_x(F_{\textcolor{yellow}{xy}}+F_{yy}f')]\vert_{x,f(x)} 
+    \end{gather*}
+\end{observation}
+\subsubsection{caso 2 variabili:}
+In generale si ha sempre un punto ($P_0$) in cui calcolare una funzione data, a volte è chiesta apprissimazione di taylor o piano tangente in quel punto,oppure vedere se il punto è un massimo o minimo per quella funzione\\
+Per prima cosa si fanno le derivate parziali della funzione data, $F(x,y)$ e si calcola nel punto dato:
+\begin{gather*}
+    \frac{\partial F}{\partial x}(P_0) \qquad \text{se } = 0 \rightarrow  \exists \text{ una param. per cui } y=f(x) \text{ è un grafico/ funzione di } x\\
+    \frac{\partial F}{\partial y}(P_0) \qquad \text{se } = 0 \rightarrow  \exists \text{ una param. per cui } x=g(y) \text{ è un grafico/ funzione di } y
+\end{gather*}
+Adesso sia nel caso sia richiesto se sia un massimo/minimo sia nel caso di piano tangente/taylor si deve procedere calcolando la derivata prima e seconda calcolate in $P_0$, per farlo si applica il teorema del dini, che ci dice che vale:
+\begin{gather*}
+    f'(x) = -\frac{F_x(x,f(x))}{F_y(x,f(x))} = 0 \text{ (la derivata risp. a $x$ calcolata in $P_0$)} \rightarrow P_0 \text{ è max o min della funzione } f(x)\\
+    g'(y) = -\frac{F_y(y,g(y))}{F_x(y,g(y))} = 0 \text{ (la derivata risp. a $y$ calcolata in $P_0$)} \rightarrow P_0 \text{ è max o min della funzione } g(y)
+\end{gather*}
+Fare attenzione al segno meno.\\
+Ora per la derivata seconda si può usare:
+\begin{gather*}
+    f''(x) = -\frac{1}{(F_y)^2}[(F_{xx} + F_{xy}f')F_y-F_x(F_{\textcolor{yellow}{xy}}+F_{yy}f')]\vert_{x,f(x)}\\%g''(y) = -\frac{1}{(F_y)^2}[(F_{xx} + F_{xy}f')F_y-F_x(F_{\textcolor{yellow}{xy}}+F_{yy}f')]\vert_{x,f(x)}\\
+\end{gather*}
+In generale si può anche derivare la propria funzione ma questa è comunque molto veloce se si ha a disposizione, ovviamente per utilizzarla si deve calcolare le derivate parziali seconde:
+\begin{gather*}
+    F_{xx} = \frac{\partial^2 F}{\partial x^2}\\
+    F_{xy} = \frac{\partial^2 F}{\partial x \partial y}\\
+    F_{yy} = \frac{\partial^2 F}{\partial y^2}\\
+    F_{yx} = \frac{\partial^2 F}{\partial y \partial x}\\
+\end{gather*}
+A questo punto si ha sia la derivata prima che seconda del grafico di $f(x) \ / \ g(y)$ e si può facilmente sapere se il punto è di max o di min (grazie alla derivata seconda pos./neg. per la concavità), o scrivere il piano tangente/appross. con taylor (si spera ci si fermi al secondo ordine altrimenti c'è da derivare quel mostro)
+\begin{gather*}
+    \text{piano tangente in } P_0 \Rightarrow                 z = <Df(x_0,y_0);\begin{pmatrix}
+                    x-x_0\\
+                    y-y_0
+                \end{pmatrix}> + \underset{\overset{||}{f(x_0,y_0)}}{z_0}\\
+    \text{appros. al II ordine con Taylor in } P_0 \Rightarrow f(x_0)+f'(x_0)(x-x_0) + \frac{f''(x_0)}{2} (x-x_0)^2 + o((x-x_0)^2)\\
+    \text{punto max/min in } P_0 \Rightarrow f''(x_0)/g''(y_0) < 0 \to \text{max} \quad f''(x_0)/g''(y_0) > 0 \to \text{min}
+\end{gather*}
+Dove $x_0,y_0$ sono le coordinate di $P_0$ ovvero $(x_0,y_0)$
+\subsubsection{caso a 3 variabili}
+È di fatto analogo al caso a due si ricorda che il punto $P_0$ ha tre coordinate $(x_0,y_0,z_0)$ e si devono fare le derivate parizali prime e seconde anche rispetto a z.
+\begin{theorem}
+    Dini in 3 variabili\\
+    $F(x,y,z) \in C^1(A) \quad A_{ap} \subseteq \mathbb{R}^3$\\
+    $P_0 \equiv (x_0,y_0,z_0) \in A$ Regolare e $t.c. \ F(x_0,y_0,z_0) = 0$\\
+    supponiamo $F_z(x_0,y_0,z_0) \neq 0$ \underbar{allora}  $\exists \mathcal{U}_{P_0} \subseteq A$\\
+    $t.c. \ \{F(x,y,z) = 0\} \cap \mathcal{U}_{P_0}$ è grafico $z=f(x,y)$\\
+    inoltre $f\in C^1$ e:\\
+    $\frac{\partial f}{\partial x} f(x,y) = -\frac{F_x(x,y,f(x,y))}{F_z(x,y,f(x,y))}$ localmente vicino a $(x_0,y_0)$\\
+    $\frac{\partial f}{\partial y} f(x,y) = -\frac{F_y(x,y,f(x,y))}{F_z(x,y,f(x,y))}$
+\end{theorem}
+\newpage
+\subsection{curve parametriche}
+Per questi esercizi iene data una curva parametrica del tipo:
+\begin{gather}
+    \varphi(t) = \begin{pmatrix}
+        x(t)\\
+        y(t)\\
+        z(t)
+    \end{pmatrix} t \in [a,b]
+\end{gather}
+In generale è richiesto:
+\begin{enumerate}[$i)$]
+    \item provare che una curva è regolare
+    \item calcolarne la lunghezza
+\end{enumerate}
+\textbf{Punto $i)$}\\
+Una curva è regolare se è \textbf{semplice} (è implicita) e se la sua \textbf{derivata è $\neq \underline{0}$} (è diversa dal vettore nullo).\\
+Quindi per questo punto basta verificare queste due ipotesi.
+\textbf{punto $ii)$}\\
+Per calcolare la lunghezza si usa la definizione:
+\begin{gather}
+    \mathcal{L}(\varphi) = \int_{a}^{b} \left\lVert \underline{\varphi}'(t) \right\rVert dt = \int_{a}^{b} \sqrt{\dot{x}^2(t) +\dot{y}^2(t) + \dot{z}^2(t)} dt
+\end{gather}
+\subsection{integrali curvilinei di prima specie}
+Per la "forma base" di un integrale curvilineo si intende l'area del sottografico di una curva parametrica ad una funzione (ad esempio $f(x,y)$), ed è:
+\begin{gather}
+    \int_{a}^{b} f(x(t),y(t)) \sqrt{\dot{x}^2(t) + \dot{y}^2(t)} dt = \int_{\gamma} f(x,y) ds
+\end{gather}
+Si possono avere casi analoghi a tre o piu variabili. In generale questo descrive il volume della curva parametrica il che viene usato anche in altre applicazione.\\
+Data una curva parametrica integrali curvilinei di seconda spece si possono presentare anche come il calcolo del centro geometrico di una curva.\\
+Per questi casi viene data una funzione che descrive la densita della curva: $\rho(t)$.\\
+Il modo per trovare le coordinate del centro geometrico $G\equiv(x_G,y_G,z_G)$ è il seguente:
+\begin{gather}
+    x_G  = \frac{1}{m_\gamma} \int_{\gamma} \rho x ds = \frac{1}{m_\gamma} \int_{a}^{b} \rho(\underline{\varphi}(t)) x(t) \left\lVert \underline{\dot{\varphi}}(t) \right\rVert dt \\
+    y_G  = \frac{1}{m_\gamma} \int_{\gamma} \rho y ds = \frac{1}{m_\gamma} \int_{a}^{b} \rho(\underline{\varphi}(t)) y(t) \left\lVert \underline{\dot{\varphi}}(t) \right\rVert dt \\
+    z_G  = \frac{1}{m_\gamma} \int_{\gamma} \rho z ds = \frac{1}{m_\gamma} \int_{a}^{b} \rho(\underline{\varphi}(t)) z(t) \left\lVert \underline{\dot{\varphi}}(t) \right\rVert dt \\
+\end{gather}
+
+
+
+
+\subsection{integrali curvilinei di seconda specie}
+\subsubsection{caso con campi vettoirali}
+Dati una curva $\gamma$ con param. $\varphi:[a,b] \to A$ e un campo vettoriale $F$
+\begin{gather}
+    \int_{a}^{b} \left\langle F(\varphi(t)) ;  \dot{\varphi}(t)\right\rangle dt \\
+    \int_{a}^{b} \left\langle F,\tau \right\rangle ds 
+\end{gather}
+come input a $F$ si mettono le componenti delle curve, al posto di x e y
+\subsubsection{caso con forme differenziali}
+Data una forma differenziale $\omega(x,y) = f(x,y)dx + g(x,y)dy$ e una curva $\gamma$ e relativa param. $\varphi[a,b] \to A$
+\begin{gather}
+    \int_{\gamma} \omega = \int_{a}^{b} \omega(\varphi(t))\left[ \frac{\dot{\varphi}(t)}{\left\lVert \cancel{\dot{\varphi}(t)} \right\rVert } \right] \cancel{\left\lVert \dot{\varphi}(t) \right\rVert } \ dt \\ 
+    = \int_a^b \left( a_1(\varphi(t))\ dx_1 + a_2(\varphi(t))\ dx_2 + a_3(\varphi(t))\ dx_3 \right) \text{[applicato a]} \ \left[ \dot{\varphi_1}(t),\dot{\varphi_2}(t),\dot{\varphi_3}(t) \right] \ dt  
+\end{gather}
+Al posto di $dx$ e $dy$ si sostituiscono le derivate delle componenti della curva, e al posto di $x$ e $y$ si sostituiscono componenti della curva non derivata
+
+\section{Integrali doppi}
+Dato un integrale dopio e il suo dominio del tipo:
+\begin{gather}
+    \iint_\mathbb{D}  \qquad \mathbb{D} = \{ (x,y) \in \mathbb{R}^2: \quad g_1(x) \leq/\geq a_1 \dots g_n \leq / \geq a_n\}
+\end{gather}
+con $g_i(x)$ vincolo generico e $a_i \int \mathbb{R}$\\
+Un esempio può essere $\mathbb{D} = \{ (x,y) \in \mathbb{R}^2: \quad x+y \leq 1\}$
+Si procede a scrivere il dominio come x-semplice o y-semplice $\Rightarrow$ Bisogna dividere l'area in un numero finito di insiemi semplici.\\
+Fatto ciò, posso passare all'integrale nella forma:
+\[\int_{a}^{b}dx \ \int_{g_1(x)}^{g_2(x)}f(x,y,)dy\]
+
+\end{document}

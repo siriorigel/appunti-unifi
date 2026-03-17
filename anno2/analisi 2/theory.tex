@@ -1,0 +1,2854 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz-3dplot}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{arydshln}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{cancel}
+\usepackage[d]{esvect}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfplots}
+\usepackage{pifont}
+\usepackage{imakeidx}
+%\usepackage{animate}
+%\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{tikzmark}
+\newcommand{\TikzNCbar}[4][10pt]{
+\tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+
+\newcommand\X{\mathbb{X}}
+\newcommand\U{\mathbb{U}}
+\newcommand\R{\mathbb{R}}
+\newcommand\norma{\left\lVert\cdot\right\rVert}
+\newcommand\V{\mathbb{V}}
+\newcommand\C{\mathbb{C}}
+\newcommand\B{\mathbb{B}}
+\newcommand\A{\mathbb{A}}
+\newcommand\D{\mathbb{D}}
+\newcommand\K{\mathbb{K}}
+\newcommand\Y{\mathbb{Y}}
+\newcommand\I{\mathbb{I}}
+\newcommand\J{\mathbb{J}}
+\newcommand\E{\mathbb{E}}
+\newcommand\de{\partial}
+
+%patata
+\def\potatoshape{
+  (1,0) (2,1.5) (1.6,3) (0.3,2.7) (-0.4,1.2)
+}
+\newcommand{\potato}[3][draw=white]{
+  \begin{scope}[shift={#2}, scale=#3]
+    \draw[#1]
+      plot [smooth cycle, tension=1]
+      coordinates {\potatoshape};
+  \end{scope}
+}
+
+\graphicspath{ {images/} }
+
+\definecolor{redish}{rgb}{255, 0, 30}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}   
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\setlength\arrayrulewidth{0.3pt}
+
+\newcommand\eqq{\stackrel{\mathclap{\normalfont\mbox{?}}}{=}}
+\newcommand\bulletout  {\labelitemfont \textbullet}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\xmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\cmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
+ \newcommand{\hookbox}[1]{
+\begin{center}
+\hfill\break
+\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt,anchor=base] (A) {
+\begin{minipage}{\dimexpr\linewidth-5em}
+\centering
+#1
+\end{minipage}
+};
+% Draw the left bracket
+\draw ([xshift=0pt]A.north west) -- ++(0, 0.5) -- ++(0.4, 0);
+% Draw the right bracket
+\draw ([xshift=0pt]A.south east) -- ++(0, -0.5) -- ++(-0.4, 0);
+\end{tikzpicture}
+\end{center}} 
+\title{Teoria analisi II}
+\author{Gariboldi Alessandro}
+\date{ }
+\makeindex
+
+
+
+\begin{document}
+
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{observation}{Oss.}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{problem}{Problema}[section]
+\newtheorem{solution}{Soluzione}[section]
+\newtheorem{proposition}{Proposizione}[section]
+\newtheorem{aside}{Inciso}[section]
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Introduzione}
+    Le \textbf{equazioni differenziali} sono equazioni in cui l'incognita è una \textbf{funzione}. Mostriamone qualcuna per esempio:
+    \begin{itemize}
+        \item $y'=3 e^y$
+        \item $y''=4x+8$
+        \item $y''+y=0$
+    \end{itemize}
+    Vado ora a \textbf{definire} una serie di oggetti che userò.
+
+    \begin{definition}[Equazione differenziale ordinaria (EDO)]
+        Si dice "\textbf{equazione differenziale ordinaria}" un'equazione le cui incognite sono \textbf{funzioni di una variabile}. \\
+        Nel caso ci siamo \textbf{più variabili}, parlo di equazioni differenziali "\textbf{a derivate parziali}" (EDP). 
+    \end{definition}
+
+    \section{Soluzione di un'equazione differenziale}
+    Sia la mia equazione differenziale \textbf{ordinaria} $y'=f(x,y)$, definita $\forall x\in \A \subseteq \R^2$.\\
+    Definisco $y(x)$ \textbf{soluzione} dell'EDO se, $\forall x\in \A$, vale che:
+    \begin{gather*}
+        y'(x) = f\left(x,y(x)\right)
+    \end{gather*}
+    con $\left(x,y(x)\right)$ appartenente al \textbf{dominio} di $f$.\\
+    Può succedere che una EDO abbia \textbf{infinite soluzioni}
+
+    \begin{definition}[\textbf{Grado di una EDO}]
+        Definisco "\textbf{grado}" dell'equazione il \textbf{massimo ordine di derivazione} che si trova al suo interno
+    \end{definition}
+
+    \section{Problemi di Cauchy}
+    \subsection{1° ordine}
+    Definisco \textbf{problema di Cauchy} un problema così posto: 
+    \begin{gather*}
+        \begin{cases}
+            y'=f(x,y) \\
+            f(x_0)=y_0
+        \end{cases}
+    \end{gather*}
+    dove $x_0$ e $y_0$ sono \textbf{numeri assegnati}.
+
+    \subsection{Ordini superiori}
+    Per l'ordine \textbf{successivo al primo} i problemi di Cauchy sono definiti in maniera seguente:
+    \begin{gather*}
+        \begin{cases}
+            y''=f(x,y) \\
+            y'(x_0)=y^* _0 \\
+            y(x_0) = y_0
+        \end{cases}
+    \end{gather*}
+    \textbf{NOTA:} E' importante che $x_0$ sia \textbf{unico}. Inoltre $x_0$, $y^*_0$ e $y_0$ sono \textbf{numeri assegnati}.
+
+    \begin{definition}[\textbf{EDO normale}]
+        Una EDO si dice \textbf{normale} se è possibile \textbf{isolare} la derivata di \textbf{ordine massimo} dal resto dell'equazione
+    \end{definition}
+    Ne faccio un \textbf{esempio}:
+    \begin{gather*}
+            \left(y'\right)^2=-x^3 \rightarrow \text{Provo a \textbf{isolare}} \ y' \\
+    \end{gather*}
+    Ma ottengo \textbf{2 equazioni}:
+    \begin{itemize}
+        \item $y'=+\sqrt{-x^3}$
+        \item $y'=-\sqrt{-x^3}$
+    \end{itemize}
+    Dal momento che non ho una \textbf{soluzione univoca}, questa equazione \textbf{non è esprimibile} in \textbf{forma normale}
+
+    \newpage
+    \noindent Ho osservato che, in generale, un'equazione differenziale può avere \textbf{infinite soluzioni}, ossia esistono \textbf{infinite funzioni}
+    che la risolvono. Il \textbf{problema di Cauchy} è uno strumento che, ponendo una \textbf{specifica condizione aggiuntiva} sulla soluzione,
+    permette di trovare una soluzione \textbf{più specifica}. Nulla però ci dice se, in generale, questa soluzione \textbf{possa effettivamente 
+    esistere} o, addirittura, possa essere \textbf{unica}. \\
+    Sull'\textbf{esistenza delle soluzioni} c'è però un \textbf{importante risultato teorico}. 
+
+
+
+    \begin{theorem}[\textbf{Teorema di esistenza delle soluzioni (Peano)}]
+        Dato un poblema di Cauchy per equazioni di \textbf{1° ordine} scritto in \textbf{forma normale}:
+        \[\begin{cases}
+            y'=f(x,y) \\
+            y(x_0)=y_0
+        \end{cases}\]
+        Sia:
+        \begin{itemize}
+            \item $f(x,y)$ \textbf{definita} e \textbf{continua} in un insieme $\A\subseteq \R^2$
+            \item $(x_0,y_0)$ un \textbf{punto interno} ad $\A$, allora:
+        \end{itemize}
+
+        Il \textbf{problema di Cauchy} per l'\textbf{equazione di 1° ordine} in \textbf{forma normale} ammette 
+        \textbf{almeno una soluzione} in un \textbf{intorno di $(x_0,y_0)$}
+    \end{theorem}
+
+    \noindent Si può osservare che la \textbf{sola ipotesi} di \textbf{continuità} non garantisce che la soluzione sia \textbf{unica}. 
+    Inoltre, è proprio la \textbf{continuità} di $f(x,y)$ che è \textbf{necessaria} per l'\textbf{esistenza} della soluzione.\\
+    Fornisco un esempio di un \textbf{problema di Cauchy} che ammette \textbf{2 soluzioni}:
+    \[\begin{cases}
+        y'=y^{\frac{2}{3}} \\
+        y(0)=0
+    \end{cases}\]
+    Posso osservare che:\begin{itemize}
+        \item La funzione $y\equiv 0$ \textbf{è soluzione}. 
+        \item La funzione $y(x)=\frac{x^3}{27}$ \textbf{è soluzione}.
+    \end{itemize}
+    Per proseguire, ho bisogno di definire un \textbf{particolare tipo di funzioni} di cui mi servirò. 
+    \begin{inciso}[Funzione di \textbf{Lipshitz}]
+    Sia $g:\ [a,b]\to\R$, con $[a,b]\subseteq\R$. \\
+    Dico che $g$ è una \textbf{funzione di Lipshitz}, o \textbf{funzione Lipshitziana}, in $[a,b]$ se
+    $\forall z_1,z_2\in [a,b]$ risulta che:
+    \[\exists L\in\R, \ L>0 \ t.c. \left|\frac{g(z_1)-g(z_2)}{z_1-z_2}\right| \leq L\]
+    Posso anche scrivere questa condizione come:
+    \[-L\leq \frac{g(z_1)-g(z_2)}{z_1-z_2} \leq L\]
+
+    \begin{multicols}{2}
+    \begin{tikzpicture}
+        \draw[->](-1, 0) -- (4, 0) node[at end, below] {$z$};
+        \draw[->](0, -1) -- (0, 3) node[at end, left] {$g(z)$};
+        \draw(0, 0) .. controls (1, 2) and (1.5, 1) .. (2, 1);
+        \draw(2, 1) .. controls (2.5, 1.5) and (3.5, 1.2) .. (4, 1.25) node[at end, right] {$g(z)$};
+        \draw(0.7, 1) -- (2, 1);
+        \filldraw(0.7, 1) circle (1pt);
+        \filldraw(2, 1) circle (1pt);
+        \draw[|-|](0.3, 0.2) -- (0.3, -0.2) node[at end, below] {$a$};
+        \draw[|-|](2.3, 0.2) -- (2.3, -0.2) node[at end, below] {$b$};
+        \draw[dashed](0.7, 0) -- (0.7, 1) node[at start, below] {$z_1$};
+        \draw[dashed](2, 0) -- (2, 1) node[at start, below] {$z_2$};
+        \draw[<->](0.2, -0.7) -- (2.8, -0.7) node[midway, below] {$I$}; 
+    \end{tikzpicture}
+    \columnbreak
+    \hfill\\
+    \noindent
+    In pratica, la \textbf{Lipshitzianità} è una condizione \textbf{più forte} della \textbf{derivabilità} della funzione. 
+    Sto chiedendo infatti che il \textbf{rapporto incrementale} della funzione resti sempre \textbf{minore di una quantità finita}
+    e, dunque, \textbf{la derivata non possa esplodere} (essendo il \textbf{limite} del rapporto incrementale stesso).\\
+    A livello \textbf{geometrico}, posso affermare che una funzione Lipshitziana non può avere \textbf{asintoti verticali}, dal
+    momento che in essi la derivata \textbf{tende a $\pm\infty$}.
+    \end{multicols}
+    \end{inciso}
+
+    \subsection{Unicità delle soluzioni}
+    Il \textbf{teorema di Peano} ci ha fornito informazioni sull'\textbf{esistenza delle soluzioni}, ma ancora 
+    rimane il problema concreto dell'\textbf{unicità} di esse. Ho bisogno infatti di un risultato che mi permetta
+    di trovare \textbf{soluzioni uniche} al problema. \\
+    Posso finalmente enunciare un \textbf{risultato utilissimo} per l'\textbf{unicità delle soluzioni}. 
+
+    \begin{theorem}[\textbf{Esistenza e unicità di Cauchy}]
+        Considero il seguente \textbf{problema di Cauchy}:
+        \[\begin{cases}
+            y'=f\left(x,y(x)\right) \\
+            y(x_0)=y_0
+        \end{cases}\]
+        Sia $f(x)$ \textbf{definita} e \textbf{continua} sul \textbf{rettangolo} $\I\times\J$, con:
+        \begin{itemize}
+            \item $\I=(x_0-a,x_0+a)$
+            \item $\J=(y_0-b,y_0+b)$
+        \end{itemize}
+        con $a$ e $b$ \textbf{costanti positive}.\\
+        Suppongo inoltre che $\exists L\in\R, \ L>0$ t.c. $\forall y_1,y_2\in\J$ vale:
+        \[\left|f(x_0,y_1)-f(x_0,y_2)\right|\leq L \left|y_1-y_2\right|\]
+        In pratica, se \textbf{fisso $x$} e la funzione è \textbf{Lipshitziana} per $y$. Allora:
+        \begin{center}
+            $\exists\delta >0$ e $\exists !$ funzione $y(x)$ definita su $(x_0 - \delta,x_0 + \delta)$ che \textbf{risolve il problema}.
+        \end{center}
+    \end{theorem}
+
+    \noindent Posso \textbf{visualizzare graficamente} la situazione:
+    \begin{center}
+        \begin{tikzpicture}[scale=0.5]
+            \draw[->] (0,-1)--(0,6) node[at end,above] {$y$};
+            \draw[->] (-1,0)--(8,0) node[at end,right] {$x$};
+            \draw (1,1)--(7,1);
+            \draw (1,1)--(1,5);
+            \draw (1,5)--(7,5);
+            \draw (7,1)--(7,5);
+            \draw[<->] (1,5.5)--(7,5.5) node[midway,above] {$\I$};
+            \draw[<->] (7.5,1)--(7.5,5) node[midway,right] {$\J$};
+            \filldraw(4,3) circle (3pt) node[right] {\tiny $(x_0,y_0)$};
+            \draw[dashed] (4,3)--(4,0) node[at end,below] {\tiny $x_0$};
+            \draw[dashed] (4,3)--(0,3) node[at end,left] {\tiny $y_0$};
+            \draw[dashed] (1,1) -- (1,0) node[at end,below] {\tiny $x_0-a$};
+            \draw[dashed] (7,1) -- (7,0) node[at end,below] {\tiny $x_0+a$};
+            \draw[dashed] (1,1) -- (0,1) node[at end,left] {\tiny $y_0-b$};
+            \draw[dashed] (1,5) -- (0,5) node[at end,left] {\tiny $y_0+b$};
+        \end{tikzpicture}
+    \end{center}
+
+    \noindent Non possiedo ancora gli \textbf{strumenti necessari} per la dimostrazione, ma posso dare un paio di \textbf{lemmi utili}.
+
+    \begin{lemma}[\textbf{Teorema fondamentale del calcolo integrale}]
+        Lo \textbf{richiamo}, perchè tornerà utile per un \textbf{lemma successivo}:
+        \begin{itemize}
+            \item Sia $g'(z)$ \textbf{continua}, allora $\exists g$ t.c.
+            \[g(z) = g(z_0) + \int_{z_0}^{z} g'(t) \ dt\]
+            \item Se $h$ è \textbf{continua}, allora:
+            \[H(x) = h(x_0) + \int_{x_0}^{x} h(t)\ dt\]
+            è \textbf{derivabile}, e la sua derivata è $h$.
+        \end{itemize}
+    \end{lemma}
+
+    \begin{lemma}
+        Sia $\delta>0$. Le seguenti affermazioni sono \textbf{equivalenti}:
+        \begin{enumerate}
+            \item $\exists y(x)$ \textbf{derivabile} in $[x_0-\delta,x_0+\delta]$ t.c.
+            \[y'(x) = f\left(x,y(x)\right) \ \forall x \in [x_0-\delta,x_0+\delta] \ \text{e} \ y(x_0)=y_0\]
+
+            \item $\exists y(x)$ \textbf{continua} in $[x_0-\delta,x_0+\delta]$ t.c.
+            \begin{gather*}
+                y(x) = y(x_0) + \int_{x_0}^{x} f\left(t,y(t)\right) \ dt
+            \end{gather*}
+        \end{enumerate}
+
+            \hfil\\\noindent
+            Voglio dimostrare che queste affermazioni si \textbf{co-implicano}.
+            \begin{proof}[\textbf{\textcircled{1} $\Rightarrow$ \textcircled{2}}]
+                Prendo $y(x)$ e ci applico il \textbf{Teorema fondamentale del calcolo integrale}:
+                \[y(x) = y(x_0) + \int_{x_0}^{x} y'\left(t,y(t)\right) \ dt\]
+                Ma so che $y'(x) = f\left(x,y(x)\right)$,e dunque ottengo
+                \[y(x) = y(x_0) + \int_{x_0}^{x} f\left(t,y(t)\right) \ dt\]
+                \rightline{\textit{Dimostrato}}
+            \end{proof}
+            \begin{proof}[\textbf{\textcircled{2} $\Rightarrow$ \textcircled{1}}]
+                Sia $y(x)$ una funzione che soddisfa \textcircled{2}. Per il \textbf{Teorema fondamentale del calcolo integrale}
+                posso dire:
+            \begin{gather*}
+                y(x) = y(x_0) + \int_{x_0}^{x} y'\left(t,y(t)\right) \ dt \ \text{con:} \ y'(x) = f\left(x,y(x)\right)\\
+                y(x) = y(x_0) + \int_{x_0}^{x} f\left(t,y(t)\right) \ dt
+            \end{gather*}
+                Poichè $y$ è continua, lo è anche $f$ (perchè $y$ è \textbf{composizione di funzioni continue}). Per il 
+                \textbf{Teorema fondamentale del calcolo integrale}, $y$ è \textbf{derivabile}, e la sua derivata è 
+                $y'(x) = f\left(x,y(x)\right)$.\\
+                Se prendo $x=x_0$, ho $y(x_0) = y_0$.\\
+                \rightline{\textit{Dimostrato}}
+            \end{proof}
+    \end{lemma}
+    \noindent
+    Introduco ora lo strumento delle \textbf{derivate parziali}, che mi tornerà \textbf{molto utile} in seguito. \\
+    Supponiamo di avere una funzione $f$ definita su un certo insieme, a cui $(x_0,y_0)$ è un punto \textbf{interno}:
+    \begin{center}
+        \begin{tikzpicture}[scale=0.8]
+            \draw[->] (-1,0)--(5,0) node[at end,right]{$x$};
+            \draw[->] (0,-1)--(0,5) node[at end,above]{$y$};
+            \potato{(1,1)}{1};
+            \filldraw(2,3) circle (2pt);
+            \node at(3.2,4){\tiny$f(x,y)$};
+            \draw[dashed] (2,3)--(2,0) node[at end,below]{\tiny$x_0$};
+            \draw[dashed] (2,3)--(0,3) node[at end,left]{\tiny$y_0$};
+        \end{tikzpicture}
+    \end{center}
+    \begin{definition}[\textbf{Derivata parziale}]
+        Definisco la \textbf{derivata parziale} di $f$ rispetto a $y$ nel punto $(x_0,y_0)$:
+        \[\lim_{h\to 0} \frac{f(x_0,y_0+h) - f(x_0,y_0)}{h}\]
+    \end{definition}
+    \newpage
+    \begin{proposition}
+        Se:
+        \begin{itemize}
+            \item $f$ è \textbf{continua} in un insieme $\A$.
+            \item $(x_0,y_0)$ è un \textbf{punto interno} ad $\A$. 
+            \item $\exists \frac{\de f}{\de y} (x,y)$ \textbf{continua} $\forall x\in\A$, allora:
+        \end{itemize}
+        Le ipotesi del \textbf{Teorema di esistenza e unicità di Cauchy} sono \textbf{verificate}.\\
+        Questo anche perchè si ha la derivabilità rispetto a $y$ e, dunque, si implica la \textbf{Lipshitzianità} di $f$ rispetto a $y$.
+    \end{proposition}
+
+    \subsection{EDO Omogenea}
+    Un equazione nella forma:
+    \[y'(x) = f\left(x,y(x)\right)\]
+    è detta \textbf{omogenea di grado zero}. Vale che:
+    \[\forall\lambda\in\R \quad f\left(\lambda x,\lambda y(x)\right)=f\left(x,y(x)\right)\]
+
+    \newpage
+
+    \section{Esistenza globale}
+    Finora ho lavorato con l'\textbf{esistenza locale delle soluzioni}, ossia mi interessava che esse fossero definite
+    in un \textbf{intorno} di un \textbf{punto specifico}.\\
+    Posso però chiedermi se un \textbf{problema di Cauchy} ammetta \textbf{soluzioni globali}, definite cioè sullo
+    \textbf{stesso dominio} dell'equazione differenziale che voglio risolvere. \\
+    Prendo ad esempio il seguente \textbf{problema di Cauchy}:
+    \[\begin{cases}
+        y'(x) = -2xy^2 \\
+        y(0) = -1
+    \end{cases} \quad \longrightarrow f\left(x,y(x)\right) = -2xy^2\]
+    Osservo che $f$ è \textbf{definita} e \textbf{continua} $\forall(x,y)\in\R^2$. Controllo la \textbf{derivata parziale}:
+    \[\frac{\de f\left(x,y(x)\right)}{\de y} = -4xy\]
+    è \textbf{definita} e \textbf{continua} $\forall(x,y)\in\R^2$. \\
+    Per il \textbf{teorema di esistenza e unicità di Cauchy}, $\exists!$ funzione $y(x)$ in un \textbf{intorno} del punto
+    $(0,-1)$ che \textbf{risolve il problema}. \\
+    Usando il metodo della \textbf{separazione delle variabili} e imponendo la \textbf{condizione} data dal problema,
+    trovo la \textbf{soluzione}:
+    \[y(x) = \frac{1}{x^2-1}\]
+    Osservo che, mentre $f$ è definita su tutto $\R^2$, la soluzione \textbf{non esiste} per $x=1$ e $x=-1$. \\
+    Non è \textbf{detto} che le soluzioni di una EDO:
+    \begin{itemize}
+        \item \textbf{Esistano}.
+        \item Abbiano lo \textbf{stesso dominio} del problema che risolvono.\\
+    \end{itemize}
+    Posso finalmente dare un \textbf{risulato teorico imporante} sull'\textbf{esistenza globale} delle soluzioni. \\
+    \begin{theorem}[\textbf{Teorema di esistenza globale}]
+        Considero il \textbf{problema di Cauchy}:
+        \[\begin{cases}
+            y'(x) = f\left(x,y(x)\right) \\
+            y(x_0) = y_0
+        \end{cases}\]
+        \underbar{Se}:
+        \begin{itemize}
+            \item $f$ e $\frac{\de f}{\de y}$ sono \textbf{definite} e \textbf{continue} $\forall x\in[a,b]$ e $\forall y\in\R$ 
+            con $[a,b]\subseteq\R$.
+            \item Esistono $h,k\in\R, \ h,k>0$ t.c.
+            $\left|f\left(x,y(x)\right)\right| \leq h+k\left|y(x)\right|$
+        \end{itemize}
+        \underbar{allora}:\\
+        La soluzione $y(x)$ è \textbf{unica} e \textbf{definita} $\forall x\in[a,b]$.
+    \end{theorem}
+
+    \newpage
+
+    \section{Sistemi di equazioni differenziali}
+    Come per le \textbf{equazioni normali}, anche le \textbf{equazioni differenziali} possono essere inserite in \textbf{sistemi}, nella forma:
+    \[\begin{cases}
+        y'_1 (x) = f_1\left(x,y_1(x),y_2(x),\ldots,y_N(x)\right)\\
+        y'_2 (x) = f_2\left(x,y_1(x),y_2(x),\ldots,y_N(x)\right)\\
+        \quad\vdots \\
+        y'_N (x) = f_N\left(x,y_1(x),y_2(x),\ldots,y_N(x)\right)
+    \end{cases}\]
+    Una soluzione è un \textbf{vettore di funzioni} $y_1(x),y_2(x),\ldots,y_N(x)$ t.c. \textbf{tutte le equazioni}
+    sono \textbf{soddisfatte}.\\
+    E' un ragionamento \textbf{simile} a quello delle \textbf{equazioni normali}, anche se ha una \textbf{scrittura complicata}. \\
+    Per \textbf{semplicità} posso ragionare in \textbf{termini vettoriali}. Chiamo:
+    \begin{itemize}
+        \item $Y(x) = \left(y_1(x),y_2(x),\ldots,y_N(x)\right)$
+        \item $Y'(x) = \left(y_1'(x),y_2'(x),\ldots,y_N'(x)\right)$
+        \item $F(x,Y) = \left(f_1,f_2,\ldots,f_N\right)$
+    \end{itemize}
+    Grazie a questa forma posso trattare \textbf{problemi di Cauchy con i sistemi}:
+    \[\begin{cases}
+        Y'(x) = F(x,Y(x)) \\
+        Y(x_0) = Y_0
+    \end{cases} \quad \text{dove} \ x_0 \ \text{è lo stesso per tutte le condizioni}\]
+    Per semplicità, chiamo \textcircled{$*$} questo problema.\\
+    Nella trattazione dei \textbf{problemi di Cauchy} ci sono alcuni \textbf{teoremi utili}.
+
+    \begin{theorem}
+        Sia:
+        \begin{itemize}
+            \item $\D\subseteq\R^{n+1}$
+            \item $F: \ \D\to\R^n$
+            \item $(x_0,y_0)$ un \textbf{punto interno} a $\D$, allora:
+        \end{itemize}
+        Il problema \textcircled{$*$} ammette \textbf{almeno una soluzione} in un intorno di $x_0$.
+    \end{theorem}
+
+    \begin{theorem}
+        Nelle ipotesi del \textbf{Teorema 5.1}, suppongo anche:
+        \[\frac{\de f_i}{\de y_j} \quad\text{con} \ \begin{matrix}
+            i=1,\dots,N\\
+            j=1,\dots,N
+        \end{matrix} \ \text{continue su} \ \D \ \text{, allora:}\]
+        Il problema \textcircled{$*$} ammette un'\textbf{unica soluzione} in un intorno di $x_0$. 
+    \end{theorem}
+
+    \begin{theorem}
+        Supponiamo che:
+        \begin{itemize}
+            \item Ogni funzione $f_i \left(x,y_1(x),y_2(x),\dots,y_N(x)\right)$ e $\frac{\de f_i}{\de y_j}$
+            con $i,j=1,\dots,N$ è \textbf{definita} e \textbf{continua} $\forall x\in[a,b]$ e $\forall y_1,y_2,\dots,y_N\in\R$
+            $[a,b]\subseteq\R$
+            \item $\exists h,k\in\R$, con $h,k>0$, t.c. $\left\lVert F(x,Y)\right\rVert  \leq h+k \left\lVert Y(x)\right\rVert$, allora:
+        \end{itemize}
+        Ogni soluzione per l'equazione $Y'(x) = F(x,Y(x))$ è \textbf{definita} $\forall x\in[a,b]$
+    \end{theorem}
+    \fbox{\tiny\textbf{NOTA:} Il simbolo $\left\lVert\vec{v}\right\rVert $, per un vettore generico, indica la \textbf{norma} di tale vettore}
+
+    \subsection{Equazioni differenziali di ordine n}
+    E' un'implicazione dei casi \textbf{visti in precedenza}. Scrivo un'EDO di \textbf{ordine n} in \textbf{forma normale}:
+    \[\begin{cases}
+        y^{(n)}(x) = f\left(x,y',y'',\dots,y^{(n-1)}\right) \\
+        y(x_0) = y_0 \\
+        y'(x_0) = y_1 \\
+        \quad\vdots \\
+        y^{(n-1)}(x_0) = y_n
+    \end{cases}\]
+    Ricordo che $x_0$ deve essere lo \textbf{stesso} per tutte le condizioni. \\
+    
+    \noindent Ogni \textbf{problema di Cauchy} per equazioni di \textbf{ordine n} può essere \textbf{trasformato}
+    in un \textbf{sistema di n equazioni} di \textbf{grado 1}.
+
+    \newpage
+
+    \section{Spazi di funzioni}
+    Gli \textbf{spazi di funzioni} sono strumenti \textbf{utili} per lo studio delle \textbf{soluzioni} delle equazioni differenziali. \\\\
+    \noindent Sia $\I\subseteq\R$.\\
+    Prendo l'\textbf{insieme delle funzioni} definite $\I\to\R$. Esso è uno \textbf{spazio vettoriale} su $\R$. 
+    Posso studiare alcuni suoi \textbf{sottoinsiemi}:
+    \begin{itemize}
+        \item $C^0(\I)$: E' l'insieme delle funzioni \textbf{continue} $\I\to\R$. E' un \textbf{sottoinsieme} del precedente. 
+        \item $C^1(\I)$: E' l'insieme delle funzioni \textbf{continue} con \textbf{derivata prima} sempre \textbf{esistente} e \textbf{continua}. 
+        E' un \textbf{sottoinsieme} di $C^0(\I)$.
+        \item $C^2(\I)$: E' l'insieme delle funzioni \textbf{continue} con \textbf{derivata seconda} sempre \textbf{esistente} e \textbf{continua}. 
+        E' un \textbf{sottoinsieme} di $C^1(\I)$.
+    \end{itemize}
+    A \textbf{cascata}, posso definire gli insiemi $C^3, \ C^4,\dots,C^n$ fino a $C^{\infty}$.
+
+    \begin{definition}[\textbf{Operatore E}]
+        Definisco un \textbf{operatore} che sarà \textbf{utile} per altri teoremi e anche per riscrivere le equazioni differenziali in modo più \textbf{compatto}.\\
+        $E: \ C^n(\I)\to C^0(\I)$\\
+        $E\left(y(x)\right) = y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x)$\\
+        E è un \textbf{operatore lineare}.
+    \end{definition}
+        \noindent Considero ora la \textbf{seguente equazione}:
+        \[y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x) = f(x) \]
+        Supponiamo che $a_0, \ a_1, \dots, \ a_{(n-1)}$ siano \textbf{definite} e \textbf{continue} su $\I$, allora:
+        \begin{itemize}
+            \item $y\in C^n(\I)$
+            \item $E\left(y(x)\right) = y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x)$
+        \end{itemize}
+        Questa è un'\textbf{applicazione lineare continua}:
+        \[E\left(\alpha y_1 + \beta y_2\right) = \alpha E(y_1) + \beta E(y_2)\]
+        Posso dare ora una serie di \textbf{risultati teorici utili} riguardo agli spazi di funzioni.
+
+        \begin{theorem}[\textbf{Esistenza e unicità globale per soluzioni di EDO lineari}]\hfil\\
+            \begin{itemize}
+                \item Siano $a_0, \ a_1,\dots, \ a_{(n-1)}$ \textbf{definite} e \textbf{continue} su $\I$. 
+                \item Sia $x_0$ \textbf{interno} a $\I$. Allora:
+            \end{itemize}
+            $\forall b_0, \ b_1,\dots, \ b_{(n-1)}$ il problema di Cauchy:
+            \[\begin{cases}
+                E(y) = f(x) \\
+                y(x_0) = b_0 \\
+                y'(x_0) = b_1 \\
+                \quad\vdots \\
+                y^{(n-1)}(x_0) = b_{(n-1)}
+            \end{cases}\]
+            Ammette un'\textbf{unica soluzione} definita su \textbf{tutto $\I$}. \\
+            Non procediamo con la \textbf{dimostrazione}.
+        \end{theorem}
+
+        \begin{theorem}
+            Date:
+            \begin{gather*}
+                \textcircled{1} \quad y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x) = 0\\
+                \textcircled{2} \ \ y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x) = f(x)
+            \end{gather*}
+            Allora:
+            \begin{itemize}
+                \item L'insieme $V_0$ delle soluzioni di \textcircled{1} è uno \textbf{spazio vettoriale} di \textbf{dimensione n}. 
+                \item Detta $y_p(x)$ una \textbf{soluzione particolare} di \textcircled{2}, l'insieme delle soluzioni di \textcircled{2} è:
+                \[y(x) = V_0 + y_p(x)\]
+            \end{itemize}
+            Dimostro che l'insieme $V_0$ delle soluzioni di \textcircled{1} è uno \textbf{spazio vettoriale} di \textbf{dimensione n}. 
+
+            \begin{proof}
+                Dimostro che il mio insieme è uno \textbf{spazio vettoriale}:\\
+                Prendo $y(x)\equiv 0$, che ovviamente soddisfa $E(y) = 0$. \\
+                Siano $y_1$ e $y_2$ soluzioni dell'\textbf{omogenea}. Ho:
+                \begin{itemize}
+                    \item $E(y_1) = 0$
+                    \item $E(y_2) = 0$
+                \end{itemize}
+                Poichè $E$ è \textbf{lineare}, prendo $\alpha,\beta\in\R$ e ottengo:
+                \[E(\alpha y_1 + \beta y_2) = \alpha E(y_1) + \beta E(y_2) =\]
+                \[\quad\quad = \alpha\cdot 0 + \beta\cdot 0 = 0 \ \forall \alpha,\beta\in\R\]
+                \rightline{\textit{Dimostrato}}
+            \end{proof}
+
+            \begin{proof}
+                Dimostro ora che tale spazio ha \textbf{dimensione n}:\\
+                Prendo $z_0(x)$ e $z_1(x)$, una \textbf{base} del mio spazio. Voglio dimostrare che $z_1$ e $z_2$ 
+                sono \textbf{linearmente indipendenti} e \textbf{generatori}:\\
+                So che:
+                \begin{itemize}
+                    \item $z_0(x)$ risolve \textbf{questo problema}:
+                    \[\begin{cases}
+                        E(y) = 0\\
+                        y(x_0)=1\\
+                        y'(x_0)=0
+                    \end{cases}\]
+                    \item $z_1(x)$ risolve \textbf{questo problema}:
+                    \[\begin{cases}
+                        E(y) = 0\\
+                        y(x_0)=0\\
+                        y'(x_0)=1
+                    \end{cases}\]
+                \end{itemize}
+                \begin{enumerate}
+                    \item Per dimostrare che sono \textbf{linearmente indipendenti}, voglio che:
+                    \[c_0 \ z_0(x) + c_1 \ z_1(x) = 0 \ \text{solo se} \ c_0=c_1=0 \ \forall x\in\I\]
+                    Ma per come ho costruito i pb. di cauchy ho che $z_0'(x_0) = 1$ e $z_1'(x_0) = 1$ e che $z_0(x_0) = 1$ e $z_1(x_0) = 0$\\
+                    Quindi ho:
+                    \begin{gather*}
+                        c_0 \ \overbrace{z_0(x_0)}^1 + c_1 \ \overbrace{z_1(x_0)}^0 = 0 \ \to \ c_0 = 0\\
+                        c_0 \ \overbrace{z_0'(x_0)}^1 + c_1 \ \overbrace{z_1'(x_0)}^1 = 0 \ \to \ c_1 = 0
+                    \end{gather*}
+                    ho trovato che $z_0$ e $z_1$ sono \textbf{linearmente indipendenti}.\\
+                    \rightline{\textit{Dimostrato}}
+
+                    \item Per dimostare che \textbf{generano}, voglio dimostrare che posso scegliere $c_0,c_1\in\R$ t.c., data
+                    $w(x)$ soluzione di $E(y) = 0$, vale che:
+                    \[w(x) = c_0 \ z_0(x) + c_1 \ z_1(x)\]
+                    Scelgo:
+                    \begin{itemize}
+                        \item $c_0 = w(x_0)$
+                        \item $c_1 = w'(x_0)$
+                    \end{itemize}
+                    Prendo il \textbf{seguente problema}:
+                    \[\begin{cases}
+                        E(y) = 0\\
+                        y(x_0) = c_0\\
+                        y'(x_0) = c_1
+                    \end{cases}\]
+                    Sia $w$ che $c_0 \ z_0(x) + c_1 \ z_1(x)$ sono \textbf{soluzioni} e per il \textbf{th. di unicità} queste \textbf{coincidono}.\\
+                    \rightline{\textit{Dimostrato}}
+                \end{enumerate}
+            \end{proof}
+        \end{theorem}
+
+    \newpage
+
+    \section{Soluzione delle EDO}
+
+    Do ora una serie di \textbf{teoremi utili} per la risoluzione delle \textbf{equazioni omogenee}.
+
+    \begin{theorem}[\textbf{Integrali generali}]
+        L'\textbf{interale generale} dell'equazione $E(y) = f$ si ottiene \textbf{sommando}:
+        \begin{itemize}
+            \item L'\textbf{integrale generale} dell'\textbf{omogenea}. 
+            \item Una \textbf{soluzione particolare} dell'equazione $E(y) = f$
+        \end{itemize}
+
+        \begin{proof}
+            \underbar{Sia}:
+            \begin{itemize}
+                \item $y_1$ una soluzione di $E(y) = f$
+                \item $y_0$ una soluzione di $E(y) = 0$
+            \end{itemize}
+            Calcolo $E(y_1+y_0)$:
+            \[E(y_1+y_0) = E(y_1) + E(y_0) = f+0=f\]\\
+            \underbar{Sia} $y_2$ un'\textbf{altra soluzione} di $E(y) = f$.\\
+            Calcolo $E(y_2-y_1)$:
+            \[E(y_2-y_1) = E(y_2) - E(y_1) = f-f = 0 = E(y_0)\]\\
+            Ho osservato che:
+            \[\begin{matrix}
+                y_1+y_0=y_2\\
+                y_2-y_1=y_0
+            \end{matrix} \quad\longrightarrow\quad y_2=y_1+y_0\]
+            \rightline{\textit{Dimostrato}}
+        \end{proof}
+    \end{theorem}
+
+    \begin{definition}[\textbf{Polinomio caratteristico}]
+        Data una \textbf{EDO omogenea}, ci associo il \textbf{polinomio caratteristico}:
+        \[y^{(n)} + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x)y(x) = 0\]
+        \[P(\lambda) = \lambda^n + a_{(n-1)}(x) \ \lambda^{n-1} + \cdots + a_1(x) \ \lambda + a_0(x)\]
+    \end{definition}
+
+    \begin{theorem}[\textbf{Risoluzione}]
+        \underbar{Sia} $\lambda\in\R$ (o $\lambda\in\C$). \underbar{Allora} la funzione:
+        \[y_0(x) = e^{\lambda x}\]
+        è \textbf{soluzione dell'omogenea} \underbar{se e solo se} $\lambda$ è una \textbf{radice} del \textbf{polinomio caratteristico}.
+
+        \begin{proof}
+            $y(x) = e^{\lambda x} \ \to$ scrivo le \textbf{derivate}:\\
+            $y'(x) = \lambda \ e^{\lambda x}$\\
+            $\vdots$\\
+            $y^{(n)}(x) = \lambda^n e^{\lambda x}$\\\\
+            Ottengo:\\
+            \[E(y) = \lambda^ne^{\lambda x} + a_{(n-1)}(x) \ e^{\lambda x}\lambda^{n-1} + \cdots + a_1(x) \ e^{\lambda x}\lambda + a_0(x) \ e^{\lambda x} = \]
+            \[=e^{\lambda x}\left(\lambda^n + a_{(n-1)}(x) \ \lambda^{n-1} + \cdots + a_1(x) \ \lambda + a_0(x)\right) =\]
+            \[=P(\lambda) \ e^{\lambda}\]
+            Ottengo $P(\lambda) \ e^{\lambda x}=0$ se e solo se $P(\lambda) = 0$\\
+            \rightline{\textit{Dimostrato}}
+        \end{proof}
+    \end{theorem}
+
+    \begin{theorem}[\textbf{Risoluzione}]
+        Sia $\lambda_0\in\R$ (o $\lambda_0\in\C$) una \textbf{radice} di \textbf{moleplicità $s$} del polinomio, ossia:
+        \[P(\lambda) = \left(\lambda-\lambda_0\right)^{s-1}q(\lambda) \ \text{con} \ q(\lambda_0)\ne 0\]
+        Allora:
+        $e^{\lambda_0x}, \ x \ e^{\lambda_0x},\dots, \ x^{s-1}e^{\lambda_0x}$ sono \textbf{soluzioni linearmente indipendenti} di $E(y) = 0$
+    \end{theorem}
+
+    \begin{theorem}[\textbf{Soluzioni complesse}]
+        Sia $\lambda_0\in\C$, ossia $\lambda_0 = \alpha + i\beta$m con $\alpha,\beta\in\R$, una \textbf{radice} di \textbf{moleplicità $s$} del polinomio. 
+        Allora:
+        \[e^{\alpha x}\cos(\beta x), \ e^{\alpha x}\sin(\beta x)\]
+        \[x \ e^{\alpha x}\cos(\beta x), \ x \ e^{\alpha x}\sin(\beta x)\]
+        \[\vdots\] 
+        \[x^{s-1}e^{\alpha x}\cos(\beta x), \ x^{s-1}e^{\alpha x}\sin(\beta x)\]
+        Sono soluzioni \textbf{linearmente indipendenti} e \textbf{reali} di $E(y) = 0$
+    \end{theorem}
+    
+\newpage
+
+\section{Spazi metrici}
+Dato un insieme $\X$ e una funzione $d: \ \X\times\X\to\R$, $d$ è una \textbf{metrica} su $\X$ se:
+\begin{itemize}
+    \item $\forall x,y\in\X$ vale $d(x,y) \geq 0$ (e vale $d(x,y) = 0 \Longleftrightarrow x=y$).
+    \item $\forall x,y\in\X$ vale $d(x,y)=d(y,x)$.
+    \item $\forall x,y,z\in\X$ vale $d(x,z) \leq d(x,y) + d(y,z)$
+\end{itemize}
+Si definisce l'insieme $(\X,d)$ uno "\textbf{spazio metrico}".
+
+\subsection{Esempio}
+Prendo $\X=\R \ \rightarrow \ d(x,y) = |x-y|$
+
+\subsection{Esempio - Distanza euclidea}
+Prendo $\displaystyle \X=\R^n \ \rightarrow \ d(x,y) = \sqrt{\sum_{i=0}^{n} |x_i-y_i|^2}$\\
+Tale distanza è detta "\textbf{distanza euclidea}".\\
+
+\noindent Per avere a che fare con uno \textbf{spazio metrico} non ho bisogno di lavorare con insiemi che hanno una
+\textbf{struttura algebrica} (non devo definire \textbf{operazioni} al loro interno).\\
+Se però applico tale definizione ad uno \textbf{spazio vettoriale} posso definire una \textbf{norma}. 
+
+\newpage
+
+\section{Spazi normati}
+Sia $\V$ uno \textbf{spazio vettoriale}. $\norma: \ \V\to\R$ è una "\textbf{norma}" su $\V$ se:
+\begin{itemize}
+    \item $\forall v\in\V$ vale $\left\lVert v\right\rVert \geq 0$ (e vale $\left\lVert v\right\rVert =0 \Longleftrightarrow v=0_\V$)
+    \item $\forall v\in\V$ vale $\left\lVert \lambda v\right\rVert = \lambda \left\lVert v\right\rVert  \ \forall \lambda\in\R$
+    \item $\forall\mu,\nu\in\V$ vale che $\left\lVert \mu+\nu\right\rVert \leq \left\lVert \mu\right\rVert + \left\lVert \nu\right\rVert $
+\end{itemize}
+Si definisce l'insieme $(\V,\norma)$ uno "\textbf{spazio normato}".
+
+\subsection{Esempio}
+Prendo $\displaystyle \V=\R^n \rightarrow \left\lVert v\right\rVert_\varepsilon = \sqrt{\sum_{i=0}^{n} v_i^2}$
+
+\begin{proposition}
+    Lo spazio normato $(\V,\norma)$ \textbf{induce una metrica} su $\V$:
+    \[d(\mu,\nu)=\left\lVert \mu-\nu\right\rVert \ \text{con} \ \mu,\nu\in\V\]
+\end{proposition}
+\noindent Metriche e norme possono godere di una \textbf{particolare proprietà} detta "\textbf{equivalenza}".
+
+\begin{definition}[\textbf{Metriche equivalenti}]
+    Siano $(\X,d_\alpha), \ (\X,d_\beta)$ \textbf{spazi metrici}. $d_\alpha$ e $d_\beta$ si dicono "\textbf{metriche equivalenti}" se:
+    \[\exists k_1,k_2\in\R \ t.c. \ k_1 \ d_\alpha(x,y) \leq d_\beta(x,y) \leq k_2 \ d_\alpha(x,y) \quad \text{con} \ x,y\in\X\]
+\end{definition}
+\noindent Ovvero le distanze sono proporzionali fra loro, e differiscono solo di due costanti.\\
+\begin{definition}[\textbf{Norme equivalenti}]
+    Siano $(\V,\norma_\alpha)$ e $(\V,\norma_\beta)$ \textbf{spazi normati}. $\norma_\alpha$ e $\norma_\beta$ si dicono \textbf{norme equivalenti} se:
+    \[\exists c_1,c_2\in\R_i \ t.c. \ c_1 \left\lVert v\right\rVert_\alpha \leq \left\lVert v\right\rVert_\beta \leq c_2 \left\lVert v\right\rVert_\alpha \quad \text{con} \ v\in\V\]
+\end{definition}
+
+
+\subsection{Norme su $\R^n$}
+    Sia $p$ una \textbf{norma}:
+    \[\left\lVert x\right\rVert_p = \sqrt{\sum_{i=0}^{n} |x_i|^p} \]
+
+\begin{theorem}
+    Tutte le \textbf{norme} su $p$ sono \textbf{equivalenti}
+\end{theorem}
+
+\noindent Finora ci siamo limitati a considerare spazi a \textbf{dimensione finita}, ma possiamo studiare \textbf{metriche} e \textbf{norme} anche su 
+spazi a \textbf{dimensione infinita}.\\
+Per fare ciò introduciamo il concetto di \textbf{distanza tra funzioni}.\\\\
+Prendo, ad esempio, $\X = C^0\left([a,b]\right)$.\\
+Posso definire la \textbf{norma} $\left\lVert f\right\rVert_{\C^0}$, con $f\in C^0\left([a,b]\right)$:
+\[\left\lVert f\right\rVert_{\C^0} = \left\lVert f\right\rVert_{\infty} = \max_{[a,b]} |f(x)|\]
+Posso definire la \textbf{metrica} $d_{\C^0}$, con $f,g\in C^0\left([a,b]\right)$:
+\[d_{\C^0}(f,g) = d_\infty (f,g) = \left\lVert f-g\right\rVert_\infty \]
+Posso definire, ad esempio, un'\textbf{altra metrica} $d_{\mathbb{L}^1}$, la \textbf{distanza integrale}:
+\[d_{\mathbb{L}^1} (f,g) = \int_{a}^{b} |f-g| \ dx\]
+$d_{\C^0}$ e $d_{\mathbb{L}^1}$ sono entrambe \textbf{metriche} su $\C^0$, ma non sono \textbf{equivalenti}.\\\\
+
+\noindent In questi \textbf{spazi di funzioni} posso definire gli \textbf{intorni}, che prendono il nome di "\textbf{palle}":
+\[\B_\varepsilon = \left\{g\in\C\left([a,b]\right): \ \left\lVert f-g\right\rVert < \varepsilon \right\}\]
+\textbf{Geometricamente}, una palla è un intorno della \textbf{dimensione del suo insieme} si può pensare come un elemento appartenente all'insieme che stiamo considerando che costituisce un \textbf{ragio fissato} attorno all'elemento che stiamo considerando.\\\\
+Posso definire la \textbf{norma} $C^k\left([a,b]\right)$. Prendo $\X\in\C^k\left([a,b]\right)$:
+\[d_{\C^k} (f,g) = \sum_{i=0}^{k} d_{\C^0} \left(f^{(i)} - g^{(i)}\right) = \sum_{i=0}^{k} \max_{x\in[a,b]} \left|f^{(i)} - g^{(i)}\right|\]
+
+\newpage
+
+\section{Accenni di topologia}
+Diamo ora una serie di \textbf{definizioni utili} sulla \textbf{topologia degli spazi metrici}. 
+
+\begin{definition}[\textbf{Intorno}]
+    Sia $x_0\in\X$. Un intorno di centro $x_0$ e raggio $R$ è:
+    \begin{itemize}
+        \item $\B_R = \left\{x\in\X: \ d(x_0,x) < R\right\} = \mathcal{U}_{(x_0,R)} \ \rightarrow$ E' \textbf{aperto}.
+        \item $\overline{\B_R} = \left\{x\in\X: \ d(x_0,x) \leq R\right\} \rightarrow$ E' \textbf{chiuso}.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[\textbf{Intorno aperto}]
+    L'intorno $\A\subseteq\X$ è \textbf{aperto} se $\forall a\in\A \ \exists R_a$ t.c.:
+    \[\mathcal{U}_{(a,R_a)} \subseteq \A\]
+\end{definition}
+
+\begin{definition}[\textbf{Intorno chiuso}]
+    L'intorno $\D\subseteq\X$ è \textbf{chiuso} se il suo \textbf{complementare} $\X\backslash\D$ è \textbf{aperto}.
+\end{definition}
+
+\begin{observation}\noindent
+    \begin{itemize}
+        \item L'\textbf{unione} di \textbf{aperti} è \textbf{aperta}.
+        \item L'\textbf{intersezione finita} di \textbf{aperti} è \textbf{aperta}.
+        \item L'\textbf{unione finita} di \textbf{chiusi} è \textbf{chiusa}.
+        \item L'\textbf{intersezione} di \textbf{chiusi} è \textbf{chiusa}.
+    \end{itemize}
+\end{observation}
+
+\begin{definition}[\textbf{Punto interno}]
+    $x_0\in\X$ è \textbf{interno} a $\X$ se $\exists R$ t.c. $\mathcal{U}_{(x_0,R)}\subseteq\X$
+\end{definition}
+\hfill\\
+\noindent
+In seguito tratteremo \textbf{insiemi compatti}. La loro definizione è \textbf{complicata}, ma noi ci accontentiamo 
+di un \textbf{teorema caratterizzante}. 
+
+\begin{theorem}[\textbf{Heine-Borel}]
+    Sia $\K\subseteq\R^n$. 
+    \begin{center}
+        $\K$ è \textbf{compatto} $\Longleftrightarrow$ $\K$ è \textbf{chiuso e limitato}
+    \end{center}
+\end{theorem}
+\noindent
+Come già detto questa è una condizione leggermente più forte della compattezza, ma è sufficiente per noi.\\
+\newpage
+
+\section{Successioni di spazi metrici}
+Sia $(\X,d)$ uno \textbf{spazio metrico}. \\
+Posso definire una \textbf{successione} $\left\{x_k\right\}\subseteq\X$ t.c. $k \in \mathbb{N}$
+
+\begin{definition}[\textbf{Convergenza}]
+    Sia $\{x_k\}\subseteq\X$. Dico che $\{x_k\}$ \textbf{converge} a $x_0\in\X$ rispetto alla metrica $d$ se:
+    \[\lim_{k\to\infty} d(x_k,x_0) = 0\]
+\end{definition}
+
+\begin{observation}
+    Se tale limite \textbf{esiste}, allora è \textbf{unico}.
+\end{observation}
+
+\begin{observation}
+    Siano $d_\alpha$ e $d_\beta$ metriche \textbf{equivalenti} su $\X$ e $\{x_k\}\subseteq\X$:
+    \begin{center}
+        $\{x_k\}$ \textbf{converge} in $\X$ rispetto alla metrica $d_\alpha$\\
+        $\Updownarrow$\\
+        $\{x_k\}$ \textbf{converge} in $\X$ rispetto alla metrica $d_\beta$\\
+    \end{center}
+\end{observation}
+
+\begin{definition}[\textbf{Successione di Cauchy}]
+    $\{x_k\}\subseteq\X$ è una \textbf{successione di Cauchy} se:
+    \[\forall \varepsilon>0 \ \exists N: \ d(x_k,x_m) <\varepsilon \ \forall k,m > N\]
+\end{definition}
+
+\noindent E' ora il momento di dare alcuni \textbf{risultati teorici importanti} riguardo alle successioni negli spazi metrici. 
+\begin{theorem}
+    Sia $(\X,d)$ \textbf{spazio metrico}. Sia $\{x_k\}\subseteq\X$ t.c. $\{x_k\}\overset{d}{\longrightarrow}x_0\in\X$. Allora: \\
+    $\{x_k\}$ è \textbf{successione di Cauchy} rispetto alla metrica $d$. \\\\
+    Dimostro che il \textbf{vice-versa non vale}. 
+
+    \begin{proof}
+    Prendo $x_k = \sqrt{x^2 - \frac{1}{k}}$ per $x\in[0,1]$:
+    \begin{enumerate}
+        \item Dimostro che \textbf{è di Cauchy}.
+        \item Dimostro che \textbf{converge in $\C^0$} rispetto a $d_{\C^0}$.
+        \item Dimostro che \textbf{non converge in $\C^1$} rispetto a $d_{\C^0}$.
+    \end{enumerate}
+    \rightline{\textit{Dimostrato}}
+    \end{proof}
+\end{theorem}
+
+\newpage
+
+\noindent Individuiamo adesso alcuni \textbf{spazi metrici o normati} che godono di \textbf{particolari caratteristiche}.
+
+\begin{definition}[\textbf{Spazio metrico completo}]
+    Uno \textbf{spazio metrico} $(\X,d)$ è detto "\textbf{completo}" se $\forall\{x_n\}\subseteq\X$ \textbf{succcessione di Cauchy}
+    si ha che:
+    \begin{center}
+        $\{x_n\}$ \textbf{converge} rispetto alla metrica $d$
+    \end{center}
+\end{definition}
+
+\begin{definition}[\textbf{Spazio di Banach}]
+    $(\X,\norma)$ spazio \textbf{normato} è detto "\textbf{di Banach}" se $\X$ è \textbf{completo} rispetto alla metrica indotta da $\norma$
+\end{definition}
+
+\begin{observation}
+    Studiamo le proprietà di alcuni \textbf{spazi noti}: 
+    \begin{itemize}
+        \item $\left(\C^1([a,b]),d_{\C^0}\right)$ non è \textbf{completo}.
+        \item $\left(\C^0([a,b]),d_{\mathbb{L}^1}\right)$ non è \textbf{completo}.
+    \end{itemize}
+\end{observation}
+
+\begin{observation}
+    Sia $(\X,d)$ \textbf{spazio metrico}. Sia $\{x_n\}\subseteq \Y\subseteq \X\overset{d}{\longrightarrow}x_0\in\overline{\Y}$,
+    dove $\overline{\Y}$ è la \textbf{chiusura} di $\Y$. Allora:
+    \begin{center}
+        $\Y$ è \textbf{chiuso} $\Leftrightarrow$ Contiene \textbf{tutte le successioni convergenti} di $\Y$
+    \end{center}
+In pratica se ho una successione appartenente all'insieme che converge su un punto del bordo di questo insieme, ma il bordo non fa parte dell'insieme, allora l'insieme non è chiuso.
+\end{observation}
+
+
+\begin{observation}
+    Sia $(\X,d)$ \textbf{spazio metrico completo}. Sia $\B\subseteq\X$ \textbf{chiuso}. Allora:
+    \begin{center}
+        $(\B,d)$ è uno \textbf{spazio metrico completo}
+    \end{center}
+\end{observation}
+
+\noindent Posso ora introdurre un \textbf{particolare di tipo di funzioni}, molto utile nello studio degli spazi metrici. 
+
+\subsection{Contrazioni}
+Siano $(\X,dx)$ e $(\Y,dy)$ \textbf{spazi metrici}. Sia $f: \ \X\to\Y$:
+\begin{itemize}
+    \item $f$ è \textbf{continua} in $x_0\in\X$ se $\forall \{x_n\}\in\X$, $x_n\to x_0$, si ha che $\{f(x_n)\}\subseteq\Y$
+    \textbf{converge} a $f(x_0)$ in $(\Y,dy)$.
+    \item $f$ è \textbf{Lipshitziana} se $\exists L>0$ t.c.:
+    \[d_y\left(f(x),f(y)\right) \leq L\cdot d_x(x,y) \quad \forall x,y\in\X\]
+    \item $f$ è \textbf{contrazione} se è \textbf{Lipshitziana} con $L< 1$.
+\end{itemize}
+
+\begin{proposition}[\textbf{Lipshitzianità e continuità}]
+    La \textbf{Lipshitziantà} implica la \textbf{continuità}.
+
+    \begin{proof}\hfill\\
+        Sia $x_0\in\X$. Sia $\{x_n\}\overset{d}{\longrightarrow}x_0$. Allora $d(x_n,x_0)\to0$.\\
+        Poichè $f$ è \textbf{Lipshitziana}, $\exists L$ t.c.
+        \[0\leq d_y\left(f(x_n),f(x_0)\right) \leq L\cdot d_x(x_n,x_0) \quad\text{con} \ d_x(x_n,x_0)\to0\]
+        Ottengo:
+        \[d_y\left(f(x_n),f(x_0)\right)\to 0\quad \text{quindi:}\]
+        \[f(x_n)\to f(x_0)\]
+        $f$ è \textbf{continua} in $x_0$.\\
+    \end{proof}
+\end{proposition}
+
+Diamo ora un risultato teorico importante, il \textbf{Teorema delle contrazioni}.
+
+\begin{theorem}[\textbf{Teorema delle Contrazioni}]
+    E' anche detto \textbf{Teorema di Banach-Caccioppoli}.\\\\
+    \noindent Sia $(\X,d)$ uno \textbf{spazio metrico completo}. Sia $f: \ \X\to\X$ \textbf{contrazione}. Allora:
+    \[\exists! \ \text{punto fisso t.c.} \ f(\overline{x}) = \overline{x}\]
+
+    \begin{proof}\hfill\\
+        Prendo $x_0\in\X$. Costruisco una \textbf{successione} $\{x_k\}$ t.c.: 
+        \[x_1 = f(x_0)\]
+        \[x_2 = f(x_1)\]
+        \[\vdots\]
+        \[x_{k+1} = f(x_k)\]
+        Si può dimostrare che $\{x_k\}$ è \textbf{successione di Cauchy} in $(\X,d)$.\\\\
+        Voglio dimostare che $\exists\overline{x}$ punto \textbf{fisso} t.c. $\overline{x} = f(\overline{x})$.\\
+        Poichè $\{x_k\}$ è di Cauchy in $(\X,d)$ ho:
+        \[\overline{x} = \lim_{k\to\infty} x_k \quad\text{in} \ (\X,d)\]
+        quindi $\overline{x}$ è punto \textbf{fisso}.\\\\
+        Poichè $f$ è \textbf{contrazione}, essa è \textbf{Lipshitziana}, e dunque \textbf{continua}.
+        \[\lim_{k\to\infty} f(x_k) = f(\overline{x}) = x_{k+1} = \overline{x}\]
+        Ho ottenuto:
+        \[f(\overline{x}) = \overline{x}\]
+        \rightline{\textit{Dimostrato}}
+
+        \newpage
+        
+        \noindent Dimostro ora che $\overline{x}$ è \textbf{unico}.\\
+        Supponiamo che esistano $\overline{x} = f(\overline{x})$ e $\overline{y} = f(\overline{y})$.
+        \[d(\overline{x},\overline{y}) = d\left(f(\overline{x}),f(\overline{y})\right) \leq L\cdot d(\overline{x},\overline{y})\to 0 \quad\text{con} \ L\in(0,1)\]
+        Avrei:
+        \[d(\overline{x},\overline{y}) \leq d(\overline{x},\overline{y})\]
+        Ma ciò è \textbf{assurdo} se $\overline{x}\ne \overline{y}$\\\\
+        Dunque:
+        \[d(\overline{x},\overline{y}) = 0 \Rightarrow \overline{x} = \overline{y}\]
+        \rightline{\textit{Dimostrato}}
+    \end{proof}
+\end{theorem}
+
+\newpage
+
+\section{Teorema di esistenza e unicità di Cauchy}
+Grazie alle nozioni acquisite con lo studio degli \textbf{spazi metrici e normati}, abbiamo finalmente gli strumenti
+per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \textbf{equazioni differenziali}.
+
+\begin{theorem}[\textbf{Esistenza e unicità di Cauchy}]
+    Considero il seguente \textbf{problema di Cauchy}:
+    \[\begin{cases}
+        y'=f\left(x,y(x)\right) \\
+        y(x_0)=y_0
+    \end{cases}\]
+    Sia $f(x)$ \textbf{definita} e \textbf{continua} sul \textbf{rettangolo} $\I\times\J$, con:
+    \begin{itemize}
+        \item $\I=(x_0-a,x_0+a)$
+        \item $\J=(y_0-b,y_0+b)$
+    \end{itemize}
+    con $a$ e $b$ \textbf{costanti positive}.\\
+    Suppongo inoltre che $\exists L\in\R, \ L>0$ t.c. $\forall y_1,y_2\in\J$ vale:
+    \[\left|f(x_0,y_1)-f(x_0,y_2)\right|\leq L \left|y_1-y_2\right|\]
+    In pratica, se \textbf{fisso $x$}, la funzione è \textbf{Lipshitziana} per $y$. Allora:
+    \begin{center}
+        $\exists\delta >0$ e $\exists !$ funzione $y(x)$ definita su $(x_0 - \delta,x_0 + \delta)$ che \textbf{risolve il problema}.
+    \end{center}
+
+    \begin{proof}\hfill\\
+        Uso la \textbf{formulazione integrale}. \\\\
+        \noindent Poichè $f$ è \textbf{continua} su $\I\times\J$, per \textbf{Weierstrass} posso dire:
+        \[\exists M = \max_{x\in\I\times\J} \left|f\left(x,y(x)\right)\right|\]
+        Scelgo $\delta < \min\left\{a; \ \frac{b}{M}; \ \frac{1}{L}\right\}$ con $\I_{\delta} = \left[x_0-\delta,x_0+\delta\right]$
+
+        \begin{center}
+            \begin{tikzpicture}[scale=0.5]
+                \draw[->] (-1,0)--(16,0) node[at end,right] {$x$};
+                \draw[->] (0,-1)--(0,8) node[at end,above] {$y$};
+                \draw (1,1)--(15,1);
+                \draw(1,7)--(15,7) node[midway,above] {$\I$};
+                \draw(1,1)--(1,7);
+                \draw (15,1)--(15,7) node[midway,right] {$\J$};
+                \draw[red] (3,1)--(3,7);
+                \draw[red] (13,1)--(13,7);
+                \filldraw(8,4) circle (2pt) node[right] {\tiny$(x_0,y_0)$};
+                \draw (1,0.1)--(1,-0.1) node[at end,below] {\tiny$x_0-a$};
+                \draw (3,0.1)--(3,-0.1) node[at end,below] {\tiny\textcolor{red}{$x_0-\delta$}};
+                \draw (8,0.1)--(8,-0.1) node[at end,below] {\tiny$x_0$};
+                \draw (13,0.1)--(13,-0.1) node[at end,below] {\tiny\textcolor{red}{$x_0+\delta$}};
+                \draw (15,0.1)--(15,-0.1) node[at end,below] {\tiny$x_0+a$};
+                \draw (0.1,1)--(-0.1,1) node[at end,left] {\tiny$y_0-b$};
+                \draw (0.1,4)--(-0.1,4) node[at end,left] {\tiny$y_0$};
+                \draw (0.1,7)--(-0.1,7) node[at end,left] {\tiny$y_0+b$};
+            \end{tikzpicture}
+        \end{center}
+        \noindent
+        Prendo $\B = \left\{u(x)\in \C^0 \left([x_0-\delta,x_0+\delta]\right): \ \left\lVert u-y_0\right\rVert_{\C^0(\I_\delta)} \leq b \right\}$\\\\
+        Osservo che:
+        \begin{itemize}
+            \item $\B$ è \textbf{palla chiusa}.
+            \item $(\B,\norma_{\C^0})$ è \textbf{spazio di Banach} perchè è \textbf{sottoinsieme} di $\left(\C^0(\I_\delta),\norma_{\C^0}\right)$, che è \textbf{completo}. 
+        \end{itemize}
+
+        \noindent Definisco l'\textbf{operatore} F:\\
+        $F: \ \B\to\C^0(\I_\delta)$, $F(u) = z$ con $z(x) = y_0 + \int_{x_0}^{x} f\left(t,u(t)\right) dt$ $\forall x\in\I_\delta$\\
+
+        \noindent Voglio dimostrare che $\operatorname{Im}(F)\subseteq\B$.\\
+
+        \noindent Sia $u\in\B$, allora $F(u)\in\C^0(\I_\delta)$. Inoltre:\\
+        \[\left|F(u) - y_0\right| = \left|z-y_0\right| = \left|\int_{x_0}^{x} f\left(t,y(t)\right) dt\right|\]
+        $\forall x\in\I_\delta$, $t\in[x_0,x]\subseteq\I$.\\
+        $u(t)\in\J$ perchè $u\in\B$, quindi $\left\lVert u-y_0\right\rVert_{\C^0} \leq b$, cioè:
+        \[\left|u(x) - y_0\right| \leq b \quad\forall x\in\I_\delta\]
+        dunque $\left(t,u(t)\right)\in\I\times\J \Rightarrow \left|f\left(t,u(t)\right)\right|\leq M = \max$
+        \[\left|\int_{x_0}^{x} f\left(t,u(t)\right) \ dt\right| < M \left|x_0-x\right| \leq M \delta \leq b \ \text{per come ho scelto} \ \delta\]
+        \[\Rightarrow\max_{x\in\I_\delta} \left|F(u) - y_0\right| \leq b\]
+        cioè $\left\lVert F(u) - y_0\right\rVert_{\C^0} \leq b \Rightarrow F(u)\in\B$\\
+
+        \noindent Poichè $F(u)\in\B$, ho $F: \ \B\to\B$.\\
+
+        \noindent Voglio dimostare che $F$ ha un \textbf{punto fisso} t.c. $F(\overline{y}) = \overline{y}$. 
+        Mi basta dimostare che $F$ è \textbf{contrazione} rispetto ad una \textbf{metrica indotta da} $\norma_{\C^0}$.\\
+        Mi basta dimostare che $F$ è \textbf{Lipshitziana} con $L<1$.
+        \begin{gather*}
+            \left|F(y_1) - F(y_2)\right| \leq \left|\int_{x_0}^{x} f\left(t,y_1(t)\right) - f\left(t,y_2(t)\right) \ dt\right| \leq\\
+            \leq L \underbrace{|x-x_0|}_{\int_{x_0}^x 1 dx} \  \underbrace{\left\lVert y_1-y_2\right\rVert_{\C^0(\I_\delta)}}_{\leq |y_1(t)-y_2(t)|} \leq \\
+            \leq L\delta \ \left\lVert y_1-y_2\right\rVert_{\C^0(\I_\delta)} \leq 1
+        \end{gather*}
+        Poichè $L\delta < 1$ per come ho scelto $\delta$ ovvero $< \frac{1}{L}$.\\ 
+        Ho ottenuto:
+        \[L<1\]
+        Ho visto che $F$ è \textbf{contrazione} rispetto a $\norma_{\C^0}$.
+        
+        \newpage
+        \noindent $\exists!\overline{y}$ t.c. $F(\overline{y}) = \overline{y}$, cioè esiste una \textbf{soluzione} $\overline{y}$ del problema di Cauchy.\\
+         $\overline{y}$ è l'unica soluzione del problema di Cauchy.\\
+         Infatti, se $u$ è un'altra soluzione del problema di Cauchy, allora $F(u) = u$.\\
+         Ma $F$ è contrazione, quindi $u = \overline{y}$.\\
+         Dunque $u$ è l'unica soluzione del problema di Cauchy.\\
+          Ho ottenuto:
+        \[y(x) = y_0 + \int_{x_0}^{x} f\left(t,u(t)\right) \ dt \quad\forall x\in\I\]
+        che \textbf{risolve il problema di Cauchy} ed è \textbf{unica}.\\
+        \rightline{\textit{Dimostrato}}
+    \end{proof}
+\end{theorem}
+    \newpage
+
+    \section{Introduzione}
+    Noi tratteremo le funzioni perlopiù nel caso di \textbf{2 variabili}, ma queste nozioni valgono 
+    anche per \textbf{funzioni a più di 2 variabili}.
+
+    \section{Topologia}
+    Diamo ora una serie di \textbf{definizioni topologiche utili}.
+
+    \begin{definition}[\textbf{Insieme aperto}]
+        Sia $\A\subseteq\R^2$. Dico che $\A$ è \textbf{aperto} se $\forall (x_0,y_0)\in\A \ \exists R>0$ t.c. :
+        \[\B_R(x_0,y_0) = \left\{(x,y)\in\R^2: \ \left\lVert (x,y) - (x_0,y_0)\right\rVert_\varepsilon < R \right\} \subseteq \A\]
+    \end{definition}
+    \noindent Noi useremo sempre le \textbf{palle di Euclide}.
+
+    \begin{definition}[\textbf{Insieme chiuso}]
+        Sia $\E\subseteq\R^2$. Dico che:
+        \begin{itemize}
+            \item $\overline{\E}$ è il \textbf{più piccolo chiuso} che \textbf{contiene} $\E$ (chiusura di $\E$).
+            \item $\mathring{\E}$ è il \textbf{più grande aperto} che \textbf{è contenuto} in $\E$. 
+        \end{itemize}
+    \end{definition}
+
+    \begin{definition}[\textbf{Dominio}]
+        Dico che $\D$ è un "\textbf{dominio}" se $\D=\overline{\A}$ con $\A$ \textbf{aperto}:
+        \[ \D = \mathring{\D} \cup \de\D \]
+    \end{definition}
+    \noindent In pratica, sto dicendo che $\D$ è composto dal suo \textbf{interno} e dalla sua \textbf{frontiera}.
+
+    \begin{definition}[\textbf{Grafico}]
+        Sia $f: \ \D\to\R$. Il suo \textbf{grafico} è:
+        \[\left\{(x,y,z)\in\R^3: \ (x,y)\in\D, \ z=f(x,y)\right\}\]
+    \end{definition}
+
+    \begin{definition}[\textbf{Linee di livello}]
+        Definisco le \textbf{linee di livello}:
+        \[\U_t = \left\{(x,y)\in\D: \ f(x,y) = t\right\} \quad\text{con:} \ t\in\R\]
+    \end{definition}
+    \noindent E' esattamente l'equivalente delle \textbf{linee di livello} delle \textbf{carte goegrafiche}.
+
+    \begin{observation}
+    Sono particolarità delle linee di livello:
+        \begin{itemize}
+            \item $\displaystyle \max\left\{t: \ \U_t\neq \emptyset\right\} = \max_{(x,y)\in\D} f(x,y)$
+            \item $\displaystyle \min\left\{t: \ \U_t\neq \emptyset \right\} = \min_{(x,y)\in\D} f(x,y)$
+        \end{itemize}
+    \end{observation}
+
+    \begin{definition}[\textbf{Dominio naturale}]
+        E' il \textbf{maggiore insieme possibile} dove ha senso \textbf{scrivere la funzione}.
+    \end{definition}
+
+    \noindent Posso iniziare a studiare i \textbf{limiti} delle funzioni a due variabili.
+
+    \newpage
+
+    \section{Limiti}
+
+    Sia $\D \subseteq \R^2$, sia $f: \ \D\to\R$, sia $(x_0,y_0)\in\D$.\\
+    Per:
+    \[\lim_{(x,y)\to(0,0)} f(x,y) = L\]
+    intendo dire che:
+    \[\left\lVert (x,y) - (x_0,y_0)\right\rVert \to 0\]
+    Cioè $\forall\{v_n\}\subseteq\R^2: \ v_n\to P_0 = (x_0,y_0), \ v_n\ne P_0 \Longrightarrow f(v_n)\to L$\\
+    \[f(v_n) = f\left((v_n)_1;(v_n)_2\right)\]
+    \[v_n = \left((v_n)_1;(v_n)_2\right)\]
+    Posso dunque dare la \textbf{definizione}:
+    \[\forall\varepsilon > 0 \ \exists\delta >0 \ \text{t.c. se} \ (x,y)\in\B_\delta^{(x_0,y_0)}\backslash \left\{(x_0,y_0)\right\} \Longrightarrow \left|f(x,y) - L\right| < \varepsilon\]
+
+    \begin{definition}[\textbf{Funzione continua}]
+        Sia $\D \subseteq \R^2$, sia $f: \ \D\to\R$, sia $(x_0,y_0)\in\D$.\\
+        Dico che $f$ è \textbf{continua} in $P_0 = (x_0,y_0)$ se:\\
+        $\forall\{v_n\}\subseteq\D: \ v_n\to P_0$ si ha che $f(v_n)\to f(P_0)$, cioè:
+        \[\left\lVert (x,y) - (x_0,y_0)\right\rVert\to 0 \Longrightarrow \left|f(x,y) - f(x_0,y_0)\right|\to 0\]
+        e dunque:
+        \[\lim_{(x,y)\to(x_0,y_0)} f(x,y) = f(x_0,y_0)\]
+    \end{definition}
+
+    \noindent Ci sono alcuni \textbf{teoremi molto utili}, già studiati nel caso di \textbf{una variabile}, che \textbf{continuano a valere} anche per le funzioni a \textbf{due variabili}.
+
+    \subsection{Teoremi utili per funzioni a due variabili}
+    I loro enunciati, come già detto, sono \textbf{validi} anche per funzioni di \textbf{due variabili}:
+    \begin{itemize}
+        \item Teorema di \textbf{Weierstrass}.
+        \item Teorema di \textbf{Cantor}.
+        \item Teorema dei \textbf{valori intermedi}.
+    \end{itemize}
+    Posso iniziare a estendere al caso di due variabili reali anche il concetto di \textbf{derivazione}.
+
+    \newpage
+
+    \section{Derivate}
+    Il concetto di \textbf{derivazione} per funzioni a due variabili è \textbf{più complicato} di quello per una variabile singola.
+    Il problema di fondo è che il punto, stavolta, non è vincolato a muoversi su una \textbf{traiettoria curvilinea}.\\
+
+    \noindent Sia $\A\subseteq\R^2$ \textbf{aperto}, $f: \ \A\to\R$, $(x_0,y_0)\in\A$, $z=f(x,y)$:\\ 
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->] (-1,0)--(6,0) node[at end,right]{$x$};
+            \draw[->] (0,-1)--(0,5) node[at end,above]{$y$};
+            \potato{(1.5,0.5)}{1.3};
+            \node at(5,3){$f(x,y)$};
+            \draw[red] (3,5)--(3,0) node[at end,below]{\small sez. trasversale per $x$};
+            \draw[blue] (5,2)--(0,2) node[at end,left]{\small sez. trasversale per $y$};
+        \end{tikzpicture}
+    \end{center}
+    \begin{itemize}
+        \item Fisso $y=y_0$, studio la "\textbf{sezione trasversale}" di $f$ rispetto a $x$.\\
+        Ho $\nu(x) = f(x,y_0)$.
+        \item Fisso $x=x_0$, studio la "\textbf{sezione trasversale}" di $f$ rispetto a $y$.\\
+        Ho $\upsilon(y) = f(x_0,y)$.
+    \end{itemize}
+
+    \noindent Poichè $\nu$ e $\upsilon$ sono due funzioni di \textbf{una variabile}, posso studiare i loro \textbf{rapporti incrementali}:
+    \begin{itemize}
+        \item Studio $\nu$:
+        \[\lim_{h\to 0} \frac{\nu(x_0 + h) - \nu(x_0)}{h} = \lim_{h\to 0} \frac{f(x_0 + h,y_0) - f(x_0,y_0)}{h} = \frac{\de f(x_0,y_0)}{\de x} = f_x (x_0,y_0)\]
+        \item Studio $\upsilon$:
+        \[\lim_{k\to 0} \frac{\upsilon(y_0 + k) - \upsilon(y_0)}{k} = \lim_{k\to 0} \frac{f(x_0,y_0 + k) - f(x_0,y_0)}{k} = \frac{\de f(x_0,y_0)}{\de y} = f_y (x_0,y_0)\]
+    \end{itemize}
+
+    \noindent Questo oggetto è un \textbf{vettore}. 
+    \begin{definition}[\textbf{Gradiente}]
+        Definisco il \textbf{gradiente} come vettore delle \textbf{derivate parziali} di $f$ in ogni punto. E' un \textbf{operatore} così composto:
+        \[\nabla f(x_0,y_0) = \begin{pmatrix}
+            \frac{\de f(x_0,y_0)}{\de x} \\ \frac{\de f(x_0,y_0)}{\de y}
+        \end{pmatrix}\]
+    \end{definition}
+
+    \noindent\textbf{\underline{Osservazione}}\\
+    \textbf{Polinomi}, \textbf{esponenziali}, \textbf{logaritmi} e, in generale, \textbf{funzioni elementari}, sono \textbf{sempre derivabili} nel loro dominio \textbf{naturale}.\\
+    Valgono le \textbf{regole di derivazione} definite per funzioni di \textbf{una variabile} e l'\textbf{algebra delle derivate}. \\
+    Ricordiamo che stiamo lavorando negli \textbf{aperti}.
+
+    \subsection{Derivate di ordine successivo}
+
+    Come accadeva nel caso di \textbf{una variabile}, per studiare le \textbf{derivate di ordine successivo} devo \textbf{derivare la derivata}. \\
+    Poichè ho \textbf{due derivate}, devo \textbf{derivare due volte}:
+    \begin{itemize}
+        \item $\displaystyle f_{xx}(x,y) = \frac{\de^2 f}{\de x^2} (x,y) = \frac{\de}{\de x}\left(\frac{\de f(x,y)}{\de x}\right)$
+        \item $\displaystyle f_{yx}(x,y) =\frac{\de^2 f}{\de y \ \de x} (x,y) = \frac{\de}{\de y}\left(\frac{\de f(x,y)}{\de x}\right)$
+        \item $\displaystyle f_{xy}(x,y) =\frac{\de^2 f}{\de x \ \de y} (x,y) = \frac{\de}{\de x}\left(\frac{\de f(x,y)}{\de y}\right)$
+        \item $\displaystyle f_{yy}(x,y) =\frac{\de^2 f}{\de y^2} (x,y) = \frac{\de}{\de y}\left(\frac{\de f(x,y)}{\de y}\right)$
+    \end{itemize}
+
+    \begin{definition}[\textbf{Matrice Hessiana}]
+        Definisco "\textbf{matrice Hessiana}" la matrice così composta:
+        \[\nabla^2 f(x,y) = \begin{pmatrix}
+            f_{xx}(x,y) & f_{xy}(x,y) \\
+            f_{yx}(x,y) & f_{yy}(x,y)
+        \end{pmatrix}\]
+    \end{definition}
+
+    \begin{definition}[\textbf{Laplaciano}]
+        Definisco "\textbf{Laplaciano}" la \textbf{traccia} della matrice Hessiana.
+    \end{definition}
+
+    \noindent Sotto \textbf{determinate ipotesi}, le \textbf{derivate miste} $f_{xy}$ e $f_{yx}$ sono \textbf{uguali}.
+
+    \begin{theorem}[\textbf{Teorema di Schwartz}]
+        Sia $\A\subseteq\R^2$ \textbf{aperto}, $(x_0,y_0)\in\A$, $f: \ \A\to\R$ \textbf{due volte derivabile}. Se $f_{xy}$ e $f_{yx}$ sono \textbf{continue}, allora:
+        \begin{center}
+            $f_{xy}$ e $f_{yx}$ sono \textbf{uguali}
+        \end{center}
+        In pratica, se $f\in\C^2(\A)$, allora $\nabla^2f(x,y)$ è \textbf{simmetrica}.
+    \end{theorem}
+
+    \noindent Ci sono però delle \textbf{differenze sostanziali} tra i concetti di \textbf{derivabilità in una variabile} e in \textbf{due variabili}. 
+    La \textbf{derivabilità}, infatti, non ha più un legame così forte con il \textbf{piano tangente} alla funzione nel punto. 
+    A conferma di ciò, osserviamo che \textbf{la derivabilità non implica la continuità}.\\
+
+    \noindent \textbf{\underline{Esempio}}\\
+    Prendo tale funzione:
+    \[f(x,y) = \begin{cases}
+        \frac{xy}{x^2+y^2} & \text{se} \ (x,y) \ne (0,0) \\
+        0 & \text{se} \ (x,y) = (0,0)
+    \end{cases}\]
+    Si può facilmente osservare che:
+    \[\nabla f(0,0) = \begin{pmatrix}
+        0 \\ 0
+    \end{pmatrix}\]
+    Ma si può inoltre notare che:
+    \[\nexists \lim_{(x,y)\to (0,0)} \frac{xy}{x^2+y^2}\]
+    e dunque la funzione \textbf{non è continua} in $(0,0)$.\\
+
+    \noindent Ho osservato una funzione \textbf{derivabile} ma \textbf{non continua}. Posso facilmente osservare che in tale punto non sarebbe possibile
+    definire un \textbf{piano tangente} alla funzione. 
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[domain=-1:1,y domain=-1:1,samples=70]
+            \addplot3[surf]{x*y/((x*x)+(y*y))};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+
+    \noindent Posso introdurre il concetto di \textbf{differenziabilità}.
+
+    \newpage
+
+    \section{Differenziabilità}
+
+    E' un'\textbf{estensione} del concetto di \textbf{derivabilità} per \textbf{funzioni a due variabili}.\\
+
+    \noindent Sia $\A\subseteq\R^2$ \textbf{aperto}, $f: \ \A\to\R$, $f$ \textbf{derivabile} in $(x_0,y_0)\in\A$. Dico che $f$ è "\textbf{differenziabile}" in $(x_0,y_0)$ se:
+    \[\lim_{(h,k)\to(0,0)} \frac{f(x_0+h,y_0+k) - f(x_0,y_0) - \langle \nabla f(x_0,y_0);(h,k)\rangle}{\sqrt{h^2+k^2}} = 0\]
+
+    \hfill\\
+    \begin{observation}
+        La \textbf{differenziabilità} implica la \textbf{continuità}.
+    \end{observation}
+    \begin{proof}\hfill\\
+        Calcolo:
+        \[\lim_{(x,y)\to(x_0,y_0)} f(x,y) = \lim_{(x,y)\to(x_0,y_0)} f(x_0,y_0) - \left\langle \nabla f(x_0,y_0); \begin{matrix}
+            x-x_0 \\ y-y_0
+        \end{matrix}\right\rangle + o \left(\left\lVert  \begin{matrix} x-x_0 \\ y-y_0 \end{matrix}\right\rVert \right)  \]
+        Per la \textbf{disuguaglianza di Cauchy-Schwartz} posso dire:
+        \[\left\langle \nabla f(x_0,y_0); \begin{matrix}
+            x-x_0 \\ y-y_0
+        \end{matrix}\right\rangle \leq \left|\nabla f(x_0,y_0)\right| \ \left\lVert  \begin{matrix} x-x_0 \\ y-y_0 \end{matrix}\right\rVert \to 0\]
+        Inoltre, per definizione:
+        \[o \left(\left\lVert  \begin{matrix} x-x_0 \\ y-y_0 \end{matrix}\right\rVert\right) \to 0\]
+        Dunque ho ottenuto:
+        \[\lim_{(x,y)\to(x_0,y_0)} f(x,y) = \lim_{(x,y)\to(x_0,y_0)} f(x_0,y_0)\]
+    \end{proof}
+
+    \begin{theorem}[\textbf{Teorema del Differenziale}]
+        \underbar{Sia} $\A\subseteq\R^2$ \textbf{aperto}, $f: \ \A\to\R$, $(x_0,y_0)\in\A$, $f\in\C^1$ in un intorno di $(x_0,y_0)$, \underbar{allora}:
+        \begin{center}
+            $f$ è \textbf{differenziabile}
+        \end{center}
+    \end{theorem}
+    \begin{proof}
+        Studio $f$ lievemente incrementata, quindi il termine $f(x_0 + h,y_0 + k) - f(x_0,y_0)$:
+        \[f(x_0 + h,y_0 + k) - f(x_0,y_0) \textcolor{cyan}{+f(x_0,y_0+k) - f(x_0,y_0+k)}\]
+        Posso definire \textbf{due funzioni ausiliare}:
+        \begin{itemize}
+            \item $f(x_0 + h,y_0 + k) - f(x_0,y_0+k) = \textcolor{cyan}{\nu (x_0+h) - \nu(x_0)}$
+            \item $f(x_0,y_0 + k) - f(x_0,y_0) = \textcolor{cyan}{\upsilon (y_0+k) - \upsilon(y_0)}$
+        \end{itemize}
+        Per il \textbf{teorema di Lagrange} posso dire:
+        \begin{itemize}
+            \item $\exists x_1 \in [x_0,x_0+h]$ t.c. $h \ \nu'(x_1) = \nu (x_0+h) - \nu(x_0)$
+            \item $\exists y_1 \in [y_0,y_0+k]$ t.c. $k \ \upsilon'(y_1) = \upsilon (y_0+k) - \upsilon(x_0)$
+        \end{itemize}
+        Utilizzando la \textbf{definizione}, dimostro che $f$ è \textbf{differenziabile}:
+        \[\left|\frac{f(x_0 + h,y_0 + k) - f(x_0,y_0) - \left\langle \nabla f(x_0,y_0);(h,k)\right\rangle }{\sqrt{h^2+k^2}}\right|=\]
+        \[=\left|\frac{h \ f_x(x_1,y_0+k)+k \ f_y(x_0,y_1) - h \ f_x(x_0,y_0) - k \ f_y(x_0,y_0)}{\sqrt{h^2+k^2}}\right|\]
+        Poichè voglio dimostrare che questo oggetto \textbf{tende a zero}, \textbf{maggioro}:
+        \[\leq \frac{|h|}{\sqrt{h^2+k^2}} \left|f_x(x_1,y_0+k) - f_x(x_0,y_0)\right| + \frac{|k|}{\sqrt{h^2+k^2}} \left|f_y(x_0,y_1) - f_y(x_0,y_0)\right| \leq\]
+        \[\leq \left|f_x(x_1,y_0+k) - f_x(x_0,y_0)\right| + \left|f_y(x_0,y_1) - f_y(x_0,y_0)\right|\]
+        Faccio tendere $(h,k)\to(0,0)$:
+        \begin{itemize}
+            \item $x_1\in[x_0,x_0+h] \Longrightarrow x_1\to x_0$
+            \item $y_1\in[y_0,y_0+k] \Longrightarrow y_1\to y_0$
+        \end{itemize}
+        Ottengo dunque:
+        \begin{itemize}
+            \item $\displaystyle \lim_{h\to 0} f_x(x_1,y_0+k) = f_x(x_0,y_0)$
+            \item $\displaystyle \lim_{k\to 0} f_y(x_0,y_1) = f_y(x_0,y_0)$
+        \end{itemize}
+        \[\left|f_x(x_1,y_0+k) - f_x(x_0,y_0)\right| + \left|f_y(x_0,y_1) - f_y(x_0,y_0)\right|\to 0\]
+        Quindi $f$ è \textbf{differenziabile}.
+    \end{proof}
+    \begin{definition}[\textbf{Differenziale}]
+        Sia $f$ \textbf{differenziabile}. Chiamo \textbf{differenziale di} $f \ df$:
+        \[df = \left\langle \nabla f(x_0,y_0);\begin{pmatrix}
+            x-x_0 \\ y-y_0
+        \end{pmatrix}\right\rangle \]
+    \end{definition}
+
+    \subsection{Piano tangente}
+    Se $f$ è \textbf{differenziabile}, posso \textbf{approssimarla al 1° ordine} ad una funzione \textbf{affine}, ossia un \textbf{piano}, 
+    nell'intorno di un punto, in cui tale piano sarà \textbf{tangente al grafico} di $f$.\\
+    Fisso il punto $(x_0,y_0)$ sulla superficie. Voglio scrivere il piano tangente a $f$ in $(x_0,y_0)$ in \textbf{forma parametrica}.\\
+    Sia $M_{y_0}$ la \textbf{retta tangente} al grafico della \textbf{sezione trasversale} $\nu(x) = f(x,y_0)$ in $(x_0,y_0)$.\\
+    Sia $M_{x_0}$ la \textbf{retta tangente} al grafico della \textbf{sezione trasversale} $\upsilon(y) = f(x_0,y)$ in $(x_0,y_0)$.\\
+
+    \noindent Chiamo $P$ il punto $\left(x_0,y_0,f(x_0,y_0)\right)$
+
+    \[M_{y_0} = \begin{cases}
+        z = f(x_0,y_0) + f_x(x_0,y_0)(x-x_0) \\
+        y=y_0
+    \end{cases}\]
+    \[M_{x_0} = \begin{cases}
+        z = f(x_0,y_0) + f_y(x_0,y_0)(y-y_0) \\
+        x=x_0
+    \end{cases}\]
+    Posso scriverli in \textbf{forma parametrica}:
+    \[M_{y_0} = \begin{pmatrix}
+        x-x_0 \\ y-y_0 \\ z-z_0
+    \end{pmatrix} = \begin{pmatrix}
+        1 \\ 0 \\ f_x(x_0y_0)
+    \end{pmatrix} t \quad\forall t\in\R\]
+    \[M_{x_0} = \begin{pmatrix}
+        x-x_0 \\ y-y_0 \\ z-z_0
+    \end{pmatrix} = \begin{pmatrix}
+        0 \\ 1 \\ f_y(x_0y_0)
+    \end{pmatrix} s \quad\forall s\in\R\]
+    Poichè questi termini indicano piani \textbf{passanti per l'origine}, devo \textbf{traslarli} per farli passare da $z=z_0$. \\
+    Ottengo dunque il \textbf{piano tangente} $\Pi$:
+    \[\Pi = \begin{pmatrix}
+        1 \\ 0 \\ f_x(x_0y_0)
+    \end{pmatrix}t \ + \begin{pmatrix}
+        0 \\ 1 \\ f_y(x_0y_0)
+    \end{pmatrix}s \ - \begin{pmatrix}
+        x_0 \\ y_0 \\ z_0
+    \end{pmatrix}\quad\forall t,s\in\R\]
+    Posso anche passare in \textbf{forma cartesiana}, scrivendo il piano come il \textbf{differenziale} a cui viene sommato $z_0$:
+    \[\Pi = \left\{z: \ z = \left\langle \nabla f(x_0,y_0); \ \begin{pmatrix}
+        x-x_0 \\ y-y_0
+    \end{pmatrix}\right\rangle + z_0\right\}\]
+
+    \newpage
+
+    \subsection{Derivate direzionali}
+    \begin{center}
+    \begin{tikzpicture}
+    \begin{axis}[
+        view={110}{25}, % Angolazione della camera
+        xlabel=$x$, ylabel=$y$, zlabel=$z$,
+        axis lines=center,
+        colormap/viridis,
+        ticks=none,
+        enlargelimits=0.1,
+        view={140}{30}
+    ]
+
+    % 1. Rappresentazione della superficie z = f(x,y)
+    \addplot3[
+        surf,
+        shader=flat,
+        samples=25,
+        domain=-2:2,
+        y domain=-2:2,
+        opacity=0.6
+    ] {exp(-(x^2 + y^2))}; % Una gaussiana come esempio
+
+    % 2. Punto sulla superficie P(x0, y0, f(x0, y0))
+    \coordinate (P) at (axis cs:0.5, 0.5, {exp(-(0.5^2 + 0.5^2))});
+    \fill[red] (P) circle (2pt) node[right, black] {$P$};
+
+    % 3. Proiezione sul piano xy (il vettore direzione v)
+    \draw[blue, thick, ->] (axis cs:0.5, 0.5, 0) -- (axis cs:1.2, 0.8, 0) 
+        node[right] {$\vec{v}$};
+    \fill[black] (axis cs:0.5, 0.5, 0) circle (1.5pt) node[below left] {$(x_0, y_0)$};
+
+    % 4. Piano "tagliato" nella direzione di v
+    % Disegniamo una linea sulla superficie che segue la direzione v
+    \addplot3[
+        red,
+        very thick,
+        samples=20,
+        samples y=0,
+        domain=-1:1.5
+    ] (
+        {0.5 + x*0.7}, % x(t) = x0 + t*vx
+        {0.5 + x*0.3}, % y(t) = y0 + t*vy
+        {exp(-((0.5 + x*0.7)^2 + (0.5 + x*0.3)^2))}
+    );
+
+    % 5. Retta tangente (Rappresentazione della derivata direzionale)
+    \draw[dashed, black, thick] (axis cs:-0.2, 0.2, 0.9) -- (axis cs:1.2, 0.8, 0.4)
+        node[above right] {Retta tangente};
+
+    \end{axis}
+    \end{tikzpicture}
+    \end{center}
+    Finora ho osservato le \textbf{sezioni trasversali} della funzione, ma posso studiare sezioni di $f$ lungo
+    una \textbf{direzione qualsiasi}. \\
+
+    \noindent Indico una \textbf{direzione fissa} $\underline{\nu} = \begin{pmatrix}
+        \nu_1 \\ \nu_2
+    \end{pmatrix}$, che è un \textbf{versore} ($|\nu|=1$).\\ 
+    Posso scrivere la \textbf{sezione} di $f$ lungo la direzione $\underline{\nu}$ passante per il punto $P_0 = (x_0,y_0)$
+    \[z = f(\underline{\nu} t + P_0) = \omega(t)\]
+    Osservo che $t$ è l'\textbf{unica variabile}. 
+    \[\begin{pmatrix}
+        x(t) \\ y(t)
+    \end{pmatrix} = \underline{\nu} t + P_0 = \begin{pmatrix}
+        \nu_1 t + x_0 \\ \nu_2 t + y_0
+    \end{pmatrix}\quad\forall t\in\R\]
+    Posso passare alla \textbf{derivata}.\\
+
+    \noindent Definisco la "\textbf{derivata direzionale} di $f$ lungo la direzione $\underline{\nu}$ in $P_0$" la 
+    derivata di $\omega(t)$ calcolata in $t=0$.\\
+    \[\frac{\de f}{\de \underline{\nu}}(P_0) = \lim_{h\to 0} \frac{\omega(h) - \omega(0)}{h} = \lim_{h\to 0} \frac{f(\underline{\nu}h + P_0) - f(P_0)}{h}\]
+    \hfill\\
+    \noindent\textbf{\underline{Osservazione}}
+    \begin{itemize}
+        \item $\displaystyle \underline{\nu} = \begin{pmatrix}
+            1 \\ 0
+        \end{pmatrix} \Longrightarrow \frac{\de f}{\de \underline{\nu}} = f_x$
+        \item $\displaystyle \underline{\nu} = \begin{pmatrix}
+            0 \\ 1
+        \end{pmatrix} \Longrightarrow \frac{\de f}{\de \underline{\nu}} = f_y$
+    \end{itemize}
+
+    \hfill\\
+    \noindent Posso inoltre scrivere le direzioni usando un \textbf{angolo}:\\
+    Sia $\displaystyle\underline{\nu} = \begin{pmatrix}
+        \cos(\theta) \\ \sin(\theta)
+    \end{pmatrix} \longrightarrow$ Per $\theta\in[0,2\pi]$ esploro \textbf{tutte le direzioni} lungo la \textbf{circonferenza di raggio unitario},
+    che per comodità chiamerò $\$'$.\\
+
+    \noindent Posso finalmente dare un \textbf{risultato teorico importante} che riguarda le \textbf{derivate direzionali}.
+
+    \begin{theorem}[\textbf{Formula del gradiente}]
+        Sia $\A\subseteq\R^2$ \textbf{aperto}, $f: \ \A\to\R$, $P_0\in\A$, $f$ \textbf{differenziabile} in $P_0$. Allora:\\
+        \[\forall\underline{\nu}\in\$' \quad \exists\frac{\de f}{\de\underline{\nu}}(P_0)\\\]  
+        E vale che:
+        \begin{gather*}
+        \frac{\de f}{\de\underline{\nu}}(P_0) = \left\langle \nabla f(P_0);\underline{\nu}\right\rangle 
+        \end{gather*}
+    \end{theorem}
+    \noindent\textbf{\underline{Corollario (direzione di massima pendenza)}}\\
+    Vale sotto le \textbf{stesse ipotesi},del th. precedente, e afferma:
+    \begin{itemize}
+        \item $\nabla f(P_0)$ indica la \textbf{direzione} e il \textbf{verso di massima pendenza} di $f$ in $P_0$.
+        \item $-\nabla f(P_0)$ indica la \textbf{direzione} e il \textbf{verso di minima pendenza} di $f$ in $P_0$.
+        \item $\displaystyle\forall\underline{\nu}\in\$', \ \underline{\nu} \ \bot \ \nabla f (P_0) \ \Rightarrow \ \frac{\de f}{\de\underline{\nu}}(P_0) = 0$
+    \end{itemize}
+    \begin{proof}[Dimostrazione del corollario]
+        \begin{gather*}
+            \left\lvert \frac{\de f(x_0)}{d\underline{\nu}} \right\rvert = \left\lvert \left\langle \nabla f(x_0), \underline{\nu} \right\rangle \right\rvert  = \nabla f(x_0) \cdot \underline{\nu} = 1  
+        \end{gather*}
+        Questo perchè $\underline{\nu}$ è un versore. Il prodotto scalare tra i due è $\left\lvert \nabla f(x_0) \right\rvert \cdot \left\lvert \underline{\nu} \right\rvert \cdot \cos(\theta)$ con $\theta$ che è l'angolo compreso, e la pendenza, ovvero il coseno, è massima quando $\theta = 0$, ovvero quando $\underline{\nu} \parallel \nabla f(x_0)$.\\
+        In particolare se il verso è concorde si ha:
+        \begin{gather*}
+            \frac{\de f(x_0)}{\de \underline{\nu}} = \left\lvert \nabla f(x_0) \right\rvert
+        \end{gather*}
+        E se il verso è discorde si ha:
+        \begin{gather*}
+            \frac{\de f(x_0)}{\de \underline{\nu}} = -\left\lvert \nabla f(x_0) \right\rvert
+        \end{gather*}
+    \end{proof}
+    \subsection{funzioni composte}
+        $I=(a,b) \subseteq \mathbb{R}$
+        \begin{definition}
+            $\underline{x}(t):I \to \mathbb{R}^3(o \mathbb{R}^2)$ è una curva parametrica\\
+            \underbar{se} $\underline{x}(t) = \begin{pmatrix} x(t) \\ y(t) \\ z(t) \end{pmatrix} \qquad x,y,z:I \to \mathbb{R}$,\\
+            $x,y,z$ derivabili in $I$ $ \dot{\underline{x}}(t) = \begin{pmatrix} \dot{x} \\ \dot{y} \\ \dot{z} \end{pmatrix}, |\dot{\underbar{x}}(t)| \neq 0 \quad \forall t \in I $
+        \end{definition}
+        \begin{definition}
+            Funzione composta\\
+            $F(t) = f(\underline{x}(t)) = f(x(t),y(t))\\
+            f:A \to \mathbb{R} \quad \mathring{A} \subseteq \mathbb{R}^2\\
+            \underline{x}(t) \text{curva piana} \qquad \underline{x}(t):I \to A$
+        \end{definition}
+        \begin{theorem}[di derivazione delle funzioni composte]
+            $I=(a,b)$\\
+            $\underline{x}(t):I \to \mathring{A} \subseteq \mathbb{R}^2, \underline{x}$ derivabile in $\underset{\in I}{t_0},f:A \to \mathbb{R}$\\
+            $f$ differenziabile in $\underline{x}(t_0) = (x_0,y_0)$\\
+            \underline{Allora} $F(t) = f(\underline{x}(t)) = f(x(t),y(t))$ è derivabile in $t_0 \in I$ e $F'(t_0) = \left\langle \nabla f(\underline{x}(t_0));\underline{\dot{x}}(t_0)\right\rangle $
+        \end{theorem}
+
+        \begin{proof}
+            \hfil\\
+            chiamo $t = t_0 \in I$, in generale considero $t$ un punto fisso ma generico\\
+            Possiamo indicare con $\underline{x}$ un punto nello spazio ad un certo istante $\underline{x}(t)$ ed $\underline{y}$ un punto nello spazio ad un istante successivo $\underline{x}(t+h)$, tutti i punti considerati sono in $I$\\
+            \begin{itemize}
+                \item f differenziabile $\Rightarrow f(\underline{y}) = f(\underline{x}) + \left\langle \nabla f (\underline{x}); \underline{y}- \underline{x} \right\rangle + o(\left\lvert \underline{y} - \underline{x} \right\rvert) \quad \text{per } \underline{y} \to \underline{x}$\\
+                \underline{sia} $\underline{x} = \underline{x}(t) \qquad \underline{y} = \underline{x}(t+h), \quad t+h \in I$\\
+                Di fatto con $\underline{y} \to \underline{x}$ si intende calcolare la funzione in un punto molto vicino a $\underline{x}(t)$. E in questo punto possiamo approssimare la funzione con il suo piano tangente, proprio perchè la funzione è differenziabile. Continuando possiamo sostituire
+                con le identità che abbiamo appena definito per ottenere:\\
+                \textcolor{green}{\fbox{\textcolor{white}{$f(\underline{x}(t+h))-f(\underline{x}(t)) = \left\langle \nabla f(\underline{x}(t));\underline{x}(t+h)-\underline{x}t \right\rangle +o(\left\lvert \underline{x} (t+h) -\underline{x}(t)\right\rvert ) \quad\text{per } h \to 0 $ }}}  \textcolor{green}{\fbox{*}}\\
+                Finora ho usato solo $f$, prendiamo una funzione generica $F$ che è la composizione di $f$ con una curva $\underline{x}(t)$, e ne studio la derivata.\\
+                \item $\text{\fbox{$\underset{\text{\fbox{*}}}{\frac{F(t+h)-F(t)}{h}}$}} = \frac{f(\underline{x}(t+h))-f(\underline{x}(y))}{h} \overset{\text{\textcolor{green}{\fbox{*}}}}{=} \textcolor{orange}{\text{\fbox{\textcolor{white}{$\underset{\textcolor{orange}{\text{\fbox{I}}}}{\frac{\left\langle \nabla f(\underline{x}(t));\underline{x}(t+h)\right\rangle }{h}}$}}}} + \textcolor{magenta}{\text{\fbox{$\textcolor{white}{\underset{\text{\textcolor{magenta}{\fbox{II}}}}{\frac{o(\left\lvert \underline{x}(t+h) -\underline{x}(t)\right\rvert )}{h}}}$}}}$ \\
+                \item passo a $\lim_{h \to 0}$ Voglio dimostrare che $\exists \lim_{h \to 0} \text{\fbox{*}} \ , \ \lim_{h \to 0} \text{\textcolor{magenta}{\fbox{II}}} = 0 \ , \ \text{\textcolor{orange}{\fbox{I}}} = \left\langle \nabla f(\underline{x}(t));\underline{\dot{x}}(t) \right\rangle $
+            \end{itemize}
+            \bulletout \ \textcolor{orange}{\fbox{$I$}} $\lim_{h \to 0} \left\langle \nabla f(\underline{x}(t));\frac{\underline{x}(t+h)}{h}\right\rangle$\\
+            $=\lim_{h \to 0} f_x(\underline{x}(t)) \underset{\to \dot{x}(t)}{\text{\fbox{$(\frac{ x(t+h)-x(t)}{h})$}}} + f_y(\underline{x}(t))\underset{\to \dot{y}(t)}{\text{\fbox{$\frac{(y(t+h)-y(t))}{h}$}}}$\\
+            $= f_x(\underline{x}(t)) \dot{x}(t)+f_y(\underline{x}(t))\dot{y}(t)$\\
+            $=\left\langle \nabla f(\underline{x}(t));\underline{\dot{x}}(t)\right\rangle \qquad \cmark$\\\\
+            \bulletout \ \textcolor{magenta}{\fbox{$II$}} $\lim_{h \to 0} \left\lvert  \text{\textcolor{magenta}{\fbox{$II$}}} \right\rvert  = \lim_{h \to 0} \underset{\to 0}{\left\lvert \frac{o( (\underline{x}(t+h)-\underline{x}(t) ) )}{ \left\lvert \underline{x}(t+h)-\underline{x}(t) \right\rvert  }\right\rvert} \underbrace{\frac{\left\lvert \underline{x}(t+h)-\underline{x}(t)\right\rvert }{\left\lvert h \right\rvert }}_{\lim \exists \text{ finito per \fbox{**}}} = 0$\\
+            \fbox{**}: $ \ \lim_{h \to 0} \sqrt{\underbrace{\frac{(x(t+h)-x(t))^2}{h^2}}_{\underset{\to (\dot{x}(t))^2}{(\frac{x(t+h)-x(t)}{h})^2}} + \underset{\to (\dot{y}(t))^2}{\frac{(y(t+h)-y(t))^2}{h^2}} } = \sqrt{\dot{x}^2(t)+\dot{y}^2(t)} = |\underline{\dot{x}}(t)|$\\
+            \bulletout di conseguenza:$ \ \Rightarrow \exists \underset{F'(t)}{\lim_{h \to 0}\frac{F(t+h)-F(t)}{h}} = \left\langle \nabla f(\underline{x}(t)), \dot{x}(t) \right\rangle $
+        \end{proof}
+        \begin{proof}
+            (Formula del gradiente per $\frac{\partial f}{\partial \underline{\nu}}$)\\
+            \begin{gather*}
+                \frac{\partial f}{\partial \underline{\nu}} = \lim_{h \to 0} \frac{f(\underline{x_0}+h \underline{\nu})-f(\underline{x_0})}{h} = \lim_{h \to 0}\frac{F(h)-F(0)}{h} = F'(0)
+            \end{gather*}
+            Nel penultimo passaggio ho sfruttato che:
+            \begin{gather*}
+                F(t) = f\overset{\overset{\underline{x}(t)}{||}}{(\underline{x_0}+t \underline{\nu})} \quad \text{ è funzione composta}\\
+            \end{gather*}
+            Ora posso applicare il teorema di derivazione delle funzioni composte, che mi dice che $F$ è derivabile in $t=0$ e che:
+            \begin{gather*}
+                \underline{x}(t) = \underline{x_0} + t \underline{\nu} \qquad \underline{\dot{x}}(t) = \underline{\nu} \qquad \underline{x}(0) = \underline{x_0}  
+            \end{gather*}
+            Da qui si può concludere che:
+            \begin{gather*}
+                F'(0) = \left\langle \nabla f(\underline{x}(0)); \underline{\dot{x}}(0) \right\rangle = \left\langle \nabla f(\underline{x_0});\underline{\nu} \right\rangle
+            \end{gather*}
+        \end{proof}
+
+    
+\begin{theorem}
+  \underbar{Sia} $f:A \to \R$ differenziabile, $P_0 \equiv (x_0,y_0) \in \overset{\text{linea di livello}}{U_k = \{ (x,y) \in A : f(x,y) = k\}}$\\
+  \underbar{Allora}: $\nabla f(P_0) \perp U_k$
+\end{theorem}\noindent
+Sostanzialmente, il vettore gradiente è perpendicolare alla retta tangente alla curva di livello in $P_0$. Anche se si parla di retta tangente si dice che 
+il vettore è parallelo alla linea di livello perchè stiamo considerando tutto questo \textbf{esattamente} in $P_0$, e quindi in un suo intorno la liena di livello è una retta.\\ 
+\begin{proof}
+  \hfill\\
+  \begin{center}
+    \begin{tikzpicture}[scale=1.5]
+      \draw[gray, thick] plot [smooth] coordinates {(-2,-1) (-1.5,-0.5) (-1,0) (-0.5,0.5) (0,1) (0.5,1.2) (1,1) (1.5,0.5) (2,0)};
+      \draw[gray, thick] plot [smooth] coordinates {(-2.2,-0.3) (-1.7,0.2) (-1.2,0.7) (-0.7,1.2) (0,1.5) (0.7,1.5) (1.5,1) (2,0.5)};
+      \draw[gray, thick] plot [smooth] coordinates {(-2.5,0.2) (-2,0.8) (-1.5,1.3) (-0.8,1.8) (0,2) (0.8,1.9) (1.8,1.3) (2.2,0.7)};
+      \node[white, font=\small] at (-1.5, -0.8) {$k_1$};
+      \node[white, font=\small] at (-1.8, 0.5) {$k_2$};
+      \node[white, font=\small] at (-2, 1.2) {$k_3$};
+      \draw[cyan, thick] (-1,0) -- (1,2);
+      \fill[red] (0, 1) circle (0.08);
+      \node[red, font=\small] at (0, 0.8)[below] {$P_0$};
+      \draw[->, red, thick] (0, 1) -- (-0.5, 1.8) node[above] {$\nabla f(P_0)$};
+    \end{tikzpicture}
+  \end{center}\noindent
+  Vicino a $P_0$, $U_k$ lo posso considerare come una curva e quindi ha forma una del tipo: $\begin{pmatrix}
+    x(t) \\
+    y(t)
+  \end{pmatrix} = \underline{x}(t)$ con $t \in I$\\
+  Definisco anche una funzione $g(t) = f(\underline{x}(t))$\\
+  Quello che devo dimostrare è che $\nabla f(P_0) \perp U_k$ in $P_0$\\
+  Ovvero, devo dimostrare che $\nabla f(P_0) \perp \underline{x}(t)$ in $P_0$\\
+  Ovvero, devo dimostrare che $\nabla f(P_0) \perp$ direzione tangente a $\underline{x}(t)$ in $P_0$\\
+  Ovvero, devo dimostrare che $\nabla f(P_0) \perp \underline{\dot{x}}(t)$ in $t_0$ t.c. $\underline{x}(t_0) = P_0$\\
+  Ovvero, devo dimostrare che $f_x(P_0) \dot{x}(t_0) + f_y(P_0) \dot{y}(t_0) = 0$\\
+  Ma so $g(t) = f(\underline{x}(t)) \quad \forall t \in I$ ma ho che $\underline{x}(t) \in U_k$ quindi $g(t) = f(\underline{x}(t)) = k \quad \forall t \in I$\\
+  Se ora Calcolo la derivata di $g$ ottengo $g'(t) = 0 \quad \forall t \in I$ perchè è una funzione costante, proprio perchè descrive l'immagine della funzione ad una linea di livello.\\ 
+  Per come ho definito $g$ però è uguale ad una funzione composta e quindi posso applicare il th. di derivazione delle funzioni composte che mi dice che:
+  \begin{gather*}
+    g'(t) = \left\langle \nabla f(\underline{x}(t)) , \underline{\dot{x}}(t)\right\rangle  \quad \forall t \in I\\
+  \end{gather*}
+  Che sviluppando il prodotto scalare diventa proprio:
+  \begin{gather*}
+    g'(t) = f_x(\underline{x}(t)) \dot{x}(t) + f_y(\underline{x}(t)) \dot{y}(t) \quad \forall t \in I
+  \end{gather*}
+  Calcolando questa espressione in $t_0$ ottengo la tesi:
+  \begin{gather*}
+    g'(t_0) = f_x(P_0) \dot{x}(t_0) + f_y(P_0) \dot{y}(t_0) = 0
+  \end{gather*}
+  Dalla equazione precedente però ho dimostrato che il gradiente è sempre perpendicolare alla direzione tangente alla curva di livello, e quindi è sempre perpendicolare alla linea di livello.
+\end{proof}
+\begin{theorem}[Del gradiente nullo]
+  \underbar{Se} $\nabla f = 0$ in $A$, \underbar{allora} $f$ è \textbf{costante} in $A$.
+  Questo vuol dire che \underbar{se} $A$ è un \textbf{aperto connesso} (se non è scomponibile in più pezzi, è un \textbf{pezzo unico}) con $A \subseteq \R^2$\\
+  \underbar{se} $A = A_1 \cup A_2$ con $A_1$ e $A_2$ \textbf{connessi}, \underbar{allora}:\\
+  \begin{gather*}
+    \exists k_1, k_2 \in \R \text{ t.c. } 
+    \begin{cases}
+      f \equiv k_1 \text{ in } A_1\\
+      f \equiv k_2 \text{ in } A_2
+    \end{cases}
+  \end{gather*}
+\end{theorem}
+
+
+
+\section{formula di Taylor}(in più variabili)\\
+    La formula di Taylor si può ovviamente estendere a più variabili, e in particolare noi ci concentreremo sul caso di funzioni in due variabili.\\
+        Sia $A_{ap} \in \mathbb{R}^2$ e sia $f:A\to \mathbb{R}$\\
+        Prendiamo un punto di questo insieme: $\underline{x} \in A$ e consideriamo un suo incremento che quindi sarà un'altro punto che chiameremo: $\underline{y} = \underline{x} + \underline{h}$ con $\underline{h} = (h_1,h_2) \neq 0$\\
+        Ora uniamoli con un segmento $[\underline{x}, \underline{y}] \text{ segmento } \subseteq A$ che è ancora nell'insieme\\
+        Ora definiamo il segmento come una curva così possiamo definire l'incremento h in funzione del tempo $\underline{\phi}(t) = \underline{x} + t \underline{h} \quad t \in [0,1]$\\
+        \hfill\\
+        \begin{theorem}[I° ordine con resto di Peano]
+            \underbar{Se} $f \in C^1(A)$ \underbar{allora} $f(\underline{x}+\underline{h}) = f(\underline{x}) + \left\langle \nabla f(\underline{x}), \underline{h}\right\rangle  + o(|\underline{x}|)$
+        \end{theorem}
+
+
+        \begin{theorem}[I° ordine con resto di Lagrange]
+            \underbar{Se} $f \in C^1(A)$ \underbar{allora} $\exists\theta \in (0,1) \ t.c. \ f(\underline{x} + \underline{h}) = f(\underline{x}) + \left\langle \nabla f(\underline{x} + \theta h); \underline{h}\right\rangle $
+        \end{theorem}
+
+        \begin{observation}
+            Inoltre si ha: $\theta = \theta(\underline{x}, \underline{h})$
+        \end{observation}
+
+        \begin{proof}
+            (resto di lagrange)\\
+            Prendo la funzione composta $F(t) = f(\underline{x} + t \underline{h})$ 
+            \begin{gather*}
+                F(t) = f(\underbar{x} + t \underline{h}) = f(x_0+t h_1;y_0+t h_2) \qquad \forall t \in [0,1]\\
+            \end{gather*}
+            Siccome $F \in C^1(0,1)$ posso applicare il teorema di derivazione delle funzioni composte per calcolare $F'(t)$:
+            \begin{gather*}
+                F'(t) = \left\langle Df(\underline{x} + t\underbar{h}) ; \underline{h} \right\rangle
+            \end{gather*}
+            Applico il th. di Lagrange a $F$
+            \begin{gather*}
+                \Rightarrow \exists \theta \in (0,1): F(1) = F(0) + F'(\theta)(1-0)\\
+                \text{cioè: }f(\underline{x} + \underline{h} = f(\underline{x})) + \left\langle \nabla f(\underline{x} + \theta \underline{h}); \underline{h} \right\rangle  
+            \end{gather*}
+        \end{proof}
+        \begin{theorem}[II° ordine con resto di lagrange]
+            \underbar{Sia} $f \in C^2(A)$ \underbar{allora} $\exists \theta \in (0,1) \ t.c.$\\
+    %forse errore su sta linea
+            $F(\underline{x}+ \underline{h}) = f(\underline{x}) + \left\langle \nabla f(\underline{x}); \underline{h}\right\rangle + \frac{1}{2} \left\langle \nabla^2 \right\rangle $
+        \end{theorem}
+       
+        
+    \begin{observation}
+            Si ha sempre che: $\theta = \textacutedbl(\underline{x}, \underline{h})$\\
+        \end{observation}
+
+        \begin{proof}
+            \hfil\\
+            Prendo sempre una funzione composta $F(t)$
+            \begin{gather*}
+                F(t) = f(\underline{x} + t \underline{h}) \in C^2(0,1)
+            \end{gather*}
+            Si noti che $F(0) = f(\underline{x})$ e $F(1) = f(\underline{x} + \underline{h})$\\
+            Adesso sfrutto il fatto che $F$ sia ad una variabile e ci applico Taylor in $t=1$ e quindi per il resto di Lagrange $\exists \theta \in (0,1) \ t.c.$\\
+            \begin{gather*}
+                F(1) = F(0) + F'(0) 1 + \frac{1}{2} F''(\theta)1^2
+            \end{gather*}
+            Esplicito $F'$ usando il teorema di derivazione delle funzioni composte:
+            \begin{gather*}
+                f(\underline{x} + \underline{h}) = f(\underline{x}) + \left\langle \nabla f(\underline{x}),\underline{h} \right\rangle + \frac{1}{2}F''(\theta)\\
+                = f(\underline{x}) + \left\langle \nabla f(\underline{x});\underline{h} \right\rangle +\underline{\frac{1}{2} F''(\theta)}_{\text{che da } \boxed{\textcolor{orange}{*}} \text{ è } \left\langle \nabla^2f(\underline{x} + t \underline{h})\underline{h} ; \underline{h}\right\rangle}
+                \end{gather*}
+            Devo calcolare $F''(\theta)$ che è anche $(F'(\theta))' = (\underset{g(\underline{x}(t))}{f_x(\underline{x}+ t \underline{h})h_1+f_y(\underline{x} + t\underline{h})h_2})'$\\
+            L'ultima espressione è una funzione di $\underline{x}(t)$ quindi la chiamo $g(\underline{x}(t))$ e se derivo quest'ultima la posso scrivere come: $\underbrace{\left\langle \nabla g(\underline{x}(t)); \dot{\underline{x}}(t) \right\rangle}_{\boxed{*}}$
+            \begin{gather*}
+                \nabla (f_x) = \begin{pmatrix}
+                    f_{xx}\\
+                    f_{xy}
+                \end{pmatrix}\\
+                \nabla (f_y) = \begin{pmatrix}
+                    f_{yx}\\
+                    f_{yy}
+                \end{pmatrix} = \begin{pmatrix}
+                    f_{xy}\\
+                    f_{yy}
+                \end{pmatrix}
+            \end{gather*}
+            Ora ricordando che $\dot{\underline{x}} = \begin{pmatrix} h_1 \\ h_2 \end{pmatrix}$ e quindi se scriviamo l'espressione $\boxed{*}$ con quello detto finora otteniamo:
+            \begin{gather*}
+                \nabla g = \begin{pmatrix}
+                    f_{xx} h_1+ f_{xy}h_2\\
+                    f_{xy} h_1 + f_{yy}h_2
+                \end{pmatrix}
+                = \nabla(f_x)h_1 + \nabla(f_y)h_2
+            \underset{\text{calcolato in }\underline{x} +t \underline{h}}{=} (f_{xx} h_1 + f_{xy}h_2)h_1 +(f_{xy} h_1 + f_{yy}h_2)h_2\\
+            = f_{xx} h_1^2 + 2f_{xy}h_1 h_2 + f_{yy}h_2^2 \\
+            = \left\langle \begin{pmatrix}
+                f{xx} & f_{xy}\\
+                f{xy} & f{yy}
+            \end{pmatrix}
+            \begin{pmatrix}
+                h_1\\h_2
+            \end{pmatrix};\begin{pmatrix}
+                h_1\\h_2
+            \end{pmatrix}\right\rangle \\
+            = \left\langle \nabla^2f(\underline{x} + t \underline{h})\underline{h} ; \underline{h}\right\rangle \text{\fbox{\textcolor{orange}{*}}} \quad \forall t \in (0,1)
+            \end{gather*}
+        \end{proof}
+
+
+        \begin{theorem}
+            (II° ordine con resto di Peano)\\
+        \underbar{Sia} $f \in C^2(A)$ \underbar{allora} $f(\underline{x}+ \underline{h}) = f(\underline{x}) + \left\langle Df(\underline{x}); \underline{h} \right\rangle + \text{\fbox{$\frac{1}{2}\left\langle \nabla^2f(\underline{x})\underline{h};\underline{h} \right\rangle $}} + \underline{ | \underline{h} | ^2}$ 
+        \end{theorem}
+
+        \begin{proof}\hfill\\
+            Si parte dalla formula del resto di lagrange appena dimostrata, vogliamo dimostrare che lo scarto tra la parte principale di Peano e \textbf{tutto} Lagrange è un $o$ piccolo di $|\underline{h}^2|$, in termini pratici dobbiamo dimostrare il seguente limite:            
+            \begin{gather*}
+                \lim_{\underline{h} \to \underline{0}} \frac{\left\langle \nabla^2f(\underline{x} + \theta \underline{h})\underline{h} ; \underline{h} \right\rangle - \left\langle \nabla^2f(\underline{x})\underline{h} ; \underline{h} \right\rangle }{|h|^2} = 0\\
+                \frac{\left\lvert \left\langle \nabla^2f(\underline{x} + \theta \underline{h}) \textcolor{cyan}{\fbox{\textcolor{white}{\underline{h}}}} ; \textcolor{magenta}{\fbox{\textcolor{white}{\underline{h}}}} \right\rangle - \left\langle \nabla^2f(\underline{x})\textcolor{cyan}{\fbox{\textcolor{white}{\underline{h}}}} ; \textcolor{magenta}{\fbox{\textcolor{white}{\underline{h}}}} \right\rangle\right\rvert  }{|h|^2} \overset{\text{\fbox{\textcolor{green}{*}}}}{=} \qquad\qquad \text{\fbox{\textcolor{green}{*}}}\left\langle  A \textcolor{cyan}{v};\textcolor{magenta}{w}\right\rangle - \left\langle B \textcolor{cyan}{v};\textcolor{magenta}{w}\right\rangle = \left\langle (A-B)\textcolor{cyan}{v};\textcolor{magenta}{w}\right\rangle\\
+                \frac{\left\lvert \left\langle [\nabla^2 f(\underline{x} + \theta \underline{h}) - \nabla^2 f(\underline{x})] \underline{h} ; \underline{h} \right\rangle \right\rvert }{|h|^2} \underset{\textcolor{yellow}{Cauchy-Schwarz}}{\leq} \frac{\left\lvert (\nabla^2 f(\underline{x} + \theta \underline{h}) - \nabla^2 f(\underline{x}))  \underline{h} \right\rvert \left\lvert \underline{h}\right\rvert }{|h|^2} \underset{\text{\fbox{\textcolor{orange}{*}}}}{\leq} \frac{\overbrace{\left\lvert \nabla^2f(\underline{x}+ \theta \underline{h} - \nabla^2(\underline{x}))\right\rvert}^{\to 0 \text{ per } \underline{h} \to \underline{0} \quad \text{\fbox{\textcolor{red}{*}}}} \cancel{|\underline{h}^2|}}{\cancel{|\underline{h}^2|}}\\
+                \text{\fbox{\textcolor{orange}{*}}}: \left\lvert A \underline{v} \right\rvert \leq \left\lvert A \right\rvert \left\lvert \underline{v} \right\rvert \qquad \text{con }\left\lvert A \right\rvert \text{norma euclidea di }\mathbb{R}^{n\times m} =\sqrt{\sum_{i}^{n}\sum_{j}^{m} a^2_{ij} }   \\
+                \text{\fbox{\textcolor{red}{*}}}: \text{poichè } \nabla^2f\in C^0 \text{ e } \underline{x} + \theta\underline{h} \to \underline{x}
+            \end{gather*}
+        \end{proof}
+
+
+        \begin{proposition}
+        Una delle applicazioni più importanti della formula di Taylor è che il suo sviluppo al primo ordine è proprio il piano tangente della funzione, il secondo ordine è molto utile per diversi teoremi, oltre il secondo i casi sono più rari ma comunque utili.
+            \begin{gather*}
+                f(\underline{x}) = \underset{\text{Piano tangente}}{f(\underline{x_0}) \left\langle \nabla f(\underline{x_0};(\underline{x} - \underline{x_0})) \right\rangle} + \underset{\text{termine II° ordine}}{\frac{1}{2} \left\langle \nabla^2 f(\underline{x_0})(\underline{x}- \underline{x_0}); \underline{x}- \underline{x_0}\right\rangle  + \underset{\text{Resto}}{o(| \underline{x}- \underline{x_0} |^2)}}
+            \end{gather*}
+            \underline{Se} $\nabla^2f(\underline{x_0})$ è definita $> 0$ \underline{allora} il termine di II° ordine più il resto $>0$ \underline{\textbf{localmente}} $\Rightarrow \ f(x) > $ Piano tangente localmente vicino a $x_0$\\
+            \underline{Se} $\nabla^2f(\underline{x_0})$ è definita $< 0$ \underline{allora} il termine di II° ordine più il resto $<0$ \underline{\textbf{localmente}} $\Rightarrow \ f(x) < $ Piano tangente localmente vicino a $x_0$\\ 
+            \underline{se} è indefinita $\exists $ direzione $\underline{x} - \underline{x_0}$ per le quali $f(x) < $ piano tangente e altre per cui $f < $ piano tangente\\
+        \end{proposition}
+
+
+        \begin{proposition}
+            $Det A = \lambda_1 \lambda_2 > 0 \Rightarrow \lambda_i$ concordi\\
+            $Tr A = \lambda_1 + \lambda_2 < 0 \Rightarrow \lambda_i< 0$\\
+            $Tr A = \lambda_1 + \lambda_2 > 0 \Rightarrow \lambda_i> 0$\\ 
+        \end{proposition}
+
+
+
+
+
+        \section{l'ottimizzazione}
+        Cerchiamo il massimo di $f(x,y)$ quando $(x,y) \in A$\\
+        \underbar{Se} $A$ è un insieme aperto, (quindi ogni punto è interno ad $A$) allora si parla di \underbar{massimi liberi}.\\
+        \underbar{Se} $A$ NON è aperto, ad es. se $A$ è una curva o una superficie, si parla di \underbar{massimi vincolati}.\\
+
+
+        \begin{definition}
+            Max assoluto\\
+            $f$ definita in $A \to \mathbb{R} \quad (x_0,y_0) \in A$ \\
+            dico che $(x_0,y_0)$ è punto di max assoluto per $f$ in $A$, e che $f(x_0,y_0)$ è massimo assoluto.\\ 
+        \end{definition}
+
+
+        \begin{definition}
+            Max relativo o locale\\
+            $f$ definita in $A \to \mathbb{R} \quad (x_0,y_0) \in A$ \\
+            dico che $(x_0,y_0)$ è punto di max relativo per $f$ in $A$, e che $f(x_0,y_0)$ è massimo se\underbar{text}:\\
+            $\exists$ un intorno $U$ di $(x_0,y_0) \ t.c.$\\
+            \begin{gather*}
+                f(x_0,y_0) \leq f(x,y) \quad \forall (x,y) \in U
+            \end{gather*} 
+        \end{definition}
+
+
+        Le domande che mi pongo sono due:
+        \begin{enumerate}[$i)$]
+            \item So che esiste?
+            \item Come lo trovo?
+        \end{enumerate}            
+        \hfil\\
+        Per $i)$ posso usare il t. di Weierstrass:\\
+        Se $A$ è chiuso e limitato e se f è continua in $A$ allora esiste sia il max assoluto che il min assoluto.\\
+        Per usarlo so che certamente $\exists$ una palla chiusa $C$ t.c. il pinto di minimo non va fuori da $C$. QUindi il problema dell'esistenza è fondamentalmente risolto.\\
+        
+        
+        
+        \subsection{trovare il min/max assoluto}
+        Non è altrettanto scontato il punto $ii)$, in questo caso cerchiamo delle condizioni analitiche necessarie o sufficienti.\\
+        
+        \begin{proposition}
+            Condizione necessaria (Teorema di Fermat)\\
+            \underbar{Se} $(x_0,y_0)$ è di max relativo; $(x_0,y_0) \in A$ \underbar{e} $f$ è derivabile in $(x_0,y_0)$\\ 
+            \underbar{allora} $\nabla f(x_0,y_0) = 0$
+        \end{proposition}
+
+        \begin{proof}
+            Fissiamo un $y = y_0$, in questo modo la funzione che considero è ad una variabile, ne definisco una: $\varphi_1 (x) = f(x, y_0)$
+            \begin{center}
+                \begin{tikzpicture}[scale = 1.5]
+                    \draw(0, 0) -- (0,1);
+                    \draw(-0.3,0.3) -- (1,0.3);
+                    \draw[red](-0.3,0.5) -- (1,0.5);
+                    \node at(-0.3,0.7){$_{y_0}$};
+                    \node at(0.8,0.7){$_{(x_0,y_0)}$};
+                    \filldraw [black] (0,0.5) circle (1pt);
+                    \filldraw [black] (0.3,0.5) circle (1pt);
+                \end{tikzpicture}
+            \end{center}\noindent
+            $x_0$ è punto di max relativo per la funzione di 1 variabile $\varphi_1(x)$ ed è derivabile in $x_0$, $x_0$ è interno al dominio di $\phi_1 \Rightarrow \varphi_1'(x_0) = 0$\\
+            Ma $\varphi_1'(x_0) = \frac{\partial f}{\partial x}(x_0,y_0)$ quindi ho che $\frac{\partial f}{\partial x}(x_0,y_0) = 0$\\
+            Analogamente si dimostra che $\frac{\partial f}{\partial y} (x_0,y_0) = 0$
+        \end{proof}
+
+
+        \begin{proposition}
+            Un punto in cui $\nabla f(x_0,y_0)$ è zero si chiama punto stazionario o punto critico, non è affatto detto che un punto critico sia un max o min locale.
+        \end{proposition}
+
+
+        \begin{observation}
+            un punto di min. locale o assoluto può anche essere \underbar{non critico}. QUesto può succedere se $\nexists \nabla f$ in quel punto.\\
+        \end{observation}
+
+
+        \begin{example}
+                \begin{gather*}
+                    f(x,y) = \left\lVert (x,y) \right\rVert 
+                \end{gather*}
+                $(0,0)$ è min assoluto, Ma $\nabla f \nexists$ in $(0,0)$\\
+                Quindi $(0,0)$ \underbar{non è critico}
+        \end{example}
+
+
+        \begin{theorem}[di Taylor]
+            Supponiamo che $f$ sia $C^2$ in un intorno del punto critico $(x_0,y_0)$.\\
+            $f(x,y) = f(x_0,y_0) + 0 + \frac{1}{2} \left\langle \underset{\text{\fbox{\textcolor{orange}{*}}}}{D^2f(x_0,y_0)}(x-x_0,y-y_0);(x-x_0,y-y_0)\right\rangle + o(\left\lVert (x-x_0,y-y_0)\right\rVert^2 )$
+        \end{theorem}
+
+
+        \hfil\\
+        Devo studiare il segno di \fbox{\textcolor{orange}{*}}:\\
+        \underbar{se} $A$ è una matrice $n\times n$ simmetrica , $h \in \mathbb{R}^n$
+        \begin{gather*}
+            q(h) = \left\langle Ah;h \right\rangle 
+        \end{gather*}
+
+
+        \begin{proposition}
+            Richiamo:\\
+            $q$ si dice def. positiva \underbar{se} $q(h) > 0 \quad \forall h \neq 0$\\
+            $q$ si dice def. negativa \underbar{se} $q(h) < 0 \quad \forall h \neq 0$\\
+            $q$ si dice semidefinita positiva \underbar{se} $q(h) \geq 0 \quad \forall h$\\
+            $q$ si dice semidefinita positiva \underbar{se} $q(h) \geq 0 \quad \forall h$\\
+            $q$ si dice indefinita se $\exists h_1,h_2 \neq 0$ t.c.
+            \begin{gather*}
+                q(h_1),q(h_2) < 0
+            \end{gather*}
+        \end{proposition}
+
+
+        \begin{theorem}[Condizione necessaria del secondo ordine]            
+            \underbar{Sia} \begin{itemize}
+                \item $f: A \to \mathbb{R}$
+                \item $f \in C^2$ in un intorno di $(x_0,y_0)$
+                \item $(x_0,y_0)$ è di minimo relativo ed è interno ad $A$
+            \end{itemize}
+            \underbar{allora} la forma quadratica con associata la matrice $h \to \left\langle D^2f(x_0,y_0);h\right\rangle$ è \underbar{\textbf{semi}definita positiva}  
+        \end{theorem}
+
+        \begin{proof}
+            Sia $h \in \mathbb{R}^2, h \neq 0 \qquad h = (h_1,h_2)$
+            \begin{gather*}
+                \varphi(t) = f(x_0+t h_1,y_0+t h_2)\\
+                t= 0 \longleftrightarrow (x_0,y_0)
+            \end{gather*}
+            \begin{tikzpicture}
+                \draw(0,0) --(0,1);
+                \draw(-0.2,0.2) -- (1,0.2);
+                \draw[->](0,0.2) -- (0.8,0.8) node[at end,below]{$\varphi_1$};
+            \end{tikzpicture}
+            Scelgo dunque un vettore
+            \begin{gather*}
+                \varphi'(0) = 0 \& \varphi''(0) \geq 0\\
+                (\varphi(t))' = (f(x_0+th_1,y_0+th_2))'\\
+                = \frac{\partial f}{\partial x}(f(x_0+th_1,y_0+th_2))h_1\\
+                = \frac{\partial f}{\partial y}(f(x_0+th_1,y_0+th_2))h_2\\
+                =(\varphi(t))''= (\frac{\partial f}{\partial x}(x_0+th_1,y_0+th_2)h_1+ \frac{\partial f}{\partial y}(x_0+th_1,y_0+th_2)h_2)'\\
+                = (\frac{\partial f}{\partial x}(x_0+th_1,y_0+th_2))'h_1+ (\frac{\partial f}{\partial y}(x_0+th_1,y_0+th_2))'h_2\\
+                \frac{\partial^2f}{\partial x^2}(x_0+th_1,y_0+th_2)h_1^2 + \frac{\partial^2 f}{\partial y \partial x}(x_0+th_1,y_0+th_2)h_1h_2 + \frac{\partial^2 f}{\partial x\partial y}(x_0+th_1,y_0+th_2)h_2h_1+\frac{\partial^2 f}{\partial y^2} (x_0+th_1,y_0+th_2)h_2^2
+            \end{gather*}
+            Se la calcolo per $t=0$ diventa:
+            \begin{gather*}
+                \left\langle D^2f(x_0,y_0)h;h\right\rangle 
+            \end{gather*}
+        \end{proof}
+
+
+        \begin{theorem}
+            (condizione sufficiente)\\
+            \underbar{Sia} $f : A \to \mathbb{R}$\\
+            \underbar{sia} $(x_0,y_0)$ interno ad $A$ e \\
+            \underbar{sia} $f C^2$ in un intorno di $(x_0,y_0)$.\\
+            \underbar{Supponiamo} che $(x_0,y_0)$ un punto critico.\\
+            \underbar{Alllora:}
+            \begin{enumerate}[$i)$]
+                \item \underbar{se} $D^2f(x_0,y_0)$ è definita positiva $\Rightarrow (x_0,y_0)$ è punto di min relativo
+                \item \underbar{se} $D^2f(x_0,y_0)$ è definita negativa $\Rightarrow (x_0,y_0)$ è punto di max relativo
+                \item \underbar{se} $D^2f(x_0,y_0)$ è indefinita $\Rightarrow (x_0,y_0)$ non è ne punto di min ne di max relativo
+            \end{enumerate}
+        \end{theorem}
+
+        \begin{proof}
+            Il punto $iii)$: segue dalla cond. necessaria\\
+            (punto $i/ii$)\\
+            Sia $h = (h_1,h_2) \neq 0$\\
+            \begin{gather*}
+                f(x_0+h_1,y_0+h_2) = f(x_0,y_0) + \left\langle \nabla f(x_0,y_0); h \right\rangle  + \frac{1}{2} \left\langle D^2 f(x_0,y_0)h;h\right\rangle +o(\left\lVert h\right\rVert^2 )\\
+                \frac{f(x:0+h_1,y_0+h_2)}{\left\lVert h\right\rVert^2 } =  \underset{\text{\fbox{*}}}{\frac{1}{2} \frac{\left\langle D^2 f(x_0,y_0)h;h\right\rangle}{\left\lVert h\right\rVert^2 }} +\frac{o(\left\lVert h\right\rVert^2 )}{\left\lVert h\right\rVert^2 }\\ 
+            \end{gather*}
+            se $q(h) = \left\langle Ah;h\right\rangle $\\
+            \begin{gather*}
+                q(ch) = \left\langle A(ch) ; ch\right\rangle = \left\langle cAh;ch\right\rangle = c^2\left\langle Ah;h\right\rangle   
+            \end{gather*}
+            Quindi lo fo per: \fbox{*}:
+            \begin{gather*}
+                \left\langle D^2f(x_0,y_0) \underset{\text{vett. di $\left\lVert \cdot \right\rVert$ 1}}{\frac{h}{\left\lVert h\right\rVert }}; \frac{h}{\left\lVert h\right\rVert }\right\rangle 
+            \end{gather*}
+            Prendiamo $v = (v_1,v_2) \in$ cerchio di centro $(0,0)$ e raggio 1. ovvero $\mathbb{S}^1$\\
+            $p(v) = \left\langle D^2f(x_0,y_0)v;v\right\rangle $\\
+            \begin{itemize}
+                \item è una funzione continua su $\mathbb{S}^1$
+                \item $p(v) > 0 \quad \forall v \in \mathbb{S}^1$
+                \item $\mathbb{S}^1$ è chiuso e limitato
+                \item $\exists$ minimo. se lo chiamo $m$
+            \end{itemize}
+            Posso dire che $m>0$. Quindi $\forall v \in \mathbb{S} \quad p(v) \geq m > 0$
+            \begin{gather*}
+                \frac{1}{2}\left\langle D^2f(x_0,y_0) \frac{h}{\left\lVert h\right\rVert }; \frac{h}{\left\lVert h\right\rVert }\right\rangle \geq \frac{1}{2}m
+            \end{gather*}
+            Per def. di $o$ piccolo:
+            \begin{gather*}
+                \lim_{h \to 0} \frac{o(\left\lVert h\right\rVert^2 )}{\left\lVert h\right\rVert^2 } = 0
+            \end{gather*}
+            \underbar{Allora} $\exists \ \delta > 0 \ t.c. \ $ \underbar{se} :\\
+            \begin{gather*}
+                \frac{-m}{4}< \frac{o(\left\lVert h\right\rVert^2 )}{\left\lVert h\right\rVert^2 } < \frac{m}{4}
+            \end{gather*}
+            Tirando le conclusioni :\\
+            \underbar{se} $\left\lVert h\right\rVert < \delta$ e $h \neq 0 $ \underbar{allora}:
+            \begin{gather*}
+                \frac{f(x_0h_1,y_0+h_2)+f(x_0,y_0)}{\left\lVert h\right\rVert^2 } \geq \frac{1}{2}m - \frac{m}{4} = \frac{m}{4} > 0
+            \end{gather*}
+            Quindi $f(x_0+h_1,y_0+h_2) \geq f(x_0,y_0) + \frac{m}{4} \left\lVert h\right\rVert^2 > f(x_0,y_0)$ 
+        \end{proof}
+
+
+        \begin{proposition}
+            Cataloghiamo ora i teoremi utili per studiare il segno delle forme quadratiche associate alle matrici simmetriche.\\
+            Prendiamo come ipotesi le seguenti:
+            \begin{itemize}
+                \item \underbar{Sia} $A$ una matrice simmetrica $n \times n$ \underbar{e} $h \in \mathbb{R}^n$\\
+                \item \underbar{Sia} $q(h) = \left\langle Ah;h \right\rangle$ 
+            \end{itemize}
+        \end{proposition}
+
+
+        \begin{theorem}[Positività/negatività/indefinitezza di $q$]
+            \begin{enumerate}[$i)$]
+                \item $q$ è definita positiva $\Leftrightarrow$ tutti gli autovalori sono $>0$
+                \item $q$ è definita negativa $\Leftrightarrow$ tutti gli autovalori sono $<0$
+                \item $q$ è indefinita $\Leftrightarrow \exists$ un autovalore $>0$ ed $\exists$ un autovalore $<0$
+            \end{enumerate}
+        \end{theorem}
+
+
+        \begin{theorem}[Condizioni per forme quadratiche per matrici $3 \times 3$]
+            Sia $A \in M(3 \times 3, \mathbb{K})$ con
+            \begin{gather*}
+                A= \begin{pmatrix}
+                    a{1, 1} & a{1, 2} & a{1, 3} \
+                    a{1, 2} & a{2, 2} & a{2, 3} \
+                    a{1, 3} & a{2, 3} & a_{3, 3}
+                \end{pmatrix}
+            \end{gather*}
+            Allora, chiamate $det A1 = a{1, 1}$, $A2 = \det \begin{pmatrix}
+                a{1, 1} & a{1, 2} \
+                a{1, 2} & a_{2, 2}
+            \end{pmatrix}$ e $A_3 = \det A$ i determinanti delle matrici:
+            \begin{enumerate}[$i)$]
+                \item Se $\det A_1, \det A_2, \det A_3 > 0 \Longleftrightarrow $ q è definita positiva;
+                \item Se $\det A_1 < 0$, $\det A_2 > 0, \det A_3 < 0 \Longleftrightarrow $ q è definita negativa;
+                \item Se $\det A \neq 0$ e non valgono né $i)$ né $ii)$ allora è indefinita.
+            \end{enumerate}
+        \end{theorem}
+
+
+        \begin{theorem}[Condizioni per forme quadratiche per matrici $2 \times 2$]
+            Se supponiamo $n=2$ ho         
+            \begin{gather*}
+                A= \begin{pmatrix}
+                    a{1, 1} & a{1, 2} \\
+                    a{1, 2} & a_{2, 2}
+                \end{pmatrix}
+            \end{gather*}
+            \begin{enumerate}
+                \item \underbar{Se} $\det(A) > 0$ e $a_{1, 1} > 0 \Longleftrightarrow $ q è definita positiva;
+                \item \underbar{Se} $\det(A) > 0$ e $a_{1, 1} < 0 \Longleftrightarrow $ q è definita negativa;
+                \item \underbar{Se} $\det(A) < 0$ allora q è indefinita.
+
+            \end{enumerate}
+        \end{theorem}
+
+
+        \begin{theorem}[Condizioni per forme quadratiche per matrici $3 \times 3$]
+            Sia $A \in M(3 \times 3, \mathbb{K})$ con
+            \begin{gather*}
+                A= \begin{pmatrix}
+                    a{1, 1} & a{1, 2} & a{1, 3} \\
+                    a{1, 2} & a{2, 2} & a{2, 3} \\
+                    a{1, 3} & a{2, 3} & a_{3, 3}
+                \end{pmatrix}
+            \end{gather*}
+            Allora, chiamate $det A1 = a{1, 1}$, $A2 = \det \begin{pmatrix}
+                a{1, 1} & a{1, 2} \
+                a{1, 2} & a_{2, 2}
+            \end{pmatrix}$ e $A_3 = \det A$ i determinanti delle matrici:
+            \begin{enumerate}[$i)$]
+                \item Se $\det A_1, \det A_2, \det A_3 > 0 \Longleftrightarrow $ q è definita positiva;
+                \item Se $\det A_1 < 0$, $\det A_2 > 0, \det A_3 < 0 \Longleftrightarrow $ q è definita negativa;
+                \item Se $\det A \neq 0$ e non valgono né $i)$ né $ii)$ allora è indefinita.
+            \end{enumerate}
+        \end{theorem}
+
+
+
+        
+        \subsection{Massimi e minimi vincolati}
+
+
+        Finora abbiamo parlato solo di massimi e minimi liberi.\\
+        \begin{theorem}
+            Se $(x_0,y_0)$ è un punto di max/min locale per $f$ in $D$ con:
+            \begin{itemize}
+                \item $D \subset \mathbb{R}^2$ non assumo niente su $D$
+                \item $f:D \to \mathbb{R} \max_{(x,y) \in D} f$
+            \end{itemize}
+            \underbar{allora}:
+            \begin{enumerate}[$i)$]
+                \item o $(x_0,y_0)$ è interno e $f$ on è derivabile in $(x_0,y_0)$
+                \item o $(x_0,y_0)$ è interno a $\nabla f (x_0,y_0) = 0$
+                \item o $(x_0,y_0) \in \partial D$ (si trova nella frontiera)  
+            \end{enumerate}
+        \end{theorem}
+
+
+        \begin{proposition}
+            Strateia per trovare il max. assoluto fi una funzione continua su un insieme $D$ chiuso e limitato\\
+            \begin{itemize}
+                \item Trovo punti interni critici
+                \item Trovo punti interni in cui $f$ non è derivabile
+                \item Trovo i punto di max di $f$ rispetta alla frontiera
+            \end{itemize}
+            Confronto il valore di $f$ in tutti i punti trovati, il valore più grande corrisponde al max. assoluto
+        \end{proposition}
+
+
+        Richiamo teorema 12.4.
+        \begin{theorem}
+            Se $(x_0,y_0)$ è un punto di max/min locale o assoluto per $f$ in $D$ \underbar{allora}:
+            \begin{enumerate}[$i)$]
+                \item o $(x_0,y_0)$ è interno e $f$ non è derivabile in $(x_0,y_0)$
+                \item o $(x_0,y_0)$ è interno a $D$, f è derivabile e  $\nabla f (x_0,y_0) = 0$
+                \item o $(x_0,y_0) \in \partial D$ (si trova nella frontiera)  
+            \end{enumerate}
+        \end{theorem}
+
+
+        \begin{proposition}
+            Strategia per trovare max assoluti in una funzione continua in un insieme compatto.\\
+            \begin{itemize}
+                \item Trovare punti interni criticiTrovare punti interni in cui $f$ non è derivabile
+                \item Trovare i punti di max di $f$ ristretta alla frontiera
+                \item Confrontare tutti i punti trovati e i valori di $f$ in tali punti
+            \end{itemize}
+        \end{proposition}
+
+
+        \begin{theorem}[Metodo dei moltiplicatori di Lagrange]
+            \underbar{Sia} $G = \{(x,y): g(x,y) = 0\}$\\
+            \underbar{Sia} $(x_0,y_0)$ un punto di max locale per $f(x,y)$ ristretta al vincolo $G$.\\
+            \underbar{Supponiamo} che \underbar{sia} $f$ che $g$ siano funzioni $C^1$ in un intorno di $(x_0,y_0)$ e che $\nabla g(x_0,y_0) \neq 0$\\
+            \underbar{Allora} $\exists \lambda_0 \in \mathbb{R}$ \textbf{tale che} $(x_0,y_0,\lambda_0)$ è un punto critico della funzione:
+        \begin{gather*}
+                \mathcal{L}(x,y,\lambda) := f(x,y) + \lambda g(x,y)
+            \end{gather*}
+        \end{theorem}
+
+
+        Cosa vuol dire che $(x_0,y_0)$ è punto critico per $\mathcal{L}$?
+        \begin{gather*}
+            \frac{\partial \mathcal{L}}{\partial x}=0\\
+            \frac{\partial \mathcal{L}}{\partial y}=0\\
+            \frac{\partial \mathcal{L}}{\partial \lambda}=0\\
+            \begin{cases}
+                \frac{\partial f}{\partial x} = -\lambda_0 \frac{\partial g}{\partial x}(x_0,y_0)\\
+                \frac{\partial f}{\partial y} = -\lambda_0 \frac{\partial g}{\partial y}(x_0,y_0)\\
+                g(x_0,y_0) = 0
+            \end{cases}
+        \end{gather*}
+        Per trovare un punto di max o di minimo quando (x,y) è vincolato a stare sulla curva di eq. g(x,y) si costruisce una funzione a partire dalla funzione f che voglio rendere massima e dalla funzione g che descrive il vincolo introducendo una variabile $\lambda$.\\
+        Il teorema mi dice proprio che il punto di max è un punto critico per questa funzione di tre variabili, quindi la prima ci dice che il punto è un punto critico per la funzione di Lagrange.
+        
+        
+        \begin{proposition}
+            \begin{gather*}
+                \nabla f(x_0,y_0) = -\lambda_0 \nabla g(x_0,y_0)
+            \end{gather*}
+            $\nabla G(\overline{x}, \overline{y}) $ è perpendicolare alla linea di livello che contiene $(\overline{x}, \overline{y})$
+        \end{proposition}
+
+
+        \begin{definition}
+            \underbar{Sia} $G=\{(x,y) : g(x,y) = 0\}$ e \underbar{sia} $(x_0,y_0) \in G$\\
+            \underbar{Si dice} che $(x_0,y_0)$ è un punto di max. locale \textbf{vincolato} per $f$ sul vincolo $G$ se $\exists$ un intorno $\mathcal{U}$ di $(x_0,y_0)$ \underbar{tale che}
+            \begin{gather*}
+                f(x,y) \leq f(x_0,y_0) \qquad \forall (x,y) \in \mathcal{U} \cap  G
+            \end{gather*} 
+            \begin{center}
+                \begin{tikzpicture}[replace stretch/.style args={from #1 to #2 by #3}{%
+/utils/exec=\pgfmathsetmacro{\offlen}{#2-#1},
+dash pattern=on #1 off \offlen pt on 10cm,
+postaction={#3,dash pattern=on 0pt off #1 on \offlen pt off 10cm}}]
+                    \draw(0,0)[replace stretch={from 32.5 to 92.5 by {-,draw=red}}] ..controls(1,-1) and (3,1.8).. (4,1) node[at end, right]{$\{g(x,y) = 0\} = G$};
+                    \draw(2,0.4) circle (30 pt);
+                    \node at(1.8,0.25)[below, right]{$(x_0,y_0)$};
+                    \node at(0.6, 0.2){$\textcolor{red}{(x,y)}$};
+                    \filldraw[fill = black] (2,0.43) circle(2 pt);
+                \end{tikzpicture}
+            \end{center}
+        \end{definition}
+
+
+        \begin{aside}
+            La tecnica si applica anche in dimensione $> 2$
+        \end{aside}
+
+
+        \begin{aside}
+            Se ho $2$ vincoli $g$ e $h$ allora posso scrivere la lagrangiana nella forma:
+            \begin{gather*}
+                \mathcal{L}(x,y,z, \lambda, \mu) = f(x,y,z) + \lambda g(x,y,z) + \mu h(x,y,z)
+            \end{gather*}
+        \end{aside}
+
+
+
+
+
+        \section{funzioni implicite}
+        Prendiamo una funzione $\{F(x,y) = 0\}$ che definisce un grafico di funzione (di 1 variabile)\\
+        \begin{example}
+            $F(x,y) = x^3-y+1$\\
+            $F=0 \Leftrightarrow x^3-y+1 = 0 \Leftrightarrow y = x^3+1$
+        \end{example}
+
+
+    \begin{example}
+        $x^2+y^2-1 = 0$\\
+        $x^2+y^2 = 1$\\
+        Globalmente questo non è un grafico di funzione, MA localmente \textbf{si}, infatti se prendiamo il grafico delimitato dalle $\times$ e dai $\circ$ otteniamo rispettivamente proprio un grafico di $y = y(x)$ e $x = x(y)$:
+        \begin{center}
+            \begin{tikzpicture}
+                \draw[->](1,0) -- (1,2);
+                \draw[->](0,1) -- (2,1);
+                \draw(1,1) circle (0.8);
+                \filldraw[fill=black](1,1.8) circle (1pt)node{$\times$};
+                \draw(1.8,1) circle (2pt);
+                \filldraw[fill=black](1,0.2) circle (1pt)node{$\times$};
+                \draw(0.2,1) circle (2pt);
+            \end{tikzpicture}
+        \end{center}
+    \end{example}
+
+
+\begin{theorem}[del Dini per fnzioni implicite]
+    $A_{ap} \subseteq \mathbb{R}^2 \ F:A\to \mathbb{R}, F \in C^1 (A)$\\
+    \underbar{sia} $P_0 \equiv (x_0,y_0) \in A \ t.c. \ F(x_0,y_0) = 0 , P_0 $ Regolare (cioè $DF(x_0,y_0)\neq 0$)\\
+    \underbar{Allora} $\exists U$ intorno di $x_0$ e $\exists V$ intorno di $y_0$ $ \ t.c. \ F(x,y) = 0$ definisce un grafico di funzione $y= f(x)$ oppure $x = g(y)$ in $U\times V$ intorno di $P_0$
+    \underbar{\textbf{In particolare:}}\\
+    \begin{itemize}
+        \item  se $F_y(x_0,y_0) \neq 0$ allora $\exists! y = f(x):U\to V \ t.c. \ F(x,f(x)) = 0$, $f \in C^1(U)$ e $ f'(x) = \frac{F_x(x,f(x))}{F_y(x,f(x))} \quad \forall x \in \overset{\circ}{U}$
+        \item se $F_x(x_0,y_0) \neq 0$ allora $\exists! x = g(y): V \to U \ t.c. \ F(g(y),y) = 0$, $g \in C^1(V)$ e $g'(y) =\frac{F_y(g(y),y)}{F_x(g(y),y)} \quad \forall y \in \overset{\circ}{V}$
+    \end{itemize}
+    $F(x,y) = x^2+y^2-1$\\
+    $DF = \begin{pmatrix}
+        2x\\
+        2y
+    \end{pmatrix}$\\
+    punti critici $\Leftrightarrow DF = \underbar{0} \Leftrightarrow P \equiv(0,0) \cancel{\in}$ linea $(F(x,y) = 0) \Rightarrow $ Tutti i punti di $F(x,y) = 0$ sono regolari.\\
+\end{theorem}
+
+\begin{observation}
+    Geometricamente cosa significa che una curva non è grafico di funzione?
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->](0,0) -- (2,0);
+            \draw[red](1,-1) -- (1,1);
+        \end{tikzpicture}
+        \begin{tikzpicture}
+            \draw[->](0,0) -- (2,0);
+            \draw[red](1,-0.7) ..controls(0.6,0).. (1,0.7);
+        \end{tikzpicture}
+    \end{center}
+    Questi sono esepi che NON sono grafici $y=y(x)$\\
+    Ma sono grafici di $x=x(y)$
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[->](1,0) -- (1,2);
+            \draw[->](0,1) -- (2,1);
+            \draw[cyan](0,0) -- (2,2);
+            \draw[cyan](0,2) -- (2,0);
+            \filldraw[fill=black](1,1) circle(2pt)node[right]{$P_0$};
+        \end{tikzpicture}
+    \end{center}
+    Questo è un esempio dovel'intorno di $P_0$ ovvero $\mathcal{U}_{P_0}$ NON può essere grafico di funzione
+\end{observation}
+
+\begin{observation}
+    Se $\underbar{r}(t)$ è curva piana regolare $t \in I \quad \forall t_0 \in \mathring{I}$ il sostegno è localmente grafico, ed è dimostrabile con il teorema del Dini.
+\end{observation}
+
+\begin{observation}
+    $F \in C^2$ ( e vale teorema Dini) $\Rightarrow f \in C^2$\\
+    Da cui $f(x) = \underset{\textcolor{cyan}{\underset{y_0}{||}}}{f(x_0)} = f(x_0) + \underset{\textcolor{yellow}{= -\frac{F_x(x_0,y_0)}{F_y(x_0,y_0)}}}{f'(x_0)}(x-x_0) + \textcolor{orange}{\boxed{\textcolor{white}{\frac{f''(x_0)}{2}}}}(x-x_0)^2 + o((x-x_0)^2)$
+    per $x \in I_{x_0}$
+    \begin{gather*}
+        f''(x) = \left(-\frac{F_x(x,f(x))}{f_y(x,f(x))}\right)' = -\frac{(F_x(x,f(x)))'F_y(x,f(x))-F_x(x,f(x))(F_y(x,f(x)))'}{\left(F_y(x,f(x))\right)^2 }\\
+        = -\frac{1}{(F_y)^2}[(F_{xx} + F_{xy}f')F_y-F_x(F_{\textcolor{yellow}{xy}}+F_{yy}f')]\vert_{x,f(x)} 
+    \end{gather*}
+    Siccome è un risultato complicato in generale è meglio scrivere esplicitamente $f(x)$ in funzione di $F$ e poi derivare.
+\end{observation}
+
+\begin{proof}
+    (teor, FMS, Giusti) $P_0$ regolare supp. $F_y(x_0,y_0) \neq 0 , F_y(x_0,y_0) > 0$\\
+    \fbox{I} $\exists U$ intorno di $x_0$ e  $V = [y_0-\delta,y_0+\delta]$ intorno di $y_0$   
+    \begin{gather*}
+        F_y(x_0,y_0) > 0, F_y \in C^0 \Rightarrow \exists R \text{rettangolo chiuso } = W \times V \ t.c. \ W \text{int. di } x_0, V \text{int. di } y_0\\
+        F_y (x_0,y_0) > 0 \quad \forall (x,y) \in R
+    \end{gather*}
+    Quindi $\forall x \in W $ fissato $F(x,y)$(come funzione di $y$) $\nearrow$ streattmente\\
+    in part. $F(x_y,y) \ \nearrow $ strettamente , con $F(x_0,y_0) > 0$\\
+    \begin{gather*}
+        \Rightarrow F(x_0,y_0-\delta) < 0 \text{ e } F(x_0,y_0+\delta)
+    \end{gather*} 
+    Considero $F(x_0,y_0-\delta)$ funzione continue per la permanenza del segno $F(x,y_0-\delta) < 0 \quad \forall x \in U$\\
+    \ \ \ \ \ $F(x_0,y_0+\delta)$ $\exists U $ intorno di $x_0, U \subseteq W$ e $F(x,y_0+\delta) > 0\quad  \forall x \in U$\\
+    \fbox{II}$\exists! f:U \to V \ t.c. \ F(x,f(x)) = 0 \quad \forall x \in U$\\
+    osserviamo $\forall x \in U \quad y \to F(x,y) \nearrow $ strett.\\
+    con\begin{gather*}
+        F(x,y_0-\delta) <0 \quad \forall x \in U \\
+        F(x,y_0+\delta) >0 \quad \forall x \in U \\
+        F \in C^0
+    \end{gather*}
+    $\Rightarrow$ (Th. esist. zeri + stretta monotonia) $\forall x \in U \quad \exists! y \in V:F(x,y) = 0$ cioè $y=f(x)$\\
+    \fbox{III} $f\in C^0(U)$\\
+    fix. $x_1 \in U$ considero $x \in U$
+    \begin{gather*}
+        G(t) = F'\left( \underset{\xi_t }{(1-t)x_1 +tx} ; \underset{\eta_t }{(1-t)f(x_1) + tf(x) }\right) 
+    \end{gather*}
+    $G \in C^1$
+    \begin{gather*}
+        G(0) = F(x_1,f(x_1) = 0)\\
+        G(1) = F(x,f(x) = 0)\\
+    \end{gather*}
+    Uso Th. ROlle $\Rightarrow \exists \tau \in (0,1) \ t.c. \ G'(\tau) = 0$\\
+    \begin{gather*}
+        0 = G'(\tau) = F_x(\xi_\tau, \eta_\tau)(x-x_1) + F_y(\xi_\tau,\eta_\tau)(f(x)-f(x_1))\\
+        (f(x)-f(x_1)) (\underset{\xi_\tau}{F_y(1-\tau)x_1 + \tau x}; \underset{\eta_\tau}{(1-\tau)f(x_1)+\tau f(x)} ) = -(x-x_1)(F_x(\xi_\tau,\eta_tau))\\
+        f(x) -f(x_1) = -(x-x_1)\frac{F_x(\xi, \eta)}{F_y(\xi, \eta)}\\
+        \left\lvert f(x)-f(x_1) \right\rvert \leq \left\lvert x-x_1 \right\rvert \underset{(x,y) \in \mathbb{R}}{max}\left\lvert \frac{F_x(x,y)}{F_y(x,y)}\right\rvert  \leq \left\lvert x-x_1 \right\rvert \frac{\underset{(x,y) \in \mathbb{R}}{max} \left\lvert F_x(x,y) \right\rvert }{\underset{(x,y) \in \mathbb{R}}{min} \left\lvert F_y(x,y) \right\rvert } \neq 0
+    \end{gather*}
+    Poichè $F_y \in C^0, F_y \neq 0 $ in $\mathbb{R}$\\
+    Si evidenzia che $\left\lvert x-x_1\right\rvert $ è un infinitesimo per $x\to x_1$ e il resto è limitato
+    \begin{gather*}
+        \Rightarrow \lim_{x \to x_1} f(x) = f(x_1) \text{ cioè } f \in C^0(U)
+    \end{gather*}
+    \fbox{IV} $\exists f'(x) \quad \forall x \in U$ e $f'(x) = -\frac{F_x(x,f(x))}{F_y(x,f(x))} \quad \forall x \in U$\\
+    \begin{gather*}
+        f'(x_1) = \lim_{x \to x_1} \frac{f(x)-f(x_1)}{x-x_1} \underset{\text{per }}{\boxed{**}} = \lim_{x \to x_1} -\frac{F_x(\xi\tau,\eta_\tau)}{F_y(\xi_\tau,\eta_\tau)} \underset{\text{oss. \fbox{*}}}{=} -\frac{F_x(x_1,fx_1)}{F_y(x_1,f(x_1))}
+    \end{gather*}
+    \begin{observation}
+        \fbox{*} $F_x,F_y \in C^0(U \times V)$\\
+        per $x \to x_1: \xi_\tau = (1-\tau) x_1+\tau x \to x_1$\\
+        $\eta_\tau = (1-\tau)f(x_1) + \tau \underset{\text{per \fbox{III} }\to f(x_1)}{f(x)} \to f(x_1)$
+    \end{observation}
+\end{proof}
+
+\begin{observation}
+    Vale il th. anche se $\begin{matrix}
+        F_y(x_0,y_0) \neq 0 \text{ e solo } F_y \in C^0\\
+        F_x(x_0,y_0) \neq 0 \text{ e solo } F_x \in C^0
+    \end{matrix}$
+\end{observation}
+
+\begin{theorem}[Dini in tre variabili]
+    $F(x,y,z) \in C^1(A) \quad A_{ap} \subseteq \mathbb{R}^3$\\
+    $P_0 \equiv (x_0,y_0,z_0) \in A$ Regolare e $t.c. \ F(x_0,y_0,z_0) = 0$\\
+    supponiamo $F_z(x_0,y_0,z_0) \neq 0$ \underbar{allora}  $\exists \mathcal{U}_{P_0} \subseteq A$\\
+    $t.c. \ \{F(x,y,z) = 0\} \cap \mathcal{U}_{P_0}$ è grafico $z=f(x,y)$\\
+    inoltre $f\in C^1$ e:\\
+    $\frac{\partial f}{\partial x} f(x,y) = -\frac{F_x(x,y,f(x,y))}{F_z(x,y,f(x,y))}$ localmente vicino a $(x_0,y_0)$\\
+    $\frac{\partial f}{\partial y} f(x,y) = -\frac{F_y(x,y,f(x,y))}{F_z(x,y,f(x,y))}$
+\end{theorem}
+
+
+
+
+
+\section{Curve parametriche}
+\begin{definition}
+    Si definisce una curva parametrica:
+    \begin{gather*}
+        \underbar{r}(t) : I \to \mathbb{R}^3 \qquad I = [a,b]\\
+        \underbar{r}(t) = \begin{pmatrix}
+            x(t)\\ y(t) \\ z(t)
+        \end{pmatrix}
+        \qquad x,y,z : I \to \mathbb{R}\\
+        \gamma \text{ sostegno di } \underbar{r} \quad \gamma = \underbar{r}(I)
+    \end{gather*}
+\end{definition}
+
+
+\begin{definition}
+    L'orientazione è il verso di percorrenza del sostegno
+\end{definition}
+
+
+\begin{definition}
+    $\underbar{r}(t)$ semplice \underbar{se} non ha autointersezioni cioè \underbar{se} $\underbar{r}(t)$ è iniettiva
+\end{definition}
+
+
+\begin{definition}
+    $\underbar{r}$ semplice è chiusa \underbar{se} $\underbar{r}(a) = \underbar{r}(b)$
+\end{definition}
+
+
+\begin{definition}
+    $\underbar{r}(t)$ è regolare \underbar{se}:
+    \begin{itemize}
+        \item è semplice
+        \item $x,y,z$ sono derivabili
+        \item $\left\lvert \underline{\dot{r}}(t) \right\rvert \neq \underline{0} \quad \forall t \in \mathring{I}$
+    \end{itemize}
+    L'ultima condizione vuol dire che:
+    \begin{gather*}
+        \dot{x}^2(t) + \dot{y}^2(t) + \dot{z}^2(t) \neq 0 \quad \forall t \in (a,b)
+    \end{gather*}
+    \begin{gather*}
+        \underline{\dot{r}}(t) = \begin{pmatrix}
+            \dot{x}(t)\\
+            \dot{y}(t)\\
+            \dot{z}(t)
+        \end{pmatrix}\quad t \in \mathring{I}
+    \end{gather*}
+\end{definition}
+
+
+\begin{definition}
+    $\underline{r}(t)$ è Regolare  a tratti \underbar{se}:
+    \begin{gather*}
+        \underline{r}(t) = \begin{cases}
+            \underline{r_1}(t) \text{ se } t \in [a,t_1]\\
+            \underline{r_2}(t) \text{ se } t \in [t_1,t_2]\\
+            .\\
+            .\\
+            .\\
+            \underline{r_k}(t) \text{ se } t \in [t_k,b]
+        \end{cases}
+    \end{gather*} 
+    Con $\underline{r}_i$ curve regolari, e $i = 1..k$
+\end{definition}
+
+
+\begin{definition}
+    Presa una curva $\underbar{r}(t):I \to \mathbb{R}^3$ regolare\\
+    \underbar{sia} $(a,b) = I$\\
+    definiamo il versore tangente a una curva parametrica (ad un tempo $t$ generico) come:
+    \begin{gather*}
+        \vv{\tau}(t) = \frac{\underline{\dot{r}}(t)}{||\underline{\dot{r}}(t)||} \qquad t \in (a,b)
+    \end{gather*}
+\end{definition}
+\begin{observation}
+    Siccome abbiamo definito che: $\underline{r}(t)$ è la traiettoria\\
+    Possiamo vedere $\underline{\dot{r}}(t)$ come la velocità e $\underline{\ddot{r}}(t)$ come l'accelerazione
+\end{observation}
+
+
+
+\begin{definition}
+    Due parametriche:
+    \begin{gather*}
+        \underline{\varphi}:[a,b] \to \mathbb{R}^3\\ 
+        \underline{\psi}: [\alpha,\beta] \to \mathbb{R}^3 
+    \end{gather*}
+    sono equivalenti se:
+    \begin{gather*}
+        \exists g : I \to J \quad g \in C^1 \ t.c. \ I = [a,b] \quad J = [\alpha,\beta]\\
+        g'(t) \neq 0 \quad \forall t \in \mathring{I} \ t.c. \ \underline{\varphi}(t) = \underline{\psi}(g(t)) \quad \forall t \in I
+    \end{gather*}
+    \begin{observation}
+        $g$ è invertibile
+    \end{observation}
+    \begin{observation}
+        Se $\underline{\varphi}, \underline{\psi}$ sono equivalenti \underbar{allora}:\\
+        $\vv{\tau}_{\underline{\varphi}} = \vv{\tau}_{\underline{\psi}}$ nei punti corrispondenti\\
+        oppure $\vv{\tau}_\varphi = - \vv{\tau}_{\underline{\psi}}$
+    \end{observation}
+\end{definition}
+Voglio calcolare la lunghezza di una curva, la divido in tanti segmenti infinitesimi:
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) ..controls(1,-1) and(2,1).. (3,0);
+        \node at(0,0)[left]{$P_0 \equiv A$};
+        \node at(3,0)[right]{$P_k \equiv B$};
+    \end{tikzpicture}
+\end{center}
+Si chiama poligonale inscritta:
+\begin{gather*}
+    P_i \equiv P(t_i) = \underline{r}(t_i)\\
+    \mathcal{L}(\underline{r}) \geq \mathcal{L}(\wp)
+\end{gather*}
+
+\begin{observation}
+    \begin{gather*}
+        P_i \in \gamma \qquad i = 0...k
+    \end{gather*}
+\end{observation}
+
+
+\begin{definition}[lunghezza di una curva]
+    $\underline{r}(t)$ è rettificante se:
+    \begin{gather*}
+        sup\{\mathcal{L}(\wp) \wp \text{poligonali inscritte}\} = L < +\infty
+    \end{gather*}
+    in tal caso $\mathcal{L}(\underline{r}) = L$
+\end{definition}
+
+
+\begin{theorem}
+    (di rettificabilità) \\
+    Presa una curva parametrica $\varphi: [a,b] \to \mathbb{R}^3$ quindi $\underline{\varphi} = \begin{pmatrix}
+        x(t)\\ y(t)\\ z(t)
+    \end{pmatrix}$\\
+    \underbar{Sia} $\underline{\varphi} \in C^1((a,b))$\\
+    \underbar{e} Regolare a tratti\\
+    \tab \underbar{\textbf{allora}} $ \underline{\varphi}$ è rettificabile e $\mathcal{L}(\varphi) = \int_{a}^{b} ||\underline{\varphi' }(t)|| dt = \int_{a}^{b} \sqrt{\dot{x}^2(t)+\dot{y}^2(t)+\dot{z}^2(t)} dt$
+\end{theorem}
+
+
+\begin{proposition}
+    Prese due curve parametriche $\underline{\varphi}, \underline{\psi}$\\ 
+    \underbar{se} sono parametriche equivalenti \\
+    \tab$\Rightarrow \mathcal{L}(\varphi) = \mathcal{L}(\underline{\psi})$\\\\
+    cioè $ \int_{a}^{b} | \underline{\varphi}'(t) | dt = \int_{\alpha}^{\beta} | \underline{\psi}' (s) | ds := \mathcal{L}(| \gamma |)$ quindi dipende solo dal sostegno
+\end{proposition}
+
+
+\begin{definition}[Ascissa curvilinea o parametro d'arco]
+    Presa una curva parametrica $\underline{r}(t):[a,b] \to \mathbb{R}^3$\\
+    \underbar{sia} $\underline{r}(t)$ Regolare\\
+    \underbar{sia} $t_0 \in [a,b]$ \tiny solitamente si considera il punto iniziale quindi $t_0 = a$\normalsize \\
+    Viene definita l'ascissa curvilinea $S(t)$ nel seguente modo:\\ $\forall t \in [a,b] \quad S(t) = \int_{t_0}^{t}  \left\lVert \underline{\dot{r}}(\ell)\right\rVert  d\ell$ \tiny si cambia variabile da $t$ a $\ell$ perchè la variabile di integrazione e gli estremi di integrazione non possono essere uguali\normalsize\\
+    cioè la lunghezza dell'arto della curva $\gamma$ tra $\underline{r}(t_0)$, che posso chiamare $P_0$, e $\underline{r}(t)$\\
+    con $S(t)$ ascissa curvilinea (di $\underline{r}$) centrata in $t_0$ \\
+    Considero ora $t_0 = a$:
+    \begin{itemize}
+        \item $S:[a,b] \to [0,L] \qquad L = \mathcal{L}(\gamma)$
+        \item $S(t) = \int_{a}^{b} | \underline{\dot{r}} (\tau)| d\tau \qquad s(a) = 0 \ s(b) = 0$
+        \item $s \nearrow , \dot{s}(t) = | \underline{\dot{r}} |> 0$ con $s \in C^1 $
+    \end{itemize}
+    l'ultimo punto ci conferma che è cambio di parametro ammissibile
+\begin{gather*}
+    \exists t(s)\\
+    s= s(t) \text{ cambio di parametro}
+    \boxed{\underline{\varphi} = \underline{r}(t(s))}
+\end{gather*}
+\end{definition}
+
+
+\begin{proposition}[Curve in forma polare]
+    Le curve parametriche si possono descrivere anche in forma polare con funzioni, ad esempio:
+    \begin{gather*}
+    \underline{r}(theta) = \begin{pmatrix}
+        \rho(\theta) \quad \cos(\theta)\\
+        \rho(\theta) \quad \sin(\theta)
+    \end{pmatrix}\theta \in I
+    \end{gather*}
+    Con $\rho > 0$ e $I \subset \mathbb{R}$
+\end{proposition}
+
+
+
+\subsection{Integrali di linea di prima specie}
+Se consideriamo la norma di una curva
+\begin{gather*}
+     \left\lVert \underline{\dot{r}}(t) \right\rVert  =\left\lVert \sqrt{\dot{x}^2(t) + \dot{y}^2(t)} dt\right\rVert 
+\end{gather*}
+L'area del sottografico di $f(x,y)$ lungo la curva $\underline{r}(t)$ è proprio
+\begin{gather*}
+    \int_{a}^{b} f(x(t),y(t)) \sqrt{\dot{x}^2(t) + \dot{y}^2(t)} dt = \int_{\gamma} f(x,y) ds 
+\end{gather*}
+
+
+\begin{theorem}
+    $\underline{x}(t):[a,b] \to \mathbb{R}^2$ parametrizzazioni equivalenti regolari (a tratti di $\gamma$)\\
+    $\underline{r}(u):[\alpha,\beta] \to \mathbb{R}^2$\\
+    $f:a \to \mathbb{R} \quad A \subseteq \mathbb{R}^2, \gamma \subseteq A$\\
+    \underline{Allora} $\int_{a}^{b} f(\underline{x}(t))\left\lVert \underline{\dot{x}} (t)\right\rVert dt = \int_{\alpha}^{\beta} f(\underline{r}(u)) \left\lVert \underline{\dot{r}}(u) \right\rVert du$\\
+    e quindi è ben definito $\int_{\gamma} f ds = \int_{a}^{b} f(\underline{x}(t)) \left\lVert \underline{\dot{x}}(t)\right\rVert dt$\\
+    Quindi non dipende dalla parametrizzazione scelta. 
+\end{theorem}
+\begin{aside}
+    L'integrale sulla curva lo esprimo in $ds$ perchè, non avendo dipendenza dalla parametrizzazione, lo scrivo in funzione dell'ascissa curvilinea.
+\end{aside}
+
+\begin{observation}
+    \begin{gather*}
+        f \equiv 1 \quad \int_{\gamma} f ds = \int_{a}^{b} \left\lVert \dot{x}(t) \right\rVert dt = \mathcal{L}(\gamma)
+    \end{gather*}
+\end{observation}
+
+\begin{proof}
+    \hfil\\
+    sia $g:[a,b] \to [\alpha,\beta]$ cambio di paraetro $t \mapsto u=g(t)$\\
+    supponiamo $g'\underset{\textcolor{yellow}{<}}{>}0$ (viene mantenuta l'orientazione)\\
+    $\underline{x}(t) = \underline{r}(g(t))$
+    Specifichiamo la seguente uguaglianza che viene da questo termine
+    \begin{gather*}
+        \left\lVert \underline{\dot{x}}(t)\right\rVert = \left\lVert \underline{\dot{r}}(g(t)) g'(t) \right\rVert = \left\lVert \underline{\dot{r}}(g(t)) \right\rVert \left\lVert g'(t) \right\rVert = g'(t) \left\lVert \underline{\dot{r}}(g(t)) \right\rVert \qquad g'>0    
+    \end{gather*}
+    Ora si prosegue con i conti:
+    \begin{gather*}
+        \int_{\alpha}^{\beta} f(\underline{r}(u)) \left\lVert \underline{\dot{r}}(u) \right\rVert du = \\
+        \text{sostituzione: } u=g(t) \quad du = g'(t) dt\\
+        = \int_{\underset{\textcolor{yellow}{b}}{a}}^{\overset{\textcolor{yellow}{a}}{b}} f(\underline{r}(g(t))) \left\lVert \underline{\dot{r}}(g(t)) \right\rVert g'(t) dt = \int_{a}^{b} f(\underline{x}(t)) \left\lVert \underline{\dot{x}}(t) \right\rVert dt  
+    \end{gather*}
+\end{proof}
+
+
+\subsubsection{applicazioni degli int. di 1^a specie} 
+$\gamma$ sostegno di $\underline{x}(t):[a,b] \to \mathbb{R}^3$\\
+\bulletout \underbar{Massa di un filo con densità}:
+\begin{gather*}
+    \rho(x,y,z) \qquad M_{\gamma} = \int_{\gamma} \rho ds = \int_{a}^{b} \rho(x(t),y(t),z(t)) \left\lVert \underline{\dot{x}}(t)\right\rVert dt\\
+    \left( \rho(t) \qquad M_\gamma = \int_{a}^{b} \rho(t) \left\lVert \underline{\dot{x}}(t) \right\rVert dt  \right)  
+\end{gather*} 
+\bulletout \underbar{Centro di massa di un filo materiale}:
+\begin{gather*}
+    G \equiv (x_G,y_G,z_G)\\
+    x_G  = \frac{1}{m_\gamma} \int_{\gamma} \rho x ds = \frac{1}{m_\gamma} \int_{a}^{b} \rho(\underline{x}(t)) x(t) \left\lVert \underline{\dot{x}}(t) \right\rVert dt \\
+    y_G ,z_G
+\end{gather*}
+\begin{observation}
+    se $\varphi \equiv 1, M_\varphi = \mathcal{L}_\gamma$\\
+    Centro di massa $\equiv$ baricentro geometrico.
+\end{observation}
+
+
+
+\subsection{forme differenziali}
+sono un modo matematico per esprimere i campi vettoriali
+\begin{definition}[Campo vettoriale]
+    \underline{sia} $A \subseteq \mathbb{R}^3$ un campo vettoriale su $A$\\
+    è una funzione $F:A \to \mathbb{R}^3$\\
+    Se $\overset{\in A}{(x,y,z)} \overset{F}{\to} \underset{(F_1(x,y,z),F_2(x,y,z),F_3(x,y,z))}{F(x,y,z)} \in \mathbb{R}^3$\\
+    le componenti si possono scrivere anche con la forma con i versori: $F_1(x,y,z)\underline{i},F_2(x,y,z)\underline{j},F_3(x,y,z)\underline{k}$
+\end{definition}
+
+
+\begin{definition}[forma differenziale]
+    \underline{Sia} $V$ uno spazio vettoriale,\\
+    si considera l'insieme: $\text{applicazioni lineari} :V \to \mathbb{R}$, per definizione questo si indica il duale di $V$ come $V^*$\\
+    Consideriamo ora $L \in (\mathbb{R}^{3})^*$
+    \begin{gather*}
+        a_1=L(e_1)\\
+        a_2=L(e_2)\\
+        a_3=L(e_3)\\
+    \end{gather*}
+    Preso $v \in \mathbb{R}^3$ si ha che $L(v) = a_1v_1+a_2v_2+a_3v_3$\\
+    definisco una base di $(\mathbb{R}^3)^*$
+    \begin{gather*}
+        dx_1 : \mathbb{R}^3 \to \mathbb{R} \qquad (dx_1)(\overset{\in \mathbb{R}^3}{v}) = v_1\\
+        dx_2 : \mathbb{R}^3 \to \mathbb{R} \qquad (dx_2)(\overset{\in \mathbb{R}^3}{v}) = v_2\\
+        dx_3 : \mathbb{R}^3 \to \mathbb{R} \qquad (dx_3)(\overset{\in \mathbb{R}^3}{v}) = v_3
+    \end{gather*}
+    Così posso scrivere $L$ come:
+    \begin{gather*}
+        L = a_1 dx_1 + a_2 dx_2 + a_3 dx_3
+    \end{gather*}
+    Si ricorda a questo punto che $L(v)$può essere riscritto come:
+    \begin{gather*}
+        L(v) = a_1 dx_1(v) + a_2 dx_2(v) + a_3 dx_3(v) = (a_1 dx_1 + a_2 dx_2 + a_3 dx_3)(v)
+    \end{gather*}
+    \underline{Sia} $A \subseteq \mathbb{R}^3$, una forma differenziale $\omega$ su $A$, è un'applicazione che ad ogni elemento di $A$ associa un elemento di $(\mathbb{R}^3)^*$ 
+    \begin{gather*}
+        (x,y,z) \in A \longrightarrow L (x,y,z) \in (\mathbb{R}^3)^*
+    \end{gather*}
+    Gli elementi costanti dipendono però dall'elemento $(x,y,z)$ di partenza:
+    \begin{gather*}
+        L(x,y,z) = a_1(x,y,z) dx_1 + a_2(x,y,z) dx_2 + a_2(x,y,z) dx_3
+    \end{gather*}
+    A questa forma differenziale posso associare il campo vettoriale ($F$):
+    \begin{gather*}
+        F(x,y,z) = (a_1(x,y,z),a_2(x,y,z),a_3(x,y,z))
+    \end{gather*}
+\end{definition}
+
+
+\begin{proposition}
+    \underbar{se} $f:A \to \mathbb{R}$ è una funzione differenziabile \underbar{allora} chiamo differenziale di $f$: $df$\\
+    \begin{gather*}
+        df(x,y,z)  = \frac{\partial f}{\partial x}(x,y,z) dx_1 + \frac{\partial f}{\partial y}(x,y,z) dx_2 + \frac{\partial f}{\partial z}(x,y,z) dx_3
+    \end{gather*}
+    Questo puo essere visto come il gradiente della forma differenziale.
+\end{proposition}
+
+
+Ci si chiede ora quali forme differenziali siano esatte 
+\begin{definition}
+    \underline{Sia} $\omega:A \to (\mathbb{R}^3)^*$ una forma differenziale $\omega$ si dice \textbf{esatta} \underline{se}\\
+    $f:A \to \mathbb{R}$ differenziabile $t.c. \ \omega = df$\\
+    cioè (se $\omega= a_1(x,y,z)dx_1+a_2(x,y,z)dx_2+a_3(x,y,z)dx_3$) \underbar{se} $\exists f$ $t.c.$
+    \begin{gather*}
+        a_1=\frac{\partial f}{\partial x_1} \qquad a_2=\frac{\partial f}{\partial x_2} \qquad a_3=\frac{\partial f}{\partial x_3}
+    \end{gather*}
+    Tale $f$ si chiama \textbf{primitiva}
+\end{definition}
+
+\begin{observation}
+    \underbar{se} $f$ è primitiva di $\omega$ anche $f+c$ lo è
+\end{observation}
+
+\begin{definition}[Campo conservativo]
+    \underbar{Sia} $F:A \to \mathbb{R}^3$ un campo vettoriale $F=(F_1,F_2,F_3)$\\
+    $F$ si dice \textbf{conservativo} \underbar{se} $\exists f:A \to \mathbb{R}$ differenziabile $t.c.$ $F=\nabla f$\\
+    In più la funzione $f$ si chiama potenziale di $F$.
+\end{definition}
+
+
+\begin{proposition}
+    Lavoro di un campo vettoriale lungo una curva orientata (o integrale curvilineo di II specie)
+    \begin{gather*}
+        F:A \to \mathbb{R}^3\\
+        \gamma \text{ curva orientata } \subset A
+    \end{gather*}
+    \underbar{sia} $\gamma$ regolare a tratti, $F$(campo vettoriale) sia continua(il che vuol dire che entrambe le sue componenti sono continue)\\
+    $\varphi:[a,b] \to A$ una parametrizzazione regolare di $\gamma$ concorde con l'orientamento di $\gamma$\\
+    \begin{gather*}
+        \varphi(a) = P_0 , \varphi(b) = P_1, \tau(t) = \frac{\dot{\varphi(t)}}{\left\lVert \dot{\varphi(t)} \right\rVert }
+    \end{gather*}
+\end{proposition}
+
+
+\begin{definition}[Lavoro di un campo vettoriale lungo una curva orientata]
+    Si definisce lavoro di $F$ su $\gamma$ come:
+    \begin{gather*}
+        \int_{a}^{b} \left\langle F(\varphi(t));\dot{\varphi}(t) \right\rangle \left\lVert \dot{\varphi}(t) \right\rVert dt
+    \end{gather*}
+    Può essere scritto anche come:
+    \begin{gather*}
+        \int_{\gamma} \left\langle F;\tau \right\rangle ds 
+    \end{gather*}
+    Dove ogni punto di $\gamma \quad \tau$ è un versore tangente a $\gamma$ concorde con l'orientazione di $\gamma$ \\
+    Infatti:
+    \begin{gather*}
+        \int_{\gamma} \left\langle F ; \tau\right\rangle ds = \int_{a}^{b} \left\langle F(\varphi(t)); \tau(\varphi(t)) \right\rangle \left\lVert \dot{\varphi(t)} \right\rVert dt\\
+        \text{con } \tau(\varphi(t)) = \int_{a}^{b} \left\langle F(\varphi(t)); \frac{\dot{\varphi(t)}}{\cancel{\left\lVert \dot{\varphi(t)} \right\rVert}} \right\rangle \cancel{\left\lVert \dot{\varphi(t)} \right\rVert} dt
+    \end{gather*}
+    \textbf{Dipende dall'orientazione su $\gamma$}:
+    \begin{gather*}
+        \int_{\gamma^-} \left\langle F; \tau \right\rangle ds = \int_{\gamma^+} \left\langle F; \tau\right\rangle ds 
+    \end{gather*}
+\end{definition}
+
+
+\begin{proposition}
+    \underbar{sia} $\omega : A \to (\mathbb{R}^3)^* \quad A \subset \mathbb{R}^3$ una forma differenziale continua\\
+    \underbar{se} $\omega = a_1 dx_1 + a_2 dx_2 + a_3 dx_3$ con $dx$ funzioni $A \to \mathbb{R}$\\\\
+    \underbar{sia} $\gamma$ unca curva orientata con supporto $\subset A$ regolare a tratti e \underbar{sia} $\varphi(t):[a,b] \to A$ una sua parametrizzazione concorde cn l'orientazione di $\gamma$\\\\
+    c'è poi un punto x e il versore a quel punto.
+    Definisco:
+    \begin{gather*}
+        \int_{\gamma} \omega := \int_{\gamma} \omega(x) [\tau(x)] ds
+    \end{gather*}
+    ed è proprio l'applicazione lineare che va da $\mathbb{R}^3 \to \mathbb{R}$
+\end{proposition} con componente a $x$ applicata al variare dela tangente $\tau(x)$ alla curva $\gamma$ nel suo punto $x$.
+\begin{gather*}
+    = \int_{a}^{b} \underbrace{\omega(\varphi(t)) \left[ \frac{\dot{\varphi}(t) }{\left\lVert \dot{\varphi}(t)  \right\rVert }\right]}_{\frac{\omega(\varphi(t)) \dot{\varphi}(t)}{ \cancel{\left\lVert \dot{\varphi}(t) \right\rVert} }} \cancel{\left\lVert \dot{\varphi}(t) \right\rVert } \\
+    \int_{a}^{b} (a_1(\varphi(t)) dx_1 + a_2(\varphi(t)) dx_2 + a_3(\varphi(t)) dx_3)\left[ \dot{\varphi_1(t)} \right] dt\\
+    \boxed{\int_{a}^{b} a_1(\varphi(t)) \dot{\varphi_1(t)} + a_2(\varphi(t)) \dot{\varphi_2(t)} + a_3(\varphi(t)) \dot{\varphi_3(t)} dt}
+\end{gather*}
+Non dipende dalla parametrizzazione, ma dipende dal verso:
+\begin{gather*}
+    \int_{\gamma^+} \omega = -\int_{\gamma^-} \omega
+\end{gather*}
+
+
+\begin{theorem}[integrazione delle forme differneziali esatte]
+    \underbar{sia} $\omega$ una forma differenziale \textbf{esatta} e \textbf{continua} definita nell'aperto di $A$ di $\mathbb{R}^3$\\
+    \underbar{sia} $\gamma$ una curva \textbf{regolare} a tratti con sostegno contenuto in $A$ di estremi $P_0$ e $P_1$, orientata nel verso che va da $P_0$ a $P_1$\\
+    \underbar{sia} $f$ una primitiva di $\omega$\\
+    \underbar{Allora}:
+    \begin{gather*}
+        \int_{\gamma} \omega = f(P_1) - f(P_0) 
+    \end{gather*}
+\end{theorem}
+    \begin{proof}
+        In gradiente: $\omega$ è esatta e $f$ è una sua primitiva. Questo vuol dire che:
+        \begin{gather*}
+            a_1(x_1,x_2,x_3) = \frac{\partial f}{\partial x_1}(x_1,x_2,x_3)\\
+            a_2(x_1,x_2,x_3) = \frac{\partial f}{\partial x_2}(x_1,x_2,x_3)\\
+            a_3(x_1,x_2,x_3) = \frac{\partial f}{\partial x_3}(x_1,x_2,x_3)\\
+        \end{gather*}
+        \underbar{Sia $\varphi:[a,b] \to A$} una parametrizzazione di $\gamma$ concorde con l'orientazione, in particolare:
+        \begin{gather*}
+            \varphi(a) = P_0 \qquad \varphi(b) = P_1\\
+            \int_{\gamma} \omega = \int_{a}^{b} \underbrace{\left[ \frac{\partial f}{\partial x_1}\dot{\varphi_1}(t) + \frac{\partial f}{\partial x_2}\dot{\varphi_2}(t) + \frac{\partial f}{\partial x_3}\dot{\varphi_3}(t)\right]}_{\frac{d}{dt} f(\varphi(t))}  \ dt\\
+            \int_{a}^{b} \frac{d}{dt} f(\varphi(t)) \ dt \underset{th.f.c.i.}{=} f(\varphi(t)) |_a^b = f(\varphi(b)) - f(\varphi(a)) = f(P_1) - f(P_2)
+        \end{gather*}
+    Da questo risultato si capisce anche perchè il lavoro di questo campo lungo una curva è uguale al potenziale calcolato nel punto finale meno il potenziale calcolato nel punto iniziale.
+    \end{proof}
+
+
+\begin{theorem}[caratterizzazione delle forme esatte]
+    \underbar{sia} $A \subset \mathbb{R}^3$ un \textbf{aperto connesso}, $\omega$ una forma differenziale continua definita su $A$ e $\gamma,\gamma_1,\gamma_2$ curve regolari a tratti con con sostegno contenuto in $A$. le tre proprietà seguenti sono equivalenti:
+    \begin{enumerate}
+        \item $\omega$ è esatta
+        \item per ogni curva chiusa $\gamma$ contenuta in $A$ risulta $\int_{\gamma} \omega = 0$
+        \item Se $\gamma_1$ e $\gamma_2$ hanno gli stessi estremi e lo stesso verso di percorrenza si ha $\int_{\gamma_1} \omega = \int_{\gamma_2} \omega$
+    \end{enumerate} 
+\end{theorem}
+\begin{proof}
+    \bulletout $1 \rightarrow 2$\\
+    \begin{center}
+        \begin{tikzpicture}
+            \draw(0,0) circle (1);
+            \filldraw[fill=black](1,0) circle(2pt) node[right]{$P_0 = P_1$};
+            \node at(0,1)[above]{$\gamma$};
+        \end{tikzpicture}
+    \end{center}
+    dal teorema precedente
+    \begin{gather*}
+        \int_{\gamma} \omega = f(P_1) - f(P_0) = 0
+    \end{gather*}
+    \bulletout $2 \rightarrow 3$\\
+    \begin{center}
+        
+    \end{center}
+    \begin{gather*}
+        \gamma_1 \cup \gamma_2^- 
+    \end{gather*}
+    \begin{center}
+        
+    \end{center}
+    \begin{gather*}
+        0 = \int_{\gamma_1 \cup \gamma_2} \omega = \int_{\gamma_1} \omega + \int_{\gamma_2^-} \omega = \int_{\gamma_1} \omega -\int_{\gamma_2} \omega\\
+        \Rightarrow \int_{\gamma_1} \omega = \int_{\gamma_2} \omega 
+    \end{gather*}
+    \bulletout $3 \rightarrow 1$\\
+    %\begin{figure}[tbh]
+    %\centering
+    %\includesvg[width = 150 pt]{anal2}
+    %\caption{Grafico di $f$ generica in due variabili}\label{fig:testsvg}
+    %\end{figure}
+    \begin{gather*}
+        f(x_1,x_2,x_3) = \int_{\gamma} \omega \\
+        f(x_1+h,x_2,x_3) = \int_{\gamma \cup \varphi} \omega
+    \end{gather*}
+    \begin{gather*}
+        \frac{f(x_1+h,x_2,x_3)}{h} = \int_{\gamma \cup \varphi} \omega - \int_{\gamma} \omega\\
+        = \int_{\gamma} \omega + \int_{\varphi} - \int_{\gamma} \omega = \frac{1}{h} \int_{0}^{h} \left( a_1(x_1+t,x_2,x_3) 1 + a_2(") 0 + a_3(") 0 \right)dt
+        = \frac{1}{h} \int_{0}^{h} a_1(x_1+t,x_2,x_3) dt \quad \text{se chiamato } P(h) = \int_{0}^{h} a_1(x_1+t,x_2,x_3) \quad P(0) = 0\\
+        \lim_{h \to 0} \frac{f(x_1+h,x_2,x_1) - f(x_1,x_2,x_3)'}{h} = \lim_{h \to 0} \frac{P(h) - P(0)}{h} = P'(0) =
+    \end{gather*}
+    Il t.f.c.i. garantisce che $P'(0) \exists$ e che coincide con l'integranda calcolata per $t=0$. cioè con $a_1(x_1,x_2,x_3)$\\\\
+    Ho quindi dimostrato che:
+    \begin{gather*}
+        \frac{\partial f}{\partial x_1} (x_1,x_2,x_3) = a_1(x_1,x_2,x_3)
+    \end{gather*}
+\end{proof}
+
+
+\end{document}

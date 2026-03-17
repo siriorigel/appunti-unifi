@@ -1,0 +1,564 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin=0pt]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz-3dplot}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{arydshln}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{cancel}
+\usepackage[d]{esvect}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfplots}
+\usepackage{pifont}
+
+
+
+%\usepackage{animate}
+%\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{tikzmark}
+\newcommand{\TikzNCbar}[4][10pt]{
+\tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+\newcommand\de{\partial}
+
+\graphicspath{ {images/} }
+
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\setlength\arrayrulewidth{0.3pt}
+\setlength{\multicolsep}{0pt}
+
+\newcommand\eqq{\stackrel{\mathclap{\normalfont\mbox{?}}}{=}}
+\newcommand\bulletout  {\labelitemfont \textbullet}
+\newcommand\dvg{\operatorname{div}}
+\newcommand\rot{\operatorname{rot}}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\xmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\cmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
+ \newcommand{\hookbox}[1]{
+\begin{center}
+\hfill\break
+\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt,anchor=base] (A) {
+\begin{minipage}{\dimexpr\linewidth-5em}
+\centering
+#1
+\end{minipage}
+};
+% Draw the left bracket
+\draw ([xshift=0pt]A.north west) -- ++(0, 0.5) -- ++(0.4, 0);
+% Draw the right bracket
+\draw ([xshift=0pt]A.south east) -- ++(0, -0.5) -- ++(-0.4, 0);
+\end{tikzpicture}
+\end{center}}
+
+\pagestyle{empty}
+\begin{document}
+\tiny
+\begin{center}
+    Peak Cheatsheet analisi II \tab Gariboldi-Delton
+\end{center}
+\noindent
+\textbf{EDO var. sep.} $ \quad y' = a(x) b(y) \Rightarrow \int \frac{dy}{b(y)} = \int a(x) dx$ \tab \tab \textbf{EDO immediate} $y' = f(x) \Rightarrow y = \int f(x) dx$\\
+\textbf{EDO lineari} Per EDO del tipo: $y' + a(x)y=f(x)$ $\Rightarrow$ Prendo $A(x)=\int a(x) dx$ $\Rightarrow$ Moltiplico l'eq. per $e^{A(x)}$ $\Rightarrow$ Ho $e^{A(x)}y' + a(x)e^{A(x)}y=e^{A(x)}f(x)$ $\Rightarrow$ \\Dalla der. del prodotto ottengo: $\left(ye^{A(x)}\right)'=e^{A(x)}f(x)$ $\Rightarrow$ Procedo a integrare: $y(x)e^{A(x)}=\int e^{A(x)}f(x) dx$\\
+\textbf{Soluz. generale EDO II ord.} Da un'eq. del tipo: $a y''(x) + b y'(x) + c y(x) = 0 \qquad \text{con a,b e c numeri reali}$ si risolve con il pol. caratt. $a\lambda^2+ b\lambda + c$\\
+Avrò tre casi distinti:
+$\begin{bmatrix}
+             \text{2 soluzioni reali distinte:} \lambda_1 \neq \lambda_2 \ \ \ \ \Rightarrow \ \ \ \ \ \ \ \ \ \overset{\text{BASE}}{e^{\lambda_1 x}, e^{\lambda_2 x}} \ \ \ \ \ \ \ \ \ \ \Rightarrow \ \ \ \ \overset{\text{SOLUZIONE GENERALE}}{y(x) = c_1 e^{\lambda_1 x} + c_2 e^{\lambda_2 x}}\\
+             \text{2 soluzioni reali coincidenti:} \lambda_1 = \lambda_2 \Rightarrow \ \ \ \ \ \ \ \ \ e^{\lambda_1 x}, xe^{\lambda_2 x} \ \ \ \ \ \ \ \ \Rightarrow \ \ \ \ \ y(x) = c_1 e^{\lambda_1 x} + c_2 xe^{\lambda_2 x}\\
+             \text{2 soluzioni complesse:} \lambda_{1,2} = \alpha \pm i \beta \ \Rightarrow e^{\alpha x} \cos(\beta x) , e^{\alpha x} \sin(\beta x) \Rightarrow y(x) = c_1e^{\alpha x} \cos(\beta x) + c_2 e^{\alpha x} \sin(\beta x)\\
+\end{bmatrix}$ es $\times$ var. cost.: $\quad \begin{matrix}
+    \text{Prendiamo l'eq.}: y'' -2y + y = \frac{e^x}{x^4}\\
+    \text{omogenea ass.}: y_0(x) = c_1 \text{\textcolor{blue}{$e^x$}} + c_2 \text{\textcolor{red}{$xe^x$}}\\
+    \begin{cases}
+                c_1' (x) \text{\textcolor{blue}{$e^x$}} + c_2'(x) \text{\textcolor{red}{$xe^x$}} = 0\\
+                c_1' (x) \underset{[e^x]'}{\text{\textcolor{blue}{$e^x$}}} + c_2'(x) \underset{[xe^x]'}{\text{[\textcolor{red}{$e^x+ xe^x$}]}} = \text{\textcolor{orange}{$\frac{e^x}{x^4}$}}\\
+            \end{cases}\\
+\end{matrix}$\\
+\textbf{EDO II° ord. var. costanti} Da un'eq. del tipo: $a y''(x) + b y'(x) + c y(x) = f(x) \qquad \text{con a,b e c numeri reali}$ si cerca la sol. omogenea $y_0(x)$ (col metodo prec.) e una sol. particolare $y_p(x)$ della forma $c_1(x) \textcolor{blue}{y_1(x)} + c_2 \textcolor{red}{y_2(x)}$\\
+Si deve cercare $c_1(x)$ e $c_2(x)$ per farlo si risolve il sistema: $        \begin{cases*}
+            c_1'(x) \text{\textcolor{blue}{$y_1(x)$}} + c_2'(x) \text{\textcolor{red}{$y_2(x)$}} = 0\\
+            c_1'(x) \text{\textcolor{blue}{$\underline{y_1'(x)}$}} + c_2'(x) \text{\textcolor{red}{$\underline{y_2'(x)}$}} = \textcolor{orange}{f(x)}\\
+        \end{cases*}$ per $c_1'(x)$ e $c_2'(x)$ e si integrano per trovare $c_1(x)$ e $c_2(x)$ \tab infine si calcola al soluz. $y(x) = y_o(x) + y_p(x)$\\
+\textbf{EDO II° ord. somiglianza} 
+    \begin{multicols}{2}
+        \noindent
+        Si usa per eq. del tipo $a y''(x) + b y'(x) + cy(x) = P(x) e^{\Lambda x} \left[\sin(\mathcal{B} x) \text{ / }  \cos(\mathcal{B} x)\right]$ \\ Partendo dall'omogenea associata $y_0$ con il metodo generale si guardano i casi in base alla corrispondenza tra i fattori che escono da questa soluzione e quelli presente nella forma nota generale (a dx dell'uguale dell'eq.) le casistiche sono eguagliate quì a dx.\\    Dove $\overline{P_1}(x)$ e $\overline{P_2}(x)$ sono dei polinomi generici dello stesso grado di $P(x)$ (che è il polinomio noto a destra dell'uguale dell'equazione) con coefficienti da determinare.\\
+        Per determinarli si calcolano $y_p'(x)$ e $y_p''(x)$ e si sostituiscono nell'equazione differenziale di partenza.\\
+        Dopodichè si raccoglie a secondo i termini in $\cos(\mathcal{B} x)$ e $\sin(\mathcal{B} x)$ (se presenti) e si uguaglia i coefficienti a quelli di $f(x) e^{\Lambda x} P(x)$ per trovare i coefficienti dei polinomi.\\
+        \columnbreak\\
+        \hfil\\
+        $f(x) e^{\Lambda x} P(x) \rightarrow
+            \begin{cases}
+                \lambda_{1,2} \neq \Lambda \land \beta = 0 \to y_p(x) = \overline{P}(x) \ e^{\Lambda x} \\
+                \text{(soluz. distinte) }\lambda_1 = \Lambda \lor \lambda_2 = \Lambda \land \beta = 0 \to y_p(x) = x \ \overline{P}(x) \ e^{\Lambda x} \\
+                \text{(soluz. coincidenti) }\lambda_1 = \lambda_2 = \Lambda \land \beta = 0 \to y_p(x) = x^2 \ \overline{P}(x) \ e^{\Lambda x} \\
+                \alpha \neq \Lambda \lor \beta \neq \mathcal{B} \to y_p(x) = e^{\Lambda x} \ \left[ \ \overline{P_1}(x) \cos(\mathcal{B} x) + \overline{P_2}(x) \sin(\mathcal{B} x) \ \right]\\
+                \alpha = \Lambda \land \beta = \mathcal{B} \to y_p(x) = x \ e^{\Lambda x} \ \left[ \ \overline{P_1}(x) \cos(\mathcal{B} x) + \overline{P_2}(x) \sin(\mathcal{B} x) \ \right]\\
+            \end{cases}$
+    \end{multicols}
+    \noindent
+\textbf{Equazioni di Eulero: } $a_nx^ny^{(n)}+ \dots +a_2x^2y''+a_1xy'+a_0y=0$ $\Rightarrow$ $u(t)=y\left(e^t\right)$ $\Rightarrow$ Ottengo $-\frac{1}{x^2}u\left(\ln{x}\right)+\frac{1}{x^2}u\left(\ln{x}\right)$ $\Rightarrow$ Si ottiene $a_2x^2\left(-\frac{1}{x^2}u'-\frac{1}{x^2}u''\right)+a_1x\left(\frac{1}{x}u'\right)+a_0u=0$ \\(che è EDO di ordine 2)\\
+\textbf{Spazi metrici} $(x,d)$ è spazio metrico $\Leftrightarrow$ $d $ è metrica \tab $d$ è metrica $\Leftrightarrow$ $\begin{bmatrix} d(x,y) \geq 0 (=0 \leftrightarrow x = y) \\ d(x,y) = d(y,x) \\ d(x,z) \leq d(x,y) + d(y,z) \end{bmatrix}$ \ \textbf{Spazi normati} $(V, \left\lVert \cdot \right\rVert)$ è sp. normato $\Leftrightarrow$ $\left\lVert \cdot \right\rVert$ è norma  \tab $\left\lVert \cdot \right\rVert$ è norma $\Leftrightarrow$ $\begin{bmatrix} \left\lVert v \right\rVert \geq 0 (= 0  \leftrightarrow v = 0) \\ \left\lVert \lambda \cdot v \right\rVert = \left\lvert \lambda \right\rvert \left\lVert v \right\rVert \\ \left\lVert v + u \right\rVert \leq \left\lVert u \right\rVert + \left\lVert v \right\rVert \end{bmatrix}$\\
+\textbf{Limiti in due var.} \underbar{Se} si trovano due parametrizz. (es $y=0$ o $x=y$) che dano risultati diversi $\Rightarrow$ il limite $\nexists$ \tab \\ 
+Per risolverlo si cerca prima una parametrizzazione per cercare un candidato limite $\ell$, di solito $y=mx$ (può anche bastare $x=0$ o $y=0$) \tab Si usa poi il teorema del confronto $0 \leq | f(x,y) - \ell| \leq 0$\\
+Si parametrizza con $\begin{cases} x = \rho \cos(\theta)\\ y = \rho \sin(\theta) \end{cases}$ a questo punto si puo procedere con varie tecniche: $\begin{bmatrix}
+    \text{-maggiorare funzioni}\\
+    \text{-limiti notevoli}\\
+    \text{-taylor}\\
+    \text{-disug. triangolare} |\alpha+\beta| < |\alpha| + |\beta|
+\end{bmatrix}$\\
+\textbf{Derivate direz.} Si definisce der. direz. nella direzione $\underline{v}=(v_1,v_2)$ nel punto $P_0$: $\displaystyle \lim{h\to 0}\frac{f(\underline{v}h-P_0)-f(P_0)}{h}$\\
+\textbf{Differenziabilità} Una funzione è differenziabile nel punto $(x_0,y_0)$ se $\displaystyle \lim_{(h,k)\to (0,0)}\frac{f(x_0+h,y_o+k)-f(x_0,y_0)-<\nabla f(x_0,y_0);(h,k)>}{\sqrt{h^2+k^2}}=0$\\
+\textbf{Formula di Taylor} $f(x,y)=f(x_0,y_0)+<\nabla f(x_0,y_0);\begin{pmatrix}x-x_0\\y-y_0\end{pmatrix}>+\frac{1}{2}<\nabla ^2 f(x_0,y_0) \cdot \begin{pmatrix}x-x_0\\y-y_0\end{pmatrix};\begin{pmatrix}x-x_0\\y-y_0\end{pmatrix}>+o\left(\begin{pmatrix}x-x_0\\y-y_0\end{pmatrix}^2\right)$\\
+\textbf{Massimi e minimi} Data $f(x,y)$ Cercare i punti critici ponendo: $\begin{cases}
+    \frac{\partial f}{\partial x}=0\\
+    \frac{\partial f}{\partial y}=0
+\end{cases}$ Ricordarsi delle simmetrie: $\begin{bmatrix}
+    f(x,y) = f(y,x) \quad f(x,y) = f(x,-y)\\
+    f(x,y) = f(-x,y) \quad f(x,y) = f(-x,-y)\\
+    
+\end{bmatrix}\quad$ Dopodichè calcolarsi le derivate II per scrivere l'hessiana: $\begin{pmatrix}
+    f_{xx} & f_{xy}\\
+    f_{yx} & f_{yy}
+\end{pmatrix} \qquad$
+Guardare il determinante dell'hessiana calcolando le derivate nei punti critici per classificarli: $\begin{cases}
+    D>0 \land tr>0 \to \text{minimo locale}\\
+    D>0 \land tr<0 \to \text{massimo locale}\\
+    D<0 \to \text{punto di sella}\\
+\end{cases}$ \tab dove $tr = f_{xx} + f_{yy}$ \tab se $det=0$ si deve provare con delle restrizioni a studiare la funzione localmente\\
+\textbf{Lagrangiana per 1 vincolo} Data $f(x,y)$ funzione e $g(x,y)$ vincolo \tab $\mathcal{L}(x,y,\lambda)=f(x,y)+\lambda g(x,y)$ $\Rightarrow$ Cerco $\begin{cases}
+    \frac{\partial \mathcal{L}}{\partial x}=0\\
+    \frac{\partial \mathcal{L}}{\partial y}=0\\
+    \frac{\partial \mathcal{L}}{\partial \lambda}=0
+\end{cases}$ e trovo i punti critici (solo) sul vincolo (bordo), per classificarli basta calcolarli i più grandi saranno massimi i più piccoli saranno minimi e quelli nel mezzo saranno di sella. Per più vincoli si aggiunge un parametro che moltiplica ogni vincolo alla funzione $\mathcal{L}(x,y,z,\lambda, \dots)$\\
+\textbf{Dini caso 2 variabili}\\
+    Sia $P(x_0,y_0)$ un punto t.c. $F(x_0,y_0)=0$. Se $\displaystyle \frac{\partial F}{\partial y} \ne 0$, $\exists$ un intorno in cui posso esprimere un'unica $y=f(x)$, e vale: $f'(x_0)=-\frac{F_x(x_0,y_0)}{F_y(x_0,y_0)}$\\
+    Stesso ragionamento speculare vale per $x$. \tab
+    Vale inoltre: (sottintesi gli argomenti, che sono tutti $(x_0,y_0)$) \tab
+    $f''(x_0)=-\frac{(F_{xx}+F_{xy}f')F_y-F_x(F_{xy}+F_{yy}f')}{F_y^2}$\\
+\textbf{Dini caso 3 variabili}\\
+    Sia $P_0(x_0,y_0,z_0)$ un punto t.c. $F(x_0,y_0,z_0)=0$. Se $\displaystyle \frac{\partial F}{\partial z} \ne 0$, $\exists$ un intorno in cui posso esprimere un'unica $z=f(x,y)$, e vale: $\begin{cases}
+        \frac{\partial f}{\partial x}=-\frac{F_x(x_0,y_0,z_0)}{F_z(x_0,y_0,z_0)}\\
+        \frac{\partial f}{\partial y}=-\frac{F_y(x_0,y_0,z_0)}{F_z(x_0,y_0,z_0)}
+    \end{cases}$\\
+    Stesso ragionamento speculare vale per $x$ e $y$.\\
+\textbf{Curve}Una curva è regolare se è semplice (è implicita), e il vettore velocità(derivato) non si annulla mai. Una curva può anche essere regolare a tratti. Vale lo stesso per le superfici parametriche.\\
+\textbf{Lungheza}Sia $\vec{\gamma}$ una curva regolare a tratti. La sua lunghezza $\displaystyle \mathcal{L}$ è: $\displaystyle \mathcal{L}(\vec{\gamma})=\int_a^b||\dot{\vec{\gamma (t)}}||dt = \int_{a}^{b} \sqrt{\dot{x}^2(t) +\dot{y}^2(t) + \dot{z}^2(t)} dt$\\
+\textbf{Integrali 1a specie} Data $f(x,y)$ funzione e $\vec{\gamma (t)}$ curva parametrica, l'area sottesa dal sottografico è: $\displaystyle _{\gamma}\int fds=\int_a^bf\left(x(t),y(t)\right)\sqrt{\dot{x}^2(t)+\dot{y}^2(t)}dt$
+    \\
+    \textbf{Massa di in filo con densità $\rho (x,y,z)$: } $ M_{\gamma} = \int_{\gamma} \rho ds = \int_{a}^{b} \rho(x(t),y(t),z(t)) \left\lVert \underline{\dot{x}}(t)\right\rVert dt$
+    \textbf{Centro di massa su un filo materiale: } $\displaystyle \begin{matrix}
+    x_G  = \frac{1}{m_\gamma} \int_{\gamma} \rho x ds = \frac{1}{m_\gamma} \int_{a}^{b} \rho(\underline{\varphi}(t)) x(t) \left\lVert \underline{\dot{\varphi}}(t) \right\rVert dt \\
+    y_G  = \frac{1}{m_\gamma} \int_{\gamma} \rho y ds = \frac{1}{m_\gamma} \int_{a}^{b} \rho(\underline{\varphi}(t)) y(t) \left\lVert \underline{\dot{\varphi}}(t) \right\rVert dt \\
+    z_G  = \frac{1}{m_\gamma} \int_{\gamma} \rho z ds = \frac{1}{m_\gamma} \int_{a}^{b} \rho(\underline{\varphi}(t)) z(t) \left\lVert \underline{\dot{\varphi}}(t) \right\rVert dt \\
+    \end{matrix}$ $\begin{matrix}\text{con centro} \\ \text{di massa:} \\ G=(x_G,y_G,z_G)\end{matrix}$\\
+%\textbf{Integrali 2a specie} Sia $F(x,y)$ un campo vettoriale e $\varphi (t)$ una curva regolare a tratti. Definisco il lavoro del campo vett. $F$ su $\varphi (t)$: $\displaystyle \int_{\gamma} F=\int_a^b<F(\vec{\varphi}(t);\dot{\vec{\varphi}}(t))>dt$\\
+%Si ha anche il caso delle forme differenziali con una forma diff. $\omega$: $    \int_{\gamma} \omega = \int_{a}^{b} \omega(\varphi(t),)$\\
+\textbf{Forme differenziali}\tab
+Sono oggetti del tipo $\omega(x,y) = A(x,y) \ dx + B(x,y) \ dy$ $\Rightarrow$ Se parametrizzo una curva $\gamma (t)=\begin{pmatrix}
+    \varphi_1 (t) \\
+    \varphi_2 (t)
+\end{pmatrix}_{t\in[a,b]}$ posso calcolare $\int_{\gamma} \omega = \int_{a}^{b} A(\varphi_1,\varphi_2) \ \dot{\varphi}_1 + B(\varphi_1,\varphi_2) \ \dot{\varphi_2} \ dt$ \\
+Se esiste una funzione $f$ differenziabile t.c. $\omega = \nabla f$, allora la forma si dice "esatta" (e $f$ si dice primitiva) $\rightarrow$ In questo caso $\oint_{\gamma} \omega=0$ per qualunque curva chiusa. \\
+Se si ha che $\frac{\de A}{\de y} = \frac{\de B}{\de x}$, allora la forma si dice "chiusa" $\Rightarrow$ Se $\omega$ è $C^1$ ed è chiusa su un dominio sempl. connesso, allora è esatta. Inoltre se $\omega$ è $C^1$ e esatta allora è chiusa.\\
+\textbf{Campi vettoriali}
+Sono oggetti del tipo $\vec{F}(x,y,z) = \begin{pmatrix}
+    F_1(x,y,z) \\
+    F_2(x,y,z) \\
+    F_3(x,y,z)
+\end{pmatrix}$ \\
+\bulletout Se $\exists f\in C^1$ funzione t.c. $\vec{F} = \nabla f$ il campo si dice "conservativo", e il suo lavoro dal punto $B$ al punto $A$ è esprimibile come: $L = f(B) - f(A)$ \\
+dato un campo vett. $F = \begin{pmatrix}
+    F_1\\
+    F_2\\
+    F_3
+\end{pmatrix}$ il suo rotore è $rot F = \nabla \times F =
+\det\begin{pmatrix}
+    i & j & k\\
+    \frac{\partial}{\partial x_1} & \frac{\partial}{\partial x_2} & \frac{\partial}{\partial x_3}\\
+    F_1 & F_2 & F_3
+\end{pmatrix}$ (se $F=\begin{pmatrix}
+    F_1\\
+        F_2
+    \end{pmatrix}$ allora $F_3 =0$) e \underbar{se} $F$ è $C^1$ e conservativo $\overset{\text{allora}}{\Rightarrow} \ \underset{\text{($F$ è irrotazionale) }}{rot (\vec{F}) = 0}$ \\
+    \bulletout Se $\vec{F}$ è $C^1$ ed è irrotazionale su un dominio semplicemente connesso, allora è conservativo. Inoltre se $F$ è $C^1$ ed è conservativo allora è irrotazionale.\\
+    Data una curva $\gamma$ con param. $\varphi(t)=\begin{pmatrix}
+        \varphi_1 (t) \\
+        \varphi_2 (t) \\
+        \varphi_3 (t)
+    \end{pmatrix}_{t\in [a,b]}$ ed un campo $F=\begin{pmatrix}
+        F_1 \\
+        F_2 \\
+        F_3
+    \end{pmatrix}$
+    Il lavoro di $F$ su $\gamma$ è $    \int_{a}^{b} \left\langle F,\tau \right\rangle ds = \quad     \int_{a}^{b} F_1(\varphi_1, \varphi_2, \varphi_3) \cdot \dot{\varphi_1} + F_2(\varphi_1, \varphi_2, \varphi_3) \cdot \dot{\varphi_2} + F_3(\varphi_1, \varphi_2, \varphi_3) \cdot \dot{\varphi_3} \ dt $
+\begin{multicols}{4}
+    \noindent
+    \textbf{Angoli e valori}\\
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{°} & \textbf{rad} & \textbf{$\sin$} & \textbf{$\cos$} & \textbf{$\tan$} \\
+        \hline
+        0/360 & 0/$2\pi$ & 0 & 1 & 0\\
+        \hline
+        30 & $\frac{\pi}{6}$ & $\frac{1}{2}$ & $\frac{\sqrt{3}}{2}$ & $\frac{\sqrt{3}}{3}$ \\
+        \hline
+        45 & $\frac{\pi}{4}$ & $\frac{\sqrt{2}}{2}$ & $\frac{\sqrt{2}}{2}$ & 1 \\
+        \hline
+        60 & $\frac{\pi}{3}$ & $\frac{\sqrt{3}}{2}$ & $\frac{1}{2}$ & $\sqrt{3}$ \\
+        \hline
+        90 & $\frac{\pi}{2}$ & 1 & 0 & - \\
+        \hline
+        120 & $\frac{2\pi}{3}$ & $\frac{\sqrt{3}}{2}$ & $-\frac{1}{2}$ & $-\sqrt{3}$ \\
+        \hline
+        135 & $\frac{3\pi}{4}$ & $\frac{\sqrt{2}}{2}$ & $-\frac{\sqrt{2}}{2}$ & -1 \\
+        \hline
+        150 & $\frac{5\pi}{6}$ & $\frac{1}{2}$ & $-\frac{\sqrt{3}}{2}$ & $-\frac{\sqrt{3}}{3}$ \\
+        \hline
+        180 & $\pi$ & 0 & -1 & 0 \\
+        \hline
+        210 & $\frac{7\pi}{6}$ & $-\frac{1}{2}$ & $-\frac{\sqrt{3}}{2}$ & $\frac{\sqrt{3}}{3}$ \\
+        \hline
+        225 & $\frac{5\pi}{4}$ & $-\frac{\sqrt{2}}{2}$ & $-\frac{\sqrt{2}}{2}$ & 1 \\
+        \hline
+        240 & $\frac{4\pi}{3}$ & $-\frac{\sqrt{3}}{2}$ & $-\frac{1}{2}$ & $\sqrt{3}$ \\
+        \hline
+        270 & $\frac{3\pi}{2}$ & -1 & 0 & - \\
+        \hline
+        300 & $\frac{5\pi}{3}$ & $-\frac{\sqrt{3}}{2}$ & $\frac{1}{2}$ & $-\sqrt{3}$ \\
+        \hline
+        315 & $\frac{7\pi}{4}$ & $-\frac{\sqrt{2}}{2}$ & $\frac{\sqrt{2}}{2}$ & -1 \\
+        \hline
+        330 & $\frac{11\pi}{6}$ & $-\frac{1}{2}$ & $\frac{\sqrt{3}}{2}$ & $-\frac{\sqrt{3}}{3}$ \\
+        \hline
+    \end{tabular}
+    \textbf{Identità fondamentali}\\
+        $\sin(-x) = -\sin(x)$ \\
+        $\cos(-x) = \cos(x)$ \\
+        $\tan(-x) = -\tan(x)$ \\
+        $\tan\left(\frac{\pi}{2} - x\right) = \cot(x)$ \\
+        $\sin\left(\frac{\pi}{2} - x\right) = \cos(x)$ \\
+        $\cos\left(\frac{\pi}{2} - x\right) = \sin(x)$\\
+        $\sin^2(x) + \cos^2(x) = 1$ \\
+        $\tan^2(x) + 1 = \frac{1}{\cos^2(x)}$ \\
+        $\tan(x) = \frac{\sin(x)}{\cos(x)}$ \\
+        $\cot(x) = \frac{\cos(x)}{\sin(x)}$ \\
+        $\csc(x) = \frac{1}{\sin(x)}$ \\
+        $\sec(x) = \frac{1}{\cos(x)}$ \\
+        Posto $\ \tan\left(\frac{x}{2}\right) = t \quad dx = \frac{2}{1+t^2} dt$ \\
+        $\cos(x) = \frac{1 - t^{2}}{1 + t^{2}}$ \\
+        $\sin(x) = \frac{2t}{1 + t^{2} }$\\
+    \textbf{Somma e differenza}\\
+        $\cos(\alpha \pm \beta) = \cos(\alpha)\cos(\beta) \mp \sin(\alpha)\sin(\beta)$ \\
+        $\sin(\alpha \pm \beta) = \sin(\alpha)\cos(\beta) \pm \sin(\beta)\cos(\alpha)$ \\
+        $\tan(\alpha \pm \beta) = \frac{\tan(\alpha) \pm \tan(\beta)}{1 \mp \tan(\alpha)\tan(\beta)}$ \\
+    \textbf{Prostaferesi}\\
+        $\sin(\alpha) + \sin(\beta) = 2\sin\left(\frac{\alpha + \beta}{2}\right)\cos\left(\frac{\alpha -\beta}{2}\right)$ \\
+        $\sin(\alpha) - \sin(\beta) = 2\cos\left(\frac{\alpha + \beta}{2}\right)\sin\left(\frac{\alpha -\beta}{2}\right)$ \\
+        $\cos(\alpha) + \cos(\beta) = 2\cos\left(\frac{\alpha + \beta}{2}\right)\cos\left(\frac{\alpha -\beta}{2}\right)$\\
+        $\cos(\alpha) - \cos(\beta) = -2\cos\left(\frac{\alpha + \beta}{2}\right)\sin\left(\frac{\alpha - \beta}{2}\right)$ \\
+    \textbf{Wener}\\
+        $\sin(\alpha) \sin(\beta) = \frac{1}{2}[\cos(\alpha-\beta) - \cos(\alpha+\beta)]$\\
+        $\cos(\alpha) \cos(\beta) = \frac{1}{2}[\cos(\alpha-\beta) + \cos(\alpha+\beta)]$\\
+        $\sin(\alpha) \cos(\beta) = \frac{1}{2}[\sin(\alpha-\beta) + \sin(\alpha+\beta)]$\\
+    $\qquad\qquad\qquad\qquad$\textbf{sinh e cosh}\\
+            $\qquad\qquad\sinh = \frac{e^{x} -e^{-x} }{2}$ \\
+            $\qquad\qquad\cosh = \frac{e^{x} +e^{-x} }{2}$ \\
+            $\cosh^2(x)-\sinh^2(x) = 1$\\
+    \textbf{Duplicazione, bisezione}
+    \begin{align*}
+        \cos(\arcsin(x)) &= \sqrt{1 - x^2} = \sin(\arccos(x)) \\
+        \tan(2x) &= \frac{2\tan(x)}{1-\tan(x)} \\
+        \sin(2x) &= 2\sin(x)\cos(x) \\
+        \cos(2x) &= \cos^2(x) - \sin^2(x) \\
+        \tan\left(\frac{x}{2}\right) &= \pm \sqrt{\frac{1-\cos(x)}{1+\cos(x)}} \\
+        \sin\left(\frac{x}{2}\right) &= \pm \sqrt{\frac{1-\cos(x)}{2}} \\
+        \cos\left(\frac{x}{2}\right) &= \pm \sqrt{\frac{1+\cos(x)}{2}} \\
+        \sin(x)^{2} &= \frac{1 - \cos(2x)}{2} \\
+        \cos(x)^{2} &= \frac{1 + \cos(2x)}{2}
+    \end{align*}
+\end{multicols}
+\noindent\\
+\textbf{prop. potenze}$a^\alpha \ a^\beta = a^{\alpha + \beta} \qquad a^\alpha \ b^\alpha = (ab)^\alpha$\tab\textbf{prop. log} $\ln(a)+\ln(b) = \ln(ab)$\tab \textbf{r. pass. per 2 punti}: $y - y_0 = \frac{f(x) - f(x_0)}{x - x_0} (x - x_0)$\\
+\textbf{Eq. cerchio/ellisse} $\frac{(x-x_0)^2}{a^2}+\frac{(y-y_0)^2}{b^2} = 1\qquad$ $x_0$ e $y_0$ spostano a destra o su(se positivi), o a sinistra o giù(se negativi)$\qquad$ $a$ e $b$ sono i semiassi dell'ellise ripettivamente lungo l'asse $x$ e $y$\\
+se $a>b$ l'ellisse è "allungata" lungo l'asse $x$, altrimenti lungo l'asse $y$ $\qquad$se $a=b$ si ha l'eq. di un cerchio.\\
+\begin{multicols}{4}
+    \noindent
+    \textbf{Taylor}
+    \noindent
+        $e^{x} = 1 + x + \frac{x^{2}}{2} + \frac{x^{3}}{3!}+\dots + o(x^n)$\\
+        $\log(1 + x) = x - \frac{x^{2}}{2} + \frac{x^{3}}{3} - \dots + o(x^n)$\\
+        $\sin(x) = x - \frac{x^{3}}{3!} + \frac{x^{5}}{5!} - \dots + o(x^{2n+2})$\\
+        $\cos(x) = 1 - \frac{x^{2}}{2} + \frac{x^{4} }{4!} - \dots + o(x^{2n+1})$\\
+        \columnbreak\\
+        $\tan (x) = x + \frac{x^{3}}{3} + \frac{2x^{5} }{15} + \frac{17x^{7} }{315} + o(x^{8} )$ \\
+        $\sinh(x) = x + \frac{x^{3} }{6} + \frac{x^{5} }{5!} + \dots + + o(x^{2n + 2} )$ \\
+        $\cosh(x) = 1 + \frac{x^{2} }{2} + \frac{x^{4} }{4!} + \dots ++o(x^{2n + 2} )$\\
+        $\tanh(x) = x - \frac{x^{3} }{3} + \frac{2x^{5} }{15} - \frac{17x^{7} }{315} + o(x^{8})$
+        \columnbreak\\
+        $\arctan(x) = x  - \frac{x^{3} }{3} + \frac{x^{5} }{5} - \dots +  + o(x^{2n + 2});$  \\
+        $\arcsin(x) = x + \frac{x^{3} }{6} + o(x^{4} )$\\
+        $\arccos(x) = \frac{\pi}{2} - x - \frac{x^{3} }{6} + o(x^{4} )$ \\
+        $\frac{1}{1-x} = 1 + x + x^{2} + x^{3} + \dots + o(x^{n}  )$ \\
+        \columnbreak\\
+        $\frac{1}{1+x} = 1 - x + x^2 - x^3 + x ^4 + o(x^4)$\\
+        $\sqrt{1 + x} = 1 + \frac{x}{2} - \frac{x^{2} }{8} + o(x^{2} )$\\
+        $\frac{1}{1+x^2} = 1 - x^2 + x^4 - x^6 + o(x^6)$\\
+        $\sqrt{1-x} = 1 - \frac{x}{2} - \frac{x^2}{8} - \frac{x^3}{16} + o(x^4)$
+\end{multicols}\noindent
+$f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2}(x-x_0)^{2}+ \dots \qquad \qquad (1 + x)^{\alpha} = 1 + \alpha x + \frac{\alpha(\alpha - 1)x^{2} }{2} +  \frac{\alpha(\alpha - 1)(\alpha - 2)x^{3} }{6} + \dots + o(x^n) \qquad \qquad \text{arctanh}(x) =  x + \frac{x^3}{3} + \frac{x^5}{5} + \dots + \frac{x^{2n+1}}{2n + 1} + o(x^{2n+2})$\\
+\begin{multicols}{3}
+    \noindent
+\textbf{Integrale ricorsivo sin e cos}\\
+    $\int \sin^n(x) dx = - \frac{\cos(x) \sin^{n-1}(x)}{n} + \frac{n-1}{n} \int \sin^{n-2}(x) dx$\\
+    $\int \cos^n(x) dx = - \frac{\sin(x) \cos^{n-1}(x)}{n} + \frac{n-1}{n} \int \cos^{n-2}(x) dx$\\
+\textbf{limiti notevoli}\\
+        $\lim_{x \to 0} \frac{\log_\alpha (1+f(x))}{f(x)} = \frac{1}{\log(\alpha)}$\\
+        $\lim_{x\to 0} \frac{\ln(1 + f(x))}{f(x)} = 1$\\
+        $\lim_{x \to 0} \frac{\alpha^f(x)-1}{f(x)} = \log(\alpha)$\\
+        $\lim_{x \to 0} \frac{e^f(x) -1}{f(x)} = 1$\\
+        $\lim_{x \to 0} \left( 1 \pm \frac{1}{f(x)} \right)^{f(x)} = e \text{ oppure con il meno } \frac{1}{e} $\\
+        $\lim_{x \to 0} \frac{\sin(f(x))}{f(x)} = 1$\\
+        $\lim_{x \to 0} \frac{1 - \cos(f(x))}{(f(x))^2} = \frac{1}{2}$\\
+        $\lim_{x \to 0} x \ln(x) = 0$\\
+        \columnbreak\\
+    \textbf{scomposizioni e prod. notevoli}\\
+    $a^2 - b^2 = (a-b)(a+b)$\\
+    $a^3+b^3 = (a+b)(a^2 - ab + b^2)$\\
+    $a^3-b^3 = (a-b)(a^2 + ab + b^2)$\\
+    $(a \pm b)^2 = a^2 \pm 2 ab + b^2$\\
+    $(a \pm b)^3 = a^3 \pm 3a^2b + 3 ab^2 \pm b^3$\\
+    $(a + b +c)^2 = a^2 + b^2 + c^2 + 2ab+2ac+2bc $\\
+    \textbf{Integrali vari}\\
+    $\int [f(x)]^s f'(x) \ dx = \frac{[f(x)]^{s+1}}{s+1} + c \qquad s \neq -1$\\
+    $\int \frac{1}{cos(x)} \ dx = \int \sec(x) \ dx = \ln\left( \frac{\sin(\frac{x}{2}) + \cos(\frac{x}{2})}{\cos(\frac{x}{2}) - \sin(\frac{x}{2})} \right) + c \qquad $ \ \ $\text{moltiplicando per } \tan(x) + \sec(x)$\\
+    $\int \sqrt{1 + x^2} \ dx = \frac{1}{4}(\sinh(2x) - 2x) \ \ \text{sost } x = \sinh(t)$ \\
+    $\int \frac{1}{(\alpha^2 + x^2)} \ dx = \frac{1}{\alpha} \arctan(\frac{x}{\alpha}) + c$\\
+    $\int \frac{1}{\sin^2(x)} \ dx = -\cot(x) + c$\\
+    \columnbreak\\
+    \textbf{Derivate varie}\\
+        $(\cos(x))' = - \sin(x)$\\
+        $(\tan(x))' = \frac{1}{\cos^2(x)}$\\
+        $(\arcsin(x))' = \frac{1}{\sqrt{1-x^2}}$\\
+        $(\arccos(x))' = \frac{-1}{\sqrt{1-x^2}}$\\
+        $(\arctan(x))' = \frac{1}{1+x^2}$\\
+        $(arcsinh(x))' = \frac{1}{\sqrt{1+x^2}}$\\
+        $(arccosh(x))' = \frac{1}{\sqrt{x^2-1}}$\\
+    \textbf{es. fratti semplici}\\
+    $\int \frac{5x + 2 }{(x+2)^2(x+3)} dx \to \frac{A}{x+2} + \frac{B}{(x+2)^2} + \frac{C}{x+3}$\\
+    $\int \frac{3x}{x^3-1} \ dx = \int \frac{3x}{(x-1)(x^2+x+1)} \Rightarrow  \frac{Ax + B}{(x^2+x+1)} + \frac{C}{(x-1)}$
+\end{multicols}
+\noindent
+\textbf{Integrali doppi}\\
+    \bulletout Ricondurre il dominio ad una forma x-semplice o y-semplice. \\
+    \bulletout Eventualmente, fare un cambio di variabili, riscrivendo il dominio (adattando le condizioni):\\
+    $\begin{cases}
+        x = g(u,v) \\
+        y = h(u,v)
+    \end{cases} \quad\Longrightarrow  \iint_{\Omega} f(x,y) \ dx \ dy = \iint_{\Omega'} f[g(u,v),h(u,v)] \ \left|\det (J_T)\right| \ du \ dv
+    \qquad\qquad \text{dove: } J_T = \begin{pmatrix}
+        \frac{\partial g}{\partial u} & \frac{\partial g}{\partial v} \\
+        \frac{\partial h}{\partial u} & \frac{\partial h}{\partial v}
+    \end{pmatrix}$\\
+    \bulletout Eventualmente, passare in coordinate polari centrate in $(x_0,y_0)$ (utile per cerchi e ellissi): \\
+    Data un'espressione in forma $\left(\frac{x}{a}\right)^2 + \left(\frac{y}{b}\right)^2 = 1$
+    $\begin{cases}
+        x-x_0 = a \ \rho \cos(\theta) \\
+        y-y_0 = b \ \rho \sin(\theta) \\
+    \end{cases} \Longrightarrow dx \ dy = ab \ \rho \ d\rho \ d\theta$\\
+\textbf{Integrali tripli}\\
+    \bulletout Ricondurre il dominio ad una forma x-semplice, y-semplice o z-semplice. \\
+    \bulletout Eventualmente, fare un cambio di variabili, riscrivendo il dominio (adattando le condizioni). Vale la formula per gli integrali doppi, con:
+    $J_T = \begin{pmatrix}
+        \frac{\partial g}{\partial u} & \frac{\partial g}{\partial v} & \frac{\partial g}{\partial s} \\
+        \frac{\partial h}{\partial u} & \frac{\partial h}{\partial v} & \frac{\partial h}{\partial s} \\
+        \frac{\partial t}{\partial u} & \frac{\partial t}{\partial v} & \frac{\partial t}{\partial s} \\
+    \end{pmatrix}$\\
+    \bulletout Eventualmente, passare in coordinate cilindriche (rispetto all'asse $z$ o ad una sua parallela). \ Oppure, passare in coordinate sferiche centrate in $(x_0,y_0,z_0)$:\\
+    $\begin{cases}
+        x - x_0 = \rho \ \cos(\theta) \\
+        y-y_0 = \rho \ \sin(\theta) \\
+        z = z
+    \end{cases} \Longrightarrow dx \ dy \ dz = \rho \ d\rho \ d\theta \ dz$
+    $\qquad\qquad\qquad$
+    $\begin{cases}
+        x-x_0 = \rho \ \sin(\varphi) \ \cos(\theta) \\
+        y-y_0 = \rho \ \sin(\varphi) \ \sin(\theta) \\
+        z-z_0 = \rho \ \cos(\varphi)
+    \end{cases} \quad \text{con } \begin{matrix}
+        \varphi\in[0,\pi] \\
+        \theta\in[0,2\pi]
+    \end{matrix}\Longrightarrow dx \ dy \ dz = \rho^2 \ \sin(\varphi) \ d\rho \ d\theta \ d\varphi$\\
+    \bulletout Eventualmente, integrare per fili (ottenendo un integrale doppio) $\rightarrow$ Sia $P = [a,b] \times [c,d] \times [e,f]$. \ Oppure, integrare per fette (ottenendo un integrale doppio) $\rightarrow$ Sia $P = [a,b] \times [c,d] \times [e,f]$:
+    int. per fili:$\quad\iiint_P f \ dx \ dy \ dz = \iint_{[a,b] \times [c,d]} \left(\int_{e}^{f}f \ dz\right) \ dx \ dy$
+    $\qquad\qquad\qquad$int. per fette:$\quad$
+    $\iiint_P f \ dx \ dy \ dz = \int_{e}^{f} \left(\iint_{P(z)} f \ dx \ dy\right) \ dz$\\
+    \begin{multicols}{2}
+        \noindent
+        \textbf{Superfici}\\
+        Data una superficie $\vec{\varphi}(u,v)$, scrivo le sue derivate parziali $\varphi_u = (x_u,y_u,z_u)$ e $\varphi_v = (x_v,y_v,z_v)$. \\
+        \bulletout Il vettore normale è $\varphi_u \wedge \varphi_v$\\
+        \bulletout La sua norma è $\| \varphi_u \wedge \varphi_v \| $ \\
+        \bulletout Il versore normale è $\vec{N} = \frac{\varphi_u \wedge \varphi_v}{\Vert \varphi_u \wedge \varphi_v\Vert}$\\
+        \bulletout Per ottenere il piano tangente impongo $\det\begin{pmatrix}
+            \underline{i} & \underline{j} & \underline{k} \\
+            x_u & y_u & z_u \\
+            x_v & y_v & z_v
+        \end{pmatrix}=0$\\
+        \columnbreak\\
+        \textbf{Applicazioni fisiche}\\
+    Valgono per integrali di linea, doppi, tripli e di superficie. \\
+    Dato un corpo che occupa una regione di spazio $\Omega$, densità $\rho$ e distanza $\delta$ da un asse scelto: \\
+    \bulletout L'area è $\int_{\Omega} 1 \ dx \ dy \ dz$ \\
+    \bulletout La massa è $m=\int_{\Omega} \rho(x,y,z) \ dx \ dy \ dz$ \\
+    \bulletout Il centro di massa $(B_x,B_y,B_z)$ è: $\begin{cases}
+        B_x = \frac{1}{m} \int_{\Omega} x\cdot \rho(x,y,z) \ dx \ dy \ dz \\
+        B_y = \frac{1}{m} \int_{\Omega} y\cdot \rho(x,y,z) \ dx \ dy \ dz \\
+        B_z = \frac{1}{m} \int_{\Omega} z\cdot \rho(x,y,z) \ dx \ dy \ dz \\
+    \end{cases}$ \\
+    \bulletout Il momento di inerzia rispetto ad un generico asse $\tau$ è $M_\tau = \int_{\Omega} \delta_\tau^2 (x,y,z) \ \rho(x,y,z) \ dx \ dy \ dz$ e $\delta_\tau$ è la distanza da $\tau$
+    \end{multicols}
+    \noindent
+    \textbf{Integrali di superficie}\tab
+Data una superficie $\Sigma (x,y)= \begin{pmatrix}
+    S_1(x,y) \\
+    S_2(x,y) \\
+    S_3(x,y)
+\end{pmatrix}$ definita su un dominio piano $\mathbb{D}$, avente vettore normale $\vec{N}(x,y,z)$, e una funzione $f(x,y,z)$ definita su $\Sigma$,
+definisco l'int. superficiale come: $\int_{\Sigma} f(x,y,z) \ ds = \iint_{\mathbb{D}} f(\ S_1(x,y),S_2(x,y),S_3(x,y)\ ) \ \Vert\vec{N}\Vert \ dx \ dy$ \\
+\bulletout Definisco il flusso del campo $\vec{F}$ attraverso la superficie $\Sigma$: $\int_{\Sigma} \langle\vec{F};\frac{\vec{N}}{\Vert\vec{N}\Vert}\rangle \ ds = \iint_{\mathbb{D}} \left\langle F; \frac{\vec{N}}{\left\lVert \vec{N} \right\rVert } \right\rangle \left\lVert \vec{N} \right\rVert dx \ dy $ \\
+\bulletout Definisco la circuitazione del campo $\vec{F}$ lungo la curva chiusa $\vec{\gamma}$ come il lavoro compiuto da $\vec{F}$ su quella curva \\
+\bulletout Per calcolare il vettore normale $\vec{N}$ ad una superficie $\vec{\varphi}(u,v)$ calcolo le der. parziali rispetto a $u$ e $v$ e ne calcolo il prodotto vettoriale
+$\vec{\varphi_u} \times \vec{\varphi_v}$: \\
+Data $\vec{\varphi}(u,v) = \begin{pmatrix}
+    \varphi_1(u,v) \\
+    \varphi_2(u,v) \\
+    \varphi_3(u,v)
+\end{pmatrix}$ calcolo $\vec{\varphi_u}(u,v) = \begin{pmatrix}
+    \varphi_{1u}(u,v) \\
+    \varphi_{2u}(u,v) \\
+    \varphi_{3u}(u,v)
+\end{pmatrix}$ e $\vec{\varphi_v}(u,v) = \begin{pmatrix}
+    \varphi_{1v}(u,v) \\
+    \varphi_{2v}(u,v) \\
+    \varphi_{3v}(u,v)
+\end{pmatrix}$ e poi $\vec{N} = \det\begin{pmatrix}
+    \underline{i} & \underline{j} & \underline{k} \\
+    \varphi_{1u}& \varphi_{2u} & \varphi_{3u} \\
+    \varphi_{1v} & \varphi_{2v} & \varphi_{3v}
+\end{pmatrix}$ \\
+\bulletout Se la superficie è parametrizzata in forma $z=f(x,y)$, con $z$ definita su $A\subseteq\mathbb{R}^2$ la scrivo come $\vec{\varphi}(x,y) = \begin{pmatrix}
+    x \\ y \\ f(x,y)
+\end{pmatrix}_{(x,y)\in A}$, e in questo caso vale $\vec{N} = \begin{pmatrix}
+    -\frac{\de f}{\de x} \\
+    -\frac{\de f}{\de y} \\
+    1
+\end{pmatrix}$ e $\parallel\vec{N}\parallel = \sqrt{1+\parallel\nabla f \parallel^2}$\\
+    \textbf{Sup. di rotazione}\tab
+    Data una funzione $y=f(x)$ scrivibile come una curva "piana" $\gamma(t) = \begin{pmatrix} x(t) \\ y(t) \\ 0 \end{pmatrix}_{t\in[a,b]}$ dove una di solito una scorre su un valore e l'altra scrivibile come funzione di questo valore, la superficie di rotazione ottenuta ruotando $\gamma$ (ad esempio) attorno all'asse $x$ è: $S(u,\theta) = \begin{pmatrix}
+        x(u) \\
+        y(u)\cos(\theta) \\
+        y(u)\sin(\theta)
+    \end{pmatrix}_{\begin{matrix}
+        u\in[a,b] \\ \theta\in[0,2\pi]
+    \end{matrix}}$. Dove $x(u)$ e $y(u)$ rimangono uguali a $x(t)$ e $y(t)$ \\
+    \textbf{Formula di Gauss-Green}\tab
+    Dato un campo piano $\vec{F}(x,y)=\begin{pmatrix}
+        P(x,y) \\
+        Q(x,y)
+    \end{pmatrix}$, e sia $\mathbb{D}$ un insieme piano t.c. $\vec{F}\in C^1(\mathbb{D})$, e sia $\vec{T}$ un vettore tangente a $\partial^+\mathbb{D}$ \\allora 
+    $\iint_{\mathbb{D}} \left(\frac{\partial Q(x,y)}{\partial x} - \frac{\partial P(x,y)}{\partial y}\right) \ dx \ dy = \int_{\partial^+\mathbb{D}} P(x,y) \ dx + Q(x,y) \ dy = \int_{\partial^+\mathbb{D}} \left\langle \vec{F};\frac{\vec{T}}{\left\lVert\vec{T}\right\rVert }\right\rangle \ dS$\\
+    \textbf{Teorema di Stokes}\tab
+    Dato un campo $\vec{F}$ definito su una superficie $\Sigma$ con bordo $\partial^+\Sigma$, e sia $\vec{T}$ un vettore tangente a $\partial^+\Sigma$, allora:
+    $\int_{\Sigma} \left\langle\rot(\vec{F});\frac{\vec{N}}{\left\lVert\vec{N}\right\rVert }\right\rangle \ d\sigma = \int_{\partial^+\Sigma} \left\langle\vec{F};\frac{\vec{T}}{\left\lVert\vec{T}\right\rVert }\right\rangle \ dS$\\
+    \textbf{Teorema della divergenza}\\
+    Dato un campo $\vec{F}(x,y,z)$ definito su un dominio $\mathbb{D}$ su $\mathbb{R}^3$, il cui bordo è la superficie $\partial^+\mathbb{D}$, e sia $\vec{N}$ un vettore normale uscente da $\Sigma$:
+    $\iiint_{\mathbb{D}} \dvg(\vec{F}) \ dx \ dy \ dz = \int_{\partial^+\mathbb{D}} \left\langle\vec{F};\frac{\vec{N}}{\left\lVert \vec{N}\right\rVert }\right\rangle \ d\sigma$ \\
+    dove, dato un campo $\vec{F}(x,y,z)=\begin{pmatrix}
+        F_1 \\ F_2 \\ F_3
+    \end{pmatrix}$ la sua divergenza è $\dvg(\vec{F}) = \frac{\partial F_1}{\partial x} + \frac{\partial F_2}{\partial y} + \frac{\partial F_3}{\partial z}$\\
+    \textbf{Serie di funzioni}\tab 
+    Definisco $S_n(x) = \sum_{n=1}^{k} f_n(x) = f_0(x) + f_2(x) + \dots + f_k(x)$ serie \underbar{finita}, e $S(x) = \sum_{n=1}^{\infty} f_n(x) = \lim_{k \to \infty} S_k(x)$ serie \underbar{infinita}.\tab
+    Per sapere se $f_n(x) \overset{\text{punt.}}{\to} f(x)$ si vede per quali $x$ la serie $\sum f_n(x)$ converge a quale $f(x)$, quindi si fa: $\lim_{n \to \infty} \left\lvert S_n(x) - S(x) \right\rvert = 0 \qquad$ Per sapere se $f_n(x) \overset{ass.}{\to} f(x)$ si fa $\lim_{n\to \infty} |f_n(x)| = f(x)\qquad$  Per sapere se $f_n(x) \overset{\text{unif.}}{\to} f(x)$ si fa: $\lim_{n\to \infty} \underset{x\in I}{sup}|S_n(x)-S(x)|$ con $I$ int. di convergenza \tab
+    Per sapere se $f_n(x) \overset{\text{tot.}}{\to} f(x)$ si cerca una maggiorazione con una succ. $a_n$: $|f_n(x)| \leq a_n \forall x \in I$ (int. di conv.) e $\sum_{n=0}^{\infty}a_n$ converge\\
+    \begin{multicols}{2}
+        \noindent
+        \textbf{Trucchi utili per serie}\tab
+        Per studiare la conv uniforme è utile: \\guardare la funzione a cui conv. la serie (se non va a 0 non conv. unif.)\\ usare il th (derivata): Se $f_n(x) \overset{\text{unif.}}{\to} f(x) \in E \subseteq \mathbb{R}$ e $f_n(x) \in C^k(E) \forall n (\text{definitivi})$ \\allora $f(x) \in C^k$\\
+        usare il th. (integrale): Se $f_n(x) \in C^0(I)$ e $f_n(x) \overset{unif.}{\to} f(x) \in I$ \\allora: $\lim_{n\to \infty} \int_{a}^{b}f_n(x) \ dx = \int_{a}^{b} \lim_{n\to\infty}f_n(x) \ dx = \int_{a}^{b} f(x) \ dx$\\
+        \columnbreak\\
+        \textbf{Serie potenze}\\
+        Sono serie nella forma $\sum_{n=0}^{\infty} a_n x^n$ sia $R$ il raggio di convergenza, con $R=\frac{1}{l}$\\ dove $l = \lim_{n\to\infty} \sqrt[n]{|a_n|} = \lim_{n \to \infty} \frac{a_{n+1}}{a_n}$\\
+    \end{multicols}    
+    \noindent
+    \textbf{Criteri di convergenza per serie numeriche}\\
+    \begin{multicols}{4}
+        \noindent
+    Serie geometriche:\\
+        $\sum_{n = 0}^{\infty } q^{n} = \frac{1}{1-q}, se \ |q| < 1$ (quindi converge)\\
+    Serie armoniche:\\
+        $\sum_{n = 1}^{+\infty } \frac{1}{n^{p}}$
+    Converge se $p > 1$, diverge se $p \leq 1$.
+    \columnbreak\\
+    Criterio del confronto:\\
+        Prese $\ 0 \leq a_n \leq b_n$ \\
+        Se $\ \sum_{n = 1}^{\infty } b_n < + \infty \Rightarrow \sum_{n = 1}^{\infty } a_n < + \infty $\\
+        Se$ \   \sum_{n = 1}^{\infty } a_n = + \infty \Rightarrow \sum_{n = 1}^{\infty } b_n = + \infty $\\
+    \columnbreak\\
+    Criterio della radice:\\
+        $\lim_{n \to \infty } \sqrt[n]{a_n} = l  \Rightarrow $ \\
+       $ l < 1 \Rightarrow  \sum_{n = 1}^{\infty }a_n < + \infty $\\
+        $l > 1 \Rightarrow  \sum_{n = 1}^{\infty } a_n = + \infty $
+    \columnbreak\\
+    Criterio del rapporto:\\
+        $\lim_{n \to \infty} \frac{a_{n + 1}}{a_n} = l \Rightarrow$ \\
+        $l < 1 \Rightarrow  \sum_{n = 1}^{\infty }a_n < + \infty $\\
+        $l > 1 \Rightarrow  \sum_{n = 1}^{\infty } a_n = + \infty $    
+    \end{multicols}
+    \begin{multicols}{4}
+        \noindent
+        Criterio di Leibniz per serie alternate:\\
+        Se $\ \lim_{n \to \infty } a_n = 0 \ $ e $a_n$decresce$ \Rightarrow$ \\
+        $\sum_{n = 1}^{\infty }(-1)^{n}(a_n) = l$ converge\\
+        \columnbreak\\
+        Criterio del confronto asintotico:\\
+        $a_n \geq 0, b_n > 0 \Rightarrow $ \\
+        $\exists \lim_{n \to +\infty } \frac{a_n}{b_n} = L \in (0, +\infty ), L \neq 0. \Rightarrow$  \\
+        $\sum_{n = 1}^{\infty } a_n \ e \ \sum_{n = 1}^{\infty } b_n$ hanno lo stesso carattere\\
+        \columnbreak\\
+        Criterio degli infinitesimi:\\
+        Se $\ \lim_{n \to \infty } n^{p}a_n = l \ $ \\
+        $l \ne + \infty , p > 1 \Rightarrow \sum_{n = 1}^{\infty } a_n < + \infty $\\
+        $l \ne 0, p \leq 1, \Rightarrow \sum_{n = 1}^{\infty }a_n = + \infty $    
+        \columnbreak\\
+        Criterio degli integrali:\\
+        L'integrale improprio di una funzione continua e decrescente e la sua serie
+        associata hanno lo stesso carattere.
+    \end{multicols}
+\end{document}
