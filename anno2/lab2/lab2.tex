@@ -27,7 +27,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{pgfplots}
 \usepackage{pifont}
-\usepackage{circuitikz}
+\usepackage[american]{circuitikz}
 \usetikzlibrary{patterns}
 \makeindex
 %\usepackage{animate}
@@ -343,6 +343,7 @@ Se ho una superficie chiusa che racchiude il nodo $n$ considerando $\int_S \vv{J
         \draw (0,0) rectangle (2,2) node[midway] {$M$};
         \filldraw (0,0) circle (2pt);
         \filldraw (2,0) circle (2pt);
+        \filldraw (0,2) circle (2pt);
         \filldraw (0,2) circle (2pt);
         \filldraw (2,2) circle (2pt);
     \end{tikzpicture}
@@ -1537,5 +1538,225 @@ Ora se prendiamo il cursore $i=5$ $j=3$ e $k=2$ otteniamo una tensione in uscita
 fatta per bene su moodle bam bam bam.\\
 \subsection{Amplificatore}
 È un componenete \textbf{attivo} non come tutti quelli visti fino ad ora
+
+
+\newpage
+\section{18/3/26}
+\subsection{Funzionamento dei generatori di corrente}
+È un oggetto che cerca di mantenere una certa differenza di potenziale ai suoi capi e si rappresenta inq uesto modo:
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[battery1, invert, l=$\E \quad \pm$] (0,2);
+    \end{tikzpicture}
+\end{center}
+Introduciamo ora un fotodiodo che è a sua volta un tipo di generatore di corrente, e si rappresenta inq eusto modo, lo consideriamo come un generatore di corrente ideale
+anche questo avrà una sua resistenza interna e idealmente sarebbe schematizzato inq uesto modo:
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (3,0) node[below]{$i$};
+        \draw[->](0,0) -- (0,3) node[left] {$V$};
+        \draw[dashed](2,0) -- (2,2) node[midway, right]{Ideale};
+        \draw(2,0) ..controls(1.5,1) and(1.5,1.8).. (1.5,2) node[midway, left]{Reale};
+        \draw(0,2) -- (2,2);
+        \draw[<->](1.6,1.4) -- (2,1.4) node[midway, above]{$\Delta$};
+    \end{tikzpicture}
+    \begin{tikzpicture}
+        \draw(0,-1) to[led, f=$i$] (0,3);
+        \draw(0,0) to[short] (1,0) to[R, l=$R$] (1,2) to[short] (0,2);
+        \filldraw (0,2) circle (2pt);
+        \filldraw (0,0) circle (2pt);
+    \end{tikzpicture}
+\end{center}
+\begin{center}
+    
+\end{center}
+\begin{gather*}
+    i' = I - \frac{\Delta V}{R} \Rightarrow I = i' + \frac{\Delta V}{R}
+\end{gather*}
+
+\subsection{Leggi di Norton}
+Prendiamo il seguente circuito:
+\begin{center}
+    \begin{tikzpicture}
+        \begin{scope}
+            \draw(0,0) to[battery1, invert, l=$\E \quad \pm$, f=$i$] (0,2) to [R, l=$\rho$] (2,2)node[above] {$A$};
+            \draw(0,0) to[short] (2,0) node[below]{$B$};
+            \filldraw(2,0) circle (2pt);
+            \filldraw(2,2) circle (2pt);
+        \end{scope}
+        \node[scale = 1.5] at(3,1) {$\equiv$};
+        \begin{scope}[xshift=5cm]
+            \draw(0,0) to[led, l=$\frac{\E}{R}$] (0,2) to[short, f = $i'$] (4,2);
+            \draw(2,2) to[short] (2,0) to[R, l=$R$, f=$i''$] (0,0);
+            \draw(2,0) to[short] (4,0);
+            \filldraw(2,2) circle (2pt);
+            \filldraw(4,2) circle (2pt) node[above] {$A$};
+            \filldraw(4,0) circle (2pt) node[below] {$B$};
+            \filldraw(2,0) circle (2pt);
+        \end{scope}
+    \end{tikzpicture}
+\end{center}
+Dimostriamo questa equivalenza.
+\begin{gather*}
+    \begin{cases}
+        V_A - V_B = \frac{\E}{R} \\
+    \end{cases}
+\end{gather*}
+\subsection{Amplificatori operazionali}
+\begin{center}
+    \begin{circuitikz}
+    % Amplificatore Operazionale
+    \draw (0,0) node[op amp] (opamp) {};
+    
+    % Ramo di ingresso (Generatore vs e Resistenza Rs)
+    \draw (-3, 0.5) to[R, l=$R_s$, i=$ $] (opamp.-);
+    \draw (-3, 0.5) -- (-4, 0.5) to[sV, l_=$v_s$] (-4, -1.5) node[ground]{};
+    
+    % Messa a terra dell'ingresso non invertente
+    \draw (opamp.+) -- ++(0,-0.5) node[ground]{};
+    
+    % Resistenza interna Ri (disegnata tra i due ingressi)
+    \draw (opamp.-) to[R, l_=$R_i$] (opamp.+);
+    
+    % Ramo di retroazione Rf
+    \draw (opamp.-) -- ++(0,1.5) coordinate(top) 
+          to[R, l=$R_f$, i>=$ $] (top -| opamp.out) -- (opamp.out);
+    
+    % Nodo di uscita vo
+    \draw (opamp.out) to[short, -o] ++(1,0) node[above]{$v_o$};
+\end{circuitikz}
+\begin{circuitikz}
+    % Linea di massa inferiore comune
+    \draw (0,0) -- (9,0);
+    
+    % Generatore di ingresso vs
+    \draw (0,0) to[sV, l=$v_s$] (0,3) -- (1,3);
+    
+    % Resistenza Rs e corrente is
+    \draw (1,3) to[R, l=$R_s$, i>=$i_s$] (4,3) coordinate (vin);
+    
+    % Resistenza di ingresso Ri e tensione v-
+    \draw (vin) to[R, l=$R_i$, v=$v_-$] (4,0);
+    
+    % Resistenza di retroazione Rf e corrente if
+    \draw (vin) to[R, l=$R_f$, i>=$i_f$] (7,3) coordinate (vout);
+    
+    % Ramo di uscita: Resistenza Ro e Generatore dipendente
+    \draw (vout) to[R, l=$R_o$] (7,1.5) to[sV, l={$-A v_-$}] (7,0);
+    
+    % Terminali e nodo di uscita vo
+    \draw (vout) to[short, -o] (8.5,3) node[above]{$v_o$};
+    \draw (7,0) -- (8.5,0) to[short, -o] (8.5,0);
+\end{circuitikz}
+\end{center}
+
+\begin{center}
+    \begin{circuitikz}
+    % Amplificatore Operazionale
+    \draw (0,0) node[op amp] (opamp) {};
+    
+    % Messa a terra dell'ingresso non invertente
+    \draw (opamp.+) -- ++(0,-0.5) node[ground]{};
+    
+    % Nodo comune di ingresso (invertente)
+    \coordinate (node) at (-2,0.5);
+    \draw (opamp.-) -- (node);
+    
+    % Tre rami di ingresso
+    % Ramo 1: v1, 1k, i1
+    \draw (node) |- (-4, 2.5) to[R, l=$1k\Omega$, i=$i_1$] (-6, 2.5)
+          to[sV, l=$v_1$, invert] (-6, 1.5) node[ground]{};
+          
+    % Ramo 2: v2, 10k, i2
+    \draw (node) |- (-4, 0.5) to[R, l=$10k\Omega$, i=$i_2$] (-6, 0.5)
+          to[sV, l=$v_2$, invert] (-6, -0.5) node[ground]{};
+          
+    % Ramo 3: v3, R3, i3
+    \draw (node) |- (-4, -1.5) to[R, l=$R_3$, i=$i_3$] (-6, -1.5)
+          to[sV, l=$v_3$, invert] (-6, -2.5) node[ground]{};
+          
+    % Ramo di retroazione
+    \draw (node) -- ++(0, 1.5) coordinate(top)
+          to[R, l=$R_f$, i=$i_f$] (top -| opamp.out) -- (opamp.out);
+          
+    % Nodo e terminale di uscita vo
+    \draw (opamp.out) to[short, -o] ++(1,0) node[above]{$v_o$};
+\end{circuitikz}
+\end{center}
+
+Integratore
+\begin{center}
+\begin{circuitikz}
+    % Amplificatore Operazionale
+    \draw (0,0) node[op amp] (opamp) {};
+    
+    % Messa a terra dell'ingresso non invertente
+    \draw (opamp.+) -- ++(0,-0.5) node[ground]{};
+    
+    % Ingresso di corrente
+    \draw (opamp.-) -- ++(-1.5,0) to[short, i=$I$, -o] ++(-0.5,0);
+    
+    % Ramo di retroazione con condensatore
+    \draw (opamp.-) -- ++(0, 1.5) coordinate(top)
+          to[C, l=$C$, i>=$I$] (top -| opamp.out) -- (opamp.out);
+          
+    % Terminale di uscita
+    \draw (opamp.out) to[short, -o] ++(1,0);
+\end{circuitikz}
+\end{center}
+
+
+\subsection{Derivatore}
+\begin{center}
+    \begin{circuitikz}
+    % Amplificatore Operazionale
+    \draw (0,0) node[op amp] (opamp) {};
+    
+    % Messa a terra dell'ingresso non invertente
+    \draw (opamp.+) -- ++(0,-0.5) node[ground]{};
+    
+    % Ingresso: Generatore AC e Condensatore C
+    \draw (opamp.-) to[C, l_=$C$, i<=$i$] (-3,0.5) 
+          to[sV, l_=$v_s$] (-3,-1) node[ground]{};
+    
+    % Ramo di retroazione con Resistenza R
+    \draw (opamp.-) -- ++(0,1.5) coordinate(top)
+          to[R, l=$R$, i>=$i$] (top -| opamp.out) -- (opamp.out);
+          
+    % Terminale e nodo di uscita vo
+    \draw (opamp.out) to[short, -o] ++(1,0) node[right]{$v_o$};
+    \end{circuitikz}
+\end{center}
+
+Tensione di offset
+\begin{center}
+    \begin{circuitikz}
+    % Amplificatore Operazionale
+    \draw (0,0) node[op amp] (opamp) {};
+    
+    % Ingressi N e P all'interno del simbolo (opzionale, per fedeltà al disegno)
+    \node at (opamp.-) [right, xshift=0.2cm] {\small N};
+    \node at (opamp.+) [right, xshift=0.2cm] {\small P};
+
+    % Ingresso Invertente con Resistenza Rs e Generatore vs
+    \draw (opamp.-) to[short, -*] ++(-1,0) coordinate (node_inv)
+          to[R, l=$R_s$, i<=$ $] ++(-2.5,0) 
+          to[sV, l=$v_s$] ++(0,-1.5) node[ground]{};
+
+    % Generatore di Offset V_offs sull'ingresso non invertente
+    \draw (opamp.+) to[battery2, l_=$V_{offs}$] ++(-1.5,0) 
+          to[short] ++(0,-1) node[ground]{};
+
+    % Ramo di retroazione con Rf
+    \draw (node_inv) -- ++(0,1.5) coordinate(top)
+          to[R, l=$R_f$, i>=$ $] (top -| opamp.out) -- (opamp.out);
+
+    % Uscita vo
+    \draw (opamp.out) to[short, -o] ++(1,0) node[above]{$v_o$};
+    
+    \end{circuitikz}
+\end{center}
+
+
 
 \end{document}

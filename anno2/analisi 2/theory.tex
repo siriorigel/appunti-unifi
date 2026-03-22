@@ -28,6 +28,7 @@
 \usepackage{pgfplots}
 \usepackage{pifont}
 \usepackage{imakeidx}
+\usetikzlibrary{arrows.meta} % Serve per le frecce stealth e moderne
 \usetikzlibrary{patterns}
 %\usepackage{animate}
 %\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
@@ -2302,58 +2303,88 @@ postaction={#3,dash pattern=on 0pt off #1 on \offlen pt off 10cm}}]
 \end{observation}
 
 \begin{proof}
-    (teor, FMS, Giusti) $P_0$ regolare supp. $F_y(x_0,y_0) \neq 0 , F_y(x_0,y_0) > 0$\\
-    \fbox{I} $\exists U$ intorno di $x_0$ e  $V = [y_0-\delta,y_0+\delta]$ intorno di $y_0$   
+    (th. DINI, secondo libro Giusti/FMS)\\
+    Dalle hp. del th. abbiamo $F_y(x_0,y_0) \neq 0$, la funzione è quindi o strettamente crescente o decrescente in un intorno di $(x_0,y_0)$, supponiamo che: $ F_y(x_0,y_0) > 0$\\
+    \hfill\\\fbox{$I^o$} punto.\\
+    Poichè $F_y$ è continua, per il th. della perm. del segno $\exists$ un rettangolo $R = W \times V$ di centro $(x_0, y_0)$ con $W$ intorno di $x_0$ e $V$ intorno di $y_0$ tale che $F_y(x,y) > 0 \quad \forall (x,y) \in R$.\\
+    Stiamo dunque dicendo che $\forall x \in W $ fissato, abbiamo che $F(x,y)$(come funzione solo di $y$) $\nearrow$ streattmente\\
+    In particolare $F(x_0,y) \ \nearrow $ strettamente, con $F(x_0,y_0) > 0$\\
+    \hfill\\\fbox{$II^o$} punto.\\
+    Siccome per hp. abbiamo $F(x_0, y_0) = 0$ avrò che in un intorno di $V = [y_0-\delta, y_0+\delta]$ avremo $F(x_0,y) < 0$ per $y < y_0$ e $F(x_0,y) > 0$ per $y > y_0$.\\
+    Fissiamo ora $y_0-\delta$ e $y_0+\delta$ e consideriamo $F(x,y_0-\delta)$ e $F(x,y_0+\delta)$ come funzioni solo di $x$.\\
+    Per il th. della permanenza del segno (?frs per altro?) e per le considerazioni prec. : $F(x_0,y) < 0$ per $y < y_0$ e $F(x_0,y) > 0$ per $y > y_0$.\\
+    $\Rightarrow \exists U$ intorno di $x_0$ con $U \subseteq W$ tale che \\
     \begin{gather*}
-        F_y(x_0,y_0) > 0, F_y \in C^0 \Rightarrow \exists R \text{rettangolo chiuso } = W \times V \ t.c. \ W \text{int. di } x_0, V \text{int. di } y_0\\
-        F_y (x_0,y_0) > 0 \quad \forall (x,y) \in R
+        F(x,y_0-\delta) < 0 \quad \forall x \in U \\
+        F(x,y_0+\delta) > 0 \quad \forall x \in U
     \end{gather*}
-    Quindi $\forall x \in W $ fissato $F(x,y)$(come funzione di $y$) $\nearrow$ streattmente\\
-    in part. $F(x_y,y) \ \nearrow $ strettamente , con $F(x_0,y_0) > 0$\\
+    In pratica se mi sposto di abbastanza poco sulle $x$ questa cosa continua a valere, $\forall x \in U$.\\
+    Siccome la funzione $F$ è continua e $F(x,y_0-\delta) < 0$ e $F(x,y_0+\delta) > 0$ per $x \in U$ allora $\exists! f:U \to V$ tale che $F(x,f(x)) = 0$ per tutti $x \in U$.\\
+    \hfill\\\fbox{$III^o$} punto.\\
+    Ora dobbiamo far vedere che è di classe $C^1$.\\
+    Prendo due punti $x_1$ e $x$ in $U$ e le relative immagini $f(x_1)$ e $f(x)$ che appartengono a $V$.\\
+    Abbiamo ora un intorno di $P_0$ che è un rettangolo $R = U \times V$ e $F(x,y) = 0$ definisce una curva che attraversa questo rettangolo.\\
+    Applichiamo il th. di Lagrange in due variabili alla funzione $F(x, f(x))$
     \begin{gather*}
-        \Rightarrow F(x_0,y_0-\delta) < 0 \text{ e } F(x_0,y_0+\delta)
-    \end{gather*} 
-    Considero $F(x_0,y_0-\delta)$ funzione continue per la permanenza del segno $F(x,y_0-\delta) < 0 \quad \forall x \in U$\\
-    \ \ \ \ \ $F(x_0,y_0+\delta)$ $\exists U $ intorno di $x_0, U \subseteq W$ e $F(x,y_0+\delta) > 0\quad  \forall x \in U$\\
-    \fbox{II}$\exists! f:U \to V \ t.c. \ F(x,f(x)) = 0 \quad \forall x \in U$\\
-    osserviamo $\forall x \in U \quad y \to F(x,y) \nearrow $ strett.\\
-    con\begin{gather*}
-        F(x,y_0-\delta) <0 \quad \forall x \in U \\
-        F(x,y_0+\delta) >0 \quad \forall x \in U \\
-        F \in C^0
+        \text{Quindi} \exists (\xi, \eta) \in R \ t.c. \ F(x,f(x)) - F(x_1,f(x_1)) = F_x(\xi, \eta)(x-x_1) + F_y(\xi, \eta)(f(x)-f(x_1))
     \end{gather*}
-    $\Rightarrow$ (Th. esist. zeri + stretta monotonia) $\forall x \in U \quad \exists! y \in V:F(x,y) = 0$ cioè $y=f(x)$\\
-    \fbox{III} $f\in C^0(U)$\\
-    fix. $x_1 \in U$ considero $x \in U$
+    Ma $F(x,f(x)) = F(x_1,f(x_1)) = 0$ siccome $F(x,f(x)) = 0$ per ogni $x \in U$.\\
+    Quindi ho:
     \begin{gather*}
-        G(t) = F'\left( \underset{\xi_t }{(1-t)x_1 +tx} ; \underset{\eta_t }{(1-t)f(x_1) + tf(x) }\right) 
+        0 = F_x(\xi, \eta)(x-x_1) + F_y(\xi, \eta)(f(x)-f(x_1))
     \end{gather*}
-    $G \in C^1$
+    Riordino i termini:
     \begin{gather*}
-        G(0) = F(x_1,f(x_1) = 0)\\
-        G(1) = F(x,f(x) = 0)\\
+        \frac{f(x)-f(x_1)}{x-x_1} = -\frac{F_x(\xi, \eta)}{F_y(\xi, \eta)}
     \end{gather*}
-    Uso Th. ROlle $\Rightarrow \exists \tau \in (0,1) \ t.c. \ G'(\tau) = 0$\\
+    Passando al limite di $x \to x_1$ abbiamo a sx il rapporto incrementale di $f(x_1)$ e lo possiamo fare perchè $f$ è parte di $F$ che è di classe $C^1$.
+    A dx per $x \to x_1$ si ha che $(\xi,\eta) \to (x_1,f(x_1))$ perchè $(\xi, \eta)$ è un punto che sta tra $(x_1,f(x_1))$ e $(x,f(x))$ e $f$ è continua, quindi per $x \to x_1$ schiacciamo $(\xi, \eta)$ su $(x_1,f(x_1))$.\\
+    Abbiamo quindi ottenuto:
     \begin{gather*}
-        0 = G'(\tau) = F_x(\xi_\tau, \eta_\tau)(x-x_1) + F_y(\xi_\tau,\eta_\tau)(f(x)-f(x_1))\\
-        (f(x)-f(x_1)) (\underset{\xi_\tau}{F_y(1-\tau)x_1 + \tau x}; \underset{\eta_\tau}{(1-\tau)f(x_1)+\tau f(x)} ) = -(x-x_1)(F_x(\xi_\tau,\eta_tau))\\
-        f(x) -f(x_1) = -(x-x_1)\frac{F_x(\xi, \eta)}{F_y(\xi, \eta)}\\
-        \left\lvert f(x)-f(x_1) \right\rvert \leq \left\lvert x-x_1 \right\rvert \underset{(x,y) \in \mathbb{R}}{max}\left\lvert \frac{F_x(x,y)}{F_y(x,y)}\right\rvert  \leq \left\lvert x-x_1 \right\rvert \frac{\underset{(x,y) \in \mathbb{R}}{max} \left\lvert F_x(x,y) \right\rvert }{\underset{(x,y) \in \mathbb{R}}{min} \left\lvert F_y(x,y) \right\rvert } \neq 0
+        f'(x_1) = \lim_{x \to x_1} \frac{f(x)-f(x_1)}{x-x_1} = \lim_{x \to x_1} -\frac{F_x(\xi, \eta)}{F_y(\xi, \eta)} = -\frac{F_x(x_1,f(x_1))}{F_y(x_1,f(x_1))}
     \end{gather*}
-    Poichè $F_y \in C^0, F_y \neq 0 $ in $\mathbb{R}$\\
-    Si evidenzia che $\left\lvert x-x_1\right\rvert $ è un infinitesimo per $x\to x_1$ e il resto è limitato
-    \begin{gather*}
-        \Rightarrow \lim_{x \to x_1} f(x) = f(x_1) \text{ cioè } f \in C^0(U)
-    \end{gather*}
-    \fbox{IV} $\exists f'(x) \quad \forall x \in U$ e $f'(x) = -\frac{F_x(x,f(x))}{F_y(x,f(x))} \quad \forall x \in U$\\
-    \begin{gather*}
-        f'(x_1) = \lim_{x \to x_1} \frac{f(x)-f(x_1)}{x-x_1} \underset{\text{per }}{\boxed{**}} = \lim_{x \to x_1} -\frac{F_x(\xi\tau,\eta_\tau)}{F_y(\xi_\tau,\eta_\tau)} \underset{\text{oss. \fbox{*}}}{=} -\frac{F_x(x_1,fx_1)}{F_y(x_1,f(x_1))}
-    \end{gather*}
-    \begin{observation}
-        \fbox{*} $F_x,F_y \in C^0(U \times V)$\\
-        per $x \to x_1: \xi_\tau = (1-\tau) x_1+\tau x \to x_1$\\
-        $\eta_\tau = (1-\tau)f(x_1) + \tau \underset{\text{per \fbox{III} }\to f(x_1)}{f(x)} \to f(x_1)$
-    \end{observation}
+    Siccome $x_1$ è un punto generico ed è variabile possiamo riscriverlo come $x$ generico, e otteniamo la tesi.
+    %Considero $F(x_0,y_0-\delta)$ funzione continue per la permanenza del segno $F(x,y_0-\delta) < 0 \quad \forall x \in U$\\
+    %\ \ \ \ \ $F(x_0,y_0+\delta)$ $\exists U $ intorno di $x_0, U \subseteq W$ e $F(x,y_0+\delta) > 0\quad  \forall x \in U$\\
+    %\fbox{II}$\exists! f:U \to V \ t.c. \ F(x,f(x)) = 0 \quad \forall x \in U$\\
+    %osserviamo $\forall x \in U \quad y \to F(x,y) \nearrow $ strett.\\
+    %con\begin{gather*}
+    %    F(x,y_0-\delta) <0 \quad \forall x \in U \\
+    %    F(x,y_0+\delta) >0 \quad \forall x \in U \\
+    %    F \in C^0
+    %\end{gather*}
+    %$\Rightarrow$ (Th. esist. zeri + stretta monotonia) $\forall x \in U \quad \exists! y \in V:F(x,y) = 0$ cioè $y=f(x)$\\
+    %\fbox{III} $f\in C^0(U)$\\
+    %fix. $x_1 \in U$ considero $x \in U$
+    %\begin{gather*}
+    %    G(t) = F'\left( \underset{\xi_t }{(1-t)x_1 +tx} ; \underset{\eta_t }{(1-t)f(x_1) + tf(x) }\right) 
+    %\end{gather*}
+    %$G \in C^1$
+    %\begin{gather*}
+    %    G(0) = F(x_1,f(x_1) = 0)\\
+    %    G(1) = F(x,f(x) = 0)\\
+    %\end{gather*}
+    %Uso Th. ROlle $\Rightarrow \exists \tau \in (0,1) \ t.c. \ G'(\tau) = 0$\\
+    %\begin{gather*}
+    %    0 = G'(\tau) = F_x(\xi_\tau, \eta_\tau)(x-x_1) + F_y(\xi_\tau,\eta_\tau)(f(x)-f(x_1))\\
+    %    (f(x)-f(x_1)) (\underset{\xi_\tau}{F_y(1-\tau)x_1 + \tau x}; \underset{\eta_\tau}{(1-\tau)f(x_1)+\tau f(x)} ) = -(x-x_1)(F_x(\xi_\tau,\eta_tau))\\
+    %    f(x) -f(x_1) = -(x-x_1)\frac{F_x(\xi, \eta)}{F_y(\xi, \eta)}\\
+    %    \left\lvert f(x)-f(x_1) \right\rvert \leq \left\lvert x-x_1 \right\rvert \underset{(x,y) \in \mathbb{R}}{max}\left\lvert \frac{F_x(x,y)}{F_y(x,y)}\right\rvert  \leq \left\lvert x-x_1 \right\rvert \frac{\underset{(x,y) \in \mathbb{R}}{max} \left\lvert F_x(x,y) \right\rvert }{\underset{(x,y) \in \mathbb{R}}{min} \left\lvert F_y(x,y) \right\rvert } \neq 0
+    %\end{gather*}
+    %Poichè $F_y \in C^0, F_y \neq 0 $ in $\mathbb{R}$\\
+    %Si evidenzia che $\left\lvert x-x_1\right\rvert $ è un infinitesimo per $x\to x_1$ e il resto è limitato
+    %\begin{gather*}
+    %    \Rightarrow \lim_{x \to x_1} f(x) = f(x_1) \text{ cioè } f \in C^0(U)
+    %\end{gather*}
+    %\fbox{IV} $\exists f'(x) \quad \forall x \in U$ e $f'(x) = -\frac{F_x(x,f(x))}{F_y(x,f(x))} \quad \forall x \in U$\\
+    %\begin{gather*}
+    %    f'(x_1) = \lim_{x \to x_1} \frac{f(x)-f(x_1)}{x-x_1} \underset{\text{per }}{\boxed{**}} = \lim_{x \to x_1} -\frac{F_x(\xi\tau,\eta_\tau)}{F_y(\xi_\tau,\eta_\tau)} \underset{\text{oss. \fbox{*}}}{=} -\frac{F_x(x_1,fx_1)}{F_y(x_1,f(x_1))}
+    %\end{gather*}
+    %\begin{observation}
+    %    \fbox{*} $F_x,F_y \in C^0(U \times V)$\\
+    %    per $x \to x_1: \xi_\tau = (1-\tau) x_1+\tau x \to x_1$\\
+    %    $\eta_\tau = (1-\tau)f(x_1) + \tau \underset{\text{per \fbox{III} }\to f(x_1)}{f(x)} \to f(x_1)$
+    %\end{observation}
 \end{proof}
 
 \begin{observation}
@@ -2379,14 +2410,18 @@ postaction={#3,dash pattern=on 0pt off #1 on \offlen pt off 10cm}}]
 
 \section{Curve parametriche}
 \begin{definition}
-    Si definisce una curva parametrica:
+    Si definisce una curva parametrica in questo modo:
     \begin{gather*}
         \underbar{r}(t) : I \to \mathbb{R}^3 \qquad I = [a,b]\\
         \underbar{r}(t) = \begin{pmatrix}
             x(t)\\ y(t) \\ z(t)
         \end{pmatrix}
         \qquad x,y,z : I \to \mathbb{R}\\
-        \gamma \text{ sostegno di } \underbar{r} \quad \gamma = \underbar{r}(I)
+    \end{gather*}
+    Con $x,y,z$ che sono i componenti della curva parametrica.\\
+    La curva nella sua interezza è detta sostegno e si indica di solito con $\gamma$:
+    \begin{gather*}
+        \gamma \text{ sostegno di } \underbar{r} \qquad \gamma = \underbar{r}(I)
     \end{gather*}
 \end{definition}
 
@@ -2397,12 +2432,13 @@ postaction={#3,dash pattern=on 0pt off #1 on \offlen pt off 10cm}}]
 
 
 \begin{definition}
-    $\underbar{r}(t)$ semplice \underbar{se} non ha autointersezioni cioè \underbar{se} $\underbar{r}(t)$ è iniettiva
+    una curva $\underbar{r}(t)$, è semplice \underbar{se} non ha autointersezioni\\
+    cioè \underbar{se} $\underbar{r}(t)$ è iniettiva
 \end{definition}
 
 
 \begin{definition}
-    $\underbar{r}$ semplice è chiusa \underbar{se} $\underbar{r}(a) = \underbar{r}(b)$
+    una curva $\underbar{r}$ semplice, è chiusa \underbar{se} $\underbar{r}(a) = \underbar{r}(b)$
 \end{definition}
 
 
@@ -2410,13 +2446,14 @@ postaction={#3,dash pattern=on 0pt off #1 on \offlen pt off 10cm}}]
     $\underbar{r}(t)$ è regolare \underbar{se}:
     \begin{itemize}
         \item è semplice
-        \item $x,y,z$ sono derivabili
+        \item le componenti $x,y,z$ sono derivabili
         \item $\left\lvert \underline{\dot{r}}(t) \right\rvert \neq \underline{0} \quad \forall t \in \mathring{I}$
     \end{itemize}
     L'ultima condizione vuol dire che:
     \begin{gather*}
         \dot{x}^2(t) + \dot{y}^2(t) + \dot{z}^2(t) \neq 0 \quad \forall t \in (a,b)
     \end{gather*}
+    In particolare $\underline{\dot{r}}(t)$ è:
     \begin{gather*}
         \underline{\dot{r}}(t) = \begin{pmatrix}
             \dot{x}(t)\\
@@ -2451,6 +2488,8 @@ postaction={#3,dash pattern=on 0pt off #1 on \offlen pt off 10cm}}]
         \vv{\tau}(t) = \frac{\underline{\dot{r}}(t)}{||\underline{\dot{r}}(t)||} \qquad t \in (a,b)
     \end{gather*}
 \end{definition}
+
+
 \begin{observation}
     Siccome abbiamo definito che: $\underline{r}(t)$ è la traiettoria\\
     Possiamo vedere $\underline{\dot{r}}(t)$ come la velocità e $\underline{\ddot{r}}(t)$ come l'accelerazione
@@ -2459,52 +2498,57 @@ postaction={#3,dash pattern=on 0pt off #1 on \offlen pt off 10cm}}]
 
 
 \begin{definition}
-    Due parametriche:
+    Prese due curve parametriche:
     \begin{gather*}
         \underline{\varphi}:[a,b] \to \mathbb{R}^3\\ 
         \underline{\psi}: [\alpha,\beta] \to \mathbb{R}^3 
     \end{gather*}
-    sono equivalenti se:
+    esse si dicono equivalenti se:
     \begin{gather*}
         \exists g : I \to J \quad g \in C^1 \ t.c. \ I = [a,b] \quad J = [\alpha,\beta]\\
         g'(t) \neq 0 \quad \forall t \in \mathring{I} \ t.c. \ \underline{\varphi}(t) = \underline{\psi}(g(t)) \quad \forall t \in I
     \end{gather*}
+    Ovvero esiste una funzione $g$ che puo descrivere la curva $\underline{\varphi}$ in funzione di $\underline{\psi}$, e $g$ è di classe $C^1$ e ha derivata diversa da zero, quindi è monotona stretta (e quindi iniettiva).
     \begin{observation}
         $g$ è invertibile
     \end{observation}
     \begin{observation}
         Se $\underline{\varphi}, \underline{\psi}$ sono equivalenti \underbar{allora}:\\
-        $\vv{\tau}_{\underline{\varphi}} = \vv{\tau}_{\underline{\psi}}$ nei punti corrispondenti\\
-        oppure $\vv{\tau}_\varphi = - \vv{\tau}_{\underline{\psi}}$
+        $\vv{\tau}_{\underline{\varphi}} = \vv{\tau}_{\underline{\psi}}\quad$ o $\quad\vv{\tau}_\varphi = - \vv{\tau}_{\underline{\psi}}$ nei punti corrispondenti\\
     \end{observation}
 \end{definition}
-Voglio calcolare la lunghezza di una curva, la divido in tanti segmenti infinitesimi:
+
+\noindent
+Definiamo ora cioò che ci serve per definire la lunghezza di una curva:
 \begin{center}
     \begin{tikzpicture}
         \draw(0,0) ..controls(1,-1) and(2,1).. (3,0);
         \node at(0,0)[left]{$P_0 \equiv A$};
         \node at(3,0)[right]{$P_k \equiv B$};
     \end{tikzpicture}
-\end{center}
-Si chiama poligonale inscritta:
-\begin{gather*}
-    P_i \equiv P(t_i) = \underline{r}(t_i)\\
-    \mathcal{L}(\underline{r}) \geq \mathcal{L}(\wp)
-\end{gather*}
+\end{center}\begin{definition}[Poligonale inscritta]
+    Si chiama poligonale inscritta:
+    \begin{gather*}
+        P_i \equiv P(t_i) = \underline{r}(t_i)\\
+        \mathcal{L}(\underline{r}) \geq \mathcal{L}(\wp)
+    \end{gather*}
+    Ovvero è una spezzata che congiunge $k$ punti $P_i$ che appartengono alla curva $\gamma$ e che sono ordinati secondo l'orientazione della curva, avrò che la lunghezza della curva è maggiore o uguale alla lunghezza di questa spezzata.
+\end{definition}
 
 \begin{observation}
+    Se i punti $P_i$ sono appartenenti a $\gamma$ e sono finiti ($k$ punti).
     \begin{gather*}
         P_i \in \gamma \qquad i = 0...k
     \end{gather*}
 \end{observation}
 
 
-\begin{definition}[lunghezza di una curva]
-    $\underline{r}(t)$ è rettificante se:
+\begin{definition}[rettificabilità]
+    $\underline{r}(t)$ è rettificabile se per quanto noi la spezzettiamo la polignale inscritta resta di lunghezza finita:
     \begin{gather*}
         sup\{\mathcal{L}(\wp) \wp \text{poligonali inscritte}\} = L < +\infty
     \end{gather*}
-    in tal caso $\mathcal{L}(\underline{r}) = L$
+    In tal caso la lunghezza della curva è proprio quel sup: $\mathcal{L}(\underline{r}) = L$
 \end{definition}
 
 
@@ -2517,28 +2561,33 @@ Si chiama poligonale inscritta:
     \underbar{e} Regolare a tratti\\
     \tab \underbar{\textbf{allora}} $ \underline{\varphi}$ è rettificabile e $\mathcal{L}(\varphi) = \int_{a}^{b} ||\underline{\varphi' }(t)|| dt = \int_{a}^{b} \sqrt{\dot{x}^2(t)+\dot{y}^2(t)+\dot{z}^2(t)} dt$
 \end{theorem}
+\hfill\\
 
 
 \begin{proposition}
     Prese due curve parametriche $\underline{\varphi}, \underline{\psi}$\\ 
     \underbar{se} sono parametriche equivalenti \\
     \tab$\Rightarrow \mathcal{L}(\varphi) = \mathcal{L}(\underline{\psi})$\\\\
-    cioè $ \int_{a}^{b} | \underline{\varphi}'(t) | dt = \int_{\alpha}^{\beta} | \underline{\psi}' (s) | ds := \mathcal{L}(| \gamma |)$ quindi dipende solo dal sostegno
+    cioè $ \int_{a}^{b} | \underline{\varphi}'(t) | dt = \int_{\alpha}^{\beta} | \underline{\psi}' (s) | ds := \mathcal{L}(| \gamma |)$ quindi la lunghezza dipende solo dal sostegno
 \end{proposition}
+\hfill\\
 
 
 \begin{definition}[Ascissa curvilinea o parametro d'arco]
     Presa una curva parametrica $\underline{r}(t):[a,b] \to \mathbb{R}^3$\\
     \underbar{sia} $\underline{r}(t)$ Regolare\\
     \underbar{sia} $t_0 \in [a,b]$ \tiny solitamente si considera il punto iniziale quindi $t_0 = a$\normalsize \\
-    Viene definita l'ascissa curvilinea $S(t)$ nel seguente modo:\\ $\forall t \in [a,b] \quad S(t) = \int_{t_0}^{t}  \left\lVert \underline{\dot{r}}(\ell)\right\rVert  d\ell$ \tiny si cambia variabile da $t$ a $\ell$ perchè la variabile di integrazione e gli estremi di integrazione non possono essere uguali\normalsize\\
-    cioè la lunghezza dell'arto della curva $\gamma$ tra $\underline{r}(t_0)$, che posso chiamare $P_0$, e $\underline{r}(t)$\\
-    con $S(t)$ ascissa curvilinea (di $\underline{r}$) centrata in $t_0$ \\
+    Viene definita l'ascissa curvilinea $s(t)$ nel seguente modo:\\ 
+    \begin{gather*}
+        \forall t \in [a,b] \quad s(t) = \int_{t_0}^{t}  \left\lVert \underline{\dot{r}}(\ell)\right\rVert  d\ell \qquad \text{\tiny si cambia variabile da $t$ a $\ell$ perchè la variabile di integrazione e gli estremi di integrazione non possono essere uguali\normalsize}
+    \end{gather*}
+    Cioè la distanza tra un punto $P_0$ identificato da un preciso punto $t_0$, che fissiamo sulla curva $\gamma$, che è proprio $\underline{r}(t_0)$, e un punto $P$ sulla curva $\gamma$, identificato da un tempo generico $t$ \\
+    con $s(t)$ ascissa curvilinea (di $\underline{r}$) centrata in $t_0$ \\
     Considero ora $t_0 = a$:
     \begin{itemize}
-        \item $S:[a,b] \to [0,L] \qquad L = \mathcal{L}(\gamma)$
-        \item $S(t) = \int_{a}^{b} | \underline{\dot{r}} (\tau)| d\tau \qquad s(a) = 0 \ s(b) = 0$
-        \item $s \nearrow , \dot{s}(t) = | \underline{\dot{r}} |> 0$ con $s \in C^1 $
+        \item $s:[a,b] \to [0,L] \qquad L = \mathcal{L}(\gamma)$
+        \item $s(t) = \int_{a}^{b} | \underline{\dot{r}} (\tau)| d\tau \qquad s(a) = 0 \ s(b) = 0$
+        \item $s(t) \nearrow , \dot{s}(t) = | \underline{\dot{r}} |> 0$ con $s \in C^1 $
     \end{itemize}
     l'ultimo punto ci conferma che è cambio di parametro ammissibile
 \begin{gather*}
@@ -2546,20 +2595,22 @@ Si chiama poligonale inscritta:
     s= s(t) \text{ cambio di parametro}
     \boxed{\underline{\varphi} = \underline{r}(t(s))}
 \end{gather*}
+Se pur la notazione confonda abbiamo semplicemente sfruttato il fatto che $s$ sia invertibile, e quindi $t$ è diventata funzione di $s$.\\
+Poiché s($t$) è strettamente crescente, a ogni valore di tempo t corrisponde uno e un solo valore di spazio s. Questo ci permette di tornare indietro: se mi dici quanta strada hai fatto ($s$), posso dirti esattamente a che ora ($t$) ci sei passato.
 \end{definition}
-
+\hfill\\
 
 \begin{proposition}[Curve in forma polare]
     Le curve parametriche si possono descrivere anche in forma polare con funzioni, ad esempio:
     \begin{gather*}
-    \underline{r}(theta) = \begin{pmatrix}
+    \underline{r}(\theta) = \begin{pmatrix}
         \rho(\theta) \quad \cos(\theta)\\
         \rho(\theta) \quad \sin(\theta)
     \end{pmatrix}\theta \in I
     \end{gather*}
-    Con $\rho > 0$ e $I \subset \mathbb{R}$
+    Con $\rho > 0$ fissato e $I \subseteq \mathbb{R}$
 \end{proposition}
-
+\hfill\\
 
 
 \subsection{Integrali di linea di prima specie}
@@ -2574,12 +2625,13 @@ L'area del sottografico di $f(x,y)$ lungo la curva $\underline{r}(t)$ è proprio
 
 
 \begin{theorem}
-    $\underline{x}(t):[a,b] \to \mathbb{R}^2$ parametrizzazioni equivalenti regolari (a tratti di $\gamma$)\\
+    Prese due parametrizzazioni equivalenti regolari (a tratti di una curva $\gamma$):\\
+    $\underline{x}(t):[a,b] \to \mathbb{R}^2$\\
     $\underline{r}(u):[\alpha,\beta] \to \mathbb{R}^2$\\
-    $f:a \to \mathbb{R} \quad A \subseteq \mathbb{R}^2, \gamma \subseteq A$\\
+    Presa una funzione $f:A \to \mathbb{R} \quad A \subseteq \mathbb{R}^2, \gamma \subseteq A$\\
     \underline{Allora} $\int_{a}^{b} f(\underline{x}(t))\left\lVert \underline{\dot{x}} (t)\right\rVert dt = \int_{\alpha}^{\beta} f(\underline{r}(u)) \left\lVert \underline{\dot{r}}(u) \right\rVert du$\\
     e quindi è ben definito $\int_{\gamma} f ds = \int_{a}^{b} f(\underline{x}(t)) \left\lVert \underline{\dot{x}}(t)\right\rVert dt$\\
-    Quindi non dipende dalla parametrizzazione scelta. 
+    Che non dipende dalla parametrizzazione scelta. 
 \end{theorem}
 \begin{aside}
     L'integrale sulla curva lo esprimo in $ds$ perchè, non avendo dipendenza dalla parametrizzazione, lo scrivo in funzione dell'ascissa curvilinea.
@@ -2593,19 +2645,20 @@ L'area del sottografico di $f(x,y)$ lungo la curva $\underline{r}(t)$ è proprio
 
 \begin{proof}
     \hfil\\
-    sia $g:[a,b] \to [\alpha,\beta]$ cambio di paraetro $t \mapsto u=g(t)$\\
+    Siccome le curve sono equivalenti, esiste $g:[a,b] \to [\alpha,\beta]$ cambio di paraetro $t \mapsto u=g(t)$\\
     supponiamo $g'\underset{\textcolor{yellow}{<}}{>}0$ (viene mantenuta l'orientazione)\\
-    $\underline{x}(t) = \underline{r}(g(t))$
-    Specifichiamo la seguente uguaglianza che viene da questo termine
+    $\underline{x}(t) = \underline{r}(g(t))$\\
+    Se deriviamo rispetto a $t$ entrambi i termini e ne facciamo la norma otteniamo:
     \begin{gather*}
         \left\lVert \underline{\dot{x}}(t)\right\rVert = \left\lVert \underline{\dot{r}}(g(t)) g'(t) \right\rVert = \left\lVert \underline{\dot{r}}(g(t)) \right\rVert \left\lVert g'(t) \right\rVert = g'(t) \left\lVert \underline{\dot{r}}(g(t)) \right\rVert \qquad g'>0    
     \end{gather*}
-    Ora si prosegue con i conti:
+    Ora si imposta l'integrale e si prosegue con i conti:
     \begin{gather*}
         \int_{\alpha}^{\beta} f(\underline{r}(u)) \left\lVert \underline{\dot{r}}(u) \right\rVert du = \\
         \text{sostituzione: } u=g(t) \quad du = g'(t) dt\\
         = \int_{\underset{\textcolor{yellow}{b}}{a}}^{\overset{\textcolor{yellow}{a}}{b}} f(\underline{r}(g(t))) \left\lVert \underline{\dot{r}}(g(t)) \right\rVert g'(t) dt = \int_{a}^{b} f(\underline{x}(t)) \left\lVert \underline{\dot{x}}(t) \right\rVert dt  
     \end{gather*}
+    nell'ultimo passaggio abbiamo usato la prima e seconda equazione che abbiamo scritto.
 \end{proof}
 
 
@@ -2632,7 +2685,7 @@ $\gamma$ sostegno di $\underline{x}(t):[a,b] \to \mathbb{R}^3$\\
 \subsection{forme differenziali}
 sono un modo matematico per esprimere i campi vettoriali
 \begin{definition}[Campo vettoriale]
-    \underline{sia} $A \subseteq \mathbb{R}^3$ un campo vettoriale su $A$\\
+    \underline{sia} $A \subseteq \mathbb{R}^3$, un campo vettoriale su $A$
     è una funzione $F:A \to \mathbb{R}^3$\\
     Se $\overset{\in A}{(x,y,z)} \overset{F}{\to} \underset{(F_1(x,y,z),F_2(x,y,z),F_3(x,y,z))}{F(x,y,z)} \in \mathbb{R}^3$\\
     le componenti si possono scrivere anche con la forma con i versori: $F_1(x,y,z)\underline{i},F_2(x,y,z)\underline{j},F_3(x,y,z)\underline{k}$
@@ -2648,7 +2701,10 @@ sono un modo matematico per esprimere i campi vettoriali
         a_2=L(e_2)\\
         a_3=L(e_3)\\
     \end{gather*}
-    Preso $v \in \mathbb{R}^3$ si ha che $L(v) = a_1v_1+a_2v_2+a_3v_3$\\
+    Preso $v \in \mathbb{R}^3$ riscrivibile come: $v = v_1 e_1 + v_2 e_2 + v_3 e_3$\\
+    Siccome $L$ è lineare rispetta omogeneità ($L(ku) = kL(u)$) e additività ($L(u+v) = L(u) + L(v)$)\\
+    Siccome quindi $L(v) = L(v_1 e_1 + v_2 e_2 + v_3 e_3) = v_1 L(e_1) + v_2 L(e_2) + v_3 L(e_3)$\\
+    si ha che $L(v) = a_1v_1+a_2v_2+a_3v_3$\\
     definisco una base di $(\mathbb{R}^3)^*$
     \begin{gather*}
         dx_1 : \mathbb{R}^3 \to \mathbb{R} \qquad (dx_1)(\overset{\in \mathbb{R}^3}{v}) = v_1\\
@@ -2669,13 +2725,15 @@ sono un modo matematico per esprimere i campi vettoriali
     \end{gather*}
     Gli elementi costanti dipendono però dall'elemento $(x,y,z)$ di partenza:
     \begin{gather*}
-        L(x,y,z) = a_1(x,y,z) dx_1 + a_2(x,y,z) dx_2 + a_2(x,y,z) dx_3
+        L(x,y,z) = a_1(x,y,z) dx_1 + a_2(x,y,z) dx_2 + a_3(x,y,z) dx_3
     \end{gather*}
+    Questo perchè $L$ prende in input un vettore, quindi ad ogi pnto dello spazio la funzione che applico a $v$ cambia.\\
     A questa forma differenziale posso associare il campo vettoriale ($F$):
     \begin{gather*}
         F(x,y,z) = (a_1(x,y,z),a_2(x,y,z),a_3(x,y,z))
     \end{gather*}
 \end{definition}
+
 
 
 \begin{proposition}
@@ -2685,8 +2743,10 @@ sono un modo matematico per esprimere i campi vettoriali
     \end{gather*}
     Questo puo essere visto come il gradiente della forma differenziale.
 \end{proposition}
+\hfill\\
 
 
+\noindent
 Ci si chiede ora quali forme differenziali siano esatte 
 \begin{definition}
     \underline{Sia} $\omega:A \to (\mathbb{R}^3)^*$ una forma differenziale $\omega$ si dice \textbf{esatta} \underline{se}\\
@@ -2776,6 +2836,7 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
         \int_{\gamma} \omega = f(P_1) - f(P_0) 
     \end{gather*}
 \end{theorem}
+
     \begin{proof}
         In gradiente: $\omega$ è esatta e $f$ è una sua primitiva. Questo vuol dire che:
         \begin{gather*}
@@ -2794,7 +2855,7 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
 
 
 \begin{theorem}[caratterizzazione delle forme esatte]
-    \underbar{sia} $A \subset \mathbb{R}^3$ un \textbf{aperto connesso}, $\omega$ una forma differenziale continua definita su $A$ e $\gamma,\gamma_1,\gamma_2$ curve regolari a tratti con con sostegno contenuto in $A$. le tre proprietà seguenti sono equivalenti:
+    \underbar{sia} $A \subseteq \mathbb{R}^3$ un \textbf{aperto connesso}, $\omega$ una forma differenziale continua definita su $A$ e $\gamma,\gamma_1,\gamma_2$ curve regolari a tratti con con sostegno contenuto in $A$. Se si ha una di queste proprietà si hanno tutte e tre:
     \begin{enumerate}
         \item $\omega$ è esatta
         \item per ogni curva chiusa $\gamma$ contenuta in $A$ risulta $\int_{\gamma} \omega = 0$
@@ -2829,25 +2890,90 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
         \Rightarrow \int_{\gamma_1} \omega = \int_{\gamma_2} \omega 
     \end{gather*}
     \bulletout $3 \rightarrow 1$\\
+    Ora stiamo ipotizzando che presi due punti indipendentemente dalla curva che li connette, se calcolo $\omega$ su quella curva il risultato non cambia.\\ 
+    Chiamo questo punto $f(P)$ il valore dell'integrale fatto su una curva che va da un punto fisso $P_0$ a $P$. P avrà ovviamente tre coordinate:\\
     \begin{gather*}
         f(x_1,x_2,x_3) = \int_{\gamma} \omega \\
+    \end{gather*}
+    Vogliamo calcolare $\frac{\de f}{\de x_1}$ per far vedere che è uguale a $a_1$ e che quindi $\omega$ è esatta, per farlo iniziamo con incrementare leggermente $x_1$
+    \begin{gather*}
         f(x_1+h,x_2,x_3) = \int_{\gamma \cup \varphi} \omega
     \end{gather*}
+    \begin{center}
+        \begin{tikzpicture}[scale=1.2, >=stealth]
+        % Disegno del dominio A (una forma irregolare sfumata)
+        \filldraw[fill=page, draw=gray!50, dashed] (-1,-1) 
+            .. controls (0,-1.5) and (3,-1) .. (5,0.5)
+            .. controls (6,2) and (4,3.5) .. (2,3)
+            .. controls (0,3.5) and (-2,2) .. (-1,-1);
+        \node[scale = 1.2] at (4.5, 2.8) {\large $A$};
+
+        % Assi coordinati di riferimento (piccoli in un angolo)
+        \draw[->, thin, color=gray] (-0.5,-0.5) -- (0.5,-0.5) node[right] {\tiny $x_1$};
+        \draw[->, thin, color=gray] (-0.5,-0.5) -- (-0.5,0.5) node[above] {\tiny $x_2$};
+
+        % Punto base P0
+        \filldraw[black] (0,0) circle (2pt) node[below left] {$P_0$};
+
+        % Punto P = (x1, x2, x3)
+        \filldraw[black] (3,1.5) circle (2pt) node[above left] {$P(x_1, x_2, x_3)$};
+
+        % Curva gamma da P0 a P
+        \draw[thick, cyan, ->] (0,0) .. controls (0.5,2) and (2,0.5) .. (3,1.5);
+        \node[blue] at (1.2, 1.6) {$\gamma$};
+
+        % Punto incrementato P' = (x1 + h, x2, x3)
+        \filldraw[red] (4.5,1.5) circle (2pt) node[right] {$P'(x_1+h, x_2, x_3)$};
+
+        % Segmento rettilineo phi (l'incremento h)
+        \draw[thick, orange, ->] (3,1.5) -- (4.5,1.5);
+        \node[red, above] at (3.75, 1.5) {$\varphi$};
+        \node[red, below] at (3.75, 1.5) {$h$};
+
+        % Commento laterale
+        \node[align=left, draw, fill=page, font=\small] at (2.5,-0.5) {
+            $f(P) = \int_{\gamma} \omega$ \\
+            $f(P') = \int_{\gamma} \omega + \int_{\phi} \omega$ \\
+            $\Delta f = \int_{\phi} \omega$
+        };
+        \end{tikzpicture}
+    \end{center}
+    Questo segmentino lo chiamo $\varphi$ e lo percorro da $P$ a $P'$. Sottraiamo ora $f(x_1,x_2,x_3)$ a entrambi i membri e dividiamo per $h$\\
     \begin{gather*}
-        \frac{f(x_1+h,x_2,x_3)}{h} = \int_{\gamma \cup \varphi} \omega - \int_{\gamma} \omega\\
-        = \int_{\gamma} \omega + \int_{\varphi} - \int_{\gamma} \omega = \frac{1}{h} \int_{0}^{h} \left( a_1(x_1+t,x_2,x_3) 1 + a_2(") 0 + a_3(") 0 \right)dt
-        = \frac{1}{h} \int_{0}^{h} a_1(x_1+t,x_2,x_3) dt \quad \text{se chiamato } P(h) = \int_{0}^{h} a_1(x_1+t,x_2,x_3) \quad P(0) = 0\\
-        \lim_{h \to 0} \frac{f(x_1+h,x_2,x_1) - f(x_1,x_2,x_3)'}{h} = \lim_{h \to 0} \frac{P(h) - P(0)}{h} = P'(0) =
+        \frac{f(x_1+h,x_2,x_3) - f(x_1,x_2,x_3)}{h} =\frac{1}{h} \left( \int_{\gamma \cup \varphi} \omega - \int_{\gamma} \omega\right) \\
     \end{gather*}
-    Il t.f.c.i. garantisce che $P'(0) \exists$ e che coincide con l'integranda calcolata per $t=0$. cioè con $a_1(x_1,x_2,x_3)$\\\\
+    Ora sviluppando l'integrale si puo arrivare a solo l'integrale su $\varphi$ sul quale sviluppiamo $\omega$:
+    \begin{gather*}
+        =\frac{1}{h} \left( \int_{\gamma} \omega + \int_{\varphi} \omega - \int_{\gamma} \omega\right)  = \frac{1}{h} \int_{0}^{h} \left( a_1(x_1+t,x_2,x_3) 1 + a_2(x_1+t,x_2,x_3) 0 + a_3(x_1+t,x_2,x_3) 0 \right)dt\\
+    \end{gather*}
+    Siccome $\varphi$ si muove solo lungo $x_1$ lo abbiamo parametrizzato come $\varphi(t) = (x_1+t,x_2,x_3)$ con $t \in [0,h]$ e quindi $\dot{\varphi}(t) = (1,0,0)$\\
+    Prendiamo questo ultimo risultato ottenuto e confrontiamolo con l'inizio e passiamo al limite $h \to 0$
+    \begin{gather*}
+        \lim_{h \to 0} \frac{f(x_1+h,x_2,x_1) - f(x_1,x_2,x_3)}{h} = \lim_{h \to 0} \frac{1}{h} \int_{0}^{h} a_1(x_1+t,x_2,x_3) dt
+    \end{gather*}
+    Se chiamo $P(h) = \int_{0}^{h} a_1(x_1+t,x_2,x_3) dt$ per il t.f.c.i. $P$ è derivabile e $P'(t) = a_1(x_1+t,x_2,x_3)$ ovvero l'integranda\\
+    Considero anche che $P(0) = \int_{0}^{0} a_1(x_1+t,x_2,x_3) dt = 0$
+    \begin{gather*}
+        \lim_{h \to 0} \frac{f(x_1+h,x_2,x_1) - f(x_1,x_2,x_3)}{h} = \lim_{h \to 0} \frac{P(h) - P(0)}{h} = P'(0)
+    \end{gather*}
+
+    \begin{gather*}
+        \frac{\de f}{\de x_1} = P'(0) = a_1(x_1,x_2,x_3)
+    \end{gather*}
+    %Il t.f.c.i. garantisce che $P'(0) \exists$ e che coincide con l'integranda calcolata per $t=0$. cioè con $a_1(x_1,x_2,x_3)$\\\\
     Ho quindi dimostrato che:
     \begin{gather*}
         \frac{\partial f}{\partial x_1} (x_1,x_2,x_3) = a_1(x_1,x_2,x_3)
     \end{gather*}
+    Si dimostra per $x_2$ e $x_3$ in maniera analoga arrivando dunque a scrivere:
+    \begin{gather*}
+        \nabla f = (a_1,a_2,a_3) \qquad \Rightarrow \qquad df = a_1 dx_1 + a_2 dx_2 + a_3 dx_3 = \omega
+    \end{gather*}
+    e quindi $f$ è proprio il potenziale di $\omega$ quindi $\omega$ è esatta.
 \end{proof}
 
 
-\begin{proposition}[Forme chiuse e forme esatte]
+\begin{proposition}[Forme differenziali chiuse]
     \underbar{sia} $\omega$ una forma differenziale $C^1$ in $A \subseteq \mathbb{R}^n$
     \begin{gather*}
         \omega = a_1(x) dx_1 + \ ... \ + a_n(x) dx_n
@@ -2862,14 +2988,14 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
     \end{proposition}
 
 
-\begin{theorem}
-    \underbar{sia} $A \subset \mathbb{R}^3$ e $\omega$ una forma differenziale $C^1$ in $A$ \\
+\begin{theorem}[esatta implica chiusa]
+    \underbar{sia} $A \subseteq \mathbb{R}^3$ e $\omega$ una forma differenziale $C^1$ in $A$ \\
     \underbar{se} $\omega$ è esatta \underbar{allora} $\omega$ è chiusa\\
     (vale anche in $\mathbb{R}^3 \ \forall n \geq 2$)
 \end{theorem}
 
-\begin{proof}
-    Se $\omega$ è esatta, $\omega = df$, cioè $a_1 = \frac{\partial f}{\partial x_1} \quad a_2 = \frac{\partial f}{\partial x_2} \quad a_3 = \frac{\partial f}{\partial x_3}   $\\
+\begin{proof}%ho messo nabla al posto di d
+    Se $\omega$ è esatta, $\omega = \nabla f$, cioè $a_1 = \frac{\partial f}{\partial x_1} \quad a_2 = \frac{\partial f}{\partial x_2} \quad a_3 = \frac{\partial f}{\partial x_3}   $\\
     con $f$ potenziale di $\omega$.\\
     Scegliete $i,j = 1,2,3$ con $i \neq j$\\
     Poichè $\frac{\partial f}{\partial x_i}$ e $\frac{\partial f}{\partial x_j}$ sono $C^1$ sono derivabili e le loro derivate sono continue\\
@@ -2884,9 +3010,10 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
 \end{proof}
 
 
-\begin{definition}
+\begin{definition}[Rotore]
+    Si definisce il rotore di un campo vettoriale $F$ in questo modo:
     \begin{gather*}
-        rot F = \nabla_x F =\\
+        rot F = \nabla \times F =\\
         \det\begin{pmatrix}
             i & j & k\\
             \frac{\partial}{\partial x_1} & \frac{\partial}{\partial x_2} & \frac{\partial}{\partial x_3}\\
@@ -2901,27 +3028,33 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
     \underbar{sia} $F \in C^1(A)$\\
     \underbar{se} $F$ è conservativo \underbar{allora}\\
     \begin{gather*}
-        \text{rot } F \equiv 0 \text{($F$ è irrotazionale)}
+        \text{rot } F \equiv 0
     \end{gather*}
+    E $F$ si dice irrotazionale
 \end{theorem}
 
 
-\begin{theorem}
+\begin{theorem}[chiusa su un sipml. conn. implica primitiva]
     \underbar{se} $\omega$ è una fomra differenziale \textbf{chiusa} definita e $C^1$ in un insieme semplicemente connesso $A$\\
     \underbar{allora} $\exists$ una primitiva di $\omega$ definita in $A$.
 \end{theorem}
+
 
 \begin{observation}
     Un insieme si dice semplicemente connesso se data una curva contenuta in quellinsieme posso deformarla in modo continuo fino a ridurla a un punto.
 \end{observation}
 
+
 \section{insiemi semplicemente connessi}
 \begin{definition}[\textbf{non rigorosa} di semplicemente connesso]
-    Un aperto $A$ si dice semplicemente conensso \underbar{se} è connesso e inoltre ogni curva chiusa è internamente contenuta in $A$ può essere ridotta mediante una deformazione continua in un unico punto senza mai uscire da $A$
+    Un aperto $A$ si dice semplicemente conensso \underbar{se} è connesso e inoltre ogni curva chiusa è internamente contenuta in $A$ può essere ridotta mediante una deformazione continua in un unico punto senza mai uscire da $A$\\
+    Un connesso è un insieme che non è la unione di due insiemi disgiunti, è un "pezzo unico".\\
 \end{definition}
+\hfill\\
+
 
 \begin{aside}
-    Tutti gli insiemi connessi sono semplicemente connessi
+    Tutti gli insiemi connessi sono semplicemente connessi\\
     Tutti gli insieme stellati sono semplicemente connessi
 \end{aside}
 
@@ -2930,6 +3063,7 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
     Un insieme $A$ si dice stellato\\
     \underbar{se} $\exists \ P_0 \in A \ t.c. \ \forall P \in A$: \tab tutto il segmento ci estremi $P$ e $P_0$ è contenuto in $A$
 \end{definition}
+\hfill\\
 
 
 Per introdurre la seconda def. di semplicemente connesso serve introdurre il concetto di Omotopia tra curve:
@@ -2974,7 +3108,7 @@ Per introdurre la seconda def. di semplicemente connesso serve introdurre il con
 \end{definition}
 
 
-\begin{theorem}
+\begin{theorem}[chiusa su un simpl. conn. implica esatta]
     \underbar{Sia} $\omega= a_1 \ (x,y) \ dx + a_2 \ (x,y) \ dy$ una forma differenziale $C^1$\\
     \underbar{e} chiusa in un insieme $A \subseteq \mathbb{R}^2$ semplicemente connesso\\
     \underbar{Allora} $\omega$ è esatta.\\
@@ -2990,13 +3124,22 @@ Per introdurre la seconda def. di semplicemente connesso serve introdurre il con
 \end{theorem}
 
 \begin{proof}
-    Siano $\gamma_1$ e $\gamma_2$ due curve in $A$ cge gabbi gku stessu estremi. Poich $A$ è semplicemente connesso $\gamma_1$ e $\gamma_2$ sono omotope.\\
+    Siano $\gamma_1$ e $\gamma_2$ due curve in $A$ che abbiano gli stessi estremi. Poiché $A$ è semplicemente connesso $\gamma_1$ e $\gamma_2$ sono omotope.\\
     $\exists \gamma(t, \lambda) :[a,b]\times[0,1] \to A$ che soddisfa le proprietà enunciate nella def. di omotopia.\\
-    Definisco $\forall \lambda \in [0,1]$
+    Definisco $\forall \lambda \in [0,1]$ una funzione $I(\lambda)$ che è il valore dell'integrale di $\omega$ lungo la curva intermedia $\gamma_\lambda$ di equazione $\gamma(t, \lambda)$.
     \begin{gather*}
         I(\lambda) = \int_{\text{curva }\gamma_\lambda} \omega = \int_{a}^{b} a_1 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial x}{\partial t}(t,\lambda) + a_2 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial y}{\partial t}(t,\lambda) \ dt
     \end{gather*}
-    Suppongo che $\varphi(t,\lambda)$ \underbar{sia} $C^1\left( [a,b] \times [0,1] \right)$ e che le derivate secode miste $\frac{\partial^2 x}{\partial \lambda \partial t}, \frac{\partial^2 y}{\partial \lambda \partial t}$ \underbar{siano} continue.\\
+    Con $x$ e $y$ componenti della curva $\gamma$, quindi a parametri $t,\lambda$, e con $a_1$ e $a_2$ componenti di $\omega$.\hfill\\
+    Sto cercando di dimostrare che L'integrale della forma differenziale dipende solo dagli estremi e non dal percorso scelto. Quindi che la funzione
+    che ho chiamato $I(\lambda)$ non dipenda da $\lambda$, la strategia migliore per fare questo è dimostrare che $\frac{dI}{d\lambda} = 0$.\hfill\\
+    %piccola specifica
+    \begin{aside}
+        In matematica avanzata (precisamente in topologia differenziale), esiste un risultato noto come Teorema di approssimazione (spesso associato a Whitney).\\
+        Questo teorema che negli spazzi in cui posso definire l'omotopia tra curve, come $\R^2$ o $\R^3$, se due curve regolari possono essere deformate l'una nell'altra con un'omotopia solo continua, allora esiste sempre anche un'omotopia liscia (cioè di classe $C^\infty$, derivabile infinite volte) che fa lo stesso identico lavoro.\\
+        Questo è molto difficile da dimostrare ma noi ci limiteremo a supporre che l'omotopia che abbiamo scelto sia almeno $C^2$, in teoria rafforzando le ipotesi ma di fatto per via di questo teorema non lo stiamo veramente facendo.
+    \end{aside}\noindent
+    Suppongo quindi che $\varphi(t,\lambda)$ \underbar{sia} $C^1\left( [a,b] \times [0,1] \right)$ e che le derivate secode miste $\frac{\partial^2 x}{\partial \lambda \partial t}, \frac{\partial^2 y}{\partial \lambda \partial t}$ \underbar{siano} continue.\\
     Ora calcolo la derivata rispetto a $\lambda$ i calcoli del passaggio precedente:
     \begin{gather*}
         \frac{d}{d\lambda}\left(I(\lambda) \right) = \frac{d}{d\lambda}\left(\int_{\text{\tiny curva \normalsize}\gamma_\lambda} \omega\right)  = \int_{a}^{b} \frac{d}{d\lambda}\left(a_1 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial x}{\partial t}(t,\lambda) + a_2 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial y}{\partial t}(t,\lambda)\right)  \ dt
@@ -3011,13 +3154,51 @@ Per introdurre la seconda def. di semplicemente connesso serve introdurre il con
         \frac{d}{d\lambda}\left[ a_1(x(t,\lambda),y(t,\lambda)) \frac{\partial x}{\partial t}(t, \lambda) + a_2(x(t,\lambda),y(t,\lambda)) \frac{\partial y}{\partial t}(t, \lambda) \right] \qquad \boxed{I} \\
         \frac{d}{d t}\left[a_1(x(t, \lambda),y(t, \lambda))\frac{\partial x}{\partial \lambda}(t, \lambda) + a_2(x(t, \lambda),y(t, \lambda))\frac{\partial y}{\partial \lambda}(t, \lambda)\right] \qquad \boxed{II}\\
     \end{gather*}
-    Voglio far vedere che le loro derivate sono uguali:
+    In pratica voglio far vedere che $I$ e $II$ sono uguali perchè così facendo avro $\int \frac{d}{dt} ('') dt$ che si calcola banalmente con gli estremi, e posso vedere se fa $0$.\\
+    Voglio quindi far vedere che le loro derivate sono uguali, procedo con i conti:
     \begin{gather*}
-        \frac{d}{d\lambda} \boxed{I} = \left[ \frac{\partial a_1}{\partial x}( '' ) \frac{\partial x}{\partial \lambda}( '' )+ \frac{\partial a_1}{\partial y}( '' )\frac{\partial y}{\partial \lambda}\right]\frac{\partial x}{\partial t}( '' ) + a_1( '' ) \frac{\partial^2 x}{\partial \lambda \partial t} + \left[ \frac{\partial a_2}{\partial x}( '' )\frac{\partial x}{\partial \lambda} + \frac{\partial a_2}{\partial y}( '' )\frac{\partial y}{\partial \lambda} \right]\frac{\partial y}{\partial t} + a_2( '' )\frac{\partial^2 y}{\partial \lambda \partial t}\\
-        \frac{d}{d \lambda} \boxed{II} = \left[ \frac{\partial a_1}{\partial x}( '' ) \frac{\partial x}{\partial t}( '' )+ \frac{\partial a_1}{\partial y}( '' )\frac{\partial y}{\partial t}\right]\frac{\partial x}{\partial \lambda}( '' ) + a_1( '' ) \frac{\partial^2 x}{\partial t \partial \lambda} + \left[ \frac{\partial a_2}{\partial x}( '' )\frac{\partial x}{\partial t} + \frac{\partial a_2}{\partial y}( '' )\frac{\partial y}{\partial t} \right]\frac{\partial y}{\partial \lambda} + a_2( '' )\frac{\partial^2 y}{\partial t \partial \lambda}
+        \boxed{I} = \left[ \overbrace{\frac{\partial a_1}{\partial x}( '' ) \frac{\partial x}{\partial \lambda}( '' )+ \frac{\partial a_1}{\partial y}( '' )\frac{\partial y}{\partial \lambda}}^{\frac{\de a_1}{\de \lambda}}\right]\frac{\partial x}{\partial t}( '' ) + a_1( '' ) \overbrace{\frac{\partial^2 x}{\partial \lambda \partial t}}^{\frac{\de}{\de \lambda} \frac{\de x}{\de t}} + \left[ \frac{\partial a_2}{\partial x}( '' )\frac{\partial x}{\partial \lambda} + \frac{\partial a_2}{\partial y}( '' )\frac{\partial y}{\partial \lambda} \right]\frac{\partial y}{\partial t} + a_2( '' )\frac{\partial^2 y}{\partial \lambda \partial t}\\
+        \boxed{II} = \left[ \frac{\partial a_1}{\partial x}( '' ) \frac{\partial x}{\partial t}( '' )+ \frac{\partial a_1}{\partial y}( '' )\frac{\partial y}{\partial t}\right]\frac{\partial x}{\partial \lambda}( '' ) + a_1( '' ) \frac{\partial^2 x}{\partial t \partial \lambda} + \left[ \frac{\partial a_2}{\partial x}( '' )\frac{\partial x}{\partial t} + \frac{\partial a_2}{\partial y}( '' )\frac{\partial y}{\partial t} \right]\frac{\partial y}{\partial \lambda} + a_2( '' )\frac{\partial^2 y}{\partial t \partial \lambda}
     \end{gather*}
-    So che è chiusa cioè che $\forall(x,y) \in A \frac{\partial^2 a_1 (x,y)}{\partial y}(x,y) = \frac{\partial^2 a_2}{\partial x} (x,y)$
+Sapendo che $\omega$ è chiusa, abbiamo che $\forall(x,y) \in A$:
+    \begin{gather*}
+        \frac{\partial a_1}{\partial y}(x,y) = \frac{\partial a_2}{\partial x}(x,y)
+    \end{gather*}
+    Inoltre, per il Teorema di Schwarz, le derivate seconde miste sono uguali:
+    \begin{gather*}
+        \frac{\partial^2 x}{\partial \lambda \partial t} = \frac{\partial^2 x}{\partial t \partial \lambda} \quad \text{e} \quad \frac{\partial^2 y}{\partial \lambda \partial t} = \frac{\partial^2 y}{\partial t \partial \lambda}
+    \end{gather*}
+    Confrontando lo sviluppo di $\boxed{I}$ e $\boxed{II}$ e applicando queste uguaglianze, tutti i termini si elidono a vicenda. Otteniamo quindi l'uguaglianza fondamentale:
+    \begin{gather*}
+        \text{Sviluppo di } \boxed{I} \ = \ \text{Sviluppo di } \boxed{II}
+    \end{gather*}
+    Possiamo ora riprendere il calcolo della derivata dell'integrale $I(\lambda)$:
+    \begin{align*}
+        \frac{d}{d\lambda}\left(I(\lambda)\right) &= \int_{a}^{b} \left( \text{Sviluppo di } \boxed{I} \right) \ dt \\
+        &= \int_{a}^{b} \left( \text{Sviluppo di } \boxed{II} \right) \ dt \\
+        &= \int_{a}^{b} \frac{d}{dt}\left[ a_1(x(t, \lambda),y(t, \lambda))\frac{\partial x}{\partial \lambda}(t, \lambda) + a_2(x(t, \lambda),y(t, \lambda))\frac{\partial y}{\partial \lambda}(t, \lambda)\right] \ dt
+    \end{align*}
+    Per il Teorema Fondamentale del Calcolo Integrale, l'integrale della derivata rispetto a $t$ è pari alla funzione integranda valutata agli estremi $t=a$ e $t=b$:
+    \begin{gather*}
+        \frac{d}{d\lambda}\left(I(\lambda)\right) = \left[ a_1(x,y)\frac{\partial x}{\partial \lambda} + a_2(x,y)\frac{\partial y}{\partial \lambda} \right]_{t=a}^{t=b}
+    \end{gather*}
+    Sfruttiamo ora le proprietà dell'omotopia agli estremi. Poiché $\phi(a, \lambda) = P_a$ e $\phi(b, \lambda) = P_b$ per ogni $\lambda \in [0,1]$, i punti iniziale e finale sono costanti al variare di $\lambda$. Ne consegue che le loro derivate rispetto a $\lambda$ sono nulle:
+    \begin{gather*}
+        \frac{\partial x}{\partial \lambda}(a, \lambda) = 0, \quad \frac{\partial y}{\partial \lambda}(a, \lambda) = 0 \\
+        \frac{\partial x}{\partial \lambda}(b, \lambda) = 0, \quad \frac{\partial y}{\partial \lambda}(b, \lambda) = 0
+    \end{gather*}
+    Sostituendo queste condizioni nell'espressione valutata agli estremi, otteniamo:
+    \begin{gather*}
+        \frac{d}{d\lambda}\left(I(\lambda)\right) = 0 - 0 = 0 \quad \forall \lambda \in [0,1]
+    \end{gather*}
+    Poiché la derivata di $I(\lambda)$ è identicamente nulla, $I(\lambda)$ è una funzione costante. In particolare:
+    \begin{gather*}
+        I(0) = I(1) \implies \int_{\gamma_1} \omega = \int_{\gamma_2} \omega
+    \end{gather*}
+    Abbiamo dimostrato che l'integrale della forma differenziale non dipende dal cammino scelto tra due punti fissati. Poiché l'indipendenza dal cammino in un aperto connesso è una condizione equivalente all'esattezza della forma differenziale, concludiamo che $\omega$ è esatta.
 \end{proof}
+\hfill\\
+
 
 \section{famiglia di curve}
 \begin{definition}[EDO famiglia di curve]
@@ -3174,7 +3355,7 @@ Definisco somma di Cauchy-Riemann come:
 \begin{definition}
     Diremo che la funzione $f:[a,b] \times [c,d]$, 
     limitata, è integrabile sul rettangolo $R=[a,b] \times 
-    [c,d]$ se esiste finito il limite di  $\lim_{n \to \infty}s_n$ e 
+    [c,d]$ se esiste finito il limite di  $\lim_{n \to \infty}S_n$ e 
     \underbar{se} tale limite \textbf{non} dipende da come si sono scelti 
     i punti di $P_{hk}$ nei rispettivi rettangoli ad ogni passo della costruzione. 
 \end{definition}
@@ -3303,7 +3484,7 @@ Si ricorda che abbiamo supposto che la funzione sia continua, e quindi integrabi
 
 
 \begin{definition}[insiemi semplici e regolari]
-    $E \subseteq \mathbb{R}^2$ si duce y-semplice se è del tipo:
+    $E \subseteq \mathbb{R}^2$ si dice y-semplice se è del tipo:
     \begin{gather*}
         E \{ (x,y):x \in [a,b] \quad g_1(x) \leq y \leq g_2(x) \ \}
     \end{gather*} 
@@ -3405,6 +3586,10 @@ Perchè una funzione sia x-semplice deve poter essere proiettata sull'asse delle
         \end{tikzpicture}
     \end{center}
 \end{theorem}
+\begin{aside}
+    Un insieme si ricorda essere regolare se è unione di un numero finito di insiemi semplici (x-semplici o y-semplici).
+\end{aside}
+\hfill\\
 
 
 \subsubsection{misura di un insieme del piano}
@@ -3416,6 +3601,7 @@ Perchè una funzione sia x-semplice deve poter essere proiettata sull'asse delle
         |\Omega| = \int_{\Omega} 1 \ dx \ dy
     \end{gather*} 
 \end{definition}
+
 
 \begin{observation}
     \hfill\\
@@ -3454,8 +3640,8 @@ Perchè una funzione sia x-semplice deve poter essere proiettata sull'asse delle
     \underbar{se e solo se} vale la seguente propirietà: \\
     Detto $R$ un rettangolo contenente $\Omega$ considerata la suddivisione di $R$ in $n^2$ rettangoli uguali (come nella def. di integrale) e detta
     $A_n$ la somma delle aree dei rettangoli che hanno intersezione non vuota con $\Omega$ si ha che $A_n \to 0 $ per $n \to \infty$ 
-\end{proposition}
-
+\end{proposition}\noindent
+In breve stiamo dicendo che un insieme ha misura nulla, se nel momento in cui facciamo la sua somma approssimata con dei rettangoli questa viene $0$.
 \begin{center}
     \begin{tikzpicture}
         \draw[->](0,0) -- (0,4) node[above] {$y$};
@@ -3500,7 +3686,7 @@ Perchè una funzione sia x-semplice deve poter essere proiettata sull'asse delle
     \end{tikzpicture}\\
     Rappresentazione di una curva sul dominio.\\
     $g(x)$ continua in $[a,b]$\\
-    \fbox{Il grafico di $g$ ha misura nulla}
+    \fbox{Se si manda $n \to \infty$ i rettangoli si restringono facendo avere al grafico di $g$ misura nulla}
 \end{center}
 
 
@@ -3510,14 +3696,19 @@ Perchè una funzione sia x-semplice deve poter essere proiettata sull'asse delle
 
 
 \begin{corollary}
-    Il bodro di un insieme semplice e il bordo di un insieme regolare hanno misura nulla.
+    Il bordo di un insieme semplice e il bordo di un insieme regolare hanno misura nulla.
 \end{corollary}
 
 
-\begin{theorem}
+\begin{theorem}[Criterio di Lebesgue per l'integrabilità secondo Riemann]
     \underbar{Sia} $\Omega \to \mathbb{R}$ un dominio regoalre e $f:\Omega \to \mathbb{R}$ una funzione limitata continua a eccezione di un insieme di misura nulla di punti di discontinuità.\\
     \underbar{Allora} è integrabile
 \end{theorem}
+
+
+\begin{aside}
+    L'eccezzione specifica che possiamo prendere anche funzioni che hanno discontinuità (tipo salti) finchè l'insieme di quei punti discontinui ha misura nulla.
+\end{aside}
 
 
 \begin{theorem}
@@ -3539,7 +3730,7 @@ Perchè una funzione sia x-semplice deve poter essere proiettata sull'asse delle
         \end{gather*}
         \item \underbar{se} $f\geq 0 \Rightarrow \int_{\Omega} f \ dx \ dy \geq 0$\\
         \underbar{se} $f \geq g \Rightarrow \int_{\Omega} f \ dx \ dy \ \geq \int_{\Omega} g \ dx \ dy$\\
-        In particolare dato che $-|f| \leq f < |f|$
+        In particolare dato che $-|f| \leq f \leq |f|$
         \begin{gather*}
             \Rightarrow \ -\int_{\Omega} |f| \ dx \ dy \leq \int_{\Omega} f \ dx \ dy \leq \int_{\Omega} |f| \ dx \ dy \Rightarrow \left| \int_{\Omega} f \ dx \ dy \right| \leq \int_{\Omega} |f| \ dx \ dy
         \end{gather*}
@@ -3671,6 +3862,10 @@ Cambio in coordinate polari:
 
 
 \subsection{cambiamento di differenziale}
+Se siamo nel piano $x,y$ e abbiamo a che fare con figure scomode si puo pensare di cambiare variabili per descrivere in maniera diversa lo spazio.\\
+Il cambiamento lo facciamo per "stirare" le curve storte nel piano $x,y$ in un piano più comodo $U,V$, così facendo però le aree potrebbero distorcersi.\\
+Per ovviare a questo problema si introdurrà lo jacobiano che è il determinante della matrice delle derivate parziali in un punto, e rappresenta proprio l'area di un parallelepipedo che si forma con i vettori che rappresentano le derivate parziali.\\
+Così facendo calcolando questo determinante quando si cambia variabili si tiene conto di quanto si "scala" o "distorce" lo spazio, vediamo nel dettaglio:
 \begin{center}
     \begin{tikzpicture}
         \draw[->](0,0) -- (0,3.5) node[at end, left]{$y$};
@@ -3694,26 +3889,26 @@ Cambio in coordinate polari:
         \draw[dashed](0,1.5) -- (1.3,1.5) node[at start, left]{$V+dV$};
         \potato{(1,0)}{1};
         \node at(3.5,1.5){$\Omega'$};
-        \draw[->](-2.5,1.5) -- (-3.5,1.5) node[above, midway]{\tiny{(trasf. non lineare)}};
+        \draw[->](-2.5,1.5) -- (-3.5,1.5) node[above, midway]{\tiny{(trasf. non lineare)}} node[below]{$T$};
         \draw[->](0,0) -- (0,3.5) node[at end, left]{$V$};
         \draw[->](0,0) -- (4,0) node[at end, below]{$U$};
     \end{tikzpicture}
-\end{center}
+\end{center}\noindent
 
 
-I vari lati distorti del parallelepipedo sono descritti dalle seguenti equazioni:
+I vari lati distorti nel piano $x,y$ del parallelepipedo sono descritti da due equazioni $g$ e $h$ nel piano $U,V$
 \begin{align*}
     &1: g(U,V+dV), h(U,V+dV)\\
     &2: g(U,V), h(U,V)\\
     &3: g(U+dU,V), h(U+dU,V)\\
     &4: g(U+dU,V+dV), h(U+dU,v+dV)
 \end{align*}
-Fondamentalmente approssimeremo l'area del parallelepipedo irregolare ad una regolare per calcolarla...
+Abbiamo fatto un cambio del tipo$\begin{cases}
+    x = g(U,V)\\
+    y = h(U,V)
+\end{cases}$ che sono proprio i componenti della trasformazione $T$.\\
+Fondamentalmente stiriamo l'area del parallelepipedo irregolare ad una regolare per calcolarla. 
 \begin{gather*}
-    \begin{cases}
-        x = g(U,V)\\
-        y = h(U,V)
-    \end{cases}
     T:\underset{\subseteq \text{piano } (U,V)}{\Omega'} \to \underset{\subseteq \text{piano } (x,y)}{\Omega}
 \end{gather*}
 Supponiamo che:
@@ -3722,7 +3917,7 @@ Supponiamo che:
     \item le funzioni $g$ e $h$ siano $C^1 (\Omega')$
     \item la matrice Jacobiana di $T$ ha det. $\neq 0$ in ogni $(U,V) \in \Omega'$
 \end{itemize}
-Con lo Jacobiano che è:
+Con la matrice Jacobiana che è:
 \begin{gather*}
     \mathcal{J} (U,V) = \begin{pmatrix}
         \frac{\partial g}{\partial U} & \frac{\partial g}{\partial V}\\
@@ -3741,31 +3936,7 @@ Con lo Jacobiano che è:
 \end{theorem}
 
 
-\begin{gather*}
-    x = \rho \cos(\theta) = g(\rho , \theta)\\
-    y = \rho \sin(\theta) = h(\rho , \theta)
-\end{gather*}
-La mia Jacobiana diventa:
-\begin{gather*}
-    \mathcal{J} = \begin{pmatrix}
-        \cos(\theta) & -\rho \sin(\theta)\\
-        \sin(\theta) & \rho \cos(\theta)
-    \end{pmatrix}
-    det(\mathcal{J}) = \rho \cos^2(\theta) + \rho \sin^2(\theta) = \rho\\
-    \int_{\Omega} x^2 \ dx \ dy = \int_{\Omega'} \rho^2 \cos^2(\theta) \ d\rho = \int_{0}^{2\pi} \ d\theta (\cos^2(\theta) (4-\frac{1}{4}))\\
-    = \frac{15}{4} \int_{0}^{2\pi} \frac{1+\cos(2\theta)}{2} \ d\theta = \frac{15}{4} (0 + \pi) = \frac{15\pi}{4}
-\end{gather*}
-\begin{gather*}
-    \left(g(U,V+dV)-g(U,V), h(U,V+dV)-h(U,V)\right) \\
-    \approx \left( \frac{\partial g}{\partial V} dV, \frac{\partial h}{\partial V} dV \right) \left( \frac{\partial g}{\partial V} dU, \frac{\partial h}{\partial V} dU \right)\\
-    = \left( \frac{\partial g}{\partial V}, \frac{\partial h}{\partial V} \right) dV\\
-    \mathcal{J} (U,V) = \left\lvert \begin{pmatrix}
-        \frac{\partial g}{\partial U} & \frac{\partial g}{\partial V}\\
-        \frac{\partial h}{\partial U} & \frac{\partial h}{\partial V}
-    \end{pmatrix}\right\rvert dU \ dV
-\end{gather*}
-
-
+\newpage
 \section{integrali tripli}
 \begin{center}
   \begin{tikzpicture}
@@ -4047,6 +4218,7 @@ Se invece tengo $\theta$ costante ho dei semipiani contenenti l'asse $z$.
   \int_D \frac{\partial P(x,y)}{\partial y} \ dx \ dy = \int_a^b dx \int_{\varphi_1(x)}^{\varphi_2(x)} \frac{\partial P(x,y)}{\partial y} \ dy =\\
   = \int_a^b \left[ P(x,y) \right]_{y=\varphi_1(x)}^{y=\varphi_2(x)} \ dx = \int_a^b \left[ P(x,\varphi_2(x)) - P(x,\varphi_1(x)) \right] \ dx
 \end{gather*}
+Questo primo risultato lo chiamo \fbox{*}\\
 \fbox{Richiamo cosa è esattamente $\int_\gamma g(x,y) \ dx $ dove $\gamma:[c,d] \to \mathbb{R}^2$\\
 è una curva orientata $\int_c^d g\left( \gamma_1(t) , \gamma_2(t) \right) \dot{\gamma}_1(t) \ dt $}\\
 Ora considero i vari integrali di linea sui 4 tratti della curva (segnati nel disegno):
@@ -4059,23 +4231,26 @@ Perchè in quei tratti la variazione di $x$ è nulla:\\
   t \to (b,t) \qquad t \in [\varphi_1(b), \varphi_2(b)] \\
   \int_{\varphi_1(t)}^{\varphi_2(t)} P(b,t) \cdot 0 \ dt = 0
 \end{gather*}
-%\underbar{Se} $\omega = a(x,y) \ dx + \cancel{b (x,y) \ dy}$\\
-%\begin{gather*}
-%  \int_\gamma \omega = \int_c^d a(\gamma_1(t)) \dot{\gamma}_2(t) \ \dot{\gamma}_1(t) + \cancel{b} dt
-%\end{gather*}
 Calcoliamo ora gli integrali sui tratti rimanenti:
+Il lato \fbox{1} è grafico di $y = \varphi_1(x)$. Parametrizzo usando $x = t$ abbiamo la curva $\gamma(t) = (t, \varphi_1(t))$ con $t \in[a,b]$\\
 \begin{gather*}
   \int_{\boxed{1}^+} P(x,y) \ dx \\
   \text{tenendo a mente: } t \to (t, \varphi_1(t)) \quad t \in [a,b]\\
-  = \int_a^b P(t,\varphi_1(t)) \cdot 1 \ dt = \int_a^b P(t,\varphi_1(t)) \ dt \\
+  = \int_a^b P(t,\varphi_1(t)) \cdot 1 \ dt = \int_a^b P(t,\varphi_1(t)) \ dt
+\end{gather*}
+Per il lato \fbox{3} si fa lo stesso ragionamento con $y = \varphi_2(x)$ ma questa volta dobbiamo ricordare che parametrizzando $x=t$ con $t \in[a,b]$ la curva è orientata in senso negativo e quindi avremo un segno meno:
+\begin{gather*}
   \int_{\boxed{3}^+} P(x,y) \ dx \\
   \text{tenendo a mente: } t \to (t, \varphi_2(t)) \quad t \in [a,b]\\  
   = -\int_a^b P(t,\varphi_2(t)) \ dt
 \end{gather*}
-Quindi abbiamo:
+Mettiamo insieme i risultati ottenuti:
 \begin{gather*}
-  \int_a^b P\left( x, \varphi_2(x) \right) \ dx - \int_a^b P\left( x, \varphi_1(x) \right) \ dx\\
-  -\int_{\boxed{3}^+} P \ dx = \int_{\boxed{1}^+} P \ dx
+    = \int_{\partial^+ D} P(x,y) \ dx = \int_a^b P(t,\varphi_1(t)) \ dt - \int_a^b P(t,\varphi_2(t)) \ dt = \int_a^b \left[ P(t,\varphi_1(t)) - P(t,\varphi_2(t)) \right] \ dt
+\end{gather*}
+Confrontando questo risultato con quello ottenuto in \fbox{*} notiamo che sono gli stessi termini ma di segno invertito, ottenendo così la tesi:
+\begin{gather*}
+    \int_D \frac{\partial P(x,y)}{\partial y} \ dx \ dy = -\int_{\partial^+ D} P(x,y) \ dx
 \end{gather*}
 \end{proof}
 
@@ -4092,7 +4267,7 @@ Quindi abbiamo:
   \begin{gather*}
     \int_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) \ dx \ dy = \int_{\partial^+ D} P \ dx + Q \ dy
   \end{gather*}  
-  Quest'ultima è la stessa cosa che dire $\int_{\partial^+ D} \left\langle F,T \right\rangle \ ds $
+  Quest'ultima è la stessa cosa che dire $\int_{\partial^+ D} \left\langle F,T \right\rangle \ ds $ con $T$ vettore tangente unitario.
 \end{lemma}
 
 \begin{definition}
@@ -4391,9 +4566,10 @@ La regolarità dipende: sia dalla geometria che dalla parametrizzazione usata.
 
 
 \begin{proof}[Dimostrazione che una superficie di rotazione è regolare]
+\hfill\\\noindent
 Bisogna provare:
 \begin{itemize}
-  \item che sia iniettiva
+  \item che sia iniettiva 
   \item che il vettore tangente non si annulli mai
   \[
   \begin{aligned}
@@ -4406,6 +4582,8 @@ Bisogna provare:
   \end{aligned}
   \]
 \end{itemize}
+Il vettore normale alla superficie è dato dal prodotto vettoriale dei due vettori tangenti, e se questo non si annulla mai allora i due vettori tangenti sono linearmente indipendenti e quindi la matrice jacobiana ha rango 2.\\
+Per l'iniettività abbiamo inoltre che è sempre rispettata per come sono costruite le superfici di rotazione, siccome non possono ruotare su se stesse, e non possono intersecarsi con se stesse, quindi è sempre rispettata l'iniettività.
 \end{proof}
 
 
@@ -4422,7 +4600,7 @@ In questa lezione vedremo come trovare il piano tangente ad una superficie data 
     \draw (0.5,0.5) node{$D$};
   \end{tikzpicture}
   \begin{tikzpicture}
-    \draw[->](-1,2) -- (-2.5,2) node[midway, above]{$\varphi$};
+    \draw[<-](-1,2) -- (-2.5,2) node[midway, above]{$\varphi$};
       \begin{axis}[
          view={60}{30},
          colormap/viridis,
@@ -4842,7 +5020,7 @@ Tutte le superfici chiuse non hanno bordo ma non tutte le superfici senza bordo 
    A $\delta D$ corrisponde $\delta S$, e all'orientazione positiva di $\delta D$ corrisponde l'orientazione positiva di $\delta S$\\
    \begin{gather*}
     \int_S \left\langle rot \ F , N \right\rangle d\sigma = \int_D \left\langle \underbrace{\left( \frac{\partial F_3}{\partial y} - \frac{-\partial F_2}{\partial z} , \frac{\partial F_1}{\partial z} \frac{\partial F_3}{\partial x} , \frac{\partial F_2}{\partial x} - \frac{\partial F_1}{\partial y} \right)}_{rot(F_1, F_2, F_3)} , \left( \frac{-\partial f}{\partial x}, \frac{-\partial f}{\partial y} , 1 \right) \right\rangle  \ dxdy\\
-    = \int_D \left[ -\left(\frac{\partial F_3}{\partial y}(x,y,f(x,y))\right) \frac{\partial f}{\partial x}  - \left(\frac{\partial F_1}{\partial z}( \ "" \ )- \frac{\partial F_3}{\partial x} ( \ "" \ )\right)\frac{\partial f}{\partial y} + \left(\frac{\partial F_2}{\partial x}( \ "" \ )-\frac{\partial F_1}{\partial y}\right)  \right] \ dxdy 
+    = \int_D \left[ -\left(\frac{\partial F_3}{\partial y}(x,y,f(x,y)) - \frac{\partial F_2}{\partial z}(x,y,f(x,y)) \right) \frac{\partial f}{\partial x}  - \left(\frac{\partial F_1}{\partial z}( \ "" \ )- \frac{\partial F_3}{\partial x} ( \ "" \ )\right)\frac{\partial f}{\partial y} + \left(\frac{\partial F_2}{\partial x}( \ "" \ )-\frac{\partial F_1}{\partial y}( \ "" \ )\right)  \right] \ dxdy 
    \end{gather*}
    Abbiamo fatto la parte sinistra ora facciamo la destra e verificheremo che sono uguali:
    \begin{gather*}
@@ -4878,6 +5056,10 @@ Tutte le superfici chiuse non hanno bordo ma non tutte le superfici senza bordo 
    \begin{gather*}
     = \int_D \left[ \frac{\partial F_2}{\partial x} ( x,y,f(x,y) ) + \frac{\partial F_2}{\partial z} ( \ "" \ ) \frac{\partial f}{\partial x}(x,y) + \frac{\partial F_3}{\partial x}\frac{\partial f}{\partial y} + \frac{\partial F_3}{\partial z} ( \ "" \ ) \frac{\partial f}{\partial x}\frac{\partial f}{\partial y}(") + F_3( \ "" \ ) \frac{\partial^2 f}{\partial x \partial y} \right] - \\
     \left[ \frac{\partial F_1}{\partial y} ( \ "" \ ) + \frac{\partial F_1}{\partial z} ( \ "" \ ) \frac{\partial f}{\partial y} + \frac{\partial F_3}{\partial y} ( \ "" \ ) \frac{\partial f}{\partial x} + \frac{\partial F_3}{\partial z}\frac{\partial f}{\partial x}\frac{\partial f}{\partial y} + F_3( \ "" \ ) \frac{\partial^2 f}{\partial y \partial x} \right] \ dxdy
+  \end{gather*}
+  Fare attenzione che abbiamo chiamato $z$ praticamente $f(x,y)$, la derivazione in $\de z$ è una derivazione rispetto alla variabile $z$ che è una funzione di $x$ e $y$. Per fare chiarezza:
+  \begin{gather*}
+    \frac{\de }{\de x} \left[ F_2(x,y,z(x,y)) \right] = \frac{\de F_2}{\de x} \frac{\de x}{\de x} + \frac{\de F_2}{\de y} \underbrace{\frac{\de y}{\de x}}_{= 0} + \frac{\de F_2}{\de z} \frac{\de z}{\de x} = \frac{\de F_2}{\de x} +  \frac{\de F_2}{\de z} \frac{\de f}{\de x} 
   \end{gather*}
   Dopo aver tolto i termini che si cancellano ottengo:
   \begin{gather*}
@@ -4915,15 +5097,28 @@ Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funz
   \{f_k (x)\} \subseteq \mathcal{F}_i
 \end{gather*} 
 
-\begin{definition}[Convergenza puntuale e uniforme]
+\begin{definition}[Convergenza puntuale]
   Una successione converge puntualmente a $f \in \mathcal{F}_i$ se:
   \begin{gather*}
     f_k \to f \quad \text{in} \quad (\mathcal{F}_i ; | \cdot |) \quad \text{cioè} \quad \lim_{k \to \infty} |f_k(x) - f(x)| = 0 \quad \forall x \in I\\
   \end{gather*}
+  In altri termini:
+  \begin{gather*}
+    \forall x \in I : \forall \varepsilon > 0 \quad \exists \nu : \forall k \geq \nu \quad |f_k(x) - f(x)| < \varepsilon
+  \end{gather*}
+  Questo vuol dire che per ogni $x$ fissato possiamo trovare una funzione a cui converge.
+\end{definition}
+  
+\begin{definition}[Convergenza uniforme]
   Una successione converge uniformemente a $f \in \mathcal{F}_i$ se:
   \begin{gather*}
     f_k \rightrightarrows f \quad (\mathcal{F}_i ; \left\lVert \cdot \right\rVert ) \quad \text{cioè} \quad \lim_{k \to \infty} \underset{x \in I}{sup}\left\lvert f_k(x) - f(x) \right\rvert = 0
   \end{gather*}
+  In altri termini:
+  \begin{gather*}
+    \forall \varepsilon > 0 \quad \exists \nu : \forall k \geq \nu \quad |f_k(x) - f(x)| < \varepsilon \quad \forall x \in I
+  \end{gather*}
+  Questo vuol dire che posso trovare una funzione a cui converge, e questa funzione è la stessa indipendentemente dalla scelta della $x$.
 \end{definition}
 
 
@@ -4943,31 +5138,62 @@ Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funz
 \end{theorem}
 
 \begin{proof}
-  fissiamo $x_0 \in [a,b]$\\
-  fisso inoltre $\varepsilon > 0$\\
-  Per valutare la continuità devo valutare:
-  \begin{gather*}
-    \left\lvert f(x) - f(x_0) \right\rvert \leq \left\lvert f(x) - f_{k_0}(x_0)\right\rvert + \left\lvert f_{k_0}(x) - f_{k_0}(x_0) \right\rvert + \left\lvert f_{k_0}(x_0) - f(x_0) \right\rvert   \\
-    f_k \rightrightarrows f \quad \Rightarrow \exists \nu : \forall k_0 > \nu \quad \left\lvert f_k(x) - f(x) \right\rvert < \varepsilon \quad \forall x \in I\\
-  \end{gather*}
-  Ora sappiamo che:
-  \begin{gather*}
-    \left\lvert f(x) - f_{k_0}(x_0)\right\rvert < \varepsilon \\
-    \left\lvert f_{k_0}(x_0) - f(x_0) \right\rvert < \varepsilon \\
-  \end{gather*}
-  Devo stimare:
-  \begin{gather*}
-    \left\lvert f_{k_0}(x) - f_{k_0}(x_0) \right\rvert
-  \end{gather*}
-  \begin{observation}
-      $f_{k_0} \in C^0 (I) \quad \Rightarrow \exists \delta > 0 :$ \underbar{ se } $x \in I \text{ con } |x-x_0| < \delta$\\
-      \underbar{allora} $| f_{k_0}(x) - f_{k_0}(x_0) | < \varepsilon$
-  \end{observation}
-  Quindi:
-  \begin{gather*}
-    |f_{k_0}(x) - f_{k_0}(x_0)| < \varepsilon
-  \end{gather*}
-  se $x \in I $ con $|x-x_0| < \delta$\\
+  %fissiamo $x_0 \in [a,b]$\\
+  %fisso inoltre $\varepsilon > 0$\\
+  %Per valutare la continuità devo valutare:
+  %\begin{gather*}
+  %  \left\lvert f(x) - f(x_0) \right\rvert \leq \left\lvert f(x) - f_{k_0}(x_0)\right\rvert + \left\lvert f_{k_0}(x) - f_{k_0}(x_0) \right\rvert + \left\lvert f_{k_0}(x_0) - f(x_0) \right\rvert   \\
+  %  f_k \rightrightarrows f \quad \Rightarrow \exists \nu : \forall k_0 > \nu \quad \left\lvert f_k(x) - f(x) \right\rvert < \varepsilon \quad \forall x \in I\\
+  %\end{gather*}
+  %Ora sappiamo che:
+  %\begin{gather*}
+  %  \left\lvert f(x) - f_{k_0}(x_0)\right\rvert < \varepsilon \\
+  %  \left\lvert f_{k_0}(x_0) - f(x_0) \right\rvert < \varepsilon \\
+  %\end{gather*}
+  %Devo stimare:
+  %\begin{gather*}
+  %  \left\lvert f_{k_0}(x) - f_{k_0}(x_0) \right\rvert
+  %\end{gather*}
+  %\begin{observation}
+  %    $f_{k_0} \in C^0 (I) \quad \Rightarrow \exists \delta > 0 :$ \underbar{ se } $x \in I \text{ con } |x-x_0| < \delta$\\
+  %    \underbar{allora} $| f_{k_0}(x) - f_{k_0}(x_0) | < \varepsilon$
+  %\end{observation}
+  %Quindi:
+  %\begin{gather*}
+  %  |f_{k_0}(x) - f_{k_0}(x_0)| < \varepsilon
+  %\end{gather*}
+  %se $x \in I $ con $|x-x_0| < \delta$\\
+    \hfill\\
+    Fissiamo un $x_0 \in I$ e un $\varepsilon > 0$ (più avanti vedremo che sceglieremo $\varepsilon' = \frac{\varepsilon}{3}$)\\
+    Voglio dimostrare che la funzione $f$ a cui converge è continua questo vuol dire che:
+    \begin{equation}
+        \begin{gathered}
+        \lim_{x \to x_0} f(x) = f(x_0)\\
+        \Leftrightarrow \forall \varepsilon > 0 \quad \exists \delta > 0 : \forall x \in I \text{ se } |x-x_0| < \delta \quad \Rightarrow \quad |f(x) - f(x_0)| < \varepsilon
+        \end{gathered}
+    \end{equation}
+    \hfill\\
+    So che $f_k \rightrightarrows f$ quindi:
+    \begin{equation}
+        \begin{gathered}
+            \exists \nu : \forall k > \nu \quad |f_k(x) - f(x)| < \varepsilon \quad \forall x \in I
+        \end{gathered}
+    \end{equation}
+    Siccome la funzione $f_n$ è continua, allora:
+    \begin{equation}
+        \begin{gathered}
+            \exists \delta = \delta(\varepsilon, \nu) > 0 \ t.c.\\
+            \forall x \in I : |x - x_0| < \delta \quad \Rightarrow \quad |f_{\nu}(x) - f_{\nu}(x_0)| < \varepsilon
+        \end{gathered}
+    \end{equation}
+    Ora che ho fissato un $\varepsilon$ e un $\delta$ per la eq. (1) posso stimare $|f(x) - f(x_0)|$:
+    \begin{gather*}
+        |f(x) - f(x_0)| = |f(x) - \textcolor{orange}{f_{\nu}(x_0)} + \textcolor{orange}{f_{\nu}(x_0)}  - \textcolor{cyan}{f_{\nu}(x)} + \textcolor{cyan}{f_{\nu}(x)} - f(x_0)| \leq\\
+        \leq \underbrace{|f(x) - f_{\nu}(x)|}_{< \varepsilon \text{ per (2)}} + \underbrace{|f_{\nu}(x) - f_{\nu}(x_0)|}_{< \varepsilon \text{ per (3)}} + \underbrace{|f_{\nu}(x_0) - f(x_0)|}_{< \varepsilon \text{ per (2)}} \\
+    \end{gather*}
+    Per leq. (2) il primo e terzo termine è $< \varepsilon$. La prima perchè siamo in valore assoluto e se scambiamo i termini abbiamo la stessa situazione, questo vale per tutti i $k \geq \nu$ e quindi in particolare anche per $f_\nu(x)$. Questo vale per tutti gli $x \in I$ quindi anche per $x_0$ e quindi anche per il terzo termine.\\
+    Per l'eq.(3) anche il secondo termine è $< \varepsilon$, poichè è esattamente cioò che recita l'eq.\\
+    Siccome posso fissare $\varepsilon$ come voglio scelgo $\varepsilon' = \frac{\varepsilon}{3}$ facendo si che $|f(x) - f(x_0)| < \varepsilon'$ il che mi riconducie alla tesi.
 \end{proof}
 
 
@@ -4977,13 +5203,15 @@ Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funz
   \end{gather*}
 \end{theorem}
 
+
 \begin{observation}
+    Un esempio di suc. di funzioni che converge puntualmente ma non uniformemente è $x^k$:
   \begin{gather*}
-    f_k(x) = x^k \cancel{\rightrightarrows} f \in [0,1]\\
-    f(x) = \begin{cases}
-      0 \quad x \in [0,1)\\
-      1 \quad x = 1
+    \lim_{k \to \infty} x^k = f(x) = \begin{cases}
+        0 \quad x \in [0,1)\\
+        1 \quad x = 1
     \end{cases}\\
+    f_k(x) = x^k \cancel{\rightrightarrows} f \in [0,1]\\
   \end{gather*}
   Non è preservata la continuità quindi \textbf{non} c'è convergenza uniforme.\\
   Questo ci dice che questo teorema si usa per dimostrare che non c'è convergenza uniforme.
@@ -4999,19 +5227,15 @@ Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funz
 
 \begin{proof}
   $f \in C^0 (I)$ per th. continuità del limite $\Rightarrow \ \exists \int_a^b f(x) \ dx$ \\
-\end{proof}
-Si usa adesso la lineraità dell'integrale e porto dentro il valore assoluto maggiorandolo.
-\begin{gather*}
-  \left\lvert \int_a^b f_k(x) \ dx - \int_a^b f(x) \ dx \right\rvert  \leq \int_a^b \underbrace{\left\lvert f_k(x) - f(x) \right\rvert}_{\leq \underset{x \in [a,b]}{max} \left\lvert f_k(x) - f(x) \right\rvert = \left\lVert f_k - f \right\rVert_\infty  } \ dx \leq (b-a) \cdot \left\lVert f_k - f \right\rVert_\infty \overbrace{\to 0 }_{\text{poichè } f_k \rightrightarrows f \in [a,b]}\\
+  Si usa adesso la lineraità dell'integrale e porto dentro il valore assoluto maggiorandolo.
+  \begin{gather*}
+    \left\lvert \int_a^b f_k(x) \ dx - \int_a^b f(x) \ dx \right\rvert  \leq \int_a^b \underbrace{\left\lvert f_k(x) - f(x) \right\rvert}_{\leq \underset{x \in [a,b]}{max} \left\lvert f_k(x) - f(x) \right\rvert = \left\lVert f_k - f \right\rVert_\infty  } \ dx \leq (b-a) \cdot \left\lVert f_k - f \right\rVert_\infty \overbrace{\to 0 }_{\text{poichè } f_k \rightrightarrows f \in [a,b]}\\
 \end{gather*}
+\end{proof}
 
 
 \begin{observation}
   non vale il th. se la convergenza è puntuale
-  \begin{gather*}
-    \text{se } \cancel{\rightrightarrows }\\
-    \text{ma solo } \to 
-  \end{gather*}
 \end{observation}
 
 
@@ -5030,6 +5254,7 @@ Si usa adesso la lineraità dell'integrale e porto dentro il valore assoluto mag
 
 \begin{observation}
   $f_k$ derivabile, $f_k \overset{I}{\rightrightarrows} f$ \textbf{non} implica che $f$ sia derivabile.\\
+  In pratica la sola convergenza uniforme non mantiene la derivabilità, per quella servono altre ipotesi, proprio come nel teorema precedente.
 \end{observation}
 
 
@@ -5053,13 +5278,14 @@ Si usa adesso la lineraità dell'integrale e porto dentro il valore assoluto mag
     \{f_k\} \subseteq \mathcal{F}_I \quad S_n(x) = \sum_{k=0}^n f_k(x) \in \mathcal{F}_I\\
     \sum_0^{+\infty} f_k(x) \text{ serie } = \lim_{n \to +\infty} S_n(x) \quad (\mathcal{F}_I; \text{norma}) \\
   \end{gather*}
+  E se il limite converge ad una funzione chiameremo questa $S(x)$
 \end{definition}
 
 
 \begin{definition}
   $\sum_0^{+\infty} f_k$ converge puntualmente a $S(x)$ \underbar{se} $S_n(x) \to S(x)$ puntualmente in $I$\\
   $\sum_0^{+\infty} f_k$ converge assolutamente a $S(x)$ \underbar{se} $\sum_0^n |f_k(x)| \to S(x)$ puntualmente\\
-  $\sum_0^{+\infty} f_k$ converge uniformemente a $S(x)$ \underbar{se} $S_n(x) \to S(x)$ uniformemente in $I$\\rie
+  $\sum_0^{+\infty} f_k$ converge uniformemente a $S(x)$ \underbar{se} $S_n(x) \rightrightarrows S(x)$ uniformemente in $I$\\
   $\sum_0^{+\infty} f_k$ converge totalmente a $S(x)$ \underbar{se} $\exists \{M_n\} \subseteq \mathbb{R} \ t.c. \ |f_n(x)| \leq M_n \forall x \in I$ e $\sum_0^{+\infty} M_n$ converge\\
   quest'ultima vuol dire anche che $\sum_{n=0}^{+\infty} \underset{x \in I}{sup} |f_n(x)|$ converge.
 \end{definition}
@@ -5083,13 +5309,13 @@ Si usa adesso la lineraità dell'integrale e porto dentro il valore assoluto mag
     \end{gather*}
     \item Derivazione per Serie
     \begin{gather*}
-      I = [a,b] \{f_k\} \subseteq C^1(I) \ , \ \sum f_k(x) \overset{I}{\rightrightarrows} S(x) \in I \ , \ \sum f_k'(x) \rightrightarrows G(x) \in I \implies S(x) \in C^1(I) \ , \ S'(x) = \sum f_k'(x) \quad \forall x \in I
+      I = [a,b] \{f_k\} \subseteq C^1(I) \\ \sum f_k(x) \overset{I}{\rightrightarrows} S(x) \in I \\ \sum f_k'(x) \rightrightarrows G(x) \in I \implies S(x) \in C^1(I) \\ S'(x) = \sum f_k'(x) \quad \forall x \in I
     \end{gather*}
   \end{itemize}
 \end{theorem}
 
 
-\begin{definition}
+\begin{definition}[Serie di potenze]
   $\{a_k\} \subseteq \mathbb{R}$ serie di potenze di centro $x_0 \in \mathbb{R} \qquad \sum_{n=0}^{+\infty} a_n (x - x_0)^n$
 \end{definition}
 
@@ -5105,7 +5331,7 @@ Si usa adesso la lineraità dell'integrale e porto dentro il valore assoluto mag
 
 
 \begin{theorem}
-  $\exists \xi \neq 0 \ t.c. \ \sum a_n x^n $ converge in $\xi$\\
+  \underbar{Se} $\exists \xi \neq 0 \ t.c. \ \sum a_n x^n $ converge in $\xi$\\
   $\implies$ la serie converge totalmente in $[a,b] \quad \forall [a,b] \subseteq (-|\xi|, |\xi|)$\\
   e quindi conerge puntualmente in $(-|\xi|, |\xi|)$
 \end{theorem}
@@ -5118,19 +5344,37 @@ Si usa adesso la lineraità dell'integrale e porto dentro il valore assoluto mag
 
 \begin{proof}
   \hfil\\
-  sia $\eta \in (-|\xi|, |\xi|)$\\
-  $I = [-\eta, \eta] \in I$\\
+  sia $\eta \in I \qquad \text{con } I = (-|\xi|, |\xi|)$\\
+  $I_\eta = [-\eta, \eta] \in I_\xi \qquad$ con $I_\xi = [-|\xi|, |\xi|]$\\
+  Sappiamo che nel punto $\xi$:
   \begin{gather*}
-    \left\lvert a_n x^n \right\rvert = \underbrace{\left\lvert a_n \xi^n \right\rvert} \left\lvert \frac{x}{\xi} \right\rvert^n := M_n \text{ e oss. che } \sum M_n \text{conv. } \left(\left\lvert \frac{\eta}{\xi}\right\rvert  < 1 \right) \\
-    \exists M \ t.c. \ \leq M \quad \forall n \in \mathbb{N}
-    \implies \sum a_n x^n \text{ converge totalmente } \in I = [-\eta, \eta] \\
+    \sum a_n \xi^n \text{ converge }
   \end{gather*}
+  Quindi $a_n \xi^n \to 0$ per $n \to \infty$. Siccome converge abbiamo che:
+  \begin{gather*}
+    \exists M \ t.c. \ \left\lvert a_n \xi^n \right\rvert \leq M \quad \forall n \in \mathbb{N}
+  \end{gather*}
+  Da qui:
+  \begin{gather*}
+    |a_n x^n| = \left\lvert a_n \frac{\xi^n}{\xi^n} x^n \right\rvert = \left\lvert a_n \xi^n \right\rvert \cdot \left\lvert \frac{x}{\xi} \right\rvert^n
+  \end{gather*}
+  Il primo blocco possiamo maggiorarlo a $M$. Per il secondo sappiamo che $x$ deve stare nell'intervallo sicuro quindi al massimo sarà $\eta$, riportando tutto in sommatorie otteniamo:
+  \begin{gather*}
+    \sum M \left\lvert \frac{\eta}{\xi} \right\rvert ^n = M \sum \left\lvert \frac{\eta}{\xi} \right\rvert^n
+  \end{gather*}
+  L'ultima serie è serie geometrica con ragione $< 1$ e quindi converge sempre.\\
+  Quindi le serie di potenze converge totalmente in $I_\eta$ che è proprio $I = (-|\xi|, |\xi|)$ aperto.
+  %\begin{gather*}
+  %  \left\lvert a_n x^n \right\rvert = \underbrace{\left\lvert a_n \xi^n \right\rvert} \left\lvert \frac{x}{\xi} \right\rvert^n := M_n \text{ e oss. che } \sum M_n \text{conv. } \left(\left\lvert \frac{\eta}{\xi}\right\rvert  < 1 \right) \\
+  %  \exists M \ t.c. \ \leq M \quad \forall n \in \mathbb{N}
+  %  \implies \sum a_n x^n \text{ converge totalmente } \in I_\nu = [-\eta, \eta] \\
+  %\end{gather*}
 \end{proof}
 
 
-\begin{observation}
-  $\left(-|\xi|, |\xi|\right) $L'insieme di convergenza di una serie di potenze
-\end{observation}
+\begin{aside}
+  $\left(-|\xi|, |\xi|\right) \subseteq$ L'insieme di convergenza di una serie di potenze
+\end{aside}
 
 
 \begin{definition}
@@ -5163,19 +5407,20 @@ Si usa adesso la lineraità dell'integrale e porto dentro il valore assoluto mag
 \end{observation}
 
 
-\begin{proof}
-  [\textbf{parte 1} $\Rightarrow$]
+\begin{proof}[Dimostrazione]\hfill\\
+  \textbf{parte 1} ($\Rightarrow$):\\
   $\exists \xi \in \mathbb{R}: |x| < |\xi| \leq R$ e $\sum a_n \xi^n $ converge.\\
   Dal th. prec si ha convergenza in $(-|\xi|, |\xi|)$ quindi anche in x (poichè converge in $-|x|$ e  $|x|)$\\
   \underbar{sia} $\xi: \xi > R$
   suppongo $\sum a_n \xi^n $ converge $\implies$ dal th.prec. $\sum a_n \xi^n$ converge anche in $x$ t.c. $R < x \leq \xi$ è assurdo perchè $R = sup \{\dots\}$\\
 
-  [\textbf{parte 2} $\Leftarrow$]
-  $\sum a_n x^n $ conv per $|x| < \rho$ o non conv per $|x| > \rho$ (vogliamo dimostrare $\rho = R$)\\
+  \textbf{parte 2} ($\Leftarrow$):\\
+  Prendiamo $r$ candidato raggio di conv. da hp. abbiamo:\\
+  $\sum a_n x^n $ conv per $|x| < r$ o non conv per $|x| > r$ (vogliamo dimostrare $r = R$)\\
   \begin{itemize}
-    \item se $x \in (-\rho, \rho)$ dal th. prec. si ha $x \leq sup \{\dots\} = R \quad \forall x \in (-\rho,\rho) \implies \rho \leq R$
-    \item se fosse $\rho < R \quad \exists \rho < \xi < R$ con $\sum a_n \xi^n$ converge dal th. prec.
-    Ma per hp. $\sum x_n \xi^n$ non converge per $|x| > \rho$ quindi $\rho = R$
+    \item se $x \in (-r, r)$ dal th. prec. si ha $x \leq sup \{\dots\} = R \quad \forall x \in (-r,r) \implies r \leq R$
+    \item se fosse $r < R \quad \exists r < \xi < R$ con $\sum a_n \xi^n$ converge dal th. prec.
+    Ma per hp. $\sum x_n \xi^n$ non converge per $|x| > r$ quindi $r = R$
   \end{itemize}
   \begin{observation}
     $(-R,R) \subseteq$ l'insieme di convergenza ed è un intervallo
@@ -5185,9 +5430,15 @@ Si usa adesso la lineraità dell'integrale e porto dentro il valore assoluto mag
 
 \begin{theorem}
   [di Cauchy-Hadamard]
+  Presa una serie di potenze:
   \begin{gather*}
-    \sum_{0}^{+\infty} a_n x^n \quad \ell := \overline{\lim_{n \to +\infty}} \sqrt[n]{|a_n|} \\
+    \sum_{0}^{+\infty} a_n x^n
   \end{gather*}
+  Possiamo studiarne la convergenza tramite:
+  \begin{gather*}
+    \ell := \limsup_{n \to +\infty} \sqrt[n]{|a_n|}
+  \end{gather*}
+  con $\limsup$ che è il limite superiore di $\sqrt[n]{|a_n|}$, cioè $max \{ \lim \sqrt[n]{|a_{n_k}|} \}$\\
   \underbar{allora:}
   \begin{itemize}
     \item se $\ell = 0 \implies R = +\infty$
@@ -5199,23 +5450,38 @@ Si usa adesso la lineraità dell'integrale e porto dentro il valore assoluto mag
 
 \begin{proof}
   \hfil\\
-  \textbf{casi possibili:} $\exists \lim_{n \to \infty} \sqrt[n]{|a_n|} = \ell \begin{cases}
-    0\\
-    +\infty\\
-    \ell \in \mathbb{R}, \ell \neq 0
-  \end{cases}$\\
-  \textbf{caso 1:} $\ell = 0$\\
-  \bulletout \underbar{sia} $x \neq 0$ $\lim \sqrt[k]{|a_k| |x|^k} = |x| \cdot \ell = \begin{cases}
-    0 \text{ se } \ell = 0\\
-    +\infty \text{ se } \ell = +\infty\\
-    |x| \cdot \ell \text{ se } \ell \in \mathbb{R}, \ell \neq 0 
-  \end{cases}$
-  \textbf{caso 2:}  $\ell = +\infty$\\
-  \bulletout \underbar{se} $\ell = 0$ il criterio della radice per la serie numerica $\sum |a_n| |x|^n$ garantisce la convergenza.\\
-  \bulletout \underbar{se} $\ell = +\infty$ il criterio della radice per la serie numerica $\sum |a_n| |x|^n$ garantisce la divergenza.\\
-  \bulletout \textbf{caso 3:} $\ell \in \mathbb{R}, \ell \neq 0$\\
-  il criterio della radice fa si che la serie converga se $\ell |x| < 1$ e non converga se $|x| > 1$\\
-  Dal th. 1.4 segue $R = \frac{1}{\ell}$
+  Tratteremo $\limsup$ come $\lim$ poichè il criterio della radice può essre generalizzato a $\limsup$.
+  Fissato $x \in \mathbb{R}$, studiamo la convergenza assoluta della serie numerica $\sum |a_n x^n|$ tramite il criterio della radice:
+  \[ \lim_{n \to \infty} \sqrt[n]{|a_n x^n|} = |x| \cdot \lim_{n \to \infty} \sqrt[n]{|a_n|} = |x| \cdot \ell \]
+
+  \begin{itemize}
+    \item \textbf{Caso 1 ($\ell = 0$):} Il limite è $0$ per ogni $x$. La serie converge sempre $\implies R = +\infty$.
+    \item \textbf{Caso 2 ($\ell = +\infty$):} Per $x \neq 0$, il limite è $+\infty$. La serie non converge (per succ. a segni non alterni diverge sempre) $\implies R = 0$.
+    \item \textbf{Caso 3 ($\ell \in \mathbb{R} \setminus \{0\}$):} 
+    Il criterio della radice implica che la serie:
+    \begin{itemize}
+        \item converge se $|x|\ell < 1 \iff |x| < \frac{1}{\ell}$
+        \item non converge se $|x|\ell > 1 \iff |x| > \frac{1}{\ell}$
+    \end{itemize}
+    Per l'unicità dello spartiacque dimostrata nel Teorema precedente, concludiamo che $R = \frac{1}{\ell}$.
+  \end{itemize}
+  %\textbf{casi possibili:} $\exists \lim_{n \to \infty} \sqrt[n]{|a_n|} = \ell \begin{cases}
+  %  0\\
+  %  +\infty\\
+  %  \ell \in \mathbb{R}, \ell \neq 0
+  %\end{cases}$\\
+  %\textbf{caso 1:} $\ell = 0$\\
+  %\bulletout \underbar{se} $\ell = 0$ il criterio della radice per la serie numerica $\sum |a_n| |x|^n$ garantisce la convergenza.\\
+  %\bulletout \underbar{sia} $x \neq 0$ $\lim \sqrt[k]{|a_k| |x|^k} = |x| \cdot \ell = \begin{cases}
+  %  0 \text{ se } \ell = 0\\
+  %  +\infty \text{ se } \ell = +\infty\\
+  %  |x| \cdot \ell \text{ se } \ell \in \mathbb{R}, \ell \neq 0 
+  %\end{cases}$\\
+  %\textbf{caso 2:}  $\ell = +\infty$\\
+  %\bulletout \underbar{se} $\ell = +\infty$ il criterio della radice per la serie numerica $\sum |a_n| |x|^n$ garantisce la divergenza.\\
+  %\bulletout \textbf{caso 3:} $\ell \in \mathbb{R}, \ell \neq 0$\\
+  %il criterio della radice fa si che la serie converga se $\ell |x| < 1$ e non converga se $|x| > 1$\\
+  %Dal th. 1.4 segue $R = \frac{1}{\ell}$
 \end{proof}
 
 
@@ -5225,11 +5491,13 @@ si indicano con $\overline{\lim} a_n = max\{ \lim a_{nk} \}$
 
 \begin{theorem}
   [derivazione serie di potenze]
-    $\sum_{0}^{+\infty} a_n x^n \quad R = raggio di convergenza$ \\
+    Se $\sum_{0}^{+\infty} a_n x^n$ converge con $R = $ raggio di convergenza \\
     \underbar{allora}: la serie derivata $\sum_{1}^{+\infty} k a_k x^{k-1}$ ha ancora raggio di convergenza $R$.
 \end{theorem}
+
+
 \begin{observation}
-  $x^{k-1} = \frac{x^2}{x}$
+  $x^{k-1} = \frac{x^k}{x}$
 \end{observation}
 
 
@@ -5256,9 +5524,13 @@ si indicano con $\overline{\lim} a_n = max\{ \lim a_{nk} \}$
   Presa: $\sum a_n x^n$ con $ R>0 $ e $\sum a_n R^n$ converge\\
   \underbar{allora}: $\sum a_n x^n $ converge uniformemente in $[0,R]$ e la somma è $C^0$ per $x \to R$
 \end{theorem}
+
+
 \begin{problem}
-  $\sum a_n x^n + \sum b_n x^n \overset{?}{=} \sum (a_n + b_n) x^n$ 
+    $\sum a_n x^n + \sum b_n x^n \overset{?}{=} \sum (a_n + b_n) x^n$ \\
+    Se questo è sempre vero a somme finite, se abbiamo somme di indici che $\to \infty$ una delle due potrebbe divergere quindi...
 \end{problem}
+
 \begin{solution}
   \hfil\\
   Vale quando:\\
@@ -5266,22 +5538,25 @@ si indicano con $\overline{\lim} a_n = max\{ \lim a_{nk} \}$
   $b_n x^n $ converge $\leftrightarrow$ converge $|x|<R_2$\\
   e definisco $R := min \{ R_1, R_2 \}$
 \end{solution}
+
 \begin{proof}
   vediamo di dimostrare questo fatto.\\
   \begin{gather*}
-    f(x) = \sum a_n x^n \quad g(x)\\
+    f(x) = \sum a_n x^n \quad\\
     g(x) = \sum b_n x^n \\
     S_N = \sum_{n=0}^{N} (a_n + b_n) x^n = \sum_{n=0}^{N} a_n x^n + \sum_{n=0}^{N} b_n x^n \\
   \end{gather*}
+  Questo a $N$ finito, quindi a sommatorie finite.\\
   Vogliamo dimostrare che $\lim S_N = f(x) - g(x)$
   \begin{gather*}
     \left\lvert S_N(x) - (f(x)- g(x)) \right\rvert = \left\lvert \sum_{0}^{N} a_n x^n - f(x) + \sum_{0}^{N} b_n x^n - g(x) \right\rvert \\
     \leq \underbrace{\left\lvert \sum_{0}^{N} a_n x^n - f(x) \right\rvert}_{\to 0 \text{ se } |x| < R} + \underbrace{\left\lvert \sum_{0}^{N} b_n x^n - g(x) \right\rvert}_{\to 0 \text{ se } |x| < R} \\
   \end{gather*}
+  Questo ovviamente anche per $N \to +\infty$.
 \end{proof}
 
 \begin{theorem}
-  $\sum a_n x^n$ con $R\neq 0$ raggio di convergenza e $f(x) = \sum a_n x^n$ per $x \in I = (-R;R)$\\
+  \underbar{Sia} $\sum a_n x^n$ serie convergente con raggio di convergenza $R\neq 0$ e \underbar{sia} $f(x) = \sum a_n x^n$ per $x \in I = (-R;R)$\\
   \underbar{allora}: $f \in C^\infty (\mathring{I}) \quad \forall m \in \mathbb{N}$ si ha:\\
   \begin{gather*}
     f^{(m)} (x) = \sum_{k=m}^{+\infty} k(k-1)(k-2) \dots (k - m + 1) a_k x^{k-m} \text{ in } \mathring{I}\\
@@ -5291,12 +5566,14 @@ si indicano con $\overline{\lim} a_n = max\{ \lim a_{nk} \}$
     a_k = \frac{f^{(k)}(0)}{k!} \quad \text{cioè} \quad f(x) = \sum_{k=0}^{+\infty} \frac{f^{(k)}(0)}{k!} x^k 
   \end{gather*}
 \end{theorem}
-\begin{proof}
+
+\begin{proof}\hfill\\
   Si applica il teorema di derivazione per serie m-volte:\\
   Calcolo:
   \begin{gather*}
     f^{(m)}(0) = \sum_{k=m}^{+\infty} k(k-1)(k-2) \dots (k - m + 1) a_k \ x^{k-m} \Bigg\rvert_{x=0} = m(m-1) \dots 2 \cdot 1 \cdot a_m = m! \ a_m \\
   \end{gather*}
+  Abbiamo usato la convenzione delle potenze che $0^0 = 1$
 \end{proof}
 
 
@@ -5324,7 +5601,7 @@ si indicano con $\overline{\lim} a_n = max\{ \lim a_{nk} \}$
   \begin{example}
     \begin{gather*}
       f(x) = \begin{cases}
-        e^{-\frac{1}{x^2}} \quad \text{se } x \neq 0 \qquad f \infty-\text{deriv.} in \mathbb{R} 
+        e^{-\frac{1}{x^2}} \quad \text{se } x \neq 0 \qquad f \infty-\text{deriv.} in \mathbb{R} \\
         0 \quad \text{se x = 0} \qquad f(0) = f'(0) = ... = f^{(k)}(0) = 0
       \end{cases}
     \end{gather*}
