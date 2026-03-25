@@ -1,0 +1,49 @@
+Analisi dati esperienza: 
+Prima parte dell'esperienza:
+Costanti note:
+Resistenza nota per la parte preliminare (R) : 11100000.000000 ± 0.000000
+r_0 sul banco: 0.000000, con errore di sens: 0.000000, e errore di lin: 0.000000
+ϵ_0 dato della pila: 0.000000 ± 0.000000
+Errore di linearità r primo: 0.000000
+Errore di linearità r secondo: 0.000000
+Errore di linearità r terzo: 0.000000
+Resistenza nota per la parte 5(R_0 nel file): 0.000000
+
+Misure preliminari:
+Tensione V_1: 1.489000 ± 0.000000
+Tensione V_2: 1.460000 ± 0.000000
+Valore resistenza ρ_x: 224947.589099
+Valore tensione ϵ_x: 1.519175
+
+Misura con il galvanometro: 
+Resistenza r_x primo: -nan
+Errore sensibilità r_x primo: nan
+ϵ_x: -nan ± -nan
+
+Misura con multimetro: 
+Resistenza r_x secondo: -nan
+Errore di sensibilità r_x secondo: nan
+ϵ_x: -nan ± -nan
+
+Resistenza r_x terza: -nan
+Resistenza incognita ρ_x: -nan
+
+Seconda parte dell'esperienza:
+Costanti note: 
+Resistenza R_0 nota: 0.000000
+Errore di linearità per r_c: 0.000000
+Errore linearità di r_x primo nuovo: 0.000000
+Errore linearità di r_x secondo nuovo: 0.000000
+Errore linearità per r_c nuovo: 0.000000
+
+Misura della resistenza R_x preliminare: 0.000000
+r_c: -nan
+Errore sensibilità r_c: nan
+r_x primo nuovo: -nan
+Errore sensibilità r_x primo nuovo: nan
+R_x primo: -nan
+r_x secondo nuova: -nan
+Errore sensibilità r_x secondo nuova: nan
+Valore r_c nuova: -nan
+Errore sensibilità r_c nuova: nan
+R_x secondo: -nan

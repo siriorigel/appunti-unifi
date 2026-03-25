@@ -1,0 +1,318 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Metodi}
+\author{Tommaso Miliani}
+\date{18-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Esempi}
+\begin{example}[singolarità eliminabili]
+    La funzione 
+    \begin{gather*}
+        f = \frac{\sin z}{z}
+    \end{gather*}
+    ha nell'origine una singolarità eliminabile. Anche la funzione 
+    \begin{gather*}
+        \frac{e^{z} - 1}{z}
+    \end{gather*}
+    si espande in serie ed inizia con il termine $\frac{z}{z}$, quindi a $z \to 0$ va ad 1.
+    Anche 
+    \begin{gather*}
+        \frac{1 - \cos^{2}z}{z^{2}}
+    \end{gather*}
+    Così come 
+    \begin{gather*}
+        \frac{1}{z} - \frac{1}{\sin z}
+    \end{gather*}
+    Questo ha singolarità in infiniti punti sull'asse reale: per $z = \pi k$, 
+    il seno di $z = \pi k$ vicino allo zero del seno va come $z - \pi k$, allora 
+    \begin{gather*}
+        \frac{1}{\sin z} \sim \frac{1}{z - \pi k}
+    \end{gather*}
+    Ossia un polo di ordine 1 poiché si determina l'andamento dominante di una serie: 
+    in questo caso vicino agli zeri va come $\frac{1}{z}$. Mentre in $z = 0$ 
+    si ha una singolarità eliminabile. \\
+    DUnque per determinare il tipo di singolarità si determina l'andamento dominante.
+\end{example}
+
+\section{Prodotto di serie}
+Per trovare l'ordine della singolarità di una serie, si utilizza il prodotto 
+di serie. 
+\begin{example}
+    Per la seguente funzione, quando $z = 0$
+    \begin{gather*}
+        \frac{1}{1 - \cos z}
+    \end{gather*}
+    ci si aspetta un polo di ordine 2. Infatti lo sviluppo del coseno 
+    richiede di essere di ordine 2: mi dà $z^{2}$. 
+    \begin{gather*}
+        \frac{1}{1 - \cos z} = \frac{c_{-2}}{z^{2}} + \frac{c_{-1}}{z} + R(z)
+    \end{gather*}
+    Dove $R(z)$ è la parte regolare del coseno:
+    \begin{gather*}
+        \frac{z^{2}}{1 - \cos z} = c_{-2} + c_{-1}z + z^{2}R(z)
+    \end{gather*}
+    Allora 
+    \begin{gather*}
+        \lim_{z \to 0} \frac{z^{2}}{1 - \cos z} = \lim_{z \to 0} = \lim_{z \to 0} \frac{2z}{\sin z} = 2 = c_{-2}   
+    \end{gather*}
+    Si sottrae ora alla serie questo sviluppo:
+    \begin{gather*}
+        \frac{1}{1 - \cos z} - \frac{2}{z^{2}} 
+    \end{gather*}
+    Adesso si moltiplica per $z$ e non per $z^{2}$, e si fa il limite $z \to 0$: 
+    \begin{gather*}
+        \lim_{z \to 0} z\left(\frac{1}{1 - \cos z} - \frac{2}{z^{2}}\right) = \lim \frac{z^{2} - 2(1 - \cos z)}{z(1 - \cos z)}  
+    \end{gather*}
+    Dunque si sviluppa in serie il coseno fino al quarto ordine: 
+    \begin{gather*}
+        \lim \frac{z^{2} - 2\left(\frac{z^{2}}{2}  - \frac{z^{4}}{4!} + o(z^{4})\right) }{z\left(\frac{z^{2}}{2} - \frac{z^{4}}{4!} + o(z^{4})\right)} = \lim_{z \to 0} \frac{2\frac{z^{4}}{4!} + o(z^{4})}{\frac{z^{3}}{2} + o(z^{4})} 
+    \end{gather*}
+    che equivale a 
+    \begin{gather*}
+        \lim_{ z\to 0} \frac{4}{4!} + O(z^{2}) = 0 = c_{-1} 
+    \end{gather*}
+\end{example}
+Supponendo di volere lo sviluppo di una funzione  
+\begin{gather*}
+    \frac{1}{f(z)} = w^{n}\left(\sum_{j = 0}^{k} b_jw^{j} + o(w^{k + 1}) \right) \qquad z - a \equiv w.
+\end{gather*}
+Mentre 
+\begin{gather*}
+    f(z) = \frac{1}{w^{n}} \left(\sum_{h = 0}^{k} c_hw^{h} + O(w^{k + 1}) \right)
+\end{gather*}
+Dove $w^{n}$ e $\frac{1}{w^{n}}$ è l'andamento dominante della serie. Ci si ricorda che 
+il prodotto di $\frac{1}{f(z)} \cdot f(z) = 1$. Allora si esprime il prodotto tra serie come 
+\begin{gather*}
+    \left(\sum_{j = 0}^{k} b_jw^{j} \right) \left(\sum_{h = 0}^{k} c_h w^{h} \right) + O(w^{k + 1})
+\end{gather*}
+I termini più grandi di $k$ devono essere eliminati a causa dell'o piccolo di $k +1$. Questo vuol dire 
+che il prodotto tra le serie è esattamente 1. 
+
+\section{Ordine di una funzione in un certo punto}
+L'ordine di una qualsiasi funzione $f$ in un punto $a$ + uguale 
+all'esponente primo termine dello sviluppo di Laurent in $a$ 
+in un disco $\mathbb{B} = (0, (0, r))$. Se si volesse dunque sviluppare la 
+funzione 
+\begin{gather*}
+    f(z) = \sum_{n = m}^{\infty } c_n(z - a)^{n} \ \Longrightarrow \ \boxed{\text{ord}_a(f) = m}
+\end{gather*}
+Nel caso di 
+\begin{itemize}
+    \item \textbf{polo}: ord$_{a} = -m$ 
+    \item \textbf{zero}: ord$_{a} = m$
+    \item $f(a) \neq 0 \ \Longrightarrow \ \text{ord}_a = 0$
+    \item $f(z) = 0 \ \Longrightarrow \ \text{ord}_A = \infty $
+\end{itemize}
+Per gli ordini esistono delle proprietà
+\begin{itemize}
+    \item ord$_a(fg) = \text{ord}_a f + \text{ord}_a g$
+    \item ord$_a\frac{f}{g} = \text{ord}_a f - \text{ord}_a g$
+    \item ord$_a(f + g) \geq \min \{\text{ord}_a f, \text{ord}_a g\}$ se $f \neq g$.
+    \item ord$_a(f + g) = \min \{\text{ord}_a f, \text{ord}_a g\}$ se $\text{ord}_af \neq \text{ord}_ag$.
+\end{itemize}
+
+\section{Identità delle funzioni olomorfe}
+Si inizia prima con alcune definizioni. Presa $f : \mathbb{A} \to \mathbb{C}$ una 
+funzione, e $\mathbb{Z}_\mathbb{A}(f) = \{z \in \mathbb{A} :  f(z) = 0\}$ l'insieme 
+degli zeri della funzione $f$. Se $f$ è continua, allora $\mathbb{Z}_\mathbb{A}$ è un insieme 
+chiuso in $\mathbb{A}$ e contiene tutti i suoi punti di accumulazione che stanno in $\mathbb{A}$. 
+\begin{definition}[Zero isolato]
+    Si dice che $a \in \mathbb{Z}_\mathbb{A}$ è \textbf{zero isolato} di $f$ se $a$ è zero di 
+    $f$ ma non è punto di accumulazione per $\mathbb{Z}_\mathbb{A}(f)$. In altre parole $a$ è zero 
+    isolato se esiste un intorno $\mathbb{I} \subset \mathbb{A}$ di $a$ in $\mathbb{A}$ tale che
+    $\mathbb{I} \cap \mathbb{Z}_\mathbb{A}(f) = \{a\}$.
+\end{definition}
+\begin{theorem}
+    Sia $f : \mathbb{A} \to \mathbb{C}$ una funzione olomorfa definita su 
+    di un aperto $\mathbb{A}$, posto $a \in \mathbb{A}$. Sono equivalenti
+    \begin{itemize}
+        \item $a$ è uno \textbf{zero isolato} per $f$
+        \item $f(a) = 0$ ma esiste $n$ tale che $f^{(n)}(a) \neq 0$.
+        \item Esistono $m$ e $g \in H(\mathbb{A})$ con $g(a) \neq 0$ tale che 
+        \begin{gather*}
+            f(z) = (z - a)^{m}g(z) \qquad \forall z \in \mathbb{A}
+        \end{gather*}
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+    Non richiesta all'esame (ma è presente sulle dispense).
+\end{proof}
+
+
+\begin{theorem}[Identità delle funzioni olomorfe]
+    Sia $\mathbb{A} \subset \mathbb{C}$ un insieme aperto e connesso, 
+    siano $f, g \in H(\mathbb{A})$, esse coincidono su $\mathbb{A}$ 
+    $\Longleftrightarrow$ coincidono su di un sottoinsieme di $\mathbb{A}$
+    che contiene almeno un punto di accumulazione. Questa implicazione è 
+    molto forte perché su $\mathbb{R}$ anche se due funzioni coincidono su di un 
+    segmento non è detto che coincidano su tutto il dominio (se sono olomorfe si).
+    Inoltre si può estendere a tutto il dominio di olomorfia una funzione che è 
+    conosciuta anche solo su di un segmento. 
+\end{theorem}
+\begin{proof}
+    Non richiesta
+\end{proof}
+
+\begin{corollary}
+    Se si avesse una funzione olomorfa espansa in serie di Taylor, 
+    ad un certo punto la serie smette di convergere perché la funzione olomorfa 
+    ha un punto non regolare: la serie convergerà dunque in tutto il disco più grande 
+    possibile fino a che non si incontra una singolarità. Se non vi sono singolarità, 
+    la serie converge su tutto $\mathbb{C}$. Un esempio è $e^{z}$, la quale 
+    converge su tutto $\mathbb{C}$. Le singolarità considerate non devono necessariamente essere poli.
+    La serie geometrica
+    \begin{gather*}
+        f(z)  = \sum_{n = 1}^{\infty } z^{n}  = \frac{1}{1 - z}
+    \end{gather*}
+    converge se l'esponente è diverso da 1, tuttavia se i dischi di convergenza si intersecano,
+    allora l'estensione all'esterno della singolarità è unica ed è $\frac{1}{1 - z}$.
+    Estesa tramite il teorema di unicità delle funzioni olomorfe. \\
+    $\sin z$ converge per gli infiniti punti $z = \pi k$. Non vale il principio di 
+    Identità secondo il quale il seno è nullo in quanto l'insieme delle radici del seno non 
+    è un insieme di accumulazione.
+\end{corollary}
+\begin{example}
+    La seguente funzione su $\mathbb{R}$:
+    \begin{gather*}
+        f(x) = x^{2}\sin\left(\frac{1}{x}\right)
+    \end{gather*}
+    presenta un punto di accumulazione vincino a zero ma è anche continua 
+    e derivabile infinite volte. Non è possibile però applicare il principio di identità delle
+    funzioni olomorfe anche se presenta un punto di accumulazione vicino a zero. Infatti 
+    $\sin\frac{1}{z}$ si mantiene limitato sui reali, ma per altre direzioni non si sa che 
+    accade perché presenta una singolarità essenziale.
+\end{example}
+
+\section{Teorema dei residui}
+\begin{definition}[Residuo]
+    Sia $a \in \mathbb{A}$ una \textbf{singolarità isolata} di una certa funzione 
+    $f$ olomorfa su $\mathbb{A}$. Si dice \textbf{residuo} in $a$ di $f$ 
+    \begin{align}
+        c_{-1} \equiv \frac{1}{2\pi i}\oint_\gamma f(z) \ dz \equiv \text{Res}(f, a) \equiv \text{Res}_a(f)
+    \end{align}
+    dove $\gamma$ è un circuito chiuso che circonda il punto $a$ e non contiene 
+    altri punti di singolarità della funzione (con verso positivo e per una sola rotazione).
+    Se ci fosse un buco nel dominio dentro al circuito questa definizione non potrebbe valere. \\ 
+    Allora Res$_a(f)$ è il coefficiente $\frac{1}{z - a}$ nello sviluppo di Laurent di $f$ attorno ad $a$: 
+    \begin{align}
+        \oint_\gamma c_n(z - a)^{n} \ dz = 0 \qquad \forall n \neq -1  \ \Longrightarrow \ 2\pi i c_{-1}n = -1
+    \end{align}
+\end{definition}
+
+\begin{theorem}[Teorema dei residui]
+    Sia $\mathbb{A} \subset \mathbb{C}$ un insieme aperto e sia $\mathcal{N} \subset \mathbb{A}$ un insieme 
+    discreto di punti (isolati tra loro). Sia $f$ una funzione olomorfa in $\mathbb{A}$ tranne che in $\mathcal{N}$.
+    Preso un circuito $\gamma \subset \mathbb{A} \ \mathcal{N}$, e deve essere nullomotopo in $\mathbb{A}$. Allora
+    \begin{align}
+        \oint _{\gamma} f(z) \ dz = 2\pi i\sum_{a\in \mathcal{N}} w(\gamma, a) \text{Res}(f, a) 
+    \end{align}
+    Dove $w(\gamma, a)$ mi dà il \textbf{numero di avvolgimenti} del circuito intorno al punto $a$ (positivo se è lungo la direzione 
+    del circuito, altrimenti negativo). 
+\end{theorem}
+\begin{proof}
+    Per dimostrarlo si utilizza la serie di Laurent. Presa una palla
+    $\mathbb{B} = (0, (0, r))$, la funzione 
+    \begin{gather*}
+        f(z) = \sum_{n = -\infty }^{\infty } c_n(z - a)^{n} = R_a(z) + Q_a(z) \qquad Q_a(z) \equiv \sum_{n = -\infty } ^{-1} c_n(z - a)^{n}
+    \end{gather*}
+    Dove $Q_a(z)$ converge su tutto $\mathbb{C}$ tranne $a$. Considerata la funzione 
+    \begin{gather*}
+        f(z) - Q_a(z) = R_a(z) \equiv g(z)
+    \end{gather*}
+    Questa funzione presenta una singolarità eliminabile in $z = a$ ed è dunque una serie regolare :
+    \begin{gather*}
+        g(a) = c_0  
+    \end{gather*}
+    Supponendo ora che $\mathcal{N}$ abbia un numero finito di singolarità, in ogni punto $a$
+    si costruisce la parte singolare della serie di Laurent attorno ad ognuno dei punti. SI costruisce dunque 
+    \begin{gather*}
+        g(z) \equiv f(z) - \sum_{a \in \mathcal{N}} Q_a(z) 
+    \end{gather*}
+    $g$ è regolare su tutto $\mathbb{A}$ in quanto posso eliminare tutte le parti singolari. 
+    Dato che $\gamma$ è nullomotopo, allora 
+    \begin{gather*}
+        0 = \oint_\gamma g = \oint _\gamma (f - \sum Q_a ) \ \Longrightarrow \ \oint_\gamma f = \sum \oint_\gamma Q_a
+    \end{gather*}
+    Che è equivalente a dire (per la definizione di residuo):
+    \begin{gather*}
+        2\pi i \sum_{a \in \mathcal{N} } w(\gamma, a) \text{Res}(Q_a, a) = 2\pi i \sum_{a \in \mathcal{N}} w(\gamma, a) \text{Res}(f, a) 
+    \end{gather*}
+\end{proof}
+
+\begin{corollary}[Funzioni che ammettono primitiva in un dominio]
+    Sia $\mathbb{A}$ è un dominio semplicemente connesso e $\mathcal{N}$ un insieme di singolarità. 
+    Sia $f \in H(\mathbb{A} \backslash \mathcal{N})$ che ammette primitiva, allora i residui sono tutti nulli. Se i residui sono 
+    nulli, tutti i termini sono presenti tranne quelli $\frac{a}{z - a}$, ma tutti gli altri termini hanno primitiva (tranne il caso -1
+    poiché il logaritmo non è definito su tutto $\mathbb{C}$).
+\end{corollary}
+
+\subsection{Calcolo dei residui}
+\begin{enumerate}
+    \item Se $f$ ha un polo semplice, allora il residuo 
+    \begin{gather*}
+        \text{Res}(f, a) = \lim_{z \to a} (z - a) f(z) 
+    \end{gather*}
+    \item Se $f = \frac{h}{g}$, con $h, g \in H(\mathbb{A})$ e $h(a) \neq 0$, $g(a) \neq 0$, $g'(a) \neq 0$
+    \begin{align}
+        \text{Res}(f, a) = \frac{f(a)}{g'(a)}
+    \end{align}
+    \item Se $f = \frac{h}{(z - a)^{m}}$ con $m \geq 1$ e $h(a)\neq 0$, allora 
+    \begin{align}
+        \text{Res}(f, a) = \frac{h^{(m - 1)}(a)}{(m - 1)!}
+    \end{align}
+    \item Se $a$ è un polo di ordine $m$, allora 
+    \begin{align}
+        \text{Res}(f, a) = \frac{1}{(n - 1)!} \lim_{z \to a} \frac{d^{n - 1}}{dz^{ n - 1}} \left((z - a)^{m}f(z)\right) 
+    \end{align}
+\end{enumerate}
+
+\end{document}

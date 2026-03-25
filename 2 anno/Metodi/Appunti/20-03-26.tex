@@ -1,0 +1,298 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Metodi}
+\author{Tommaso Miliani}
+\date{20-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Dimostrazione calcolo di residui}
+\begin{enumerate}
+    \item Si assume che $f$ abbia un polo semplice in $a$, dunque il suo sviluppo di Laurent 
+    vicino ad $a$ sarà della forma 
+    \begin{gather*}
+        f(z) = \frac{c_{-1}}{z - a} + c_0 + c_1(z - a) + \dots
+    \end{gather*}
+    Se si moltiplica per $z - a$:
+    \begin{gather*}
+        (z - a)f(z) = c_{-1} + c_0(z - a)+ c_{1}(z - a )^{2} + \dots
+    \end{gather*}
+    \item Il residuo è uguale al 
+    \begin{gather*}
+        \text{Res} = \lim_{z \to a} (z - a)\frac{h(z)}{g(z)} 
+    \end{gather*}
+    Poiché $g(a) = 0$, allora 
+    \begin{gather*}
+        \lim_{z \to a} (z - a)\frac{h(z)}{g(z) - g(a)} 
+    \end{gather*}
+    che è uguale a 
+    \begin{gather*}
+        \lim_{z \to a} \frac{h(z)}{\frac{g(z) - g(a)}{z - a}} = \frac{h(a)}{g'(a)} 
+    \end{gather*}
+    \item In $a$ la funzione $f$ ha un polo di ordine $n$. Dunque il suo sviluppo di Taylor 
+    vicino ad $a$ ha la seguente forma (è regolare)
+    \begin{gather*}
+        f = \frac{1}{(z - a)^{m}} \sum_{n = 0}^{\infty } \frac{h^(n)(a)}{n!}(z - a )^{n} 
+    \end{gather*}
+    Dunque si ottiene lo sviluppo di Laurent: 
+    \begin{gather*}
+        = \sum_{n = 0}^{\infty } \frac{h^{(n)}(a)}{n!}(z - a)^{n - m}
+    \end{gather*}
+    si prende il residuo ed il coefficiente $n - m= - 1$ e $ n = m -1$. dunque è dimostrata.
+    \item La dimostrazione parte dal caso 
+    \begin{gather*}
+        h = (z - a)^{m}f(z) \qquad f = \frac{(z - a)^{n}f(z)}{(z - a)^{m}} 
+    \end{gather*}
+    Applicando la terza, si trova la tesi.
+\end{enumerate}
+
+\section{Utilizzo dei residui per il calcolo degli integrali}
+Si vuole ora calcolare alcuni integrali deifiniti. La tipologia dell'integrale non 
+è assulutamente uno standard. 
+
+\subsection{Primo tipo}
+Sono degli integrali del tipo
+\begin{align}
+    I = \int_{0}^{2\pi} Q(\cos\theta, \sin\theta) \ d\theta 
+\end{align}
+questa tipologia di integrale richiede che la funzione $Q$ 
+sia una funzione che coinvolga seno e coseno e che sia integrabile 
+per un multiplo del periodo. È anche importante che $Q$ sia una funzione 
+razionale (rapporto di due polinomi), definita sul cerchio
+$\mathbb{S} = \{(x, y) : x^{2} + y^{2} = 1\}$. Seno e coseno parametrizzano i punti sul cerchio 
+unitario, analogamente parametrizzati da $e^{i\theta}$; si può dunque 
+eseguire un cambio di variabile complesso : 
+\begin{gather*}
+    z = e^{i\theta} = \gamma(\theta) \in \mathbb{C}
+\end{gather*}
+utilizzando $\gamma$ come contorno di integrazione al variare 
+di $\theta \in [0, 2\pi]$, dunque $\gamma : [0, 2\pi] \to \mathbb{C}$ è un circuito. 
+Si può ora vedere come sostituire $\cos\theta$ e $\sin\theta$:
+\begin{align*}
+    \cos\theta &= \frac{e^{i\theta} + e^{i\theta}}{2} = \frac{z + \frac{1}{z}}{2} \\
+    \sin\theta &= \frac{e^{i\theta} - e^{-i\theta}}{2i} = \frac{z - \frac{1}{z}}{2i} \\
+    dz &= ie^{i\theta} \ d\theta  = iz \ d\theta \ \Longrightarrow \ d\theta = \frac{dz}{iz}
+\end{align*}
+Dunque si può riscrivere 
+\begin{align}
+    I = \oint _\gamma Q\left(\frac{z + \frac{1}{z}}{2}, \frac{z - \frac{1}{z}}{2i}\right) \frac{dz}{iz} = \oint_{\left| z \right| = 1 } \tilde{Q}(z) \ dz
+\end{align}
+Applicando il teorema dei residui, l'integrale è determinato dalla somma dei residui dei poli di 
+$\tilde{Q}$ all'interno del cerchio unitario, dunque 
+\begin{gather*}
+    I = 2\pi i \sum_{a \in Z(\tilde{Q}), \left| a \right| < 1 } \text{Res}(\tilde{Q}, a)
+\end{gather*}
+Si nota che $\left| a \right| <1$ in quanto non ci possono essere singolarità sulla circonferenza, 
+in quanto corrisponderebbe alla singolarità della $Q$ normale 
+sul circuito di integrazione ma, dato che essa è regolare, allora il circuito di 
+integrazione finale non deve avere singolarità altrimenti non sarebbe ben definito. 
+
+\begin{example}
+    \begin{gather*}
+        I = \int_{0}^{2\pi} \frac{1}{4\cos\theta - 5} \ d\theta  
+    \end{gather*}
+    Utilizzando le trasformazioni riportate sopra possiamo riscrivere 
+    \begin{gather*}
+        \oint _{\gamma} \frac{1}{4\frac{z + \frac{1}{z}}{2} - 5} \frac{dz}{iz} = \oint_{\gamma} \frac{-i}{z(2(z + \frac{1}{z}) - 5)} \ dz = \oint_{\gamma} \frac{-i}{2z^{2} - 5z + 2} \ dz = \oint_{\gamma} \frac{-i}{2(z - 2)(z - \frac{1}{z})}dz
+    \end{gather*}
+    Dunque si cercano i poli di questa funzione: ossia $z = 2$ e $z = \frac{1}{2}$. Solo il secondo è 
+    all'interno del cerchio unitario, dunque considero solo quel polo. Allora 
+    il residuo, calcolato in $\frac{1}{2}$ è 
+    \begin{gather*}
+        \text{Res} = - \frac{i}{2(\frac{1}{2} - 2)} = \frac{i}{3}
+    \end{gather*}
+    Dunque
+    \begin{gather*}
+        I = 2\pi i \frac{i}{3} = - \frac{2\pi}{3}
+    \end{gather*}
+\end{example}
+
+\subsection{Secondo tipo}
+Sono integrali del tipo 
+\begin{align}
+    I = \int_{\mathbb{R}} f(x) \ dx 
+\end{align}
+dove $f : \mathbb{R} \to \mathbb{C}$ tale che può essere estesa 
+al piano complesso ad una funzione olomorfa (ed integrabile). Basta che 
+sia olomorfa su almeno uno dei due semipiani $Im(z) \geq 0$ o $Im(z) \leq 0$. Per 
+olomorfa si intende di \textbf{almeno di singolarità isolate}, chiaramente queste singolarità 
+isolate devono essere al di fuori dell'asse reale, altrimenti non sarebbe integrabile 
+sui reali ($Im(a) \neq 0$). Se esiste 
+\begin{gather*}
+    \lim_{r \to \infty } \int_{-r}^{r} f(x)  \ dx  
+\end{gather*}
+in quanto la funzione, anche se non è integrabile, è integrabile con questo 
+limite (un esempio è il seno di x, anche se non è del secondo tipo). In questo 
+caso si può dunque integrare sull'asse reale. Per ottenere un percorso 
+chiuso si può aggiungere una superficie di raggio $r$ con $r \to \infty $. Questo perché 
+sull'asse reale si ottiene l'integrale appena scritto, mentre sulla semicirconferenza 
+devo calcolare un integrale differente che, se tende a zero, allora l'integrale sul circuito 
+corrisponde solo all'integrale sull'asse reale $I$. Supponendo che
+$f$ sia un rapporto tra polinomi $\frac{p(x)}{q(x)}$, in cui $q(x) \neq 0, \forall x \in \mathbb{R}$, 
+l'integrale esiste se $\deg(q) \leq \deg(p) + 2$ poiché $\lim_{x \to \infty }xf(x)  = 0$, dunque devo avere 
+un andamento simile a $\frac{1}{x^{\geq 2}}$ per poter convergere. Dunque 
+\begin{gather*}
+    I = \int_{-r}^{r} f(x)  \ dx = \int_{\beta_r} f(z) \ dz
+\end{gather*}
+Mentre l'integrale sul percorso completo 
+\begin{gather*}
+    \oint_{\beta_r + \gamma_r} f(z) \ dz = \int_{\beta_r} f(z) \ dz + \int_{\gamma_r} f(z) \ dz 
+\end{gather*}
+Il primo è esattamente $I$, mentre quello su $\gamma_r$ è l'integrale 
+\begin{gather*}
+    \int_{\gamma_r}^{}  \frac{p(z)}{q(z)} \ dz 
+\end{gather*}
+in cui $\gamma_r$ + parametrizzabile come $\gamma_r = re^{i\theta}, \theta \in [0, 2\pi]$ con $r \to \infty $:
+\begin{gather*}
+    \int \frac{p(re^{i\theta})}{q(re^{i\theta})} rie^{i\theta} \ d\theta 
+\end{gather*}
+Allora posti gli andamenti $p \sim x^{K}$ e $q \sim x^{L}$ e dato che $L \geq K + 2$, si ottiene che 
+l'andamento dell'integrale è $\sim r^{K - L + 1}$ ossia $\sim r^{\leq 1}$, dunque convergerà. Allora 
+\begin{gather*}
+    I = \lim_{r \to \infty } \oint_{\beta + \gamma_r} f(z) \ dz = 2\pi i \sum_{Im(a) > 0 } \text{Res}(f, a)
+\end{gather*}
+Questo si può anche estendere alla semicirconferenza sotto l'asse reale che, in questo caso, 
+l'integrale dovrà tenere un segno meno per ricordare che si percorre la curva al contrario, ottenendo
+\begin{gather*}
+    -2\pi i \sum_{Im a < 0 } \text{Res}(f, a) 
+\end{gather*}
+
+\begin{lemma}[Lemma del cerchio grande]
+    Presi due angoli $\theta_1 < \theta_2$ con $\theta_2 - \theta_1 \leq 2\pi$, che individuano 
+    il settore circolare 
+    \begin{gather*}
+        A(\theta_1, \theta_2) \equiv \{z \in \mathbb{C} : \ \theta_1 \leq \arg z \leq \theta_2\}
+    \end{gather*}
+    In questo settore circolare si definisce la funzione $f : A(\theta_1, \theta_2) \to \mathbb{C}$, con singolarità isolate 
+    (al più e numero finito). Preso $C_r$ l'arco di circonferenza di raggio $r$ in quel settore
+    \begin{gather*}
+        C_r = \{z \in \mathbb{C} : \ \left| z \right| = r, \theta_1 \leq \arg(z) \leq \theta_2 \}
+    \end{gather*}
+    Se $zf(z)$ tende a zero \textbf{uniformemente} in $A(\theta_1, \theta_2)$ per $\left| z \right| \to \infty$, ovvero se
+    \begin{gather*}
+        \lim_{r \to \infty } \sup_{z \in C_r} \left| z f(z)\right|  = 0
+    \end{gather*}  
+    allora il limite 
+    \begin{gather*}
+        \lim_{r \to \infty } \int_{C_r}^{} f = 0  
+    \end{gather*}
+\end{lemma}
+\begin{proof}
+    Posto
+    \begin{gather*}
+        M(r) = \sup_{z \in C_r} \left| f(z) \right|  
+    \end{gather*}
+    l'estreo superiore di $|f|$ su $C_r$, dunque 
+    \begin{gather*}
+        \left| \int_{C_r} f\right|   \leq L(C_r)M(r) = \left| \theta_2 - \theta_1 \right|rM(r ) 
+    \end{gather*}
+    Per $r \to \infty$, $rM(r) \to 0$ per la condizione che $\left| zf(z) \right| \to 0$.  
+\end{proof}
+
+\begin{example}
+    Si vuole integrare
+    \begin{gather*}
+        I = \int_{\mathbb{R}} \frac{1}{x^{2} + 1} \ dx 
+    \end{gather*}
+    dove i poli sono a $\pm i$. 
+\end{example}
+
+\section{Terzo tipo}
+Sono anch'essi integrali su tutto $\mathbb{R}$ della forma
+\begin{align}
+    \int_{\mathbb{R}} f(x) e^{i\alpha x} \ dx 
+\end{align}
+ma con la differenza che c'è un esponenziale.
+\begin{itemize}
+    \item Nel caso in cui $\alpha = 0$, 
+ci si riconduce agli integrali di secondo tipo. 
+    \item $\alpha > 0$ si ha l'integrale sul circuito 
+    nel semipiano immaginario positivo e si fa utilizzo del \textbf{Lemma di Jordan}.
+    \item $\alpha < 0$ si ha l'integrale sul circuito nel 
+    semipiano immaginario negativo, riconducendosi al caso $\alpha > 0$,
+\end{itemize}
+
+\begin{lemma}[Lemma di Jordan]
+    Sia $f: A(\theta_1, \theta_2) \to \mathbb{C}$ una funzione definita in un settore circolare
+    tale che $0 \leq \theta_1 < \theta_2 \leq \pi$. Sia $\gamma_r :[\theta_1, \theta_2] \to \mathbb{C}$, 
+    $\gamma_r(\theta) = re^{i\theta}$ l'arco di circonferenza di 
+    raggio $r > 0 $ in $A(\theta_1, \theta_2)$. Se 
+    \begin{gather*}
+        \lim_{z \to \infty } f(z) = 0 
+    \end{gather*}
+    uniformemente rispetto all'angolo e $\alpha > 0$ allora 
+    \begin{align}
+        \lim_{r \to \infty } \int_{\gamma_r} f(z) e^{i\alpha z} \ dz = 0  
+    \end{align}
+\end{lemma}
+\begin{proof}
+    Non richiesta.
+\end{proof}
+
+Se le ipotesi del teorema sono soddisfatte, allora si possono calcolare 
+gli integrali come i seguenti
+\begin{itemize}
+    \item $\alpha > 0$:
+    \begin{gather*}
+        \int_{\mathbb{R}} e^{i\alpha x} f(x) \ d x= 2\pi i \sum_{a : Im(a) > 0 } \text{Res}(fe^{i\alpha z}, a)  
+    \end{gather*}
+    \item $\alpha < 0$:
+    \begin{gather*}
+        \int_{\mathbb{R}} e^{i\alpha x} f(x) \ d x = -2\pi i \sum_{a : Im(a) < 0 } \text{Res}(fe^{i\alpha z}, a)
+    \end{gather*}
+\end{itemize}
+Si osserva come il risultato sia lo stesso, ma ricordandosi di cambiare segno. Il Lemma di Jordan 
+è meno restrittivo del teorema dei cerchi grandi.
+
+\begin{example}[Dispense]
+    
+\end{example}
+
+\end{document}

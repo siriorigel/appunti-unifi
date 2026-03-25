@@ -1,0 +1,122 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fisica II}
+\author{Tommaso Miliani}
+\date{16-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Dielettrici}
+Sono dei materiali che, se sottoposti ad un campo elettrico esterno, 
+le cariche tendono a dipsorsi in modo tale che $\vv{p} = d\vv{E}$. Ossia 
+si descrive il dielettrico come un materiale che ha una risposta lineare 
+al campo elettrico a cui è sottoposto. In questo sistema non si è in grado di 
+descrivere in maniera accurata il comportamento di un dielettrico ma si possono 
+utilizzare delle relazioni empiriche per cui si individua un piccolo 
+volume $d\tau$ per il dielettrico e si definisce la \textbf{densità di dipolo} 
+per ogni elemento $d\tau$, in modo tale che
+\begin{gather*}
+    d\vv{p} = \vv{P}(\vv{r'}) d\tau  
+\end{gather*}  
+Il volumetto deve essere scelto piccolo a sufficienza in modo che la funzione $\vv{P}$ sia derivabile 
+ma allo stesso tempo abbastanza grande in modo tale che lo possa definire come un insieme 
+continuo di cariche. Il potenziale si ottiene con la formula dello sviluppo multipolare
+\begin{gather*}
+    dV(\vv{r}, \vv{r'}  ) =  \frac{1}{4\pi\epsilon_0} \frac{d\vv{p}(\vv{r} - \vv{r'}  )}{\left| \vv{r} - \vv{r'}   \right|^{3} } 
+\end{gather*}
+Adesso si pul sostituire $d\vv{p}$:
+\begin{gather*}
+    dV(\vv{r}, \vv{r'}  ) = \frac{1}{4\pi \epsilon_0} \frac{\vv{P}(\vv{r} ) d\tau (\vv{r} - \vv{r'}  )}{\left| \vv{r} - \vv{r'}   \right|^{3} }
+\end{gather*} 
+Integrando ora su tutto il volume (mantenendo fisso $\vv{r}$ ) si ottiene che
+\begin{gather*}
+    V(\vv{r}, \vv{r'}  ) = \frac{1}{4\pi\epsilon_0} \int_{\tau}  \frac{\vv{P}(\vv{r} ) (\vv{r} - \vv{r'}  ) }{\left| \vv{r} - \vv{r'}   \right|^{3} } d\tau
+\end{gather*}
+Si è già visto che
+\begin{gather*}
+    \frac{\vv{r} - \vv{r'}  }{\left| \vv{r} - \vv{r'}   \right|^{3} } = \vv{\nabla} \frac{1}{\left| \vv{r} - \vv{r'}   \right| } \qquad R = \left| \vv{r} - \vv{r'}   \right|   
+\end{gather*}
+Dunque
+\begin{gather*}
+    V(\vv{r} ,\vv{r'}  ) = \frac{1}{4\pi\epsilon_0} \int_{\tau} \vv{P} \cdot \vv{\nabla} \frac{1}{R} = \frac{1}{4\pi\epsilon_0} \int_{\tau}\left(\vv{\nabla}\left(\frac{\vv{P} }{R}\right)  - \frac{1}{R} \vv{\nabla} \cdot \vv{P}  \right)  d\tau
+\end{gather*}
+Dove
+\begin{gather*}
+    \sum_{i = 1}^{3} P_i \frac{\partial }{\partial x_i}  \frac{1}{R} =    \sum_{i = 1}^{3} \frac{\partial }{\partial x_i} \left(\frac{P_i}{R}\right)  = \vv{\nabla}\left(\frac{\vv{P} }{R}\right)  - \frac{1}{R} \vv{\nabla} \cdot \vv{P}  
+\end{gather*}
+Allora, ricordando lo sviluppo al primo ordine del multipolare 
+\begin{gather*}
+    V(\vv{r} ) = \frac{1}{4\pi\epsilon_0} \int_{\tau} \frac{\rho(\vv{r'} )}{\left| \vv{r} - \vv{r'}   \right| } d\tau + \frac{1}{4\pi\epsilon_0} \int_{S} \frac{\sigma(\vv{r'} )}{\left| \vv{r} - \vv{r'}   \right| } dS  
+\end{gather*}
+Si può ora esprimere un campo scalare, dentro il dielettrico, che prende il nome di - ((MANCA PEZZO))
+
+
+Se si mette un cubo dielettrico dentro ad un condensatore 
+il campo elettrico diminuisce poiché le cariche si dispongono 
+opposte risoetto alle cariche sulle piastre del condensatore. 
+(Manca un pezzo)
+Dalla prima di Maxwell
+\begin{gather*}
+    \vv{\nabla} \cdot \vv{E} = \frac{\rho}{\epsilon_0} = \frac{\rho_L + \rho_P}{\epsilon_0} = \frac{\rho_L}{\epsilon_0} - \frac{1}{\epsilon_0} \vv{\nabla} \cdot \vv{P}    
+\end{gather*}
+SI definisce il vettore spostamento come $\vv{D} = \epsilon_0 \vv{E} + \vv{p}  $ e 
+allora 
+\begin{align}
+    \vv{\nabla} \cdot \vv{D} = \rho_L  
+\end{align}   
+Ci si limita a studiare materiali che sono 
+\begin{itemize}
+    \item Lineari: la risposta al campo elettrico è lineare
+    \item Isotropi: la risposta al campo non cambia se cambia la direzione del campo
+    \item Omogenei: tutti i punti del materiale sono uguali
+    \item Locali: la risposta non dipende da punto a punto
+\end{itemize}
+
+\end{document}

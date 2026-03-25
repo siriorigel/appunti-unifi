@@ -1,0 +1,195 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Lab II}
+\author{Tommaso Miliani}
+\date{18-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Generatori di corrente}
+Il generatore di corrente cerca di pompare delle cariche con il medesimo 
+flusso allo stesso modo indipendentemente dalla resistenza sul circuito. 
+Se si ha un sistema che prende fuoco con troppa corrente, si può regolare una 
+manopola per evitare che passi troppa corrente. Il generatore $\epsilon$ cerca sempre di mantenere una 
+differenza di potenziale, mentre un generatore di corrente (come un fotodiodo) cerca di 
+mantenere sempre costante la corrente in un circuito. Il generatore di corrente $I$
+si indica come in figura. La sua caratteristica devia dalla sua situazione ideale in modo tale 
+che, indipendentemente dal carico sulla corrente 
+\begin{gather*}
+    \begin{tikzpicture}
+        \draw[->](0, 0) -- (4, 0) node[at end, below] {$i$};
+        \draw[->](0, 0) -- (0, 4) node[at end, left] {$V$};
+        \draw(0, 3) -- (3, 3);
+        \draw[dashed](3, 0) -- (3, 3);
+        \draw(3, 0) .. controls (2.7, 1) and (2.6, 2) .. (2.5, 3);
+    \end{tikzpicture}
+\end{gather*}
+Dunque un generatore si schematizza sempre con una resistenza, la corrente disponibile 
+non sarà mai $I$ ma si avranno due correnti $i_1$ che va verso il circuito, mentre $i_2$ 
+va all'interno del circuito con la resistenza. Non si avrà dunque a disposizione tutta la corrente 
+nel circuito ma, noto il carico sul generatore e la resistenza, le correnti si rapporteranno 
+come il rapporto delle resistenze.
+\begin{gather*}
+    I = i_1 + i_2 = \text{const}
+\end{gather*}
+Allora
+\begin{gather*}
+    i_1 = I - \frac{\Delta V}{R} \ \Longrightarrow \ I = i_1 + \frac{\Delta V}{R}
+\end{gather*}
+
+\section{Teorema di Norton}
+Preso un generatore di tensione collegato ad una resistenza $\rho$ 
+e collegato ai capi $A$ e $B$. Equivalentemente si considera un generatore 
+di corrente $I$ con resistenza $R$. Si vuole trovare ora le condizioni secondo le 
+quali ai capi $A$ e $B$ si ha la stessa differenza di tensione ai capi $A'$ e $B'$. 
+\begin{gather*}
+    V_A - V_B = \epsilon - i\rho \qquad V_A' - V_B' = i_2R
+\end{gather*}
+Se si vuole che le differenze di tensione siano equivalenti, allora si eguagliano
+\begin{gather*}
+    \epsilon - i\rho = i_2R 
+\end{gather*}
+si ha che 
+\begin{gather*}
+    I = i_1 + i_2 = i_1 + \frac{\epsilon}{R} - i\frac{\rho}{R}
+\end{gather*}
+Allora 
+\begin{gather*}
+    i_1 = I - \frac{\epsilon}{R} + i\frac{\rho}{R}
+\end{gather*}
+Dunque per far sì che $i = i_1$, si deve avere che $I = \frac{\epsilon}{R}$ e 
+inoltre che $\rho = R$. In altre parole, se si ha un generatore di corrente con queste caratteristiche, 
+lo si può sostituire con un generatore di tensione $\frac{\epsilon}{R}$ e resistenza $R$. 
+
+\section{Amplificatore operazionale}
+Nell'amplificatore operazionale si ha  circuito con 
+un generatore $v_0$ pilotato e un generatore $v_s$. 
+Per l'amplificatore 
+\begin{gather*}
+    v_0 = A(v_+ - v_-)
+\end{gather*}
+Si ha che
+\begin{gather*}
+    A_f = - \frac{R_f}{R_s} \\
+    v_- \to 0 \qquad i_s = i_f
+\end{gather*}
+CHe si comporta come una massas virtuale. 
+\begin{gather*}
+    v_0 = A(v_+ - v_-) = -Av_- \\
+    v_s = i_s R_s - iR_i \qquad \text{Seconda legge sulla M1}\\
+    i_s + i = i_f \qquad \text{Prima legge sul nodo N}\\
+    v_- = -iR_i \qquad \text{Legge di Ohm}\\
+    -v_0 = iR_i + i_fR_f + i_fR_0 \qquad \text{Seconda legge su maglia M2}
+\end{gather*}
+Svolgendo i conti 
+\begin{gather*}
+    v_0 = - \frac{R_i(AR_f - R_0)}{(R_i + R_s)(R_f + R_0) + R_iR_s(i + A)}v_s
+\end{gather*}
+Quindi 
+\begin{gather*}
+    i = - v_s \frac{R_f + R_0}{(R_i + R_s) (R_f + R_0) + R_iR_s(i + A)} \to 0
+\end{gather*}
+Questo amplificatore, nel limite nel quale $A$ tende all'infinito, si comporta come un generatore
+ideale secondo il seguente circuito:
+
+Se si mandano tre differenze di tensione ad un amplificatore secondo il seguente disegno:
+
+SI ha che
+\begin{gather*}
+    i_f = \sum_k i_k = \sum_k \frac{v_k}{R_k} \\
+    i_k  =\frac{v_k}{R_k} 
+\end{gather*}
+Dunque si è realizzato un sistema che fa la somma pesata dei segnali 
+in ingresso 
+\begin{gather*}
+    v_0 = -i_fR_f = - R_f \sum_k \frac{v_k}{R_k}
+\end{gather*}
+
+\section{Integratore}
+Questo è un sistema composto da un amplificatore ed un condensatore, 
+per cui 
+\begin{gather*}
+    \frac{Q}{C} = V \ \Longrightarrow \ v_0 = - \frac{Q}{C}
+\end{gather*}
+In realtà, dato che la carica passa continuamente, 
+\begin{gather*}
+    v_0 = - \frac{\int_{0}^{t} I \ dt }{C}
+\end{gather*}
+In questo modo posso integrare il segnale un entrata nell'amplificatore, così che
+\begin{gather*}
+    v_0 = - \frac{1}{RC}\int_{0}^{t} v_s \ dt 
+\end{gather*}
+
+\section{Derivatore}
+Un derivatore è un sistema composto da condensatore e resistenza feedback di un 
+amplificatore. 
+\begin{gather*}
+    v_0 = -RC\frac{dv_s}{dt}
+\end{gather*} 
+
+
+\section{Corrente di bias}
+La corrente di Bias di un circuito è una corrente 
+
+
+\section{Tensione di offset}
+\begin{gather*}
+    \left\{\begin{array}{l}
+        v_s -(-v_{off}) = iR_s \\
+        v_0 = -v_{off}- iR_s
+    \end{array}\right.
+\end{gather*}
+Allora 
+\begin{gather*}
+    v_0 = - v_s\frac{R_f}{R_s} - v_{off} \left(\frac{R_s + R_f}{R_s}\right)
+\end{gather*}
+
+
+\end{document}

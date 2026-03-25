@@ -1,0 +1,96 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Lab II}
+\author{Tommaso Miliani}
+\date{16-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Fine esperienza 1 perché si}
+Si trova anche tutto su moodle 
+
+
+\section{Esperienza 2}
+Si utilizza un amplificatore che è costituito come in figura.
+Lo scopo di questa esperienza è la determinazione del guadagno 
+in continua e la caratterizzazione delle caratteristiche dell'amplificatore. 
+Gli amplificatori come questi permettono di amplificare il segnale in 
+ingresso, per cui all'uscita si osserva che
+\begin{gather*}
+    V_0 = A(V_+ - V_-)
+\end{gather*}
+L'amplificatore in laboratorio è un LF156, per cui i valori tipici sono 
+\begin{itemize}
+    \item $A = 10^{5}\sim 10^{6}$: è molto variabile e varia sia con
+    la temperatura che da chip a chip
+    \item $R_i = 10^{11} \Omega$: resistenza in ingresso
+    \item $R_{out} = 200\Omega$: è la resistenza in uscita. 
+\end{itemize}
+Per poter stabilizzare questo oggetto (è instabile perché dipende a cosa è 
+attaccato) si collega l'uscita in retroazione all'ingresso $-$. Nell'esperienza
+si deve dunque realizzare una configurazione ad amplificatore operazionale in modo 
+tale che parte del segnale in uscita sia rimandato in ingresso.
+
+\subsection{Parte I: stabilizzare l'amplificatore}
+L'amplificazione a circuito-retroazionato è data solo e soltanto 
+(nel limite in cui $R_f$ e $R_s$ siano molto minori di $A$):
+\begin{gather*}
+    A_f = - \frac{R_f}{R_s}
+\end{gather*}
+IN questo modo si realizza un sistema molto più stabile (il segno negativo è 
+perché il segnale rientra dal polo negativo) e dipende dal valore delle resistenze. 
+Questo oggetto permette di ripetere e amplificare questo segnale in modo tale che
+la resistenza in uscita tenda a zero.  \\
+Si utilizza una breadboard (le cui linee sono collegate tra loro)
+e quelle centrali hanno le colonne collegate tra loro. Per fare 
+
+
+
+\end{document}
