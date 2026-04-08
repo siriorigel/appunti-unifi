@@ -18,10 +18,11 @@
 \usepackage{color}
 \usepackage[d]{esvect}
 \usepackage{svg}
+\usepackage{float}
 \usepackage[version=4]{mhchem}
-\definecolor{page}{rgb}{0.129,0.157,0.212}
-\pagecolor{page}
-\color{white}
+%\definecolor{page}{rgb}{0.129,0.157,0.212}
+%\pagecolor{page}
+%\color{white}
 \graphicspath{ {./images/} }
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{datavisualization}
@@ -34,7 +35,7 @@
 \pgfplotsset{width=10cm,compat=1.9}
 
 \title{Appunti di Astronomia}
-\author{Tommaso Miliani}
+\author{Miliani Tommaso}
 \date{2025/2026}
 
 \begin{document}
@@ -76,25 +77,41 @@
 
 \tableofcontents
 
-\chapter*{Introduzione al corso}
-Il corso si divide in tre sezioni:
+\chapter*{Dettagli sul corso}
+Il corso è affrontato dalla professoressa Elisabeta Lusso e Luca Del Zanna,
+ed è strutturato in tre parti fondamentali:
 \begin{enumerate}
-    \item Astronomia sferica: ossia l'astronomia celeste, cenni storici,
-    trigonometria sferica;
-    \item L'indagine astronomica: ossia l'utilizzo di strumenti come telescopi
-    per compiere misurazioni ed osservazioni sulle stelle; la determinazione dell'età
-    delle stelle e l'osservazione stellare in generale;
-    \item Gravitazione e meccanica celeste: campo e potenziale celeste con
+    \item \textbf{Astronomia sferica}: ossia l'astronomia celeste, cenni storici,
+    trigonometria sferica, di cui qui si fornisce un "riassunto" un po' grezzo 
+    valido però ai fini dell'orale (per slide migliori e più dettagliate
+    rifarsi alla presentazione del prof Del Zanna);
+    \item \textbf{L'indagine astronomica} (parte della professoressa Lusso): ossia l'utilizzo di strumenti (come telescopi)
+    per compiere misurazioni ed osservazioni sulle stelle e gli oggetti celesti in generale
+    come la determinazione di distanze, moti, luminosità, etc... per i suddetti;
+    \item \textbf{Meccanica celeste}: campo e potenziale celeste con
     legge di Gauss, problema dei due e tre corpi, fluidi auto gravitanti (fluidi + gravità),
     struttura stellare.
 \end{enumerate}
-L'esame consiste in un colloquio orale diviso in tre domande,
-una per parte del corso.
+L'esame (da 6 CFU) consiste in un colloquio orale diviso in tre domande,
+una per parte del corso. \\ \noindent
+Queste dispense sono state realizzate mettendo insieme quanto 
+trovato sul libro di astronomia consigliato, gli appunti 
+presi in classe con la professoressa Lusso per la sua parte e
+gli appunti del professor Romoli sul moodle del corso; mentre per la parte
+del professor Del Zanna mi sono interamente rifatto ai suoi appunti pubblicati 
+sulla pagina del corso. Alcune parti sono state espanse di mio pugno 
+per poter spiegare passaggi, relazioni e concetti vari. Purtroppo non sono 
+riuscito a mantenere tutte le meravigliose immagini inserite dalla professoressa Lusso
+nelle presentazioni utilizzate in classe ma altrimenti sarebbe venuto un documento eccessivamente lungo.  \\ \noindent
+Un grande ringraziamento a Baglioni Emily che mi ha aiutato durante la composizione di
+queste dispense. 
 
 
 \part{Introduzione ai concetti dell'astronomia}
 \chapter{Sfera celeste e cenni storici}
-\section{Nozioni astronomiche}
+\section{Costanti astronomiche astronomiche}
+Si forniscono alcune costanti utili per la trattazione a venire 
+dell'astronomia. Altre costanti saranno introdotte e definite successivamente:
 \begin{itemize}
     \item Unità astronomica: $1 \text{ AU} = 1.489 \cdot 10^{11}$ metri, equivalente
     alla distanza media Terra-Sole.
@@ -716,7 +733,7 @@ Da qui si ottiene che $T$ vale 23 h e 39 min. Dato che mancano, dal meridiano di
 mancano $\frac{13}{15} \cdot$ 60 min, ossia 16 min, allora Arturo sorge alle 23:23. 
 
 
-\part{Osservazione e studio della sfera celeste}
+\part{Osservazione e studio della sfera celeste (Lusso)}
 \chapter{I telescopi}
 \section{I parametri fondamentali dei telescopi}
 Per poter compiere osservazioni sulla radiazione
@@ -779,7 +796,7 @@ divergente in modo tale che l'oculare viene a trovarsi prima del fuoco dell'obie
 ad una distanza da questo pari alla distanza focale dell'oculare. Questo telescopio produce immagini dritte 
 ma ha un campo molto ristretto ($\frac{f}{10}$ e $\frac{f}{15}$):
 \begin{gather*}
-    \begin{tikzpicture}
+    \begin{tikzpicture}[scale=0.85]
         \draw(0, 0) -- (7, 0);
         \draw[<->](2, -1.5) -- (2, 1.5);
         \draw[>-<](5, -1) -- (5, 1);
@@ -791,6 +808,8 @@ ma ha un campo molto ristretto ($\frac{f}{10}$ e $\frac{f}{15}$):
         \draw[cyan](0, 1.75) -- (2, 1.5) -- (5, -0.25) -- (6, -0.65);
         \draw[cyan](0, 0.25) -- (2, 0) -- (5, -0.65) -- (6, -1);
         \draw[cyan](0, -1.25) -- (2, -1.5) -- (5, -1) -- (6, -1.35);
+        \draw[<->](2, -2) -- (6, -2) node[midway, below] {$f_1$};
+        \draw[<->](4, -1.5) -- (6, -1.5) node[at end, right] {$f_2$};
     \end{tikzpicture}
 \end{gather*}
 
@@ -1179,7 +1198,7 @@ dalla stella. Il flusso $f_\lambda$ ricevuto ad una distanza $D$ è l'integrale 
 $I_\lambda$ esteso all'angolo solido sotteso dalla stella $\Omega$ nel cielo dell'osservatore:
 \begin{align*}
     f_\lambda &= \int_{0}^{\theta_r} d\theta \int_{0}^{2\pi} d\phi I_\lambda \cos\theta \sin\theta  = 2\pi \int_{0}^{\arcsin \frac{R_\star}{D}} I_\lambda \cos\theta\sin\theta \ d\theta  \\
-    &= 2\pi I_\lambda \int_{0}^{\frac{R_\star}{D}}\sin\theta d\sin\theta  = 2\pi \int_{0}^{\frac{R_\star}{D}}y \ dy = 2\pi I_\lambda \left[\frac{y^{2}}{2}\right]^{\frac{R_\star}{D}}_{0} = \pi \frac{R_\star^{2}}{D^{2}}I_\lambda 
+    &= 2\pi I_\lambda \int_{0}^{\frac{R_\star}{D}}\sin\theta d\sin\theta  = 2\pi I_\lambda \int_{0}^{\frac{R_\star}{D}}y \ dy = 2\pi I_\lambda \left[\frac{y^{2}}{2}\right]^{\frac{R_\star}{D}}_{0} = \pi \frac{R_\star^{2}}{D^{2}}I_\lambda 
 \end{align*} 
 Il flusso è proporzionale a $\frac{1}{D^{2}}$. 
 
@@ -1245,7 +1264,7 @@ al volume dell'energia:
 \end{gather*}
 Se l'emissione di $I$ è isotropa, allora è possibile integrare per ottenere la densità di energia come
 \begin{align}
-    u = \oint_{4\pi} \left. u \right|_{\Omega} d\Omega = \frac{4\pi}{c}I 
+    u = \oint_{4\pi} \left. u \right|_{\Omega} = \frac{4\pi}{c}I 
 \end{align}
 
 \subsection{Relazione tra radiazione elettromagnetica e unità radiometrica}
@@ -1341,7 +1360,7 @@ nel sistema fotometrico di Johnson-Morgan-Cousins e dipende da svariati fattori
 come il rilevatore, il filtro, il telescopio ma anche le condizioni atmosferiche. Infatti, il cielo ha tantissime variabili che possono interferire
     sulla qualità delle osservazioni. Parametri come l'umidità, la luce zodiacale,
     il vento e l'inquinamento possono modificare sostanzialmente la quantità di luce raccolta. 
-Quando vengono soddisfatte queste condizioni si parla di fotometria assolute. 
+Quando vengono soddisfatte queste condizioni si parla di \textbf{fotometria assoluta}. 
 
 
 \subsection{Costanza dell'Intensità luminosa trasportata da un raggio luminoso}
@@ -1392,40 +1411,41 @@ per far sì che l'energia che attraversa le due superfici sia uguale, si deve po
 Se così fosse si avrebbe che $dE_1 = dE_2$, dunque $I_1 = I_2$. 
 
 \subsection{Brillanza superficiale del Sole}
-Si assuma che il Sole irradi in modo isotropo. Dato $R$ il raggio 
+Si assuma che il Sole irradi in modo isotropo. Dato $R_\circledcirc$ il raggio 
 del Sole, $F_\circledcirc$ la densità di flusso sulla sua superficie
-e $F$ la densità di flusso a distanza $r$. Dal momento che la luminosità 
+e $f$ la densità di flusso a distanza $r$. Dal momento che la luminosità 
 è costante si avrà che 
 \begin{gather*}
-    L = 4\pi R^{2} F_\circledcirc = 4\pi r F 
+    L = 4\pi R_\circledcirc^{2} F_\circledcirc = 4\pi r f
 \end{gather*}
 Dunque la densità di flusso ad una distanza $r$ sarà data dalla seguente:
 \begin{gather*}
-    F = F_\circledcirc \frac{R^{2}}{r^{2}}
+    f = F_\circledcirc \frac{R_\circledcirc^{2}}{r^{2}}
 \end{gather*}
-A distanza $r >> R$, il Sole sottende un angolo solido di 
+A distanza $r >> R_\circledcirc$, il Sole sottende un angolo solido di 
 \begin{gather*}
-    \Omega = \frac{A}{r^{2}} = \frac{\pi R ^{2}}{r^{2}}
+    \Omega = \frac{A}{r^{2}} = \frac{\pi R_\circledcirc ^{2}}{r^{2}}
 \end{gather*}
-Allora la brillanza dovrà essere 
-\begin{gather*}
-    B = \frac{F}{\Omega} = B = \frac{F_\circledcirc}{\pi}
-\end{gather*}
+Data la definizione di \textbf{Brillanza}: ossia il flusso emesso da 
+una sorgente ad una certa distanza $r$ che sottende un certo angolo solido $\Omega$:
+\begin{align}
+    B = \frac{f}{\Omega} = \frac{F_\circledcirc}{\pi}
+\end{align}
 Ottenendo dunque che $B = I_\circledcirc$.  La brillanza superficiale risulta dunque 
 indipendente dalla distanza e corrisponde all'intensità del Sole. La densità di flusso 
-del Sole sulla Terra, detta \textbf{costante solare}, è data da
+del Sole sulla Terra, detta \textbf{costante solare}, è 
 \begin{gather*}
-    S_\circledcirc \approx 1370 Wm^{-2} 
+    S_\circledcirc \approx 1370 \ \text{Wm}^{-2} 
 \end{gather*}
-Il diametro angolare del sole $\alpha$ è all'incirca 32 primi, ossia corrispondo a 
-circa $0.00465$ radianti, uguale al rapporto tra il raggio del Sole e la 
-sua distanza da noi. L'angolo solido che sottende il sole sarà allora di 
+Il raggio angolare del Sole $\alpha$ osservato dalla Terra è all'incirca 32 primi, 
+che corrisponde a circa $0.00465$ radianti, uguale al rapporto tra il raggio del Sole e la 
+sua distanza da noi. L'angolo solido che sottende il Sole sarà allora di 
 \begin{gather*}
-    \Omega = \pi \left(\frac{R_\circledcirc}{r^{2}}\right)^{2} = 6.81 \cdot 10^{-5} \ sr
+    \Omega = \pi \left(\frac{R_\circledcirc}{r^{2}}\right)^{2} = 6.81 \cdot 10^{-5} \ \text{sr}
 \end{gather*}
-Allora la brillanza superficiale 
+Allora la brillanza superficiale del Sole è si ricava come
 \begin{gather*}
-    B = \frac{S_\circledcirc}{\Omega} = I_\circledcirc = 2.01 \cdot 10^{7} W m^{-2} sr^{-1}
+    B = \frac{S_\circledcirc}{\Omega} = I_\circledcirc = 2.01 \cdot 10^{7} \ \text{W m}^{-2} \text{sr}^{-1}
 \end{gather*}
 
 
@@ -1433,13 +1453,12 @@ Allora la brillanza superficiale
 
 
 \chapter{Magnitudini}
-\section{La scala della magnitudine e i tipi di magnitudine}
 L'idea di classificare le stelle in base alla loro luminosità è nata
 già nell'antica Grecia con Ipparco, il quale divise le stelle
 in 6 classi: nella prima classe c'erano le stelle molto luminose mentre
-nella classe 6 ci stavano le stelle appena percettibili. Si introducono
+nella classe 6 quelle appena visibili. Si introducono
 adesso i concetti principali della \textbf{magnitudine}.
-
+\section{La scala della magnitudine e i tipi di magnitudine}
 \subsection{Magnitudine apparente}
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
@@ -1458,9 +1477,9 @@ differente luminosità dei corpi celesti non era lineare, bensì logaritmica. Eg
 diede dunque forma matematica alla classificazione di Ipparco secondo il grafico a fianco.
 Definì che il rapporto tra le luminosità apparenti delle stelle di classe $n$ e $n+1$ era pari a
 $100^{\frac{1}{5}}$, ossia circa $\approx 2.512$.  
-Si definire \textbf{magnitudine apparente} come una misura logaritmica 
+Si definisce \textbf{magnitudine apparente} la misura logaritmica 
 della luminosità di un corpo celeste così come appare ad un 
-osservatore sulla Terra, e si ottiene dalla seguente:
+osservatore sulla Terra, ottenuta dalla seguente:
 \begin{align}
     m = -100^{\frac{1}{5}}\log\frac{F}{F_0} \ \approx \ -2.5\log\frac{F}{F_0}
 \end{align}
@@ -1536,7 +1555,7 @@ Il secondo integrale è nullo poiché il flusso di una variazione infinitesima �
 anch'esso infinitesimo. Dunque si può ottenere il valore di $\lambda_0$, anche chiamato \textbf{lunghezza d'onda efficace}, 
 come il valore medio di $\lambda$ pesato su $\eta_\lambda$ e $\epsilon_\lambda$. 
 \begin{gather*}
-    \text{Se} \ \left. \frac{dF}{d\lambda} \right|_{\lambda_0} \int_{0}^{\infty } (\lambda - \lambda_0) \eta_\lambda \epsilon_\lambda \ d\lambda = 0 \ \Longrightarrow \   \lambda_0 = \frac{\int_{0}^{\infty }\lambda\eta_\lambda \epsilon_\lambda \ d\lambda}{\int_{0}^{\infty }\eta_\lambda \epsilon_\lambda \ d\lambda}
+    \text{Se} \ \left. \frac{dF}{d\lambda} \right|_{\lambda_0} \int_{0}^{\infty } (\lambda - \lambda_0) \eta_\lambda \epsilon_\lambda \ d\lambda = 0 \ \Longrightarrow \   \lambda_0 = \frac{\displaystyle \int_{0}^{\infty }\lambda\eta_\lambda \epsilon_\lambda \ d\lambda}{\displaystyle \int_{0}^{\infty }\eta_\lambda \epsilon_\lambda \ d\lambda}
 \end{gather*}
 
 \clearpage
@@ -1660,7 +1679,7 @@ Dove si è definito
 come lo \textbf{spessore ottico}. In termini di magnitudini si può relazionare il passaggio attraverso una
 atmosfera "più fitta" secondo le seguenti espressioni:
 \begin{gather*}
-    m_\lambda - m_{0\lambda} = -2.5\log \frac{I_\lambda}{I_{0\lambda}} = -2.5 \frac{-\sec\theta \int_{0}^{H}d\tau_\lambda }{\ln 10}
+    m_\lambda - m_{0\lambda} = -2.5\log \frac{I_\lambda}{I_{0\lambda}} = -2.5 \frac{\displaystyle -\sec\theta \int_{0}^{H}d\tau_\lambda }{\ln 10}
 \end{gather*}
 Ottenendo dunque 
 \begin{align}
@@ -1697,9 +1716,9 @@ Dunque il termine di estinzione diventa
 
 \section{Seeing}
 Si definisce \textbf{seeing} il parametro che quantifica la sfocatura dell'immagine
-dovuta all'atmosfera. Infatti l'atmosfera presenta le seguenti caratteristiche
+dovuta all'atmosfera. Infatti l'atmosfera presenta le seguenti caratteristiche:
 \begin{itemize}
-    \item L'atmosfera è composta da strati d'aria con temperature e densità diverse. 
+    \item È composta da strati d'aria con temperature e densità diverse. 
     \item Ogni strato ha un indice di rifrazione diverso
 \end{itemize}
 L'immagine di ogni stella appare come un disco tremolante e sfocato. Un seeing buono è tra 
@@ -1710,7 +1729,7 @@ dimensioni confrontabili con la sua lunghezza d’onda, si incurva e si propaga 
 limiti geometrici dell’ostacolo.
 In particolare se un onda luminosa attraversa una fenditura circolare produce una figura di diffrazione 
 che assume la forma della \textbf{Figura di Airy}: ossia un disco centrale con tanti dischi intorno.
-È importane perché
+È importante perché
 \begin{itemize}
     \item Determina la risoluzione massima teorica di un telescopio.
     \item Fondamentale per la progettazione di spettrografi e strumenti di analisi della  luce.
@@ -1861,7 +1880,6 @@ L'ottica adattiva:
 
 
 
-\part{Le Stelle}
 \chapter{Radiazione e spettroscopia}
 \section{Meccanismi di radiazione}
 \begin{wrapfigure}{r}{0.4\textwidth}
@@ -1891,18 +1909,24 @@ all'atomo e quest'ultimo prende il nome di \textbf{ionizzato}.
 A meno che non ci sia un flusso di fotoni che tenga stabile gli elettroni
 allo stato eccitato, dopo un tempo $\delta \tau \approx 10^{-8} \ s$, gli elettroni decadono
 rilasciando indietro lo stesso pacchetto di energia $\gamma$ che li ha
-investiti, tornando dunque allo stato fondamentale. \\ \noindent
-Il primo postulato di Bohr afferma che l'elettrone si può muovere 
+investiti, tornando dunque allo stato fondamentale. Importanti sono 
+i \textbf{Postulati di Bohr}:
+\begin{enumerate}
+    \item Il primo postulato di Bohr afferma che l'elettrone si può muovere 
 attorno al nucleo solo in determinate orbite circolari stabili senza 
 emettere energia sottoforma di radiazione elettromagnetica. 
-Il secondo postulato di Bohr afferma che un orbita è possibile se e solo se
-il momento angolare dell'elettrone è un multiplo intero della costante $\hbar$.
-Il terzo postulato di Bohr afferma che l'elettrone può saltare da un orbita 
+\item Il secondo postulato di Bohr afferma che un orbita è possibile se e solo se
+il momento angolare dell'elettrone è un multiplo intero della costante $\hbar$:
+\begin{align}
+    m_e v_n r_n = n\hbar
+\end{align}
+\item Il terzo postulato di Bohr afferma che l'elettrone può saltare da un orbita 
 all'altra; durante questa transizione l'atomo assorbe o emette un fotone di energia 
-pari alla differenza tra i livelli energetici. 
+pari alla differenza tra i livelli energetici:
 \begin{gather*}
     h\nu = E_{n_2} - E_{n_1}
 \end{gather*} 
+\end{enumerate}
 Secondo la legge di Coulomb, la forza di attrazione esercitata dal protone
 sull'elettrone è la seguente
 \begin{gather*}
@@ -1918,9 +1942,9 @@ L'accelerazione della particella che si muove lungo l'orbita circolare è dunque
 \begin{gather*}
     a = \frac{v_n^{2}}{r_n}
 \end{gather*}
-applicando la seconda legge di Newton si ottiene che
+applicando la seconda legge di Newton, e il secondo postulato di Bohr, si ha che
 \begin{gather*}
-    m_e \frac{v_n^{2}}{r_n} = \frac{1}{4\pi\epsilon_0} \frac{e^{2}}{r_n^{2}} \qquad m_e vr_n = n\hbar
+    m_e \frac{v_n^{2}}{r_n} = \frac{1}{4\pi\epsilon_0} \frac{e^{2}}{r_n^{2}} \qquad m_e v_nr_n = n\hbar
 \end{gather*}
 Si ottiene allora 
 \begin{gather*}
@@ -2007,7 +2031,7 @@ L'effetto Doppler, nel caso delle onde elettromagnetiche, fa sì che si verifich
     se si sta avvicinando all'osservatore.
 \end{itemize}
 
-\section{Spettro continuo}
+\subsection{Spettro continuo}
 Gli spettri di emissione continua si originano per effetto delle ricombinazioni 
 e delle transizioni free-free. Nelle ricombinazioni gli atomi catturano gli elettroni liberi, 
 le cui energie non sono quantizzate, e dunque le righe di emissione che si originano 
@@ -2019,7 +2043,7 @@ le righe si sovrappongono creando emissione di spettro continuo. Anche all'inter
 dei solidi e dei liquidi accade questo fenomeno poiché gli atomi sono ancora più vicini rispetto
 ai gas. 
 
-\subsection{Corpo nero}
+\section{Corpo nero}
 Un \textbf{corpo nero} è un oggetto che non riflette o diffonde la luce che vi incide, ma
 la assorbe e la riemette completamente. Un corpo nero è quindi una sorta di radiatore ideale.
 Anche se, nella realtà, un radiatore ideale non esiste, alcuni corpi hanno uno spettro di 
@@ -2061,7 +2085,7 @@ Poiché la radiazione di emissione di un corpo nero è isotropa, allora si può 
 \end{align}
 che prende il nome di \textbf{legge di Stefan-Boltzmann}, dove
 $\sigma = \pi A = 5.67 \cdot 10^{-8}$ Wm$^{-2}$ K$^{-4}$, che prende il nome di \textbf{costante di Stefan-Boltzmann}.
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \caption{Distribuzioni di intensità di corpi neri aventi temperature di 12000K, 9000K e 6000K,
     le lunghezze d'onda si ottengono con la relazione di Wien, dato che le temperature sono in relazione
@@ -2196,13 +2220,13 @@ Allora l'indice di colore è  $\propto \frac{1}{T_c}$.
 La \textbf{temperatura cinetica} $T_k$ è legata alla velocità media delle molecole nel gas. In particolare, nel caso di un gas ideale, la teoria cinetica dei gas consente di ottenere una relazione
 semplice tra l'energia cinetica del gas e la sua temperatura
 \begin{gather*}
-    E_k = \frac{1}{2}m\overline{v}^{2} = \frac{3}{2}kT_k
+    E_k = \frac{1}{2}m\overline{v}^{2} = \frac{3}{2}k_BT_k
 \end{gather*}
 La relazione assume dunque che le particelle abbiano tutte massa $m$ e che abbiano 
  velocità $\overline{v}$, ossia la media dei quadrati della somma di tutte 
-le velocità, mentre $k$ è la costante di Boltzmann.
+le velocità, mentre $k_b$ è la costante di Boltzmann.
 \begin{align}
-    T_k = \frac{mv^{2}}{3k}
+    T_k = \frac{mv^{2}}{3k_b}
 \end{align} 
 
 \subsection{Temperatura di eccitazione $T_{\text{exc}}$}
@@ -2218,7 +2242,7 @@ loro collisioni, allora la temperatura di eccitazione uguaglia quella cinetica.
 La \textbf{temperatura di ionizzazione} $T_i$ si ottiene confrontando il numero di atomi
 nei diversi stati di ionizzazione. Poiché le stelle non si comportano come veri corpi neri, i valori che
 si ottengono per le temperature di eccitazione e di ionizzazione dipendono dalle righe spettrali
-degli che vengono utilizzate. In condizioni di \textbf{equilibrio termodinamico} tutte le temperature
+che vengono utilizzate. In condizioni di \textbf{equilibrio termodinamico} tutte le temperature
 hanno lo stesso valore. 
 
 
@@ -2659,7 +2683,7 @@ Dove $H_0 = 70$ km s$^{-1}$ Mpc$^{-1}$.
 Dal momento che ciò che si vede nella volta celeste è una proiezione degli oggetti celesti, 
 si potrebbe pensare che, quando due stelle sono vicine tra loro, esse siano 
 delle stelle binarie, tuttavia questo non è il caso nella maggior parte delle volte. Si distinguono 
-due tipi di stelle binarie: le binarie \textbf{visuali} (ossia che sono 
+due tipi di stelle binarie: le binarie \textbf{visuali} (le quali sono 
 gravitazionalmente legate tra loro) e le binarie \textbf{ottiche}. Esistono 
 anche sistemi multipli di stelle che sono gravitazionalmente legati tra loro. Le stelle singole, 
 come il Sole, sono meno del 50 \% del totale dei sistemi mentre i sistemi costituiti
@@ -2672,8 +2696,8 @@ come arciere.
 
 \section{Le binari visuali}
 Le stelle binarie visuali sono quelle stelle che presentano una separazione angolare maggiore 
-di un decimo di arcosecondo (si possono dunque osservare anche con l'ausilio di un telescopio
-non ad occhio nudo). Il problema delle 
+di un decimo di arcosecondo (si possono osservare esclusivamente con l'ausilio di un telescopio, poiché risultano
+invisibili come coppie separate ad occhio nudo). Il problema delle 
 binarie visuali è determinarne l'orbita poiché è 
 proiettata nel piano del cielo. Serve dunque la distanza del sistema binario e si ottiene la 
 massa totale del sistema secondo la terza legge di Keplero.  Si distinguono dunque due tipi di orbite
@@ -3191,7 +3215,7 @@ che però è un vettore. Dato che $\phi$ è uno scalare, il suo differenziale to
     d\phi = \vv{\nabla}\phi \cdot \vv{ds} = \left| \nabla \phi  \right|   ds \cos\theta
 \end{gather*}
 ovvero l'incremento di $\phi$ per uno spostamento $\vv{ds}$ dipende solo dal 
-gradiente di $\phi$, un vettore normale alle superfici
+\textbf{gradiente} di $\phi$, un vettore normale alle superfici
 equipotenziali di $\phi$ che punta verso dove $\phi$ aumenta.  L'angolo tra l'incremento 
 di $\phi$ e $\vv{ds}$ è $\theta$,in coordinate cartesiane vale
 \begin{gather*}
@@ -3239,7 +3263,8 @@ Il gradiente non ha le stesse espressioni in tutti i sistemi di coordinate:
     \item \textbf{Sferiche}: $\displaystyle ds^{2} = dr^{2} + r^{2}d\theta^{2} + r^{2}\sin^{2}\theta \ d\phi^{2} \ \Longrightarrow \ \vv{\nabla} = \left(\frac{\partial }{\partial r}, \frac{1}{r}\frac{\partial }{\partial \theta}, \frac{1}{r\sin\theta}\frac{\partial }{\partial \phi}   \right) $
 \end{enumerate}
 
-\section{Conservazione dell'energia}
+\section{Aspetti energetici della gravitazione}
+\subsection{Conservazione dell'energia}
 Dalla meccanica
 \begin{align}
     K + U = \text{const} \ \Longrightarrow \ \frac{1}{2}m_0v_i^{2} + m_0\phi_i = \frac{1}{2}m_0v_f^{2} + m_0\phi_f
@@ -3277,7 +3302,7 @@ Il caso di caduta radiale $v_i = 0, r = r_0$ è più complesso:
 si ottiene il \textbf{tempo di freefall}, o \textbf{tempo di caduta libera} come
 il tempo che impiega un grave a cadere radialmente fino a $r \to 0$, integrando quella sopra per separazione:
 \begin{gather*}
-    t_{ff} = - \sqrt{\frac{r_0}{Gm}} \int_{r_0}^{r}  \sqrt{\frac{r}{r_0 - r}}  dr = \sqrt{\frac{r_0^{3}}{2Gm}} \int_{0}^{1}\sqrt{\frac{\xi }{1 - \xi}} d\xi  
+    t_{ff} = - \sqrt{\frac{r_0}{2Gm}} \int_{r_0}^{r}  \sqrt{\frac{r}{r_0 - r}}  dr = \sqrt{\frac{r_0^{3}}{2Gm}} \int_{0}^{1}\sqrt{\frac{\xi }{1 - \xi}} d\xi  
 \end{gather*}
 Con $\xi = \frac{r}{r_0}$. Sostituendo ancora $\xi = \sin^{2}\theta$ si vede che
 \begin{gather*}
@@ -3291,7 +3316,7 @@ L'ultima espressione è valida per una sfera omogenea di massa $m = \frac{4}{3}\
 $r_0$ a $r = 0$ sotto il solo effetto del suo peso. Per il Sole il suo $t_{ff} \approx$ 30 minuti, 
 mentre per una stella di neutroni è di circa un millisecondo.
 
-\section{Energia di legame gravitazionale}
+\subsection{Energia di legame gravitazionale}
 Supponendo di avere due masse puntiformi, l'energia del sistema è costituita dall'energia potenziale della 
 massa $m_2$ posta nel campo generato da $m_1$ o, viceversa, 
 \begin{gather*}
@@ -3355,7 +3380,8 @@ coordinata $\vv{x}$, l'energia di legame gravitazionale per un corpo continuo è
 molto simile alla precedente, che è utile per determinare l'energia di legame 
 di un fluido a simmetria sferica (stella), anche se prima si deve calcolare il potenziale $\phi(\vv{x} )$.
 
-\section{Il guscio sferico}
+\section{Campo gravitazionale per diverse distribuzioni di massa}
+\subsection{Teorema del guscio sferico}
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
     \caption{Guscio sferico}
@@ -3479,7 +3505,7 @@ Ricordando che $\vv{g} = -\vv{\nabla}\phi$ e che $g(r) = -\frac{d\phi}{dr}$ perc
             \node at (2.8, -1.5) {$\sim -\frac{1}{r^2}$};
             \draw[dashed, thin] (\R, 0) node[above] {$R$} -- (\R, \yMin);
             \draw[dashed] (0, \yMin) -- (\R, \yMin);
-            \node[left] at (0, \yMin) {$-\frac{GM}{R}$};
+            \node[left] at (0, \yMin) {$-\frac{GM}{R^{2}}$};
         \end{scope}
     \end{tikzpicture}
 \end{figure}
@@ -3493,8 +3519,8 @@ corrispondente alla sua massa totale $M$ posta al centro, mentre per un raggio
 $r < R$ conterrà solo la massa contenuta fino ad $r$, dunque
 \begin{align}
     m(r) = \left\{\begin{array}{l}
-        M \qquad \qquad \qquad \quad \  r \geq R \\
-        \int_{0}^{r}\rho(r') \cdot 4\pi r' \ dr' \quad r < R 
+        \displaystyle M \qquad \qquad \qquad \quad \  r \geq R \\
+        \displaystyle \int_{0}^{r}\rho(r') \cdot 4\pi r' \ dr' \quad r < R 
     \end{array}\right.
 \end{align}
 Allora
@@ -3502,10 +3528,10 @@ Allora
     g(r) = - \frac{Gm(r)}{r^{2}}
 \end{align}
 
-\section{Sfera omogenea}
+\subsection{Sfera omogenea}
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
-    \caption{La sfera omogena}
+    \caption{La sfera omogenea}
     \begin{tikzpicture}
         \draw(0, 0) circle (1.5);
         \draw[dashed](0, 0) circle (0.8);
@@ -3534,8 +3560,8 @@ Con $\left| \vv{g}  \right|$ che aumenta linearmente in $r$ all'interno.
 Integrando su $r$, e raccordando la soluzione $r = R$:
 \begin{align}
     \phi(r) = - \int g(r') \ dr' = \left\{\begin{array}{l}
-        \frac{GM}{2R^{3}}r^{2} - \frac{3GM}{2R} \quad r \leq R \\
-        - \frac{GM}{r} \qquad \qquad \  r \geq R
+        \displaystyle \frac{GM}{2R^{3}}r^{2} - \frac{3GM}{2R} \quad r \leq R \\
+        \displaystyle - \frac{GM}{r} \qquad \qquad \  r \geq R
     \end{array}\right. 
 \end{align}  
 Per $r \leq R$ si integra da $r$ a $R$, dunque si ottiene i seguenti grafici:
@@ -3587,7 +3613,7 @@ Per $r \leq R$ si integra da $r$ a $R$, dunque si ottiene i seguenti grafici:
 Questa volta si ha che $g(r)$ è continua in $R$ anche se cambia andamento , 
 mentre $\left| \phi \right|$ decresce sempre ma ha un flesso in $r = R$. \\ 
 Una curiosa applicazione è che, se si potesse forare la Terra lungo un suo 
-diametro e lasciassimo cascare un grave verso il centro, si avrebbe un moto 
+diametro e si lasciasse cadere un grave verso il centro, si avrebbe un moto 
 armonico col grave che ritorna da dove è stato lasciato cadere 
 dopo un tempo
 \begin{gather*}
@@ -3606,7 +3632,7 @@ In simmetria sferica, si integra fino ad $R$ in quanto fuori si ha che
 $\rho = 0$. Nel caso di densità costante allora 
 \begin{align*}
     U &= 2\pi \rho \int_{0}^{R}\left(\frac{Gm}{2R^{3}}r^{2} - \frac{3GM}{2R}\right)r^{2} \ dr = \\
-    &= 2\pi \frac{M}{\frac{4}{3}\pi R^{3}}\left(\frac{GM}{2R^{3}} \int_{0}^{R} r^{2} \ dr - \frac{3GM}{2R} \int_{0}^{R} r^{2} \ dr  \right) \\
+    &= 2\pi \frac{M}{\frac{4}{3}\pi R^{3}}\left(\frac{GM}{2R^{3}} \int_{0}^{R} r^{4} \ dr - \frac{3GM}{2R} \int_{0}^{R} r^{2} \ dr  \right) \\
     &= \frac{3}{2}\frac{M}{R^{3}}\left(\frac{1}{10}\frac{GM}{R^{3}}R^{5} - \frac{1}{2}\frac{GM}{R}R^{3}\right) = -\frac{3}{5}\frac{GM^{2}}{R}
 \end{align*}
 
@@ -3710,13 +3736,13 @@ E dunque
         \draw[->] (-\L-1.5, \axisy) -- (\L+1.5, \axisy) node[right] {$x$};
         \node[below] at (0, \axisy) {$O$};
         \draw[->, thick] (0, \axisy) -- (1, \axisy) node[below] {$\vec{u}_x$};
-        \filldraw[draw=white, thick, fill opacity=0.1] 
+        \filldraw[draw=black, thick, fill opacity=0.15] 
             (-1, -0.5) -- (1.5, 0.5) -- (1.5, 3.5) -- (-1, 2.5) -- cycle;
         \draw[thick] (-\L, \cyly+\R) -- (\L, \cyly+\R);
         \draw[thick] (-\L, \cyly-\R) -- (\L, \cyly-\R);
-        \filldraw[fill=white, draw=white, thick,  fill opacity=0.4] (-\L, \cyly) ellipse (0.15 and \R);
-        \filldraw[fill=white, draw=white, thick,  fill opacity=0.4] (0, \cyly) ellipse (0.15 and \R);
-        \filldraw[fill=white, draw=white, thick,  fill opacity=0.4] (\L, \cyly) ellipse (0.15 and \R);
+        \filldraw[fill=black, draw=black, thick,  fill opacity=0.15] (-\L, \cyly) ellipse (0.15 and \R);
+        \filldraw[fill=black, draw=black, thick,  fill opacity=0.15] (0, \cyly) ellipse (0.15 and \R);
+        \filldraw[fill=black, draw=black, thick,  fill opacity=0.15] (\L, \cyly) ellipse (0.15 and \R);
         \draw[dashed] (-\L, \cyly-\R) -- (-\L, \axisy) node[below] {$-x$};
         \draw[dashed] (\L, \cyly-\R) -- (\L, \axisy) node[below] {$x$};
         \draw[dashed] (0, \cyly-\R) -- (0, \axisy);
@@ -3826,7 +3852,7 @@ che, in valore assoluto,  decresce come $\frac{1}{R}$.
 \end{wrapfigure}
 Nel caso di una distribuzione di massa a simmetria sferica con 
 densità $\rho = \rho(r)$, raggio $R$ e massa totale $M$, per
-$r > R$ vale lo stesso ragionamento della carica puntiforme (infatti 
+$r > R$ vale lo stesso ragionamento della massa puntiforme (infatti 
 la superficie attraverso la quale si utilizza Gauss è la sfera stessa).
 Se $0 \leq r \leq R$, si avrà comunque simmetria radiale, ma si deve scegliere una 
 superficie sferica di raggio $r$ e concentrica 
@@ -3938,7 +3964,7 @@ prende il nome di \textbf{solenoidale}:
     \end{tikzpicture}    
 \end{wrapfigure}
 La legge di Gauss può essere considerata come il modo primario di 
-collegare sorgenti e campo, si dimostra a partire dal campo di una carica puntiforme.
+collegare sorgenti e campo, si dimostra a partire dal campo di una massa puntiforme.
 Scelta una generica superficie $\Sigma$ per una sua posizione infinitesima il contributo al 
 flusso è dato dalla seguente
 \begin{align*}
@@ -4235,7 +4261,7 @@ l'equazione di Laplace. Non si tratteranno casi diversi dalla simmetria sferica.
 \begin{gather*}
     \vv{g} = -g\hat{z} \  \Longleftrightarrow  \ \phi = gz
 \end{gather*}
-che, in assenza di sorgenti, soffisfa correttamente sia 
+che, in assenza di sorgenti, soddisfa correttamente sia 
 $\vv{\nabla} \cdot \vv{g} = 0$ sia $\nabla^{2}\phi \equiv \frac{d^{2}\phi}{dz^{2}} = 0$. 
 In ogni caso, una volta ricavato $\phi$ dall'equazione di Poisson, il campo di gravità
 \begin{gather*}
@@ -4432,7 +4458,7 @@ $\Gamma_C(\vv{A} ) = 0$, ed è facilmente dimostrabile anche sfruttando il poten
 \begin{gather*}
     \vv{\nabla} \times \vv{g} = -\vv{\nabla} \times \vv{\nabla}\phi = -\left(\frac{\partial }{\partial y} \frac{\partial \phi}{\partial z} - \frac{\partial }{\partial z} \frac{\partial \phi}{\partial y}   \right) \hat{x} - \dots \equiv 0    
 \end{gather*}
-dato che per il teorema di Schwarz le derivate secondo miste si 
+dato che per il teorema di Schwartz le derivate secondo miste si 
 elidono in ogni componente di $\vv{\nabla} \times \vv{g}$. Ogni qual volta 
 che un vettore è gradiente di una funzione scalare, il vettore è irrotazionale.
 Riassumendo \\ \\
@@ -4640,7 +4666,7 @@ per il Sole $P \approx 10^{9}$ atmosfere. Analogamente si può ricavare la tempe
 \begin{gather*}
     \frac{3}{2}Nk_B T = -\frac{1}{2}U \ \Longrightarrow \ T = \frac{\left| U \right| }{3Nk_B} = \frac{1}{10} \frac{GMm_p}{Rk_B}
 \end{gather*}
-Dove $\left| U \right| = \frac{3}{2}\frac{GM^{2}}{R}$, il cui valore sarà ben più chiaro nelle prossime sezioni, mentre  $N = 2M/m_p$ è la stima del numero di particelle
+Dove $\left| U \right| = \frac{3}{5}\frac{GM^{2}}{R}$, mentre  $N = 2M/m_p$ è la stima del numero di particelle
 che, per idrogeno ionizzato, hanno una massa media pari a $m \approx m_p/2$ ($m_e << m_p$).  Il conto per il Sole 
 porta ad una temperatura effettivamente superiore al milione di gradi Kelvin e si stima che, anche bruciando solo il 
 10\% della massa totale, il Sole abbia un \textbf{tempo scala nucleare} di circa $10^{10}$ anni, come richiesto 
@@ -4648,13 +4674,13 @@ dalle osservazioni.
 
 \section{Equilibrio idrostatico per stelle barotropiche}
 In questa sezione ci si limita a studiare l'equilibrio tra gravità e pressione per un fluido 
-barotropico dove $P = \mathcal{P}(\rho)$ sia una funzione nota che non coinvolge la temperatura o altre variabili termodinamiche. 
+barotropico dove $P = \mathcal{P}(\rho)$ sia una funzione nota che non coinvolga la temperatura o altre variabili termodinamiche. 
 Dalla fluidostatica sappiamo che le forze di volume, come la gravità, devono essere bilanciate in un fluido in condizioni 
 di equilibrio dalle forze di superficie dovute alla pressione. Per un volume $\tau$ di un qualsiasi fluido, e in forma differenziale 
 locale, l'equilibrio è dato da
-\begin{gather*}
-    - \oint_\Sigma \mathcal{P} \hat{n} \ d\Sigma + \int_{\tau} \rho \vv{g} \ d\tau \ \Longrightarrow \ - \vv{\nabla} \mathcal{P} + \rho \vv{g} = 0       
-\end{gather*}
+\begin{align}
+    - \oint_\Sigma \mathcal{P} \hat{n} \ d\Sigma + \int_{\tau} \rho \vv{g} \ d\tau \ \Longrightarrow \ \boxed{- \vv{\nabla} \mathcal{P} + \rho \vv{g} = 0}       
+\end{align}
 dove $\Sigma$ è il contorno di $\tau$, attraverso cui agisce la pressione, e la seconda espressione è la forza totale che agisce in ogni 
 punto per unità di volume. Si considerano da ora in poi solo configurazioni a simmetria radiale, con $r$ raggio dal centro della stella. 
 Dividendo per $\rho = \rho(r)$ e scrivendo che $\vv{\nabla} \mathcal{P}$ e $\vv{g}$ in coordinate sferiche, si trova 
@@ -4697,7 +4723,7 @@ allora si ottiene che
 Integrando questa è scegliendo la costante di integrazione in maniera da avere che $\mathcal{P}(R) = 0$ (ossia la superficie esterna della stella)
 la soluzione è data da
 \begin{gather*}
-    \mathcal{P}(r) = \frac{3}{8\pi} \frac{GM^{3}}{R^4}\left(1 - \frac{r^{2}}{R^{2}}\right)
+    \mathcal{P}(r) = \frac{3}{8\pi} \frac{GM^{2}}{R^4}\left(1 - \frac{r^{2}}{R^{2}}\right)
 \end{gather*}
 si ottiene che la pressione al centro della stella $P_c \propto \frac{GM^{2}}{R^{4}}$ per $r = 0$, come già stimato nel teorema del viriale, allora 
 la derivata $\frac{dP}{dr}(0) = 0$. Questo andamento della pressione ricorda molto (con il segno 
@@ -4711,6 +4737,7 @@ del gas. Per un pianeta roccioso però l'approssimazione "liquida" (incomprimibi
 per la Terra si trova che $P_c \approx 10 \cdot 10^{11} $ Pa. 
 
 \section{Stelle politropiche}
+\subsection{Entalpia specifica e equazione di Poisson per caso barotropico}
 Come già detto per le stelle barotropiche, un modo semplice di trattare l'equilibrio stellare, andando oltre l'ipotesi 
 di incomprimibilità, è quello di assumere un fluido barotropico, per cui 
 \begin{gather*}
@@ -4731,7 +4758,7 @@ come già ricavato nel caso incomprimibile, per cui semplicemente $w = P/\rho$. 
 all'equazione per $dP/dr$, conviene moltiplicare ambo i membri per $r^{2}$ e poi 
 derivare in $r$, sfruttando l'equazione per $\frac{dm}{dr}$, ossia
 \begin{gather*}
-    \frac{d}{dr}\left(r^{2}\frac{dP}{dr}\right) = - G\frac{dm}{dr} = -4\pi G\rho r^{2}
+    \frac{d}{dr}\left(r^{2}\frac{1}{\rho}\frac{dP}{dr}\right) = - G\frac{dm}{dr} = -4\pi G\rho r^{2}
 \end{gather*}
 o anche 
 \begin{align}
@@ -4908,8 +4935,7 @@ $5$, dove diverge perché altrimenti la stella si estenderebbe in tutto lo spazi
     \frac{dP}{\rho} = k\frac{\rho^{\frac{1}{n}}}{\rho} \left(1 + \frac{1}{n}\right) d\rho \qquad d\left(\frac{P}{\rho}\right) = \frac{k}{n}\rho^{\frac{1}{n} - 1} \ d\rho \ \Longrightarrow \ \frac{dP}{\rho} = (n + 1) d\frac{P}{\rho}
 \end{gather*} 
 Si scrive allora $dU$ come l'interazione tra una faccia sferica di massa $dm$ a $r$ e la massa
-$m(r)$ contenuta, tra centro e superficie (C e S). La risoluzione del seguente integrale fa utilizzo 
-dell'integrazione per parti e sfruttando $\frac{1}{2}d(m^{2}) = m\ dm$:
+$m(r)$ contenuta, tra centro e superficie (C e S), risolvendo il seguente integrale:
 \begin{align*}
     U &= - \int_{C}^{S} \frac{Gm}{r} \ dm = - \frac{1}{2}\int_{C}^{S} \frac{Gdm^{2}}{r} = - \left(\frac{Gm^{2}}{2r}\right)_{C}^{S} - \frac{1}{2}\int_{C}^{S}\frac{Gm^{2}}{r^{2}} \ dr = \\
     &= - \frac{GM^{2}}{2R} + \frac{1}{2}\int_{C}^{S} mg \ dr = - \frac{GM^{2}}{2R} + \frac{1}{2}\int_{C}^{S} m \frac{dP}{\rho} = - \frac{GM^{2}}{2R} + \frac{n + 1}{2} \int_{C}^{S} md\frac{P}{\rho} = \\
@@ -4917,6 +4943,19 @@ dell'integrazione per parti e sfruttando $\frac{1}{2}d(m^{2}) = m\ dm$:
     &= - \frac{GM^{2}}{2R} + \frac{n + 1}{6} \int_{C}^{S} 4\pi r^{3} \frac{dP}{dr} \ dr = \\
     &= - \frac{GM^{2}}{2R} - \frac{n + 1}{6} \int_{C}^{S} 4\pi r^{3} \rho \frac{Gm}{r^{2}} \ dr = - \frac{GM^{2}}{2R} - \frac{n + 1}{6} \int_{C}^{S} \frac{Gmdm}{r}        
 \end{align*}
+\begin{enumerate}
+    \item  Nella prima riga si utilizza la relazione $\frac{1}{2} dm^{2} = m\ dm$, poi si integra per parti facendo così comparire
+    il termine $dr$.
+    \item   Nella seconda riga si utilizza inizialmente 
+l'uguaglianza $Gm/r^{2} = g$ e poi, nel secondo passaggio, $\rho g = dP / dr$; infine nel terzo passaggio 
+si utilizza la relazione $dP/\rho = (n + 1)d (P/\rho)$.
+    \item Nella terza riga si utilizza
+un'ulteriore integrazione per parti nel primo passaggio, mentre nel secondo passaggio 
+si esegue la sostituzione $dm = d(4/3\pi r^{3})\rho$.
+    \item   Nella quarta riga si integra nuovamente per parti. 
+    \item Nella quinta riga si utilizza la relazione $\rho g = dP / dr$ e si integra per parti, mentre al secondo 
+passaggio si utilizzano le relazioni $4\pi r^{2}\rho \ dr = dm$.
+\end{enumerate}
 Dopo molti passaggi si ha la tesi cercata: 
 \begin{gather*}
     U = -\frac{GM^{2}}{2R} + \frac{n + 1}{6}U \ \Longrightarrow \ \left(1 - \frac{n + 1}{6}\right)U = - \frac{GM^{2}}{2R}
@@ -5016,7 +5055,7 @@ Un \textbf{moto retrogrado} è il moto apparente di un corpo celeste che
 appare avere a causa dello spostamento del punto di osservazione. Marte 
 ha una apparente inversione di marcia tra i punti A e C, 
 in vicinanza del momento $t_B$ in cui marte è all'\textbf{opposizione} 
-($B$, ossia l'allineamento Sole-Terra-Marte). Questa è semplicemente 
+($B$, ossia l'allineamento Sole-Terra-Pianeta). Questa è semplicemente 
 dovuta al fatto che il periodo di rivoluzione della Terra $P_T$ è minore 
 di quello del pianeta (esterno) $P_P$ (per la terza legge di Keplero), 
 quindi la Terra si muove più rapidamente e "sorpassa" Marte.
@@ -5053,7 +5092,7 @@ quindi la Terra si muove più rapidamente e "sorpassa" Marte.
 
     % Angolo più piccolo sull'orbita interna
     \draw[<-] (135:1.15cm) arc [start angle=135, end angle=90, radius=1.15cm];
-    \node at (112.5:1.15cm) {}; % Etichetta opzionale se la vuoi
+    \node at (112.5:1.15cm) {};
 
     % Un altro angolo piccolo vicino all'etichetta T (basato sul disegno)
   \end{scope}
@@ -5067,13 +5106,17 @@ e le loro distanze dal Sole (supponendo orbite circolari per semplicità).
 Si considera la situazione vista prima del pianeta esterno (per uno interno 
 la situazione è diversa) e siano $P_T$ il periodo di rivoluzione terrestre (un anno) 
 e $S_P$ il \textbf{periodo sinodico} del pianeta, ossia il tempo tra due opposizioni successive. 
-Se $P_P$ è il periodo (incognito) del pianeta, deve valere che
+Dopo che è passato un $S_P$, il pianeta sarà all'opposizione ma dopo un 
+angolo $\alpha$ ben definito a partire dal seguente rapporto, di 
+cui non si conosce il periodo $P_P$:
 \begin{gather*}
     \alpha = \frac{2\pi}{P_P}S_P = \frac{2\pi}{P_T}(S_P - P_T) = \frac{2\pi}{P_T} \cdot S_P - 2\pi 
 \end{gather*}
-Dunque si ottiene che 
+Dove $S_P - P_T$ è il tempo impiegato dall'orbita terrestre 
+per andare dal punto della vecchia opposizione a quella nuova, 
+ottenendo allora 
 \begin{gather*}
-    \frac{1}{P_P} = \frac{1}{P_T}  - \frac{1}{P_S}
+    \frac{1}{P_P} = \frac{1}{P_T}  - \frac{1}{S_P}
 \end{gather*}
 da cui si può ricavare il periodo $P_P$, il quale è maggiore di un anno dalla figura sopra. 
 
@@ -5200,7 +5243,7 @@ sul loro periodo e anche sulla loro distanza (anche se normalizzata) dal Sole, K
 \end{enumerate}
 Si ricaveranno (come fatto a Fisica I), la gravitazione universale e le tre leggi di Keplero 
 (per la terza si ricaverà anche la costante di proporzionalità e la sua dipendenza da 
-$m_P$, per cui è costante nel limite in cui $m_p/m_\circledcirc << 1$).
+$m_P$, per cui è costante nel limite in cui $m_P/m_\circledcirc << 1$).
 
 \clearpage
 \section{Problema dei due corpi}
@@ -5379,17 +5422,17 @@ rispetto al corpo centrale (la derivata di $\vec{r}$ rispetto al tempo).
 Da ora in poi si scelgono dunque come sistema di riferimento quello solidale 
 con $m_1$ ($> m_2$) e si ricaverà il moto $\vv{r}(t)$ di un corpo di massa $\mu$ in $m_2$. Siccome 
 $M$, che compare nel termine di gravità, dipende anche da $m_2$, se in $m_1$ poniamo 
-il Sole è chiaro che il moto dipenderà dal rapporto $m_2/m_1$. Per Giove vale 
-$10^{-3}$, mentre per la Terra è $10^{-6}$. In entrambi i casi il centro di massa
-del sistema pianeta-Sole si trova dentro il Sole stesso. Quindi il Sole è fermo in prima 
-approssimazione (moto di una forza centrale classico). Ci si pone dunque nel sistema 
-del Sole e si risolve per $\vv{r}(t)$, il raggio vettore del pianeta rispetto al Sole. 
-Solo a posteriori uno potrà poi ricavare $\vv{r_1}(t)$ e $\vv{r_2}(t)$, ossia i moti di $m_1$ ed $m_2$.  
+il Sole è chiaro che il moto dipenderà dal rapporto $m_2/m_1$ che per Giove vale 
+$10^{-3}$, mentre per la Terra è $10^{-6}$, anche se in entrambi i casi il centro di massa
+del sistema pianeta-Sole si trova dentro il Sole. Quindi il Sole è fermo in prima 
+approssimazione (moto di una forza centrale classico) e ci si può porre nel suo sistema
+di riferimento e risolvere per $\vv{r}(t)$, il raggio vettore del pianeta rispetto al Sole. 
+Solo a posteriori si potrà poi ricavare $\vv{r_1}(t)$ e $\vv{r_2}(t)$, ossia i moti di $m_1$ ed $m_2$.  
 Dato che sia $\vv{r}(t)$ che $\vv{v}(t)$ sono perpendicolari al vettore $\vv{h}$ (costante)
 l'orbita del corpo (pianeta di massa ridotta $\mu$) è necessariamente piana; 
 si sceglie allora $\hat{z}$ per $\vv{h}$ ed il piano $xy$ per l'orbita, per un sistema col Sole (non più
 centro di massa) al centro. Conviene anche introdurre un sistema polare 
-di coordiante $r$ e $\theta$, al posto del piano $xy$, per descrivere l'orbita del pianeta. Quindi $\vv{r}$ è il raggio vettore
+di coordinate $r$ e $\theta$, al posto del piano $xy$, per descrivere l'orbita del pianeta. Quindi $\vv{r}$ è il raggio vettore
 e $\theta$ prende il nome di \textbf{anomalia vera}.
 Quando si usa la convenzione che $\theta = 0 $ il pianeta si trova al perielio, ovvero la posizione 
 dell'orbita con $r(\theta)$ minimo. Si ha dunque che:
@@ -5484,7 +5527,7 @@ dove si sono utilizzate la definizione di $h$ per eliminare $\dot{\theta}$.
 
   % Angolo infinitesimo d(theta)
   \draw[thick] (25:1.2) arc (25:45:1.2);
-  % Segnetto intermedio sull'angolo d(theta) come nello schizzo
+  % Segno intermedio sull'angolo d(theta) come nello schizzo
   \draw[thick] (35:1.1) -- (35:1.3);
   \node[below, yshift=-4pt] at (35:1.2) {$d\theta$};
 
@@ -5623,7 +5666,7 @@ i pianeti hanno orbite chiuse e dunque ellittiche
 (quella della Terra è quasi circolare: $e = 0.0167$). Inoltre, 
 grazie alla legge di gravitazione universale si è anche 
 dimostrato che qualunque corpo ha una traiettoria conica, 
-anche sonde o corpi provenienti da inifinito.
+anche sonde o corpi provenienti da infinito.
 
 \subsection{Approfondimento sulle ellissi}
 \begin{wrapfigure}{r}{0.4\textwidth}
@@ -5690,7 +5733,7 @@ a destra e ricordando che $\theta = 0$ è il perielio con $r \equiv r_p$
 distanza massima dal Sole), cerchiamo di collegare $p$ ed $e$ alle dimensioni 
 caratteristiche di un ellisse generica di semiassi $a$ orizzontale 
 e $b$ verticale. Si indica con $c$ la distanza tra i due fuochi dal centro $O$
-di un sistema cartesiano $x-y$ in cui il fuoco $S(c, 0)$
+di un sistema cartesiano $xy$ in cui il fuoco $S(c, 0)$
 è il Sole e $F(-c , 0)$ è l'altro fuoco, mentre $r$ è la distanza istantanea 
 di un pianeta $P$ da $S$ e $r'$ da $F$. Imponendo ora che la somma di queste due distanze
 sia costante si ha che
@@ -5729,7 +5772,7 @@ Si ricava adesso l'area dell'ellisse, utile per dimostrare la terza legge di Kep
 \begin{gather*}
     \frac{x^{2}}{a^{2}} + \frac{y^{2}}{b^{2}} = 1\ \Longrightarrow \ y = \pm b \sqrt{1 - \frac{x^{2}}{a^{2}}}  \qquad -a \leq x \leq a
 \end{gather*}
-Dunque facendo variare $x$ tra 0 e $a$ e scegliendo la $y$ positiva, e ponendo $\xi = \frac{x}{a}$, poi $sin\phi = \xi$: 
+Dunque facendo variare $x$ tra 0 e $a$ e scegliendo la $y$ positiva, e ponendo $\xi = \frac{x}{a}$, poi $\sin\phi = \xi$: 
 \begin{align*}
     A &= 4ab \int_{0}^{1} \sqrt{1 - \xi^{2}} \ d\xi = 4ab \int_{0}^{\frac{\pi}{2}} \cos^{2}\phi \ d\phi  = \\
     &= 4ab \left[\cos\phi \sin\phi\right]^{\frac{\pi}{2}}_{0} + 4ab \int_{0}^{\frac{\pi}{2}} \sin^{2}\phi \ d\phi = 2\pi ab - 4ab \int_{0}^{\frac{\pi}{2}} \cos^{2}\phi \ d\phi  
@@ -5881,7 +5924,7 @@ mentre $\theta$ si ottiene dividendo le due relazioni precedenti:
 le formule che permettono di ricavare la posizione del pianeta lungo 
 l'orbita, di semiasse $a$ ed eccentricità $e$ noti, una volta sapute l'anomalia 
 eccentrica $E$, in funzione del tempo. Si considera ora l'area
-$\mathcal{A}(t)$ del traingolo $ASP$, ovvero l'area spazzata nel tempo 
+$\mathcal{A}(t)$ del triangolo $ASP$, ovvero l'area spazzata nel tempo 
 dal raggio vettore $\vv{r}$ del pianeta, con la convenzione solita che al tempo $t =0$ il pianeta 
 si trovi al perielio $A$, così come dopo ogni periodo $T$. Questa 
 è l'area tratteggiata in figura, va adesso ricavato l'andamento 
@@ -6002,12 +6045,12 @@ gravitazionale standard $V \sim - 1/r$. Si esprime adesso la forza radiale su $\
 \begin{gather*}
     f = \frac{F}{\mu} = - V'(r)
 \end{gather*}
-la quale è attrattiva per $r > p$, repulsiva per $r < p$ (dato il segno). Dato un valore di 
+la quale è attrattiva per $r > p$, repulsiva per $r < p$ (dato il segno). Per $r = p$, ossia 
+dove si annulla l'energia cinetica orbitale, si trova la seguente condizione
 \begin{gather*}
-    \varepsilon \geq - \frac{GM}{2p} = -\frac{(GM)^{2}}{2h^{2}}
+    \varepsilon(p) = 0 +V(p) \ \Longrightarrow \ \varepsilon =- \frac{GM}{2p} = -\frac{(GM)^{2}}{2h^{2}}
 \end{gather*} 
-trovo orbite limitate se $\varepsilon < 0$ (che sappiamo essere ellissi,
-quindi anche chiuse, cerchi con $r = p =$ const nel caso limite), 
+per cui si trovano orbite limitate se $\varepsilon < 0$ (che sappiamo essere ellissi, cerchi con $r = p =$ const nel caso limite), 
 illimitata superiormente se $\varepsilon \geq 0$ (parabole per $\varepsilon = 0$, 
 iperboli per $\varepsilon > 0$). Siccome vale che 
 \begin{gather*}
@@ -6183,7 +6226,9 @@ il pianeta è in quiete, per una sonda che si trova al periastro vale che
 \begin{gather*}
     r = r_p \ \Longrightarrow \ E_c > E_g \ \Longrightarrow \ e > 1
 \end{gather*}
-Nello stesso sistema sia $\vv{v}_i^{\infty }$ la velocità inziale all'infinito della sonda (per quella finale vale $\left| \vv{v}_f^{\infty }  \right| = \left| \vv{v}_i^{\infty }  \right|$   ) 
+Infatti, per sfuggire all'orbita del pianeta, la sonda deve necessariamente
+avere un'orbita dalla forma iperbolica.
+Nello stesso sistema sia $\vv{v}_i^{\infty }$ la velocità iniziale all'infinito della sonda (per quella finale vale $\left| \vv{v}_f^{\infty }  \right| = \left| \vv{v}_i^{\infty }  \right|$   ) 
 e sia $q$ il \textbf{parametro di impatto}, il quale descrive la distanza minima tra il centro del pianeta e la retta d'azione della velocità iniziale della sonda quando questa si trova ancora a distanza infinita (cioè prima che la gravità del pianeta inizi a curvare significativamente la sua traiettoria)
 entrambi noti. Da questi si può calcolare le costanti $\varepsilon$ e $h$, esprimerle poi 
 in funzione di $r_p$ e $v_p$ e da questi ricavare $p$ ed $e$: 
@@ -6210,11 +6255,12 @@ si trova dal disegno che $\frac{\pi}{2} < \theta_\infty < \pi$ e $\theta_\infty 
 angolo in uscita ed in entrata (con parametri di impatto $q$) rispetto 
 alla retta $\theta = 0$ tra pianeta e periastro (infatti, per convenzione, 
 $\theta = 0$ se $r = r_p$ distanza minima). Inoltre si trova l'angolo 
-di \textbf{deviazione}, o \textbf{deflessione}, il quale descrive  è 
+di \textbf{deviazione}, o \textbf{deflessione}, ossia
 \begin{gather*}
     \delta = 2\theta_\infty - \pi
 \end{gather*}
-quindi ogni aspetto della traiettoria è ricavabile dati $q$ e $v_i^{\infty }$. Ma 
+che descrive di quanto è deviata la traiettoria della sonda rispetto a prima 
+che passasse vicino al pianeta. Ogni aspetto della traiettoria è ricavabile dati $q$ e $v_i^{\infty }$. Ma 
 come facciamo ad accelerare la sonda durante il fly-by? Dato che il pianeta si muove con velocità $\vv{V}$ che va sommata alla 
 velocità iniziale e finale, per $r \to \infty$. Per avere che $\left| \vv{v_f}  \right| > \left| \vv{v_i}  \right|$ serve un angolo 
 tra $\vv{v}_f^{\infty }$ e $\vv{V}$ minore di quello tra $\vv{v_i}^{\infty } $ e $\vv{V}$, come intuibile dalla 
@@ -6364,12 +6410,13 @@ la sonda, detta anche \textbf{orbita di Ohmann}. Partendo dalla
 Terra con velocità solidale circolare $c_P$ basterà 
 incrementare con un razzo la velocità tangenziale di un fattore $\sqrt{1 + e}$
 per ottenere la $v_P$ sull'orbita ellittica. 
-All'afelio in $P$ basterà accelerare ancora la sonda di un fattore
+All'afelio in $P$ la sonda avrà dunque velocità $v_a$, per far sì 
+che essa rimanga solidale con l'orbita del pianeta, basterà accelerare ancora la sonda di un fattore
 $\frac{1}{\sqrt{1 - e} }$, da $v_a$ a $c_a$, per ritrovarla con 
-moto circolare solidale col pianeta. Il dispendio di energia è minimo in qaunto si accendono
-i razzi solo in $T$ e $P$ per "aggiustare" l'orbita. Il tempo di trasferimento $\tau$ è metà del periodo 
-dell'ellisse, in qaunto la sonda, una volta giunta in $P$, avrà percorso solo metà 
-dell'ellisse in figura. Normalizazndo all'anno terrestre si ottiene
+moto circolare solidale col pianeta. Il dispendio di energia è minimo in quanto si accendono
+i razzi solo in $T$ e $P$ per "aggiustare" l'orbita. Il \textbf{tempo di trasferimento} $\tau$ è metà del periodo 
+dell'ellisse, in quanto la sonda, una volta giunta in $P$, avrà percorso solo metà 
+dell'ellisse in figura. Normalizzando all'anno terrestre si ottiene
 \begin{gather*}
     \frac{\tau}{T_T} = \frac{1}{2}\left(\frac{a}{R_T}\right)^{3/2} = \frac{1}{2}\left(\frac{R_T + R_P}{2R_T}\right)^{3/2}
 \end{gather*}
@@ -6419,7 +6466,7 @@ Se il raggio del pianeta è dunque $\approx 2.17$ volte quello terrestre, il via
 
 \end{tikzpicture}
 \end{wrapfigure}
-L'interazione mutua ta due corpi di tipo gravitazionale è l'unica che permette di ricavare 
+L'interazione mutua tra due corpi di tipo gravitazionale è l'unica che permette di ricavare 
 le orbite in maniera analitica. Nel caso di $n$ corpi (puntiformi) dobbiamo fare ricorso 
 a metodi numerici in cui si calcolano per ogni step temporale 
 tutte le forze reciproche contemporaneamente e poi si integrano le 
@@ -6432,7 +6479,7 @@ due masse sono preponderanti rispetto ad una terza $m << M_1, M_2$ e
 dove $M_1$ e $M_2$ hanno orbite circolari attorno al comune centro di massa $CM$, 
 indipendentemente dalla presenza di $m$. 
 Lo scopo è quello di ricavare il moto di $m$ e la presenza di eventuali punti di equilibrio. 
-Ponendoci nel sistema del $CM$, e utilizando le relazioni per quest'ultimo:
+Ponendoci nel sistema del $CM$, e utilizzando le relazioni per quest'ultimo:
 \begin{gather*}
     a_1 + a_2 = a \qquad M_1 a_1 = M_2 a_2 \\
     a_1 = \frac{M_2}{M_1 + M_2}a \qquad a_2 = \frac{M_1}{M_1 + M_2} a
@@ -6444,9 +6491,9 @@ velocità angolare costante
 \end{gather*}
 
 
-\begin{wrapfigure}{r}{0.45\textwidth}
+\begin{wrapfigure}{r}{0.42\textwidth}
     \centering
-    \begin{tikzpicture}[>=latex, scale = 0.5]
+    \begin{tikzpicture}[>=latex, scale = 0.45]
 
     % Definizione dei punti principali sull'asse orizzontale (alpha)
     \coordinate (M1) at (-2.5, 0);
@@ -6490,35 +6537,42 @@ velocità angolare costante
 
 \end{tikzpicture}
 \end{wrapfigure} \noindent
-Conviene adesso adimensionalizzare le distanze con $a$, 
-masse con $M$ ed i tempi con $\sqrt{\frac{a^{3}}{GM}}$, in pratica 
-$\omega$ varrebbe uno, ma si continuerà ad usarla. Si pone 
-un piano con $\gamma = 0$ e $\vv{\omega} \parallel \hat{z}$ e 
-\begin{align*}
-    \vv{\delta} &= \frac{\vv{r} }{a} = (\alpha, \beta, \gamma) \\
-    \mu_1 &= \frac{M_1}{M} = \frac{a_2}{a} \\
-    \mu_2 &= \frac{M_2}{M} = \frac{a_1}{a} 
-\end{align*}   
-ed il nostro scopo sarà ricavare il moto di $P$, ovvero $\vv{\delta}(t)$. 
-L'equazione di moto in forma adimensionale, includendo i termini di 
-accelerazione non inerziale e divendo per $m$ è 
+Adesso si adimensionalizza le distanze con $a$, le 
+masse con $M$ ed i tempi con $\sqrt{a^{3}/GM}$, le coordinate
+con $\alpha, \beta, \gamma$. In pratica $\omega$ varrebbe uno, ma si continuerà ad usare.
+Si suppone che il moto avvenga solamente sul piano $\gamma = 0$
+in modo tale da semplificare la trattazione e che $\vv{\omega} \parallel \hat{z}$
+o, equivalentemente, $\vv{\omega} \parallel \gamma$. Si esprimono adesso 
+\begin{gather*}
+    \vv{\delta} = \frac{\vv{r} }{a} = (\alpha, \beta, \gamma) \\
+    \mu_1 = \frac{M_1}{M} = \frac{a_2}{a} \qquad \mu_2 = \frac{M_2}{M} = \frac{a_1}{a} 
+\end{gather*}
+con $\vv{\delta}$ si esprime il raggio vettore normalizzato della massa $m$
+rispetto al centro di massa, dunque lo scopo è ricavare il moto di $P$, ovvero $\vv{\delta}(t)$. 
+$\mu_1$ e $\mu_2$ sono le masse adimensionalizzate e normalizzate, rispettivamente, di $M_2$ e $M_1$
+rispetto al centro di massa $CM$. 
+Adesso si imposta l'equazione di moto in forma adimensionale, includendo i termini di 
+accelerazione non inerziale e si divide per $m$, diventando così 
 \begin{align}
     \boxed{\ddot{\vv{\delta} }  + 2\vv{\omega} \times \dot{\vv{\delta} } + \vv{\omega} \times (\vv{\omega} \times \vv{\delta}  )  = - \frac{\mu_1}{\delta_1^{3}}\vv{\delta_1} - \frac{\mu_2}{\delta_2^{3}} \vv{\delta_2}  }
 \end{align} 
-dove il punto indica la derivazione rispetto al tempo adimensionale $(\omega t)$. Rispetto 
-all'equazione di partenza in $\frac{d^{2}\vv{r} }{dt^{2}}$ 
-vanno divisi entrambi i membri per $a\omega^{2} = \frac{GM}{a^{2}}$ 
-di modo che tutte le quantità dimensionali si possano elidere. Inoltre, dati
+La parte a destra corrisponde alla somma delle forze sul corpo $M_1$ e $M_2$, si sostituisce
+poi per la massa e per la distanza adimensionalizzate ottenendo:
 \begin{gather*}
-    \vv{\delta_1} = (\alpha + \mu_2, \beta, \gamma) \qquad \vv{\delta_2} = (\alpha - \mu_1, \beta, \gamma)  
+    F = -\frac{GM_1m}{r_1^{3}}r_1 - \frac{GM_2 m}{r_2^{3}}r_2  \ \Longrightarrow \ a = - \frac{GM_1}{r_1^{3}}r_1 - \frac{GM_2}{r_2^{3}}r_2
 \end{gather*}
-con $\mu_2 = \frac{a_1}{a}$ e $\mu_1 = \frac{a_2}{a}$, vale che
+Adimensionalizzando, dividendo per $m$ e dividendo per $a\omega^{2} = GM/a^{2}$, si ottiene la seguente espressione:
 \begin{gather*}
-    \mu_1 + \mu_2 = 1
+    -\frac{GM_1}{a^{3}\delta_1^{3}}\vv{\delta_1}a - \frac{GM_2}{a^{3}\delta_2^{3}}\vv{\delta_2}a \ \Longrightarrow \   - \frac{\mu_1}{\delta_1^{3}}\vv{\delta_1} - \frac{\mu_2}{\delta_2^{3}}\vv{\delta_2}  
+\end{gather*}
+dove il punto indica la derivazione rispetto al tempo adimensionale $(\omega t)$.
+Inoltre, dati
+\begin{gather*}
+    \vv{\delta_1} = (\alpha + \mu_2, \beta, \gamma) \qquad \vv{\delta_2} = (\alpha - \mu_1, \beta, \gamma)  \qquad \mu_1 + \mu_2 = 1
 \end{gather*}
 Ricordando che a causa del processo di adimensionalizzazione 
 la frequenza angolare ha modulo unitario, $\vv{\omega} = \hat{z}$, si esprimono 
-la componente di Coriolis e centrifuga secondo le seguenti: 
+la componente di Coriolis e centrifuga 
 \begin{gather*}
     \left\{\begin{array}{l}
         2\vv{\omega} \times \dot{\vv{\delta} } = 2\hat{z} \times (\dot{\alpha} \hat{x} + \dot{\beta} \hat{y} + \dot{\gamma} \hat{z}      )   = -2\dot{\beta}\hat{x} + 2\dot{\alpha} \hat{y} \\
@@ -6526,14 +6580,22 @@ la componente di Coriolis e centrifuga secondo le seguenti:
     \end{array}\right.
 \end{gather*}
 quindi entrambi i termini non inerziali sono contenuti nel piano $\alpha\beta$. Mentre il termine 
-di Coriolis, dipendente dalla velocità, non può essere inserito in un potenziale, mentre quello 
+di Coriolis, dipendente dalla velocità, non può essere inserito in un potenziale, quello 
 centrifugo sì in quanto dipende solo dalla posizione, come i termini gravitazionali. 
-Definiamo dunque un potenziale di Roche $\phi(\alpha, \beta, \gamma)$ che si scompone come 
+Si definisce il \textbf{potenziale di Roche} $\phi(\alpha, \beta, \gamma)$, definito 
+in modo tale che il suo gradiente sia equivalente a
+\begin{gather*}
+    \nabla \phi = \frac{\mu_1}{\delta_1^{3}}\vv{\delta_1} + \frac{\mu_2}{\delta_2^{3}}\vv{\delta_2} + \vv{\omega} \times (\vv{\omega} \times \vv{\delta}  )   
+\end{gather*} 
+Il quale si scompone nelle componenti $\alpha, \beta, \gamma$ secondo le seguenti:
 \begin{align}
-    \ddot{\alpha} - 2\dot{\beta} &= - \frac{\partial \phi}{\partial \alpha}  \qquad \ddot{\beta} + 2\dot{\alpha} = -\frac{\partial \phi}{\partial \beta} \qquad \ddot{\gamma} = - \frac{\partial \phi}{\partial \gamma}     \\
-    \phi &= - \frac{\mu_1}{\delta_1} - \frac{\mu_2}{\delta_2} - \frac{1}{2}(\alpha^{2} + \beta^{2}) 
+    \ddot{\alpha} - 2\dot{\beta} = - \frac{\partial \phi}{\partial \alpha}  \qquad \ddot{\beta} + 2\dot{\alpha} = -\frac{\partial \phi}{\partial \beta} \qquad \ddot{\gamma} = - \frac{\partial \phi}{\partial \gamma}
 \end{align}
-dove $\delta_1$ e $\delta_2$ sono i moduli che valgono, rispettivamente,
+Allora integrando le soluzioni si ottiene l'espressione del potenziale come 
+\begin{align}
+        \phi = - \frac{\mu_1}{\delta_1} - \frac{\mu_2}{\delta_2} - \frac{1}{2}(\alpha^{2} + \beta^{2}) 
+\end{align}
+Dove il termine con il mezzo davanti è quello centrifugo e $\delta_1$ e $\delta_2$ sono i moduli che valgono, rispettivamente,
 \begin{gather*}
     \delta_1 = \sqrt{(\alpha + \mu_2)^{2} + \beta^{2} + \gamma^{2}} \qquad \delta_2 = \sqrt{(\alpha - \mu_1)^{2} + \beta^{2} + \gamma^{2}}  
 \end{gather*}
@@ -6614,13 +6676,13 @@ I punti Lagrangiani sono rappresentati di seguito:
 \end{tikzpicture}
 \end{center}
 Questi sono tutti e soli punti di equilibrio, ma non si sa se sono stabili
-o meno. Si potrebbe dimostare che tutti e 5 i punti lagrangiani hanno minimi per $\gamma$, 
+o meno. Si potrebbe dimostrare che tutti e 5 i punti lagrangiani hanno minimi per $\gamma$, 
 ma sono massimi (negativi) per $\alpha $ e $\beta$, quindi sembrerebbe che non si possa 
 avere stabilità. In realtà, a causa dell'accelerazione di Coriolis che dipende 
 dalla velocità e non rientra nel potenziale, per capire se un punto di equilibrio è stabile 
 andrebbero risolte le equazioni di moto complete nell'intorno di quel punto, 
 $\alpha_0$ e $\beta_0$, supponendo andamenti del tipo $\delta\alpha \propto e^{\lambda t}$, $\delta \beta \propto e^{\lambda t}$ cercando 
-poi le condizoni per cui $\lambda$ è immaginario, ossia le soluzioni 
+poi le condizioni per cui $\lambda$ è immaginario, ossia le soluzioni 
 oscillanti attorno a $\alpha_0$ e $\beta_0$. Serve uno sviluppo al secondo ordine
 di $\phi(\alpha, \beta)$, trovando poi che se
 \begin{gather*}
@@ -6659,7 +6721,7 @@ e seguono ($L_5$) Giove nella sua orbita con angoli di $60$°:
 \draw[dashed, thin] (-6.0, 0) -- (6.0, 0);
 
 % --- Sole ---
-\filldraw[fill=white, thick] (Sole) circle (5pt);
+\filldraw[thick] (Sole) circle (5pt);
 \draw[thick] (Sole) circle (8pt);
 \node[below left=2pt] at (Sole) {Sole};
 
@@ -6694,9 +6756,9 @@ e seguono ($L_5$) Giove nella sua orbita con angoli di $60$°:
 
 \end{tikzpicture}
 \end{center}
-Si evede infine ulteriori considerazioni energetiche. Nonostante 
+Si vede infine ulteriori considerazioni energetiche. Nonostante 
 che energia e momento angolare non si conservino per il solo 
-corpo $m$, possiamo eleminare l'accelerazione di Coriolis sommando le tre 
+corpo $m$, possiamo eliminare l'accelerazione di Coriolis sommando le tre 
 equazioni di moto: 
 \begin{gather*}
     \dot{\alpha}\left(\ddot{\alpha} - 2\dot{\beta} + \frac{\partial \phi}{\partial \alpha}    \right) + \dot{\beta}\left(\ddot{\beta} + 2\dot{\alpha} + \frac{\partial \phi}{\partial \beta}   \right)  + \dot{\gamma}\left(\ddot{\gamma} + \frac{\partial \phi}{\partial \gamma}  \right) = 0 
@@ -6713,8 +6775,8 @@ per $m$). Le superfici tali per cui
 \end{gather*}
 sono equipotenziali a velocità nulla e dividono zone 
 dello spazio da accessibili ($v^{2} > 0$) a inaccessibili ($v^{2} < 0$). 
-Per $c_J$ grande ho valori equipotenziali molto negativi, 
-e trviamo zone circolari attorno $M_1$ e $M_2$ come le uniche accessibili.
+Per $c_J$ grande si hanno valori equipotenziali molto negativi, trovando che solo le
+zone circolari attorno $M_1$ e $M_2$ sono accessibili.
 Quando $c_J$ corrisponde a $-2\phi(L_1)$ si trovano i cosiddetti 
 \textbf{Poli di Roche}:
 \begin{center}
@@ -6806,15 +6868,18 @@ Questo è molto importante nei sistemi binari in cui una stella evoluta nella fa
 di gigante rossa riempie di gas il suo Polo di Roche, 
 ed il gas è libero di fluire verso la stella compagna (tipicamente di massa maggiore
 $M_1$, già evoluta in precedenza e in maniera catastrofica, supernova, verso un oggetto compatto).
-All'aumentare di $c_J$ le zone escluse tendono a sparire: prima si biforc ano in due zone che si toccano in $L_3$
+All'aumentare di $c_J$ le zone escluse tendono a sparire: prima si biforcano in due zone che si toccano in $L_3$
 e circondano solo $L_4$ e $L_5$ aumentando ancora $c_J$ tutto lo spazio è accessibile a $m$.
 
 \clearpage
 \section{La precessione degli equinozi}
-Il fenomeno della \textbf{precessione degli equinozi} è un effetto gravitazionale dovuto al fatto che un corpo non ha necessariamente forma sferica,
-ovvero la precessione dell' asse di rotazione terrestre indotta dalle forze gravitazionali di Sole e Luna sul suo rigonfiamento equatoriale, dovuto alla forza centrifuga.
-La Terra viene trattata come un corpo rigido di forma ellissoidale (oblata).
-Questo moto di precessione dell'asse di rotazione terrestre si traduce nel fenomeno di "precessione degli equinozi", ovvero la rotazione (come periodo di circa 26 mila anni) della linea di nodi (intersezione tra piano equatoriale e dell' eclittica) e il conseguente spostamento (precessione) del punto $\gamma$ d'Ariete (nodo ascendente e vernale) lungo l'eclittica.
+Il fenomeno della precessione degli equinozi è un effetto gravitazionale dovuto alla forma non perfettamente sferica della Terra.
+Poiché la rotazione terrestre genera una forza centrifuga, il pianeta assume la forma di un ellissoide oblato con un rigonfiamento all'equatore.
+Il Sole e la Luna esercitano un'attrazione gravitazionale (una coppia di forze) proprio su questo rigonfiamento equatoriale, tentando di
+"raddrizzare" l'asse terrestre rispetto al piano dell'eclittica. Poiché la Terra ruota, l'effetto è quello di una trottola: l'asse di
+rotazione non cambia inclinazione, ma descrive un cono nello spazio ogni 26.000 anni circa. Questo moto dell'asse causa la rotazione
+della linea dei nodi (l'intersezione tra l'equatore celeste e l'eclittica) e il conseguente spostamento retrogrado del punto $\gamma$
+(punto d'Ariete) lungo l'eclittica stessa.
 \begin{center}
     \begin{tikzpicture}[line cap=round, line join=round, >=Stealth, scale = 1]
 
@@ -6847,27 +6912,27 @@ Questo moto di precessione dell'asse di rotazione terrestre si traduce nel fenom
     \end{scope}
 
     % Angolo epsilon (inclinazione tra i piani)
-    \draw (1,0) arc (0:-25:1.2 and 0.5) node[midway, right, xshift=2pt] {$\varepsilon$};
+    \draw (1,-0.6) arc (0:-25:1.25 and 0.75) node[midway, right, xshift=2pt] {$\varepsilon$};
     
     % Angolo lambda sul piano inclinato
-    \draw[->] (0.5,-0.3) arc (-30:30:0.8) node[midway, left] {$\lambda$};
+    \draw[->] (-0.3, -0.25) arc (-120:0:0.8) node[midway, left] {$\lambda$};
 
     % Rotazione omega_T in alto
     \draw[->] (-0.3, \R+0.2) arc (150:30:0.4 and 0.2);
     \node at (0.5, \R+0.4) {$\omega_T$};
 
     % Equazioni a lato
-    \node[anchor=west] at (\R+1, 2) {$\displaystyle \vv{a} = (a \cos\lambda, a \sin\lambda \cos\varepsilon, a \sin\lambda \sin\varepsilon)$};
+    \node[anchor=west] at (\R+1, 2) {$\displaystyle \vv{P} = (a \cos\lambda, a \sin\lambda \cos\varepsilon, a \sin\lambda \sin\varepsilon)$};
     \node[anchor=west] at (\R+2, 0.5) {$\displaystyle \lambda = \omega_{T} t = \frac{2\pi}{T} t$};
 
 \end{tikzpicture}
 \end{center}
-Si risolve più facilmente utilizzando un sistema di coordinate solidale con la Terra e studiando l'effetto dei momenti indotti da un corpo in orbita apparente attorno ad esso (Sole o Luna).
+Si risolve più facilmente utilizzando un sistema di coordinate solidale con la Terra e studiando l'effetto dei momenti indotti da un corpo in orbita apparente attorno ad esso (come ad esempio il Sole o Luna).
 Supponendo che tali corpi si muovano a distanza $a$ fissa dal centro della Terra su orbite circolari sul piano dell' eclittica e con moto circolare uniforme, la loro posizione in un dato punto $P$ è
 come quella in figura. Dove $\omega_T$ è la velocità angolare  di rotazione terrestre (con periodo di 24 h)
-e $\omega_T$ quella di rivoluzione dell'astro (nel caso del Sole, corrispondente ad un anno "tropico").
+e $\omega_r$ quella di rivoluzione dell'astro (nel caso del Sole, corrispondente ad un anno "tropico").
 Considerando adesso le forze e soprattutto i momenti (gravitazionali)
-che agiscono sulla Terra, se $\vec{r}$ è la cooridinata di un volumetto, la forza è data come segue:
+che agiscono sulla Terra, se $\vec{r}$ è la coordinata di un volumetto, la forza è data come segue:
 \begin{center}
     
 \begin{tikzpicture}[>=Stealth, line cap=round]
@@ -6913,15 +6978,16 @@ che agiscono sulla Terra, se $\vec{r}$ è la cooridinata di un volumetto, la for
 \end{tikzpicture}
 \end{center}
 Dove $M$ è la massa del corpo in $P$.
- Gli effetti di una forza diversa per punti diversi di un corpo, dopo aver sottratto l'effetto principale medio applicato al centro di massa dell'oggetto, si dicono mareali e verranno trattati in seguito.
+ Gli effetti di una forza diversa per punti diversi di un corpo, dopo aver sottratto l'effetto principale medio applicato al centro di massa dell'oggetto, si dicono \textbf{mareali} e verranno trattati in seguito.
  Se la Terra è considerata indeformabile questi non hanno effetti e comunque interessano le medie sulle rivoluzioni del corpo attraente in $P$, che tendono ad annullarsi.
- Ciò che non si annullerà neppure dopo le medie temporale sarà il momento totale agente sulla Terra, qui considerata come un corpo rigido asimmetrico oblato
- (raggio equatoriale maggiore di quello polare), ad esempio un elissoidale di equazione
+ Ciò che non si annullerà neppure dopo le medie temporali sarà il momento totale agente sulla Terra, qui considerata come un corpo rigido assisimmetrico \textbf{oblato}
+ (raggio equatoriale maggiore di quello polare) con equazione
  \begin{gather*}
     \frac{x^2}{r_e^2} + \frac{y^2}{r_e^2} + \frac{z^2}{r_p^2}=1
  \end{gather*}
- con $r_e\approx6378km$, circa 30km maggiore di $r_p$. Il motivo per la forma oblata (ma non rigosamente quella sopra) è la forza centrifuga. Un corpo liquido (assenze di sforzi di taglio) assumerebbe all'equilibrio una forma tale che il potenziale totale (gravitazionale e centrifuga sia costante).
- Equipotenziale esterna è quella a $\vec{\nabla}P=0$ con $P\approx0$. La gravità è modificata dalla forza centrifuga come
+ con $r_e\approx6378$ km, circa 30km maggiore di $r_p$. Il motivo per la forma oblata (ma non rigorosamente quella sopra) è la forza centrifuga. Un corpo liquido (assenze di sforzi di taglio) assumerebbe all'equilibrio una forma tale che il potenziale totale (gravitazionale e centrifugo) sia costante.
+ La superficie equipotenziale esterna è quella a $\vv{\nabla}P=0$ con $P\approx0$. La gravità viene modificata dalla forza centrifuga 
+come nel seguente disegno:
 \begin{center}
 \begin{tikzpicture}[>=Stealth, line cap=round]
 
@@ -6947,6 +7013,7 @@ Dove $M$ è la massa del corpo in $P$.
     
     % Vettore gt (componente tangenziale)
     \draw[->, thick] (P) -- ++({\ang-90}:0.8) node[right] {$\vec{g}_t$};
+    \draw[->, cyan, thick] (P) -- ++(-0.5, -0.75) node[at end, right] {$\vv{g'}$ };
     
     % Vettore gr (componente radiale/normale)
     \draw[->, thick] (P) -- ++(\ang:0.8) node[above] {$\vec{g}_r$};
@@ -6970,11 +7037,12 @@ Dove $M$ è la massa del corpo in $P$.
 
 \end{tikzpicture}
 \end{center}
-con $R_T$ raggio medio terrestre e $R_T\cos\lambda$ distanza di un punto sulla superficie ad altitudine $\lambda$ dall'asse di rotazione. Dovendo compensare la componente di $g_T$ tangenziale, un corpo fluido reagisce modificando la sua forma, un corpo solido con i suoi sforzi di taglio, quando la Terra si è formata e ha assunto la sua forma l'approssimazione fluida era una buona base. 
-Passiamo dunque alla scrittura del momento totale $\vec{M}$ delle forze gravitazionali, dovute al corpo in $P$, sulla Terra.
+con $R_T$ raggio medio terrestre e $R_T\cos\lambda$ distanza di un punto sulla superficie ad altitudine $\lambda$ dall'asse di rotazione. Dovendo compensare la componente di $g_T$ tangenziale, un corpo fluido reagisce modificando la sua forma mentre un corpo solido reagisce
+con i suoi sforzi di taglio; quando la Terra si è formata e ha assunto la sua forma l'approssimazione fluida era una buona base. 
+Passiamo dunque alla scrittura del momento totale $\vv{M}$ delle forze gravitazionali, dovute al corpo in $P$, sulla Terra.
 Si ha
 \begin{align*}
-\vec{M} &= \int_{\tau} \vec{r} \times d\vec{F} = GM \int_{\tau} \frac{\vec{r} \times (\vec{a} - \vec{r})}{|\vec{a} - \vec{r}|^3} \rho \, d\tau \\
+\vv{M} &= \int_{\tau} \vec{r} \times d\vec{F} = GM \int_{\tau} \frac{\vec{r} \times (\vec{a} - \vec{r})}{|\vec{a} - \vec{r}|^3} \rho \, d\tau \\
 &= -GM \vec{a} \times \int_{\tau} \frac{\vec{r}}{|\vec{a} - \vec{r}|^3} \rho \, d\tau
 \end{align*}
 in quanto $\vec{r}\times\vec{r}=0$. Sviluppando poi il denominatore per $\frac{r}{a} << 1$: 
@@ -6983,36 +7051,41 @@ in quanto $\vec{r}\times\vec{r}=0$. Sviluppando poi il denominatore per $\frac{r
 \end{gather*}
 dove $\hat{u} = \frac{\vv{a} }{a}$, si deve infine calcolare il momento totale come
 \begin{gather*}
-    \vv{M} = - \frac{GM}{a^{3}}\hat{u} \times \int_{\tau} (\hat{u} \cdot \vv{r}   )\vv{r} \ \rho \ d\tau  
+    \vv{M} = - 3\frac{GM}{a^{3}}\hat{u} \times \int_{\tau} (\hat{u} \cdot \vv{r}   )\vv{r} \ \rho \ d\tau  
 \end{gather*} 
 Se $\rho = \rho(\vv{r} )$ ha simmetria sferica, tutti i termini nell'integrale lineari in 
 $\vv{r} = (x, y, z)$ si annullano, mentre solo quelli quadratici daranno un contributo al momento totale. 
 Sviluppando poi $-\hat{u} \times \vv{r}$ e $\hat{u} \cdot \vv{r}$ in componenti, rimangono i contributi 
 rispetto ai singoli assi
-\begin{gather*}
+\begin{align}
     \left\{\begin{array}{l}
         \displaystyle M_x = 3\frac{GM}{a^{3}} \int (y^{2} - z^{2})\rho \ d\tau \cdot \hat{y} \cdot \hat{z} \\
-        \displaystyle  M_y = 3\frac{GM}{a^{3}} \int (z^{2} - x^{2}) \rho \ d\tau \hat{z} \cdot \hat{x} \\
+        \displaystyle  M_y = 3\frac{GM}{a^{3}} \int (z^{2} - x^{2}) \rho \ d\tau \cdot  \hat{z} \cdot \hat{x} \\
         \displaystyle  M_z = 3\frac{GM}{a^{3}} \int (x^{2} - y^{2})\rho \ d\tau \cdot \hat{x} \cdot \hat{y}  
     \end{array}\right.
-\end{gather*}    
-Per un campo assisimmetrico conviene definire i tre momenti di inerzia lungo gli assi 
+\end{align}    
+Per un campo \textbf{assisimmetrico} conviene definire i tre momenti di inerzia lungo gli assi 
 principali di simmetria 
-\begin{gather*}
+\begin{align}
     \left\{\begin{array}{l}
         \displaystyle I_x = \int_{}^{} (y^{2} + z^{2})\rho \ d\tau = I_\perp \\
         \displaystyle I_y = \int_{}^{} (x^{2} + z^{2}) \rho \ d\tau = I_\perp \\
         \displaystyle I_z = \int_{}^{}(x^{2} + y^{2})\rho \ d\tau = I_\parallel  
     \end{array}\right.
-\end{gather*}
+\end{align}
 nel caso oblato ci si aspetta che $I_\parallel > I_\perp$ in quanto una massa all'equatore è più distante 
 dal centro terrestre rispetto ad una massa al polo per qualunque 
-distribuzione di densità $\rho(\vv{r} )$. Si nota che $M_x \propto I_z - I_y, \ M_y \propto I_x - I_z, \ M_z \propto I_y - I_x$, 
-ovvero, usando $I_\parallel$ e $I_\perp$ ed esplicitando $\hat{u}$:
+distribuzione di densità $\rho(\vv{r} )$. Si nota che usando $I_\parallel$ e $I_\perp$ ed esplicitando $\hat{u}$:
 \begin{gather*}
+    \begin{array}{l}
+        \displaystyle M_x \propto I_z - I_y \\
+        \displaystyle M_y \propto I_x - I_z \\
+        \displaystyle M_z \propto I_y - I_x
+    \end{array} 
+    \ \Longrightarrow \ 
     \left\{\begin{array}{l}
         \displaystyle M_x = 3\omega^{2}_r(I_\parallel - I_\perp) \sin^{2}\lambda \sin\epsilon \cos\epsilon \\
-        \displaystyle M_Y = -3\omega^{2}_r(I_\parallel - I_\perp) \sin\lambda \cos\lambda \sin\epsilon \\
+        \displaystyle M_y = -3\omega^{2}_r(I_\parallel - I_\perp) \sin\lambda \cos\lambda \sin\epsilon \\
         \displaystyle M_z = 0
     \end{array}\right.
 \end{gather*} 
@@ -7033,7 +7106,8 @@ La presenza di un momento delle forze esterne non bilanciato porterebbe ad un
 ribaltamento dell'asse terrestre, se non ci fosse il moto di rotazione. La presenza di un 
 momento angolare intrinseco (supponendo che $\vv{J}$ sia dovuto esclusivamente alla rotazione terrestre con 
 velocità $\vv{\omega_T}$ attorno all'asse $z$  )
-porta invece al moto di precessione dell'asse terrestre, ottenuto 
+non permette questo ribaltamento, bensì origina
+il fenomeno del moto di precessione dell'asse terrestre, ottenuto 
 risolvendo la seconda equazione cardinale per i corpi rigidi 
 \begin{gather*}
     \frac{d\vv{J} }{dt} = \left< \vv{M}  \right> 
@@ -7053,15 +7127,16 @@ angolare $\vv{\omega_P} = - A\hat{t}$ con $\vv{J} = I_\parallel \vv{\omega_T}$
 che rimane costante in modulo (la velocità di rotazione non cambia) mentre 
 si sposta con velocità angolare $\omega_P$ sulla superficie di un cono
 con asse parallelo a $\hat{t}$ (normale all'eclittica) e apertura $\epsilon$. 
+In definitiva l'asse terrestre non si raddrizza ma ruota poiché $\vv{J}$ è molto grande.
 Essendo dunque
 \begin{gather*}
     \left| \vv{J} \times \hat{t}   \right| = I_\parallel \omega_T \sin\epsilon 
 \end{gather*}     
-Si trova infine
+Si trova infine che
 \begin{align}
     \boxed{\omega_P = \frac{3}{2} \frac{\omega_r^{2}}{\omega_T} \frac{I_\parallel - I_\perp}{I_\parallel} \cos\epsilon}
 \end{align}
-Proporzionale a $\omega_r^{2}$, $\omega_T^{-1}$ e ad un parametro di "ellitticità", 
+Che è proporzionale a $\omega_r^{2}$, $\omega_T^{-1}$ e ad un parametro di "ellitticità", 
 che misura le deviazioni dal caso sferico. Nel caso di densità costante si trova che 
 \begin{gather*}
     I_\parallel \propto \frac{1}{5}M_T(r_e^{2} + r_c^{2}) \qquad I_\perp \propto \frac{1}{5}M_T(r_e^{2} + r_p^{2})
@@ -7070,7 +7145,8 @@ ovvero
 \begin{gather*}
     \frac{I_\parallel - I_\perp}{I_\parallel} = \frac{r_e^{2} - r_p^{2}}{r_e^{2} + r_c^{2}} = \frac{1}{2} \left(1 - \frac{r_p^{2}}{r_e^{2}}\right) \approx \frac{\Delta r}{r_e}
 \end{gather*}
-se $\Delta r = r_c - r_p << r_e$. 
+se $\Delta r = r_c - r_p << r_e$, ossia se il corpo sferoidale è 
+sufficientemente grande da permettere tale approssimazione. 
 Volendo applicare la formula per la precessione alla Terra, ci si accorge come 
 l'effetto finale è dovuto sia al Sole che alla Luna, dove quest'ultima gioca un ruolo preponderante
 per circa un fattore 2. Poniamo allora 
@@ -7090,21 +7166,21 @@ ossia un valore corretto all'1\% del fenomeno della precessione degli equinozi,
 dove l'errore è dovuto all'approssimazione di orbite perfettamente circolari e complanari. 
 Effettivamente l'orbita della Luna è inclinata di $5$°15' e ruota con un periodo di 18.61 anni, 
 questo si riflette nel moto dell'asse terrestre a cui va aggiunta un'ulteriore oscillazione 
-con quel periodo (nutazione).
+con quel periodo che prende il nome di \textbf{nutazione}.
 
 \section{Le maree}
 Le forze di maree in generale non sono altro che l'effetto della forza di gravità
-su parti diverse di un corpo che abbia dimensioni non trascurabili rispettto alla scala 
+su parti diverse di un corpo che abbia dimensioni non trascurabili rispetto alla scala 
 di variazione del campo gravitazionale in cui il corpo 
 stesso è immerso. Mentre la gravità applicata al centro di massa può essere 
 bilanciata dalle forze apparenti nel sistema solidale col corpo
 (caduta libera o rotazione), le forze mareali residue non si cancellano e possono deformare 
 il corpo, con risultati diverse se questo è rigido, elastico o fluido.
-Considerato il caso particolare di un corpo A sferico di raggio $R$ 
+Si considera il caso particolare di un corpo A sferico di raggio $R$ 
 (un pianeta come la Terra) e un corpo B a distanza $r >> R$ (come la Luna o un satellite)
 di massa M che provoca forze gravitazionali diverse su elementi di massa $m$ posti 
 sulla superficie del corpo A, al variare dell'angolo $\theta$ tra 
-la congiungente pianeta-satellite, ovvero dal punto S (detto sublunare) 
+la congiungente pianeta-satellite, ovvero dal punto S (detto \textbf{sublunare}) 
 sulla superficie terrestre.
 \begin{center}
 \begin{tikzpicture}[>=latex]
@@ -7142,7 +7218,7 @@ sulla superficie terrestre.
     \draw (m) -- (M) node[midway, above right] {$s$};
 
     % Vettore u (posizionato lungo il segmento m-M)
-    \draw[->, very thick] (m) -- ($(m)!1.5cm!(M)$) node[above right] {$\vec{u}$};
+    \draw[->, very thick] (m) -- ($(m)!1.5cm!(M)$) node[above right] {$\hat{s}$};
 
     % Punto m e le varie etichette
     \fill (m) circle (2pt) node[above right] {$m$};
@@ -7160,7 +7236,7 @@ sulla superficie terrestre.
     % ==========================================
     % 4. Equazione in basso a destra
     % ==========================================
-    \node[anchor=west] at (4, -1.5) {$\vec{u} = \cos\alpha \, \vec{u}_x - \sin\alpha \, \vec{u}_y$};
+    \node[anchor=west] at (4, -1.5) {$\hat{s} = \cos\alpha \, \hat{x} - \sin\alpha \, \hat{y}$};
 
 \end{tikzpicture}
 \end{center} 
@@ -7168,10 +7244,10 @@ La forza gravitazionale che agisce su $m$ dovuta a $M$ è
 \begin{gather*}
     \vv{F}(\theta) = \frac{GMm}{s^{2}} \hat{s}  
 \end{gather*}
-sempre diretta verso $M$, ovviamente massima in $S$ dove la distanza $s$ è minima . 
+sempre diretta verso $M$, ovviamente massima in $S$ dove la distanza $s$ è minima. 
 La forza mareale residua si ricava sottraendo la forza di gravità dovuta alla massa $M$
 supponendo che $m$ si trovi nel centro O del corpo A, dato che il sistema è non inerziale
-con $\vv{a} = \frac{GM}{r^{2}}\hat{x}$:
+con accelerazione $\vv{a} = \frac{GM}{r^{2}}\hat{x}$:
 \begin{gather*}
     \Delta \vv{F} = \vv{F} - \vv{F_0} = \frac{GMm}{s^{2}}\hat{s} - \frac{GMm}{r^{2}} \hat{x} = \frac{GMm}{r^{2}} \left(\frac{r^{2}}{s^{2}}(\cos\alpha \hat{x} - \sin\alpha \hat{y}  ) - \hat{x} \right)     
 \end{gather*}  
@@ -7179,7 +7255,7 @@ dove $\vv{F_0} = -m\vv{a}$ e
 \begin{gather*}
     s^{2} = r^{2} + R^{2} - 2rR\cos\theta 
 \end{gather*}  
-dal teorema di Carnot (del coseno). Sviluppando al primo ordine in 
+dal teorema di Carnot (del coseno). Sviluppando al primo ordine nella sostituzione
 \begin{gather*}
     \xi = \frac{R}{r} << 1
 \end{gather*}
@@ -7191,7 +7267,7 @@ Inoltre, applicando il teorema dei seni ai lati $s$ ed $R$, e ricordando che $r 
 \begin{gather*}
     \sin\alpha= \frac{R}{s} \sin\theta = \xi \frac{r}{s}\sin\theta \approx \xi\sin\theta \qquad \cos\alpha \approx 1
 \end{gather*}
-dove continuiamo a trascrivere tutti gli effetti $\sim\xi^{2}$ e oltre. 
+dove si trascurano tutti gli effetti $\sim\xi^{2}$ e oltre. 
 Mettendo tutto insieme rimangono contributi mareali $\propto \xi \frac{R}{r}$
 sia lungo $x$ che lungo $y$, ovvero 
 \begin{align}
@@ -7285,11 +7361,12 @@ da cui
     P(r) = \frac{2\pi G\rho^{2}}{3}(R^{2} - r^{2}) \ \Longrightarrow \ P_c = P(0) = \frac{2\pi G\rho^{2}}{3}R^{2}
 \end{gather*}
 Perché un corpo roccioso sia sensibile alle deformazioni gravitazionali e abbia forma sostanzialmente 
-sferica con correzioni dovute a rotazione maree, deve valere
+sferica con correzioni dovute a rotazione maree, la pressione deve essere maggiore del carico di rottura:
 \begin{gather*}
-    P_c > \sigma_c \ \Longrightarrow \ R > R_c = \sqrt{\frac{3}{2\pi}\frac{\sigma_c}{G}} \frac{1}{\rho} 
+    P_c > \sigma_c \ \Longrightarrow \ R > R_c = \frac{1}{\rho}\sqrt{\frac{3}{2\pi}\frac{\sigma_c}{G}}  
 \end{gather*}
-Per una denistà media tipica di $\rho =$ 5g/cm$^{3} = 3\cdot 10^{3}$ kg/m$^{3}$ 
+Dove $R_c$ è il raggio critico oltre al quale il corpo non potrà più avere
+una forma irregolare. Per una densità media tipica di $\rho =$ 5g/cm$^{3} = 5\cdot 10^{3}$ kg/m$^{3}$ 
 si trova la condizione $R > R_c = 170$ km. Questo valore è in accordo con le osservazioni: 
 tutti i pianeti, quasi tutti i satelliti importanti, ma anche gli asteroidi più grandi come 
 Cerere, Pallade o Vesta, sono sostanzialmente sferici o sferoidali, gli 
@@ -7297,8 +7374,8 @@ asteroidi con raggio minore, e perfino satelliti piccoli
 come quelli di Marte, Deimos e Phobos, hanno forma irregolare. 
 Supponendo di essere nella condizione $P_c > \sigma_c$ per il nostro corpo A, 
 dunque deformabile, bisogna vedere se questo reagirà alle sollecitazioni come un fluido 
-ideale (assenza di sforzi di taglo interni)  o come un corpo elastico, caratterizzato da un valore 
-massimo per gli sforzi di taglio: 
+ideale (assenza di sforzi di taglio interni)  o come un corpo elastico. Si studia allora
+il parametro $\eta$, definto come il valore che quantifica gli sforzi di taglio: 
 \begin{gather*}
     \eta = \frac{\Delta F}{F_g} = \frac{\Delta g}{g}
 \end{gather*}
@@ -7312,7 +7389,8 @@ si stima che
 \end{gather*}
 quindi $\eta > \eta_{max}$  ed è stato corretto affermare che per la deformazione 
 dovuta alla rotazione la Terra si comporta come un fluido, soprattutto nelle 
-prime fasi della sua formazione, portando alla forma di sferoide oblato con 
+prime fasi della sua formazione, portando alla forma di sferoide oblato deformato dalla 
+rotazione di  
 \begin{gather*}
     \Delta R \sim \eta R \approx 20 \ km
 \end{gather*}
@@ -7323,7 +7401,7 @@ Nel caso che stiamo studiando di deformazione mareale si può esprimere
 \begin{gather*}
     \eta = \frac{\Delta g}{g} \propto \frac{M}{M_T}\frac{R^{3}}{r^{3}}
 \end{gather*}
-e, per la Luna, si ha che
+mentre, a causa della Luna, la Terra subisce una deformazione prolata di
 \begin{gather*}
     \eta_L \approx 5.6 \cdot 10^{-8} \ \Longrightarrow \ \Delta R \sim\eta R = 36 \ \text{cm}
 \end{gather*}
@@ -7413,7 +7491,7 @@ Gli effetti di maree dovuti a Luna e Sole si sommano alle congiunzioni
 Il fenomeno più evidente e famoso delle forze mareali è sicuramente 
 l'Innalzamento o l'abbassamento periodico del livello del mare 
 fino anche a 20 metri in zone con stretti o canali. 
-Supponendo per semplicità che la crosta terrestre sia ricoperta obunque da un enorme 
+Supponendo per semplicità che la crosta terrestre sia ricoperta ovunque da un enorme 
 \textbf{panoceano fluido}, che reagisca tramite movimenti di onde 
 di marea alla componente tangenziale alla superficie terrestre delle forze di marea
 $\Delta \vv{F}(\theta)$ calcolate in precedenza.  
@@ -7433,7 +7511,7 @@ introdotto in precedenza per le deformazioni elastiche. Trattandosi
 di un rapporto tra la debole forza orizzontale e quella peso 
 verticale, questo si tradurrà in una deviazione nella 
 coordinata $l = R\theta$ orizzontale dal livello medio $\xi(l)$ del 
-panaoceano, secondo la seguente differnziale: 
+panaoceano, secondo la seguente differenziale: 
 \begin{gather*}
     \frac{d\xi}{dl} = -\frac{3}{2}\eta\sin(2\theta) \ \Longrightarrow \ \frac{d\xi}{d\theta} = -\frac{3}{2}R\eta\sin(2\theta)
 \end{gather*}
@@ -7446,7 +7524,7 @@ dipende dalla forza di marea tangenziale. Risolvendo si trova che
 Si ottiene dunque per il panaoceano una forma di sferoide prolato con asse maggiore 
 allineato verso l'altro corpo B, con dislivello massimo 
 \begin{gather*}
-    \Delta \xi_{max } = \xi(0) \xi(\frac{\pi}{2}) = \frac{3}{2}\eta R 
+    \Delta \xi_{max } = \xi(0) \xi\left(\frac{\pi}{2}\right) = \frac{3}{2}\eta R 
 \end{gather*}
 ovvero 53 cm nel caso della Luna e 25 cm per il Sole, più del caso delle deformazioni elastiche 
 ma molto meno dei valori di 20 metri estremi osservati in alcuni punti 
@@ -7458,23 +7536,23 @@ sublunare fisso, quello dove $\xi$ è massimo, mentre questo si sposta a velocit
     v_s = \frac{2\pi R}{T} \qquad \frac{1}{T} = \frac{1}{T_{rot}} - \frac{1}{T_L}
 \end{gather*}
 dove $T_{rot}$ è il giorno siderale e $T_L$ è il mese siderale con 
-$T = 1.035$ giorni e $v_s = 0.447$ km/s, dove $T > 1$ gionro in quanto la 
-Luna si ripresenta al merididano ogni giorno un po' dopo, 
-a casua della sua rivoluzione intorno alla Terra. Il panaocenao
+$T = 1.035$ giorni e $v_s = 0.447$ km/s, dove $T > 1$ giorno in quanto la 
+Luna si ripresenta al meridiano ogni giorno un po' dopo, 
+a causa della sua rivoluzione intorno alla Terra. Il panaocenao
 tenta di reagire con un'onda di marea che vorrebbe avere sempre il suo picco in S. 
 Ma per onde di gravità "lunghe" ovvero con  $\lambda >> h$, ossia 
-con $\lambda$ lunghezza d'onda e $h$ altezza media del panaoceano, diciamo 
-$h = 3$ kilometri , per la velocità di fase vale 
+con $\lambda$ lunghezza d'onda e $h$ altezza media del panaoceano, per esempio 
+$h = 3$ km, la velocità di fase vale 
 \begin{gather*}
     v_{onda} = \sqrt{gh} 
 \end{gather*}
 ossia $0.171$ km/s, quasi tre volte inferiore a $v_s$. L'onda
-risulta dunqeu molto sfasata rispetto alla posizione della Luna o del Sole, 
+risulta dunque molto sfasata rispetto alla posizione della Luna o del Sole, 
 talvolta si osservano le maree massime in corrispondenza del sorgere o tramontare dell'astro che 
 provoca le maree. Sono proprio queste onde e l'attrito 
 delle grandi masse liquide sulla terra solida, soprattutto in corrispondenza 
-di stretti e canali, che provocano il rallentamento della rotazione terrestre osservato, 
-di circa 20 $\mu$s/anno, e per la conservazione del momento angolare totale del sistema 
+di stretti e canali, che provocano il rallentamento della rotazione terrestre osservato 
+di circa 20 $\mu$s/anno e, per la conservazione del momento angolare totale del sistema 
 Terra-Luna, il conseguente allontanamento della Luna dalla Terra di circa 
 $3.8$ cm/anno. Questi fenomeni sono presenti tutti i sistemi binari legati gravitazionalmente 
 e spesso porta (su tempi scala astronomici) alla sincronizzazione tra rotazione 
@@ -7489,15 +7567,14 @@ ma la massa $M$ attraente è circa 80 volte maggiore. Gli effetti di marea sono 
 in situazioni di gravità molto forte (del corpo attraente B) e di dimensione 
 non trascurabile rispetto alle scale del campo gravitazionale 
 (del corpo A rispetto al campo di B). Il passaggio di un corpo in vicinanza 
-di un corpo molto compatto è  un sempio tipico, 
+di un corpo molto compatto è un esempio tipico, 
 come i cosidetti \textbf{Tidal disruption events}. Nel caso di una stella di massa
 $M_\star$ e raggio $R_\star$ che passa vicino ad un buco nero massiccio con 
 massa $M_{BH}$ la distanza sotto la quale le maree possono distruggere la stella sarà
 \begin{gather*}
     \Delta F \sim F_g \ \Longrightarrow \ \eta \sim 1 \ \Longrightarrow \ d \sim R_\star \left(\frac{M_{BH}}{M}\right)^{\frac{1}{3}}
 \end{gather*} 
-Infine, come non ricordare le onde sul pianeta vicino a Gargantua nel film interstellar, dove
+Infine, come non ricordare le onde sul pianeta vicino a Gargantua nel film Interstellar, dove
 $\Delta \xi \sim \eta R \sim 1$ km!
-
 
 \end{document}

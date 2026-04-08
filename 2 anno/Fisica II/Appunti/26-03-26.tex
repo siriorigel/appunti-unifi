@@ -1,0 +1,331 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[d]{esvect}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\usetikzlibrary{patterns}
+\pgfplotsset{width=10cm,compat=1.18}
+
+\title{Appunti di Fisica II}
+\author{Tommaso Miliani}
+\date{26-03-26}
+
+\begin{document}
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}  % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Proposizione}[section]
+\newtheorem{observation}{Osservazione}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{remark}{Enunciato}[section]
+
+\maketitle
+
+\section{Prima legge di MAxwell}
+\subsection{Divergenza di $\vec{B}$ }
+Si diverge rispetto alla variabile del campo magnetico, ossia 
+rispetto alla variabile $r$:
+\begin{gather*}
+    \vv{\nabla} \cdot \vv{B} = \frac{\mu_0}{4\pi}  \int_{\tau}^{} \vv{\nabla} \cdot \left(\vv{J} \times \vv{a}  \right) \ d\tau \qquad \vv{a} = \frac{(\vv{r} - \vv{r}'  )}{\left| r - r' \right|^{3} }  
+\end{gather*}
+Per semplicità si è eseguita una sostituzione con $\vv{a}$. Adesso si esegue la divergenza
+del prodototto vettoriale
+\begin{gather*}
+    \vv{\nabla} \cdot (\vv{J} \times \vv{a}  ) = \frac{\partial }{\partial x_i} \varepsilon_{i, j, k} J_ja_k  = \varepsilon_{i, j, k} \frac{\partial }{\partial x_i}  J_j a_K
+\end{gather*} 
+Siccome la derivata è eseguita rispetto alla variabile del campo, si può portare fuori il vettore
+$J$ in quanto la sua derivata è costante poiché dipende dalla variabile $r'$.
+\begin{gather*}
+    \vv{\nabla} \cdot  (\vv{J} \times \vv{a}  ) = J_j \varepsilon_{i, j, k} \frac{\partial }{\partial x_i} a_k  
+\end{gather*}
+Che assomiglia alla componente $j$ del rotore di $a$. Per trovare il rotore vero e proprio 
+si scambiano $i$ e $j$ nel tensore di Ricci, così facendo si cambia di segno (che vale qualunque 
+siano gli indici del tensore di Ricci), ottenendo infine
+\begin{gather*}
+    = J_j\left(-\varepsilon_{j, i, k} \frac{\partial }{\partial x_i} a_{k} \right) = -\vv{J} \cdot \vv{\nabla} \times \vv{a}   
+\end{gather*}
+Ossia il prodotto scalare tra $J$ ed il rotore di $a$. Dato che
+\begin{gather*}
+    \vv{a} = -\vv{\nabla} \cdot \frac{1}{\left| \vv{r} - \vv{r}'   \right| }  = + \vv{\nabla}' \cdot \frac{1}{\left| \vv{r} -\vv{r}'   \right| } 
+\end{gather*} 
+Allora il rotore è nullo. La legge di Biot-Savart implica che $\vv{B}$ è solenoidale. Si è dunque dimostrata la prima 
+legge di Maxwell:
+\begin{gather*}
+    \vv{\nabla} \cdot \vv{B} = 0 \ \Longrightarrow \ \vv{\nabla}\cdot \vv{E} = \frac{\rho}{\epsilon_0}    
+\end{gather*} 
+Questa equazione mi die che non esistono densità di carica magnetiche (quindi non 
+esistono monopoli magnetici). Il campo magnetico definito fino ad ora 
+non è generato da qualcosa di analogo alle cariche elettriche. Segue dunque che 
+\begin{gather*}
+    \Phi _S(\vv{B} ) = 0
+\end{gather*}
+qualunque sia la superficie $S$ considerata in qualunque punto dell'universo e 
+qualunque sia $\vv{B}$ generato. Le linee di campo di $\vv{B}$ sono chiuse: non esiste 
+allora una sorgente (di cariche) per $\vv{B}$, come invece accade per le cariche elettriche.   
+Il concetto di sorgenti nei campi si estende alla quantità che genera il campo. $\vv{B}$ non ha monopoli
+ma chiaramente le correnti elettriche sono sorgenti per $\vv{B}$. Ci si aspetta dunque 
+che nell'altra equazione di maxwell compaia il vettore $\vv{J}$ e ci si aspetta dunque 
+che non sia un campo irrotazionale.    
+\subsection{Rotore di $\vec{B}$ }
+Il rotore 
+\begin{gather*}
+    \vv{\nabla}\times \vv{B} = \int_{\tau} \vv{\nabla} \times (\vv{J} \times \vv{a}  ) \ d\tau    
+\end{gather*}
+Dove $\vv{a}$ è come definito prima. Si fissa una coordinata alla volta per il conto:
+\begin{gather*}
+    \left\{ \vv{\nabla} \times \left(\vv{J} \times \vv{a}  \right) \right\}_1 = \varepsilon_{1, j, k} \frac{\partial }{\partial x_j} (\vv{J} \times \vv{a}  )_k = \varepsilon_{1, j, k} \frac{\partial }{\partial x_j} \varepsilon_{k, l, m} J_l a_m  
+\end{gather*}
+Si esplicitano ora gli indici non nulli: 
+\begin{align*}
+    \left\{ \vv{\nabla} \times \left(\vv{J} \times \vv{a}  \right) \right\}_1 &= \varepsilon_{1, 2, 3} \frac{\partial }{\partial x_2} \left(\varepsilon_{3, l , m} J_l a_m\right)  - \varepsilon_{1, 3, 2} \frac{\partial }{\partial x_3} \varepsilon_{2 ,l , m} J_l a_m    \\
+    &= \frac{\partial }{\partial x_2} \left(\varepsilon_{3, l , m} J_l a_m\right)  - \frac{\partial }{\partial x_3} \varepsilon_{2 ,l , m} J_l a_m     \\
+    &= \varepsilon_{3, 2, 1} \frac{\partial }{\partial x_2} J_2 a_1 + \varepsilon_{3, 1, 2} \frac{\partial }{\partial x_2} J_1 a_2 - \varepsilon_{2, 3, 1} \frac{\partial }{\partial x_3} J_3 a_1 - \varepsilon_{2, 1, 3} \frac{\partial }{\partial x_3} J_1 a_3  \\
+    &= -\frac{\partial }{\partial x_2} J_2 a_1 + \frac{\partial }{\partial x_2} j_1 a_2 - \frac{\partial }{\partial x_3} J_3 a_1 + \frac{\partial }{\partial x_3} J_1 a_3 \\
+    &= J_1\left(\frac{\partial }{\partial x_2} a_2 + \frac{\partial }{\partial x_3} a_3  \right) - J_2 \frac{\partial }{\partial x_2} - J_3 \frac{\partial }{\partial x_3} a_1
+\end{align*}
+Dove l'ultimo passaggio vale perché $J$ non è funzione di $r$. Si somma e sottrae adesso un termine: 
+\begin{align*}
+    \left\{ \vv{\nabla} \times \left(\vv{J} \times \vv{a}  \right) \right\}_1     &= J_1\left(\frac{\partial }{\partial x_2} a_2 + \frac{\partial }{\partial x_3} a_3  \right) - J_2 \frac{\partial }{\partial x_2} - J_3 \frac{\partial }{\partial x_3} a_1 + J_1 \frac{\partial }{\partial x_1} a_1 -  J_1 \frac{\partial }{\partial x_1}a_1 \\
+    &=   J_1 \left(\frac{\partial }{\partial x_1} a_1 + \frac{\partial }{\partial x_2} a_2 + \frac{\partial }{\partial x_3} a_3   \right) - \left(J_1 \frac{\partial }{\partial x_1} a_1 + J_2 \frac{\partial }{\partial x_2}a_1 + J_3 \frac{\partial }{\partial x_3} a_1   \right)
+\end{align*}
+Il primo termine è la divergenza di $\vv{a}$, mentre il secondo termine (che si chiama $\mathcal{C}$) necessita ancora di 
+alcuni passaggi.  Si cambia segno al termine e si deriva secondo la seguente espressione (ossia la derivata
+del prodotto rispetto a $x'$):
+\begin{gather*}
+    J_1 \frac{\partial }{\partial x_1'} a_1 = \frac{\partial }{\partial x_1'}(J_1 a_1) - a_1 \frac{\partial }{\partial x_1'}J_1     
+\end{gather*}
+Dunque, se si scambiano le parziali con $x$ con le parziali per $x'$ si ha 
+\begin{gather*}
+    \mathcal{C}  = \frac{\partial }{\partial x_1'}(J_1 a_1) -a_1 \frac{\partial }{\partial x_1'}J_1 + \frac{\partial }{\partial x_2'}(J_2 a_1) - a_1 \frac{\partial }{\partial x_2'}J_2 + \frac{\partial }{\partial x_3'}(J_3 a_1) - a_1\frac{\partial }{\partial x_3'} J_3       
+\end{gather*}
+Si può dunque riscrivere
+\begin{gather*}
+    \mathcal{C} = \vv{\nabla}' \cdot \left(a_1 \vv{J} \right) - a_1 \vv{\nabla}' \cdot \vv{J}  
+\end{gather*}
+L'ultimo termine è uguale a zero in statica (poiché il campo deve essere solenoidale). 
+Si è dunque trovato che
+\begin{gather*}
+    \left\{ \vv{\nabla} \times \left(\vv{J} \times \vv{a}  \right) \right\}_1 = J_1 \vv{\nabla} \cdot \vv{a} + \vv{\nabla}' \cdot (a_1 \vv{J} )   
+\end{gather*}
+Si può adesso calcolare la componente:
+\begin{gather*}
+    (\vv{\nabla} \times \vv{B})_1  = \frac{\mu_0}{4\pi} \int_{\tau} J_1 \vv{\nabla} \cdot \vv{a} \ d\tau + \frac{\mu_0}{4\pi} \int_{\tau} \vv{\nabla}' \cdot (a_1 \vv{J} )  \ d\tau  = \frac{\mu_0}{4\pi} \int_{\tau} J_1 \vv{\nabla} \cdot \vv{a} \ d\tau +\frac{\mu_0}{4\pi} \int_{S} \hat{n} \cdot (a_1 \vv{J} ) \ dS  
+\end{gather*}
+Dato che nessun punto della superficie tocca il circuito, $\vv{J}$ è identicamente nulla su tutti i punti 
+della superficie $S$ definita perché in statica $\vv{J}$ è tangenziale in tutti i punti della superficie del filo 
+in quanto se fosse presente una componente normale allora ci sarebbe accumulo di carica 
+sulla superficie del filo, dunque il secondo pezzo è nullo. Allora 
+\begin{align}
+    \vv{\nabla} \times \vv{B} = \frac{\mu_0}{4\pi} \int_{\tau} \vv{\nabla} \times (\vv{J} \times \vv{a}  ) \ d\tau = \frac{\mu_0}{4\pi} \int_{\tau} \vv{J} \cdot \vv{\nabla} \cdot \vv{a} \ d\tau         
+\end{align}  
+Se si utilizzasse la coordinata campo:
+\begin{gather*}
+    = \frac{\mu_0}{4\pi} \int_{\tau} \vv{J}\left(\vv{\nabla} \cdot \left(\vv{\nabla}' \frac{1}{\left| r - r' \right| } \right) \right)  \ d\tau = - \frac{\mu_0}{4\pi} \int \vv{J}(r') \left(\nabla^{2} \frac{1}{\left| r - r' \right| }\right) \ d\tau  
+\end{gather*}
+Si è dunque concluso che 
+\begin{gather*}
+    \nabla^{2} \frac{1}{\left| r - r' \right| } = -4\pi \delta (\vv{r} - \vv{r}'  )
+\end{gather*}
+Nel caso in cui nel campo vettoriale $\vv{r}$ sia la posizione allora ha le dimensioni 
+di 1 su volume:
+\begin{gather*}
+    \vv{\nabla} \times \vv{B} = - \frac{\mu_0}{4\pi} \int \vv{J}(\vv{r}' ) \left(-4\pi \delta (\vv{r} - \vv{r}'  )\right) \ d\tau = \mu_0 \int \vv{J}(\vv{r}' ) \delta (\vv{r} - \vv{r}'  ) \ d\tau      
+\end{gather*}
+Questo integrale dipende dal dominio di integrazione: fa zero se non contiene il punto di
+divergenza della $\delta$. Se si calcola il rotore di $\vv{B}$ in un punto in 
+cui esiste $\vv{J}$ vale
+\begin{gather*}
+    \mu_0 \vv{J}(\vv{r} ) 
+\end{gather*}  
+se si va a calcolare il rotore in un punto in cui non c'è corrente, allora
+$\vv{r}$ non fa pare del dominio di integrazione e dunque è nullo. Si è 
+trovata allora la quarta equazione di MAxwell: 
+\begin{align}
+    \vv{\nabla} \times \vv{B} = \mu_0 \vv{J}   
+\end{align} 
+Allora $\vv{B}$ è solenoidale che è generato da $\vv{J}$ che entra nelle equazioni 
+di MaxWell per mezzo del rotore e $\vv{J}$ è la corrente ed è la sorgente di $\vv{B}$.
+
+\section{Trattazione equazioni di MaxWell}
+Le equazioni di Maxwell
+\begin{align}
+    &\vv{\nabla} \cdot \vv{E} = \frac{\rho}{\epsilon_0} \\
+    &\vv{\nabla} \cdot \vv{B} = 0 \\
+    &\vv{\nabla} \times \vv{E}= 0 \\
+    &\vv{\nabla} \times \vv{B} = \mu_0 \vv{J}         
+\end{align}
+descrivono tutte quantità disgiunte tra loro (nella statica). Queste si possono 
+catalogare in equazioni omogenee (seconda e terza) o in equazioni disomogenee o forzate (come 
+la prima e la quarta). Da quelle omogenee si ricava una semplificazione 
+della fisica: infatti la terza implica che $\vv{E} = - \vv{\nabla}V$, ossia 
+una quantità vettoriale è descrivibile tramite il gradiente di una funzione scalare. 
+Invece la seconda implica che $\vv{B} = \vv{\nabla} \times \vv{A}$, che si tratterà ora.    
+Si vuole dimostrare ora che se
+\begin{gather*}
+    \vv{B} = \vv{\nabla} \times \vv{A} \ \Longrightarrow \ \vv{\nabla} \cdot \vv{B} = 0     
+\end{gather*}
+Si esprime allora 
+\begin{gather*}
+    \vv{\nabla} \cdot (\vv{\nabla} \times \vv{A}  ) = \frac{\partial }{\partial x_i} (\vv{\nabla} \times \vv{A}  )_i = \frac{\partial }{\partial x_i}\varepsilon_{i, j, k} \frac{\partial }{\partial x_j} A_k = \varepsilon_{i,j, k} \frac{\partial }{\partial x_i} \frac{\partial }{\partial x_j}A_k      
+\end{gather*}
+Per poter svolgere questo conto si "smezza" l'ultimo termine: 
+\begin{gather*}
+    \varepsilon_{i,j, k} \frac{\partial }{\partial x_i} \frac{\partial }{\partial x_j}A_k  = \frac{1}{2} \varepsilon_{i,j, k} \frac{\partial }{\partial x_i} \frac{\partial }{\partial x_j}A_k  + \frac{1}{2} \varepsilon_{i,j, k} \frac{\partial }{\partial x_i} \frac{\partial }{\partial x_j}A_k  
+\end{gather*} 
+Adesso nel secondo termine si scambiano gli indici $i$ e $j$ (nella parte antisimmetrica):
+\begin{gather*}
+    \varepsilon_{i,j, k} \frac{\partial }{\partial x_i} \frac{\partial }{\partial x_j}A_k  = \frac{1}{2} \varepsilon_{i,j, k} \frac{\partial }{\partial x_i} \frac{\partial }{\partial x_j}A_k  - \frac{1}{2} \varepsilon_{j, i k} \frac{\partial }{\partial x_i} \frac{\partial }{\partial x_j}A_k  
+\end{gather*}
+Sempre nel secondo termine si scambiano gli indici di derivazione. Scambiando gli indici 
+nella parte antisimmetrica si moltiplica per un segno meno, mentre se si scambiano gli indici 
+nella parte simmetrica si ottiene sempre un segno più.
+\begin{gather*}
+    \frac{1}{2} \varepsilon_{i,j, k} \frac{\partial }{\partial x_i} \frac{\partial }{\partial x_j}A_k  - \frac{1}{2} \varepsilon_{j, i k} \frac{\partial }{\partial x_j} \frac{\partial }{\partial x_i}A_k  
+\end{gather*}
+Si scambiano adesso $j = l$ e $i = m$ per il primo termine e $i =l $ e $j = m$ nel secondo termine:
+\begin{gather*}
+    \frac{1}{2} \varepsilon_{l, m, k} \frac{\partial }{\partial l}\frac{\partial }{\partial m} A_k + \frac{1}{2} \varepsilon_{l, m, k} \frac{\partial }{\partial l} \frac{\partial }{\partial m} A_k = 0    
+\end{gather*}
+Dunque si è dimostrata la condizione iniziale. Adesso si vuole utilizzare 
+il rotore di $\vv{A}$ e legarlo al vettore che esprime la corrente 
+secondo la seguente condizione:
+\begin{align}
+    \vv{\nabla} \times (\vv{\nabla} \times \vv{A}) = \mu_0 \vv{J}    
+\end{align} 
+Per dimostrarla adesso si fa, come fatto prima, una componente alla volta:
+\begin{align*}
+    \left(\vv{\nabla} \times (\vv{\nabla} \times \vv{A}  ) \right)_1 &= \varepsilon_{i, j, k} \frac{\partial }{\partial x_i} \left(\vv{\nabla} \times \vv{A}  \right)_k = \varepsilon_{1, j, k} \frac{\partial }{\partial x_j} \varepsilon_{k, l, m} \frac{\partial }{\partial x_l} A_m \\
+    &= \varepsilon_{3, 2, 1} \frac{\partial }{\partial x_2} \frac{\partial }{\partial x_2} A_1 + \frac{\partial }{\partial x_2}       \frac{\partial }{\partial x_1} A_2 - \varepsilon_{2, 1 ,3} \frac{\partial }{\partial x_3}  \frac{\partial }{\partial x_1} A_3 - \varepsilon_{2,3,1 } \frac{\partial }{\partial x_3}  - \varepsilon_{2, 3, 1} \frac{\partial }{\partial 3} \frac{\partial }{\partial 3} A_1 \\
+    &= -\frac{\partial }{\partial x_2} \frac{\partial }{\partial x_2} A_1 + \frac{\partial }{\partial x_2} \frac{\partial }{\partial x_1} + \frac{\partial }{\partial x_3} \frac{\partial }{\partial x_1} A_3 - \frac{\partial }{\partial x_3} \frac{\partial }{\partial x_3} A_1 + \frac{\partial ^{2}}{\partial x_1^{2}} A_1 - \frac{\partial ^{2}}{\partial x_1^{2}} A_1          \\
+    &= \frac{\partial }{\partial x_1} \left(\frac{\partial }{\partial x_i}   A_1 \right) - \frac{\partial }{\partial x_i} \frac{\partial }{\partial x_i}A_1   = \vv{\nabla} \cdot  \left(\vv{\nabla} \cdot A \right) - \nabla^{2}\vv{A}  
+\end{align*}
+Una cosa importante è il $\nabla^{2}$ di un campo vettoriale, esso è definito in modo 
+divereso per campi scalari e per campi vettoriali:
+\begin{align*}
+    \nabla^{2} f &= \frac{\partial }{\partial x_i} \frac{\partial }{\partial x_i}f = \vv{\nabla} (\vv{\nabla}f ) \\
+    \nabla^{2} \vv{A} &= \nabla^{2}A_x \hat{x} + \nabla^{2} A_y \hat{y} + \nabla^{2} A_z \hat{z}   
+\end{align*}
+In magnetostatica si utilizza il \textbf{Gauge di Coulomb}, ossia un vincolo che si pone 
+sul campo vettoriale $\vv{A}$, che dice che gli unici $\vv{A}$ possibili sono quelli solenoidali, 
+per cui $\vv{\nabla} \cdot \vv{A} = 0$. Se si sceglie il Gauge di Coulomb, allora 
+\begin{align}
+    (\vv{\nabla} \times (\vv{\nabla} \times \vv{A}  ) ) = -\nabla^{2}\vv{A} 
+\end{align}
+E dunque 
+\begin{align}
+    \nabla^{2} \vv{A} = - \mu_0 \vv{J}  
+\end{align}
+
+\subsection{Problema di Ampere}
+In elettrostatica, l'unione della prima e terza equazione di Maxwell porta 
+all'equazione di Poisson:
+\begin{align}
+    \nabla^{2} V = - \frac{\rho}{\epsilon_0} \Longleftrightarrow V(\vv{r} ) = \frac{1}{4\pi\epsilon_0} \int_{\rho(\vv{r} )}^{\left| \vv{r} - \vv{r}'   \right| }  \ d\tau
+\end{align}
+Lo stesso vale per la magnetostatica  unendo la seconda e la quarta equazione di Maxwell:
+\begin{align}
+    A_i(\vv{r} ) = \frac{\mu_0}{4\pi} \int_{\tau} \frac{J_i(\vv{r}' )}{ \left| \vv{r} - \vv{r}'   \right| } \ d\tau 
+\end{align}
+Allora
+\begin{align}
+    \vv{A}(\vv{r} ) = \frac{\mu_0}{4\pi} \int_{\tau} \frac{\vv{J}(\vv{r}' ) }{\left| \vv{r} - \vv{r}'   \right| }  \ d\tau
+\end{align}
+Che è vero se e solo se $\vv{\nabla} \cdot \vv{A} = 0$. Che aiuta a risolvere i 
+problemi di elettrostatica in maniera più semplice. La priam equazione di Maxwell 
+esiste sia in forma integrale (Gauss) che vettoriale. Dunque questo porta
+al \textbf{Problema di Ampere}, che lo si calcola tramite la forma integrale della prima equazione 
+di Maxwell:
+\begin{gather*}
+    \int_{\tau} \vv{\nabla} \times \vv{B} \hat{u} \ dS    
+\end{gather*}
+Secondo una superficie qualsiasi orientata in un qualsiasi modo. Si utilizza allora 
+il teorema di Stokes per cui
+\begin{align}
+        \int_{\tau} \vv{\nabla} \times \vv{B} \hat{u} \ dS = \oint_\gamma \vv{B} \cdot \vv{dl}  
+\end{align}
+secondo la regola della mano destra. Questo lo si scrive anche come 
+\begin{gather*}
+    \int_{S} \vv{J} \cdot \hat{u} \ dS   
+\end{gather*}
+Allora 
+\begin{gather*}
+    \int_{\tau} \vv{\nabla} \times \vv{B} \hat{u} \ dS = \oint_\gamma \vv{B} \cdot \vv{dl}  =     \int_{S} \vv{J} \cdot \hat{u} \ dS 
+\end{gather*}
+Questo è uguale a dire 
+\begin{gather*}
+    \mu_0 \int_{S} \vv{J} \cdot \hat{u} \ dS = \mu_0 I_c   
+\end{gather*}
+dove $I_c$ prende il nome di \textbf{corrente concatenata al circuito $\gamma$}. Se $\gamma$
+si concatena al circuito esiste almeno una sezione del circuito che passa per $\gamma$. Se si aggiungono 
+più superfici attraverso la quale passa $I$: 
+\begin{align}
+        \int_{\tau} \vv{\nabla} \times \vv{B} \hat{u} \ dS = \oint_\gamma \vv{B} \cdot \vv{dl}  =     \int_{S} \vv{J} \cdot \hat{u} \ dS = \mu \sum_i I_i = \mu \sum I_{c_i}
+\end{align}
+\begin{example}
+    Supponendo di avere un cilindro con $\vv{J}$, in coordinate
+    cilindriche il campo mangetico ha espressione:
+    \begin{align}
+        \vv{B}(r, \theta, z) = B_r(r, \theta, z) \hat{r}  +  B_\theta(r, \theta, z) \hat{\theta}+  B_z(r, \theta, z) \hat{z}
+    \end{align} 
+    Per la simmetria rimane solo il termine $\theta$ poiché sono linee che girano intorno 
+    al filo (allora non dipende dalla coordinata $\theta$ né da $z$ in quanto è invariante 
+    rispetto alla traslazione e per invarianza sulla rotazione):
+    \begin{gather*}
+        \vv{B} = B_\theta(r) \hat{\theta}  
+    \end{gather*}
+    Circonferenze concentriche al filo per calcolare il teorema di Ampere, 
+    su tutti i punti della circonferenza si ha la stessa espressione, allora 
+    \begin{gather*}
+        \oint_\gamma \vv{B} \cdot \vv{dl} = 2\pi r B_\theta  
+    \end{gather*}
+    Il segno dipende dal versore $\theta$. Allora, se il filo avesse 
+    raggio $R$:
+    \begin{gather*}
+        I = J\pi R^{2}
+    \end{gather*}
+    Il teorema di Ampere mi dice che
+    \begin{gather*}
+        \oint_\gamma \vv{B} \cdot \vv{dl} = \left\{\begin{array}{l}
+            \displaystyle r > R \ \Longrightarrow \ 2\pi rB\theta = \mu_0 I \\
+            \displaystyle r < R \ \Longrightarrow \ 2\pi rB_\theta = \mu_0\pi J r^{2} 
+        \end{array}\right.  
+    \end{gather*}
+    Si trova allora che $B_\theta$ cresce linearmente fino a $R$ e decresce 
+    come $\sim 1 /r^{2}$ dopo $R$.
+\end{example}
+
+
+
+\end{document}
