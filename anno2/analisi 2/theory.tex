@@ -50,7 +50,6 @@
 \newcommand\Y{\mathbb{Y}}
 \newcommand\I{\mathbb{I}}
 \newcommand\J{\mathbb{J}}
-\newcommand\E{\mathbb{E}}
 \newcommand\de{\partial}
 
 %patata
@@ -230,7 +229,7 @@
             \item $f(x,y)$ \textbf{definita} e \textbf{continua} in un insieme $\A\subseteq \R^2$
             \item $(x_0,y_0)$ un \textbf{punto interno} ad $\A$, allora:
         \end{itemize}
-
+        \noindent
         Il \textbf{problema di Cauchy} per l'\textbf{equazione di 1° ordine} in \textbf{forma normale} ammette 
         \textbf{almeno una soluzione} in un \textbf{intorno di $(x_0,y_0)$}
     \end{theorem}
@@ -336,7 +335,7 @@
             \item Sia $g'(z)$ \textbf{continua}, allora $\exists g$ t.c.
             \[g(z) = g(z_0) + \int_{z_0}^{z} g'(t) \ dt\]
             \item Se $h$ è \textbf{continua}, allora:
-            \[H(x) = h(x_0) + \int_{x_0}^{x} h(t)\ dt\]
+            \[H(x) = h(x_0) + \int_{x_0}^{x} h(t)\ dt\]\noindent
             è \textbf{derivabile}, e la sua derivata è $h$.
         \end{itemize}
     \end{lemma}
@@ -548,7 +547,8 @@
         Definisco un \textbf{operatore} che sarà \textbf{utile} per altri teoremi e anche per riscrivere le equazioni differenziali in modo più \textbf{compatto}.\\
         $E: \ C^n(\I)\to C^0(\I)$\\
         $E\left(y(x)\right) = y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x)$\\
-        E è un \textbf{operatore lineare}.
+        E è un \textbf{operatore lineare}.\\
+        Tutto quello che fa è \textbf{estendere} una funzione n-derivabile, in un \textbf{polinomio} fatto delle \textbf{sue derivate}. Notare che il termine n-esimo deve avere un termine $a_n(x)$ che non deve essere \textbf{mai nullo} (altrimenti sarebbe di ordine $n-1$), e quindi possiamo dividere tutta l'eq per quel termine e \textbf{semplificarla}.
     \end{definition}
         \noindent Considero ora la \textbf{seguente equazione}:
         \[y^{(n)}(x) + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x) \ y(x) = f(x) \]
@@ -608,52 +608,70 @@
 
             \begin{proof}
                 Dimostro ora che tale spazio ha \textbf{dimensione n}:\\
-                Prendo $z_0(x)$ e $z_1(x)$, una \textbf{base} del mio spazio. Voglio dimostrare che $z_1$ e $z_2$ 
+                Prendo $z_0(x)$ e $z_1(x)$, una \textbf{base} del mio spazio. Voglio dimostrare che $z_0$ e $z_1$ 
                 sono \textbf{linearmente indipendenti} e \textbf{generatori}:\\
                 So che:
                 \begin{itemize}
                     \item $z_0(x)$ risolve \textbf{questo problema}:
                     \[\begin{cases}
                         E(y) = 0\\
-                        y(x_0)=1\\
-                        y'(x_0)=0
+                        z_0(x_0)=1\\
+                        z_0'(x_0)=0
                     \end{cases}\]
                     \item $z_1(x)$ risolve \textbf{questo problema}:
                     \[\begin{cases}
                         E(y) = 0\\
-                        y(x_0)=0\\
-                        y'(x_0)=1
+                        z_1(x_0)=0\\
+                        z_1'(x_0)=1
                     \end{cases}\]
                 \end{itemize}
                 \begin{enumerate}
                     \item Per dimostrare che sono \textbf{linearmente indipendenti}, voglio che:
-                    \[c_0 \ z_0(x) + c_1 \ z_1(x) = 0 \ \text{solo se} \ c_0=c_1=0 \ \forall x\in\I\]
-                    Ma per come ho costruito i pb. di cauchy ho che $z_0'(x_0) = 1$ e $z_1'(x_0) = 1$ e che $z_0(x_0) = 1$ e $z_1(x_0) = 0$\\
+                    \[c_0 \ z_0(x) + c_1 \ z_1(x) = 0 \ \text{solo se} \ c_0=c_1=0 \ \forall x\in\I\]\noindent
+                    Ma per come ho costruito i pb. di cauchy ho che $z_0'(x_0) = 1$ e $z_1'(x_0) = 1$ e che $z_0(x_0) = 1$ e $z_1(x_0) = 0$\\\noindent
                     Quindi ho:
                     \begin{gather*}
-                        c_0 \ \overbrace{z_0(x_0)}^1 + c_1 \ \overbrace{z_1(x_0)}^0 = 0 \ \to \ c_0 = 0\\
-                        c_0 \ \overbrace{z_0'(x_0)}^1 + c_1 \ \overbrace{z_1'(x_0)}^1 = 0 \ \to \ c_1 = 0
+                        c_0 \ \overbrace{z_0(x_0)}^1 + c_1 \ \overbrace{z_1(x_0)}^0 = 0 \ \leftrightarrow \ c_0 = 0\\
+                        c_0 \ \overbrace{z_0'(x_0)}^1 + c_1 \ \overbrace{z_1'(x_0)}^1 = 0 \ \leftrightarrow \ c_1 = 0
                     \end{gather*}
                     ho trovato che $z_0$ e $z_1$ sono \textbf{linearmente indipendenti}.\\
                     \rightline{\textit{Dimostrato}}
 
-                    \item Per dimostare che \textbf{generano}, voglio dimostrare che posso scegliere $c_0,c_1\in\R$ t.c., data
-                    $w(x)$ soluzione di $E(y) = 0$, vale che:
-                    \[w(x) = c_0 \ z_0(x) + c_1 \ z_1(x)\]
-                    Scelgo:
-                    \begin{itemize}
-                        \item $c_0 = w(x_0)$
-                        \item $c_1 = w'(x_0)$
-                    \end{itemize}
-                    Prendo il \textbf{seguente problema}:
-                    \[\begin{cases}
-                        E(y) = 0\\
-                        y(x_0) = c_0\\
-                        y'(x_0) = c_1
-                    \end{cases}\]
-                    Sia $w$ che $c_0 \ z_0(x) + c_1 \ z_1(x)$ sono \textbf{soluzioni} e per il \textbf{th. di unicità} queste \textbf{coincidono}.\\
-                    \rightline{\textit{Dimostrato}}
+                    \item Ho $z_0$ e $z_1$ indipendenti e quindi sono \textbf{generatori} (nel nostro caso con $n=2$) di uno spazio a due dimensioni.\\
+                    Noi però abbiamo dimostrato che $V_0$ è uno spazio vettoriale ma non sappaimo la sua dimensione, quindi dobbiamo assicurarci che $z_0$ e $z_1$ siano anche \textbf{generatori} di $V_0$.\\
+                    Per farlo prendo un \textbf{generico elemento} dello spazio di soluzioni $w(x)$ che avrà $w(x_0) = w_0$ e $w'(x_0) = w_1$, siccome è un generico elemento se sono sicuro di poterlo generare con $z_0$ e $z_1$ qualunque esso sia allora 
+                    ho dimostrato che $z_0$ e $z_1$ sono generatori di $V_0$.\\
+                    Usiamo le "coordinate" della funzione generica con la nostra base creando così un'altra funzione e vediamo cosa succede:
+                    \begin{gather*}
+                        y(x) = w_0 \ z_0(x) + w_1 \ z_1(x)
+                    \end{gather*}
+                    Siccome è \textbf{combinazione lineare} della base $y(x)$ è in $V_0$ e quindi è anch'essa una \textbf{soluzione}.\\
+                    Se calcoliamo $y(x_0)$ e $y'(x_0)$ otteniamo:
+                    \begin{gather*}
+                        y(x_0) = w_0 \ z_0(x_0) + w_1 \ z_1(x_0) = w_0 \cdot 1 + w_1 \cdot 0 = w_0\\
+                        y'(x_0) = w_0 \ z_0'(x_0) + w_1 \ z_1'(x_0) = w_0 \cdot 0 + w_1 \cdot 1 = w_1
+                    \end{gather*}
+                    Quindi \textbf{qualunque} elemento $w$ che prendo di $V_0$ avrà generici $w(x_0) = w_0$ e $w'(x_0) = w_1$ che posso descrivere sfruttando la mia base.\\
+                    Quindi La nostra base può creare un qualunque elemento di $V_0$, e quindi è generatore di $V_0$.\\
+                    In più ho che $w$ e $y$ sono \textbf{soluzioni} dello stesso problema di Cauchy, e per il \textbf{th. di unicità} queste \textbf{coincidono} quindi posso scrivere:
+                    \begin{gather*}
+                        w(x) = w_0 \ z_0(x) + w_1 \ z_1(x)
+                    \end{gather*}
                 \end{enumerate}
+
+                    %Scelgo:
+                    %\begin{itemize}
+                    %    \item $c_0 = w(x_0)$
+                    %    \item $c_1 = w'(x_0)$
+                    %\end{itemize}
+                    %Prendo il \textbf{seguente problema}:
+                    %\[\begin{cases}
+                    %    E(y) = 0\\
+                    %    y(x_0) = c_0\\
+                    %    y'(x_0) = c_1
+                    %\end{cases}\]
+                    %Sia $w$ che $c_0 \ z_0(x) + c_1 \ z_1(x)$ sono \textbf{soluzioni} e per il \textbf{th. di unicità} queste \textbf{coincidono}.\\
+                    \rightline{\textit{Dimostrato}}
             \end{proof}
         \end{theorem}
 
@@ -691,8 +709,9 @@
     \end{theorem}
 
     \begin{definition}[\textbf{Polinomio caratteristico}]
-        Data una \textbf{EDO omogenea}, ci associo il \textbf{polinomio caratteristico}:
+        Data una \textbf{EDO omogenea}:
         \[y^{(n)} + a_{(n-1)}(x) \ y^{(n-1)}(x) + \cdots + a_1(x) \ y'(x) + a_0(x)y(x) = 0\]
+        Ci associo il \textbf{polinomio caratteristico}:
         \[P(\lambda) = \lambda^n + a_{(n-1)}(x) \ \lambda^{n-1} + \cdots + a_1(x) \ \lambda + a_0(x)\]
     \end{definition}
 
@@ -776,12 +795,12 @@ Prendo $\displaystyle \V=\R^n \rightarrow \left\lVert v\right\rVert_\varepsilon 
 
 \begin{definition}[\textbf{Metriche equivalenti}]
     Siano $(\X,d_\alpha), \ (\X,d_\beta)$ \textbf{spazi metrici}. $d_\alpha$ e $d_\beta$ si dicono "\textbf{metriche equivalenti}" se:
-    \[\exists k_1,k_2\in\R \ t.c. \ k_1 \ d_\alpha(x,y) \leq d_\beta(x,y) \leq k_2 \ d_\alpha(x,y) \quad \text{con} \ x,y\in\X\]
+    \[\exists k_1,k_2\in\R \ t.c. \ k_1 \ d_\alpha(x,y) \leq d_\beta(x,y) \leq k_2 \ d_\alpha(x,y) \quad \forall \ x,y\in\X\]
 \end{definition}
 \noindent Ovvero le distanze sono proporzionali fra loro, e differiscono solo di due costanti.\\
 \begin{definition}[\textbf{Norme equivalenti}]
     Siano $(\V,\norma_\alpha)$ e $(\V,\norma_\beta)$ \textbf{spazi normati}. $\norma_\alpha$ e $\norma_\beta$ si dicono \textbf{norme equivalenti} se:
-    \[\exists c_1,c_2\in\R_i \ t.c. \ c_1 \left\lVert v\right\rVert_\alpha \leq \left\lVert v\right\rVert_\beta \leq c_2 \left\lVert v\right\rVert_\alpha \quad \text{con} \ v\in\V\]
+    \[\exists c_1,c_2\in\R \ t.c. \ c_1 \left\lVert v\right\rVert_\alpha \leq \left\lVert v\right\rVert_\beta \leq c_2 \left\lVert v\right\rVert_\alpha \quad \forall \ v\in\V\]
 \end{definition}
 
 
@@ -799,17 +818,17 @@ Per fare ciò introduciamo il concetto di \textbf{distanza tra funzioni}.\\\\
 Prendo, ad esempio, $\X = C^0\left([a,b]\right)$.\\
 Posso definire la \textbf{norma} $\left\lVert f\right\rVert_{\C^0}$, con $f\in C^0\left([a,b]\right)$:
 \[\left\lVert f\right\rVert_{\C^0} = \left\lVert f\right\rVert_{\infty} = \max_{[a,b]} |f(x)|\]
-Posso definire la \textbf{metrica} $d_{\C^0}$, con $f,g\in C^0\left([a,b]\right)$:
-\[d_{\C^0}(f,g) = d_\infty (f,g) = \left\lVert f-g\right\rVert_\infty \]
+Posso definire la \textbf{metrica} $d_{C^0}$, con $f,g\in C^0\left([a,b]\right)$:
+\[d_{C^0}(f,g) = d_\infty (f,g) = \left\lVert f-g\right\rVert_\infty \]
 Posso definire, ad esempio, un'\textbf{altra metrica} $d_{\mathbb{L}^1}$, la \textbf{distanza integrale}:
 \[d_{\mathbb{L}^1} (f,g) = \int_{a}^{b} |f-g| \ dx\]
-$d_{\C^0}$ e $d_{\mathbb{L}^1}$ sono entrambe \textbf{metriche} su $\C^0$, ma non sono \textbf{equivalenti}.\\\\
+$d_{C^0}$ e $d_{\mathbb{L}^1}$ sono entrambe \textbf{metriche} su $C^0$, ma non sono \textbf{equivalenti}.\\\\
 
 \noindent In questi \textbf{spazi di funzioni} posso definire gli \textbf{intorni}, che prendono il nome di "\textbf{palle}":
-\[\B_\varepsilon = \left\{g\in\C\left([a,b]\right): \ \left\lVert f-g\right\rVert < \varepsilon \right\}\]
+\[\B_\varepsilon = \left\{g\in C^0 \left([a,b]\right): \ \left\lVert f-g\right\rVert < \varepsilon \right\}\]
 \textbf{Geometricamente}, una palla è un intorno della \textbf{dimensione del suo insieme} si può pensare come un elemento appartenente all'insieme che stiamo considerando che costituisce un \textbf{ragio fissato} attorno all'elemento che stiamo considerando.\\\\
-Posso definire la \textbf{norma} $C^k\left([a,b]\right)$. Prendo $\X\in\C^k\left([a,b]\right)$:
-\[d_{\C^k} (f,g) = \sum_{i=0}^{k} d_{\C^0} \left(f^{(i)} - g^{(i)}\right) = \sum_{i=0}^{k} \max_{x\in[a,b]} \left|f^{(i)} - g^{(i)}\right|\]
+Posso definire la \textbf{norma} $C^k\left([a,b]\right)$. Prendo $\X\in C^k\left([a,b]\right)$:
+\[d_{C^k} (f,g) = \sum_{i=0}^{k} d_{C^0} \left(f^{(i)} - g^{(i)}\right) = \sum_{i=0}^{k} \max_{x\in[a,b]} \left|f^{(i)} - g^{(i)}\right|\]
 
 \newpage
 
@@ -963,14 +982,15 @@ Siano $(\X,dx)$ e $(\Y,dy)$ \textbf{spazi metrici}. Sia $f: \ \X\to\Y$:
     \begin{proof}\hfill\\
         Sia $x_0\in\X$. Sia $\{x_n\}\overset{d}{\longrightarrow}x_0$. Allora $d(x_n,x_0)\to0$.\\
         Poichè $f$ è \textbf{Lipshitziana}, $\exists L$ t.c.
-        \[0\leq d_y\left(f(x_n),f(x_0)\right) \leq L\cdot d_x(x_n,x_0) \quad\text{con} \ d_x(x_n,x_0)\to0\]
+        \[0\leq d_y\left(f(x_n),f(x_0)\right) \leq L\cdot d_x(x_n,x_0)\\
+        \text{per} \ d_x(x_n,x_0)\to0\]
         Ottengo:
         \[d_y\left(f(x_n),f(x_0)\right)\to 0\quad \text{quindi:}\]
-        \[f(x_n)\to f(x_0)\]
+        \[f(x_n)\to f(x_0) \quad \text{per } x_n \to x_0\]
         $f$ è \textbf{continua} in $x_0$.\\
     \end{proof}
 \end{proposition}
-
+\noindent
 Diamo ora un risultato teorico importante, il \textbf{Teorema delle contrazioni}.
 
 \begin{theorem}[\textbf{Teorema delle Contrazioni}]
@@ -984,24 +1004,65 @@ Diamo ora un risultato teorico importante, il \textbf{Teorema delle contrazioni}
         \[x_2 = f(x_1)\]
         \[\vdots\]
         \[x_{k+1} = f(x_k)\]
-        Si può dimostrare che $\{x_k\}$ è \textbf{successione di Cauchy} in $(\X,d)$.\\\\
-        Voglio dimostare che $\exists\overline{x}$ punto \textbf{fisso} t.c. $\overline{x} = f(\overline{x})$.\\
-        Poichè $\{x_k\}$ è di Cauchy in $(\X,d)$ ho:
-        \[\overline{x} = \lim_{k\to\infty} x_k \quad\text{in} \ (\X,d)\]
-        quindi $\overline{x}$ è punto \textbf{fisso}.\\\\
-        Poichè $f$ è \textbf{contrazione}, essa è \textbf{Lipshitziana}, e dunque \textbf{continua}.
-        \[\lim_{k\to\infty} f(x_k) = f(\overline{x}) = x_{k+1} = \overline{x}\]
-        Ho ottenuto:
-        \[f(\overline{x}) = \overline{x}\]
-        \rightline{\textit{Dimostrato}}
-
-        \newpage
-        
+        Si può dimostrare che $\{x_k\}$ è \textbf{successione di Cauchy} in $(\X,d)$:\\
+        Prendo la distanza tra due punti consecutivi di $\{x_k\}$ e sfrutto la sua identità con $f$ e poi sfrutto che $f$ è contrazione:
+        \begin{gather*}
+            d(x_k,x_{k+1}) = d\left(f(x_{k-1}),f(x_k)\right) \overset{\text{contaz.}}{\leq} \underset{<1}{L} \cdot d(x_{k-1},x_k) \leq L^2 \cdot d(x_{k-2},x_{k-1}) \leq \cdots \leq L^k \cdot d(x_0,x_1) = L^k \cdot d(x_0,\overbrace{f(x_0)}^{ = x_1})
+        \end{gather*}
+        Considero ora la distanza tra due punti non consecutivi: $m>n$ $m = n+p$
+        \begin{gather*}
+            \Rightarrow d(x_m,x_n) = d(x_{n+p},x_n) \leq d(x_{n+p},x_{n+p-1}) + d(x_{n+p-1},x_{n+p-2}) + \cdots + d(x_{n+1},x_n)
+        \end{gather*}
+        Sfrutto la lipshitzianità di $f$ e la costruzione della successione $\{x_k\}$ a catena:
+        \begin{gather*}
+            d(x_1, x_2) = d(f(x_0), f(x_1)) \leq L \cdot d(x_0,f(x_0))\\
+            d(x_2, x_3) = d(f(x_1), f(x_2)) \leq L \cdot d(x_1,f(x_1)) \text{ ma dal rigo prec.} \leq L \cdot L \cdot d(x_0,f(x_0))\\
+            \vdots\\
+            d(x_k, x_{k+1}) \leq L^k \cdot d(x_0,f(x_0)) \text{ il che vale anche per } d(x_{n+p}, x_{n+p-1}), \ d(x_{n+p-1}, x_{n+p-2}), \ \cdots, \ d(x_{n+1}, x_n)
+        \end{gather*}
+        Raccocliendo $d(x_0, f(x_0))$
+        \begin{gather*}
+            \leq d(x_0, f(x_0)) \cdot \left(L^{n+p} + L^{n+p-1} + \cdots + L^n\right) = d(x_0,f(x_0)) \cdot \frac{L^n-L^{n+p}}{1-L}
+        \end{gather*}
+        Spieghiamo l'ultima uguaglianza, prendiamo la somma $ S = L^{n+p} + L^{n+p-1} + \cdots + L^n$ riscriviamo l'eq. e moltiplichiamola per $L$ poi sottraiamo le due equazioni:
+        \begin{gather*}
+            S = L^n + L^{n+1} + L^{n+2} + \cdots + L^{n+p-1} \\
+            S \cdot L = L^{n+1} + L^{n+2} + \cdots + L^{n+p-1} + L^{n+p} \\
+            \text{i termini in mezzo sono uguali sottraendo:}\\
+            S -( S \cdot L) = L^n - L^{n+p} = S \cdot (1-L) \Rightarrow \frac{L^n - L^{n+p}}{1-L}
+        \end{gather*}
+        Tornando allo sviluppo precedente:
+        \begin{gather*}
+            = d(x_0,f(x_0)) \cdot \underbrace{L^n}_{\to 0} \cdot \underbrace{\frac{\left(1-L^p\right)}{1-L}}_{<\frac{1}{1-L}} \leq \overbrace{d(x_0,f(x_0)) \cdot \underbrace{\frac{1}{1-L}}_{\text{cost.}} \cdot \underbrace{L^n}_{\to 0}}^{\to 0 \text{ per } n \to \infty}
+        \end{gather*}
+        Da quì possiamo ottenere la definizione di succ. di cauchy, poichè da quello scritto finora:
+        \begin{gather*}
+            \forall \varepsilon > 0 \ \exists N: \ d(x_m,x_n) < \varepsilon \quad \forall m,n > N \qquad \text{ cioè } {x_n} \text{ è di Cauchy}
+        \end{gather*}
+        Poichè $\{x_n\}$ è di Cauchy in $(\X,d)$, allora $\lim_{n \to \infty} x_n = \overline{x}$ in $(\X,d)$ che è quindi sp. metr. completo\\\\
+        Ho che $\overline{x}$ è punto fisso perchè per $n \to \infty$:
+        \begin{gather*}
+            \overline{x} = \lim_{n\to\infty} x_n = \lim_{n\to\infty} x_{n+1} = \lim_{n\to\infty} f(x_n) = f(\overline{x})
+        \end{gather*}
+        E lo posso dire perchè $f$ è \textbf{contrazione}, quindi è \textbf{Lipshitziana} e dunque \textbf{continua}.\\
+        %Voglio dimostare che $\exists\overline{x}$ punto \textbf{fisso} t.c. $\overline{x} = f(\overline{x})$.\\
+        %Poichè $\{x_k\}$ è di Cauchy in $(\X,d)$ ho che converge:
+        %\[\overline{x} = \lim_{k\to\infty} x_k \quad\text{in} \ (\X,d)\]
+        %Ho questo limite è unico inoltre ho che $(\X, d)$ è sp. metr. completo.\\\\
+        %Per l'identità di $f$ e la costruzione della successione $\{x_k\}$:
+        %\begin{gather*}
+        %    \lim_{k \to \infty} x_{k} =\lim_{k \to \infty} x_{k+1} = \lim_{k\to\infty} f(x_k)
+        %\end{gather*}
+        %Poichè $f$ è \textbf{contrazione}, essa è \textbf{Lipshitziana}, e dunque \textbf{continua}.
+        %\[\lim_{k\to\infty} f(x_k) = f(\overline{x}) = x_{k+1} = \overline{x}\]
+        %Di nuovo per unicità del limite ottengo che il punto è unico e dunque:
+        %\[f(\overline{x}) = \overline{x}\]
+        \rightline{\textit{Dimostrato}}\hfill\\
         \noindent Dimostro ora che $\overline{x}$ è \textbf{unico}.\\
         Supponiamo che esistano $\overline{x} = f(\overline{x})$ e $\overline{y} = f(\overline{y})$.
-        \[d(\overline{x},\overline{y}) = d\left(f(\overline{x}),f(\overline{y})\right) \leq L\cdot d(\overline{x},\overline{y})\to 0 \quad\text{con} \ L\in(0,1)\]
-        Avrei:
-        \[d(\overline{x},\overline{y}) \leq d(\overline{x},\overline{y})\]
+        \[d(\overline{x},\overline{y}) = d\left(f(\overline{x}),f(\overline{y})\right) \leq L\cdot d(\overline{x},\overline{y}) \quad\text{con} \ L\in(0,1)\]
+        Quindi:
+        \[d(\overline{x},\overline{y}) \leq L d(\overline{x},\overline{y})\]
         Ma ciò è \textbf{assurdo} se $\overline{x}\ne \overline{y}$\\\\
         Dunque:
         \[d(\overline{x},\overline{y}) = 0 \Rightarrow \overline{x} = \overline{y}\]
@@ -1038,8 +1099,8 @@ per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \text
         Uso la \textbf{formulazione integrale}. \\\\
         \noindent Poichè $f$ è \textbf{continua} su $\I\times\J$, per \textbf{Weierstrass} posso dire:
         \[\exists M = \max_{x\in\I\times\J} \left|f\left(x,y(x)\right)\right|\]
-        Scelgo $\delta < \min\left\{a; \ \frac{b}{M}; \ \frac{1}{L}\right\}$ con $\I_{\delta} = \left[x_0-\delta,x_0+\delta\right]$
-
+        Scelgo $\delta < \min\left\{a; \ \frac{b}{M}; \ \frac{1}{L}\right\}$ con $\I_{\delta} = \left[x_0-\delta,x_0+\delta\right]$\\
+        $\I_\delta$ è l'intervallo in cui può esistere la soluzione, deve essere al massimo $a$ perchè non può uscire dai bordi di $\I$, deve essere al massimo $\frac{b}{M}$ perchè ricordando che dal problema si ha $y'(x) = f(x,y(x))$ quindi la $f$ ha valore massimo $M$ se parto da un certo punto $x$ potrò spostarmi a destra o a sinistra di $\frac{b}{M}$ per essere sicuro di stare dentro il rettangolo, l'ultima condizione è necessaria affinchè all'interno del rettangolo la funzione sia contrazione che useremo in seguito.\\
         \begin{center}
             \begin{tikzpicture}[scale=0.5]
                 \draw[->] (-1,0)--(16,0) node[at end,right] {$x$};
@@ -1051,6 +1112,9 @@ per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \text
                 \draw[red] (3,1)--(3,7);
                 \draw[red] (13,1)--(13,7);
                 \filldraw(8,4) circle (2pt) node[right] {\tiny$(x_0,y_0)$};
+                \draw(6,1) -- (10,7) node[midway,above left] {\tiny$y(x)= M x$};
+                \draw[dashed] (6,1) -- (6,7) node[above] {\tiny$-\frac{b}{M}$};
+                \draw[dashed] (10,1) -- (10,7) node[above] {\tiny$\frac{b}{M}$};
                 \draw (1,0.1)--(1,-0.1) node[at end,below] {\tiny$x_0-a$};
                 \draw (3,0.1)--(3,-0.1) node[at end,below] {\tiny\textcolor{red}{$x_0-\delta$}};
                 \draw (8,0.1)--(8,-0.1) node[at end,below] {\tiny$x_0$};
@@ -1062,11 +1126,11 @@ per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \text
             \end{tikzpicture}
         \end{center}
         \noindent
-        Prendo $\B = \left\{u(x)\in \C^0 \left([x_0-\delta,x_0+\delta]\right): \ \left\lVert u-y_0\right\rVert_{\C^0(\I_\delta)} \leq b \right\}$\\\\
+        Prendo $\B = \left\{u(x)\in C^0 \left([x_0-\delta,x_0+\delta]\right): \ \left\lVert u-y_0\right\rVert_{\C^0(\I_\delta)} \leq b \right\}$\\\\
         Osservo che:
         \begin{itemize}
             \item $\B$ è \textbf{palla chiusa}.
-            \item $(\B,\norma_{\C^0})$ è \textbf{spazio di Banach} perchè è \textbf{sottoinsieme} di $\left(\C^0(\I_\delta),\norma_{\C^0}\right)$, che è \textbf{completo}. 
+            \item $(\B,\norma_{C^0})$ è \textbf{spazio di Banach} perchè è \textbf{sottoinsieme} di $\left(C^0(\I_\delta),\norma_{C^0}\right)$, che è \textbf{completo}. 
         \end{itemize}
 
         \noindent Definisco l'\textbf{operatore} F:\\
@@ -1075,7 +1139,7 @@ per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \text
         \noindent Voglio dimostrare che $\operatorname{Im}(F)\subseteq\B$.\\
 
         \noindent Sia $u\in\B$, allora $F(u)\in\C^0(\I_\delta)$. Inoltre:\\
-        \[\left|F(u) - y_0\right| = \left|z-y_0\right| = \left|\int_{x_0}^{x} f\left(t,y(t)\right) dt\right|\]
+        \[\left|F(u) - y_0\right| = \left|z-y_0\right| = \left|\int_{x_0}^{x} f\left(t,u(t)\right) dt\right|\]
         $\forall x\in\I_\delta$, $t\in[x_0,x]\subseteq\I$.\\
         $u(t)\in\J$ perchè $u\in\B$, quindi $\left\lVert u-y_0\right\rVert_{\C^0} \leq b$, cioè:
         \[\left|u(x) - y_0\right| \leq b \quad\forall x\in\I_\delta\]
@@ -1088,18 +1152,17 @@ per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \text
 
         \noindent Voglio dimostare che $F$ ha un \textbf{punto fisso} t.c. $F(\overline{y}) = \overline{y}$. 
         Mi basta dimostare che $F$ è \textbf{contrazione} rispetto ad una \textbf{metrica indotta da} $\norma_{\C^0}$.\\
-        Mi basta dimostare che $F$ è \textbf{Lipshitziana} con $L<1$.
+        Mi basta dimostare che $F$ è \textbf{Lipshitziana} con $L<1$. Ricordiamo che sappiamo già che $f$ è \textbf{Lipshitziana} con per $y$ con $x$ fissato per hp.
         \begin{gather*}
-            \left|F(y_1) - F(y_2)\right| \leq \left|\int_{x_0}^{x} f\left(t,y_1(t)\right) - f\left(t,y_2(t)\right) \ dt\right| \leq\\
+            \left|F(y_1) - F(y_2)\right| \leq \left|\int_{x_0}^{x} f\left(t,y_1(t)\right) - f\left(t,y_2(t)\right) \ dt\right| \overset{\leq}{\text{uso la lip. di $f$}}\\
             \leq L \underbrace{|x-x_0|}_{\int_{x_0}^x 1 dx} \  \underbrace{\left\lVert y_1-y_2\right\rVert_{\C^0(\I_\delta)}}_{\leq |y_1(t)-y_2(t)|} \leq \\
-            \leq L\delta \ \left\lVert y_1-y_2\right\rVert_{\C^0(\I_\delta)} \leq 1
+            \leq L\delta \ \left\lVert y_1-y_2\right\rVert_{\C^0(\I_\delta)}
         \end{gather*}
-        Poichè $L\delta < 1$ per come ho scelto $\delta$ ovvero $< \frac{1}{L}$.\\ 
+        Ho che $L\delta < 1$ per come ho scelto $\delta$ ovvero $< \frac{1}{L}$.\\ 
         Ho ottenuto:
         \[L<1\]
         Ho visto che $F$ è \textbf{contrazione} rispetto a $\norma_{\C^0}$.
         
-        \newpage
         \noindent $\exists!\overline{y}$ t.c. $F(\overline{y}) = \overline{y}$, cioè esiste una \textbf{soluzione} $\overline{y}$ del problema di Cauchy.\\
          $\overline{y}$ è l'unica soluzione del problema di Cauchy.\\
          Infatti, se $u$ è un'altra soluzione del problema di Cauchy, allora $F(u) = u$.\\
@@ -1127,10 +1190,10 @@ per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \text
     \noindent Noi useremo sempre le \textbf{palle di Euclide}.
 
     \begin{definition}[\textbf{Insieme chiuso}]
-        Sia $\E\subseteq\R^2$. Dico che:
+        Sia $\mathbb{E}\subseteq\R^2$. Dico che:
         \begin{itemize}
-            \item $\overline{\E}$ è il \textbf{più piccolo chiuso} che \textbf{contiene} $\E$ (chiusura di $\E$).
-            \item $\mathring{\E}$ è il \textbf{più grande aperto} che \textbf{è contenuto} in $\E$. 
+            \item $\overline{\mathbb{E}}$ è il \textbf{più piccolo chiuso} che \textbf{contiene} $\mathbb{E}$ (chiusura di $\mathbb{E}$).
+            \item $\mathring{\mathbb{E}}$ è il \textbf{più grande aperto} che \textbf{è contenuto} in $\mathbb{E}$. 
         \end{itemize}
     \end{definition}
 
@@ -1575,12 +1638,12 @@ per dimostare il \textbf{Teorema di esistenza e unicità di Cauchy} per le \text
                 \underline{sia} $\underline{x} = \underline{x}(t) \qquad \underline{y} = \underline{x}(t+h), \quad t+h \in I$\\
                 Di fatto con $\underline{y} \to \underline{x}$ si intende calcolare la funzione in un punto molto vicino a $\underline{x}(t)$. E in questo punto possiamo approssimare la funzione con il suo piano tangente, proprio perchè la funzione è differenziabile. Continuando possiamo sostituire
                 con le identità che abbiamo appena definito per ottenere:\\
-                \textcolor{green}{\fbox{\textcolor{white}{$f(\underline{x}(t+h))-f(\underline{x}(t)) = \left\langle \nabla f(\underline{x}(t));\underline{x}(t+h)-\underline{x}t \right\rangle +o(\left\lvert \underline{x} (t+h) -\underline{x}(t)\right\rvert ) \quad\text{per } h \to 0 $ }}}  \textcolor{green}{\fbox{*}}\\
+                \textcolor{green}{\fbox{\textcolor{white}{$f(\underline{x}(t+h))-f(\underline{x}(t)) = \left\langle \nabla f(\underline{x}(t));\underline{x}(t+h)-\underline{x}(t) \right\rangle +o(\left\lvert \underline{x} (t+h) -\underline{x}(t)\right\rvert ) \quad\text{per } h \to 0 $ }}}  \textcolor{green}{\fbox{*}}\\
                 Finora ho usato solo $f$, prendiamo una funzione generica $F$ che è la composizione di $f$ con una curva $\underline{x}(t)$, e ne studio la derivata.\\
-                \item $\text{\fbox{$\underset{\text{\fbox{*}}}{\frac{F(t+h)-F(t)}{h}}$}} = \frac{f(\underline{x}(t+h))-f(\underline{x}(y))}{h} \overset{\text{\textcolor{green}{\fbox{*}}}}{=} \textcolor{orange}{\text{\fbox{\textcolor{white}{$\underset{\textcolor{orange}{\text{\fbox{I}}}}{\frac{\left\langle \nabla f(\underline{x}(t));\underline{x}(t+h)\right\rangle }{h}}$}}}} + \textcolor{magenta}{\text{\fbox{$\textcolor{white}{\underset{\text{\textcolor{magenta}{\fbox{II}}}}{\frac{o(\left\lvert \underline{x}(t+h) -\underline{x}(t)\right\rvert )}{h}}}$}}}$ \\
+                \item $\text{\fbox{$\underset{\text{\fbox{*}}}{\frac{F(t+h)-F(t)}{h}}$}} = \frac{f(\underline{x}(t+h))-f(\underline{x}(t))}{h} \overset{\text{\textcolor{green}{\fbox{*}}}}{=} \textcolor{orange}{\text{\fbox{\textcolor{white}{$\underset{\textcolor{orange}{\text{\fbox{I}}}}{\frac{\left\langle \nabla f(\underline{x}(t));\underline{x}(t+h) - \underline{x}(t)\right\rangle }{h}}$}}}} + \textcolor{magenta}{\text{\fbox{$\textcolor{white}{\underset{\text{\textcolor{magenta}{\fbox{II}}}}{\frac{o(\left\lvert \underline{x}(t+h) -\underline{x}(t)\right\rvert )}{h}}}$}}}$ \\
                 \item passo a $\lim_{h \to 0}$ Voglio dimostrare che $\exists \lim_{h \to 0} \text{\fbox{*}} \ , \ \lim_{h \to 0} \text{\textcolor{magenta}{\fbox{II}}} = 0 \ , \ \text{\textcolor{orange}{\fbox{I}}} = \left\langle \nabla f(\underline{x}(t));\underline{\dot{x}}(t) \right\rangle $
             \end{itemize}
-            \bulletout \ \textcolor{orange}{\fbox{$I$}} $\lim_{h \to 0} \left\langle \nabla f(\underline{x}(t));\frac{\underline{x}(t+h)}{h}\right\rangle$\\
+            \bulletout \ \textcolor{orange}{\fbox{$I$}} $\lim_{h \to 0} \left\langle \nabla f(\underline{x}(t));\frac{\underline{x}(t+h) - \underline{x}(t)}{h}\right\rangle$ \\
             $=\lim_{h \to 0} f_x(\underline{x}(t)) \underset{\to \dot{x}(t)}{\text{\fbox{$(\frac{ x(t+h)-x(t)}{h})$}}} + f_y(\underline{x}(t))\underset{\to \dot{y}(t)}{\text{\fbox{$\frac{(y(t+h)-y(t))}{h}$}}}$\\
             $= f_x(\underline{x}(t)) \dot{x}(t)+f_y(\underline{x}(t))\dot{y}(t)$\\
             $=\left\langle \nabla f(\underline{x}(t));\underline{\dot{x}}(t)\right\rangle \qquad \cmark$\\\\
@@ -2933,8 +2996,8 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
         % Commento laterale
         \node[align=left, draw, fill=page, font=\small] at (2.5,-0.5) {
             $f(P) = \int_{\gamma} \omega$ \\
-            $f(P') = \int_{\gamma} \omega + \int_{\phi} \omega$ \\
-            $\Delta f = \int_{\phi} \omega$
+            $f(P') = \int_{\gamma} \omega + \int_{\varphi} \omega$ \\
+            $\Delta f = \int_{\varphi} \omega$
         };
         \end{tikzpicture}
     \end{center}
@@ -2951,7 +3014,7 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
     \begin{gather*}
         \lim_{h \to 0} \frac{f(x_1+h,x_2,x_1) - f(x_1,x_2,x_3)}{h} = \lim_{h \to 0} \frac{1}{h} \int_{0}^{h} a_1(x_1+t,x_2,x_3) dt
     \end{gather*}
-    Se chiamo $P(h) = \int_{0}^{h} a_1(x_1+t,x_2,x_3) dt$ per il t.f.c.i. $P$ è derivabile e $P'(t) = a_1(x_1+t,x_2,x_3)$ ovvero l'integranda\\
+    Se chiamo $P(h) = \int_{0}^{h} a_1(x_1+t,x_2,x_3) dt$ per il t.f.c.i. $P$ è derivabile e $P'(h) = a_1(x_1+h,x_2,x_3)$ ovvero l'integranda\\
     Considero anche che $P(0) = \int_{0}^{0} a_1(x_1+t,x_2,x_3) dt = 0$
     \begin{gather*}
         \lim_{h \to 0} \frac{f(x_1+h,x_2,x_1) - f(x_1,x_2,x_3)}{h} = \lim_{h \to 0} \frac{P(h) - P(0)}{h} = P'(0)
@@ -2994,8 +3057,9 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
     (vale anche in $\mathbb{R}^3 \ \forall n \geq 2$)
 \end{theorem}
 
-\begin{proof}%ho messo nabla al posto di d
-    Se $\omega$ è esatta, $\omega = \nabla f$, cioè $a_1 = \frac{\partial f}{\partial x_1} \quad a_2 = \frac{\partial f}{\partial x_2} \quad a_3 = \frac{\partial f}{\partial x_3}   $\\
+\begin{proof}
+    \hfill\\
+    Se $\omega$ è esatta, $\omega = d f$, cioè $a_1 = \frac{\partial f}{\partial x_1} \quad a_2 = \frac{\partial f}{\partial x_2} \quad a_3 = \frac{\partial f}{\partial x_3}   $\\
     con $f$ potenziale di $\omega$.\\
     Scegliete $i,j = 1,2,3$ con $i \neq j$\\
     Poichè $\frac{\partial f}{\partial x_i}$ e $\frac{\partial f}{\partial x_j}$ sono $C^1$ sono derivabili e le loro derivate sono continue\\
@@ -3069,12 +3133,12 @@ Non dipende dalla parametrizzazione, ma dipende dal verso:
 Per introdurre la seconda def. di semplicemente connesso serve introdurre il concetto di Omotopia tra curve:
 \begin{definition}[Omotopia tra curve]
     Siano $\gamma_1$ e $\gamma_2$ curve contenute in un aperto connesso $A \subseteq \mathbb{R}^2$ o $A \subseteq \mathbb{R}^3$ e supponiamo che:\\
-    $\varphi_1[a,b] \to A$ \tab sia una cruva parametrica di $\gamma_1$\\
-    $\varphi_2[a,b] \to A$ \tab sia una cruva parametrica di $\gamma_2$\\
+    $\varphi_1[a,b] \to A$ \tab sia una parametrizzazione regolare di $\gamma_1$\\
+    $\varphi_2[a,b] \to A$ \tab sia una parametrizzazione regolare di $\gamma_2$\\
     tali che: \tab $\varphi_1(a) = \varphi_2(a) \ $  $ \ \varphi_1(b) = \varphi_2(b)$\\
     $\gamma_1$ e $\gamma_2$ si dicono \textbf{omotope} in $A$ \underbar{se} esiste una funzione continua: $\phi(t, \lambda) \quad t \in [a,b] \quad \lambda \in [0,1]$\\
     tale che:
-    \begin{enumerate}
+    \begin{enumerate}[1)]
         \item $\phi(t, 0) = \varphi_1(t) \quad \phi(t,1) = \varphi_2(t) \quad \forall t \in [a,b]$
         \item $\phi(a, \lambda) = P_a \quad \phi(b , \lambda) = P_b \quad \forall \lambda \in [0,1]$
     \end{enumerate}
@@ -3108,7 +3172,7 @@ Per introdurre la seconda def. di semplicemente connesso serve introdurre il con
 \end{definition}
 
 
-\begin{theorem}[chiusa su un simpl. conn. implica esatta]
+\begin{theorem}[chiusa su un sempl. conn. implica esatta]
     \underbar{Sia} $\omega= a_1 \ (x,y) \ dx + a_2 \ (x,y) \ dy$ una forma differenziale $C^1$\\
     \underbar{e} chiusa in un insieme $A \subseteq \mathbb{R}^2$ semplicemente connesso\\
     \underbar{Allora} $\omega$ è esatta.\\
@@ -3128,7 +3192,7 @@ Per introdurre la seconda def. di semplicemente connesso serve introdurre il con
     $\exists \gamma(t, \lambda) :[a,b]\times[0,1] \to A$ che soddisfa le proprietà enunciate nella def. di omotopia.\\
     Definisco $\forall \lambda \in [0,1]$ una funzione $I(\lambda)$ che è il valore dell'integrale di $\omega$ lungo la curva intermedia $\gamma_\lambda$ di equazione $\gamma(t, \lambda)$.
     \begin{gather*}
-        I(\lambda) = \int_{\text{curva }\gamma_\lambda} \omega = \int_{a}^{b} a_1 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial x}{\partial t}(t,\lambda) + a_2 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial y}{\partial t}(t,\lambda) \ dt
+        I(\lambda) = \int_{\text{curva }\gamma_\lambda} \omega = \int_{a}^{b} a_1 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial x}{\partial t}(t,\lambda) + a_2 \left( x(t,\lambda) , y (t,\lambda) \right) \frac{\partial y}{\partial t}(t,\lambda) \ dt \qquad \lambda \text{ param. fisso}
     \end{gather*}
     Con $x$ e $y$ componenti della curva $\gamma$, quindi a parametri $t,\lambda$, e con $a_1$ e $a_2$ componenti di $\omega$.\hfill\\
     Sto cercando di dimostrare che L'integrale della forma differenziale dipende solo dagli estremi e non dal percorso scelto. Quindi che la funzione
@@ -5239,7 +5303,7 @@ Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funz
 \end{observation}
 
 
-\begin{theorem}[Passaggio al limite sotto ]
+\begin{theorem}[Passaggio al limite sotto derivata]
   Preso un intervallo $I = [a,b]$\\
   \underbar{Sia} $\{f_k\} \in C^0 (I)$\\
   \underbar{Se} $\exists x_0 \in I $ t.c. $ f_k(x_0) \to \ell \in \mathbb{R}$\\
@@ -5278,7 +5342,7 @@ Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funz
     \{f_k\} \subseteq \mathcal{F}_I \quad S_n(x) = \sum_{k=0}^n f_k(x) \in \mathcal{F}_I\\
     \sum_0^{+\infty} f_k(x) \text{ serie } = \lim_{n \to +\infty} S_n(x) \quad (\mathcal{F}_I; \text{norma}) \\
   \end{gather*}
-  E se il limite converge ad una funzione chiameremo questa $S(x)$
+  E se il limite converge ad una funzione che chiameremo $S(x)$
 \end{definition}
 
 
@@ -5294,6 +5358,7 @@ Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funz
 \begin{theorem}
   $\sum f_k$ converge totalmente $ \overset{\in I}{\implies}$ converge uniformemente in $I$ $\overset{\in I}{\implies}$ converge puntualmente in $I$.
 \end{theorem}
+\hfill\\
 
 
 \begin{theorem}
@@ -5305,11 +5370,11 @@ Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funz
     \end{gather*}
     \item Integrazione per Serie
     \begin{gather*}
-      I = [a,b] \{f_k\} \subseteq C^0(I) \ , \ \sum f_k(x) \overset{I}{\rightrightarrows} S(x) \in I \implies \int_a^b S(x) dx = \sum_0^{+\infty} \int_a^b f_k(x) dx
+      I = [a,b] \{f_k\} \subseteq C^0(I) \ , \ \sum f_k(x) \overset{tot}{\rightrightarrows} S(x) \in I \implies \int_a^b S(x) dx = \sum_0^{+\infty} \int_a^b f_k(x) dx
     \end{gather*}
     \item Derivazione per Serie
     \begin{gather*}
-      I = [a,b] \{f_k\} \subseteq C^1(I) \\ \sum f_k(x) \overset{I}{\rightrightarrows} S(x) \in I \\ \sum f_k'(x) \rightrightarrows G(x) \in I \implies S(x) \in C^1(I) \\ S'(x) = \sum f_k'(x) \quad \forall x \in I
+      I = [a,b] \{f_k\} \subseteq C^1(I) \\ \sum f_k(x) \overset{tot}{\rightrightarrows} S(x) \in I \\ \sum f_k'(x) \overset{tot}{\rightrightarrows} G(x) \in I \implies S(x) \in C^1(I) \\ S'(x) = \sum f_k'(x) \quad \forall x \in I
     \end{gather*}
   \end{itemize}
 \end{theorem}
@@ -5345,7 +5410,7 @@ Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funz
 \begin{proof}
   \hfil\\
   sia $\eta \in I \qquad \text{con } I = (-|\xi|, |\xi|)$\\
-  $I_\eta = [-\eta, \eta] \in I_\xi \qquad$ con $I_\xi = [-|\xi|, |\xi|]$\\
+  $I_\eta = [-\eta, \eta] \in \mathring{I}$\\
   Sappiamo che nel punto $\xi$:
   \begin{gather*}
     \sum a_n \xi^n \text{ converge }
@@ -5409,12 +5474,13 @@ Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funz
 
 \begin{proof}[Dimostrazione]\hfill\\
   \textbf{parte 1} ($\Rightarrow$):\\
+  Siccome $\rho = R \in \R$ e $\rho = R = \sup \{ \xi \in \R : \sum a_n \xi^n \text{ converge} \}$ se $R \in \R$ allora 
   $\exists \xi \in \mathbb{R}: |x| < |\xi| \leq R$ e $\sum a_n \xi^n $ converge.\\
   Dal th. prec si ha convergenza in $(-|\xi|, |\xi|)$ quindi anche in x (poichè converge in $-|x|$ e  $|x|)$\\
   \underbar{sia} $\xi: \xi > R$
   suppongo $\sum a_n \xi^n $ converge $\implies$ dal th.prec. $\sum a_n \xi^n$ converge anche in $x$ t.c. $R < x \leq \xi$ è assurdo perchè $R = sup \{\dots\}$\\
 
-  \textbf{parte 2} ($\Leftarrow$):\\
+  \noindent\textbf{parte 2} ($\Leftarrow$):\\
   Prendiamo $r$ candidato raggio di conv. da hp. abbiamo:\\
   $\sum a_n x^n $ conv per $|x| < r$ o non conv per $|x| > r$ (vogliamo dimostrare $r = R$)\\
   \begin{itemize}
@@ -5443,7 +5509,7 @@ Per prima cosa consideriamo uno spazio metrico particolare, lo spazio delle funz
   \begin{itemize}
     \item se $\ell = 0 \implies R = +\infty$
     \item se $\ell = +\infty \implies R = 0$
-    \item $\ell \in R, \ell \neq 0 \implies R = \frac{1}{\ell}$
+    \item $\ell \in \R, \ell \neq 0 \implies R = \frac{1}{\ell}$
   \end{itemize}
 \end{theorem}
 
@@ -5557,7 +5623,7 @@ si indicano con $\overline{\lim} a_n = max\{ \lim a_{nk} \}$
 
 \begin{theorem}
   \underbar{Sia} $\sum a_n x^n$ serie convergente con raggio di convergenza $R\neq 0$ e \underbar{sia} $f(x) = \sum a_n x^n$ per $x \in I = (-R;R)$\\
-  \underbar{allora}: $f \in C^\infty (\mathring{I}) \quad \forall m \in \mathbb{N}$ si ha:\\
+  \underbar{allora}: $f(x) \in C^\infty (\mathring{I}) \quad \forall m \in \mathbb{N}$ si ha:\\
   \begin{gather*}
     f^{(m)} (x) = \sum_{k=m}^{+\infty} k(k-1)(k-2) \dots (k - m + 1) a_k x^{k-m} \text{ in } \mathring{I}\\
   \end{gather*}

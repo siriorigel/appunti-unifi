@@ -27,7 +27,7 @@
 \usepackage[dvipsnames]{xcolor}
 \usepackage{pgfplots}
 \usepackage{pifont}
-\usepackage[american]{circuitikz}
+\usepackage{circuitikz}[american voltages]
 \usetikzlibrary{patterns}
 \makeindex
 %\usepackage{animate}
@@ -1606,7 +1606,22 @@ Dimostriamo questa equivalenza.
 \begin{center}
     \begin{circuitikz}
     % Amplificatore Operazionale
-    \draw (0,0) node[op amp] (opamp) {};
+    \draw (0,0) node[op amp, scale=1.5
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    ] (opamp) {};
     
     % Ramo di ingresso (Generatore vs e Resistenza Rs)
     \draw (-3, 0.5) to[R, l=$R_s$, i=$ $] (opamp.-);
@@ -1756,6 +1771,578 @@ Tensione di offset
     
     \end{circuitikz}
 \end{center}
+
+\newpage
+\section{15/4/26}
+Quest'anno è stata introdotta la nuova esperienza dei cavi di trasmissione.\\
+Parte dell'energia si puo perdere per dispersione di energia elettromagnetic.\\\\
+In questa lezione introdurremo le grandezze \textbf{alternate} e quindi si incomincierà a parlare di \textbf{corrente alternata}.\\
+\textbf{Corrente alternata} è una corrente che cambia direzione periodicamente, una grandezza alternata generica la possiamo descrivere come funione del tempo:
+\begin{gather*}
+    f(t + T) = f(t) \quad \text{ con } T \text{ periodo}
+\end{gather*}
+vale che la media di questa funzione su un periodo è 0, ovvero:
+\begin{gather*}
+    \frac{1}{T} \int_{t}^{t+T} f(t') \ dt' = 0
+\end{gather*}
+Si incomincierà a parlare di funzioni \textbf{armoniche}, e cominqieremo a parlare di funzioni periodiche che possono descrivere la tensione in questo modo (in funz, del tempo)
+\begin{gather*}
+    V(t) = V_0 \cos(\omega t + \phi)
+\end{gather*}
+Ogni grandezza scopriremo che puo essere espressa come serie di Fourier, e quindi come somma di funzioni armoniche. La quale somma troverà la soluzione che cerchiamo.\\
+Analizziamo la funzione qua sopra, possiamo definire:
+\begin{itemize}
+    \item Un ampiezza $V_0$ che rappresenta il massimo valore che la funzione puo assumere
+    \item Una frequenza angolare $\omega$ che rappresenta la velocità con cui la funzione oscilla
+    \item Uno sfasamento $\phi$ che rappresenta lo spostamento della funzione rispetto all'origine del tempo
+\end{itemize}
+Il $\cos$ è ciò che rende questa funzione proprio una funzione armonica.\\
+\hfill\\
+Analizziamo ora il periodo
+\begin{gather*}
+    T = \frac{2\pi}{\omega}
+\end{gather*}
+E il periodo inverso che indicheremo con:
+\begin{gather*}
+    \nu = \frac{1}{T} = \frac{\omega}{2\pi}
+\end{gather*}
+Che si misura in $s^{-1}$ quindi in $Hz$ ed è proprio la nostra frequenza.\\
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->] (-3.5,0) -- (3.5,0) node[right] {$t$};
+        \draw[->] (-pi,-1.2) -- (-pi,1.2) node[above] {$y$};
+        \draw[domain=pi:-pi, samples=100, smooth, cyan] plot (\x, {-sin(\x r)});
+        \draw(-pi/2+0.1,1) -- (-pi/2-0.1,1) node[above] {$V_0$};
+        \draw(pi/2+0.1,-1) -- (pi/2-0.1,-1) node[below] {$-V_0$};
+        \draw[orange] (-pi,0) -- (-pi,1) -- (0,1) -- (0,-1) -- (pi,-1) -- (pi,1);
+        \draw[yellow] (-pi,0) -- (-pi/2,1) -- (pi/2,-1) -- (pi,0);
+        \draw[orange, dashed] (pi,1) -- (pi+0.6,1);
+        \draw[yellow, dashed] (pi,0) -- (pi+0.6,0);
+    \end{tikzpicture}
+\end{center}
+Se si iposta un multimetro in AC e si misura tra due cavi impostandolo su voltmetro in AC quello che si misura non è l'ampiezza ma quello che si chiama valore efficace ed è:
+\begin{gather*}
+    V_{eff} = \sqrt{\frac{1}{T} \int_{t}^{t+T} V^2(t') \ dt'}
+\end{gather*}
+Ci sono dei generatori che producono forme di onda di ogni tipo a differenza delle esigenze ed hanno un valore efficace diverso, o meglio la differenza tra il valore efficace e l'ampiezza (il picco della funzione) questo dipende dalla forma d'onda.\\
+Analizziamone alcuni, partiamo dalla forma d'onda \textbf{armonica} che ci da:
+\begin{gather*}
+    \frac{V_0}{\sqrt{2}}
+\end{gather*}
+Mentre il \textbf{quadrato} (detto stepper) ci da semplicemente:
+\begin{gather*}
+    V_0
+\end{gather*}
+\hfill\\
+Analizziamo ora un po' di componenti, come si comportano in alternata?\\
+\begin{itemize}
+    \item \textbf{Resistenze} $R$:
+    \item \textbf{Induttanze} $L$:
+    \item \textbf{Capacità} $C$:
+\end{itemize}
+In condizioni \textbf{quasi stazionarie} ovvero l'intero circuito evolve contemporaneamente (cioè quando l'intero circuito può essere considerato istante per istante ed è quindi trascurabile la distanza tra i componenti) si può vedere che posso usare piu o meno le stesse leggi che usavo in continua, ma con qualche accorgimento.\\
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[vsourcesin] (0,2) to[R, l=$R$] (2,2) to[C, l=$C$] (2,0) to[L, l=$L$] (0,0);
+    \end{tikzpicture}
+\end{center}
+Sappiamo che deve valere la legge delle maglie di Kirchhoff, e quindi:
+\begin{gather*}
+    \sum_i f_i = \sum_i i_i R_i
+\end{gather*}
+Quindi che la tensione fornita dal generatore sia uguale alla somma delle cadute di tensione sui singoli componenti, ovvero:
+\begin{gather*}
+    V(t) = V_R(t) + V_L(t) + V_C(t)
+\end{gather*}
+
+Siamo qui in condizioni quasi statiche e stiamo muovendo queste cariche in modo che oscillino di "poco" avrò che:
+\begin{gather*}
+    \frac{Q(t)}{C} = V(t)
+\end{gather*}
+Ovvero la tensione che io sto applicando in un dato momento è proporzionale alla carica.\\
+Se io ora derivo ottengo uno sfasamento siccome:
+\begin{gather*}
+    i(t) = \frac{dQ}{dt} = \frac{d}{dt} (V(t) C)\\
+    \begin{cases}
+        i_0 = V_0 \omega t\\
+        \phi = +\frac{\pi}{2}
+    \end{cases}
+\end{gather*}
+Sfruttando il fatto che sto considerando condizioni quasi stazionarie posso ricondurmi alle leggi che già conosciamo dalla continua:
+\begin{gather*}
+    V_0 \cos(\omega t) = i(t) R + L \frac{d \ i(t)}{d t} + \frac{Q(t)}{C}\\
+    \text{sicccome } i(t) = \frac{dQ}{dt} \implies \\ V_0 \cos(\omega t) = L \frac{d^2 Q}{d t^2} + R \frac{dQ}{dt} + \frac{Q(t)}{C}
+\end{gather*}
+Dove $Q(t)$ è la carica che si accumula sulla capacità, e $i(t)$ è la corrente che scorre nel circuito.\\
+Questa è comunque una differenziale di secondo grado difficile da caloclare, perchè ho due incognite la fase e l'ampiezza, la strategia 
+che adotterò sarà quella di considerare $Q$ e $i$ come numeri complessi, e quindi ricondurmi a una differenziale di primo grado, che è molto più semplice da risolvere.\\
+%\begin{gather*}
+%    \tilde{V} = V_0 (\cos(\cos(\omega t)) + j \sin(\omega t)) = V_0 e^{j \omega t}\\
+%    \text{considerando la fase:}\\
+%    \tilde{V} = V_0 e^{j (\omega t + \varphi)} = V_0 e^{j \varphi} e^{j \omega t}
+%\end{gather*}
+%\hfill\\
+%I numeri complessi praticamente ci permettono di esprimere con la forma trigonmetrica due variabili coem una, e quindi ricondurci ai casi che sappiamo gestire.\\
+%\begin{gather*}
+%    V(t) = i(t) R\\
+%    V_0 \cos(\omega t) R\\
+%    \begin{cases}
+%        i_0 = \frac{V_0}{R}\\
+%        \varphi = 0
+%    \end{cases}
+%\end{gather*}
+%Fare attensione che la fase la sto considerando 0, ma la sto sempre scrivendo, tenendo in considerazione, questo perchè se avessi una induttanza o una capacità la fase non sarebbe 0, e quindi è importante tenere traccia di questa variabile.\\
+Prima di fare questo però analizziamo il circuito nei suoi vari pezzi, guardando singolarmente ogni componente.\\
+\subsection*{Resistenza:}
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[vsourcesin] (0,2) to[R, l=$R$] (2,2) to[short] (2,0) to[short] (0,0);
+    \end{tikzpicture}
+\end{center}
+Sempre per la quasi staticità dei componenti mi riconduco alla legge di ohm, e quindi:
+\begin{gather*}
+    V(t) = i(t) R
+\end{gather*}
+Sappiamo che il generatore oscilla come un'onda cosinusoidale, conquindi pulsazione $\omega$ e ampiezza $V_0$, possiamo quindi scrivere la tensione come:
+\begin{gather*}
+    V(t) = V_0 \cos(\omega t)
+\end{gather*}
+Da questa possiamo mettere in relazione corrente e tensione, isolando la corrente otteniamo:
+\begin{gather*}
+    V_0 \cos(\omega t) = i(t) R\\
+    i(t) = \frac{V_0}{R} \cos(\omega t)
+\end{gather*}
+Abbiamo ricavato che:
+\begin{itemize}
+    \item \textbf{L'ampiezza}: il valore massimo della corrente è smeplicemente $i_0 = \frac{V_0}{R}$
+    \item \textbf{La fase}: L'argomento del coseno per la tensione è ($\omega t$), e per la corrente è sempre ($\omega t$). Non c'è \textbf{nessuno sfasamento}.
+\end{itemize}
+\begin{gather*}
+    \begin{cases}
+        i_0 = \frac{V_0}{R}\\
+        \varphi = 0
+    \end{cases}
+\end{gather*}
+\subsection*{Capacità}:
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[vsourcesin] (0,2) to[C, l=$C$] (2,2) to[short] (2,0) to[short] (0,0);
+    \end{tikzpicture}
+\end{center}
+Il generatore ha la solita legge per la tensione:
+\begin{gather*}
+    V(t) = V_0 \cos(\omega t)
+\end{gather*}
+Fisicamente, sappiamo che in un condensatore la quantità di carica Q accumulata sulle armature è direttamente proporzionale alla tensione applicata in quel momento:
+\begin{gather*}
+    Q(t) = C V(t)
+\end{gather*}
+Noi però vogliamo trovare la corrente i(t). Per definizione, la corrente non è altro che la rapidità con cui si muovono le cariche, ovvero la derivata nel tempo della carica:
+\begin{gather*}
+    i(t) = \frac{dQ}{dt}
+\end{gather*}
+Ora mettiamo tutto insieme. Sostituiamo Q(t) nella formula della corrente e deriviamo:
+\begin{gather*}
+    i(t) = \frac{d}{dt} (C V(t)) = C \frac{d}{dt} (V_0 \cos(\omega t)) =\\
+     - C V_0 \omega \sin(\omega t)\\
+     \text{da identità:} \implies C V_0 \omega \cos(\omega t + \frac{\pi}{2})
+\end{gather*}
+\begin{itemize}
+    \item \textbf{L'ampiezza}: $i_0 = C V_0 \omega$, più la frequenza è alta più corrente passa.
+    \item \textbf{La fase}: L'argomento del coseno per la tensione è ($\omega t$), e per la corrente è ($\omega t + \frac{\pi}{2}$). Quindi c'è uno sfasamento di $\frac{\pi}{2}$.
+\end{itemize}
+\begin{gather*}
+    \begin{cases}
+        i_0 = C V_0 \omega\\
+        \varphi = +\frac{\pi}{2}
+    \end{cases}
+\end{gather*}
+\subsection*{Induttanza:}
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[vsourcesin] (0,2) to[L, l=$L$] (2,2) to[short] (2,0) to[short] (0,0);
+    \end{tikzpicture}
+\end{center}
+
+
+\hfill\\
+Se prendiamo un solenoide e ci facciamo passare una corrente alternata, creeremo un campo magnetico $B$:
+\begin{center}
+    \begin{tikzpicture}[scale = 3, transform shape]
+        \draw(0,0) to[L, l=\tiny{$L$}] (2,0);
+        \draw[->,ultra thick, cyan](0.8,0.05) -- (1.2,0.05) node[midway, below]{\tiny{$B$}};
+    \end{tikzpicture}
+    $\qquad$
+    \begin{tikzpicture}
+        \draw(0,0) circle (1);
+        \draw[->](-0.1,1) -- (0.1,1) node[above] {$f$};
+        \node at (0,0) {\huge{$\odot$}};
+        \node at(0,-0.2) [below] {$\vv{B}$};
+    \end{tikzpicture}
+\end{center}
+Sappiamo che il generatore fornisce sempre la stessa tensione quindi:
+\begin{gather*}
+    V(t) = V_0 \cos(\omega t)
+\end{gather*} 
+Cosa succede nell'induttanza? Quando una corrente variabile la attraversa, per la legge di Faraday-Neumann-Lenz si genera una forza elettromotrice indotta che si oppone alla variazione di corrente. Questa è data da:
+\begin{gather*}
+    {f.e.m.}_\text{indutt.} = \frac{d \varphi(B)}{dt} \qquad \text{con: }\varphi(B) = L I\\
+    {f.e.m.}_\text{indutt.} = -L \frac{d_i}{d_t}\\
+\end{gather*}
+Di fatto un'induttanza è a tutti gli effetti un solenoide\\
+\hfill\\
+Tornando al circuito, possiamo mettere in relazione la tensione del generatore con la forza elettromotrice indotta, sfruttando l'uguaglianza del generatore, otteniamo:
+\begin{gather*}
+    V(t) = -L \frac{d_i}{d_t} = 0\\
+    V_0 \cos(\omega t) -L \frac{d_i}{d_t} = 0\\
+    \frac{d_i}{d_t} = \frac{V_0}{L} \cos(\omega t)
+\end{gather*}
+Il nostro obbiettivo è sempre trovare $i(t)$, quindi isoliamo la corrente integrando rispetto al tempo:
+\begin{gather*}
+    \int \frac{d_i}{d_t} dt = \int \frac{V_0}{L} \cos(\omega t) dt\\
+    \Rightarrow i(t) = \frac{V_0}{L \omega} \sin(\omega t)
+\end{gather*}
+\begin{itemize}
+    \item \textbf{L'ampiezza}: $i_0 = \frac{V_0}{L \omega}$, di nuovo più la frequenza è alta meno corrente passa.
+    \item \textbf{La fase}: L'argomento del coseno per la tensione è ($\omega t$), e per la corrente è ($\omega t - \frac{\pi}{2}$). Quindi c'è uno sfasamento di $-\frac{\pi}{2}$.
+\end{itemize}
+\begin{gather*}
+    \begin{cases}
+        i_0 = \frac{V_0}{L \omega}\\
+        \varphi = -\frac{\pi}{2}
+    \end{cases}
+\end{gather*}
+Che è la relazione della corrente per il solenoide.\\
+\section*{Risoluzione con i numeri complessi}
+Riprendiamo ora il circuito con resistenza, induttanza e capacità:
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[vsourcesin] (0,2) to[R, l=$R$] (2,2) to[C, l=$C$] (2,0) to[L, l=$L$] (0,0);
+    \end{tikzpicture}
+\end{center}
+Ricordiamo che siamo in condizioni qusi statiche e quindi valgono le leggi viste prima, richiamiamole tutte insieme:
+\begin{gather*}
+    V(t) - L \frac{d_i}{d_t} - \frac{Q(t)}{C} = i(t) R\\
+    i = \frac{dQ}{dt} \Rightarrow V(t) = L \frac{d^2 Q}{d t^2} + \frac{Q(t)}{C} + R \frac{dQ}{dt}
+\end{gather*}
+Questa è una equazione differenziale di secondo grado, non è particolarmente difficile da risolvere, ma\\
+è molto lunga, quà riportiamo direttamente i risultati:
+\begin{gather*}
+\begin{cases}
+    Q_0 = -\frac{V_0}{\omega \sqrt{R^2 + (\omega L - \frac{1}{\omega C})^2}}\\
+    \tan \varphi = \frac{R}{\omega L - \frac{1}{\omega C}}
+\end{cases}
+\end{gather*}
+Questo risultato che otteniamo con il metodo "classico" prende circa due pagine di conti.\\
+Per evitarci tutto questo, introduciamo il metodo simbolico (i fasori) tramite i numeri complessi e la formula di Eulero:
+\begin{gather*}
+    V(t) = V_0 \cos(\omega t) \implies \tilde{V} = V_0 (\cos(\omega t) + j \sin(\omega t)) = V_0 e^{j \omega t}
+\end{gather*}
+Se teniamo conto di uno sfasamento $\varphi$ otteniamo:
+\begin{gather*}
+    \tilde{V} = V_0 \cos(\omega t + \varphi) \implies \tilde{V} = V_0 e^{j (\omega t + \varphi)} = V_0 e^{j \varphi} e^{j \omega t}
+\end{gather*}
+Quello che stiamo facendo è considerare una parte immaginaria (che poi butteremo via) per sfruttare la forma trigonometrica 
+dei numeri complessi (dalla formula di Eulero), questo ci semplifica notevolmente i conti che per lo più saranno derivate e integrali (banali quando trattiamo esponenziali).\\
+Una volta risolta l'equazione differenziale, ci basterà prendere la parte reale del risultato per ottenere la soluzione che cerchiamo.\\
+Così facendo generalizziamo la legge di ohm come:
+\begin{gather*}
+    \tilde{V} = \tilde{I} Z
+\end{gather*}
+Con $Z$ che è l'impedenza del circuito, e che è data da:
+\begin{gather*}
+    \begin{cases}
+        Z_R = R\\
+        Z_C = \frac{1}{j \omega C}\\
+        Z_L = j \omega L
+    \end{cases}
+\end{gather*}
+le impedenze si sommano come le resistenze quindi;
+\begin{gather*}
+    z_s = \sum_i z_i\\
+    \frac{1}{z_p} = \sum_i \frac{1}{z_i}
+\end{gather*}
+
+%Come si comporta il circuito in funzione della frequenza?\\
+%Se vado a frequenza zero vedo che l'impedenza di una capacità\\
+%\begin{gather*}
+%    \tilde{V} = \tilde{I} (R + \frac{1}{j \omega C} + i\omega L)\\
+%\end{gather*}
+%Questa è la legge di ohm generalizzata a patto che tu abbia definito le impedenze nel modo che abbiamo fatto vedere prima.\\
+%Si considera anche $Q$ un numero complesso.
+%leo ha fatto na domanda:\\
+%prendiamo il primo esempio
+%\begin{center}
+%    fig
+%\end{center}
+%\begin{gather*}
+%    \tilde{V} = \tilde{I} R\\
+%    \tilde{V} = V_0 e^{j \omega t}\\
+%    \tilde{I} = \frac{V_0}{R}
+%\end{gather*}
+%Questo mi diche che io ho un numero complesso che ha:
+%\begin{gather*}
+%    |\tilde{I}| = \frac{V_0}{R}\\
+%    \varphi = 0
+%\end{gather*}
+%Ora con l'esempio della capacità:
+%\begin{center}
+%    fig
+%\end{center}
+%\begin{gather*}
+%    \tilde{V} = \tilde{I} \frac{1}{j \omega C}\\
+%    \tilde{I} = j \omega C V_0 \begin{cases}
+%        V_0 \omega C = |I|\\
+%        \varphi = +\frac{\pi}{2}
+%    \end{cases}
+%\end{gather*}
+%*nuova punchline* "BAM trovato!"\\
+\hfill\\
+Tornando all'esempio del solenoide:
+%\begin{center}
+%    \begin{tikzpicture}
+%        \draw(0,0) to[vsourcesin] (0,2) to[R, l=$R$] (2,2) to[C, l=$C$] (2,0) to[L, l=$L$] (0,0);
+%    \end{tikzpicture}
+%\end{center}
+\begin{gather*}
+    \tilde{V} = \tilde{I} j \omega L\\
+    I = \frac{V_0}{j \omega L} = - j\frac{V_0}{\omega L} \begin{cases}
+        |I| = \frac{V_0}{\omega L}\\
+        \varphi = -\frac{\pi}{2}
+    \end{cases}
+\end{gather*}
+Riprendiamo ora il circuito con resistenza, induttanza e capacità:
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[vsourcesin] (0,2) to[R, l=$R$] (2,2) to[C, l=$C$] (2,0) to[L, l=$L$] (0,0);
+    \end{tikzpicture}
+\end{center}
+\begin{gather*}
+    \tilde{V} = \tilde{I} (R + \frac{1}{j \omega C} + j\omega L)\\
+\end{gather*}
+Ricordando che $j$ funge da numero immaginario e quindi $\frac{1}{j} = -j$, la possiamo anche riscrivere come:
+\begin{gather*}
+    Z = R + \frac{1}{j \omega C} + j\omega L = \\
+    R  - j\frac{1}{\omega C} + j\omega L = \\
+    R + j (\omega L - \frac{1}{\omega C})
+\end{gather*}
+\begin{gather*}
+    \tilde{I} = \frac{V_0}{R + j (\omega L - \frac{1}{\omega C})} = \frac{V_0(R - j(\omega L - \frac{1}{\omega C}))}{R^2 + (\omega L - \frac{1}{\omega C})^2}\\
+    R_e = \frac{V_0 R}{(R^2 + (\omega L - \frac{1}{\omega C})^2)} \qquad I_m = \frac{(\omega L -\frac{1}{\omega C}) V_0}{(R^2 + (\omega L - \frac{1}{\omega C})^2)}\\
+\end{gather*}
+Ora facciamo il modulo di $\tilde{I}$ (quindi $\sqrt{Re^2 + Im^2}$) e la tangente dell'argomento:
+\begin{gather*}
+    |I| = \sqrt{\frac{V_0^2 \ R^2}{{(R^2 + (\omega L - \frac{1}{\omega C})^2)^{\cancel{2}}} } + \frac{V_0^2 (\omega L - \frac{1}{\omega C})^2}{{(R^2 + (\omega L - \frac{1}{\omega C})^2)^{\cancel{2}}} }} = \sqrt{\frac{V_0^2 \cancel{(R^2 + (\omega L - \frac{1}{\omega C})^2)}}{(R^2 + (\omega L - \frac{1}{\omega C})^2)^{\cancel{2}}}} = \frac{V_0}{\sqrt{R^2 + (\omega L - \frac{1}{\omega C})^2}}\\
+\end{gather*}
+Sempre dalla rappresentazione trigonometrica dei numeri complessi possiamo ricavare la fase che è l'angolo tra la parte reale e quella immaginaria, siccome conosciamo già i moduli delle due componenti:
+\begin{gather*}
+    \tan(\varphi) = \frac{I_m}{R_e}
+    \tan(\varphi) = \frac{(\omega L - \frac{1}{\omega C}) \cancel{V_0}}{\cancel{V_0} R} = \frac{\omega L - \frac{1}{\omega C}}{R}
+\end{gather*}
+"PAPPARDELLA" $= R^2 + (\omega L - \frac{1}{\omega C})^2$\\
+
+
+
+\newpage
+\section{20/04/26}
+Prendiamo un semplice esempio in cui abbiamo un condensatore e una resistenza, con in mezzo un'interruttore.
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[short] (2,0) to[R, l=$R$] (2,2) to[short] (0,2) to[C, l=$C$, a_=$-Q_0$] (0,0);
+    \end{tikzpicture}
+\end{center}
+In questo circuito non c'è ne irraggiamento ne nessuna resistenza sul condensatore.
+Facciamo il conto di cosa succede in condizioni quasi stazionarie, chiudendo il circuito:
+\begin{gather*}
+    \frac{Q(t)}{C} = V(t)
+\end{gather*}
+Applico la seconda legge di kirchhoff e ottengo:
+\begin{gather*}
+    V(t) = i(t) R
+\end{gather*}
+Ad ogni variazione di carica corrisponderà una variazione di corrente positiva, attenzione merò al segno meno sulla carica:
+\begin{gather*}
+    -dQ = I(t) dt\\
+    I(t) = - \frac{dQ(t)}{dt}
+\end{gather*}
+Continuando:
+\begin{gather*}
+    \frac{Q(t)}{C} = -\frac{dQ(t)}{dt} \ R\\
+    \int \frac{dQ(t)}{dt} = \int -\frac{1}{R C} dt\\
+    \begin{cases}
+        Q(t) = Q_0 e^{-\frac{t}{R C}}\\
+        I(t) = \frac{Q_0}{R C} e^{-\frac{t}{R C}}
+    \end{cases}
+\end{gather*}
+Caolcolando ora la f.e.m. indotta:
+\begin{gather*}
+    \E = \frac{1}{2} \int_V \E_0 t^2 dV = \frac{1}{2} \frac{Q_0^2}{C} \overset{?}{=} \int^{\infty}_{0} i^2(t) R dt
+    V = \int \vv{\E} \ \vv{d\ell} = E \cdot d \implies E = \frac{V}{d}\\
+    \frac{Q}{C} = V \qquad E = \frac{Q}{C d}
+\end{gather*}
+potenziale...
+\begin{gather*}
+    U_t = \int_0^\infty i^2(t) R dt = \int_0^\infty \frac{Q_0^2}{(R C)^2} e^{-\frac{2t}{R C}} R dt \\
+    = \frac{Q^2}{R^2 C^2} R \int_0^\infty e^{-\frac{2t}{R C}} dt = \frac{Q^2}{R C^2} \left[ -\frac{RC}{2} \right] \left[ e^{-\frac{2t}{RC}} \right]_0^\infty = \\
+    = \frac{Q^2}{\cancel{R} C^{\cancel{2}}} (-\frac{\cancel{R}\cancel{C}}{C}) (0-1) = \frac{1}{2} \frac{Q^2}{C}\\
+    \int e^{-\alpha x} dx = -\frac{1}{\alpha} e^{-\alpha x}
+    \begin{cases}
+        y = \alpha x\\
+        dy = \alpha dx\\
+    \end{cases}
+\end{gather*}
+\begin{example}
+    esempio pratico\\
+    \begin{gather*}
+        R = 100 \Omega = 10^2 \Omega\\
+        C = 0,1 \mu F = 10^{-7} F\\
+        \tau = 10^2 \cdot 10^{-7} s = 10^{-5} s = 10 \mu s \qquad \tau \gg \Delta \\
+        \ell = 10 cm \qquad \Delta t = \frac{\ell}{C} = \frac{10 \ 10^{-2} m}{3 \ 10^8 m/s} = \frac{10}{3} \cdot 10^{-10} s = 300 ps
+    \end{gather*}
+    (domanda di marco fabbri figura di uno schema di un'antenna)
+\end{example}
+Il bro sta letteralmente facendo un esercizio di fisica due perchè lo "ha chiesto la classe" (lo ha chiesto lui alla classe e nessuno lo ha negato)
+
+\section*{Potenza nei circuiti elettrici}
+Prendiamo un percorso che compie una carica e va da un punto $A$ ad un punto $B$.
+\begin{gather*}
+    d \mathcal{L} = dq \ \vv{E} \cdot \vv{dl} = n dV q \ \vv{E} \cdot \vv{dl}\\
+    \vv{dl} = \frac{\vv{v}_d}{\vv{J}} \ dt\\
+    d\mathcal{L} = (n \vv{v} \cdot q) \vv{E} dV \ dt\\
+    \frac{W}{m^3} = \frac{J}{m^3 s} = \frac{d \mathcal{L}}{dV dt} = \vv{E} \cdot \vv{J}\\
+    dL = \int_A^B dq \vv{E} \cdot \vv{dl} = dq (V_A - V_B) = I(V_A - V_B) dt\\
+    dq = I dt \qquad W = \frac{dL}{dt} = I \Delta V = \frac{\Delta V^2}{R} = I^2 R
+\end{gather*}
+Ora sfruttiamo il metodo simbolico che abbiamo introdotto la scorsa volta (che semplifica notevolmente i conti)
+\begin{gather*}
+\begin{cases}
+        V(t) = V_0 \cos(\omega t)\\
+        I(t) = I_0 \cos(\omega t + \varphi)
+\end{cases} \implies 
+\begin{cases}
+        \tilde{V} = V_0 e^{j \omega t}\\
+        \tilde{I} = I_0 e^{j \omega t + \varphi} = I_0 e^{j \varphi} e^{j \omega t} = \tilde{I}_0 e^{j \omega t}
+\end{cases}
+\end{gather*}
+Quindi ritroviamo la legge di ohm geenralizzata:
+\begin{gather*}
+    \tilde{V}_0 = \tilde{I}_0 Z
+\end{gather*}
+E avevamo visto che vale:
+\begin{gather*}
+    Z_R = R\\
+    Z_C = \frac{1}{j \omega C}\\
+    Z_L = j \omega L
+\end{gather*}
+Partiamo da questo fatto:
+\begin{gather*}
+    Re \{ \tilde{a} \cdot \tilde{b} \}  \neq Re\{\tilde{a}\} \cdot Re\{\tilde{b}\}
+\end{gather*}
+Quindi sul calcolo delle potenze devo stare attento\\
+\begin{center}
+    fig
+\end{center}
+\begin{gather*}
+    z = z_0 e^{-j \varphi}
+\end{gather*}
+\begin{gather*}
+    \begin{cases}
+        V(t) = V_0 \cos(\omega t)\\
+        I(t) = I_0 \cos(\omega t + \varphi)
+    \end{cases}
+    \implies W(t) = I(t) V(t) = V_0 i_0 (\cos(\omega t) \cos(\omega t + \varphi)) = \\
+    = V_0 i_0 \cos(\omega t) \ \left( \ \cos(\omega t) + \cos(\varphi) - \sin(\omega t) \sin(\varphi) \ \right)\\
+    W(t) = V_0 i_0 \left( \cos^2(\omega t) \cos(\varphi) - \cos(\omega t)\sin(\omega t) \sin(\varphi) \right)
+\end{gather*}
+Calcoliamo ora la potenza media su un periodo:
+\begin{gather*}
+    \left\langle W(t) \right\rangle = \frac{V_0 i_0}{2} \cos(\varphi) = \frac{V_0}{\sqrt{2}} \frac{i_0}{\sqrt{2}} \cos(\varphi) = V_{eff} I_{eff} \cos(\varphi)
+\end{gather*}
+Quindi potenza dissipata la ho ma solo in alcuni casi:
+\begin{gather*}
+    \begin{cases}
+        \text{se } \varphi = 0 \implies W_{diss} = V_{eff} I_{eff}\\
+        \text{se } \varphi = \pm \frac{\pi}{2} \implies W_{diss} = 0
+    \end{cases}
+\end{gather*}
+L'energia passa dal campo elettrico al campo magnetico senza disspiarsi, ovviamente avrò che:
+\begin{gather*}
+    \left\langle W(t) \right\rangle \neq 0 \qquad \text{ se } \cos(\varphi) \neq 0 \implies Re\{ \tilde{z} \} \neq 0
+\end{gather*}
+\section*{Filtri}
+Ne vedremo di due tipologie passa alto e passa basso.\\
+\begin{center}
+    Filtro passa basso:\\
+    \begin{tikzpicture}
+        \draw(0,0) to[vsourcesin, l=$V_1(t)$] (0,2) to[R, l=$R$] (2,2) to[short] (2,0) to[C, l=$C$] (0,0);
+        \draw(0,0) to[short] (0,-1);
+        \draw(2,0) to[short] (2,-1);
+        \node at (1,-1.5) {$V_2(t)$};
+    \end{tikzpicture}
+\end{center}
+Mi interessa studiare il rapporto $\frac{\tilde{V}_2}{\tilde{V}_1}$, che sarà proprio:
+\begin{gather*}
+    \frac{\tilde{V}_2}{\tilde{V}_1} = \frac{\frac{1}{j \omega C}}{R + \frac{1}{j \omega C}} = \frac{1}{1 + j \omega R C} = \frac{1}{1+j \frac{\omega}{\omega_0}}
+\end{gather*}
+Analizziamo ora le dimensioni ottenute da questi calcoli:
+\begin{gather*}
+    R C = [ s ]\\
+    \frac{1}{RC} = [\frac{rad}{s}] = \omega_0\\
+    \omega = 2 \pi f
+    \omega_0 = 2 \pi f_0
+\end{gather*}
+Ora possiamo analizzare l'ampiezza:
+\begin{gather*}
+    \tilde{A} (f) = \frac{1}{1+ j \frac{f}{f_0}}\\
+    \tilde{A} (f) = \frac{1}{1 + j \frac{f}{f_0}} \cdot \frac{1 - j \frac{f}{f_0}}{1 - j \frac{f}{f_0}} = \frac{1 - j \frac{f}{f_0}}{1 + (\frac{f}{f_0})^2}\\
+    \begin{cases}
+        Re = \frac{1}{1+ (\frac{f}{f_0})^2} = a\\
+        Im = - \frac{\frac{f}{f_0}}{1 + (\frac{f}{f_0})^2} = b
+    \end{cases}
+\end{gather*}
+Quindi ottengo che:
+\begin{gather*}
+    |\tilde{A}| = \frac{1}{\sqrt{1 + (\frac{f}{f_0})^2}} \begin{cases}
+        1 \quad \text{per } f \ll f_0\\
+        \frac{1}{\sqrt{2}} \quad \text{per } f = f_0\\
+        0 \quad \text{per } f \gg f_0
+    \end{cases}
+\end{gather*}
+Ora utilizziamo i decibel per rappresentare l'ampiezza, quindi $|\tilde{A}|_\text{dB}$, il decibel è:
+\begin{gather*}
+    dB = 20 \log_{10} \frac{V_2}{V_1}\\
+    dB = 10 \log_{10} \frac{P_2}{P_1} \qquad \text{con } P = \frac{V^2}{R}
+\end{gather*}
+Quindi:
+\begin{gather*}
+    |\tilde{A}|_\text{dB} = 20 \log_{10} |\tilde{A}| = 20 \log_{10} \frac{1}{\sqrt{1 + (\frac{f}{f_0})^2}} = -10 \log_{10} (1 + (\frac{f}{f_0})^2)\\
+    \begin{cases}
+        0 \quad \text{per } f \ll f_0\\
+        \simeq -3 \quad \text{per } f = f_0\\
+        \begin{matrix}
+            -20 dB \text{ per decade} \\
+            -6 dB \text{ per ottava}
+        \end{matrix}\quad \text{per } f \gg f_0
+    \end{cases}
+\end{gather*}
+Facciamo il grafico di questa ampiezza:
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (5,0) node[below] {$f$};
+        \draw[->](0,0) -- (0,3) node[left] {$|\tilde{A}|_\text{dB}$};
+        \draw(1,0) .. controls (1.5,-0.2) and (3,-0.5) .. (4,-2) node[below] {$a$};
+    \end{tikzpicture}
+\end{center}
+Questo ci da la freq. di taglio che non è abbastanza per descrivere ciò che ci interessa.
+\begin{gather*}
+    \tan(\varphi) = \frac{Im}{Re} = - \frac{f}{f_0}\\
+    \varphi = - \arctan(\frac{f}{f_0})
+    \begin{cases}
+        0 \quad \text{per } f \ll f_0\\
+        -\frac{\pi}{4} \quad \text{per } f = f_0\\
+        -\frac{\pi}{2} \quad \text{per } f \gg f_0
+    \end{cases}
+\end{gather*}
 
 
 

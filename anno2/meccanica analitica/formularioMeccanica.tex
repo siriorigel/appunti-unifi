@@ -1,0 +1,152 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin=0pt]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz-3dplot}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{arydshln}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{cancel}
+\usepackage[d]{esvect}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pifont}
+
+
+
+%\usepackage{animate}
+%\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
+\usetikzlibrary{tikzmark}
+\newcommand{\TikzNCbar}[4][10pt]{
+\tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+\newcommand\de{\partial}
+
+\graphicspath{ {images/} }
+
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\setlength\arrayrulewidth{0.3pt}
+\setlength{\multicolsep}{0pt}
+
+\newcommand\eqq{\stackrel{\mathclap{\normalfont\mbox{?}}}{=}}
+\newcommand\bulletout  {\labelitemfont \textbullet}
+\newcommand\dvg{\operatorname{div}}
+\newcommand\rot{\operatorname{rot}}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\xmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\cmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
+ \newcommand{\hookbox}[1]{
+\begin{center}
+\hfill\break
+\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt,anchor=base] (A) {
+\begin{minipage}{\dimexpr\linewidth-5em}
+\centering
+#1
+\end{minipage}
+};
+% Draw the left bracket
+\draw ([xshift=0pt]A.north west) -- ++(0, 0.5) -- ++(0.4, 0);
+% Draw the right bracket
+\draw ([xshift=0pt]A.south east) -- ++(0, -0.5) -- ++(-0.4, 0);
+\end{tikzpicture}
+\end{center}}
+
+\begin{document}
+
+Data una superficie $\Sigma(u_1, u_2) = \begin{pmatrix}
+    x(u_1, u_2) \\
+    y(u_1, u_2) \\
+    z(u_1, u_2)
+\end{pmatrix}$ posso definire i suoi vettori coordinati come:
+\begin{gather*}
+    \frac{\de \Sigma (u_1, u_2)}{\de u_1} = \begin{pmatrix}
+        \frac{\de x(u_1, u_2)}{\de u_1} \\
+        \frac{\de y(u_1, u_2)}{\de u_1} \\
+        \frac{\de z(u_1, u_2)}{\de u_1}
+    \end{pmatrix}
+    \qquad\qquad
+    \frac{\de \Sigma (u_1, u_2)}{\de u_2} = \begin{pmatrix}
+        \frac{\de x(u_1, u_2)}{\de u_2} \\
+        \frac{\de y(u_1, u_2)}{\de u_2} \\
+        \frac{\de z(u_1, u_2)}{\de u_2}
+    \end{pmatrix}
+\end{gather*}
+Il vettore normale alla superficie è dato da:
+\begin{gather*}
+    \vv{N} = \frac{\de \Sigma (u_1, u_2)}{\de u_1} \times \frac{\de \Sigma (u_1, u_2)}{\de u_2}
+\end{gather*}
+ovvero:
+\begin{gather*}
+    \det\begin{pmatrix}
+    \hat{i} & \hat{j} & \hat{k} \\
+    \frac{\de x(u_1, u_2)}{\de u_1} & \frac{\de y(u_1, u_2)}{\de u_1} & \frac{\de z(u_1, u_2)}{\de u_1} \\
+    \frac{\de x(u_1, u_2)}{\de u_2} & \frac{\de y(u_1, u_2)}{\de u_2} & \frac{\de z(u_1, u_2)}{\de u_2}
+    \end{pmatrix}
+\end{gather*}
+E il modulo del vettore normale è dato da:
+\begin{gather*}
+    |\vv{N}| = \sqrt{N_x^2 + N_y^2 + N_z^2}
+\end{gather*}
+se la superficie è grafico di funzione ovvero:$\Sigma(u_1,u_2)=\begin{pmatrix}
+    u_1 \\
+    u_2 \\
+    f(u_1, u_2)
+\end{pmatrix}$ il vettore normale e la sua norma sono più veloci da calcolare e sono:
+\begin{gather*}
+    \vv{N} = \begin{pmatrix}
+        -\frac{\de f(u_1, u_2)}{\de u_1} \\
+        -\frac{\de f(u_1, u_2)}{\de u_2} \\
+        1
+    \end{pmatrix}
+    \qquad\qquad
+    |\vv{N}| = \sqrt{1 + \left(\frac{\de f(u_1, u_2)}{\de u_1}\right)^2 + \left(\frac{\de f(u_1, u_2)}{\de u_2}\right)^2}
+\end{gather*}
+Per calcolare il piano tangente alla superficie in un punto $P = (x_P, y_P, z_P)$ è sufficiente calcolare il piano che contiene i vettori coordinati della superficie in quel punto, ovvero:
+\begin{gather*}
+    \Pi_P = N_x(P)(x - x_P) + N_y(P)(y - y_P) + N_z(P)(z - z_P) = 0
+\end{gather*}
+Con $N_x(P), N_y(P), N_z(P)$ componenti del vettore normale alla superficie in $P$ che si calcolano in questo modo:
+\begin{gather*}
+    \begin{cases}
+        N_x(u_1, u_2) = x_P\\
+        N_y(u_1, u_2) = y_P\\
+        N_z(u_1, u_2) = z_P
+    \end{cases}
+\end{gather*}
+
+
+    Dato un corpo che occupa una regione di spazio $\Omega$, densità $\rho$ e distanza $\delta$ da un asse scelto: \\
+    \bulletout L'area è $\int_{\Omega} 1 \ dx \ dy \ dz$ \\
+    \bulletout La massa è $m=\int_{\Omega} \rho(x,y,z) \ dx \ dy \ dz$ \\
+    \bulletout Il centro di massa $(B_x,B_y,B_z)$ è: $\begin{cases}
+        B_x = \frac{1}{m} \int_{\Omega} x\cdot \rho(x,y,z) \ dx \ dy \ dz \\
+        B_y = \frac{1}{m} \int_{\Omega} y\cdot \rho(x,y,z) \ dx \ dy \ dz \\
+        B_z = \frac{1}{m} \int_{\Omega} z\cdot \rho(x,y,z) \ dx \ dy \ dz \\
+    \end{cases}$ \\
+    \bulletout Il momento di inerzia rispetto ad un generico asse $\tau$ è $M_\tau = \int_{\Omega} \delta_\tau^2 (x,y,z) \ \rho(x,y,z) \ dx \ dy \ dz$ e $\delta_\tau$ è la distanza da $\tau$
+
+\end{document}
