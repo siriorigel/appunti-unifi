@@ -128,6 +128,7 @@
 \newtheorem{problem}{Problema}[section]
 \newtheorem{solution}{Soluzione}[section]
 \newtheorem{proposition}{Proposizione}[section]
+\newtheorem{aside}{Inciso}[section]
 
 
 \maketitle
@@ -1606,22 +1607,7 @@ Dimostriamo questa equivalenza.
 \begin{center}
     \begin{circuitikz}
     % Amplificatore Operazionale
-    \draw (0,0) node[op amp, scale=1.5
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    ] (opamp) {};
+    \draw (0,0) node[op amp, scale=1.5] (opamp) {};
     
     % Ramo di ingresso (Generatore vs e Resistenza Rs)
     \draw (-3, 0.5) to[R, l=$R_s$, i=$ $] (opamp.-);
@@ -2057,6 +2043,24 @@ Con $Z$ che è l'impedenza del circuito, e che è data da:
         Z_L = j \omega L
     \end{cases}
 \end{gather*}
+Calcoliamone una ad una, in generale il mtedodo simbolico si basa sul relazionare $v(t) \to \tilde{V}$ e $i(t) \to \tilde{I}$, e poi sfruttare la legge di ohm generalizzata $\tilde{V} = Z \tilde{I}$ per trovare $Z$.\\
+Sfruttiamo molto anche la forma esponenziale dei numeri complessi $\tilde{V} = V_0 e^{j \omega t}$ e $\tilde{I} = I_0 e^{j \omega t}$, che ci permette di semplificare notevolmente i conti.\\
+Partiamo da una resistenza, se consideriamo la leggei di ohm in corrente alternata otteniamo:
+\begin{gather*}
+    v(t) = R i(t) \implies \tilde{V} = R \tilde{I} \implies Z_R = R
+\end{gather*}
+Con un'induttanza invece abbiamo che la legge che la governa in alternata è:
+\begin{gather*}
+    v(t) = L \frac{di(t)}{dt} \\
+    \tilde{V} = L \frac{d\tilde{I}}{dt} = L \frac{d}{dt} (I_0 e^{j \omega t})\\
+    = L I_0 j \omega e^{j \omega t} = j \omega L \tilde{I} \implies Z_L = j \omega L
+\end{gather*}
+Per il condnesatore invece abbiamo che la legge che lo governa in alternata è:
+\begin{gather*}
+    i(t) = C \frac{dv(t)}{dt} \\
+    \tilde{I} = C \frac{d\tilde{V}}{dt} = C \frac{d}{dt} (V_0 e^{j \omega t})\\
+    = C V_0 j \omega e^{j \omega t} = j \omega C \tilde{V} \implies Z_C = \frac{1}{j \omega C}
+\end{gather*}
 le impedenze si sommano come le resistenze quindi;
 \begin{gather*}
     z_s = \sum_i z_i\\
@@ -2145,44 +2149,136 @@ Sempre dalla rappresentazione trigonometrica dei numeri complessi possiamo ricav
 
 \newpage
 \section{20/04/26}
+\subsection*{Analisi della scarica di un condensatore}
 Prendiamo un semplice esempio in cui abbiamo un condensatore e una resistenza, con in mezzo un'interruttore.
 \begin{center}
     \begin{tikzpicture}
-        \draw(0,0) to[short] (2,0) to[R, l=$R$] (2,2) to[short] (0,2) to[C, l=$C$, a_=$-Q_0$] (0,0);
+        \draw(0,0) to[short] (2,0) to[R, l=$R$] (2,2) to[short, nos] (0,2) to[C, l=$C$, a_=$\begin{matrix}
+            -Q_0\\
+            +Q_0
+        \end{matrix}$] (0,0);
+    \node at(1.1,1.2) {\huge{$\circlearrowright$}};
+    \node at(1.1,1.2) {$i$};
     \end{tikzpicture}
 \end{center}
-In questo circuito non c'è ne irraggiamento ne nessuna resistenza sul condensatore.
-Facciamo il conto di cosa succede in condizioni quasi stazionarie, chiudendo il circuito:
+In questo circuito supponiamo che non ci sia ne irraggiamento (energia che viaggia tramite onde elettromagnetiche, come l'aria) ne nessuna resistenza interna sul condensatore.\\
+Inoltre supponiamo sempre di essere in condizioni quasi statiche.\\
+Quello che abbiamo è un condensatore carico, con una carica $Q_0$ e una resistenza $R$, quando chiudo il circuito mi aspetto che il condensatore inizi a scaricarsi.\\
+Partiamo considerando le \textbf{leggei di kirchoff}, che dice che in ogni istante, la tensione ai capi del condensatore $V_C(t)$ deve essere uguale alla tensione ai capi della resistenza $V_R(t)$
 \begin{gather*}
-    \frac{Q(t)}{C} = V(t)
-\end{gather*}
-Applico la seconda legge di kirchhoff e ottengo:
-\begin{gather*}
+    \frac{Q(t)}{C} = V(t)\\
     V(t) = i(t) R
 \end{gather*}
-Ad ogni variazione di carica corrisponderà una variazione di corrente positiva, attenzione merò al segno meno sulla carica:
+Poiché la carica $Q(t)$ sul condensatore diminuisce nel tempo, la corrente $i(t)$ che scorre nel circuito è data dalla variazione negativa della carica:
 \begin{gather*}
-    -dQ = I(t) dt\\
-    I(t) = - \frac{dQ(t)}{dt}
+    -dQ = i(t) dt\\
+    i(t) = - \frac{dQ(t)}{dt}
 \end{gather*}
-Continuando:
+Sostituendo la relazione della corrente nell'uguaglianza delle tensioni, si ottiene:
 \begin{gather*}
-    \frac{Q(t)}{C} = -\frac{dQ(t)}{dt} \ R\\
-    \int \frac{dQ(t)}{dt} = \int -\frac{1}{R C} dt\\
+    \frac{Q(t)}{C} = -\frac{dQ(t)}{dt} \ R
+\end{gather*}
+Riorganizzando l'equazione differenziale col metodo di separazione delle variabili e passando all'integrazione si ottiene:
+\begin{gather*}
+    \frac{\frac{dQ(t)}{dt}}{Q(t)} = -\frac{1}{RC} \implies
+    \int \frac{dQ(t)}{Q(t)} = \int -\frac{1}{R C} dt
+\end{gather*}
+Integrando da $t=0$ e quindi $Q(t) = Q_0$ ad un tempo generico $t$ si ottiene:
+\begin{gather*}
+    \int_{Q_0}^{Q(t)} \frac{dQ'}{Q'} = \int_0^t -\frac{1}{R C} dt' \\
+        \ln\left( \frac{Q(t)}{Q_0} \right) = -\frac{t}{R C} \\
+         Q(t) = Q_0 e^{-\frac{t}{R C}}\\
     \begin{cases}
-        Q(t) = Q_0 e^{-\frac{t}{R C}}\\
-        I(t) = \frac{Q_0}{R C} e^{-\frac{t}{R C}}
+        Q(t) = Q_0 e^{-\frac{t}{\tau}}\\
+        i(t) = \frac{Q_0}{\tau} e^{-\frac{t}{\tau}}
     \end{cases}
 \end{gather*}
-Caolcolando ora la f.e.m. indotta:
+Con $\tau = R C$ che è il tempo caratteristico del circuito, e rappresenta il tempo necessario affinché la carica si riduca a $Q_0 e^{-1}$ (con $Q_0$ carica iniziale del condensatore).\\
+Ora ci chiediamo: L'energia inizialmente contenuta nel condensatore è uguale a quella dissipata dalla resistenza?\\
+Prendiamo l'energia iniziale del condensatore (che calcoleremo):
 \begin{gather*}
-    \E = \frac{1}{2} \int_V \E_0 t^2 dV = \frac{1}{2} \frac{Q_0^2}{C} \overset{?}{=} \int^{\infty}_{0} i^2(t) R dt
-    V = \int \vv{\E} \ \vv{d\ell} = E \cdot d \implies E = \frac{V}{d}\\
+    U_c = \frac{1}{2} \frac{Q_0^2}{C}
+\end{gather*}
+E l'energia dissipata dalla resistenza (per effetto Joule):
+\begin{gather*}
+    U_J = \int_0^\infty i^2(t) R dt
+\end{gather*}
+Ora ci chiediamo se sono uguali, quindi se vale:
+\begin{gather*}
+    \frac{1}{2} \frac{Q_0^2}{C} \overset{?}{=} \int^{\infty}_{0} i^2(t) R dt
+\end{gather*}
+\begin{aside}
+    Il prof ha dato completamente per scontato cosa sia la densità di energia di un condensatore quindi la calcoliamo ora.\\
+    Per un condensatore piano formato da due piastre di area $A$ e distanza $d$, valgono queste due proprietà:\\
+    \begin{enumerate}
+        \item La \textbf{capacità} $C$, di pende solo dalla geometria del condensatore e dalla costante dielettrica del mezzo, e vale:
+        \begin{gather*}
+            C = \frac{\varepsilon_0 A}{d}
+        \end{gather*}
+        Si ricorda che la capacità è $C = \frac{Q}{V}$ quindi l'idea è che una carica che ha un potenziale elevato (ad esempio le armature sono distanti) hanno un potenziale più alto e le cariche dello stesso segno su ogni armatura si respingono di più (di fatto una carica con alto potenziale "vale di più"), e di conseguenza il condensatore può immagazzinare meno cariche di questo tipo.
+        In breve più le armature sono vicine, più il potenziale è basso e più cariche posso immagazzinare. Ovviamente più le armature sono grandi, più cariche posso immagazzinare.
+        \item La \textbf{differenza di potenziale} è semplicemente data dal modulo del campo elettrico e la distanza tra le armature:
+        \begin{gather*}
+            V = E d
+        \end{gather*}
+        Questa è abbastanza intuitiva più le armature sono distanti o più il campo elettrico è intenso, più la differenza di potenziale è elevata.
+    \end{enumerate}
+    Quando carichiamo un condensatore, compiamo un lavoro per separare le cariche (ad esempio, spostando cariche positive da un'armatura all'altra contro la forza di repulsione elettrica). Questo lavoro non va perso, ma si accumula sotto forma di energia potenziale elettrica U.\\
+    La formula classica per l'energia totale immagazzinata in un condensatore è:
+    \begin{gather*}
+        U = \frac{1}{2} C V^2
+    \end{gather*}
+    Vediamo da dove viene, per farlo consideriamo di caricare il condensatore in pacchetti di cariche infinitesime $dq$.\\
+    Ricordiamo sempre che $C = \frac{Q}{V}$ e di conseguenza $V = \frac{Q}{C}$, quindi se all'inizio il condensatore è scarico ($Q=0$), la differenza di potenziale è $V=0$.\\
+    Man mano che si continua a caricare però aumenta anche il suo potenziale, e ogni carica infinitesima che si aggiunge fa più fatica della precedente, perchè respinta dalle cariche già presenti.\\
+    Dobbiamo quindi calcolare il lavoro necessario a caricare completamente un condensatore che sarà proprio l'energia totale immagazzinata nel consensatore.\\
+    Dal discorso di prima possiamo per prima cosa calcolare il lavoro infinitesimo $d\ \mathcal{U}$ necessario per spostare una piccola carica $dq$ quando 
+    tra le armature c'è un potenziale $v$ (variabile):
+    \begin{gather*}
+        d\ \mathcal{U} = v \cdot dq
+    \end{gather*}
+    Sappiamo che istante per istante vale $v = \frac{q}{C}$, quindi sostituendo:
+    \begin{gather*}
+        d\ \mathcal{U} = \frac{q}{C} dq
+    \end{gather*}
+    Per trovare il lavoro totale $\mathcal{U}$ (che sarà l'energia $U$ accumulata) per portare la carica da $0$ a un valore finale $Q$, dobbiamo sommare tutti questi piccoli lavori (ovvero calcolare l'integrale):
+    \begin{gather*}
+        U = \int_0^Q \frac{q}{C} dq = \frac{1}{C} \int_0^Q q \ dq\\
+        = \frac{1}{C} \left[ \frac{q^2}{2} \right]_0^Q = \frac{1}{2} \frac{Q^2}{C}
+    \end{gather*}
+    Dato che sappiamo che $Q=CV$, possiamo sostituire Q nella formula precedente:
+    \begin{gather*}
+        U = \frac{1}{2} \frac{(CV)^2}{C} = \frac{1}{2} C V^2
+    \end{gather*}
+    \hfill\\
+    Da questa formula sfruttando le due proprietà dei condensatori enunciati prima possiamo sostituire $C$ e $V$ ottenendo:
+    \begin{gather*}
+        U = \frac{1}{2} \left(\frac{\varepsilon_0 A}{d}\right) (E d)^2 \\
+        = \frac{1}{2} \varepsilon_0 E^2 (A d)
+    \end{gather*} 
+    Siccome l'area della paistra $A$ per la distanza $d$ è esattamente il volume presente tra le due piastre. 
+    Possiamo dividere l'energia totale $U$ per il volume $A \cdot d$ ottenendo così la densità di energia:
+    \begin{gather*}
+        u = \frac{U}{Ad} = \frac{1}{2} \varepsilon_0 E^2
+    \end{gather*}
+    \begin{center}
+        \textit{------ Fine inciso ------}
+    \end{center}
+\end{aside}\noindent
+Integro sul volume del condensatore la densità di energia del campo elettrico, ottenendo così l'energia totale immagazzinata nel condensatore (che sappiamo ora quanto dovrebbe venire):
+\begin{gather*}
+    U = \frac{1}{2} \int_V \varepsilon_0 E^2 dV
+\end{gather*}
+Dove si ricorda $\varepsilon_0$ è la costante dielettrica del vuoto ed $E$ è l'energia elettrica del campo (il suo modulo).\\
+Il potenziale del condensatore (vista prima nell'inciso) può essere calcolato integrando il campo elettrico lungo un percorso che va da una piastra all'altra:
+\begin{gather*}
+    V = \int \vv{E} \ \vv{d\ell} = E \cdot d \implies E = \frac{V}{d}\\
     \frac{Q}{C} = V \qquad E = \frac{Q}{C d}
 \end{gather*}
-potenziale...
+\scriptsize(Queste correlazioni sono giuste ma sinceramente non so perchè le abbiamo calcolate, dato che non ci servono per il resto del discorso)\\\normalsize
+Calcoliamo ora l'energia dissipata dall'effetto Joule:
 \begin{gather*}
-    U_t = \int_0^\infty i^2(t) R dt = \int_0^\infty \frac{Q_0^2}{(R C)^2} e^{-\frac{2t}{R C}} R dt \\
+    U_J = \int_0^\infty i^2(t) R dt = \int_0^\infty \frac{Q_0^2}{(R C)^2} e^{-\frac{2t}{R C}} R dt \\
     = \frac{Q^2}{R^2 C^2} R \int_0^\infty e^{-\frac{2t}{R C}} dt = \frac{Q^2}{R C^2} \left[ -\frac{RC}{2} \right] \left[ e^{-\frac{2t}{RC}} \right]_0^\infty = \\
     = \frac{Q^2}{\cancel{R} C^{\cancel{2}}} (-\frac{\cancel{R}\cancel{C}}{C}) (0-1) = \frac{1}{2} \frac{Q^2}{C}\\
     \int e^{-\alpha x} dx = -\frac{1}{\alpha} e^{-\alpha x}
@@ -2199,19 +2295,74 @@ potenziale...
         \tau = 10^2 \cdot 10^{-7} s = 10^{-5} s = 10 \mu s \qquad \tau \gg \Delta \\
         \ell = 10 cm \qquad \Delta t = \frac{\ell}{C} = \frac{10 \ 10^{-2} m}{3 \ 10^8 m/s} = \frac{10}{3} \cdot 10^{-10} s = 300 ps
     \end{gather*}
-    (domanda di marco fabbri figura di uno schema di un'antenna)
-\end{example}
+\end{example}\noindent
+(domanda di marco fabbri figura di uno schema di un'antenna che NON mi metterò a copiare)\\
 Il bro sta letteralmente facendo un esercizio di fisica due perchè lo "ha chiesto la classe" (lo ha chiesto lui alla classe e nessuno lo ha negato)
 
 \section*{Potenza nei circuiti elettrici}
-Prendiamo un percorso che compie una carica e va da un punto $A$ ad un punto $B$.
+La legge che descrive la potenza nei circuiti elettrici è la legge di Joule, che al livello microscopico afferma che:
 \begin{gather*}
-    d \mathcal{L} = dq \ \vv{E} \cdot \vv{dl} = n dV q \ \vv{E} \cdot \vv{dl}\\
-    \vv{dl} = \frac{\vv{v}_d}{\vv{J}} \ dt\\
-    d\mathcal{L} = (n \vv{v} \cdot q) \vv{E} dV \ dt\\
+    P = V \cdot I
+\end{gather*}
+Ovvero che la potenza dissipata da un conduttore ($P$) è data dalla corrente che lo attraversa ($I$) per la differenza di potenziale ai suoi capi ($V$).\\
+Per capire da dove viene questa legge partiamo da un punto di vista microscopico, considerando il lavoro infinitesimo $d\mathcal{L}$ compiuto da un campo elettrico $E$ per spostare una carica infinitesima $dq$ lungo un percorso infinitesimo $dl$:
+\begin{gather*}
+    \overbrace{d\mathcal{L}}^\text{lav. infinit.} = \underbrace{dq \ ( \vv{E}}_\text{forza} \quad\cdot \overbrace{\vv{dl}}^\text{spost.} )
+\end{gather*}
+Fondamentalmente il lavoro infinitesimo è dato dalla forza che agisce sulla carica (che è data dal campo elettrico $E$ per la carica $q$) per lo spostamento infinitesimo $dl$ che compie la carica.\\
+Sappiamo che la carica totale $dq$ dipende dalla densità di portatori di carica $n$ (quanti elettrono ci sono per $m^3$), dal volume infinitesimo $dV$ e dalla carica di ogni portatore $q$, in breve:
+\begin{gather*}
+    dq = (n \cdot q) dV
+\end{gather*}
+Quindi sostituendo nella formula del lavoro infinitesimo:
+\begin{gather*}
+    d \mathcal{L} = (n \cdot q) dV \ (\vv{E} \cdot \vv{dl})
+\end{gather*}
+Il tratto $dl$ percorso dalla caria in un tempo $dt$ è legato alla sua velocità di deriva $v_d$:
+\begin{gather*}
+    dl = v_d dt
+\end{gather*}
+Si ricorda che la velocità di deriva è la velocità media con cui le cariche si muovono all'interno di un conduttore.\\
+Sostituendo di nuovo nella formula del lavoro infinitesimo:
+\begin{gather*}
+    d\mathcal{L} = (n \cdot q) dV \ (\vv{E} \cdot \vv{v}_d dt)
+\end{gather*}
+Sfruttiamo ora la densità di corrente che ricordiamo essere:
+\begin{gather*}
+    J = n \ q \ v_d
+\end{gather*}
+Possiamo notare che questa formula è presente in quella del lavoro infinitesimo, se sostituiamo e riordiniamo i termini otteniamo:
+\begin{gather*}
+    d\mathcal{L} = \vv{E} \cdot \vv{J} dV dt\\
+    \frac{d\mathcal{L}}{dV dt} = \vv{E} \cdot \vv{J}
+\end{gather*}
+E questa formula ci dice esattamente quanta energia viene dissipata in ogni singolo punto del materiale, analizzandola dimensionalmente inoltre possiamo visualizzarla meglio:
+\begin{gather*}
     \frac{W}{m^3} = \frac{J}{m^3 s} = \frac{d \mathcal{L}}{dV dt} = \vv{E} \cdot \vv{J}\\
-    dL = \int_A^B dq \vv{E} \cdot \vv{dl} = dq (V_A - V_B) = I(V_A - V_B) dt\\
-    dq = I dt \qquad W = \frac{dL}{dt} = I \Delta V = \frac{\Delta V^2}{R} = I^2 R
+\end{gather*}
+Ora "sommiamo" (integriamo) tutti questi pezzetti per vedere cosa succede in un intero componente (da un punto A a un punto B).
+\begin{gather*}
+    %\vv{dl} = \frac{\vv{v}_d}{\vv{J}} \ dt\\
+    %d\mathcal{L} = (n \vv{v} \cdot q) \vv{E} dV \ dt\\
+    d\mathcal{L} = \int_A^B dq \ (\vv{E} \cdot \vv{dl}) 
+\end{gather*}
+Ma sappiamo che $\int_A^B \vv{E} \cdot \vv{dl}$ è proprio la differenza di potenziale tra i punti A e B, quindi:
+\begin{gather*}
+    d\mathcal{L} = dq (V_A - V_B) 
+\end{gather*}
+E con $I = \frac{dq}{dt}$ e quindi $dq = I dt$ e chiamando $\Delta V = V_A - V_B$ otteniamo:
+\begin{gather*}
+    d\mathcal{L} = (I \ dt) \Delta V
+\end{gather*}
+Ora siccome la potenza $W$ è la variazione di laboro nel tempo quindi $W = \frac{d\mathcal{L}}{dt}$ possiamo scrivere:
+\begin{gather*}
+    W = \frac{d\mathcal{L}}{dt} = I \Delta V
+\end{gather*}
+Abbiamo così ritrovato la legge di Joule, che dice che la potenza dissipata da un conduttore è data dalla corrente che lo attraversa per la differenza di potenziale ai suoi capi.\\
+Per finire possiamo usare la legge di Ohm usando due sostituzioni $\Delta V = I R$ e $I = \frac{\Delta V}{R}$ per scrivere due modi comodi per trovare la potenza:
+\begin{gather*}
+    W = I \cdot R \ I = I^2 R \qquad \text{utile se si conosce la corrente}\\
+    W = \frac{\Delta V}{R} \cdot \Delta V = \frac{\Delta V^2}{R} \qquad \text{utile se si conosce la tensione}
 \end{gather*}
 Ora sfruttiamo il metodo simbolico che abbiamo introdotto la scorsa volta (che semplifica notevolmente i conti)
 \begin{gather*}
@@ -2220,13 +2371,13 @@ Ora sfruttiamo il metodo simbolico che abbiamo introdotto la scorsa volta (che s
         I(t) = I_0 \cos(\omega t + \varphi)
 \end{cases} \implies 
 \begin{cases}
-        \tilde{V} = V_0 e^{j \omega t}\\
-        \tilde{I} = I_0 e^{j \omega t + \varphi} = I_0 e^{j \varphi} e^{j \omega t} = \tilde{I}_0 e^{j \omega t}
+        \widetilde{V} = V_0 e^{j \omega t}\\
+        \widetilde{I} = I_0 e^{j \omega t + \varphi} = I_0 e^{j \varphi} e^{j \omega t} = \widetilde{I}_0 e^{j \omega t}
 \end{cases}
 \end{gather*}
-Quindi ritroviamo la legge di ohm geenralizzata:
+Da quì possiamo sfruttare la legge di ohm geenralizzata:
 \begin{gather*}
-    \tilde{V}_0 = \tilde{I}_0 Z
+    \widetilde{V}_0 = \widetilde{I}_0 Z
 \end{gather*}
 E avevamo visto che vale:
 \begin{gather*}
@@ -2234,88 +2385,118 @@ E avevamo visto che vale:
     Z_C = \frac{1}{j \omega C}\\
     Z_L = j \omega L
 \end{gather*}
-Partiamo da questo fatto:
+Dobbiamo ricordare una cosa in questo contensto molto importante:
 \begin{gather*}
-    Re \{ \tilde{a} \cdot \tilde{b} \}  \neq Re\{\tilde{a}\} \cdot Re\{\tilde{b}\}
+    Re \{ \widetilde{a} \cdot \widetilde{b} \}  \neq Re\{\widetilde{a}\} \cdot Re\{\widetilde{b}\}
 \end{gather*}
-Quindi sul calcolo delle potenze devo stare attento\\
-\begin{center}
-    fig
-\end{center}
-\begin{gather*}
-    z = z_0 e^{-j \varphi}
-\end{gather*}
+Quindi non posso semplicemente prendere la parte reale di $V$ e di $I$ e moltiplicarle per trovare la potenza (praticamente usando $W = I V$), ma devo prima moltiplicare i numeri complessi e poi prendere la parte reale del risultato.\\
+Quindi sul calcolo delle potenze devo stare attento.\\
+Calcoliamo la potenza istantanea e poi la potenza media su un periodo che sarà quella che effettivamente possiamo considerare come potenza dissipata.
+%\begin{gather*}
+%    z = z_0 e^{-j \varphi}
+%\end{gather*}
 \begin{gather*}
     \begin{cases}
         V(t) = V_0 \cos(\omega t)\\
         I(t) = I_0 \cos(\omega t + \varphi)
     \end{cases}
     \implies W(t) = I(t) V(t) = V_0 i_0 (\cos(\omega t) \cos(\omega t + \varphi)) = \\
-    = V_0 i_0 \cos(\omega t) \ \left( \ \cos(\omega t) + \cos(\varphi) - \sin(\omega t) \sin(\varphi) \ \right)\\
+    \boxed{\text{sfruttando: } \quad \cos(\alpha + \beta) = \cos(\alpha) \cos(\beta) - \sin(\alpha) \sin(\beta)}\\
+    = V_0 i_0 \cos(\omega t) \ \left( \ \cos(\omega t) \ \cos(\varphi) - \sin(\omega t) \sin(\varphi) \ \right)\\
     W(t) = V_0 i_0 \left( \cos^2(\omega t) \cos(\varphi) - \cos(\omega t)\sin(\omega t) \sin(\varphi) \right)
 \end{gather*}
-Calcoliamo ora la potenza media su un periodo:
+Calcoliamo ora la potenza dissipata media su un periodo:
+\begin{itemize}
+    \item La media di $\cos^2(\omega t)$
+    \item La media di $\cos(\omega t) \sin(\omega t)$ è $0$
+\end{itemize}
+Quindi quando si sviluppa la parentesi tutta la seconda espressione si annulla.
 \begin{gather*}
     \left\langle W(t) \right\rangle = \frac{V_0 i_0}{2} \cos(\varphi) = \frac{V_0}{\sqrt{2}} \frac{i_0}{\sqrt{2}} \cos(\varphi) = V_{eff} I_{eff} \cos(\varphi)
 \end{gather*}
-Quindi potenza dissipata la ho ma solo in alcuni casi:
+Quindi il fattore $\cos(\varphi)$ è il fattore che decide quanta della potenza viene dissipata, si possono distinguere i casi estremi:
 \begin{gather*}
     \begin{cases}
         \text{se } \varphi = 0 \implies W_{diss} = V_{eff} I_{eff}\\
         \text{se } \varphi = \pm \frac{\pi}{2} \implies W_{diss} = 0
     \end{cases}
 \end{gather*}
-L'energia passa dal campo elettrico al campo magnetico senza disspiarsi, ovviamente avrò che:
+Quindi avrò che:
 \begin{gather*}
-    \left\langle W(t) \right\rangle \neq 0 \qquad \text{ se } \cos(\varphi) \neq 0 \implies Re\{ \tilde{z} \} \neq 0
+    \left\langle W(t) \right\rangle \neq 0 \text{ s.s.e } \cos(\varphi) \neq 0 \implies Re\{ \widetilde{z} \} \neq 0
 \end{gather*}
+L'energia passa dal campo elettrico al campo magnetico senza disspiarsi.\\
+Cosa vuol dire in termini pratici?\\
+Ci sono due compoennti che possono immagazzinare energia:
+\begin{itemize}
+    \item il condensatore, sotto forma di campo elettrico
+    \item l'induttore, sotto forma di campo magnetico
+\end{itemize}
+In un circuito $L \ C$ se si parte con condensatore completamente carico collegato a un induttore completamente scarico, quando si chiude il circuito, il condensatore inizia a scaricarsi e a trasferire energia al campo magnetico dell'induttore, che si carica.\\
+Il tutto senza dissipare energia, questo è un esempio pratico del perchè se si passa energia da un campo elettrico a uno magnetico non si dissipa energia.
+
 \section*{Filtri}
-Ne vedremo di due tipologie passa alto e passa basso.\\
+I filtri sono oggetti essenziali e permettono di selezionare solo alcune frequenze da un segnale.\\
+Ne vedremo di due tipologie passa alto e passa basso, iniziando da questi ultimi.\\
 \begin{center}
-    Filtro passa basso:\\
+    Filtro passa basso:\\\hfill\\
     \begin{tikzpicture}
-        \draw(0,0) to[vsourcesin, l=$V_1(t)$] (0,2) to[R, l=$R$] (2,2) to[short] (2,0) to[C, l=$C$] (0,0);
-        \draw(0,0) to[short] (0,-1);
-        \draw(2,0) to[short] (2,-1);
-        \node at (1,-1.5) {$V_2(t)$};
+        \draw(0,0) to[vsourcesin, l=$V_1(t)$] (0,2) to[R, l=$R$] (2,2) to[C, l_=$C$] (2,0) to[short] (0,0);
+        \draw(2,2) to[short] (3,2);
+        \draw(2,0) to[short] (3,0);
+        \filldraw(3,2) circle (2pt) node [right] {$A$};
+        \filldraw(3,0) circle (2pt) node [right] {$B$};
+        \node at (3.5,1) {$V_2(t)$};
     \end{tikzpicture}
 \end{center}
-Mi interessa studiare il rapporto $\frac{\tilde{V}_2}{\tilde{V}_1}$, che sarà proprio:
+Mi interessa studiare il rapporto $\frac{\widetilde{V}_2}{\widetilde{V}_1}$, anche detta funzione di trasferimento, che descrive l'ampiezza del segnale.\\
+Per farlo considero l'impedenza dei componenti $R \to R$ e $C \to \frac{1}{j\omega C}$ come sappiamo dal metodo simbolico.\\
+Inoltre la tensione $V_2(t)$ la sto misurando ai capi del condnesatore, quindi $Z_{V_1} = R + \frac{1}{j \omega C}$ e $Z_{V_2} = \frac{1}{j \omega C}$, sostituendo questo nel rapporto che mi interessa calcolare ottengo:
 \begin{gather*}
-    \frac{\tilde{V}_2}{\tilde{V}_1} = \frac{\frac{1}{j \omega C}}{R + \frac{1}{j \omega C}} = \frac{1}{1 + j \omega R C} = \frac{1}{1+j \frac{\omega}{\omega_0}}
+    \frac{\widetilde{V}_2}{\widetilde{V}_1} = \frac{\frac{1}{j \omega C}}{R + \frac{1}{j \omega C}} = \frac{1}{1 + j \omega R C} = \frac{1}{1+j \frac{\omega}{\omega_0}}
 \end{gather*}
-Analizziamo ora le dimensioni ottenute da questi calcoli:
+Per l'ultimo passaggio si ricorda che Il termine RC (che si misura in secondi, è la "costante di tempo" $\tau$ del circuito).
 \begin{gather*}
-    R C = [ s ]\\
-    \frac{1}{RC} = [\frac{rad}{s}] = \omega_0\\
-    \omega = 2 \pi f
-    \omega_0 = 2 \pi f_0
+    R C = [ s ]
 \end{gather*}
-Ora possiamo analizzare l'ampiezza:
+Questo viene usato per definire un valore di riferimento definito come pulsazione di taglio che indica il momento in cui il filtro inizia ad agire in maniera significativa.\\
 \begin{gather*}
-    \tilde{A} (f) = \frac{1}{1+ j \frac{f}{f_0}}\\
-    \tilde{A} (f) = \frac{1}{1 + j \frac{f}{f_0}} \cdot \frac{1 - j \frac{f}{f_0}}{1 - j \frac{f}{f_0}} = \frac{1 - j \frac{f}{f_0}}{1 + (\frac{f}{f_0})^2}\\
+    \frac{1}{RC} = [\frac{rad}{s}] = \omega_0
+\end{gather*}
+Ad esso è associata una frequenza di taglio $f_0$ che rappresenta la stessa cosa semplicemente con unità di misura diverse (siccome sono direttamente legate):
+\begin{gather*}
+    \omega = 2 \pi f\\
+    \omega_0 = 2 \pi f_0\\
+    f_0 = \frac{1}{2 \pi R C}
+\end{gather*}
+Il rapporto che abbiamo calcolato prima $\frac{\widetilde{V_2}}{\widetilde{V_1}}$ rappresenta proprio l'ampiezza del segnale in uscita rispetto a quello in ingresso, e lo indichiamo con $\widetilde{A}$, dalle considerazioni precedenti lo possiamo riscrivere come:
+\begin{gather*}
+    \widetilde{A} (f) = \frac{1}{1+ j \frac{f}{f_0}}
+\end{gather*}
+Siccome è un numero complesso con la $j$ al denominatore, facciamo dei conti per separare parte reae da parte immaginaria per poterne calcolare poi il modulo:
+\begin{gather*}
+    \widetilde{A} (f) = \frac{1}{1 + j \frac{f}{f_0}} \cdot \frac{1 - j \frac{f}{f_0}}{1 - j \frac{f}{f_0}} = \frac{1 - j \frac{f}{f_0}}{1 + (\frac{f}{f_0})^2}\\
     \begin{cases}
-        Re = \frac{1}{1+ (\frac{f}{f_0})^2} = a\\
-        Im = - \frac{\frac{f}{f_0}}{1 + (\frac{f}{f_0})^2} = b
+        Re = \frac{1}{1+ (\frac{f}{f_0})^2}\\
+        Im = - \frac{\frac{f}{f_0}}{1 + (\frac{f}{f_0})^2}
     \end{cases}
 \end{gather*}
-Quindi ottengo che:
+Da qui posso calcolare il modulo dal quale capisco meglio come si comporta il filtro al variare della frequenza $f$:
 \begin{gather*}
-    |\tilde{A}| = \frac{1}{\sqrt{1 + (\frac{f}{f_0})^2}} \begin{cases}
+    |\widetilde{A}| = \frac{1}{\sqrt{1 + (\frac{f}{f_0})^2}} \begin{cases}
         1 \quad \text{per } f \ll f_0\\
         \frac{1}{\sqrt{2}} \quad \text{per } f = f_0\\
         0 \quad \text{per } f \gg f_0
     \end{cases}
 \end{gather*}
-Ora utilizziamo i decibel per rappresentare l'ampiezza, quindi $|\tilde{A}|_\text{dB}$, il decibel è:
+Ora utilizziamo i decibel per rappresentare l'ampiezza, quindi $|\widetilde{A}|_\text{dB}$, il decibel è:
 \begin{gather*}
     dB = 20 \log_{10} \frac{V_2}{V_1}\\
     dB = 10 \log_{10} \frac{P_2}{P_1} \qquad \text{con } P = \frac{V^2}{R}
 \end{gather*}
 Quindi:
 \begin{gather*}
-    |\tilde{A}|_\text{dB} = 20 \log_{10} |\tilde{A}| = 20 \log_{10} \frac{1}{\sqrt{1 + (\frac{f}{f_0})^2}} = -10 \log_{10} (1 + (\frac{f}{f_0})^2)\\
+    |\widetilde{A}|_\text{dB} = 20 \log_{10} |\widetilde{A}| = 20 \log_{10} \frac{1}{\sqrt{1 + (\frac{f}{f_0})^2}} = -10 \log_{10} (1 + (\frac{f}{f_0})^2)\\
     \begin{cases}
         0 \quad \text{per } f \ll f_0\\
         \simeq -3 \quad \text{per } f = f_0\\
@@ -2327,15 +2508,51 @@ Quindi:
 \end{gather*}
 Facciamo il grafico di questa ampiezza:
 \begin{center}
-    \begin{tikzpicture}
-        \draw[->](0,0) -- (5,0) node[below] {$f$};
-        \draw[->](0,0) -- (0,3) node[left] {$|\tilde{A}|_\text{dB}$};
-        \draw(1,0) .. controls (1.5,-0.2) and (3,-0.5) .. (4,-2) node[below] {$a$};
+    \begin{tikzpicture}[xscale=1.5, yscale=1.5]
+        % Assi cartesiani
+        \draw[->, thick] (-1,0) -- (5.5,0) node[below] {$f (\text{scala log})$};
+        \draw[->, thick] (0,-3) -- (0,1) node[left] {$|\widetilde{A}|_{\text{dB}}$};
+
+        % Origine
+        \node[above left] at (0,0) {$0$};
+
+        % Grafico asintotico
+        % Tratto orizzontale (0 dB) per f < f_0
+        \draw[thick] (0,0) -- (2,0) .. controls(2.4, 0) .. (2.7,-0.2) -- (4.5,-2) node[below] {$a$};
+
+        % Punto della frequenza di taglio f_0
+        \filldraw (2.5,0) circle (1.5pt);
+        \node[above] at (2.5,0.1) {$f_0$};
+
+        % Didascalia della pendenza
+        \node[right, align=left] at (3.8, -0.8) {$-20\text{ dB/d}$ \\ $(-6\text{ dB/o})$};
+        \draw[->] (3.8, -0.8) -- (3.4, -0.8); % Freccetta che indica la retta
+
+        % Prese dati (segmentini) sul tratto orizzontale
+        \foreach \x in {0.5, 1.1, 1.7} {
+            \draw (\x-0.15, 0) -- (\x+0.15, 0);
+            \draw (\x-0.15, -0.1) -- (\x-0.15, 0.1);
+            \draw (\x+0.15, -0.1) -- (\x+0.15, 0.1);
+        }
+
+        % Prese dati (segmentini) sul tratto inclinato
+        % Uso un rotate di -45 gradi per allinearli alla pendenza
+        \foreach \x/\y in {2.9/-0.4, 3.4/-0.9, 3.9/-1.4} {
+            \begin{scope}[shift={(\x,\y)}, rotate=-45]
+                \draw (-0.15, 0) -- (0.15, 0);
+                \draw (-0.15, -0.1) -- (-0.15, 0.1);
+                \draw (0.15, -0.1) -- (0.15, 0.1);
+            \end{scope}
+        }
     \end{tikzpicture}
 \end{center}
-Questo ci da la freq. di taglio che non è abbastanza per descrivere ciò che ci interessa.
+%Questo ci da la freq. di taglio che non è abbastanza per descrivere ciò che ci interessa.
+Analizziamo adesso la fase che è l'angolo compreso tra i vettori $Re$ e $Im$ di conseguenza è:
 \begin{gather*}
-    \tan(\varphi) = \frac{Im}{Re} = - \frac{f}{f_0}\\
+    \tan(\varphi) = \frac{Im}{Re} = - \frac{f}{f_0}
+\end{gather*}
+Dal quale possiamo analizzare cosa accade alla fase in funzione della frequenza $f$
+\begin{gather*}
     \varphi = - \arctan(\frac{f}{f_0})
     \begin{cases}
         0 \quad \text{per } f \ll f_0\\
@@ -2343,7 +2560,5 @@ Questo ci da la freq. di taglio che non è abbastanza per descrivere ciò che ci
         -\frac{\pi}{2} \quad \text{per } f \gg f_0
     \end{cases}
 \end{gather*}
-
-
 
 \end{document}
