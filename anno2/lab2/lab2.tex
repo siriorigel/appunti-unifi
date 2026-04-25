@@ -2560,5 +2560,483 @@ Dal quale possiamo analizzare cosa accade alla fase in funzione della frequenza 
         -\frac{\pi}{2} \quad \text{per } f \gg f_0
     \end{cases}
 \end{gather*}
+Ricapitolando veloceente il concetto di filtro tutto il funzionamento stà nell'impedenza del condensatore che ricordiamo essere:
+\begin{gather*}
+    Z_C = \frac{1}{j \omega C} = \frac{1}{j 2 \pi f C}
+\end{gather*}
+Quindi più la frequenza è alta più l'impedenza del condensatore è bassa, il che fa passare gran parte del segnale che viene restituito a massa, mentre più la frequenza è bassa più l'impedenza del condensatore è alta, il che fa passare gran parte del segnale che viene restituito in output.\\
+Può essere utile questo schema elettrico per visualizzarla.
+
+
+\newpage
+\section{22/04/26}
+\subsection*{Filtro passa alto}
+Vediamo ora il funzionamento di un filtro passa alto:
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[vsourcesin, l=$V_1(t)$] (0,2) to[C, l=$C$] (2,2) to[R, l_=$R$] (2,0) to[short] (0,0);
+        \draw(2,2) to[short] (3,2);
+        \draw(2,0) to[short] (3,0);
+        \filldraw(3,2) circle (2pt) node [right] {$A$};
+        \filldraw(3,0) circle (2pt) node [right] {$B$};
+        \node at (3.5,1) {$V_2(t)$};
+    \end{tikzpicture}
+\end{center}
+Mettiamo in relazione $\widetilde{V_2}$ con $\widetilde{V_1}$ per trovare la funzione che descrive l'ampiezza: 
+\begin{gather*}
+    \frac{\widetilde{V_2}}{\widetilde{V_1}} = \frac{R}{R + \frac{1}{j \omega C}} = \widetilde{A}\\
+    \widetilde{A} (\omega) = \frac{1}{1 + \frac{1}{j \omega RC}}
+\end{gather*}
+Ricordiamo che:
+\begin{gather*}
+    \begin{cases}
+        \frac{1}{RC} = \omega_0\\
+        \omega_0 = 2 \pi f_0\\
+        f_0 = \frac{1}{2 \pi RC}
+    \end{cases}
+\end{gather*}
+Con altri passaggi possiamo ricondurci alla forma con la frequenza:
+\begin{gather*}
+    \widetilde{A} = \frac{1}{1 + \frac{\omega_0}{j \omega}} = \frac{1}{1 - j \frac{\omega_0}{\omega}}\\
+    \widetilde{A}(f) = \frac{1}{1 - j \frac{f_0}{f}}
+\end{gather*}
+\begin{center}
+    \begin{tikzpicture}[xscale=1.5, yscale=1.5]
+        % Assi cartesiani
+        \draw[->, thick] (-1,0) -- (5.5,0) node[below] {$f (\text{scala log})$};
+        \draw[->, thick] (0,-3) -- (0,1) node[left] {$|\widetilde{A}|_{\text{dB}}$};
+
+        % Origine
+        \node[above left] at (0,0) {$0$};
+
+        % Grafico smussato (Passa Alto)
+        % Tratto in salita (+20 dB/decade) e raccordo al tratto orizzontale
+        \draw[thick] (0.5,-2) node[below] {$a$} -- (2.3,-0.2) .. controls(2.6,0) .. (3,0) -- (5,0);
+
+        % Punto della frequenza di taglio f_0
+        \filldraw (2.5,0) circle (1.5pt);
+        \node[above] at (2.5,0.1) {$f_0$};
+
+        % Didascalia della pendenza
+        \node[right, align=left] at (1.6, -1.8) {$+20\text{ dB/d}$ \\ $(+6\text{ dB/o})$};
+        \draw[->] (1.6, -1.8) -- (1.32, -1.3); % Freccetta che indica la retta
+
+        % Prese dati (segmentini) sul tratto orizzontale (alte frequenze)
+        \foreach \x in {3.3, 3.9, 4.5} {
+            \draw (\x-0.15, 0) -- (\x+0.15, 0);
+            \draw (\x-0.15, -0.1) -- (\x-0.15, 0.1);
+            \draw (\x+0.15, -0.1) -- (\x+0.15, 0.1);
+        }
+
+        % Prese dati (segmentini) sul tratto inclinato (basse frequenze)
+        % Uso un rotate di 45 gradi positivi per allinearli alla pendenza in salita
+        \foreach \x/\y in {0.9/-1.6, 1.4/-1.1, 1.9/-0.6} {
+            \begin{scope}[shift={(\x,\y)}, rotate=45]
+                \draw (-0.15, 0) -- (0.15, 0);
+                \draw (-0.15, -0.1) -- (-0.15, 0.1);
+                \draw (0.15, -0.1) -- (0.15, 0.1);
+            \end{scope}
+        }
+    \end{tikzpicture}
+\end{center}
+Possiamo studiare nuovamente la fase, notiamo che l'unica differenza tra le due funzioni ampiezza è un segno meno quindi senza dover rifare il conto si ottiene:
+\begin{gather*}
+    \tan(\varphi) = \frac{f_0}{f}\\
+    \varphi = \arctan(\frac{f_0}{f})
+\end{gather*}
+\begin{center}
+    \begin{tikzpicture}[xscale=1.5, yscale=1.5]
+        % Assi cartesiani
+        \draw[->, thick] (-0.5,0) -- (4,0) node[right] {$f (\log s)$};
+        \draw[->, thick] (0,-0.5) -- (0,2.5) node[left] {$\varphi$};
+
+        % Etichette asse Y
+        \node[left] at (0,2) {$\frac{\pi}{2}$};
+        \draw (-0.1,2) -- (0.1,2); % Tacchetta per pi/2
+        
+        \node[left] at (0,1) {$\frac{\pi}{4}$};
+        \draw (-0.1,1) -- (0.1,1); % Tacchetta per pi/4
+
+        % Etichette asse X
+        \node[below] at (1.5,-0.1) {$f_0$};
+        \draw (1.5,-0.1) -- (1.5,0.1); % Tacchetta per f_0
+
+        % Linee guida tratteggiate (aggiunte per chiarezza negli appunti)
+        \draw[dashed, thin, gray] (1.5,0) -- (1.5,1);
+        \draw[dashed, thin, gray] (0,1) -- (1.5,1);
+
+        \filldraw(1.5,1) circle (1pt);
+
+        % Curva della fase (corretta: fluida e con un solo flesso)
+        \draw[thick] (0.1, 2) .. controls (1.4, 2) and (1.4, 0.05) .. (3.5, 0.05);
+        
+    \end{tikzpicture}
+\end{center}
+Cosa accade se al posto del condensatore mettiamo l'induttanza?
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[vsourcesin, l=$V_1(t)$] (0,2) to[L, l=$L$] (2,2) to[R, l_=$R$] (2,0) to[short] (0,0);
+        \draw(2,2) to[short] (3,2);
+        \draw(2,0) to[short] (3,0);
+        \filldraw(3,2) circle (2pt) node [right] {$A$};
+        \filldraw(3,0) circle (2pt) node [right] {$B$};
+        \node at (3.5,1) {$V_2(t)$};
+    \end{tikzpicture}
+\end{center}
+Vediamo come cambia l'ampiezza e cosa ci descrive:
+\begin{gather*}
+    \frac{\widetilde{V_2}}{\widetilde{V_1}} = \frac{R}{R + j \omega L} = \widetilde{A}\\
+    \widetilde{A} = \frac{1}{1 + j \frac{\omega}{\omega_0}}
+    \begin{cases}
+        \omega_0 = \frac{R}{L}\\
+        \omega_0 = 2 \pi f_0
+    \end{cases}
+\end{gather*}
+Si può vedere che lo ha trasformato in un passa basso.\\
+E se volessi fare un passa alto con un induttanza? Il circuito è identico ma induttanza e resistenza si scambiano:
+\begin{center}
+\begin{tikzpicture}
+        \draw(0,0) to[vsourcesin, l=$V_1(t)$] (0,2) to[R, l=$R$] (2,2) to[L, l_=$L$] (2,0) to[short] (0,0);
+        \draw(2,2) to[short] (3,2);
+        \draw(2,0) to[short] (3,0);
+        \filldraw(3,2) circle (2pt) node [right] {$A$};
+        \filldraw(3,0) circle (2pt) node [right] {$B$};
+        \node at (3.5,1) {$V_2(t)$};
+    \end{tikzpicture}
+\end{center}
+\subsection*{Passa banda}
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[vsourcesin, l=$V_1(t)$] (0,2) to[R, l=$R_H$] (2,2) to[C, l=$C_H$] (2,0) to[short] (0,0);
+        \draw(2,2) to[C, l=$C_L$] (4,2) to[R, l=$R_L$] (4,0) to[short] (2,0);
+        \draw(4,2) to[short] (5,2);
+        \draw(4,0) to[short] (5,0);
+        \filldraw(5,2) circle (2pt) node [right] {$A$};
+        \filldraw(5,0) circle (2pt) node [right] {$B$};
+        \node at (5.5,1) {$V_2(t)$};
+        \node at(2,2) [above] {$f_H$};
+        \node at(4,2) [above] {$f_L$};
+    \end{tikzpicture}
+\end{center}
+\begin{center}
+    \begin{tikzpicture}[xscale=1.2, yscale=1.2]
+        % Assi cartesiani
+        \draw[->, thick] (-0.5,0) -- (6,0) node[right] {$f$};
+        \draw[->, thick] (0,-3) -- (0,1) node[left] {$|\widetilde{A}|_{\text{dB}}$};
+
+        % Origine
+        \node[above left] at (0,0) {$0$};
+
+        % Salita (+20 dB/dec), Piatto (0 dB), Discesa (-20 dB/dec)
+        \draw[thick] (0.5,-2.5) -- (2,0) -- (4,0) -- (5.5,-2.5);
+
+        % Etichetta f_L
+        \node at (2,-0.5) {$f_L$};
+        \draw[dashed, thin, gray] (2,0) -- (2,-0.35);
+        
+        % Etichetta f_H
+        \node at (4,-0.5) {$f_H$};
+        \draw[dashed, thin, gray] (4,0) -- (4,-0.35);
+
+        % Indicazione pendenze (opzionale, per completezza)
+        \node[above left, scale=0.8] at (1.2,-1.5) {$+20\text{ dB/d}$};
+        \node[above right, scale=0.8] at (4.8,-1.5) {$-20\text{ dB/d}$};
+        
+    \end{tikzpicture}
+\end{center}
+Così facendo combinando due filtri a reisistenze e condensatori particolari, posso escludere una parte delle frequenze che non mi interessano.
+Per rappresentare bene un sengale osservando certi istanti a certi interballo ripetuti, il minimo segnale che va analizzato è due volte la frequenza, questo si chiama teorema del campionamento.\\
+\begin{center}
+    figure varie (bho)
+\end{center}
+Un filtro in alta frequenza è sempre presente \\
+In generale c'è da stare attenti perchp filtri passa alto e passa basso sono sempre presenti nei compnenti (es cavo o diodo che ha una capacità intrinseca), in generale c'è da stare attenti in laboratorio poichè 
+i filtri si ritrovano anche dove "non si sono messi".\\
+Altro esempio delle onde grvitazionali, si misurano con un interferometro di michelson, ed è molto sensibile e quindi c'è del rumore, per filtrarlo si montano degli specchi per togliere il rumore di bassa frequenza. 
+Questo è un esempio di filtro passa alto, che elimina il rumore di bassa frequenza. Inoltre a bassa frequenza è presente anche il rumore elettronico, altro esempio di filtro passa alto.\\
+In generale un filtro serve massimizzare il rapporto signal to noise $\frac{S}{N}$ per filtrare il segnale che mi interessa da quello che non mi interessa, e quindi massimizzare la probabilità di rilevare un segnale reale.\\
+Questi rumori di bassa frequenza sempre presenti sono anche i motivi per i quali si scelgono posti poco attivi al livello sismico come la sardegna (uno dei posti meno attivi in europa).\\
+( a quanto pare abbiamo un filtro passa alto anche nel cerello)\\
+\subsection*{Esperienza filtri}
+\begin{center}
+    \begin{tikzpicture}
+            \draw(4,0.5) node[op amp] (opamp){};
+            \draw(opamp.-) to[R , l=$R_s$] (1.2,1) to[vsourcesin, l_=$V_s$] (1.2,-0.5) to[short] (1.2,-0.5)node[ground]{};
+            \draw(opamp.+) to[short] (2,0) to[short] (2,-0.5)node[ground]{};
+            \draw(opamp.out) to[short] (5.2,2) to[C, l=$C_f$] (2.8,2) to[short] (opamp.-);
+            \draw(5.2,2) to[short] (5.2,3) to[R, l_=$R_f$] (2.8,3) to[short] (2.8,2);
+            \filldraw (opamp.-) circle (1pt);
+            \filldraw (opamp.+) circle (1pt);
+            \filldraw (opamp.out) circle (1pt);
+            \draw(opamp.out) to[voltmeter, l=$V_0$] (7,0.5) to[short] (7,-0.5)node[ground]{};
+        \end{tikzpicture}
+\end{center}
+Questo è il circuito che monteremo in laboratorio, a differenza dell'esp dell'opamp si notano alcune differenze, tra cui al posto del generatore in continua si userà quello in alternata.\\
+Possiamo rischematizzarlo come:
+\begin{center}
+    \begin{tikzpicture}
+        \draw(4,0.5) node[op amp] (opamp){};
+        \draw(opamp.-) to[generic, l=$Z_S$] (1.2,1) to[vsourcesin, l_=$V_s$] (1.2,-0.5) to[short] (1.2,-0.5)node[ground]{};
+        \draw(opamp.+) to[short] (2,0) to[short] (2,-0.5)node[ground]{};
+        \draw(opamp.out) to[short] (5.2,2) to[generic, l=$Z_f$] (2.8,2) to[short] (opamp.-);
+        \filldraw (opamp.-) circle (1pt);
+        \filldraw (opamp.+) circle (1pt);
+        \filldraw (opamp.out) circle (1pt);
+        \draw(opamp.out) to[voltmeter, l=$V_0$] (7,0.5) to[short] (7,-0.5)node[ground]{};
+    \end{tikzpicture}
+\end{center}
+Che ci riconduce ad una forma più familiare.\\
+Da qui possiamo sfruttare la legge di ohm generalizzata per utilizzare le relazioni che già conosciamo, con parallelismi con le impedenze:
+\begin{gather*}
+    \frac{\widetilde{V_0}}{\widetilde{V_s}} = - \frac{z_f}{z_s}
+\end{gather*}
+Concnetrandoci sulle impedenze possiamo dire che:
+\begin{gather*}
+    z_f = R_f \parallel C_f\\
+    \frac{1}{z_f} = \frac{1}{R_f} + j \omega C_f = \frac{1 + j \omega R_f C_f}{R_f}\\
+    z_f = \frac{R_f}{1 + j \omega R_f C_f}
+\end{gather*}
+Quindi l'ampiezza sarà:
+\begin{gather*}
+    \widetilde{A} = - \frac{1}{R_s} \left[ \frac{R_f}{1 + j \omega R_f C_f} \right]\\
+     = - \frac{\frac{R_f}{R_s}}{1 + j \omega R_f C_f}\\
+      = - \frac{\frac{R_f}{R_s}}{1 + j \frac{\omega}{\omega_0}} 
+\end{gather*}
+Ricordando come era fatto un passa basso:
+\begin{gather*}
+    \widetilde{A} (\omega) = \frac{1}{ 1 + j\frac{\omega}{\omega_0}}
+\end{gather*}
+Quindi si nota solo la differenza del fattore delle resistenze a moltiplicare e il segno meno, entrambi importanti ma apparte quelli l'ampiezza è la stessa di un filtro passa basso.\\
+Possiamo schematizzarlo così:
+\begin{center}
+    \begin{tikzpicture}[xscale=1.3, yscale=1.3]
+        % Assi cartesiani
+        \draw[->, thick] (-0.5,0) -- (6,0) node[right] {$f$};
+        \draw[->, thick] (0,-1) -- (0,3.5) node[left] {$|\widetilde{A}|_{\text{dB}}$};
+
+        % Origine
+        \node[below left] at (0,0) {$0$};
+
+        % Livello di guadagno asintotico (orizzontale)
+        \draw[dashed, gray, thin] (0,3) -- (3,3);
+        
+        % Etichetta Guadagno
+        \node at (1.5,3.3) {$20 \log_{10} \frac{R_f}{R_i}$};
+        \draw[->, thin] (1.5,3.15) -- (1.5,3);
+
+        % Grafico asintotico
+        % Tratto orizzontale al guadagno (f < f_0)
+        \draw[thick] (0,3) -- (3,3);
+        
+        % Tratto in discesa (-20 dB/decade) per f > f_0
+        % Parte dal guadagno, passa per f_0 (punto di taglio asintotico) e scende
+        \draw[thick] (3,3) -- (5.5,0.5);
+
+        % Frequenza di taglio f_0 sull'asse x
+        \node[below] at (3,0) {$f_0$};
+        \draw[dashed, thin, gray] (3,0) -- (3,3); % Linea guida verticale per f_0
+        \draw[thick] (3, -0.05) -- (3, 0.05); % Tick f_0
+
+        % Curve asintotica reale (arrotondata, come se fosse disegnata a mano)
+        \draw[thick, gray!50!black] (0.1, 2.95) .. controls (1.5, 2.95) and (2.5, 2.9) .. (3, 2.7) .. controls (3.5, 2.5) and (4.5, 1.5) .. (5.4, 0.6);
+
+        % Prese dati (segmentini) ruotate sulla pendenza
+        % Ruotato di -45 gradi per allinearli alla discesa
+        \foreach \x/\y in {3.4/2.6, 3.8/2.2, 4.2/1.8, 4.6/1.4} {
+            \begin{scope}[shift={(\x,\y)}, rotate=-45]
+                \draw (-0.1, 0) -- (0.1, 0);
+                \draw (-0.1, -0.05) -- (-0.1, 0.05);
+                \draw (0.1, -0.05) -- (0.1, 0.05);
+            \end{scope}
+        }
+
+        % Prese dati (segmentini) orizzontali (sul tratto a guadagno)
+        \foreach \x in {0.5, 1.1, 1.7, 2.3} {
+            \draw (\x-0.1, 3) -- (\x+0.1, 3);
+            \draw (\x-0.1, 2.95) -- (\x-0.1, 3.05);
+            \draw (\x+0.1, 2.95) -- (\x+0.1, 3.05);
+        }
+
+    \end{tikzpicture}
+\end{center}
+Questo che trattiamo all'esperienza, con queste differenze, è un filtro passa basso attivo.\\
+Siccome il fattore che differenzia questo filtro da un passa basso è il fattore $-\frac{R_f}{R_s}$ si ha uno sfasamento di $\pm \pi$, viene dal fatto che siccome questo fattore è un numero reale negativo non nullo, 
+se si disegna sul piano complesso sarà un vettore che dista esattamente $180°$ dal "vettore origine" della fase, che si traduce proprio in:
+\begin{gather*}
+    \varphi = \pm \pi - \arctan(\frac{\omega}{\omega_0})
+\end{gather*}
+\begin{center}
+    \begin{tikzpicture}
+        \draw(4,0.5) node[op amp] (opamp){};
+        \draw(opamp.-) to[R , l=$R_s$] (1.2,1) to[vsourcesin, l_=$V_s$] (1.2,-0.5) to[short] (1.2,-0.5)node[ground]{};
+        \draw(opamp.+) to[short] (2,0) to[short] (2,-0.5)node[ground]{};
+        \draw(opamp.out) to[short] (5.2,2) to[C, l=$C_f$] (2.8,2) to[short] (opamp.-);
+        \draw(5.2,2) to[short] (5.2,3) to[R, l_=$R_f$] (2.8,3) to[short] (2.8,2);
+        \filldraw (opamp.-) circle (1pt);
+        \filldraw (opamp.+) circle (1pt);
+        \filldraw (opamp.out) circle (1pt);
+        \draw(opamp.out) to[C, l=$C$] (7,0.5);
+        \draw(5.5,0.5) to[short] (5.5,1.5) to[R, l=$R$] (7,1.5) to[short] (7,0.5);
+        \draw(9,0) node[op amp] (opamp2){};
+        \draw(7,0.5) to[short] (opamp2.-);
+        \draw(opamp2.+) to[short] (7.5,-0.5)node[ground]{};
+        \draw(opamp2.out) to[short] (opamp2.out |- 0,2) to[R, l=$R$] (opamp2.- |- 0,2) to[short] (opamp2.-);
+        \draw(opamp2.out) to[short] (11.5,0) node[right] {$V_0$};
+        \filldraw(11.5, 0) circle (1pt);
+    \end{tikzpicture}
+    \hfill\\
+    \begin{tikzpicture}
+        \draw (0,0) to[battery1, l=$V$] (0,2);
+        \draw (2,2) to[nos] (0,2);
+        \draw (2,2) to[R, l=$R$] (4,2) to[C, l=$C$] (4,0) to[short] (0,0);
+        \draw(0.8,0) to[short] (0.8,1.8);
+        \filldraw(0.8,1.8) circle (1pt);
+        \draw(4,2) to[short] (5,2);
+        \draw(4,0) to[short] (5,0);
+        \filldraw(5,2) circle (1pt) node [right] {$A$};
+        \filldraw(5,0) circle (1pt) node [right] {$B$};
+        \node at (5.5,1) {$V_0(t)$};
+    \end{tikzpicture}
+\end{center}
+Al nostro filtro è collegato un interruttore che quando collegato va direttamente a terra, questo ci propone la seguente situazione:
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->](0,0) -- (3,0) node[below] {$\tau$};
+        \draw[->](0,0) -- (0,2) node[left] {$V(t)$};
+        \draw[very thick](0,1) -- (1,1) -- (1,0) -- (2,0) -- (2,1) -- (3,1);
+    \end{tikzpicture}
+\end{center}
+Questa è un'onda quadra ed è esprimibile con le serie di fourier, in questo caso sono i seni con termini dispari:
+\begin{gather*}
+    V(t) = \frac{4V}{\pi} \left( \sin(\omega t) + \frac{1}{3} \sin(3 \omega t) + \frac{1}{5} \sin(5\omega t) + \dots \right) = \frac{4V}{\pi} \sum_{n=2k + 1} \frac{1}{n} \sin(n \omega t) \qquad k \in \mathbb{N}
+\end{gather*}
+La serie ci da quella che è la forma amtematica più vicina alla forma reale del segnale, però siccome è in generale complicato lavorare con le serie ci accontentiamo di ricondurci alla forma con equazioni differenziali, 
+con le quali siamo in grado di lavorare più facilmente.\\
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) to[battery1, l=$V$] (0,2) to[R, l=$R$] (2,2) to[C, l=$C$] (2,0) to[short] (0,0);
+    \end{tikzpicture}
+\end{center}
+Ricordiamo che dalla legge delle maglie si ha che la tensione totale è data dalla somma algebrica delle tensioni dei componenti, quindi nel nostro caso:
+\begin{gather*}
+    V = V_R + V_C
+\end{gather*}
+Con $V_R$ e $V_C$ che sono le tensioni ai capi di resistenza e condensatore, rispettivamente.\\
+Sappiamo che esse vengono da:
+\begin{gather*}
+    V_R = i(t) R\\
+    V_C = \frac{Q(t)}{C}
+\end{gather*}
+Mettendo insieme queste definizioni otteniamo:
+\begin{gather*}
+    V = i(t) R + \frac{Q(t)}{C}
+\end{gather*}
+So che inoltre la corrente è data da:
+\begin{gather*}
+    i(t) = \frac{d Q(t)}{dt}
+\end{gather*}
+Quindi lequazione differneziale che vo a risolvere è:
+\begin{gather*}
+    V = \frac{Q}{C} + \frac{dQ(t)}{dt} R
+\end{gather*}
+Quà devo risolvere l'equazione omogenea associata e trovare una particolare, partiamo dalla prima:
+\begin{gather*}
+    0 = \frac{Q}{C} + \frac{dQ}{dt} R\\
+    -\frac{Q}{C} = \frac{dQ}{dt} R\\
+    \int \frac{dQ}{Q} = \int - RC dt\\
+    \ln(Q) = -RC \tau + k
+\end{gather*}
+Quindi le soluzioni dell'omogenea sono:
+\begin{gather*}
+    Q_o(t) = e^{-\frac{t}{\tau}} e^k\\
+    Q_0(t) = A e^{-\frac{t}{\tau}}
+\end{gather*}
+Passiamo ora alla particolare:
+\begin{gather*}
+    V = \frac{Q}{C} + \frac{dQ}{dt} R\\
+\end{gather*}
+Siccome sto trovando una costante mi aspetto che $Q_p$ sia costante, quindi:
+\begin{gather*}
+    V = \frac{B}{C}\\
+    Q_p(t) = VC
+\end{gather*}
+Quindi la soluzione finale è:
+\begin{gather*}
+    Q_f(t) = Q_o + Q_p \\
+    = VC + A e^{-\frac{t}{\tau}}
+\end{gather*}
+Dobbiamo trovare $A$ per farlo:
+\begin{gather*}
+    Q(0) = 0 = VC + A \implies A = -VC
+\end{gather*}
+Quindi la soluzione finale specifica ritrovo essere:
+\begin{gather*}
+    Q(t) = VC \left[ 1 - e^{-\frac{t}{\tau}} \right]\\
+\end{gather*}
+E quindi $V_2$ che cercavo sarà:
+\begin{gather*}
+    V_2(t) = V \left[ 1 - e^{-\frac{t}{\tau}} \right]
+\end{gather*}
+\begin{center}
+    \begin{tikzpicture}[xscale=1.5, yscale=1.5]
+        % Assi cartesiani
+        \draw[->, thick] (-0.5,0) -- (5,0) node[at end, below]{$t$}; % Asse dei tempi t
+        \draw[->, thick] (0,-0.5) -- (0,4) node[at end, left]{$V$}; % Asse delle tensioni V
+
+        % Etichetta e asintoto orizzontale (Valore finale V)
+        \draw[thin] (0,3.5) -- (4.8, 3.5);
+        \node[left] at (0, 3.5) {$V_\text{max}$}; 
+
+        % Curva di carica esponenziale (v_o(t) = V * (1 - e^(-t/tau)))
+        \draw[thick, domain=0:4.8, smooth, variable=\t] plot ({\t}, {3.5*(1-exp(-0.7*\t))});
+
+        % --- Riferimenti per il 10% (0,1V) ---
+        \def\tTen{0.6} % Coordinata x per t_10
+        \def\vTen{1.2} % Valore y sulla curva a t_10
+        \draw[thin] (0, \vTen) node[left, scale=0.8] {$0,1V$} -- (\tTen, \vTen);
+        \draw[thin] (\tTen, \vTen) -- (\tTen, -0.15) node[below, scale=0.8] {$t_{10}$};
+
+        % --- Riferimenti per il 90% (0,9V) ---
+        \def\tNinety{3.5} % Coordinata x per t_90
+        \def\vNinety{3.2} % Valore y sulla curva a t_90
+        \draw[thin] (0, \vNinety) node[left, scale=0.8] {$0,9V$} -- (\tNinety, \vNinety);
+        \draw[thin] (\tNinety, \vNinety) -- (\tNinety, -0.15) node[below, scale=0.8] {$t_{90}$};
+
+        % --- Freccia e quota per il Tempo di Salita (Delta t) ---
+        % Posizionata a un'altezza intermedia per non sovrapporsi alle linee
+        \draw[<->, thin] (\tTen, 0.6) -- (\tNinety, 0.6);
+        \node[above] at (2.05, 0.6) {$\Delta t$};
+    \end{tikzpicture}
+\end{center}
+\begin{gather*}
+    Q(0) = VC \\
+    Q(t) = A e^{-\frac{t}{\tau}}\\
+    Q(t) = VC e^{-\frac{t}{\tau}}\\
+    V_2(t) = V e^{-\frac{t}{\tau}}
+\end{gather*}
+Questo lo faremo non con un interruttore in laboratorio ma con un genreatore che genererò effettivamente un'onda quadra.\\
+Da questo si impara che da un andamento temporale posso determinare la mia incognita che è proprio $\tau$.\\
+Come lo facciamo?\\
+Noi usiamo questo metodo:
+\begin{gather*}
+    \Delta t \implies \tau
+\end{gather*}
+Nello specifico:
+\begin{gather*}
+\begin{cases}
+        0,9 \cancel{V} = \cancel{V} ( 1 - e^{-\frac{t 90}{\tau}})\\
+        0,1 \cancel{V} = \cancel{V} ( 1 - e^{-\frac{t 10}{\tau}})
+\end{cases}\\
+\begin{cases}
+    0,1 =  e ^{-\frac{t 90}{\tau}}\\
+    0,9 = e^{-\frac{t 10}{\tau}}
+\end{cases}
+\end{gather*}
+Divido membro a membro:
+\begin{gather*}
+    9 = e^{\frac{-t 10 + t90}{\tau}} = e^\frac{\Delta t}{\tau}\\
+    \frac{\Delta t}{\tau} = \ln(9) \implies \tau = \frac{\Delta t}{\ln(9)}\\
+    \text{con } \ln(9) \simeq 2,2
+\end{gather*}
 
 \end{document}
