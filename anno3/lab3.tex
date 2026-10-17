@@ -1,0 +1,813 @@
+\documentclass[a4paper, oneside]{article}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=2cm,
+            right=2cm,
+            top=2cm,
+            bottom=2cm,
+            footskip=.25in]{geometry}
+\usepackage[italian]{babel}
+\usepackage{pgfplots}
+\usepackage{tabularx}
+\usepackage{tikz-3dplot}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{arydshln}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage{cancel}
+\usepackage[d]{esvect}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{pgfplots}
+\usepackage{pifont}
+\usepackage{circuitikz}
+\usetikzlibrary{patterns}
+%\usepackage{animate}
+%\usepackage{xfp} % utile se vuoi fare calcoli aggiuntivi
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{tikzmark}
+\newcommand{\TikzNCbar}[4][10pt]{
+\tikz[overlay,remember picture]{\draw[#2] (#3) --++(0,-#1) -| (#4);}}
+
+\graphicspath{ {images/} }
+
+\definecolor{redish}{rgb}{1.00,0.13,0.35}
+\definecolor{magenta}{rgb}{255, 0, 30}
+\definecolor{acqua}{rgb}{0.12,0.90,0.67}
+\definecolor{page}{rgb}{0.129,0.157,0.212}
+\pagecolor{page}
+\color{white}   
+\graphicspath{ {./images/} }
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\setlength\dashlinedash{0.2pt}
+\setlength\dashlinegap{1.5pt}
+\setlength\arrayrulewidth{0.3pt}
+
+\newcommand\eqq{\stackrel{\mathclap{\normalfont\mbox{?}}}{=}}
+\newcommand\bulletout  {\labelitemfont \textbullet}
+\newcommand{\tab}{\hspace*{2em}}
+\newcommand{\xmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0,0) to [bend left=6] (1,1);
+    \draw[line width=0.7,line cap=round] (0.2,0.95) to [bend right=3] (0.8,0.05);
+}}
+\newcommand{\cmark}{
+\tikz[scale=0.23] {
+    \draw[line width=0.7,line cap=round] (0.25,0) to [bend left=10] (1,1);
+    \draw[line width=0.8,line cap=round] (0,0.35) to [bend right=1] (0.23,0);
+}}
+% Comando:
+%   \potato[opzioni]{(x,y)}{scala}
+%
+% Opzioni = facoltative (es. fill=red!20, draw=black, thick)
+% (x,y)   = centro della patata
+% scala   = fattore di scala
+%
+\def\potatoshape{
+  (1,0) (2,1.5) (1.6,3) (0.3,2.7) (-0.4,1.2)
+}
+\newcommand{\potato}[3][draw=white]{
+  \begin{scope}[shift={#2}, scale=#3]
+    \draw[#1]
+      plot [smooth cycle, tension=1]
+      coordinates {\potatoshape};
+  \end{scope}
+}
+ \newcommand{\hookbox}[1]{
+\begin{center}
+\hfill\break
+\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt,anchor=base] (A) {
+\begin{minipage}{\dimexpr\linewidth-5em}
+\centering
+#1
+\end{minipage}
+};
+% Draw the left bracket
+\draw ([xshift=0pt]A.north west) -- ++(0, 0.5) -- ++(0.4, 0);
+% Draw the right bracket
+\draw ([xshift=0pt]A.south east) -- ++(0, -0.5) -- ++(-0.4, 0);
+\end{tikzpicture}
+\end{center}} 
+\title{Laboratorio 3}
+\author{Gariboldi Alessandro}
+\date{ }
+
+
+\begin{document}
+
+\newtheoremstyle{theoremEnv}
+                {}          % Space above
+                {}          % Space below
+                {\slshape}  % Body font
+                {}          % Indent amount
+                {\bfseries} % Head font
+                {.}         % Punctuation after head
+                {\newline}         % Space after theorem head
+                {}          % Theorem head spec
+\theoremstyle{theoremEnv}
+
+\newtheorem{definition}{Definizione}[section]
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{observation}{Oss.}[section]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{example}{Esempio}[section]
+\newtheorem{problem}{Problema}[section]
+\newtheorem{solution}{Soluzione}[section]
+\newtheorem{proposition}{Proposizione}[section]
+\maketitle
+
+Professori: Prof Alessandro Calandri e Vitaliano Ciulli.\\\noindent
+
+Programma sintetico:\\
+Lezioni teoriche
+\begin{itemize}
+    \item Raggi cosmici e misura della vita media del muone
+    \item Metodi statistici per la Fisica (parte principale)
+    \item Rumore elettronico (circa 10 ore a DIcembre)
+\end{itemize}
+Laboratorio
+\begin{itemize}
+    \item 2 pomeriggi di tre ore ciascuno \begin{enumerate}
+        \item strumentazione e apparato di misura
+        \item messa in opera
+    \end{enumerate}
+    \item sessione analisi dei dati (3-4 ore a Dicembre)
+\end{itemize}
+Esercitazioni con Python. Corso accelerato di 10 ore
+\begin{itemize}
+    \item Jupyter Notebook su Colaboratory 
+    \item esercizi di statistica
+\end{itemize}
+due esercizi di python da fare a casa e consegnare individualmente che verranno valutati più uno in preparazione non valutato.\\
+Relazione di 5-7 pagine di gruppo.\\
+L'orale si divide in 3 parti principali
+\begin{itemize}
+    \item Lezioni di statistica 30 min.
+    \item Esperimento 15 min.
+    \item rumore elettronico 10 min.
+\end{itemize}
+L'atomo è molto più grande del nucleo, circa $10^5$ volte più:\\
+\begin{itemize}
+    \item Atomo $10^{-10} m$ Ordine dell'Armstrong
+    \item Nucleo $10^{-15} m$ Ordine del Fermi
+\end{itemize}
+
+Il muone è una particiella che è simile all'elettrone ma più pesante, quindi mentre un elettrone rimbalza sulla materia, il muone la attraversa, può arrivare a penetrare fino a km di roccia (dove un elettrone farebbe pochi metri). Il muone è instabile e decade in un elettrone e due neutrini (un neutrone elettronico e un neutrino muonico). La vita media del muone è di circa $2.2 \mu s$.\\
+
+\section{18/09/26}
+\subsection{Come "Vedere" (rilevare) le particielle}
+Le dimensioni dell'atomo sono inferiori alla lunghezza d'onda visibile, per questo fatto non fa ritornare la luce\\
+L'elettrone e il muone ad oggi sono considerate particielle puntuali (non abbiamo ad oggi mai misurato il raggio dell'elettrone o del muone).\\
+Quindi come facciamo a vedere le particelle?\\
+Vediamo come principio per l'interazione con la materia, esempio con la vita di tutti i giorni è se passa un aereo sappiamo che è passato per la striscia che lacsci nel celo.\\
+L'analogo con il muone è la "camera a nebbia" che fu uno dei primi rilevatori di particelle.\\
+\subsection{Camera a nebbia} (se ne vide una all'esposizione del CERN)
+Si ha un volume chiuso con un gas all'interno, si mette del ghiaccio secco sotto (qualcosa che raffredda) e dell'alcol isopropilico (qualcosa che riscalda) al di sopra.\\
+quindi fa vapore quando arriva alla base e incontra lo strato freddo fa condensare il vapore e quindi si forma la nebbia questo accade perchè è un gas sovrasaturo (quindi non si può più comprimere e condensa per forza).\\
+\begin{center}
+    \begin{tikzpicture}
+        \draw(0,0) rectangle (3,3);
+        \filldraw[cyan] (0,-0.7) rectangle (3,-0.2);
+        \node at (1.5,-0.45) {Ghiaccio secco};
+        \filldraw[redish] (0,3.2) rectangle (3,3.7);
+        \node at (1.5,3.45) {Alcol isopropilico};
+        \node at (1.5,1.8) {Gas};
+        \draw[->, thick] (1.5,0.7) -- (1.5,0.2);
+        \node at (1.5,0.9) {Vapore};
+        \draw[ultra thick, acqua] (0,0.1) -- (3,0.1) node[at end, right] {Condensazione};
+    \end{tikzpicture}
+\end{center}
+
+Un'altro tipo di rivelaotre di particielle è la spark chamber (camera a scintillazione) che è un rilevatore di particelle che sfrutta il principio della scintillazione.\\
+\subsection{Camera a scintillazione}
+Gli scintillatori sono usati principalmente perchp sono molto veloci, usandone due si può fare una coincidenza (su pochi naonsecondi) e quindi capire se la particella è passata per entrambi.\\
+\subsubsection{Cos'è la scintillazione}
+Il meccanismo si basa sul fatto che gli atomi stanno su uno stato fondamentale, quando guadagnano o cedono elettrone vanno in uno stato eccitato e quando tornano allo stato fondamentale emettono fotoni (luce).\\
+
+
+\subsection{Perdita di energia}
+La perdita di energia di una particiella dipende dalla ionizzazzione, tutte le particielle raggiungono lo stesso livello minimo di ionizzazzione, quando la velocità della particiella si riduce, la particiella perde energia molto velocemente (simil esponenziale) a velocità piu grandi ci sono altri effetti ma molto meno impattanti.\\\\
+La perdita di energia viene misurata in $MeV \ g^{-1cm^2}$, questo perchè dimensionalmente:
+\begin{gather*}
+    [\frac{dE}{dx}] = [\frac{E}{M} L^2] = [\frac{E}{L} \frac{L^3}{M}] = [\frac{E}{L} \frac{1}{\rho}]
+\end{gather*}
+Quindi varia in base alla densità del materiale, così facendo si può confrontare la perdita di energia in materiali diversi.\\
+La perdita di energia per unità di lunghezza se la divido per la densità del materiale ottengo un numero che è indipendente dal materiale e questa moltiplicazione per la densità ci restituisce quell'unità di misura.\\
+\subsubsection{Range}
+Si parla di range quando la particiella rallenta e l'energia persa per unità di spessore aumenta fino a fermarsi, quindi il range è la sostanzialmente la distanza che la particiella percorre prima di fermarsi.\\
+Se vado a vedere come perdono energia gran parte di essa è persa alla fine, la cosiddetta "Bragg curve" la curva che descrive la perdita di energia in funzione della distanza percorsa, questo è piuttosto naturale anche perchp le particielle quando stanno per fermarsi sono già poco veloci e quindi se fanno gli stessi urti ma con meno velocità per compensare perdono molta più energia nello stesso tempo.\\ 
+Un protone di un Jev si ferma molto prima di un muone di un Jev, questo perchè il protone è molto più grande e pesante e quindi perde molta più energia per unità di lunghezza, il muone è molto piccolo e molto veloce quindi riesce a penetrare di più.\\
+\subsection{L'antimateria}
+Partiamo da un positrone (elettrone con carica positiva) quello che ci interessa misurare è il momento del positrone, lo facciamo dalla misura della curvatura della traiettoria, questa curvatura è direttamente proporzionale momento del positrone, quindi più è curvo più il momento è piccolo.\\
+Così si può misurare le caratteristica dell'elettrone quello che dobbiamo misurare ora sarebbe la carica, cioè ci siamo assicurati che le caratteristiche sono le stesse dell'elettrone per sapere se è effettivamente una particiella di antimateria bisogna vedere se è di carica positiva, per fare questo si può usare un campo magnetico, quindi se la particiella è positiva la traiettoria curva in un verso se è negativa curva nell'altro verso.\\
+Poi in mezzo si piazza una lastra di piombo per vedere dove la curvatura diminuisce in questo modo si sa anche il verso della traiettoria.
+
+\subsection{La misura della vita media del muone}
+I muoni atmosferici che si fermano nel rivelatore decadono in:
+\begin{gather*}
+    \mu^- \rightarrow e^- + \bar{\nu}_e + \nu_\mu\\
+\end{gather*}
+In laboratorio avremo un rivelatore, una catena elettronica e un'oscillografo digitale, quest'ultimo sarà accoppiato con un computer con LabView (programma molto usato in ricerca) per la raccolta dei dati.\\
+\subsubsection{Rivelatore}
+Il rivelatore è formato dao uno scintillatore liquido (un idrocarburo più un'idrocarburo aromatico che è una molecola scintillante), quando il muone entra nel liquido viene eccitato e quindi emette luce, le pareti sono riflettenti e quindi la luce può essere raccolta da un PMT (photo multiplier) con davanti un cilindro in pexiclas (con lo stesso indice di rifrazione dello scintillatore) così facendo i muoni possono attraversarlo normalmente e i fotoni che entrano nel cilindro è più difficile che escano.\\
+La maggior parte dei muoni che arrivano nel rivelatore non si fermano perchè sono molto veloci, è possibile che alcuni si fermino proprio nello scintillatore e quindi decadano.\\
+\subsubsection{Il PMT}
+È composto da un anodo che è a terra (a tensione 0) attraverso una resistenza e un photocatodo in cima.
+\subsubsection{La misura}
+Nella misura di tempo di decadimento dobbiamo tenere conto anche del tempo di propagazione della luce nello scintillatore e del tempo di propagazione del segnale elettrico nel PMT.
+
+\subsubsection{Coincidenza ritardata}
+Tra due segnali che vedo uno è il muone l'altro è probabilmente un elettrone, questo accade se vedo due segnali in tempo molto vicini tra loro, è quasi sicuramente l'elettrone che decade dal muone, potrebbe effettivamente esssere un muone che passa nello stesso momento, non è impossibile, ma è comunque piuttosto improbabile.\\
+In breve se passano due segnali a uno scarto molto breve (una decina di nanosecondi) quello è il mio trigger. 
+
+\section{2/10/26}
+\subsection{Probabilità oggettiva}
+Se io ho un insieme $S=\{x_i\}$ di eventi esclusivi, ugualmente possibili la probabilità di estrarne uno è:
+\begin{gather*}
+    \frac{\text{numero di }x_i \in A}{\text{numero di }x_i \in S}
+\end{gather*}
+
+\subsection{Paradosso di Bertrand}
+È un paradosso che mostra come il concetto di caso non è ben definito, quindi non si può parlare di probabilità oggettiva.\\
+
+Il paradosso è il seguente: si consideri un cerchio di raggio $r$ e un triangolo equilatero inscritto in esso, si consideri una corda del cerchio, qual è la probabilità che la corda sia più lunga del lato del triangolo?\\
+
+Ci sono tre modi per secliere la corda tutti e tre piuttosto logici nello scegliere la casualità della corda ma tutti e tre portano a risultati diversi:
+\begin{itemize}
+    \item Scegliere due punti a caso sulla circonferenza e tracciare la corda che li collega.\\
+    In questo caso la probabilità è $\frac{1}{3}$.
+    \item Si fissa una direzione e si sceglie un punto a caso lungo il raggio perpendicolare a quella direzione per determinare la corda.\\
+    In questo caso la probabilità è $\frac{1}{2}$.
+    \item Scegliere un punto a caso all'interno del cerchio e tracciare la corda che passa per quel punto.\\
+    In questo caso la probabilità è $\frac{1}{4}$.
+\end{itemize}
+
+\subsection{Soggettività o Bayesiana}
+$P(A)$ è il grado di convincimento che A accada\\
+
+De Finetti definì la "scommessa coerente"\\
+Prendiamo in esempio una partita di calcio tra due squadre A e B.
+\begin{itemize}
+    \item Prob. che A vinca: $P(A)=0.25$ \tab 1:3 \tab 10 \tab 40
+    \item Prob. che B vinca: $P(B)=0.25$ \tab 1:3 \tab 10 \tab 40
+    \item Prob. che ci sia un pareggio: $P(P)=0.5$ \tab 1:1 \tab 20 \tab 40 %probabilmente la quota è 1:1 del pareggio il prof ha segnato 1:2
+\end{itemize} 
+
+Risolviamo le tre porte con la probabilità condizionata\\
+\begin{gather*}
+    P(A_2|C_1) = \frac{P(C_1|A_2)}{P(C_1)} = \frac{\frac{1}{3} \cdot 1}{\frac{1}{2}} = \frac{2}{3}\\
+    \text{se } C_1 = \frac{2}{3} \text{ perchè preferisce la porta 1 }
+\end{gather*}
+
+\subsection{Variabili aleatorie}
+\begin{itemize}
+    \item discrete $\{x_i\ \qquad i = 1, \dots , N\}$
+\begin{gather*}
+    P(x_i) = \text{ prob. esito i-esimo}\\
+    \sum_{i=1}^{N} P(x_i) = 1
+\end{gather*}
+    \item Continue $x \in S \subseteq \mathbb{R}$\\
+    Densità di probabilità (p.d.f.) $f(x)$
+    \begin{gather*}
+        f(x) dx = P(x \leq X \leq x + dx) \geq 0\\
+        \int_{S} f(x) dx = 1\\
+        f(x_1) = \lim_{N \to \infty} \frac{n(x_1)}{N \ \Delta x}
+    \end{gather*}
+\end{itemize}
+
+\subsubsection{Funzione cumulativa}
+Si indica con $F(x)$ ed è definita come:
+\begin{gather*}
+    F(x) = P(X \leq x) = \int_{-\infty}^{x} f(x) dx\\
+    \lim_{x \to -\infty} F(x) = 0\\
+    \lim_{x \to +\infty} F(x) = 1
+\end{gather*}
+
+\subsubsection{Pdf marginale}
+\begin{gather*}
+    f_x(x) = \int_{-\infty}^{+\infty} f_{x,y}(x,y) dy\\
+    f_y(y) = \int_{-\infty}^{+\infty} f_{x,y}(x,y) dx
+\end{gather*}
+\begin{gather*}
+    P(B|A) = P(A \cap B) / P(A)\\
+    P(x|y) dy = \frac{f(x,y) \ dx \ dy}{f_x(y) \ dx} \implies \int h(x|y) dy = \int_{-\infty}^{+\infty} \frac{f(x,y)}{f_x(y)} dy = \frac{1}{f_x(x)} \int_{-\infty}^{+\infty} f(x,y) dy = \frac{1}{f_x(x)} f_x(x) = 1
+\end{gather*}
+
+\begin{theorem}[Teorema di Bayes per variabili continue]
+    \begin{gather*}
+        P(B|A) = \frac{P(A|B) P(B)}{P(A)} \underset{\text{se variabili indipendenti}}{=} \frac{P(A) P(B)}{P(A)} = P(B)\\
+    \end{gather*}
+    Quindi $P(A \cap B) = P(A) P(B)$
+    \begin{gather*}
+        \boxed{f(x,y) = f_x(x) f_y(y) \Leftrightarrow x \text{ e } y \text{ sono indipendenti}}\\
+        h(y|x) = \frac{f(x,y)}{f_x(x)}\\
+        g(x|y) = \frac{f(x,y)}{f_y(y)}\\
+        h(y|x) = \frac{f(x,y)}{f_x(x)} = \frac{f_x(x) f_y(y)}{f_x(x)} = f_y(y)\\
+    \end{gather*}
+\end{theorem}
+
+\begin{example}
+    \begin{gather*}
+        a \equiv a(x) \\
+        \text{ data } f(x) \implies g(a) = ?\\
+        a(x) \text{ invertibile } \implies x(a) = a^{-1}(a)
+    \end{gather*}
+    \begin{gather*}
+        g(a) da = P(a \leq A \leq a + da)\\
+        = P(x(a) \leq X \leq x (a + da)) = f(x(a)) dx\\ 
+        \implies \boxed{g(a) = \left\lvert \frac{dx}{dy}\right\rvert f(x(a))}
+    \end{gather*}
+    \begin{gather*}
+        g(a) = \sum_{x_i} f(x_i(a)) \left\lvert \frac{dx}{da} \right\rvert_{x_i(a)}\\
+    \end{gather*}
+\end{example}
+
+
+\section{9/10/26}
+Riprenidiamo la distribuzione di gauss:
+\begin{gather*}
+    f(x; \mu, \sigma) = \frac{1}{\sqrt{2 \pi} \sigma} e^{-\frac{1}{2} \left(\frac{x - \mu}{\sigma}\right)^2}\\
+    E[x] = \mu\\
+    V(x) = \sigma^2\\
+    \mu = \frac{x - \mu}{\sigma} \\
+    g(\mu) = \frac{1}{\sqrt{2 \pi}} e^{-\frac{\mu^2}{2}}\\
+    \int_{-\infty}^{+\infty} g(\mu) d\mu = \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2 \pi}} e^{-\frac{\mu^2}{2}} d\mu\\
+    \xi = \frac{\mu}{\sqrt{2}} \qquad \frac{d\mu}{d\xi} = \sqrt{2} \\
+    \frac{1}{\sqrt{\pi}} \int_{-\infty}^{+\infty} e^{-\xi^2} d \xi = 1
+\end{gather*}
+Di conseguenza il valore adi aspettazione è:
+\begin{gather*}
+    E[x] = \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2 \pi} \mu e^{-\frac{\mu^2}{2}}} d\mu = 0
+\end{gather*}
+Poichè la dunzione integrata è dispari\\
+Per quanto riguarda la varianza invece:
+\begin{gather*}
+    V(\mu) = \int_{-\infty}^{+\infty} \mu^2 \frac{e^{-\frac{\mu^2}{2}}}{\sqrt{2 \pi}} d\mu = \mu \cdot \left( -\frac{e^{-\frac{\mu^2}{2}}}{\sqrt{2 \pi}} \right) \big|_{-\infty}^{+\infty} + \int_{-\infty}^{+\infty} \frac{e^{-\frac{\mu^2}{2}}}{\sqrt{2 \pi}} d\mu = 0 + 1 = 1\\
+    \boxed{x = \sigma \mu + \mu} \\V[x] = \sigma^2 \\ E[x] = \mu
+\end{gather*}
+Ricordiamo una importantissima proprietà della gausiiana che sappiamo quanto vale l'integrale della gaussiana in determinati intervalli, per esempio l'integrale su un sigma vale circa il 68\% dell'integrale totale (quindi $\sim 34\%$ a lato), su due sigma vale circa il 95,4\% e su tre sigma vale circa il 99.7\%.\\
+
+\subsection{Distribuzione di Cauchy}
+Una distribuzione differente è quella di Cauchy, si ottiene partendo da un'angolo $\theta$ uniformemente distribuito tra $-\frac{\pi}{2}$ e $\frac{\pi}{2}$ e si va a misurare il segmento che quest'angolo proietta sull'asse delle x, quindi $x = \tan(\theta)$, la distribuzione di Cauchy si ricava in questo modo:
+\begin{gather*}
+    f(\theta) = \{ \frac{1}{\pi} (-\frac{\pi}{2} , \frac{\pi}{2}) \}\\
+    x = \tan(\theta) \implies g(x) = f(\theta) \left\lvert \frac{d\theta}{dx} \right\rvert = \frac{1}{\pi} \frac{1}{1 + x^2}\\
+    g(x) = \frac{1}{\pi} \frac{1}{1 + x^2} \qquad x \in (-\infty, +\infty)\\
+    \int_{-\infty}^{+\infty} g(x) dx = \frac{1}{\pi} \int_{-\infty}^{+\infty} \frac{dx}{1 + x^2} = \frac{1}{\pi} \left[ \arctan(x) \right]_{-\infty}^{+\infty} = \frac{1}{\pi} \left( \frac{\pi}{2} - (-\frac{\pi}{2}) \right) = 1
+\end{gather*}
+Questa è la forma più semplice della distribuzione di Cauchy ma tipicamente si può incontrare in un'altra forma detta solitamente anche Cauchy o Lorenziana o Breit-Wigner, ed è una funzione associata fortemente alle risonanze che è un fenomeno fisico molto comune, la forma è la seguente:\\
+Si considera una variabile $z$...
+\begin{gather*}
+    z = \frac{\Gamma}{2} x + z_0\\
+    h(z) = \frac{1}{\pi} \frac{\Gamma/2}{(z - z_0)^2 + (\Gamma/2)^2} \qquad z \in (-\infty, +\infty)\\
+\end{gather*}
+La cosa interessante di questa funzione è che non ha ne media ne varianza, poichè se proviamo a integrarla...
+\begin{gather*}
+    E[x] = \int_{-\infty}^{+\infty} x h(x) dx = \frac{1}{\pi} \int_{-\infty}^{+\infty} \frac{x dx}{1 + x^2} = \frac{1}{\pi} \left[ \frac{1}{2} \ln(1 + x^2) \right]_{-\infty}^{+\infty} = +\infty - \infty \implies \text{??}
+\end{gather*}
+Poichè non è finita, non ha senso parlare di media e varianza, quindi non ha senso parlare di deviazione standard.\\
+Ci si potrebbe passare sopra e calcolarla come parte principale dell'integrale facendo il limite\dots
+\begin{gather*}
+    = \lim_{R \to \infty} \int_{-R}^{R} \frac{1}{\pi} \frac{1}{1 + x^2} dx = 0
+\end{gather*}
+Tuttavia si va poco lontano perchè assumendo che la media sia nulla se proviamo a calcolare la varianza otteniamo:
+\begin{gather*}
+    V(x) = \frac{1}{\pi} \int_{-\infty}^{+\infty} \frac{x^2 dx}{1 + x^2} = \frac{1}{\pi} \int_{-\infty}^{+\infty} \left( 1 - \frac{1}{1 + x^2} \right) dx = \frac{1}{\pi} \left[ x - \arctan(x) \right]_{-\infty}^{+\infty} = +\infty - (-\infty) = +\infty\\
+    V(x) = +\infty
+\end{gather*}
+Che quindi non ci da alcuna informazione utile, quindi non ha senso parlare di deviazione standard.\\
+
+\subsection{La covarianza}
+Se abbiamo più variabili aleatorie ci serve introdurre un'altra quantità che è la covarianza, che è una misura di quanto due variabili aleatorie siano correlate tra loro, quindi se una aumenta l'altra aumenta o diminuisce.\\
+La covarianza la ddefiniamo in questo modo:\\
+Prendiamo le nostre due variabili aleatorie $x$ e $y$...
+\begin{gather*}
+    x, y pdf(x,y) \qquad \mu_x, \mu_y, \sigma^2_x, \sigma^2_y\\
+    \text{Cov}(x,y) = E[(x - \mu_x)(y - \mu_y)] = E[xy] - \mu_x \mu_y\\
+\end{gather*}
+In breve ci sta dicendo come si correlano tra loro le variabili, se risulterà positiva significa che se una aumenta anche l'altra aumenta, se è negativa significa che se una aumenta l'altra diminuisce, se è nulla significa che non c'è correlazione tra le due variabili.\\
+Continuando il mio valore di aspettazione è dunque:
+\begin{gather*}
+    = [xy - \mu_x y - x \mu_y + \mu_x \mu_y] = E[xy] - \mu_x \mu_y\\
+    E[x,y] = \mu_x \mu_y + \text{Cov}(x,y)
+\end{gather*}
+E questo è già un risultato interessante, poichè se le due variabili sono indipendenti la covarianza è nulla.\\
+Per confermare questa affermazione ci basta calcolare la covarianza in termini di pdf:
+\begin{gather*}
+    \text{Cov}(x,y) = E[x,y] -\mu_x \mu_y = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} xy f(x,y) dx dy - \mu_x \mu_y\\
+    \text{Se } x \text{ e } y \text{ sono indipendenti } f(x,y) = f_x(x) f_y(y) \implies \\
+    \text{Cov}(x,y) = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} xy f_x(x) f_y(y) dx dy - \mu_x \mu_y = \int_{-\infty}^{+\infty} x f_x(x) dx \int_{-\infty}^{+\infty} y f_y(y) dy - \mu_x \mu_y = \mu_x \mu_y - \mu_x \mu_y = 0
+\end{gather*}
+Infatti se le variabili sono indipendenti vuol dire che se x è maggiore della sua media, y sarà comunque distribuito secondo la sua pdf, quindi non c'è correlazione tra le due variabili.\\
+Purtroppo anche se la covarianza è nulla non significa che le due variabili siano indipendenti, in pratica non vale il viceversa.\\
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+        \draw[->] (0,-0.5) -- (0,4.5) node[above] {$y$};
+        \draw[domain=-2:2, dotted, variable=\x, cyan, thick] plot (\x,{\x^2});
+    \end{tikzpicture}
+\end{center}
+Infatti prendiamo un esempio di due variabili aleatorie $x$ e $y$, che se messe in relazione tra loro formano una parabola, se io cambio variabile e da $x,y$ sostituisco $x$ con $z = x + q$, e calcolo la covarianza con $z,y$:
+\begin{gather*}
+    cov(z,y) = E[(z- \mu_z) (y - \mu_y)] = E[(x + q - \mu_x - q)(y - \mu_y)] = E[(x - \mu_x)(y - \mu_y)] = cov(x,y) = 0
+\end{gather*}
+In pratica non perdo di generalità se traslo la parabola (se eseguo traslazioni e rotazioni) quindi posso assumere che la parabola sia centrata in $0,0$ e quindi $\mu_x = \mu_y = 0$.
+Ma in questo caso le variabili sono indipendenti tra loro? In questo caso no però la covarianza mi ha restituito 0, perchè quando si considera l'integrale da cui siamo partiti:
+\begin{gather*}
+    E[x(x-\mu_y)] = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} x(y-\mu_y) f(x,y) dx dy =\\ \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} xy f(x,y) dx dy - \mu_y \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} x f(x,y) dx dy = 0 - 0 = 0
+\end{gather*}
+Questo perchè la funzione integranda è dispari, quindi l'integrale restituisce 0, ma non significa che le due variabili siano indipendenti.\\
+In breve se si hanno delle simmetrie rispetto all'asse delle x o delle y, la covarianza può essere nulla anche se le due variabili non sono indipendenti.\\
+Possiamo prendere un'altro esempio ancora più evidente che è una sorta di toro, ovvero una funzione fatta in questo modo:
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+        \draw[->] (0,-0.5) -- (0,4.5) node[above] {$y$};
+        \draw[cyan](0,0) circle (1.5);
+        \draw[cyan](0,0) circle (0.5);
+        \draw[->, red](0,0) -- (1.5,0) node[midway, above] {$b$};
+        \draw[->, red](0,0) -- (-0.5,0) node[midway, above] {$a$};
+    \end{tikzpicture}
+\end{center}
+\begin{gather*}
+    f(x,y) = \begin{cases}
+        \frac{1}{\pi (b^2 - a^2)} \qquad x^2+y^2 \in [a,b]\\
+        0 \qquad x^2+y^2 \notin [a,b]
+    \end{cases}\\
+    \mu_x = 0 \quad \mu_y = 0\\
+    \text{Cov}(x,y) = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} xy \ \ f(x,y) dx dy - \mu_x \mu_y = \\
+    dx \ dy =  r dr d\theta \qquad xy = r\cos(\theta)r\sin(\theta)\\
+    \int_{0}^{2 \pi} d\theta \int_{a}^{b} r^2 \cos(\theta) \sin(\theta) dr = \int_{0}^{2 \pi} \frac{1}{2} \sin(2\theta) d\theta \int_{a}^{b} r^2 dr = 0
+\end{gather*}
+
+\subsubsection{Matrice di covarianza}
+Se abbiamo più di due variabili aleatorie possiamo definire la matrice di covarianza, che è una matrice quadrata $N \times N$ dove $N$ è il numero di variabili aleatorie, e gli elementi della matrice sono le covarianze tra le variabili aleatorie:
+\begin{gather*}
+    \underline{x} = \begin{pmatrix}
+        x_1\\
+        x_2\\
+        \vdots\\
+        x_N
+    \end{pmatrix} \qquad \underline{\mu} = \begin{pmatrix}
+        \mu_1\\
+        \mu_2\\
+        \vdots\\
+        \mu_N
+    \end{pmatrix} \\
+    C_x = E[(\underline{x} - \underline{\mu})(\underline{x} - \underline{\mu})^T] \\
+    (C_x)_{ij} = E[(x_i - \mu_i)(x_j - \mu_j)] 
+\end{gather*}
+Si noti che $(C_x)_{ij} = (C_x)_{ji}$ e quindi $C_x$ è una matrice reale e simmetrica.\\
+\begin{gather*}
+    C_x = \begin{pmatrix}
+        \sigma_x^2 & C_{12} & \dots & C_{1N}\\
+        C_{21} & \sigma_y^2 & \dots & C_{2N}\\
+        \vdots & \vdots & \ddots & \vdots\\
+        C_{N1} & C_{N2} & \dots & \sigma_N^2
+    \end{pmatrix}
+\end{gather*}
+Se calcoliamo il valore di aspettazione:
+\begin{gather*}
+    \underline{y} = A \underline{x} \implies \underline{\mu}_y = A \underline{\mu}_x\\
+    C_y = E[(\underline{y} - \underline{\mu}_y)(\underline{y} - \underline{\mu}_y)^T] =\\
+    E[A(\underline{x} - \underline{\mu}_x)(\underline{x} - \underline{\mu}_x)^T A^T] = A E[(\underline{x} - \underline{\mu}_x)(\underline{x} - \underline{\mu}_x)^T] A^T = A C_x A^T
+\end{gather*}
+E questo vale per $A \quad n\times n$ e $A \quad n\times m$.\\
+Io posso trovare $A$ t.c. $C_y = A C_x A^T = I \underline{\sigma_y}^2 = \begin{pmatrix}
+        \sigma_1^2 & 0 & \dots & 0\\
+        0 & \sigma_2^2 & \dots & 0\\
+        \vdots & \vdots & \ddots & \vdots\\
+        0 & 0 & \dots & \sigma_N^2
+\end{pmatrix}$  \\
+Questo risultato deriva dal teorema spettrale, che dice che una matrice simmetrica reale può essere diagonalizzata da una matrice ortogonale, quindi $C_x = O D O^T$ dove $D$ è diagonale e $O$ è ortogonale.\\
+
+\subsection{La correlazione}
+Abbiamo scoperto che la covarianza è indipendente dalla traslazione, ma se moltoplico le variabili aleatorie per una costante $k$ la covarianza cambia, possiamo però introdurre una quantità indipendente sia da traslazioni che da moltiplicazioni, questa quantità è il coefficiente di correlazione di solito indicato con $\rho_{xy}$, che è definita come:
+\begin{gather*}
+    \rho_{xy} = \frac{\text{Cov}(x,y)}{\sigma_x \sigma_y} = \frac{E[(x - \mu_x)(y - \mu_y)]}{\sigma_x \sigma_y} = E\left[ \frac{x - \mu_x}{\sigma_x} \frac{y - \mu_y}{\sigma_y} \right] 
+\end{gather*}
+Definita in questo modo si ha che la correlazione $|\rho_{xy}| \leq 1$.\\
+Questo perchè:
+\begin{gather*}
+    u = \frac{x - \mu_x}{\sigma_x} \qquad v = \frac{y - \mu_y}{\sigma_y} \\
+    E[u] = 0 \qquad E[v] = 0 \qquad \sigma_u = \sigma_v = 1 \qquad \sigma_v^2 = 1\\
+    \rho(u,v) = \frac{E[(u - 0)(v - 0)]}{1 \cdot 1} = E[uv] = E\left[ \left( \frac{x-\mu_x}{\sigma_x} \right) \left( \frac{y - \mu_y}{\sigma_y} \right) \right] = \rho(x,y) = \rho\\
+    V(u+v) = E[(u+v)^2] = E[u^2 + v^2 + 2uv] = 2+2 E[uv] = 2 + 2\rho \geq 0 \implies \rho \geq -1 \\
+    V(u-v) = E[(u-v)^2] = 2-2 E[uv] = 2 - 2\rho \geq 0 \implies \rho \leq 1
+\end{gather*}
+\begin{gather*}
+    \rho = \pm 1 \Leftrightarrow y = ax + b\\
+    \rho = \pm 1 \implies V(u - v) = 0 \\
+    V(u - v) = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} \left( \frac{x - \mu_x}{\sigma_x} - \frac{y - \mu_y}{\sigma_y} \right) f(x,y) dx \ dy = 0 \\
+    y = ax + b \qquad \mu_y = a\mu_x + b \qquad \sigma_y = |a| \sigma_x\\
+    \rho = \frac{E[(x- \mu_x) (y - \mu_y)]}{\sigma_x \sigma_y} = \frac{a}{|a|} = sgn(a) = \pm 1
+\end{gather*}
+
+\subsection{Metodo di montecarlo}
+È un metodo numerico, permette di campionare una funzione in un certo intervallo e di calcolare l'integrale della funzione in quell'intervallo.\\
+Il primo passo è di generare dei numeri random casuali di solito nell'intervallo $(0,1)$, un esempio di generatore di numeri casuali è l'algoritmo mlcg (moltiplicativo lineare congruente), 
+funziona nel seguente modo:\\
+Il primo passo è di scegliere un seme $x_0$ e poi si calcola una successione in questo modo:
+\begin{gather*}
+    n_0 = x_0 \\
+    n_{i+1} = (a n_i) \mod m \qquad i = 0,1,2,\dots
+\end{gather*}
+$a$ è detto moltiplicatore e $m$ modulo, e sono due numeri interi che devono essere scelti in modo opportuno per avere una buona distribuzione dei numeri casuali.\\
+Il problema con questo generatore è che se genero due successioni dallo stesso seme ottengo la stessa successione, quindi non è un generatore di numeri casuali ma di numeri pseudo-casuali (o pseudo-random).\\
+Questo in realtà può essere un vantaggio perchè se voglio ripetere un esperimento posso usare lo stesso seme e ottenere la stessa successione di numeri pseudo-casuali.\\
+Esistono anche generatori casuali effettivi, ovviamente più complessi ma per i nostri scopi va più che bene un generatore di numeri pseudo-casuali. Chiaramente in una situazione di questo tipo devo stare attento perchè il problema con questo generatore avrò che se riottengo lo stesso numero allinterno della successione avrò una periodicità, e prima o poi questo accadrà, ed è un problema che va tenuto in conto siccome va in conflitto con i nostri scopi. Il libro Cowan suggerisce una combinazione di $a$ e $m$ che garantisce su 32bit una non periodicità di 2 miliardi (un po' poco), gli algoritmi pseudo casuali piu recenti riescono ad avere una non periodicità di $10^{6000}$ che è decisamente un buon limite.\\
+A questo punto possiamo generare dei numeri casuali, prendiamo un numero $r$ casuale nell'intervallo $(0,1)$ uniformemente distribuito (questo deriva da come si costruisce l'algoritmo e noi non ci preoccupiamo del perchè), questa distribuzione uniforme la riportiamo così:
+\begin{gather*}
+    r \qquad g(r) = \begin{cases}
+        1 \qquad r \in (0,1)\\
+        0 \qquad r \notin (0,1)
+    \end{cases}
+\end{gather*}
+Cosa ci facciamo con questa distribuzione? quello ce vogliamo ottenere è una trasformazione di questa distribuzione uniforme in una distribuzione che ci interessa.
+\begin{gather*}
+    x \qquad f(x) \\
+    x(r) \ \text{t.c.} \ pdf f(x) \\
+    f(x) dx = g(r) dr \implies \int_{-\infty}^{x(r)} f(x) dx = \int_{-\infty}^{r} g(r) dr = F(x(r)) = r \\
+\end{gather*}
+Se riesco a soddisfare questa condizione avrò una trasformazione che mi permette di ottenere una distribuzione $f(x)$ a partire da una distribuzione uniforme $g(r)$.\\
+\begin{gather*}
+    F(x(r)) = r \implies x(r) = F^{-1}(r) \\
+\end{gather*}
+Anche se $F$ è invertibile non è detto che si possa trovare una forma analaitica.\\
+Se abbiamo la densità di probabilità $f(t)$ e vogliamo calcolare l'integrale della funzione in un certo intervallo, possiamo campionare la funzione in quell'intervallo e calcolare l'integrale come media dei valori campionati:
+\begin{gather*}
+    f(t) = \frac{1}{\tau} e^{-\frac{t}{\tau}} \qquad t \in [0, +\infty)\\
+    F(t) = \int_{0}^{t} f(t) dt = \int_{0}^{t} \frac{1}{\tau} e^{-\frac{t}{\tau}} dt = e^{-\frac{t}{\tau}}\big|_0^t = 1 - e^{-\frac{t}{\tau}} = r\\
+    -e^{-\frac{t}{\tau}} = r - 1\\
+    -\frac{t}{\tau} = ln(1 - r) \implies \boxed{t = -\tau ln(1 - r)} \to \boxed{t = -\tau ln(r)}
+\end{gather*}
+Se facciamo la funzione di cauchy e gli si da una distribuzione uniforme otteniamo:
+\begin{gather*}
+    f(x) = \frac{1}{\pi} \frac{\Gamma/2}{(x-x_0)^2 + \left(\frac{\Gamma}{2}\right)^2}\\
+    x = a + \frac{\Gamma}{2} \tan(\pi (r - 1/2)) \\
+\end{gather*}
+
+\subsection{Accettazione-reiezione (hit \& miss)}
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->] (-2.5,0) -- (2.5,0) node[right] {$x$};
+        \draw[->] (-2.5,-0.5) -- (-2.5,2.5) node[above] {$y$};
+        % Esempio di funzione generica non negativa su [a,b], che tocca
+        % l'asse delle x nel punto x=0.
+        \draw[blue, thick, domain=-2:2, samples=100]
+            plot (\x,{-0.35*\x*\x+1.4}) node[right] {$f(x)$};
+        \node[below] at (-2,0) {$a$};
+        \node[below] at (2,0) {$b$};
+
+    \end{tikzpicture}
+\end{center}
+
+\begin{enumerate}
+    \item Prendiamo $r_1 ,r_2 \qquad \in(0,1)$
+    \item $x = a + (b-a) r_1 = x_{min} + (x_{max} - x_{min}) r$
+    \item $u = r_2 \ t_{max} \qquad u \in(0,t_{max}) \\ (r_1 , r_2) \to (x,u)$
+    \item $u < f(x) \qquad \text{tengo } x \\ u > f(x) \qquad \text{scarto } x$
+\end{enumerate}
+\begin{gather*}
+    p(x) dx = \frac{dx}{(x_{max} - x_{min})} \cdot p(u < f(x)) = \frac{f(x)}{(x_{max} - x_{min}) f_{max}} dx \propto f(x) dx
+\end{gather*}
+Quindi la probabilità è proprio proporzionale ad $f(x)$ quindi è distribuito rispetto a quest'ultimo.\\
+Quali probemi ci sono con questo metodo?\\
+In primo luogo abbiamo dovuto richiamare due volte il generatore di numeri random per ottenere un numero della distribuzione finale, ma ancora peggio si ha che questa funzione non è la densità di probabilità perche:
+\begin{gather*}
+    \int_a^b p(x) dx = \int_a^b \frac{f(x) \ dx}{(x_{max} - x_{min}) f_{max}} = \frac{1}{(x_{max} - x_{min}) f_{max}} \int_a^b f(x) dx < 1
+\end{gather*}
+\begin{center}
+    funzione con picco
+\end{center}
+Se si ha una funzione con un picco accentuato e delle code molto grandi, questo numero sarà molto grande e quindi la probabilità di accettare un numero sarà molto bassa, quindi questo metodo non è molto efficiente, il che lo rende molto svantaggioso quando si tratta una grande mole di dati.\\
+D'altronde se si genera una funzione come $1 + \cos^2(\theta)$ non da questi grandi problemi.
+\begin{center}
+    \begin{tikzpicture}
+        \draw[->] (-3.5,0) -- (3.5,0) node[right] {$x$};
+        \draw[->] (0,0) -- (0,2.5) node[above] {$1+\cos^2(x)$};
+        \foreach \i in {0,...,24} {
+            \pgfmathsetmacro{\x}{-pi + \i*pi/12}
+            \pgfmathsetmacro{\y}{1 + cos(\x*180/pi)^2}
+            \draw[blue!45] (\x,0) rectangle (\x+0.22,\y);
+        }
+        \node[below] at (-3.14,0) {$-\pi$};
+        \node[below] at (3.14,0) {$\pi$};
+        \node[left] at (0,1) {$1$};
+        \node[left] at (0,2) {$2$};
+    \end{tikzpicture}
+\end{center}
+Per generare una gunzione con cui possiamo lavorare si possono eseguire i seguenti passaggi:
+\begin{enumerate}
+    \item $r_1 , r_2 \quad \in [0,1) \text{ uniformi}$
+    \item $r_1 \to x$ con $pdf \ S(x)$
+    \item $u \in [0, t_{max})$
+    \item $u < \frac{f(x)}{c S(x)} \qquad \text{accetto } x$
+    \item $u \geq \frac{f(x)}{c S(x)} \qquad \text{scarto } x$
+\end{enumerate}
+\begin{gather*}
+    p(x) dx = S(x) dx \cdot p(u < \frac{f(x)}{c S(x)}) = S(x) dx \cdot \frac{f(x)}{c S(x)} = \frac{f(x)}{c} dx \propto f(x) dx
+\end{gather*}
+
+\section{15/10/26}
+\subsection{BOX-MULLER}
+
+Prendo una gaussiana:
+\begin{gather*}
+    f(x) = \frac{1}{\sqrt{2\pi}} e ^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\end{gather*}
+
+Ora considero due variabili (due numeri) $u_1, u_2$ per fare un cambio di coordinate, il mio scopo è quello di ottenere due numeri distribuiti normalmente secondo una gaussiana.
+\begin{gather*}
+    \begin{cases}
+        R = \sqrt{-2 \ln(u_1)}\\
+        \theta = 2 \pi u_2
+    \end{cases}
+\end{gather*}
+così facendo ho $\theta \in (0, 2\pi)$ e $u_1 = e^\frac{-R^2}{2}$ facendo diventare la mia funzione:
+\begin{gather*}
+    h(R,\theta) = \frac{1}{2\pi} R e^{-\frac{R^2}{2}}\\
+    h_R(R) = |\frac{du_1}{dR}| = |-R e^{-\frac{R^2}{2}}|
+\end{gather*}
+Ora tramite un'altro cambio di coordinate riesco ad ottenere due numeri distribuiti normalmente:
+\begin{gather*}
+    \begin{cases}
+        x = R \cos(\theta)\\
+        y = R \sin(\theta)
+    \end{cases}
+    \implies R^2 = x^2 + y^2\\
+    g(x,y) = h(R,\theta) \left| J\begin{pmatrix}
+        R & \theta\\
+        x & y
+    \end{pmatrix} \right| = \frac{1}{2\pi} e^{-\frac{R^2}{2}}
+\end{gather*}
+\begin{gather*}
+    g(x,y) (dx dy) = \frac{1}{2\pi} e ^{-\frac{R^2}{2}} (R dR d\theta)\\
+    g(x,y) = \frac{1}{2\pi} e^{\frac{-(x^2+y^2)}{2}} = \left( \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} \right) \left( \frac{1}{\sqrt{2\pi}} e^{-\frac{y^2}{2}} \right) 
+\end{gather*}
+
+\subsection{Funzione caratteristica}
+x continua $f(x)$
+\begin{gather*}
+    \varphi_x(t) = E[e^{ixt}] = \int_{-\infty}^{+\infty} e^{ixt} f(x) dx
+\end{gather*}
+k discreta
+\begin{gather*}
+    \varphi_k(t) = E[e^{ikt}] = \sum_{k=0}^{\infty} e^{ikt} p(k)
+\end{gather*}
+
+
+\begin{gather*}
+    f(x) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} \varphi_x(t) e^{-ixt} dt\\
+    p(k) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} \varphi_k(t) e^{-ixt} dt\\
+\end{gather*}
+\begin{gather*}
+    \varphi_x(0) = \int_{-\infty}^{+\infty} f(x) dx = 1\\
+    |\varphi_x(t)|
+\end{gather*}
+
+
+\section{16/10/26}
+\subsection{Distribuzione di Poisson}
+Si presenta in tutte le situazioni in cui si hanno da eseguire dei conteggi, per esempio prendiamo la misura di corrente che passa attraverso un filo, in un certo tempo $\Delta t$ avro che passa una certa quantità di caric, se ci si pensa la carica è una quantità discreta e non continua quindi effettivamente è possibile contare il numero di elettroni che passano in un certo tempo $\Delta t$ (questo lo posso fare con la legge di ohm), se quindi procedo a contare gli elettroni che passano in un certo tempo avrò delle fluttuazioni varie (dette poissoniane).\\
+La formula di Poisson si presenta dunque così
+\begin{gather*}
+    p(k) = \frac{e^{-\lambda} \lambda^k}{k!}
+\end{gather*}
+Dove $k$ è il numero di elettroni che passano e $\Delta t$ è il mio periodo, per farlo divido questo tempo in $N$ intervalli e vado a guardare in ogni intervallo se è passato un elettrone, questo funziona perchè nel limite che $N \to \infty$ (o in generale mi basta $N\gg $ num elettroni passati $\lambda$) si ha che al massimo passerà una carica per intervallo, quindi posso fare una distribuzione binomiale, e nel limite che $N \to \infty$ ottengo la distribuzione di Poisson, ritrovando così $N p = \lambda$ con $p$ la probabilità che un elettrone passi in un singolo intervallo.\\
+Se partiamo dalla binomiale possiamo arrivare alla distribuzione di Poisson in questo modo:
+\begin{gather*}
+    W_{N,p}(k) = \binom{N}{k} p^k (1-p)^{N-k} = \frac{N!}{k!(N-k)!} p^k (1-p)^{N-k} = \frac{N!}{k!(N-k)!} \left( \frac{\lambda}{N} \right)^k \left( 1 - \frac{\lambda}{N} \right)^{N-k}\\
+    \lim_{N \to \infty} W_{N,p}(k) = \lim_{N \to \infty} \frac{N!}{k!(N-k)!} \left( \frac{\lambda}{N} \right)^k \left( 1 - \frac{\lambda}{N} \right)^{N-k} = \frac{\cancel{N^k}}{k!} \frac{\lambda^k}{\cancel{N^k}} e^{-\lambda} \cdot 1 = \frac{e^{-\lambda} \lambda^k}{k!}
+\end{gather*}
+Che viene dai seguenti passaggi:
+\begin{gather*}
+     \lim_{N \to \infty} W_{N,p}(k) = \lim_{N \to \infty} \frac{N!}{k!(N-k)!} \left( \frac{\lambda}{N} \right)^k \left( 1 - \frac{\lambda}{N} \right)^N \left( 1 - \frac{\lambda}{N} \right)^{-k} =\\
+     \lim_{N \to \infty} \frac{N!}{(N-k)!} = N(N-1)(N-2)\dots(N-k+1) \implies \lim_{N \to \infty} \frac{N!}{(N-k)!} = N^k\\
+     \lim_{N \to \infty} \left( 1 - \frac{\lambda}{N} \right)^N = e^{-\lambda} \qquad \lim_{N \to \infty} \left( 1 - \frac{\lambda}{N} \right)^{-k} = 1\\
+\end{gather*}
+Abbiamo quindi ritrovato la distribuzione di Poisson:
+\begin{gather*}
+    P_\lambda(k) = \frac{e^{-\lambda} \lambda^k}{k!}    
+\end{gather*}
+La distribuzione è normalizzata se vale la condizione che:
+\begin{gather*}
+    \sum_{k=0}^{\infty} P_\lambda(k) = 1 
+\end{gather*}
+Che si ha da:
+\begin{gather*}
+    \sum_{k=0}^{\infty} P_\lambda(k) = \sum_{k=0}^{\infty} \frac{e^{-\lambda} \lambda^k}{k!} = e^{-\lambda} \sum_{k=0}^{\infty} \frac{\lambda^k}{k!} = e^{-\lambda} e^{\lambda} = 1
+\end{gather*}
+Per il valore di aspettazione invece calcolandolo troviamo che è proprio:
+\begin{gather*}
+    E[k] = \sum_{k=0}^{\infty} k P_\lambda(k) = \sum_{k=0}^{\infty} k \frac{e^{-\lambda} \lambda^k}{k!} = e^{-\lambda} \sum_{k=1}^{\infty} \frac{\lambda^k}{(k-1)!} \overset{j = k-1}{=} e^{-\lambda} \sum_{j=0}^{\infty} \frac{\lambda^{j+1}}{j!} = e^{-\lambda} \lambda \sum_{j=0}^{\infty} \frac{\lambda^j}{j!} = e^{-\lambda} \lambda e^{\lambda} = \lambda
+\end{gather*}
+Ricaviamoci ora la varianza:
+\begin{gather*}
+    V(k) = E[(k-\lambda)^2] = E[k^2] - \lambda^2 = \sum_{k=0}^{\infty} k^2 P_\lambda(k) - \lambda^2 =\\ \sum_{k=0}^{\infty} k^2 \frac{e^{-\lambda} \lambda^k}{k!} - \lambda^2 = \sum_{k=0}^{\infty} k \frac{\lambda^k e^{-\lambda}}{(k-1)!} - \lambda^2\\
+    l = k - 1 \qquad k = l + 1\\
+    = \sum_{l = 0}^{\infty} (l+1) \frac{\lambda^{l+1} e^{-\lambda}}{l!} - \lambda^2 = \left( \sum \right) = \lambda
+\end{gather*}
+Per la deviazione standard siccome si parla di conteggi si ha che è proprio la radice di $\lambda$, riorganizzando i risultati che abbiamo ottenuto finora otteniamo:
+\begin{gather*}
+    P_\lambda(k) = \frac{\lambda^k e^{-\lambda}}{k!} \qquad E[k] = \lambda \qquad V[k] = \lambda \qquad \sigma = \sqrt{\lambda}
+\end{gather*}
+Mentre se si calcola la funzione caratteristica della distribuzione di Poisson si ottiene:
+\begin{gather*}
+    \varphi_k(t) = E[e^{ikt}] = \sum_{k=0}^{\infty} e^{ikt} P_\lambda(k) = \sum_{k=0}^{\infty} e^{ikt} \frac{\lambda^k e^{-\lambda}}{k!} = e^{-\lambda} \sum_{k=0}^{\infty} \frac{(\lambda e^{it})^k}{k!} = e^{-\lambda} e^{\lambda e^{it}} = e^{\lambda (e^{it}-1)}
+\end{gather*}
+Un'altro modo per vedere che si ricava dalla binomiale è il seguente:
+\begin{gather*}
+    \varphi_k(t) = ( 1 + t(e^{it} - 1))^N = (1 + \frac{\lambda}{N} (e^{it}-1))^N \overset{N \to \infty}{\longrightarrow} e^{\lambda (e^{it}-1)}
+\end{gather*}
+Se sommiamo due variabili aleatorie indipendenti che seguono la distribuzione di Poisson otteniamo una variabile aleatoria che segue ancora la distribuzione di Poisson, infatti:
+\begin{gather*}
+    k = k_1 + k_2\\
+    \varphi_k(t) = \varphi_{k_1}(t) \cdot \varphi_{k_2}(t) = e^{\lambda_1 (e^{it}-1)} \cdot e^{\lambda_2 (e^{it}-1)} = e^{(\lambda_1 + \lambda_2)(e^{it}-1)}
+\end{gather*}
+Questa si chiama proprietà riproduttiva, e non vale solo per le variabili aleatorie distribuite come Poisson, ma anche se distribuite su una gaussiana.
+\begin{gather*}
+    \varphi_x(t) = e^{i\mu t - \frac{\sigma^2 t^2}{2}} \qquad \varphi_y(t) = e^{i\mu' t - \frac{\sigma'^2 t^2}{2}}\\
+    \varphi_{x+y}(t) = \varphi_x(t) \cdot \varphi_y(t) = e^{i(\mu + \mu') t - \frac{(\sigma^2 + \sigma'^2) t^2}{2}}
+\end{gather*}
+Un'altra variabile che gode di questa proprietà è la lorenziana (o cauchyiana):
+\begin{gather*}
+    \varphi_x(t) = e^{i \mu t} e^{-\frac{\Gamma}{2}t} \qquad \varphi_y(t) = e^{i \mu' t} e^{-\frac{\Gamma'}{2}t}\\
+    \varphi_{x+y}(t) = \varphi_x(t) \cdot \varphi_y(t) = e^{i(\mu + \mu') t} e^{-\frac{(\Gamma + \Gamma')}{2}t}
+\end{gather*}
+\subsection{Multinomiale}
+Estendiamo ora il concetto a più variabili.\\
+Una multinomiale è la distribuzione del numero di risultati che ottengo quando ho un evento eelemntare in cui ho $M$ risultati possibili.\\
+Ha differenza della binomiale dove ho due risultati possibili (0,1), ho un evento elementare con $M$ esiti possibili.\\
+Quello che mi posso chiedere è che date $N$ tentativi, quale sia la probabilita $p$ di ottenere $k_M$ risultati avendo $P_M$ probabilità di ottenere un certo risultato da 1 a $M$.
+\begin{gather*}
+    P(k_1, k_2, \dots, k_M, P_1, P_2, \dots, P_M, N) =\\
+\end{gather*}
+Si vede che potevo fermarmi a $k_{M-1}$ e a $P_{M-1}$ perche:
+\begin{gather*}
+    \sum_{i=1}^{M} k_i = N \qquad \sum_{i=1}^{M} P_i = 1 \implies k_M = N - \sum_{i=1}^{M-1} k_i \qquad P_M = 1 - \sum_{i=1}^{M-1} P_i
+\end{gather*}
+Se si ragiona che o si ottiene $k_1$ o tutti gli altri si ritorna nel caso di una binomiale:
+\begin{gather*}
+    P(k_1, k_2, \dots, k_M, P_1, P_2, \dots, P_M, N) =\\
+    \frac{N!}{k_1!(N-k_1)!} P_1^{n-k_1}
+\end{gather*}
+Reiterando questo processo per tutti i $k_M$ risultati possibili:
+\begin{gather*}
+    = \frac{N!}{k_1!k_2! \dots k_M!} P_1^{k_1} P_2^{k_2} \dots P_M^{k_M} = N! \prod_{i=1}^{M} \frac{P_i^{k_i}}{k_i!}
+\end{gather*}
+Da questa distribuzione ci si può ricondurre alla binomiale per il valore di aspettazione e la varianza:
+\begin{gather*}
+    E[k_r] = N P_r \qquad V[k_r] = N P_r (1-P_r)
+\end{gather*}
+In questo caso si ha che la covarianza $Cov$ e la correlazione $\rho$ tra due variabili aleatorie $k_r$ e $k_s$ è:
+\begin{gather*}
+    Cov(k_r, k_s) = -N P_r P_s \qquad r \neq s\\
+    \rho(k_r,k_s) = -\frac{N P_r P_s}{\sqrt{N P_r(1-P_r)}\sqrt{N P_s(1-P_s)}} = -\sqrt{\frac{P_r P_s}{(1-P_r)(1-P_s)}} \qquad r \neq s
+\end{gather*}
+\subsection{Binomiale con estrazioni poissoniane}
+\begin{gather*}
+    N = k_1 + k_2 \qquad k_2 = N - k_1
+\end{gather*}
+Ci chiediamo ora quale è la distribuzione se le estrazioni seguono una distribuzione di Poisson
+\begin{gather*}
+    P(k_1 \cap k_2) = P(k_1 \cap (N - k_1)) = P(k_1 \cap N) = P(k_1 | N) P(N)\\
+    P(N) = \frac{\lambda^N e^{-\lambda}}{N!} \\
+    P(k_1 | N) = \frac{N!}{k_1!(N-k_1)!} p^{k_1} (1-p)^{N-k_1} \\
+    P(k_1 \cap k_2) = \frac{N!}{k_1!(N-k_1)!} p^{k_1} (1-p)^{N-k_1} \frac{\lambda^N e^{-\lambda}}{N!} \\
+    N - k_1 = k_2 \qquad \lambda_1 = \lambda P_1 \qquad \lambda_2 = \lambda P_2 \qquad P_2 = 1 - P_1\\
+    P(k_1 \cap N) = \lambda^{k_1 + k_2} e^{-(\lambda_1 + \lambda_2)} \frac{P_1^{k_1} P_2^{k_2}}{k_1! k_2!} =\\
+     \frac{e^{-\lambda_1} \lambda_1^{k_1}}{k_1!} \frac{e^{-\lambda_2} \lambda_2^{k_2}}{k_2!} = P(k_1 \cap k_2)
+\end{gather*}
+Quindi ad esempio se osservo tot muoni che rilevo quanti di essi sono positivi e quanti negativi, e se il numero di muoni segue una distribuzione di Poisson, allora la distribuzione del numero di muoni positivi segue una distribuzione binomiale con estrazioni poissoniane.\\
+Adesso facciamo il limite Poisson $\lambda \to \infty$ Dove vedremo che la distribuzione di Poisson si avvicina ad una gaussiana:
+\begin{gather*}
+    p(k, \lambda) \underset{\lambda \to \infty}{\sim} \int_k^{k+1} N(x, \lambda, \sqrt{\lambda}) dx \simeq N (k, \lambda, \sqrt{\lambda})
+\end{gather*}
+Per dimostrare questo limite dimostreremo che la variabile standardizzata $u = \frac{k - \lambda}{\sqrt{\lambda}}$ (che si ricorda avere media 0 e varianza 1) segue una distribuzione gaussiana non normalizzata:
+\begin{gather*}
+    \varphi_k(t) = e^{\lambda (e^{it}-1)} \qquad \varphi_u(t) = E[e^{itu}] = E[e^{it \frac{k - \lambda}{\sqrt{\lambda}}}] = e^{-it \frac{\lambda}{\sqrt{\lambda}}} E[e^{it \frac{k}{\sqrt{\lambda}}}] = e^{-it \sqrt{\lambda}} \varphi_k(\frac{t}{\sqrt{\lambda}})\\
+    \varphi_u(t) = e^{-i \sqrt{\lambda} t} e^{\lambda (e^{i \frac{t}{\sqrt{\lambda}}}-1)}\\
+    \lim_{\lambda \to \infty} \varphi_u(t) = \lim_{\lambda \to \infty} e^{-i \sqrt{\lambda} t} e^{\lambda (e^{1 + i \frac{t}{\sqrt{\lambda}}}-\frac{t^2}{2\lambda}-1 )} = e^{-i\sqrt{\lambda}t + i\sqrt{\lambda}t - \frac{t^2}{2}} = e^{-\frac{t^2}{2}}
+\end{gather*}
+Quando $\lambda \to \infty$ otteniamo la funzione caratteristica di una gaussiana standardizzata, quindi abbiamo dimostrato che la distribuzione di Poisson tende ad una gaussiana quando $\lambda \to \infty$. La stessa cosa è possibile farla con la binomiale, fissando $t$, non lo vediamo in maniera estesa perchè vedremo poi un modo piu semplice di farlo, ma comunque con il metodo appena svolto si ottiene lo stesso risultato:
+\begin{gather*}
+    \lim_{N \to \infty} W_{N,p}(k) = N(k; Np, \sqrt{Np(1-p)})
+\end{gather*}
+
+
+\end{document}
